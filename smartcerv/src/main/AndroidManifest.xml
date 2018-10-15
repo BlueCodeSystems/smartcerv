@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="zm.gov.moh.smartcerv">
+
+    <application>
+        <activity android:name=".component.login.LoginActivity"></activity>
+        <activity android:name=".component.Submodules.SubModulesActivity"></activity>
+    </application>
+
+</manifest>
