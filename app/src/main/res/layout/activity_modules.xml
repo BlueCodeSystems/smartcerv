@@ -1,11 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<TableLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Modules">
+    android:layout_height="wrap_content"
+    android:stretchColumns="1"
+    android:paddingTop="20dp">
 
-    <include layout="@layout/content_modules" />
+    <TableRow>
 
-</android.support.design.widget.CoordinatorLayout>
+        <Button
+            android:id="@+id/smartcerv"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="SmartCerv"
+            android:layout_margin="20dp"
+            android:drawableTop="@drawable/ic_cervical_icon"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="App 2"
+            android:layout_margin="20dp"
+            android:drawableTop="@android:drawable/ic_menu_help"/>
+
+
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="App 3"
+            android:layout_margin="20dp"
+            android:drawableTop="@android:drawable/ic_menu_help"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="App 4"
+            android:layout_margin="20dp"
+            android:drawableTop="@android:drawable/ic_menu_help"/>
+    </TableRow>
+
+</TableLayout>
+
+</ScrollView>
