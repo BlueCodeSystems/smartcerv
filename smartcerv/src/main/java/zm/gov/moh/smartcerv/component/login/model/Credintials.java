@@ -1,28 +1,45 @@
 package zm.gov.moh.smartcerv.component.login.model;
 
-public class Credintials {
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import zm.gov.moh.smartcerv.BR;
+
+public class Credintials extends BaseObservable {
 
     private CharSequence username;
     private CharSequence password;
 
-    public void setPassword(CharSequence password) {
-        this.password = password;
-    }
-
-    public void setUsername(CharSequence username) {
-        this.username = username;
-    }
-
+    @Bindable
     public CharSequence getUsername() {
         return username;
     }
 
+    @Bindable
     public CharSequence getPassword() {
         return password;
     }
 
-    public Credintials( final CharSequence username, final CharSequence password){
-        this.username = username;
-        this.password = password;
+    public void setPassword(final CharSequence password) {
+
+        if(this.password != password) {
+
+            this.password = password;
+            notifyPropertyChanged(BR.password);
+        }
+
+    }
+
+    public void setUsername(final CharSequence username) {
+
+        if(this.username != username){
+
+            this.username = username;
+            notifyPropertyChanged(BR.username);
+        }
+    }
+
+
+    public Credintials(){
+
     }
 }

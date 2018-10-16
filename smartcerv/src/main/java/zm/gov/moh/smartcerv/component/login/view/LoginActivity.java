@@ -4,11 +4,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import zm.gov.moh.smartcerv.R;
 import zm.gov.moh.smartcerv.component.login.model.Credintials;
 import zm.gov.moh.smartcerv.component.login.viewmodel.LoginViewModel;
 import zm.gov.moh.smartcerv.databinding.LoginActivityBinding;
+import zm.gov.moh.smartcerv.BR;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,8 +23,9 @@ public class LoginActivity extends AppCompatActivity {
 
         LoginActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.login_activity);
 
-        Credintials credintials = new Credintials("","");
+        Credintials credintials = new Credintials();
 
         binding.setCredentials(credintials);
+        binding.setVariable(BR.viewmodel, loginViewModel);
     }
 }
