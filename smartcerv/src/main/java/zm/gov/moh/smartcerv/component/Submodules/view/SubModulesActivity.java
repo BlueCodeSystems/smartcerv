@@ -1,4 +1,4 @@
-package zm.gov.moh.smartcerv.component.Submodules;
+package zm.gov.moh.smartcerv.component.Submodules.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

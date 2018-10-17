@@ -24,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
         LoginActivityBinding binding = DataBindingUtil.setContentView(this,R.layout.login_activity);
 
         Credintials credintials = new Credintials();
+        credintials.setUsername("admin");
+        credintials.setPassword("Admin123");
 
         binding.setCredentials(credintials);
         binding.setVariable(BR.viewmodel, loginViewModel);

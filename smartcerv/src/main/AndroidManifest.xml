@@ -4,7 +4,7 @@
 
     <application>
         <activity android:name=".component.login.view.LoginActivity"></activity>
-        <activity android:name=".component.Submodules.SubModulesActivity"></activity>
+        <activity android:name=".component.Submodules.view.SubModulesActivity"></activity>
     </application>
 
 </manifest>
