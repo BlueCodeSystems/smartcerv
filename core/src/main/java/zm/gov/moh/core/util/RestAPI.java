@@ -8,5 +8,5 @@ import zm.gov.moh.core.model.AuthInfo;
 public interface RestAPI {
 
     @GET("session/")
-    Maybe<AuthInfo> authStatus(@Header("Authorization") String credentials);
+    Maybe<AuthInfo> session(@Header("Authorization") String credentials);
 }
