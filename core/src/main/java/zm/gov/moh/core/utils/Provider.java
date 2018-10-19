@@ -1,17 +1,17 @@
-package zm.gov.moh.core.util;
+package zm.gov.moh.core.utils;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import io.reactivex.Maybe;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
-import zm.gov.moh.core.model.AuthInfo;
+import zm.gov.moh.core.model.Authentication;
 
-public class RestAPIImpl {
+public class Provider {
 
     RestAPI restAPI;
 
-    public RestAPIImpl() {
+    public static RestAPI getRestAPI() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://openmrs.bluecodeltd.com/middleware/rest/")
@@ -19,11 +19,7 @@ public class RestAPIImpl {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        this.restAPI = retrofit.create(RestAPI.class);
+       return retrofit.create(RestAPI.class);
     }
 
-    public Maybe<AuthInfo> session(String credential) {
-
-        return restAPI.session(credential);
-    }
 }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zm.gov.moh.smartcerv">
 
-    <application>
+    <application android:name=".ApplicationContext">
         <activity android:name=".component.login.view.LoginActivity" />
         <activity android:name=".component.submodules.view.SubModulesActivity" />
         <activity android:name="zm.gov.moh.common.component.registration.view.RegistrationActivity"></activity>

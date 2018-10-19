@@ -9,7 +9,7 @@ class User {
 
 }
 
-public class AuthInfo {
+public class Authentication {
 
     private User user;
     private String token;

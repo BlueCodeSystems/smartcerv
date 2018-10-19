@@ -79,7 +79,7 @@
             android:layout_height="31dp"
             android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
-            android:text="Session Location"
+            android:text="Select session location"
             android:textColor="@color/light_red"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/textView2"
