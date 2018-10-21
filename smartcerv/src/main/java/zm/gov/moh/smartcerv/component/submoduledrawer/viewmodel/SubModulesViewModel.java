@@ -1,4 +1,4 @@
-package zm.gov.moh.smartcerv.component.submodules.viewmodel;
+package zm.gov.moh.smartcerv.component.submoduledrawer.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

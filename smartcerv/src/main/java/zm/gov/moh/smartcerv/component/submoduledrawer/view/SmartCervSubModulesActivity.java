@@ -1,4 +1,4 @@
-package zm.gov.moh.smartcerv.component.submodules.view;
+package zm.gov.moh.smartcerv.component.submoduledrawer.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import zm.gov.moh.smartcerv.BR;
 import zm.gov.moh.smartcerv.R;
-import zm.gov.moh.smartcerv.component.submodules.viewmodel.SubModulesViewModel;
+import zm.gov.moh.smartcerv.component.submoduledrawer.viewmodel.SubModulesViewModel;
 import zm.gov.moh.smartcerv.databinding.SubmodulesActivityBinding;
 
-public class SubModulesActivity extends AppCompatActivity {
+public class SmartCervSubModulesActivity extends AppCompatActivity {
 
     SubModulesViewModel subModulesViewModel;
 

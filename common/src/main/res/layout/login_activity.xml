@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="credentials" type="zm.gov.moh.smartcerv.component.login.model.Credintials"/>
-        <variable name="viewmodel" type="zm.gov.moh.smartcerv.component.login.viewmodel.LoginViewModel"/>
+        <variable name="credentials" type="zm.gov.moh.common.component.login.model.Credintials"/>
+        <variable name="viewmodel" type="zm.gov.moh.common.component.login.viewmodel.LoginViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

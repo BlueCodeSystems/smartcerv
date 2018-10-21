@@ -1,60 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+   <data>
+       <variable name="modulesdrawerviewmodel" type="zm.gov.moh.app.submodule.modulesdrawer.viewmodel.ModulesDrawerViewModel"/>
+       <variable name="submodules" type="zm.gov.moh.app.submodule.modulesdrawer.viewmodel.ModulesDrawerViewModel.Submodules"/>
+   </data>
 
-<TableLayout
+    <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:stretchColumns="1"
-    android:paddingTop="20dp">
+    android:layout_height="match_parent">
 
-    <TableRow>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:paddingTop="20dp">
 
-        <Button
-            android:id="@+id/smartcerv"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="SmartCerv"
-            android:layout_margin="20dp"
-            android:drawableTop="@drawable/ic_cervical_icon"
-            />
+            <TableRow>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="App 2"
-            android:layout_margin="20dp"
-            android:drawableTop="@android:drawable/ic_menu_help"/>
+                <Button
+                    android:id="@+id/smartcerv"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="SmartCerv"
+                    android:layout_margin="20dp"
+                    android:textAllCaps="false"
+                    android:onClick="@{() -> modulesdrawerviewmodel.startSubModule(submodules.SMARTCERV)}"
+                    android:drawableTop="@drawable/ic_cervical_icon"
+                    />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="App 2"
+                    android:layout_margin="20dp"
+                    android:drawableTop="@android:drawable/ic_menu_help"/>
 
 
-    </TableRow>
+            </TableRow>
 
-    <TableRow>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="App 3"
-            android:layout_margin="20dp"
-            android:drawableTop="@android:drawable/ic_menu_help"/>
+            <TableRow>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="App 3"
+                    android:layout_margin="20dp"
+                    android:drawableTop="@android:drawable/ic_menu_help"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="App 4"
-            android:layout_margin="20dp"
-            android:drawableTop="@android:drawable/ic_menu_help"/>
-    </TableRow>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:text="App 4"
+                    android:layout_margin="20dp"
+                    android:drawableTop="@android:drawable/ic_menu_help"/>
+            </TableRow>
 
-</TableLayout>
+        </TableLayout>
 
-</ScrollView>
+    </ScrollView>
+
+</layout>

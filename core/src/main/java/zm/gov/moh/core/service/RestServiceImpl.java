@@ -6,7 +6,11 @@ import android.support.design.widget.Snackbar;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import zm.gov.moh.core.model.Authentication;
@@ -15,7 +19,8 @@ import zm.gov.moh.core.utils.Utils;
 
 public class RestServiceImpl implements RestAPIService {
 
-    RestAPI restAPI;
+    private RestAPI restAPI;
+    private Disposable disposable;
 
     public RestServiceImpl(RestAPI restAPI) {
 
@@ -23,41 +28,17 @@ public class RestServiceImpl implements RestAPIService {
     }
 
 
-    public void session(Context context, String credentials, final Function<Authentication, Void> success) {
+    public void session(final String credentials, final Consumer<Authentication> success, final Consumer<Throwable> failure) {
 
-        ProgressDialog progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
-
-
-        if (Utils.checkInternetConnectivity(context)) {
-
-            progressDialog.show();
-
-            restAPI.session(credentials)
+           disposable = restAPI.session(credentials)
+                    .timeout(30000,TimeUnit.MILLISECONDS)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
+                    .subscribe(success, failure);
 
-                            authentication -> {
+    }
 
-                                success.apply(authentication);
-                                progressDialog.dismiss();
-                            },
-                            exception -> {
-
-                                if (exception instanceof HttpException) {
-
-                                    HttpException httpException = (HttpException) exception;
-
-                                    if (httpException.code() == 401) {
-                                        progressDialog.dismiss();
-                                        Utils.showModelDialog(context, "Authentication failed", "Check if credentials were entered correctly").show();
-                                    }
-                                }
-
-                            });
-        }
-        else
-            Utils.showSnackBar(context, context.getResources().getString(zm.gov.moh.core.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
-
+    public void onClear(){
+        disposable.dispose();
     }
 }

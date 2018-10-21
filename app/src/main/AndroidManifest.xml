@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name="zm.gov.moh.smartcerv.ApplicationContext">
-        <activity android:name="zm.gov.moh.app.Modules">
+        <activity android:name=".submodule.modulesdrawer.view.ModulesDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

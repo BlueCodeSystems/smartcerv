@@ -4,7 +4,7 @@
 
     <application android:name=".ApplicationContext">
         <activity android:name=".component.login.view.LoginActivity" />
-        <activity android:name=".component.submodules.view.SubModulesActivity" />
+        <activity android:name=".component.submoduledrawer.view.SmartCervSubModulesActivity" />
         <activity android:name="zm.gov.moh.common.component.registration.view.RegistrationActivity"></activity>
     </application>
 

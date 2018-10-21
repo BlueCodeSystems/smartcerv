@@ -3,8 +3,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <variable name="subviewmodel" type="zm.gov.moh.smartcerv.component.submodules.viewmodel.SubModulesViewModel"/>
-        <variable name="submodules" type="zm.gov.moh.smartcerv.component.submodules.viewmodel.SubModulesViewModel.SubModules"/>
+        <variable name="subviewmodel" type="zm.gov.moh.smartcerv.component.submoduledrawer.viewmodel.SubModulesViewModel"/>
+        <variable name="submodules" type="zm.gov.moh.smartcerv.component.submoduledrawer.viewmodel.SubModulesViewModel.SubModules"/>
     </data>
 
 

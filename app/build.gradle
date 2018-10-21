@@ -36,10 +36,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':smartcerv')
     implementation project(':core')
-
     api 'com.google.dagger:dagger-android:2.15'
     api 'com.google.dagger:dagger-android-support:2.15'
     // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
+    implementation project(':common')
 }

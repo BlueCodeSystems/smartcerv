@@ -1,8 +1,9 @@
-package zm.gov.moh.smartcerv.component.login.model;
+package zm.gov.moh.common.component.login.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import zm.gov.moh.smartcerv.BR;
+
+import zm.gov.moh.common.BR;
 
 public class Credintials extends BaseObservable {
 

@@ -4,6 +4,7 @@
 
     <application>
         <activity android:name=".component.registration.view.RegistrationActivity"></activity>
+        <activity android:name=".component.login.view.LoginActivity"></activity>
     </application>
 
 </manifest>
