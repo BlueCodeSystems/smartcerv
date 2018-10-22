@@ -3,14 +3,14 @@ package zm.gov.moh.common.component.login.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
-import android.content.Intent;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import zm.gov.moh.common.component.login.model.AuthenticationStatus;
 import zm.gov.moh.core.service.RestAPIService;
-import zm.gov.moh.core.service.RestServiceImpl;
-import zm.gov.moh.core.utils.Provider;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.component.login.model.Credintials;
 
@@ -19,27 +19,56 @@ public class LoginViewModel extends AndroidViewModel {
 
     private RestAPIService restAPIService;
     private Credintials credentials;
-    private Class submodule;
-    private MutableLiveData<Class> submoduleTostart;
-    private MutableLiveData<String> submittedCredentials;
+    private MutableLiveData<AuthenticationStatus> authenticationStatus;
     private AtomicBoolean pending  = new  AtomicBoolean(true);
-
+    private Application application;
 
     public LoginViewModel(Application application){
         super(application);
 
+        this.application = application;
         credentials = new Credintials();
-        credentials.setUsername("admin");
-        credentials.setPassword("Openmrs4Bluecode");
-        restAPIService = new RestServiceImpl(Provider.getRestAPI());
     }
 
 
     public void submitCredentials(Credintials credintials){
 
-        String credintialsBase64 = Utils.credentialsToBase64(credintials.getUsername(),credintials.getPassword());
         pending.set(true);
-        submittedCredentials.setValue(credintialsBase64);
+        String credintialsBase64 = Utils.credentialsToBase64(credintials.getUsername(), credintials.getPassword());
+
+        //Online authentication
+        if(Utils.checkInternetConnectivity(application)){
+
+            authenticationStatus.setValue(AuthenticationStatus.PENDING);
+
+            restAPIService.session(credintialsBase64,
+
+                    //onSuccess
+                    authentication -> {
+
+                        pending.set(true);
+                        authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+                    },
+
+                    //onFailure
+                    throwable -> {
+
+                        pending.set(true);
+                        if (throwable instanceof HttpException) {
+
+                            HttpException httpException = (HttpException) throwable;
+
+                            if (httpException.code() == 401)
+                                authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+                        }
+                        else if(throwable instanceof TimeoutException)
+                            authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
+                        else
+                          authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
+                    });
+        }
+        else
+            authenticationStatus.setValue(AuthenticationStatus.NO_INTERNET);
     }
 
     public Credintials getCredentials() {
@@ -50,16 +79,13 @@ public class LoginViewModel extends AndroidViewModel {
         this.restAPIService = restAPIService;
     }
 
-    public MutableLiveData<String> getSubmittedCredentials() {
+    public MutableLiveData<AuthenticationStatus> getAuthenticationStatus() {
 
-        if(submittedCredentials == null)
-            submittedCredentials = new MutableLiveData<>();
-        return submittedCredentials;
+        if(authenticationStatus == null)
+            authenticationStatus = new MutableLiveData<>();
+        return authenticationStatus;
     }
 
-    public RestAPIService getRestAPIService() {
-        return restAPIService;
-    }
 
     public AtomicBoolean getPending() {
         return pending;
@@ -67,8 +93,8 @@ public class LoginViewModel extends AndroidViewModel {
 
     @Override
     protected void onCleared() {
+
         super.onCleared();
         restAPIService.onClear();
-
     }
 }

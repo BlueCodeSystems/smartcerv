@@ -5,17 +5,12 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
-
-import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicBoolean;
-
+import zm.gov.moh.common.component.login.model.AuthenticationStatus;
 import zm.gov.moh.core.service.RestServiceImpl;
 import zm.gov.moh.core.utils.ClassHolder;
 import zm.gov.moh.core.utils.Provider;
@@ -30,19 +25,19 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private Context context;
-
+    private ProgressDialog progressDialog;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         context = this;
-
-
+        resources = context.getResources();
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         loginViewModel.setRestAPIService(new RestServiceImpl(Provider.getRestAPI()));
-
+        progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
 
         ClassHolder classHolder = (ClassHolder) getIntent().getSerializableExtra(ClassHolder.KEY);
 
@@ -52,47 +47,45 @@ public class LoginActivity extends AppCompatActivity {
         binding.setVariable(BR.viewmodel, loginViewModel);
 
 
-        final  Observer<String> submittedCredentialsObserver = credentials -> {
+        final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
 
-            if(loginViewModel.getPending().compareAndSet(true, false)) {
+            if(loginViewModel.getPending().compareAndSet(true, false) && status != null) {
 
-                if(Utils.checkInternetConnectivity(context)) {
+                switch (status){
 
-                    ProgressDialog progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
-                    progressDialog.show();
+                    case AUTHORIZED:
+                        context.startActivity(new Intent(context, classHolder.getClassInstance()));
+                        progressDialog.dismiss();
+                        break;
 
-                    loginViewModel.getRestAPIService().session(credentials,
+                    case UNAUTHORIZED:
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.authentication_failed), resources.getString(zm.gov.moh.core.R.string.incorrect_credentials)).show();
+                        progressDialog.dismiss();
+                        break;
 
-                            authentication -> {
+                    case PENDING:
+                        progressDialog.show();
+                        break;
 
-                                context.startActivity(new Intent(context, classHolder.getClassInstance()));
-                                progressDialog.dismiss();
-                            },
+                    case NO_INTERNET:
+                        Utils.showSnackBar(context, resources.getString(zm.gov.moh.core.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
+                        break;
 
-                            throwable -> {
-                                progressDialog.dismiss();
-                                if (throwable instanceof HttpException) {
+                    case TIMEOUT:
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.request_timeout), resources.getString(zm.gov.moh.core.R.string.server_request_timeout)).show();
+                        progressDialog.dismiss();
+                        break;
 
-                                    HttpException httpException = (HttpException) throwable;
+                    case UNREACHABLE_SERVER:
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.connection_problem), resources.getString(zm.gov.moh.core.R.string.problem_connecting_server)).show();
+                        progressDialog.dismiss();
+                        break;
 
-                                    if (httpException.code() == 401)
-                                        Utils.showModelDialog(context, "Authentication failed", "Please check if credentials were entered correctly").show();
-
-                                }
-                                else if(throwable instanceof TimeoutException)
-                                    Utils.showModelDialog(context, "Request Timeout","The request to the server has been timeout. please try again later.").show();
-                                else
-                                    Utils.showModelDialog(context, "Connectivity problem","There was a problem tying to connect to the server. Try again later").show();
-                            });
+                        default: break;
                 }
-                else
-                    Utils.showSnackBar(context, context.getResources().getString(zm.gov.moh.core.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
-
             }
         };
 
-
-        loginViewModel.getSubmittedCredentials().observe(this, submittedCredentialsObserver);
-
+        loginViewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
     }
 }

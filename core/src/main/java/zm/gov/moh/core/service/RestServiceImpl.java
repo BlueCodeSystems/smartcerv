@@ -1,21 +1,13 @@
 package zm.gov.moh.core.service;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.support.design.widget.Snackbar;
-
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
-
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.utils.RestAPI;
-import zm.gov.moh.core.utils.Utils;
 
 public class RestServiceImpl implements RestAPIService {
 
@@ -39,6 +31,6 @@ public class RestServiceImpl implements RestAPIService {
     }
 
     public void onClear(){
-        disposable.dispose();
+
     }
 }

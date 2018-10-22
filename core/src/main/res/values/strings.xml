@@ -2,4 +2,10 @@
     <string name="app_name">Core</string>
     <string name="no_internet">No internet connection</string>
     <string name="please_wait">Please Wait</string>
+    <string name="connection_problem">Connectivity problem</string>
+    <string name="request_timeout">Request Timeout</string>
+    <string name="problem_connecting_server">There was a problem trying to connect to the server. Try again later</string>
+    <string name="server_request_timeout">The request to the server has timeout. Please try again later</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="incorrect_credentials">Please check if credentials were entered correctly</string>
 </resources>
