@@ -71,6 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                         Utils.showSnackBar(context, resources.getString(zm.gov.moh.core.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
                         break;
 
+                    case NO_CREDENTIALS:
+                        Utils.showSnackBar(context, "No credentials provided", android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
+                        break;
+
                     case TIMEOUT:
                         Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.request_timeout), resources.getString(zm.gov.moh.core.R.string.server_request_timeout)).show();
                         progressDialog.dismiss();

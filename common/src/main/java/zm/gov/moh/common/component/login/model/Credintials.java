@@ -7,8 +7,8 @@ import zm.gov.moh.common.BR;
 
 public class Credintials extends BaseObservable {
 
-    private CharSequence username;
-    private CharSequence password;
+    private CharSequence username = "";
+    private CharSequence password = "";
 
     @Bindable
     public CharSequence getUsername() {
@@ -37,6 +37,11 @@ public class Credintials extends BaseObservable {
             this.username = username;
             notifyPropertyChanged(BR.username);
         }
+    }
+
+    public void clear(){
+        this.setPassword("");
+        this.setUsername("");
     }
 
 

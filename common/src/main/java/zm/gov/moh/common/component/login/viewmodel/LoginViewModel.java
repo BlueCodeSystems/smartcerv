@@ -34,41 +34,46 @@ public class LoginViewModel extends AndroidViewModel {
     public void submitCredentials(Credintials credintials){
 
         pending.set(true);
-        String credintialsBase64 = Utils.credentialsToBase64(credintials.getUsername(), credintials.getPassword());
 
-        //Online authentication
-        if(Utils.checkInternetConnectivity(application)){
+        if(credintials.getUsername() != "" && credintials.getPassword() != "") {
 
-            authenticationStatus.setValue(AuthenticationStatus.PENDING);
+            String credintialsBase64 = Utils.credentialsToBase64(credintials.getUsername(), credintials.getPassword());
+            credintials.clear();
 
-            restAPIService.session(credintialsBase64,
+            //Online authentication
+            if (Utils.checkInternetConnectivity(application)) {
 
-                    //onSuccess
-                    authentication -> {
+                authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
-                        pending.set(true);
-                        authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
-                    },
+                restAPIService.session(credintialsBase64,
 
-                    //onFailure
-                    throwable -> {
+                        //onSuccess
+                        authentication -> {
 
-                        pending.set(true);
-                        if (throwable instanceof HttpException) {
+                            pending.set(true);
+                            authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+                        },
 
-                            HttpException httpException = (HttpException) throwable;
+                        //onFailure
+                        throwable -> {
 
-                            if (httpException.code() == 401)
-                                authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
-                        }
-                        else if(throwable instanceof TimeoutException)
-                            authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
-                        else
-                          authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
-                    });
+                            pending.set(true);
+                            if (throwable instanceof HttpException) {
+
+                                HttpException httpException = (HttpException) throwable;
+
+                                if (httpException.code() == 401)
+                                    authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+                            } else if (throwable instanceof TimeoutException)
+                                authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
+                            else
+                                authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
+                        });
+            } else
+                authenticationStatus.setValue(AuthenticationStatus.NO_INTERNET);
         }
         else
-            authenticationStatus.setValue(AuthenticationStatus.NO_INTERNET);
+            authenticationStatus.setValue(AuthenticationStatus.NO_CREDENTIALS);
     }
 
     public Credintials getCredentials() {
