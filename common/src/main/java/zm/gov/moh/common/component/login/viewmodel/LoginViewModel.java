@@ -38,10 +38,10 @@ public class LoginViewModel extends AndroidViewModel {
         if(credintials.getUsername() != "" && credintials.getPassword() != "") {
 
             String credintialsBase64 = Utils.credentialsToBase64(credintials.getUsername(), credintials.getPassword());
-            credintials.clear();
 
             //Online authentication
             if (Utils.checkInternetConnectivity(application)) {
+                credintials.clear();
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
