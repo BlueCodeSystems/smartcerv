@@ -12,13 +12,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import zm.gov.moh.common.component.login.model.AuthenticationStatus;
 import zm.gov.moh.core.service.RestAPIService;
 import zm.gov.moh.core.utils.Utils;
-import zm.gov.moh.common.component.login.model.Credintials;
+import zm.gov.moh.common.component.login.model.Credentials;
 
 
 public class LoginViewModel extends AndroidViewModel {
 
     private RestAPIService restAPIService;
-    private Credintials credentials;
+    private Credentials credentials;
     private MutableLiveData<AuthenticationStatus> authenticationStatus;
     private AtomicBoolean pending  = new  AtomicBoolean(true);
     private Application application;
@@ -27,21 +27,21 @@ public class LoginViewModel extends AndroidViewModel {
         super(application);
 
         this.application = application;
-        credentials = new Credintials();
+        credentials = new Credentials();
     }
 
 
-    public void submitCredentials(Credintials credintials){
+    public void submitCredentials(Credentials credentials){
 
         pending.set(true);
 
-        if(credintials.getUsername() != "" && credintials.getPassword() != "") {
+        if(credentials.getUsername() != "" && credentials.getPassword() != "") {
 
-            String credintialsBase64 = Utils.credentialsToBase64(credintials.getUsername(), credintials.getPassword());
+            String credintialsBase64 = Utils.credentialsToBase64(credentials.getUsername(), credentials.getPassword());
 
             //Online authentication
             if (Utils.checkInternetConnectivity(application)) {
-                credintials.clear();
+                credentials.clear();
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
@@ -76,7 +76,7 @@ public class LoginViewModel extends AndroidViewModel {
             authenticationStatus.setValue(AuthenticationStatus.NO_CREDENTIALS);
     }
 
-    public Credintials getCredentials() {
+    public Credentials getCredentials() {
         return credentials;
     }
 

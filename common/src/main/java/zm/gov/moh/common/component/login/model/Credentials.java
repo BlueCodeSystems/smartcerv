@@ -5,7 +5,7 @@ import android.databinding.Bindable;
 
 import zm.gov.moh.common.BR;
 
-public class Credintials extends BaseObservable {
+public class Credentials extends BaseObservable {
 
     private CharSequence username = "";
     private CharSequence password = "";
@@ -45,7 +45,7 @@ public class Credintials extends BaseObservable {
     }
 
 
-    public Credintials(){
+    public Credentials(){
 
     }
 }

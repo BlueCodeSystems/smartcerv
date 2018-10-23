@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="credentials" type="zm.gov.moh.common.component.login.model.Credintials"/>
+        <variable name="credentials" type="zm.gov.moh.common.component.login.model.Credentials"/>
         <variable name="viewmodel" type="zm.gov.moh.common.component.login.viewmodel.LoginViewModel"/>
     </data>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <android.support.constraint.ConstraintLayout
         android:id="@+id/login"
         android:layout_width="match_parent"
@@ -161,4 +163,5 @@
             app:layout_constraintVertical_bias="0.213" />
 
     </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </layout>

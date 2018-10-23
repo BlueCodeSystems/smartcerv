@@ -2,8 +2,8 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
    <data>
-       <variable name="modulesdrawerviewmodel" type="zm.gov.moh.app.submodule.modulesdrawer.viewmodel.ModulesDrawerViewModel"/>
-       <variable name="submodules" type="zm.gov.moh.app.submodule.modulesdrawer.viewmodel.ModulesDrawerViewModel.Submodules"/>
+       <variable name="fpocareviewmodel" type="zm.gov.moh.app.submodule.first.point.of.care.viewmodel.FirstPointOfCareViewModel"/>
+       <variable name="submodules" type="zm.gov.moh.app.submodule.first.point.of.care.model.Submodules"/>
    </data>
 
     <ScrollView
@@ -27,7 +27,7 @@
                     android:text="SmartCerv"
                     android:layout_margin="20dp"
                     android:textAllCaps="false"
-                    android:onClick="@{() -> modulesdrawerviewmodel.startSubModule(submodules.SMARTCERV)}"
+                    android:onClick="@{() -> fpocareviewmodel.startSubModule(submodules.SMARTCERV)}"
                     android:drawableTop="@drawable/ic_cervical_icon"
                     />
 
@@ -63,7 +63,7 @@
                     android:drawableTop="@android:drawable/ic_menu_help"/>
             </TableRow>
 
-        </TableLayout>
+        </TableLayout>modulesdrawerviewmodel
 
     </ScrollView>
 

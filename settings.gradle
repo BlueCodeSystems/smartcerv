@@ -1,1 +1,1 @@
-include ':app', ':core', ':smartcerv', ':common'
+include ':app', ':core', ':smartcerv', ':common', ':repository'

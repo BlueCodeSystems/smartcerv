@@ -12,7 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import zm.gov.moh.common.component.login.model.AuthenticationStatus;
 import zm.gov.moh.core.service.RestServiceImpl;
-import zm.gov.moh.core.utils.ClassHolder;
+import zm.gov.moh.core.utils.SerializedClassInstance;
 import zm.gov.moh.core.utils.Provider;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     private ProgressDialog progressDialog;
     private Resources resources;
+    private Class submodule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel.setRestAPIService(new RestServiceImpl(Provider.getRestAPI()));
         progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
 
-        ClassHolder classHolder = (ClassHolder) getIntent().getSerializableExtra(ClassHolder.KEY);
+        SerializedClassInstance serializedClassInstance = (SerializedClassInstance) getIntent().getSerializableExtra(SerializedClassInstance.KEY);
 
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 switch (status){
 
                     case AUTHORIZED:
-                        context.startActivity(new Intent(context, classHolder.getClassInstance()));
+                        context.startActivity(new Intent(context, serializedClassInstance.getClassInstance()));
                         progressDialog.dismiss();
                         break;
 
