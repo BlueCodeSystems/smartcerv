@@ -3,8 +3,8 @@
     package="zm.gov.moh.common">
 
     <application>
-        <activity android:name=".component.registration.view.RegistrationActivity"></activity>
-        <activity android:name=".component.login.view.LoginActivity"></activity>
+        <activity android:name=".submodule.registration.view.RegistrationActivity"></activity>
+        <activity android:name=".submodule.login.view.LoginActivity"></activity>
     </application>
 
 </manifest>

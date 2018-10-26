@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="credentials" type="zm.gov.moh.common.component.login.model.Credentials"/>
-        <variable name="viewmodel" type="zm.gov.moh.common.component.login.viewmodel.LoginViewModel"/>
+        <variable name="credentials" type="zm.gov.moh.common.submodule.login.model.Credentials"/>
+        <variable name="viewmodel" type="zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel"/>
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:padding="20dp"
         tools:backgroundTint="@color/white"
-        tools:context="zm.gov.moh.smartcerv.component.login.view.LoginFragment">
+        tools:context="zm.gov.moh.cervicalcancer.submodule.login.view.LoginFragment">
 
         <TextView
             android:id="@+id/message"

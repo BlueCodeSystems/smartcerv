@@ -6,10 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.EnumMap;
-import zm.gov.moh.common.component.login.view.LoginActivity;
-import zm.gov.moh.core.utils.SerializedClassInstance;
-import zm.gov.moh.smartcerv.component.submoduledrawer.view.SmartCervSubModulesActivity;
-import zm.gov.moh.app.submodule.first.point.of.care.model.Submodules;
+
+import zm.gov.moh.core.model.Submodules;
+import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view.CervicalCancerActivity;
 
 public class FirstPointOfCareViewModel extends AndroidViewModel {
 
@@ -22,17 +21,14 @@ public class FirstPointOfCareViewModel extends AndroidViewModel {
 
         submodules = new EnumMap<>(Submodules.class);
         context = application;
-        submodules.put(Submodules.SMARTCERV, SmartCervSubModulesActivity.class);
+        submodules.put(Submodules.CERVICAL_CANCER, CervicalCancerActivity.class);
 
     }
 
 
-    public void startSubModule(Submodules submodule){
+    public void startSubmodule(Submodules submodule){
 
-        Intent intent = new Intent(context, LoginActivity.class);
-
-        intent.putExtra(SerializedClassInstance.KEY, new SerializedClassInstance(submodules.get(submodule)));
-        context.startActivity(intent);
+        context.startActivity( new Intent(context,(submodules.get(submodule))));
     }
 }
 

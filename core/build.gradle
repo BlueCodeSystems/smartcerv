@@ -52,6 +52,10 @@ dependencies {
     //Dagger2
     api 'com.google.dagger:dagger-android:2.15'
     api 'com.google.dagger:dagger-android-support:2.15'
+
+    //ThreeTen
+    api 'com.jakewharton.threetenabp:threetenabp:1.1.1'
+
     // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'

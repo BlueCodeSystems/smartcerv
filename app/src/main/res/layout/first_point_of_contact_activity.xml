@@ -4,7 +4,7 @@
 
     <data>
         <variable name="fpocontactviewmodel" type="zm.gov.moh.app.submodule.first.point.of.contact.viewmodel.FirstPointOfContactViewModel"/>
-        <variable name="submodules" type="zm.gov.moh.app.submodule.first.point.of.contact.model.Submodules"/>
+        <variable name="submodules" type="zm.gov.moh.core.model.Submodules"/>
     </data>
 
     <ScrollView
@@ -78,6 +78,72 @@
                         android:textColor="@color/dark_purple"
                         android:textSize="18dp" />
                 </LinearLayout>
+
+            </TableRow>
+            <TableRow>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/first_point_of_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="4dp"
+                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(submodules.FIRST_POINT_OF_CARE)}"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/fpoc_icon"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="First Point Of Care"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/vitals"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="4dp"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ico_vitals"
+                        android:textAllCaps="false"
+                        android:clickable="false"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Record Vitals"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
 
             </TableRow>
 

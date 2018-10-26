@@ -3,7 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
    <data>
        <variable name="fpocareviewmodel" type="zm.gov.moh.app.submodule.first.point.of.care.viewmodel.FirstPointOfCareViewModel"/>
-       <variable name="submodules" type="zm.gov.moh.app.submodule.first.point.of.care.model.Submodules"/>
+       <variable name="submodules" type="zm.gov.moh.core.model.Submodules"/>
    </data>
 
     <ScrollView
@@ -18,52 +18,41 @@
 
             <TableRow>
 
-                <Button
-                    android:id="@+id/smartcerv"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="SmartCerv"
-                    android:layout_margin="20dp"
-                    android:textAllCaps="false"
-                    android:onClick="@{() -> fpocareviewmodel.startSubModule(submodules.SMARTCERV)}"
-                    android:drawableTop="@drawable/ic_cervical_icon"
-                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="App 2"
-                    android:layout_margin="20dp"
-                    android:drawableTop="@android:drawable/ic_menu_help"/>
+                    <ImageButton
+                        android:id="@+id/vitals"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="4dp"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/cervical_icon"
+                        android:onClick="@{() -> fpocareviewmodel.startSubmodule(submodules.CERVICAL_CANCER)}"
+                        android:textAllCaps="false"
+                        android:clickable="false"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Cervical Cancer"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18dp" />
+                </LinearLayout>
 
 
             </TableRow>
 
-            <TableRow>
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="App 3"
-                    android:layout_margin="20dp"
-                    android:drawableTop="@android:drawable/ic_menu_help"/>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="1"
-                    android:text="App 4"
-                    android:layout_margin="20dp"
-                    android:drawableTop="@android:drawable/ic_menu_help"/>
-            </TableRow>
-
-        </TableLayout>modulesdrawerviewmodel
+        </TableLayout>
 
     </ScrollView>
 

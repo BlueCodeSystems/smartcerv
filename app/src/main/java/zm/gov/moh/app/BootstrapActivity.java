@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 
 import zm.gov.moh.app.submodule.first.point.of.contact.view.FirstPointOfContactActivity;
-import zm.gov.moh.common.component.login.view.LoginActivity;
+import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.core.utils.SerializedClassInstance;
 
 public class BootstrapActivity extends AppCompatActivity {

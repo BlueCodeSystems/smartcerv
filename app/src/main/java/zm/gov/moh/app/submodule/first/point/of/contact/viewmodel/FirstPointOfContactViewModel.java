@@ -7,12 +7,13 @@ import android.content.Intent;
 
 import java.util.EnumMap;
 
-import zm.gov.moh.app.submodule.first.point.of.contact.model.Submodules;
-import zm.gov.moh.common.component.registration.view.RegistrationActivity;
+import zm.gov.moh.app.submodule.first.point.of.care.view.FirstPointOfCareActivity;
+import zm.gov.moh.common.submodule.registration.view.RegistrationActivity;
+import zm.gov.moh.core.model.Submodules;
 
 public class FirstPointOfContactViewModel extends AndroidViewModel {
 
-    EnumMap<Submodules, Class> submodules;
+    private EnumMap<Submodules, Class> submodules;
     Context context;
 
     public FirstPointOfContactViewModel(Application application){
@@ -21,6 +22,7 @@ public class FirstPointOfContactViewModel extends AndroidViewModel {
         submodules = new EnumMap<>(Submodules.class);
         context = application;
         submodules.put(Submodules.REGISTRATION, RegistrationActivity.class);
+        submodules.put(Submodules.FIRST_POINT_OF_CARE, FirstPointOfCareActivity.class);
     }
 
     public void startSubmodule(Submodules subModule){
