@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="regviewmodel" type="zm.gov.moh.common.submodule.registration.viewmodel.RegistrationViewModel"/>
+        <variable name="regformdata" type="zm.gov.moh.common.submodule.registration.model.RegistrationFormData"/>
+    </data>
+
+    <ScrollView android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@color/card_detailing"
+        tools:context=".submodule.registration.view.RegistrationActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_border"
+            android:orientation="vertical"
+            android:padding="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Demographics"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/light_teal"
+                android:textSize="24sp"
+                android:layout_marginBottom="20dp"/>
+
+            <EditText
+                android:id="@+id/first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@={regformdata.firstName}"
+                android:hint="First name"/>
+
+            <EditText
+                android:id="@+id/last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@={regformdata.lastName}"
+                android:hint="Last name" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Gender"
+                android:textColor="@color/darker_grey"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:onCheckedChanged="@{(radiogroup, buttonId) -> regviewmodel.onGenderRadioGroupCheckedChange(buttonId)}">
+                <RadioButton
+                    android:id="@+id/radio_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male" />
+                <RadioButton
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/radio_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Female"/>
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textViesw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Date of birth"
+                android:textColor="@color/darker_grey"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <Button
+                android:id="@+id/date_of_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{regformdata.dateOfBirth}"
+                android:hint="select date"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_border"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:padding="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Informartion"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/light_teal"
+            android:textSize="24sp"
+            android:layout_marginBottom="20dp"/>
+            <EditText
+                android:id="@+id/address1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@={regformdata.address1}"
+                android:hint="Residential Address" />
+        <EditText
+            android:id="@+id/district"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@={regformdata.district}"
+            android:hint="District" />
+        <EditText
+            android:id="@+id/province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={regformdata.province}"
+            android:inputType="textPersonName"
+            android:hint="Province" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/sumit_reg_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:layout_margin="5dp"
+            android:background="@color/light_green"
+            android:textColor="@color/white"
+            android:onClick="@{() ->  regviewmodel.validateForm()}"
+            android:text="Submit"/>
+    </LinearLayout>
+    </ScrollView>
+</layout>

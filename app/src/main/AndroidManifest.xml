@@ -3,7 +3,7 @@
     package="zm.gov.moh.app">
 
     <application
-        android:name="zm.gov.moh.cervicalcancer.ApplicationContext"
+        android:name=".ApplicationContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

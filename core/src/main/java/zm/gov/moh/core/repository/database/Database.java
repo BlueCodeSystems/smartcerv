@@ -5,6 +5,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAddressDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
@@ -38,6 +39,7 @@ public abstract class Database extends RoomDatabase {
     public abstract PersonAttributeDao personAttributeDao();
     public abstract PersonAttributeTypeDao personAttributeTypeDao();
     public abstract PersonNameDao personNameDao();
+    public abstract ClientDao clientDao();
 
     //database getter
     public static Database getDatabase(final Context context){

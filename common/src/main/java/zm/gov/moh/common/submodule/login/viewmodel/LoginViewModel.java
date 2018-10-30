@@ -31,8 +31,6 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
         InjectorUtils.provideRepository(this,application);
         this.application = application;
         credentials = new Credentials();
-        credentials.setUsername("anthony");
-        credentials.setPassword("Openmrs3");
     }
 
 
@@ -46,7 +44,7 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
 
             //Online authentication
             if (Utils.checkInternetConnectivity(application)) {
-               credentials.clear();
+               // credentials.clear();
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 

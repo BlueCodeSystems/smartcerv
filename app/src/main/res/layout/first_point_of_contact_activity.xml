@@ -4,7 +4,7 @@
 
     <data>
         <variable name="fpocontactviewmodel" type="zm.gov.moh.app.submodule.first.point.of.contact.viewmodel.FirstPointOfContactViewModel"/>
-        <variable name="submodules" type="zm.gov.moh.core.model.Submodules"/>
+        <import name="baseapp" type="zm.gov.moh.core.utils.BaseApplication"/>
     </data>
 
     <ScrollView
@@ -37,7 +37,7 @@
                         android:elevation="4dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ico_registry"
-                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(submodules.REGISTRATION)}"
+                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.registerPatient)}"
                         android:textAllCaps="false" />
 
                     <TextView
@@ -68,6 +68,7 @@
                         android:elevation="4dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ico_search"
+                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.findPatient)}"
                         android:textAllCaps="false" />
 
                     <TextView
@@ -97,7 +98,7 @@
                         android:layout_height="150dp"
                         android:layout_gravity="center_horizontal"
                         android:elevation="4dp"
-                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(submodules.FIRST_POINT_OF_CARE)}"
+                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.firstPointOfCare)}"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/fpoc_icon"
@@ -131,6 +132,7 @@
                         android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/ico_vitals"
+                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.vitals)}"
                         android:textAllCaps="false"
                         android:clickable="false"/>
 

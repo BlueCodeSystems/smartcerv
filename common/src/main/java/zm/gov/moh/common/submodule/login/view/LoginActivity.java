@@ -11,7 +11,9 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
+import zm.gov.moh.core.utils.BaseActivity;
 import zm.gov.moh.core.utils.SerializedClassInstance;
+import zm.gov.moh.core.utils.Submodule;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -19,13 +21,12 @@ import zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel;
 import zm.gov.moh.common.databinding.LoginActivityBinding;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private LoginViewModel loginViewModel;
     private Context context;
     private ProgressDialog progressDialog;
     private Resources resources;
-    private Class submodule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
 
-        SerializedClassInstance serializedClassInstance = (SerializedClassInstance) getIntent().getSerializableExtra(SerializedClassInstance.KEY);
+        Bundle bundle = getIntent().getExtras();
+
+        Submodule nextSubmodule = (Submodule)bundle.getSerializable(START_SUBMODULE_KEY);
+
+        bundle.remove(START_SUBMODULE_KEY);
 
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
@@ -52,8 +57,9 @@ public class LoginActivity extends AppCompatActivity {
                 switch (status){
 
                     case AUTHORIZED:
-                        context.startActivity(new Intent(context, serializedClassInstance.getClassInstance()));
+                        startSubmodule(nextSubmodule);
                         progressDialog.dismiss();
+                        finish();
                         break;
 
                     case UNAUTHORIZED:
@@ -63,15 +69,17 @@ public class LoginActivity extends AppCompatActivity {
 
                     case PENDING:
                         progressDialog.show();
+                        //TODO: Authentication override, remember to remove
+                        startSubmodule(nextSubmodule);
+                        finish();
                         break;
 
                     case NO_INTERNET:
-
                         Utils.showSnackBar(context, resources.getString(zm.gov.moh.core.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
                         break;
 
                     case NO_CREDENTIALS:
-                        Utils.showSnackBar(context, "No credentials provided", android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
+                        Utils.showSnackBar(context, resources.getString(zm.gov.moh.core.R.string.no_credentials), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
                         break;
 
                     case TIMEOUT:

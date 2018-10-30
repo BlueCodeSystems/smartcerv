@@ -59,4 +59,7 @@ dependencies {
     // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
+
+    //Butter Knife
+    api 'com.jakewharton:butterknife:9.0.0-rc1'
 }

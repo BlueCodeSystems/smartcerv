@@ -1,10 +1,17 @@
 package zm.gov.moh.core.repository.api;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.function.Function;
 
-import zm.gov.moh.core.repository.api.model.Client;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.api.rest.RestApiImpl;
 import zm.gov.moh.core.repository.database.Database;
@@ -13,6 +20,10 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
+import zm.gov.moh.core.repository.database.entity.derived.Client;
+import zm.gov.moh.core.repository.database.entity.domain.Person;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.utils.InjectorUtils;
 
 public class RepositoryImp implements Repository{
@@ -28,14 +39,14 @@ public class RepositoryImp implements Repository{
     @Override
     public RestApi getRestApi(String accessToken) {
 
-        if(restapi == null || (restapi.getAccessToken().equals(accessToken)))
-            return restapi;
-        else
+        if(restapi == null || (!restapi.getAccessToken().equals(accessToken)))
             synchronized (RepositoryImp.class){
 
                 if(restapi == null)
                     restapi = new RestApiImpl(InjectorUtils.provideRestAPIAdapter(), accessToken);
             }
+        else
+            return restapi;
 
         return restapi;
     }
@@ -64,109 +75,66 @@ public class RepositoryImp implements Repository{
         return database.personAttributeTypeDao();
     }
 
-    public List<Client> getAllClients(){
-        return null;
+    public LiveData<List<Client>> getAllClients(){
+
+        return database.clientDao().findAllClients();
     }
 
     public Client getClientById(long id){
         return null;
     }
-}
-
-/*
-* package com.example.zita.architecturecomponent.repository;
-
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.os.AsyncTask;
-
-import com.example.zita.architecturecomponent.repository.database.AppDB;
-import com.example.zita.architecturecomponent.repository.database.doa.PersonDoa;
-import com.example.zita.architecturecomponent.repository.database.entity.Person;
-
-import java.util.List;
-
-public class AppRepository {
-
-    LiveData<List<Person>> mAllpersons;
-    private PersonDoa mPersonDoa;
-
-    public AppRepository(Application application) {
-        AppDB db = AppDB.getDB(application);
-        mPersonDoa = db.personDoa();
-
-        mAllpersons = mPersonDoa.getAllPersons();
-    }
-
-    public LiveData<List<Person>>getAllpersons(){
-        return mAllpersons;
-    }
 
     public void insertPerson(Person person){
-        new insertAsyncTask(mPersonDoa).execute(person);
-    }
-package com.example.zita.architecturecomponent.repository;
 
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.os.AsyncTask;
+        Single.just(person)
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .map(person1 -> {
 
-import com.example.zita.architecturecomponent.repository.database.AppDB;
-import com.example.zita.architecturecomponent.repository.database.doa.PersonDoa;
-import com.example.zita.architecturecomponent.repository.database.entity.Person;
+                    getPersonDao().insert(person1);
 
-import java.util.List;
+                    return person1;
+                })
+                .subscribe(person1 -> {
 
-public class AppRepository {
+                    getPersonDao().insert(person1);
 
-    LiveData<List<Person>> mAllpersons;
-    private PersonDoa mPersonDoa;
-
-    public AppRepository(Application application) {
-        AppDB db = AppDB.getDB(application);
-        mPersonDoa = db.personDoa();
-
-        mAllpersons = mPersonDoa.getAllPersons();
+                },throwable -> {
+                    new Exception(throwable);
+                });
     }
 
-    public LiveData<List<Person>>getAllpersons(){
-        return mAllpersons;
+    public void insertPersonName(PersonName personName){
+
+        Single.just(personName)
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(personName1 -> {
+
+                    getPersonNameDao().insert(personName1);
+
+                });
     }
 
-    public void insertPerson(Person person){
-        new insertAsyncTask(mPersonDoa).execute(person);
+    public void insertPersonAdress(PersonAddress personAddress){
+
+        Single.just(personAddress)
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(personAddress1 -> {
+
+                    getPersonAddressDao().insert(personAddress1);
+
+                });
     }
 
-    private static class insertAsyncTask extends AsyncTask<Person, Void, Void> {
+    public LiveData<List<Person>> getAllPeople(){
 
-        private PersonDoa mAsyncTaskDao;
-
-        insertAsyncTask(PersonDoa dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Person... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+        return database.personDao().getAll();
     }
-}
 
-    private static class insertAsyncTask extends AsyncTask<Person, Void, Void> {
+    public LiveData<List<Client>> findClientByTerm(String term){
 
-        private PersonDoa mAsyncTaskDao;
-
-        insertAsyncTask(PersonDoa dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(final Person... params) {
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+        return database.clientDao().findByTerm(term);
     }
 }
-
-* */

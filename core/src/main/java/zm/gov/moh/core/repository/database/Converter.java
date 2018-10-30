@@ -2,6 +2,8 @@ package zm.gov.moh.core.repository.database;
 
 import android.arch.persistence.room.TypeConverter;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -9,27 +11,29 @@ import org.threeten.bp.format.DateTimeFormatter;
 public class Converter {
 
     @TypeConverter
-    public ZonedDateTime fromTimestamp(String datetime) {
+    public LocalDateTime fromTimestamp(String datetime) {
         
-        return datetime == null ? null : ZonedDateTime.parse(datetime);
+        return datetime == null ? null : LocalDateTime.parse(datetime);
     }
 
     @TypeConverter
-    public String dateToTimestamp(ZonedDateTime datetime) {
+    public String dateToTimestamp(LocalDateTime datetime) {
         if (datetime == null) {
             return null;
-        } else {
+        } else
+            return datetime.toString();
+    }
 
-          DateTimeFormatter formatter =  DateTimeFormatter.ISO_DATE_TIME;
+    //Date time
+    @TypeConverter
+    public LocalDate fromDate(String date) {
 
-          return formatter.format(datetime);
-        }
+        return date == null ? null : LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    }
+
+    @TypeConverter
+    public String toDate(LocalDate date) {
+
+        return date == null ? null : date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 }
-
-/*
-* TimeZone tz = TimeZone.getTimeZone("UTC");
-DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
-df.setTimeZone(tz);
-String nowAsISO = df.format(new Date());
-* */

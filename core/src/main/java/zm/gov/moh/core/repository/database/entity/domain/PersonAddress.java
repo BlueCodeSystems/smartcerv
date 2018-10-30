@@ -3,12 +3,13 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 
 @Entity(tableName = "person_address")
 public class PersonAddress {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public long person_address_id;
     public long person_id;
     public short preferred;
@@ -33,16 +34,21 @@ public class PersonAddress {
     public String country;
     public String latitude;
     public String longitude;
-    public ZonedDateTime start_date;
-    public ZonedDateTime end_date;
+    public LocalDateTime start_date;
+    public LocalDateTime end_date;
     public long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public short voided;
     public long voided_by;
-    public ZonedDateTime date_voided;
+    public LocalDateTime date_voided;
     public String void_reason;
     public String county_district;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public long changed_by;
     public String uuid;
+
+    public PersonAddress(long person_id, String address1){
+        this.person_id = person_id;
+        this.address1 = address1;
+    }
 }

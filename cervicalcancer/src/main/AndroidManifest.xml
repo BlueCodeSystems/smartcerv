@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zm.gov.moh.cervicalcancer">
 
-    <application android:name="zm.gov.moh.cervicalcancer.ApplicationContext">
-        <activity android:name=".submodule.login.view.LoginActivity" />
+    <application>
         <activity android:name="zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view.CervicalCancerActivity" />
         <activity android:name="zm.gov.moh.common.submodule.registration.view.RegistrationActivity"></activity>
     </application>
