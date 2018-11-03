@@ -25,7 +25,7 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
                 PersonAttribute.class,
                 PersonAttributeType.class,
                 PersonName.class,
-        }, version = 1)
+        }, version = 2)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -47,7 +47,7 @@ public abstract class Database extends RoomDatabase {
         if (dbInstance == null)
               synchronized (Database.class){
                   if (dbInstance == null)
-                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME).build();
+                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
               }
 
          return dbInstance;

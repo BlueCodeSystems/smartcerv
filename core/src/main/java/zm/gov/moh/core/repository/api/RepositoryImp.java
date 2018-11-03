@@ -80,8 +80,9 @@ public class RepositoryImp implements Repository{
         return database.clientDao().findAllClients();
     }
 
-    public Client getClientById(long id){
-        return null;
+    public LiveData<Client> getClientById(long id){
+
+        return database.clientDao().findById(id);
     }
 
     public void insertPerson(Person person){
@@ -136,5 +137,10 @@ public class RepositoryImp implements Repository{
     public LiveData<List<Client>> findClientByTerm(String term){
 
         return database.clientDao().findByTerm(term);
+    }
+
+    public LiveData<PersonAddress> getPersonAddressByPersonId(long id){
+
+        return database.personAddressDao().findByPersonId(id);
     }
 }

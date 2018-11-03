@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import zm.gov.moh.core.model.submodule.Submodule;
+
 public class BaseApplication extends Application {
 
 
@@ -39,11 +41,12 @@ public class BaseApplication extends Application {
     public class CoreSubmodules{
 
         public static final String REGISTRATION = "REGISTRATION";
-        public static final String FIND_PATIENT = "FIND_PATIENT";
+        public static final String REGISTER = "REGISTER";
         public static final String FIRST_POINT_OF_CARE = "FIRST_POINT_OF_CARE";
         public static final String FIRST_POINT_OF_CONTACT = "FIRST_POINT_OF_CONTACT";
         public static final String LOGIN = "LOGIN";
         public static final String VITALS = "VITALS";
+        public static final String CLIENT_DASHOARD = "CLIENT_DASHOARD";
     }
 }
 

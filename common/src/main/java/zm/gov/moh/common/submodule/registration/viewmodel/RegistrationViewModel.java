@@ -32,6 +32,7 @@ public class RegistrationViewModel extends AndroidViewModel implements Injectabl
    private boolean isFormValid = false;
    private Repository repository;
    private MutableLiveData<Boolean> validateAndSubmitFormObserver;
+   private MutableLiveData<Long> clientDashBoardTransition;
 
     private RegistrationFormData registrationFormData;
 
@@ -58,30 +59,36 @@ public class RegistrationViewModel extends AndroidViewModel implements Injectabl
 
         Random rand = new Random();
 
-        int  id = rand.nextInt(500) + 100;
-
+        long  id = rand.nextInt(500) + 100;
 
         LocalDate dateOfBirth = LocalDate.parse(registrationFormData.getDateOfBirth(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         String gender = registrationFormData.getGender().toString();
 
-        //person
-        Person person = new Person(id, dateOfBirth,gender);
-
         String firstName = registrationFormData.getFirstName().toString();
 
         String lastName = registrationFormData.getLastName().toString();
+
+        String address1 = registrationFormData.getAddress1().toString();
+
+        String district = registrationFormData.getDistrict().toString();
+
+        String province = registrationFormData.getProvince().toString();
+
+        //person
+        Person person = new Person(id, dateOfBirth, gender);
 
         //person name
         PersonName personName = new PersonName(id,firstName,lastName);
 
         //person address
-
-        PersonAddress personAddress = new PersonAddress(id,registrationFormData.getAddress1().toString());
+        PersonAddress personAddress = new PersonAddress(id, address1, district, province);
 
         repository.insertPerson(person);
         repository.insertPersonName(personName);
         repository.insertPersonAdress(personAddress);
+
+        clientDashBoardTransition.setValue(id);
     }
 
     public void onGenderRadioGroupCheckedChange(int buttonId){
@@ -117,5 +124,13 @@ public class RegistrationViewModel extends AndroidViewModel implements Injectabl
     @Override
     public void setRepository(Repository repository) {
         this.repository = repository;
+    }
+
+    public MutableLiveData<Long> getClientDashBoardTransition() {
+
+        if(clientDashBoardTransition == null)
+            clientDashBoardTransition = new MutableLiveData<>();
+
+        return clientDashBoardTransition;
     }
 }

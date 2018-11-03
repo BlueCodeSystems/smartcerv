@@ -30,8 +30,8 @@
             android:id="@+id/client_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/card_detailing"
-            tools:listitem="@layout/client_list_view_item">
+            android:background="@color/white"
+            tools:listitem="@layout/client_demographics">
 
         </android.support.v7.widget.RecyclerView>
 

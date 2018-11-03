@@ -1,5 +1,6 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -21,5 +22,5 @@ public interface PersonAddressDao {
 
     //get persons address by person id
     @Query("SELECT * FROM person_address WHERE person_id = :id")
-    PersonAddress findByPersonId(long id);
+    LiveData<PersonAddress> findByPersonId(long id);
 }

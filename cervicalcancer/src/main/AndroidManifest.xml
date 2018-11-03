@@ -3,8 +3,8 @@
     package="zm.gov.moh.cervicalcancer">
 
     <application>
-        <activity android:name="zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view.CervicalCancerActivity" />
-        <activity android:name="zm.gov.moh.common.submodule.registration.view.RegistrationActivity"></activity>
+        <activity android:name=".submodule.cervicalcancer.view.CervicalCancerActivity" />
+        <activity android:name="zm.gov.moh.common.submodule.registration.view.RegistrationActivity" />
+        <activity android:name=".submodule.enrollment.view.CervicalCancerEnrollmentActivity" />
     </application>
-
 </manifest>

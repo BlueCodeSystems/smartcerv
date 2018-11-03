@@ -1,17 +1,10 @@
 package zm.gov.moh.app;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-import java.io.Serializable;
-
-import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.core.utils.BaseActivity;
-import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.utils.SerializedClassInstance;
-import zm.gov.moh.core.utils.Submodule;
+import zm.gov.moh.core.model.submodule.Submodule;
 
 public class BootstrapActivity extends BaseActivity {
 

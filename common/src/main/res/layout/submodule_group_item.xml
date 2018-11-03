@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/card_detailing"
+    android:elevation="2dp"
+    android:layout_margin="5dp"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/submodule_group_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:text="submodule_group_item_title"
+        android:textSize="18sp" />
+
+</LinearLayout>

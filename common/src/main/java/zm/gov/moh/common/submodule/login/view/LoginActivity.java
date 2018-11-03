@@ -4,16 +4,14 @@ import android.app.ProgressDialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.utils.BaseActivity;
-import zm.gov.moh.core.utils.SerializedClassInstance;
-import zm.gov.moh.core.utils.Submodule;
+import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -69,9 +67,6 @@ public class LoginActivity extends BaseActivity {
 
                     case PENDING:
                         progressDialog.show();
-                        //TODO: Authentication override, remember to remove
-                        startSubmodule(nextSubmodule);
-                        finish();
                         break;
 
                     case NO_INTERNET:

@@ -42,13 +42,16 @@ public class PersonAddress {
     public long voided_by;
     public LocalDateTime date_voided;
     public String void_reason;
-    public String county_district;
+    public String country_district;
     public LocalDateTime date_changed;
     public long changed_by;
     public String uuid;
 
-    public PersonAddress(long person_id, String address1){
+    public PersonAddress(long person_id, String address1, String country_district, String state_province ){
+
         this.person_id = person_id;
         this.address1 = address1;
+        this.country_district = country_district;
+        this.state_province = state_province;
     }
 }

@@ -36,7 +36,9 @@ public interface Repository {
 
     LiveData<List<Client>> getAllClients();
 
-    Client getClientById(long id);
+    LiveData<Client> getClientById(long id);
+
+    LiveData<PersonAddress> getPersonAddressByPersonId(long id);
 
     public LiveData<List<Client>> findClientByTerm(String term);
 }

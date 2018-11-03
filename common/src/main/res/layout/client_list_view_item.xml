@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:elevation="2dp"
    android:layout_margin="3dp"
@@ -11,7 +12,7 @@
     android:background="@color/white"
     android:layout_height="120dp">
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/imageView3"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
@@ -49,7 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="12332"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/darker_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +79,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Clent ID"
+        android:text="Client ID"
+        android:textColor="@color/light_red"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/client_id"
         app:layout_constraintTop_toTopOf="parent"
@@ -92,6 +95,8 @@
         android:layout_marginBottom="24dp"
         android:text="Age:"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3" />
+        app:layout_constraintStart_toEndOf="@+id/imageView3" />-->
 
-</android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

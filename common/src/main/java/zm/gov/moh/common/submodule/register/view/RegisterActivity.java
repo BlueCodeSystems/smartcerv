@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.register.view;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +10,27 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.common.submodule.register.viewmodel.RegisterViewModel;
+import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.model.submodule.Submodule;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
+
+    public static final String START_SUBMODULE_WITH_RESULT_KEY = "START_SUBMODULE_WITH_RESULT_KEY";
 
     private RegisterViewModel registerViewModel;
 
+    private Submodule defaultSubmodule;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+
+        bundle = getIntent().getExtras();
+
+        setContentView(R.layout.activity_register);
+
+        defaultSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
 
         AndroidThreeTen.init(this);
 
@@ -27,12 +38,31 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
+
+        if(bundle != null){
+
+            try {
+                getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
+            }catch (Exception e){
+                getIntent().getExtras().putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
+            }
+        }
+        else {
+
+            bundle = new Bundle();
+            bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
+            getIntent().putExtras(bundle);
+        }
+
+
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
+
         clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         final ClientListAdapter clientListAdapter = new ClientListAdapter(this);
+
         clientRecyclerView.setAdapter(clientListAdapter);
 
-        registerViewModel.getAllClients().observe(this, clients -> clientListAdapter.setClientList(clients));
+        registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
     }
 }

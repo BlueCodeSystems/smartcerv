@@ -16,7 +16,7 @@ public interface ClientDao {
 
     //get client by id
     @Query("SELECT person.person_id, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id WHERE person.person_id = :id")
-    Client findById(long id);
+    LiveData<Client> findById(long id);
 
     //get client by id
     @Query("SELECT person.person_id, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id WHERE (:term LIKE person.person_id) OR (:term LIKE person_name.given_name) OR (:term LIKE person_name.family_name)")

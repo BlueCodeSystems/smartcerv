@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +14,16 @@ import java.util.HashMap;
 import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.R2;
 import zm.gov.moh.common.databinding.RegistrationActivityBinding;
+import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.registration.viewmodel.RegistrationViewModel;
 import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.utils.Utils;
 
 
@@ -37,6 +38,8 @@ public class RegistrationActivity extends BaseActivity {
     @BindView(R2.id.province) EditText province;
     @BindView(R2.id.district) EditText district;
     @BindView(R2.id.address1) EditText address1;
+    private Bundle bundle;
+    private Submodule clientDashBoardSubmodule;
 
 
     private RegistrationViewModel registrationViewModel;
@@ -46,6 +49,8 @@ public class RegistrationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        bundle = new Bundle();
 
         registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
 
@@ -66,6 +71,8 @@ public class RegistrationActivity extends BaseActivity {
             if(date.getError() != null)
                 date.setError(null);
         });
+
+        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
 
         init();
     }
@@ -116,12 +123,20 @@ public class RegistrationActivity extends BaseActivity {
 
                 if(registrationViewModel.getFormValid()){
 
-                    Toast.makeText(this,"New patient was registered",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"New Client was registered",Toast.LENGTH_LONG).show();
                     registrationViewModel.submitForm();
                 }
         };
 
+        final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
+
+            bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
+            startSubmodule(clientDashBoardSubmodule, bundle);
+            finish();
+        };
+
         registrationViewModel.getValidateAndSubmitFormObserver().observe(this, observer);
+        registrationViewModel.getClientDashBoardTransition().observe(this, getClientDashBoardTransitionObserver);
     }
 
     //validate on focus lost

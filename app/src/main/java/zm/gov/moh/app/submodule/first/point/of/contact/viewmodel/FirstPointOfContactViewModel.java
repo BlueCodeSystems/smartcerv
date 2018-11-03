@@ -2,10 +2,9 @@ package zm.gov.moh.app.submodule.first.point.of.contact.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.utils.Submodule;
+import zm.gov.moh.core.model.submodule.Submodule;
 
 public class FirstPointOfContactViewModel extends AndroidViewModel {
 
@@ -22,7 +21,7 @@ public class FirstPointOfContactViewModel extends AndroidViewModel {
 
         applicationContext = (BaseApplication)application;
 
-        findPatient = BaseApplication.CoreSubmodules.FIND_PATIENT;
+        findPatient = BaseApplication.CoreSubmodules.REGISTER;
         registerPatient = BaseApplication.CoreSubmodules.REGISTRATION;
         vitals = BaseApplication.CoreSubmodules.VITALS;
         firstPointOfCare = BaseApplication.CoreSubmodules.FIRST_POINT_OF_CARE;

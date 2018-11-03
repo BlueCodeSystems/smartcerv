@@ -4,14 +4,13 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import zm.gov.moh.app.BR;
 import zm.gov.moh.app.R;
 import zm.gov.moh.app.databinding.FirstPointOfContactActivityBinding;
 import zm.gov.moh.app.submodule.first.point.of.contact.viewmodel.FirstPointOfContactViewModel;
 import zm.gov.moh.core.utils.BaseActivity;
-import zm.gov.moh.core.utils.Submodule;
+import zm.gov.moh.core.model.submodule.Submodule;
 
 
 public class FirstPointOfContactActivity extends BaseActivity {
