@@ -25,7 +25,7 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
                 PersonAttribute.class,
                 PersonAttributeType.class,
                 PersonName.class,
-        }, version = 2)
+        }, version = 1)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 

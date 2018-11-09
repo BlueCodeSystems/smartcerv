@@ -7,7 +7,8 @@
         <activity android:name=".submodule.login.view.LoginActivity" />
         <activity android:name=".submodule.register.view.RegisterActivity" />
         <activity android:name=".submodule.dashboard.client.view.ClientDashboardActivity" />
-        <activity android:name=".submodule.vitals.view.VitalsActivity"></activity>
+        <activity android:name=".submodule.vitals.view.VitalsActivity" />
+        <activity android:name=".submodule.form.view.FormActivity"></activity>
     </application>
 
 </manifest>

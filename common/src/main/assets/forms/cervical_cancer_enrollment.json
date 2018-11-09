@@ -1,0 +1,46 @@
+{
+  "attributes": {
+    "type":"Basic",
+    "submitLabel":"Done"
+  },
+  "widgetGroup":[
+    {
+    "title":"Facility Information",
+    "widgets": [
+      {
+        "tag": "district",
+        "widgetType":"EditText",
+        "hint": "District"
+      },
+      {
+        "tag":"provider",
+        "widgetType":"EditText",
+        "hint": "Provider Name"
+      },
+      {
+        "tag":"provider2",
+        "widgetType":"EditText",
+        "hint": "This is great"
+      }
+    ]
+  },{
+    "title":"Facility Information",
+    "widgets": [
+      {
+        "tag": "district2",
+        "widgetType":"EditText",
+        "hint": "District"
+      },
+      {
+        "tag":"provider3",
+        "widgetType":"EditText",
+        "hint": "Provider Name"
+      },
+      {
+        "tag":"provider4",
+        "widgetType":"EditText",
+        "hint": "This is great"
+      }
+    ]
+  }]
+}

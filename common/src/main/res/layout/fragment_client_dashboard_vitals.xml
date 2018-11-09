@@ -39,7 +39,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:text="150cm"
+                    android:text="---"
                     android:gravity="center_horizontal" />
 
             </TableRow>
@@ -69,7 +69,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
-                    android:text="76Kg" />
+                    android:text="---" />
 
             </TableRow>
 
@@ -98,7 +98,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
-                    android:text="27c" />
+                    android:text="---" />
             </TableRow>
 
             <TableRow
@@ -126,7 +126,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
-                    android:text="123/min" />
+                    android:text="---" />
 
             </TableRow>
 
@@ -155,7 +155,7 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:gravity="center_horizontal"
-                    android:text="234/min" />
+                    android:text="---" />
 
             </TableRow>
 
@@ -184,7 +184,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:text="2/3" />
+                    android:text="--/--" />
             </TableRow>
 
             <TableRow
@@ -213,7 +213,7 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:textColor="@color/black"
-                    android:text="21%" />
+                    android:text="---" />
             </TableRow>
             <Button
                 android:id="@+id/client_dashbord_btn"

@@ -20,6 +20,11 @@ public abstract class AbstractSubmoduleGroup extends AbstractIconCriteriaSubmodu
         this.submodules = submodule;
     }
 
+    AbstractSubmoduleGroup(String string, Class classInstance, Criteria criteria, List<Submodule> submodule){
+        super(string,classInstance,criteria);
+        this.submodules = submodule;
+    }
+
     AbstractSubmoduleGroup(String string, Class classInstance,List<Submodule> submodule){
         super(string,classInstance);
         this.submodules = submodule;

@@ -7,9 +7,14 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.DatePicker;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.Calendar;
 
 import okhttp3.Credentials;
@@ -64,4 +69,26 @@ public class Utils {
         // perform click event on edit text
         view.setOnClickListener(view1 -> datePickerDialog.show());
     }
+
+    public static String getStringFromInputStream(InputStream stream) throws IOException {
+
+        int n = 0;
+        char[] buffer = new char[1024 * 4];
+        InputStreamReader reader = new InputStreamReader(stream, "UTF8");
+        StringWriter writer = new StringWriter();
+        while (-1 != (n = reader.read(buffer))) writer.write(buffer, 0, n);
+        return writer.toString();
+    }
+
+    public static int dpToPx(Context context,int dp){
+
+       return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,context.getResources().getDisplayMetrics());
+    }
+
+    public static int ptToPx(Context context,int dp){
+
+        return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp,context.getResources().getDisplayMetrics());
+    }
+
+
 }

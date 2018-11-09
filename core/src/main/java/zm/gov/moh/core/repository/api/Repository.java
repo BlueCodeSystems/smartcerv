@@ -26,13 +26,13 @@ public interface Repository {
     PersonAttributeDao getPersonAttributeDao();
     PersonAttributeTypeDao getPersonAttributeTypeDao();
 
-    public void insertPerson(Person person);
+    void insertPerson(Person person);
 
-    public void insertPersonName(PersonName personName);
+    void insertPersonName(PersonName personName);
 
-    public void insertPersonAdress(PersonAddress personAddress);
+    void insertPersonAdress(PersonAddress personAddress);
 
-    public LiveData<List<Person>> getAllPeople();
+    LiveData<List<Person>> getAllPersons();
 
     LiveData<List<Client>> getAllClients();
 
@@ -40,5 +40,5 @@ public interface Repository {
 
     LiveData<PersonAddress> getPersonAddressByPersonId(long id);
 
-    public LiveData<List<Client>> findClientByTerm(String term);
+    LiveData<List<Client>> findClientByTerm(String term);
 }

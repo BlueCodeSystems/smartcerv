@@ -12,6 +12,7 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityClientDashboardBinding;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
 import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
+import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
@@ -23,6 +24,8 @@ public class ClientDashboardActivity extends BaseActivity {
     ClientDashboardViewModel mClientDashboardViewModel;
     Submodule vitals;
     long clientId;
+    Client client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,11 @@ public class ClientDashboardActivity extends BaseActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        mClientDashboardViewModel.getClientById(clientId).observe(this, binding::setClient);
+        mClientDashboardViewModel.getClientById(clientId).observe(this,client1 -> {
+
+            binding.setClient(client1);
+            client = client1;
+        });
 
         mClientDashboardViewModel.getPersonAddressByPersonId(clientId).observe(this, binding::setClientAddress);
     }
@@ -61,5 +68,9 @@ public class ClientDashboardActivity extends BaseActivity {
 
     public long getClientId() {
         return clientId;
+    }
+
+    public Client getClient() {
+        return client;
     }
 }

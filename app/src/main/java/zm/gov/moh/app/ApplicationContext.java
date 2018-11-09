@@ -8,6 +8,7 @@ import zm.gov.moh.app.submodule.first.point.of.contact.view.FirstPointOfContactA
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view.CervicalCancerActivity;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
+import zm.gov.moh.common.submodule.form.view.FormActivity;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.common.submodule.registration.view.RegistrationActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
@@ -32,6 +33,7 @@ public class ApplicationContext extends BaseApplication {
         loadSubmodule(CoreSubmodules.FIRST_POINT_OF_CONTACT, new BasicSubmodule("First Point Of Contact",FirstPointOfContactActivity.class));
         loadSubmodule(CoreSubmodules.LOGIN, new BasicSubmodule("Login",LoginActivity.class));
         loadSubmodule(CoreSubmodules.VITALS, new BasicSubmodule("Vitals",VitalsActivity.class));
+        loadSubmodule(CoreSubmodules.FORM, new BasicSubmodule("Form", FormActivity.class));
 
 
         //Load care service submodules

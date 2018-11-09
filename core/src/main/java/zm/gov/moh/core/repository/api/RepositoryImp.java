@@ -89,47 +89,27 @@ public class RepositoryImp implements Repository{
 
         Single.just(person)
                 .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .map(person1 -> {
-
-                    getPersonDao().insert(person1);
-
-                    return person1;
-                })
-                .subscribe(person1 -> {
-
-                    getPersonDao().insert(person1);
-
-                },throwable -> {
-                    new Exception(throwable);
-                });
+                .subscribeOn(Schedulers.io())
+                .subscribe(person1 -> getPersonDao().insert(person1), throwable -> new Exception(throwable));
     }
 
     public void insertPersonName(PersonName personName){
 
         Single.just(personName)
                 .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(personName1 -> {
-
-                    getPersonNameDao().insert(personName1);
-
-                });
+                .subscribeOn(Schedulers.io())
+                .subscribe(personName1 -> getPersonNameDao().insert(personName1),throwable -> new Exception(throwable));
     }
 
     public void insertPersonAdress(PersonAddress personAddress){
 
         Single.just(personAddress)
                 .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(personAddress1 -> {
-
-                    getPersonAddressDao().insert(personAddress1);
-
-                });
+                .subscribeOn(Schedulers.io())
+                .subscribe(personAddress1 -> getPersonAddressDao().insert(personAddress1),throwable -> new Exception(throwable));
     }
 
-    public LiveData<List<Person>> getAllPeople(){
+    public LiveData<List<Person>> getAllPersons(){
 
         return database.personDao().getAll();
     }
