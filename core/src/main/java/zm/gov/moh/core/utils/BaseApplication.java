@@ -49,5 +49,10 @@ public class BaseApplication extends Application {
         public static final String CLIENT_DASHOARD = "CLIENT_DASHOARD";
         public static final String FORM = "FORM";
     }
+
+    public class CareSubmodules{
+
+        public static final String CERVICAL_CANCER = "CERVICAL_CANCER";
+    }
 }
 

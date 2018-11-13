@@ -2,21 +2,27 @@ package zm.gov.moh.common.submodule.form.model;
 
 import java.util.List;
 
+import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
+
 public class WidgetModelJson {
 
     protected String tag;
     protected String widgetType;
     protected String title;
-    protected List<WidgetModel> widgetModels;
+    protected List<WidgetModel> widgets;
     protected String hint;
     protected String text;
+    protected String label;
+    protected int weight;
+    protected int textSize;
+
 
     public void setWidgetType(String widgetType) {
         this.widgetType = widgetType;
     }
 
-    public void setComponents(List<WidgetModel> components) {
-        this.widgetModels = components;
+    public void setWidgets(List<WidgetModel> components) {
+        this.widgets = components;
     }
 
     public void setText(String text) {
@@ -40,7 +46,7 @@ public class WidgetModelJson {
     }
 
     public List<WidgetModel> getComponents() {
-        return widgetModels;
+        return widgets;
     }
 
     public String getTag() {
@@ -57,5 +63,33 @@ public class WidgetModelJson {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public List<WidgetModel> getWidgets() {
+        return widgets;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = textSize;
     }
 }

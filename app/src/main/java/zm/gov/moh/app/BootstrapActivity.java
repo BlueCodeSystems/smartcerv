@@ -28,17 +28,7 @@ public class BootstrapActivity extends BaseActivity {
 
         bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactSubmodule);
 
-        //startSubmodule(loginSubmodule, bundle);
-
-
-        try{
-            String json = Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json"));
-           bundle.putString(BaseActivity.JSON_FORM_KEY,json);
-        }catch (Exception ex){
-
-        }
-
-        startSubmodule(formSubmodule, bundle);
+        startSubmodule(loginSubmodule, bundle);
 
         finish();
     }

@@ -7,16 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.submodule.form.BaseFragment;
+import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
 import zm.gov.moh.common.submodule.form.adapter.FormModelWidgetAdapter;
 import zm.gov.moh.common.submodule.form.model.Form;
-import zm.gov.moh.common.submodule.form.model.WidgetModel;
-import zm.gov.moh.common.submodule.form.model.FormData;
-import zm.gov.moh.common.submodule.form.model.WidgetSectionModel;
+import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
+import zm.gov.moh.common.submodule.form.model.widget.WidgetSectionModel;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
 
@@ -24,14 +26,16 @@ public class FormFragment extends BaseFragment {
 
     private LinearLayout container;
     private View rootView;
-    private FormData<String,Object> formData;
+    private HashMap<String,Object> formData;
     private AtomicBoolean renderWidgets;
     private Form formModel;
     private String formJson;
+    private BaseActivity context;
+    private Bundle bundle;
 
     public FormFragment() {
         // Required empty public constructor
-        formData = new FormData<>();
+        formData = new HashMap<>();
     }
 
     @Override
@@ -42,13 +46,17 @@ public class FormFragment extends BaseFragment {
 
         renderWidgets.set(true);
 
+        bundle = getArguments();
+
         rootView = inflater.inflate(R.layout.fragment_form, container, false);
 
         this.container = rootView.findViewById(R.id.form_container);
 
+        context = (BaseActivity)getContext();
+
         try {
 
-            this.formJson = getArguments().getString(BaseFragment.JSON_FORM_KEY);
+            this.formJson = bundle.getString(BaseFragment.JSON_FORM_KEY);
             formModel = FormAdapter.getAdapter().fromJson(this.formJson);
 
         }catch (Exception e){
@@ -75,8 +83,13 @@ public class FormFragment extends BaseFragment {
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             formSubmitButtonWidget.setFormData(this.formData);
             formSubmitButtonWidget.setOnSubmit(formData -> {
-                FormData f = formData;
-                f.getMap();
+                HashMap f = formData;
+
+                bundle.putSerializable(BaseActivity.FORM_DATA_KEY, formData);
+
+                Submodule submodule = (Submodule) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
+                context.startSubmodule(submodule, bundle);
+
             });
 
             this.container.addView(formSubmitButtonWidget);

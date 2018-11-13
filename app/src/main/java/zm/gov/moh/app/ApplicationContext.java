@@ -38,10 +38,14 @@ public class ApplicationContext extends BaseApplication {
 
         //Load care service submodules
         Submodule cervicalCancerEnrollment = new BasicSubmodule("Enroll Patient", CervicalCancerEnrollmentActivity.class);
+        Submodule cervicalCancerRegister = new BasicSubmodule("Register", zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
+
         List<Submodule> cervicalCancerSubmodules = new ArrayList<>();
         cervicalCancerSubmodules.add(cervicalCancerEnrollment);
+        cervicalCancerSubmodules.add(cervicalCancerRegister);
+
         SubmoduleGroup cervicalCancer = new BasicSubmoduleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerSubmodules);
-        loadSubmodule("Cervical", cervicalCancer);
+        loadSubmodule(CareSubmodules.CERVICAL_CANCER, cervicalCancer);
     }
 }
 

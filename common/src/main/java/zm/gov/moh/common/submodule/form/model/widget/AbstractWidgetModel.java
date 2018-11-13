@@ -1,9 +1,10 @@
-package zm.gov.moh.common.submodule.form.model;
+package zm.gov.moh.common.submodule.form.model.widget;
 
 public abstract class AbstractWidgetModel implements WidgetModel {
 
     protected String tag;
     protected String widgetType;
+    protected int weight;
 
     public AbstractWidgetModel(){
         super();
@@ -23,5 +24,13 @@ public abstract class AbstractWidgetModel implements WidgetModel {
 
     public void setWidgetType(String widgetType) {
         this.widgetType = widgetType;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }

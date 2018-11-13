@@ -9,8 +9,9 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.databinding.CervicalCancerActivityBinding;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel;
+import zm.gov.moh.core.utils.BaseActivity;
 
-public class CervicalCancerActivity extends AppCompatActivity {
+public class CervicalCancerActivity extends BaseActivity {
 
     CervicalCancerViewModel cervicalCancerViewModel;
 
@@ -23,5 +24,7 @@ public class CervicalCancerActivity extends AppCompatActivity {
         CervicalCancerActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.cervical_cancer_activity);
 
         binding.setVariable(BR.ccancerviewmodel, cervicalCancerViewModel);
+
+        cervicalCancerViewModel.getStartSubmodule().observe(this,this::startSubmodule);
     }
 }

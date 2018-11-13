@@ -11,6 +11,8 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
+import zm.gov.moh.core.repository.database.entity.domain.Patient;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttribute;
@@ -25,7 +27,9 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
                 PersonAttribute.class,
                 PersonAttributeType.class,
                 PersonName.class,
-        }, version = 1)
+                Patient.class,
+                PatientIdentifier.class
+        }, version = 2)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 

@@ -5,42 +5,192 @@
   },
   "widgetGroup":[
     {
-    "title":"Facility Information",
-    "widgets": [
-      {
-        "tag": "district",
-        "widgetType":"EditText",
-        "hint": "District"
-      },
-      {
-        "tag":"provider",
-        "widgetType":"EditText",
-        "hint": "Provider Name"
-      },
-      {
-        "tag":"provider2",
-        "widgetType":"EditText",
-        "hint": "This is great"
-      }
-    ]
-  },{
-    "title":"Facility Information",
-    "widgets": [
-      {
-        "tag": "district2",
-        "widgetType":"EditText",
-        "hint": "District"
-      },
-      {
-        "tag":"provider3",
-        "widgetType":"EditText",
-        "hint": "Provider Name"
-      },
-      {
-        "tag":"provider4",
-        "widgetType":"EditText",
-        "hint": "This is great"
-      }
-    ]
+      "title":"Facility Information",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"District",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "district",
+              "widgetType":"EditText",
+              "hint": "Health facility district",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Facility Name",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"facility",
+              "widgetType":"EditText",
+              "hint": "Health facility",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Provider Name",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"provider",
+              "widgetType":"EditText",
+              "hint": "Provider name",
+              "weight":1
+            }
+          ]
+        }]
+    },
+    {
+    "title":"Client Information",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"NRC No.",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"nrc",
+              "widgetType":"EditText",
+              "hint": "Example 157976/10/1",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Client ID",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"client ID",
+              "widgetType":"EditText",
+              "hint": "CCPPZZ Number",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Via Screening Date",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"via screening date",
+              "widgetType":"DatePickerButton",
+              "weight":1,
+              "text":"Select Date"
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Client name",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"first name",
+              "widgetType":"EditText",
+              "hint": "First Name",
+              "weight":1
+            },{
+              "tag":"last name",
+              "widgetType":"EditText",
+              "hint": "Last Name",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Date Of Birth",
+              "textSize":18,
+              "weight":1
+            }
+            ,{
+              "tag":"dob",
+              "widgetType":"DatePickerButton",
+              "weight":1,
+              "text":"Select Date"
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Phone",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"phone",
+              "widgetType":"EditText",
+              "hint": "Example +260967546754",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Address",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"address",
+              "widgetType":"EditText",
+              "hint": "Plot number, Village, Street",
+              "weight":1
+            }
+          ]
+        }
+      ]
   }]
 }

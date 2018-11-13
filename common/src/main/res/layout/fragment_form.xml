@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:id="@+id/form_container"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         tools:context=".submodule.form.view.FormFragment">

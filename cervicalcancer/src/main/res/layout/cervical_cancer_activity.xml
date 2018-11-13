@@ -37,7 +37,7 @@
                         android:elevation="4dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/woman_ico"
-                        android:onClick="@{() -> ccancerviewmodel.startSubmodule(submodules.REGISTRATION)}"
+                        android:onClick="@{() -> ccancerviewmodel.startSubmodule(0)}"
                         android:textAllCaps="false" />
 
                     <TextView
@@ -67,13 +67,14 @@
                         android:padding="10dp"
                         android:elevation="4dp"
                         android:scaleType="fitCenter"
+                        android:onClick="@{() -> ccancerviewmodel.startSubmodule(1)}"
                         android:src="@drawable/ico_search"
                         android:textAllCaps="false" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Find Patient"
+                        android:text="Client Register"
                         android:textAllCaps="false"
                         android:textColor="@color/dark_purple"
                         android:textSize="18dp" />

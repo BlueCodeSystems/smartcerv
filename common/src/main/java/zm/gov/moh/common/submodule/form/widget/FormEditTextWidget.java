@@ -1,23 +1,27 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.RelativeLayout;
 
-import zm.gov.moh.common.submodule.form.model.FormData;
+import java.util.HashMap;
 
 public class FormEditTextWidget extends android.support.v7.widget.AppCompatEditText{
 
-    FormData<String,Object> formData;
+    HashMap<String,Object> formData;
 
 
-    public FormEditTextWidget(Context context){
+    public FormEditTextWidget(Context context,int weight){
         super(context);
 
-        this.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT));
+        LinearLayoutCompat.LayoutParams layoutParams =  new LinearLayoutCompat.LayoutParams(
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
+                LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
+        layoutParams.weight = weight;
+
+        this.setAllCaps(false);
+        this.setLayoutParams(layoutParams);
 
         this.addTextChangedListener(new TextWatcher() {
             @Override
@@ -37,7 +41,7 @@ public class FormEditTextWidget extends android.support.v7.widget.AppCompatEditT
         });
     }
 
-    public void setFormData(FormData<String, Object> formData) {
+    public void setFormData(HashMap<String, Object> formData) {
         this.formData = formData;
     }
 }

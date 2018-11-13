@@ -1,12 +1,13 @@
-package zm.gov.moh.common.submodule.form.model;
+package zm.gov.moh.common.submodule.form.model.widget;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractWidgetGroupModel implements WidgetGroupModel {
+public abstract class AbstractWidgetGroupModel extends AbstractWidgetModel implements WidgetGroupModel {
 
     protected String title;
     protected List<WidgetModel> widgets;
+
     protected AbstractWidgetGroupModel(){
         super();
     }

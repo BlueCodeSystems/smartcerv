@@ -31,8 +31,6 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
         InjectorUtils.provideRepository(this,application);
         this.application = application;
         credentials = new Credentials();
-        credentials.setPassword("Openmrs3");
-        credentials.setUsername("anthony");
     }
 
 
