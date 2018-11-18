@@ -13,7 +13,7 @@ public class VitalsViewModel extends AndroidViewModel implements InjectableViewM
 
     private Repository mRepository;
 
-    VitalsViewModel(Application application){
+    public VitalsViewModel(Application application){
         super(application);
 
         InjectorUtils.provideRepository(this, application);
@@ -27,7 +27,7 @@ public class VitalsViewModel extends AndroidViewModel implements InjectableViewM
 
     public LiveData<Client> getClientById(long id){
 
-        return mRepository.getClientById(id);
+        return mRepository.getDatabase().clientDao().findById(id);
     }
 }
 

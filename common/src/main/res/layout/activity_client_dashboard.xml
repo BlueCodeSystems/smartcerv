@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="end"
-            android:text="@{clientAddress.address1+`, `+clientAddress.country_district+`, `+clientAddress.state_province}"
+            android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
             android:textColor="@color/darker_grey"/>
         <android.support.design.widget.TabLayout
             android:id="@+id/sliding_tabs"

@@ -18,10 +18,10 @@ public class PersonAttributeType {
     public short searchable;
     public long creator;
     public LocalDateTime date_created;
-    public long changed_by;
+    public Long changed_by;
     public LocalDateTime date_changed;
     public short retired;
-    public long retired_by;
+    public Long retired_by;
     public LocalDateTime date_retired;
     public String retire_reason;
     public String edit_privilege;

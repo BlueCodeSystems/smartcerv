@@ -34,24 +34,25 @@ public class PersonAddress {
     public String country;
     public String latitude;
     public String longitude;
-    public LocalDateTime start_date;
-    public LocalDateTime end_date;
-    public long creator;
-    public LocalDateTime date_created;
+    public ZonedDateTime start_date;
+    public ZonedDateTime end_date;
+    public Long creator;
+    public ZonedDateTime date_created;
     public short voided;
-    public long voided_by;
-    public LocalDateTime date_voided;
+    public Long voided_by;
+    public ZonedDateTime date_voided;
     public String void_reason;
     public String country_district;
-    public LocalDateTime date_changed;
-    public long changed_by;
+    public ZonedDateTime date_changed;
+    public Long changed_by;
     public String uuid;
 
-    public PersonAddress(long person_id, String address1, String country_district, String state_province ){
+    public PersonAddress(long person_id, String address1, String city_village, String state_province, short preferred ){
 
         this.person_id = person_id;
         this.address1 = address1;
-        this.country_district = country_district;
+        this.city_village = city_village;
         this.state_province = state_province;
+        this.preferred = preferred;
     }
 }

@@ -9,27 +9,42 @@ import android.view.View;
 import java.util.HashMap;
 
 import zm.gov.moh.common.submodule.form.model.widget.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widget.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widget.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widget.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widget.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
+import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FormLabelWidget;
+import zm.gov.moh.core.repository.api.Repository;
 
 public class FormModelWidgetAdapter {
 
-    public static View getWidget(Context context, WidgetModel widgetModel, HashMap<String, Object> formData){
+    Context context;
+    Repository repository;
+    HashMap<String, Object> formData;
+
+    public FormModelWidgetAdapter(Context context,Repository repository, HashMap<String, Object> formData){
+
+        this.context = context;
+        this.repository = repository;
+        this.formData = formData;
+
+    }
+
+    public View getWidget(WidgetModel widgetModel){
 
 
         if(widgetModel instanceof EditTextModel){
 
             EditTextModel model = (EditTextModel) widgetModel;
 
-            FormEditTextWidget widget = new FormEditTextWidget(context, model.getWeight());
+            FormEditTextWidget widget = new FormEditTextWidget(this.context, model.getWeight());
             widget.setHint(model.getHint());
             widget.setTag(model.getTag());
-            widget.setFormData(formData);
+            widget.setFormData(this.formData);
             widget.setText(model.getText());
            return widget;
         }
@@ -37,7 +52,7 @@ public class FormModelWidgetAdapter {
 
             DatePickerButtonModel model = (DatePickerButtonModel) widgetModel;
 
-            FormDatePickerWidget widget = new FormDatePickerWidget(context,formData);
+            FormDatePickerWidget widget = new FormDatePickerWidget(this.context, this.formData);
             widget.setTag(model.getTag());
             widget.setText(model.getText());
             return widget;
@@ -48,7 +63,7 @@ public class FormModelWidgetAdapter {
             LinearLayoutCompat linearLayoutCompat = createLinerLayout(context);
 
             for(WidgetModel widgetModel1 : model.getChildren())
-                linearLayoutCompat.addView(getWidget(context,widgetModel1,formData));
+                linearLayoutCompat.addView(getWidget(widgetModel1));
 
             return linearLayoutCompat;
         }
@@ -56,9 +71,16 @@ public class FormModelWidgetAdapter {
 
             FormLabelModel model = (FormLabelModel) widgetModel;
 
-            FormLabelWidget widget = new FormLabelWidget(context,model.getWeight());
+            FormLabelWidget widget = new FormLabelWidget(this.context,model.getWeight());
             widget.setText(model.getText());
             widget.setTextSize(TypedValue.COMPLEX_UNIT_SP, model.getTextSize());
+            return widget;
+        }
+        else if(widgetModel instanceof DistrictFacilityPickerModel){
+
+            DistrictFacilityPickerModel model = (DistrictFacilityPickerModel) widgetModel;
+
+            DistrictFacilityPickerWidget widget = new DistrictFacilityPickerWidget(this.context, model.getDistrictText(), model.getFacilityText(),this.repository);
             return widget;
         }
 

@@ -16,7 +16,7 @@ public class ClientDashboardViewModel extends AndroidViewModel implements Inject
     private Repository mRepository;
 
 
-    ClientDashboardViewModel(Application application){
+    public ClientDashboardViewModel(Application application){
         super(application);
 
         InjectorUtils.provideRepository(this, application);
@@ -31,11 +31,11 @@ public class ClientDashboardViewModel extends AndroidViewModel implements Inject
 
     public LiveData<Client> getClientById(long id){
 
-        return mRepository.getClientById(id);
+        return mRepository.getDatabase().clientDao().findById(id);
     }
 
     public LiveData<PersonAddress> getPersonAddressByPersonId(long id){
 
-        return mRepository.getPersonAddressByPersonId(id);
+        return mRepository.getDatabase().personAddressDao().findByPersonId(id);
     }
 }

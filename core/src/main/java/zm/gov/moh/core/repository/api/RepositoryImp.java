@@ -2,6 +2,8 @@ package zm.gov.moh.core.repository.api;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.util.List;
 import java.util.function.Function;
@@ -12,6 +14,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import zm.gov.moh.core.R;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.api.rest.RestApiImpl;
 import zm.gov.moh.core.repository.database.Database;
@@ -21,19 +24,24 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
+import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.Provider;
+import zm.gov.moh.core.repository.database.entity.domain.User;
 import zm.gov.moh.core.utils.InjectorUtils;
 
 public class RepositoryImp implements Repository{
 
     private RestApi restapi;
     private Database database;
+    private Application application;
 
     public RepositoryImp(Application application){
 
         this.database = Database.getDatabase(application);
+        this.application = application;
     }
 
     @Override
@@ -51,76 +59,32 @@ public class RepositoryImp implements Repository{
         return restapi;
     }
 
-    public PersonDao getPersonDao(){
 
-        return database.personDao();
+    public Database getDatabase() {
+        return database;
     }
 
-    public PersonNameDao getPersonNameDao(){
+    public <T>void insertEntityAsync(Consumer<T[]> consumer, T... entities){
 
-        return database.personNameDao();
-    }
-
-    public PersonAddressDao getPersonAddressDao(){
-
-        return database.personAddressDao();
-    }
-
-    public PersonAttributeDao getPersonAttributeDao(){
-
-        return database.personAttributeDao();
-    }
-    public PersonAttributeTypeDao getPersonAttributeTypeDao(){
-
-        return database.personAttributeTypeDao();
-    }
-
-    public LiveData<List<Client>> getAllClients(){
-
-        return database.clientDao().findAllClients();
-    }
-
-    public LiveData<Client> getClientById(long id){
-
-        return database.clientDao().findById(id);
-    }
-
-    public void insertPerson(Person person){
-
-        Single.just(person)
+        Single.just(entities)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
-                .subscribe(person1 -> getPersonDao().insert(person1), throwable -> new Exception(throwable));
+                .subscribe(consumer, throwable -> new Exception(throwable));
     }
 
-    public void insertPersonName(PersonName personName){
+    public <T>void insertEntityAsync(Consumer<T> consumer, T entity){
 
-        Single.just(personName)
+        Single.just(entity)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
-                .subscribe(personName1 -> getPersonNameDao().insert(personName1),throwable -> new Exception(throwable));
+                .subscribe(consumer, throwable -> new Exception(throwable));
     }
 
-    public void insertPersonAdress(PersonAddress personAddress){
+    @Override
+    public SharedPreferences getDefaultSharePrefrences() {
 
-        Single.just(personAddress)
-                .observeOn(Schedulers.io())
-                .subscribeOn(Schedulers.io())
-                .subscribe(personAddress1 -> getPersonAddressDao().insert(personAddress1),throwable -> new Exception(throwable));
-    }
-
-    public LiveData<List<Person>> getAllPersons(){
-
-        return database.personDao().getAll();
-    }
-
-    public LiveData<List<Client>> findClientByTerm(String term){
-
-        return database.clientDao().findByTerm(term);
-    }
-
-    public LiveData<PersonAddress> getPersonAddressByPersonId(long id){
-
-        return database.personAddressDao().findByPersonId(id);
+        return application.getSharedPreferences(
+                application.getResources().getString(R.string.application_shared_prefernce_key),
+                Context.MODE_PRIVATE);
     }
 }

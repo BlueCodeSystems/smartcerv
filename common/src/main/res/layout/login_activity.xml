@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,28 +24,17 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif-condensed"
             android:text="SmartCerv"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/dark_purple"
-            app:layout_constraintBottom_toTopOf="@+id/imageView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textColor="@color/dark_purple"/>
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="251dp"
             android:layout_height="129dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/cervical_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.504"
@@ -77,91 +66,64 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="154dp"
-            android:layout_height="31dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:text="Select session location"
             android:textColor="@color/light_red"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_edittext"
-            app:layout_constraintVertical_bias="0.115" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="156dp"
-            android:layout_height="28dp"
-            android:layout_gravity="left"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.555"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/password_edittext"
-            app:layout_constraintVertical_bias="0.09" />
+                <Spinner
+                    android:id="@+id/locations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/light_green"
             android:onClick="@{()-> viewmodel.submitCredentials(credentials)}"
             android:text="Login"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_edittext"
-            app:layout_constraintVertical_bias="0.369" />
+            android:textColor="@color/white"/>
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="76dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="88dp"
-            android:layout_marginTop="16dp"
-            android:text="Powered by"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Powered by " />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OpenMRS"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="42dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="136dp"
-            android:src="@drawable/ic_openmrs"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.944"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_width="69dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_openmrs" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="OpenMRS"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/login_button"
-            app:layout_constraintVertical_bias="0.213" />
-
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
     </ScrollView>
 </layout>

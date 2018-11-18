@@ -15,6 +15,8 @@ public class WidgetModelJson {
     protected String label;
     protected int weight;
     protected int textSize;
+    protected String facilityText;
+    protected String districtText;
 
 
     public void setWidgetType(String widgetType) {
@@ -91,5 +93,21 @@ public class WidgetModelJson {
 
     public void setTextSize(int textSize) {
         this.textSize = textSize;
+    }
+
+    public void setDistrictText(String districtText) {
+        this.districtText = districtText;
+    }
+
+    public void setFacilityText(String faciltyText) {
+        this.facilityText = faciltyText;
+    }
+
+    public String getDistrictText() {
+        return districtText;
+    }
+
+    public String getFacilityText() {
+        return facilityText;
     }
 }

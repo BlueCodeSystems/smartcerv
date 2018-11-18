@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Core</string>
+    <string name="application_shared_prefernce_key">zm.gov.moh.core.shared_preference_key</string>
+    <string name="session_location_key">zm.gov.moh.core.session_location_key</string>
+    <string name="logged_in_user_uuid_key">zm.gov.moh.core.logged_in_user_uuid_key</string>
     <string name="no_internet">No internet connection</string>
     <string name="please_wait">Please Wait</string>
     <string name="connection_problem">Connectivity problem</string>

@@ -22,20 +22,21 @@ public class PersonName {
     public String family_name_suffix;
     public String degree;
     public long creator;
-    public LocalDateTime date_created;
+    public ZonedDateTime date_created;
     public short voided;
-    public long voided_by;
-    public LocalDateTime date_voided;
+    public Long voided_by;
+    public ZonedDateTime date_voided;
     public String void_reason;
-    public long changed_by;
-    public LocalDateTime date_changed;
+    public Long changed_by;
+    public ZonedDateTime date_changed;
     public String uuid;
 
-    public PersonName(long person_id, String given_name, String family_name){
+    public PersonName(long person_id, String given_name, String family_name, short preferred){
 
         this.person_id = person_id;
         this.given_name = given_name;
         this.family_name = family_name;
+        this.preferred = preferred;
 
     }
 }

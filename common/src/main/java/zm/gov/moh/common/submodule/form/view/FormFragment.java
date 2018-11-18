@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.utils.BaseActivity;
 import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
@@ -30,7 +33,7 @@ public class FormFragment extends BaseFragment {
     private AtomicBoolean renderWidgets;
     private Form formModel;
     private String formJson;
-    private BaseActivity context;
+    private FormActivity context;
     private Bundle bundle;
 
     public FormFragment() {
@@ -52,7 +55,7 @@ public class FormFragment extends BaseFragment {
 
         this.container = rootView.findViewById(R.id.form_container);
 
-        context = (BaseActivity)getContext();
+        context = (FormActivity) getContext();
 
         try {
 
@@ -65,6 +68,8 @@ public class FormFragment extends BaseFragment {
 
         if(renderWidgets.get()) {
 
+            FormModelWidgetAdapter formModelWidgetAdapter = new FormModelWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData);
+
             for(WidgetSectionModel section : formModel.getWidgetGroup()){
 
                 FormSectionWidget formSection = new FormSectionWidget(getContext());
@@ -72,7 +77,7 @@ public class FormFragment extends BaseFragment {
 
                 for(WidgetModel widgetModel : section.getChildren()){
 
-                    View view = FormModelWidgetAdapter.getWidget(getContext(), widgetModel, this.formData);
+                    View view = formModelWidgetAdapter.getWidget(widgetModel);
                     formSection.addView(view);
                 }
 
@@ -92,19 +97,41 @@ public class FormFragment extends BaseFragment {
 
             });
 
-            this.container.addView(formSubmitButtonWidget);
+            //this.container.addView(formSubmitButtonWidget);
         }
         renderWidgets.set(false);
         // Inflate the layout for this fragment
+
+        context.getViewModel().getRepository().getDatabase().locationDao().getAll().observe(this, this::setLocations);
         return rootView;
+    }
+
+
+    public void populateChildLocations(Long parentLocationId){
+
+        context.getViewModel().getRepository().getDatabase().locationDao().getChild(parentLocationId).observe(this, this::setChildLocations);
+    }
+
+    public void setLocations(List<Location> locations){
+
+    }
+
+    public void setChildLocations(List<Location> locations){
+
+    }
+
+    public ArrayAdapter getLocationAdapter(){
+        return null;
+    }
+
+    public ArrayAdapter getChildLocationAdapter(){
+        return null;
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override

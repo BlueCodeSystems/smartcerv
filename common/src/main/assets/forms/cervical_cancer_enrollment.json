@@ -8,38 +8,9 @@
       "title":"Facility Information",
       "widgets":[
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType":"TextView",
-              "text":"District",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "tag": "district",
-              "widgetType":"EditText",
-              "hint": "Health facility district",
-              "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType":"TextView",
-              "text":"Facility Name",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "tag":"facility",
-              "widgetType":"EditText",
-              "hint": "Health facility",
-              "weight":1
-            }
-          ]
+          "widgetType":"DistrictFacilityPicker",
+          "facilityText":"Facility Name",
+          "districtText":"District Name"
         },
         {
           "widgetType":"WidgetGroupRow",
@@ -74,7 +45,7 @@
             {
               "tag":"nrc",
               "widgetType":"EditText",
-              "hint": "Example 157976/10/1",
+              "hint": "Example 145683/10/1",
               "weight":1
             }
           ]

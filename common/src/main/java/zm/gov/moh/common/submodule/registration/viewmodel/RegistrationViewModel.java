@@ -1,32 +1,27 @@
 package zm.gov.moh.common.submodule.registration.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
 
-import org.threeten.bp.LocalDate;
+import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.registration.model.RegistrationFormData;
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.repository.database.entity.derived.Client;
+import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public class RegistrationViewModel extends AndroidViewModel implements InjectableViewModel {
+public class RegistrationViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
    private Map<Integer, String> gender;
    private boolean isFormValid = false;
@@ -36,7 +31,7 @@ public class RegistrationViewModel extends AndroidViewModel implements Injectabl
 
     private RegistrationFormData registrationFormData;
 
-    RegistrationViewModel(Application application){
+    public RegistrationViewModel(Application application){
         super(application);
 
          int male = R.id.radio_male;
@@ -61,7 +56,9 @@ public class RegistrationViewModel extends AndroidViewModel implements Injectabl
 
         long  id = rand.nextInt(500) + 100;
 
-        LocalDate dateOfBirth = LocalDate.parse(registrationFormData.getDateOfBirth(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String d = registrationFormData.getDateOfBirth().toString()+"T12:00:00Z";
+
+        ZonedDateTime dateOfBirth = ZonedDateTime.parse( d,DateTimeFormatter.ISO_ZONED_DATE_TIME);
 
         String gender = registrationFormData.getGender().toString();
 
@@ -79,14 +76,21 @@ public class RegistrationViewModel extends AndroidViewModel implements Injectabl
         Person person = new Person(id, dateOfBirth, gender);
 
         //person name
-        PersonName personName = new PersonName(id,firstName,lastName);
+        PersonName personName = new PersonName(id,firstName,lastName, preffered());
 
         //person address
-        PersonAddress personAddress = new PersonAddress(id, address1, district, province);
+        PersonAddress personAddress = new PersonAddress(id, address1, district, province, preffered());
 
-        repository.insertPerson(person);
-        repository.insertPersonName(personName);
-        repository.insertPersonAdress(personAddress);
+        //person address
+        Patient patient = new Patient(id, ZonedDateTime.now());
+
+        repository.insertEntityAsync(repository.getDatabase().personDao()::insert, person);
+
+        repository.insertEntityAsync(repository.getDatabase().personNameDao()::insert, personName);
+
+        repository.insertEntityAsync(repository.getDatabase().personAddressDao()::insert, personAddress);
+
+        repository.insertEntityAsync(repository.getDatabase().patientDao()::insert, patient);
 
         clientDashBoardTransition.setValue(id);
     }

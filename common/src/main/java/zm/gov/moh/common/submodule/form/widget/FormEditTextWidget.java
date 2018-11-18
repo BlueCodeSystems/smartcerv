@@ -31,7 +31,7 @@ public class FormEditTextWidget extends android.support.v7.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                formData.put((String) getTag(),charSequence);
+                formData.put((String) getTag(),charSequence.toString());
             }
 
             @Override

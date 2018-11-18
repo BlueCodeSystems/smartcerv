@@ -36,4 +36,20 @@ public class Converter {
 
         return date == null ? null : date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
+
+    @TypeConverter
+    public String toTimeStampISO(ZonedDateTime zonedDateTime){
+
+        if(zonedDateTime != null)
+            return zonedDateTime.toString();
+        return null;
+    }
+
+    @TypeConverter
+    public ZonedDateTime fromTimeStampISO(String zonedDateTime){
+
+        if(zonedDateTime != null)
+            return ZonedDateTime.parse(zonedDateTime);
+        return null;
+    }
 }

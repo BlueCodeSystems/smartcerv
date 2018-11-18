@@ -4,8 +4,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZonedDateTime;
 
-@Entity
+@Entity(tableName = "patient_identifier")
 public class PatientIdentifier {
 
     @PrimaryKey
@@ -15,13 +16,13 @@ public class PatientIdentifier {
     public long identifier_type;
     public short preferred;
     public long location_id;
-    public long creator;
-    public LocalDateTime date_created;
-    public LocalDateTime date_changed;
-    public long changed_by;
+    public Long creator;
+    public ZonedDateTime date_created;
+    public ZonedDateTime date_changed;
+    public Long changed_by;
     public short voided;
-    public long voided_by;
-    public LocalDateTime date_void;
+    public Long voided_by;
+    public ZonedDateTime date_void;
     public String void_reason;
     public String uuid;
 }

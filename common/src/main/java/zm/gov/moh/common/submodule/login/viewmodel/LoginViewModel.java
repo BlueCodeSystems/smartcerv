@@ -11,15 +11,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.repository.api.Repository;
+import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.submodule.login.model.Credentials;
 
 
-public class LoginViewModel extends AndroidViewModel implements InjectableViewModel {
+public class LoginViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
-    private Repository repository;
     private Credentials credentials;
     private MutableLiveData<AuthenticationStatus> authenticationStatus;
     private AtomicBoolean pending  = new  AtomicBoolean(true);
@@ -28,7 +29,6 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
     public LoginViewModel(Application application){
         super(application);
 
-        InjectorUtils.provideRepository(this,application);
         this.application = application;
         credentials = new Credentials();
     }
@@ -48,10 +48,14 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
-                repository.getRestApi("").session(credintialsBase64,
+                getRepository().getRestApi("").session(credintialsBase64,
 
                         //onSuccess
                         authentication -> {
+                            getRepository().getDefaultSharePrefrences()
+                                    .edit()
+                                    .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUuid())
+                                    .apply();
 
                             pending.set(true);
                             authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
@@ -83,11 +87,6 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
         return credentials;
     }
 
-    @Override
-    public void setRepository(Repository repository) {
-        this.repository = repository;
-
-    }
 
     public MutableLiveData<AuthenticationStatus> getAuthenticationStatus() {
 
@@ -98,6 +97,14 @@ public class LoginViewModel extends AndroidViewModel implements InjectableViewMo
 
     public AtomicBoolean getPending() {
         return pending;
+    }
+
+    public void saveSessionLocation(Location location){
+
+        getRepository().getDefaultSharePrefrences().edit().putLong(
+                application.getResources().getString(zm.gov.moh.core.R.string.session_location_key),
+                location.location_id)
+                .apply();
     }
 
     @Override

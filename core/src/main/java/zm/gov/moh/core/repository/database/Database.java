@@ -6,18 +6,32 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
+import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
+import zm.gov.moh.core.repository.database.dao.domain.LocationDao;
+import zm.gov.moh.core.repository.database.dao.domain.PatientDao;
+import zm.gov.moh.core.repository.database.dao.domain.PatientIdentifierDao;
+import zm.gov.moh.core.repository.database.dao.domain.PatientIdentifierTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAddressDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
+import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
+import zm.gov.moh.core.repository.database.dao.domain.UserDao;
+import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
+import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.repository.database.entity.domain.LocationTag;
+import zm.gov.moh.core.repository.database.entity.domain.LocationTagMap;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.Provider;
+import zm.gov.moh.core.repository.database.entity.domain.User;
 
 @android.arch.persistence.room.Database(
         entities = {
@@ -28,8 +42,14 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
                 PersonAttributeType.class,
                 PersonName.class,
                 Patient.class,
-                PatientIdentifier.class
-        }, version = 2)
+                PatientIdentifier.class,
+                PatientIdentifierType.class,
+                Location.class,
+                LocationTag.class,
+                LocationTagMap.class,
+                Provider.class,
+                User.class
+        }, version = 1)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -44,6 +64,13 @@ public abstract class Database extends RoomDatabase {
     public abstract PersonAttributeTypeDao personAttributeTypeDao();
     public abstract PersonNameDao personNameDao();
     public abstract ClientDao clientDao();
+    public abstract LocationDao locationDao();
+    public abstract ProviderUserDao providerUserDao();
+    public abstract UserDao userDao();
+    public abstract ProviderDao providerDao();
+    public abstract PatientDao patientDao();
+    public abstract PatientIdentifierDao patientIdentifierDao();
+    public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
 
     //database getter
     public static Database getDatabase(final Context context){

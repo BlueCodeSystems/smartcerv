@@ -4,6 +4,7 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widget.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widget.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widget.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widget.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widget.WidgetGroupRowModel;
@@ -63,6 +64,17 @@ public class FormModelToJsonAdapter {
                 formLabelModel.setTextSize(widgetModelJson.getTextSize());
 
                 return formLabelModel;
+
+            case "DistrictFacilityPicker":
+
+                final DistrictFacilityPickerModel model = new DistrictFacilityPickerModel();
+
+                model.setWidgetType(widgetModelJson.getWidgetType());
+                model.setTag(widgetModelJson.getTag());
+                model.setFacilityText(widgetModelJson.getFacilityText());
+                model.setDistrictText(widgetModelJson.getDistrictText());
+
+                return model;
 
                default: return null;
         }

@@ -1,8 +1,16 @@
 package zm.gov.moh.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZonedDateTime;
+
+import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.core.utils.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.utils.BaseApplication;
@@ -14,7 +22,7 @@ public class BootstrapActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bootstrap);
-
+        AndroidThreeTen.init(this);
 
         ApplicationContext applicationContext = (ApplicationContext)getApplicationContext();
 
@@ -31,5 +39,9 @@ public class BootstrapActivity extends BaseActivity {
         startSubmodule(loginSubmodule, bundle);
 
         finish();
+
+       Intent intent = new Intent(this, MetaDataSync.class);
+
+       startService(intent);
     }
 }

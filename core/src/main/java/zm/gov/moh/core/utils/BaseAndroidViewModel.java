@@ -8,6 +8,7 @@ import zm.gov.moh.core.repository.api.Repository;
 public class BaseAndroidViewModel extends AndroidViewModel implements InjectableViewModel {
 
     private Repository mRepository;
+    private final short PREFERED = 1;
 
     public BaseAndroidViewModel(Application application){
         super(application);
@@ -22,5 +23,9 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
 
     public Repository getRepository() {
         return mRepository;
+    }
+
+    public short preffered() {
+        return PREFERED;
     }
 }

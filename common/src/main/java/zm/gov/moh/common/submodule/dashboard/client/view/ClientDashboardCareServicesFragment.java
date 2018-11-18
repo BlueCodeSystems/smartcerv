@@ -74,7 +74,7 @@ public class ClientDashboardCareServicesFragment extends Fragment {
         List<Submodule> submodules = new ArrayList<>();
         submodules.add(registeration);
 
-        SubmoduleGroup submoduleGroup1 = (SubmoduleGroup) ((BaseApplication)context.getApplication()).getSubmodule("Cervical");
+        SubmoduleGroup submoduleGroup1 = (SubmoduleGroup) ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CareSubmodules.CERVICAL_CANCER);
 
 
         List<SubmoduleGroup> submoduleGroups = new ArrayList<>();

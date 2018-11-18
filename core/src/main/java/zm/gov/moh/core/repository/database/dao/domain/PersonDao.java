@@ -22,6 +22,10 @@ public interface PersonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Person person);
 
+    // Inserts single person
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(Person... persons);
+
     //get person by id
     @Query("SELECT * FROM person WHERE person_id = :id")
     Person findById(long id);

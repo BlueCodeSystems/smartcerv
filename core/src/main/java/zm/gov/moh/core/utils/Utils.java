@@ -90,5 +90,17 @@ public class Utils {
         return (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp,context.getResources().getDisplayMetrics());
     }
 
+    public static String stringReverse(String string){
+
+        if(string == null)
+            return null;
+
+        String reversed = "";
+        for (char character : string.toCharArray())
+            reversed = character + reversed;
+
+        return reversed;
+    }
+
 
 }
