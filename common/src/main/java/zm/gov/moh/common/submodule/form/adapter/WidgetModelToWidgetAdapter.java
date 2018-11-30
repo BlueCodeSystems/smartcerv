@@ -8,25 +8,33 @@ import android.view.View;
 
 import java.util.HashMap;
 
-import zm.gov.moh.common.submodule.form.model.widget.DatePickerButtonModel;
-import zm.gov.moh.common.submodule.form.model.widget.DistrictFacilityPickerModel;
-import zm.gov.moh.common.submodule.form.model.widget.EditTextModel;
-import zm.gov.moh.common.submodule.form.model.widget.FormLabelModel;
-import zm.gov.moh.common.submodule.form.model.widget.WidgetGroupRowModel;
-import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
+import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
+import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FormLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.core.repository.api.Repository;
 
-public class FormModelWidgetAdapter {
+public class WidgetModelToWidgetAdapter {
 
     Context context;
     Repository repository;
     HashMap<String, Object> formData;
 
-    public FormModelWidgetAdapter(Context context,Repository repository, HashMap<String, Object> formData){
+    public WidgetModelToWidgetAdapter(Context context, Repository repository, HashMap<String, Object> formData){
 
         this.context = context;
         this.repository = repository;
@@ -81,6 +89,48 @@ public class FormModelWidgetAdapter {
             DistrictFacilityPickerModel model = (DistrictFacilityPickerModel) widgetModel;
 
             DistrictFacilityPickerWidget widget = new DistrictFacilityPickerWidget(this.context, model.getDistrictText(), model.getFacilityText(),this.repository);
+            return widget;
+        }
+        else if(widgetModel instanceof ProviderLabelModel){
+
+            ProviderLabelModel model = (ProviderLabelModel) widgetModel;
+
+            ProviderLabelWidget widget = new ProviderLabelWidget(this.context,this.repository,formData);
+            widget.setLabelText(model.getLabel());
+            widget.setLabelTextSize(model.getTextSize());
+            widget.setValueTextSize(model.getTextSize());
+            widget.setTag(model.getTag());
+            return widget;
+        }
+        else if(widgetModel instanceof DistrictLabelModel){
+
+            DistrictLabelModel model = (DistrictLabelModel) widgetModel;
+
+            DistrictLabelWidget widget = new DistrictLabelWidget(this.context,this.repository,formData);
+            widget.setLabelText(model.getLabel());
+            widget.setLabelTextSize(model.getTextSize());
+            widget.setValueTextSize(model.getTextSize());
+            widget.setTag(model.getTag());
+            return widget;
+        }
+        else if(widgetModel instanceof FacilityLabelModel){
+
+            FacilityLabelModel model = (FacilityLabelModel) widgetModel;
+
+            FacilityLabelWidget widget = new FacilityLabelWidget(this.context,this.repository,formData);
+            widget.setLabelText(model.getLabel());
+            widget.setLabelTextSize(model.getTextSize());
+            widget.setValueTextSize(model.getTextSize());
+            widget.setTag(model.getTag());
+            return widget;
+        }
+        else if(widgetModel instanceof CervicalCancerIDEditTextModel){
+
+            CervicalCancerIDEditTextModel model = (CervicalCancerIDEditTextModel) widgetModel;
+            CervicalCancerIDEditTextWidget widget = new CervicalCancerIDEditTextWidget(context,model.getWeight(),repository);
+            widget.setTag(model.getTag());
+            widget.setFormData(formData);
+
             return widget;
         }
 

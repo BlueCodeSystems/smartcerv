@@ -19,7 +19,7 @@ public interface PersonAttributeDao {
     @Insert
     void insert(PersonAttribute personAttribute);
 
-    //get persons attribute by person id
+    //get persons attribute by getPersons id
     @Query("SELECT * FROM person_attribute WHERE person_id = :id")
     PersonAttribute findByPersonId(long id);
 }

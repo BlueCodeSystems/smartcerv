@@ -9,7 +9,7 @@ import zm.gov.moh.app.BR;
 import zm.gov.moh.app.R;
 import zm.gov.moh.app.databinding.FirstPointOfContactActivityBinding;
 import zm.gov.moh.app.submodule.first.point.of.contact.viewmodel.FirstPointOfContactViewModel;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
 
 

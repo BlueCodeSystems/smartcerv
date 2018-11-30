@@ -9,7 +9,7 @@ public class FormAdapter{
 
     public static JsonAdapter<Form>  getAdapter(){
 
-        Moshi moshi = new Moshi.Builder().add(new FormModelToJsonAdapter()).build();
+        Moshi moshi = new Moshi.Builder().add(new WidgetModelJsonAdapter()).build();
         JsonAdapter<Form> jsonAdapter = moshi.adapter(Form.class);
         return jsonAdapter;
     }

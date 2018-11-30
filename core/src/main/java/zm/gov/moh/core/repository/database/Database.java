@@ -5,9 +5,17 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
+import zm.gov.moh.core.repository.database.dao.derived.CervicalCancerDao;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
+import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
+import zm.gov.moh.core.repository.database.dao.derived.VitalsDao;
+import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeDao;
+import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationDao;
+import zm.gov.moh.core.repository.database.dao.domain.LocationTagDao;
+import zm.gov.moh.core.repository.database.dao.domain.LocationTagMapDao;
+import zm.gov.moh.core.repository.database.dao.domain.ObsDao;
 import zm.gov.moh.core.repository.database.dao.domain.PatientDao;
 import zm.gov.moh.core.repository.database.dao.domain.PatientIdentifierDao;
 import zm.gov.moh.core.repository.database.dao.domain.PatientIdentifierTypeDao;
@@ -20,8 +28,11 @@ import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.LocationAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.LocationTag;
 import zm.gov.moh.core.repository.database.entity.domain.LocationTagMap;
+import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
@@ -47,9 +58,12 @@ import zm.gov.moh.core.repository.database.entity.domain.User;
                 Location.class,
                 LocationTag.class,
                 LocationTagMap.class,
+                LocationAttribute.class,
+                LocationAttributeType.class,
                 Provider.class,
-                User.class
-        }, version = 1)
+                User.class,
+                Obs.class
+        }, version = 2)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -57,20 +71,31 @@ public abstract class Database extends RoomDatabase {
 
     private static volatile Database dbInstance;
 
-    //Dao
+    //Domain
     public abstract PersonDao personDao();
     public abstract PersonAddressDao personAddressDao();
     public abstract PersonAttributeDao personAttributeDao();
     public abstract PersonAttributeTypeDao personAttributeTypeDao();
     public abstract PersonNameDao personNameDao();
-    public abstract ClientDao clientDao();
     public abstract LocationDao locationDao();
+    public abstract LocationAttributeDao locationAttributeDao();
+    public abstract LocationTagDao locationTagDao();
+    public abstract LocationTagMapDao locationTagMapDao();
+    public abstract LocationAttributeTypeDao locationAttributeTypeDao();
     public abstract ProviderUserDao providerUserDao();
     public abstract UserDao userDao();
     public abstract ProviderDao providerDao();
     public abstract PatientDao patientDao();
     public abstract PatientIdentifierDao patientIdentifierDao();
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
+    public abstract ObsDao obsDao();
+
+
+    //Derived
+    public abstract ClientDao clientDao();
+    public abstract VitalsDao vitalsDao();
+    public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
+    public abstract CervicalCancerDao cervicalCancerDao();
 
     //database getter
     public static Database getDatabase(final Context context){

@@ -6,16 +6,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import zm.gov.moh.core.R;
 import zm.gov.moh.core.repository.api.rest.RestApi;
+import zm.gov.moh.core.repository.api.rest.RestApiAdapter;
 import zm.gov.moh.core.repository.api.rest.RestApiImpl;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAddressDao;
@@ -36,12 +40,15 @@ public class RepositoryImp implements Repository{
 
     private RestApi restapi;
     private Database database;
+    private RestApiAdapter restApiAdapter;
     private Application application;
+
 
     public RepositoryImp(Application application){
 
-        this.database = Database.getDatabase(application);
         this.application = application;
+        this.database = Database.getDatabase(application);
+        this.restApiAdapter = InjectorUtils.provideRestAPIAdapter();
     }
 
     @Override
@@ -64,21 +71,56 @@ public class RepositoryImp implements Repository{
         return database;
     }
 
-    public <T>void insertEntityAsync(Consumer<T[]> consumer, T... entities){
+    @Override
+    public RestApiAdapter getRestApiAdapter() {
+        return restApiAdapter;
+    }
 
-        Single.just(entities)
+    @Deprecated
+    public <T>void consumeAsync(Consumer<T[]> consumer, T... items){
+
+        Single.just(items)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribe(consumer, throwable -> new Exception(throwable));
     }
 
-    public <T>void insertEntityAsync(Consumer<T> consumer, T entity){
+    public <T>void consumeAsync(Consumer<T> consumer, Consumer<Throwable> onError, T items){
 
-        Single.just(entity)
+        Single.just(items)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
-                .subscribe(consumer, throwable -> new Exception(throwable));
+                .subscribe(consumer, onError);
     }
+
+    public <T>void consumeAsync(Consumer<T[]> consumer, Consumer<Throwable> onError, Maybe<T[]> observable, final int timeout) {
+
+        // disposable = restAPI.getObs(this.accessToken)
+        observable.timeout(timeout, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(consumer, onError);
+
+    }
+
+    public <T>void consumeAsync(Consumer<T[]> consumer, Consumer<Throwable> onError, Action onComplete, Maybe<T[]> observable, final int timeout) {
+
+        // disposable = restAPI.getObs(this.accessToken)
+        observable.timeout(timeout, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .doOnComplete(onComplete)
+                .subscribe(consumer, onError);
+
+    }
+
+    public <T>void consume(Consumer<T[]> consumer, Consumer<Throwable> failure, Maybe<T[]> observable,  final int timeout) {
+
+        observable.timeout(timeout, TimeUnit.MILLISECONDS)
+                .subscribe(consumer, failure);
+
+    }
+
 
     @Override
     public SharedPreferences getDefaultSharePrefrences() {

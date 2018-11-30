@@ -1,4 +1,4 @@
-package zm.gov.moh.common.submodule.form.model.widget;
+package zm.gov.moh.common.submodule.form.model.widgetModel;
 
 import java.util.List;
 

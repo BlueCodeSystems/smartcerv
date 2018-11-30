@@ -33,7 +33,7 @@ public class Authentication {
         return user;
     }
 
-    public String getUuid() {
+    public String getUserUuid() {
         return user.getUuid();
     }
 }

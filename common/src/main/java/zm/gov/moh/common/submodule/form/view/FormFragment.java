@@ -15,13 +15,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
-import zm.gov.moh.common.submodule.form.adapter.FormModelWidgetAdapter;
+import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
 import zm.gov.moh.common.submodule.form.model.Form;
-import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
-import zm.gov.moh.common.submodule.form.model.widget.WidgetSectionModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
 
@@ -68,7 +68,7 @@ public class FormFragment extends BaseFragment {
 
         if(renderWidgets.get()) {
 
-            FormModelWidgetAdapter formModelWidgetAdapter = new FormModelWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData);
+            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData);
 
             for(WidgetSectionModel section : formModel.getWidgetGroup()){
 
@@ -77,7 +77,7 @@ public class FormFragment extends BaseFragment {
 
                 for(WidgetModel widgetModel : section.getChildren()){
 
-                    View view = formModelWidgetAdapter.getWidget(widgetModel);
+                    View view = WidgetModelToWidgetAdapter.getWidget(widgetModel);
                     formSection.addView(view);
                 }
 
@@ -97,7 +97,7 @@ public class FormFragment extends BaseFragment {
 
             });
 
-            //this.container.addView(formSubmitButtonWidget);
+            this.container.addView(formSubmitButtonWidget);
         }
         renderWidgets.set(false);
         // Inflate the layout for this fragment

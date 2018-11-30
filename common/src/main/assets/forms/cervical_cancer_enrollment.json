@@ -1,33 +1,29 @@
 {
   "attributes": {
     "type":"Basic",
-    "submitLabel":"Done"
+    "submitLabel":"Submit"
   },
   "widgetGroup":[
     {
       "title":"Facility Information",
       "widgets":[
         {
-          "widgetType":"DistrictFacilityPicker",
-          "facilityText":"Facility Name",
-          "districtText":"District Name"
+          "tag": "district",
+          "widgetType":"DistrictLabel",
+          "label": "District Name",
+          "textSize":18
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType":"TextView",
-              "text":"Provider Name",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "tag":"provider",
-              "widgetType":"EditText",
-              "hint": "Provider name",
-              "weight":1
-            }
-          ]
+          "tag": "facility",
+          "widgetType":"FacilityLabel",
+          "label": "Facility Name",
+          "textSize":18
+        },
+        {
+          "tag": "provider",
+          "widgetType":"ProviderLabel",
+          "label": "Provider Name",
+          "textSize":18
         }]
     },
     {
@@ -61,8 +57,7 @@
             },
             {
               "tag":"client ID",
-              "widgetType":"EditText",
-              "hint": "CCPPZZ Number",
+              "widgetType":"CCPIZEditText",
               "weight":1
             }
           ]

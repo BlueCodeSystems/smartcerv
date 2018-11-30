@@ -25,7 +25,7 @@ public class FormDatePickerWidget extends AppCompatButton {
         Utils.dateDialog(context,this, (DatePicker view, int year, int monthOfYear, int dayOfMonth) -> {
 
             // set day of month , month and year value in the edit text
-            String dob = ((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth) + "-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))  + "-" + year;
+            String dob = (year+"-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))+"-"+((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth));
             this.setText(dob);
 
             formData.put((String)getTag(), dob);

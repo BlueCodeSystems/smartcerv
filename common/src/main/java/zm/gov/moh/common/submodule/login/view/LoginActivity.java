@@ -21,7 +21,7 @@ import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.service.MetaDataSync;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
@@ -37,6 +37,9 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     private ProgressDialog progressDialog;
     private Resources resources;
     private ArrayAdapter<Location> locationArrayAdapter;
+
+    //TODO:Must read value from global context
+    private final long FACILITY_LOCATION_TAG_ID = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         binding.setCredentials(loginViewModel.getCredentials());
         binding.setVariable(BR.viewmodel, loginViewModel);
+        binding.setVariable(BR.toolbarhandler, getToolbarHandler());
 
 
         final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
@@ -115,7 +119,8 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         };
 
         loginViewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
-        loginViewModel.getRepository().getDatabase().locationDao().getAll().observe(this, this::setLocation);
+        loginViewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
+
     }
 
     public void setLocation(List<Location> locations){

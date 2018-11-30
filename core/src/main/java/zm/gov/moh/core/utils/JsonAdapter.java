@@ -56,4 +56,18 @@ public class JsonAdapter {
 
         return date == null ? null : date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
+
+
+
+    @ToJson
+    public String charToString(char character){
+
+        return String.valueOf(character);
+    }
+
+    @FromJson
+    public char StringToChar(String character){
+
+        return character.charAt(0);
+    }
 }

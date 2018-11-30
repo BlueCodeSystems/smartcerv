@@ -2,14 +2,13 @@ package zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.databinding.CervicalCancerActivityBinding;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 
 public class CervicalCancerActivity extends BaseActivity {
 

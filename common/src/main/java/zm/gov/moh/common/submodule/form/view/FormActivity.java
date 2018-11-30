@@ -2,15 +2,10 @@ package zm.gov.moh.common.submodule.form.view;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-
-import java.util.List;
 
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
 import zm.gov.moh.common.submodule.form.viewmodel.FormViewModel;
-import zm.gov.moh.core.repository.database.entity.domain.Location;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 
 public class FormActivity extends BaseActivity {
 

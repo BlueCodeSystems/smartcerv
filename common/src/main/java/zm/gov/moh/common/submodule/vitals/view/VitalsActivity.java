@@ -5,11 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import zm.gov.moh.common.R;
+import zm.gov.moh.common.BR;
 import zm.gov.moh.common.databinding.ActivityVitalsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.common.submodule.vitals.viewmodel.VitalsViewModel;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 
@@ -18,14 +19,14 @@ public class VitalsActivity extends BaseActivity {
     Bundle bundle;
     Submodule register;
     Submodule callerSubmodule;
-    VitalsViewModel mVitalsViewModel;
+    VitalsViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         bundle = getIntent().getExtras();
 
-        mVitalsViewModel = ViewModelProviders.of(this).get(VitalsViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(VitalsViewModel.class);
 
         register = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.REGISTER);
 
@@ -56,8 +57,6 @@ public class VitalsActivity extends BaseActivity {
 
 
         ActivityVitalsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_vitals);
-
-        mVitalsViewModel.getClientById(clientId).observe(this, binding::setClient);
-
+        viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this, binding::setClient);
     }
 }

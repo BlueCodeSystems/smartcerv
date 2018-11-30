@@ -20,7 +20,7 @@ public interface LocationTagMapDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(LocationTagMap... locationTagMaps);
 
-    //get person by id
+    //get getPersons by id
     @Query("SELECT * FROM location_tag_map WHERE location_id = :id")
     LocationTagMap findByLocationId(Long id);
 }

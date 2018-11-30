@@ -8,7 +8,7 @@ import java.util.HashMap;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.viewmodel.CervicalCancerEnrollmentViewModel;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.model.submodule.SubmoduleGroup;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 

@@ -1,6 +1,5 @@
 package zm.gov.moh.core.repository.api.rest;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -9,6 +8,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
@@ -48,7 +48,7 @@ public class RestApiImpl implements RestApi {
 
     public void location(final Consumer<Location[]> success, final Consumer<Throwable> failure) {
 
-        disposable = restAPI.location(this.accessToken)
+        disposable = restAPI.getLocations(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -57,7 +57,7 @@ public class RestApiImpl implements RestApi {
 
     public void user(final Consumer<User[]> success, final Consumer<Throwable> failure) {
 
-        disposable = restAPI.user(this.accessToken)
+        disposable = restAPI.getUsers(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -66,7 +66,7 @@ public class RestApiImpl implements RestApi {
 
     public void provider(final Consumer<Provider[]> success, final Consumer<Throwable> failure) {
 
-        disposable = restAPI.provider(this.accessToken)
+        disposable = restAPI.getProviders(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +75,7 @@ public class RestApiImpl implements RestApi {
 
     public void personName(final Consumer<PersonName[]> success, final Consumer<Throwable> failure) {
 
-        disposable = restAPI.personName(this.accessToken)
+        disposable = restAPI.getPersonNames(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -84,7 +84,7 @@ public class RestApiImpl implements RestApi {
 
     public void person(final Consumer<Person[]> success, final Consumer<Throwable> failure) {
 
-        disposable = restAPI.person(this.accessToken)
+        disposable = restAPI.getPersons(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -93,7 +93,7 @@ public class RestApiImpl implements RestApi {
 
     public void patient(final Consumer<Patient[]> success, final Consumer<Throwable> failure){
 
-        disposable = restAPI.patient(this.accessToken)
+        disposable = restAPI.getPatients(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,7 +102,7 @@ public class RestApiImpl implements RestApi {
 
     public void patientIdentifier(final Consumer<PatientIdentifier[]> success, final Consumer<Throwable> failure){
 
-        disposable = restAPI.patientIdentifier(this.accessToken)
+        disposable = restAPI.getPatientIdentifiers(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -111,7 +111,7 @@ public class RestApiImpl implements RestApi {
 
     public void patientIdentifierType(final Consumer<PatientIdentifierType[]> success, final Consumer<Throwable> failure){
 
-        disposable = restAPI.patientIdentifierType(this.accessToken)
+        disposable = restAPI.getPatientIdentifierTypes(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -120,13 +120,22 @@ public class RestApiImpl implements RestApi {
 
     public void personAddress(final Consumer<PersonAddress[]> success, final Consumer<Throwable> failure){
 
-        disposable = restAPI.personAddress(this.accessToken)
+        disposable = restAPI.getPersonAddresses(this.accessToken)
                 .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(success, failure);
     }
 
+    @Override
+    public void obs(Consumer<Obs[]> success, Consumer<Throwable> failure) {
+
+        disposable = restAPI.getObs(this.accessToken)
+                .timeout(TIME_OUT, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(success, failure);
+    }
 
     public void onClear(){
 

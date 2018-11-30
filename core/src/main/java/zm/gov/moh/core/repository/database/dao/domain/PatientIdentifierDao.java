@@ -17,15 +17,19 @@ public interface PatientIdentifierDao {
     @Query("SELECT * FROM patient_identifier")
     List<PatientIdentifier> getAll();
 
-    // Inserts single person name
+    // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PatientIdentifier patientIdentifier);
 
-    // Inserts single person name
+    // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PatientIdentifier... patientIdentifiers);
 
-    //get persons name by person id
+    //get persons name by getPersons id
     @Query("SELECT * FROM patient_identifier WHERE patient_id = :id")
     PatientIdentifier findByPatientId(long id);
+
+    //get persons name by getPersons id
+    @Query("SELECT MAX(patient_identifier_id) FROM patient_identifier")
+    Long getMaxId();
 }

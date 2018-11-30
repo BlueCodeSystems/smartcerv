@@ -1,19 +1,16 @@
 package zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.content.Intent;
+
 import java.util.EnumMap;
 
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
-import zm.gov.moh.common.submodule.registration.view.RegistrationActivity;
 import zm.gov.moh.core.model.Submodules;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.model.submodule.SubmoduleGroup;
-import zm.gov.moh.core.utils.BaseActivity;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
 

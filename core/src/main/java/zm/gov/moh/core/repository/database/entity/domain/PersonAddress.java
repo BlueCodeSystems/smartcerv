@@ -1,6 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 import org.threeten.bp.LocalDateTime;
@@ -49,6 +50,17 @@ public class PersonAddress {
 
     public PersonAddress(long person_id, String address1, String city_village, String state_province, short preferred ){
 
+        this.person_id = person_id;
+        this.address1 = address1;
+        this.city_village = city_village;
+        this.state_province = state_province;
+        this.preferred = preferred;
+    }
+
+    @Ignore
+    public PersonAddress(long person_address_id,long person_id, String address1, String city_village, String state_province, short preferred ){
+
+        this.person_address_id = person_address_id;
         this.person_id = person_id;
         this.address1 = address1;
         this.city_village = city_village;

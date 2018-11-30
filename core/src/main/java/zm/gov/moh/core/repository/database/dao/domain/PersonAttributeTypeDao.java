@@ -15,11 +15,11 @@ public interface PersonAttributeTypeDao {
     @Query("SELECT * FROM person_attribute_type")
     List<PersonAttributeType> getAll();
 
-    // Inserts single person
+    // Inserts single getPersons
     @Insert
     void insert(PersonAttributeType personAttributeType);
 
-    //get persons address by person id
+    //get persons address by getPersons id
     @Query("SELECT * FROM person_attribute_type WHERE person_attribute_type_id = :id")
     PersonAttributeType findById(long id);
 }

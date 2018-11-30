@@ -3,18 +3,22 @@ package zm.gov.moh.common.submodule.form.adapter;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
-import zm.gov.moh.common.submodule.form.model.widget.DatePickerButtonModel;
-import zm.gov.moh.common.submodule.form.model.widget.DistrictFacilityPickerModel;
-import zm.gov.moh.common.submodule.form.model.widget.EditTextModel;
-import zm.gov.moh.common.submodule.form.model.widget.FormLabelModel;
-import zm.gov.moh.common.submodule.form.model.widget.WidgetGroupRowModel;
-import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
 import zm.gov.moh.common.submodule.form.model.attribute.BasicFormAttribute;
 import zm.gov.moh.common.submodule.form.model.attribute.FormAttribute;
 import zm.gov.moh.common.submodule.form.model.attribute.FormAttributeJson;
 
-public class FormModelToJsonAdapter {
+public class WidgetModelJsonAdapter {
 
     @FromJson
     WidgetModel fromJson(WidgetModelJson widgetModelJson) {
@@ -76,6 +80,49 @@ public class FormModelToJsonAdapter {
 
                 return model;
 
+            case "ProviderLabel":
+
+                final ProviderLabelModel providerLabelModel = new ProviderLabelModel();
+
+                providerLabelModel.setWidgetType(widgetModelJson.getWidgetType());
+                providerLabelModel.setTag(widgetModelJson.getTag());
+                providerLabelModel.setLabel(widgetModelJson.getLabel());
+                providerLabelModel.setTextSize(widgetModelJson.getTextSize());
+
+                return providerLabelModel;
+
+            case "FacilityLabel":
+
+                final FacilityLabelModel facilityLabelModel = new FacilityLabelModel();
+
+                facilityLabelModel.setWidgetType(widgetModelJson.getWidgetType());
+                facilityLabelModel.setTag(widgetModelJson.getTag());
+                facilityLabelModel.setLabel(widgetModelJson.getLabel());
+                facilityLabelModel.setTextSize(widgetModelJson.getTextSize());
+
+                return facilityLabelModel;
+
+            case "DistrictLabel":
+
+                final DistrictLabelModel districtLabelModel = new DistrictLabelModel();
+
+                districtLabelModel.setWidgetType(widgetModelJson.getWidgetType());
+                districtLabelModel.setTag(widgetModelJson.getTag());
+                districtLabelModel.setLabel(widgetModelJson.getLabel());
+                districtLabelModel.setTextSize(widgetModelJson.getTextSize());
+
+                return districtLabelModel;
+
+            case "CCPIZEditText":
+
+                final CervicalCancerIDEditTextModel cervicalCancerIDEditTextModel = new CervicalCancerIDEditTextModel();
+
+                cervicalCancerIDEditTextModel.setWidgetType(widgetModelJson.getWidgetType());
+                cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
+                cervicalCancerIDEditTextModel.setWeight(widgetModelJson.getWeight());
+                cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
+
+                return cervicalCancerIDEditTextModel;
                default: return null;
         }
     }

@@ -13,7 +13,7 @@ import zm.gov.moh.common.databinding.ClientDemographicsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 
@@ -46,7 +46,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         public void onClick(View view) {
 
             Client client = clientList.get(getAdapterPosition());
-            long clientId = client.person_id;
+            long clientId = client.patient_id;
             bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
 
             Submodule call = (Submodule) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);

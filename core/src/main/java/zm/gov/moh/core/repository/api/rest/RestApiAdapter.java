@@ -1,10 +1,16 @@
 package zm.gov.moh.core.repository.api.rest;
 
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.LocationAttributeType;
+import zm.gov.moh.core.repository.database.entity.domain.LocationTag;
+import zm.gov.moh.core.repository.database.entity.domain.LocationTagMap;
+import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
@@ -20,29 +26,44 @@ public interface RestApiAdapter {
     Maybe<Authentication> session(@Header("Authorization") String credentials);
 
     @GET("location/")
-    Maybe<Location[]> location(@Header("x-access-token") String accesstoken);
+    Maybe<Location[]> getLocations(@Header("x-access-token") String accesstoken);
+
+    @GET("location/tag/")
+    Maybe<LocationTag[]> getLocationTags(@Header("x-access-token") String accesstoken);
+
+    @GET("location/tag/map/")
+    Maybe<LocationTagMap[]> getLocationTagMaps(@Header("x-access-token") String accesstoken);
+
+    @GET("location/attribute/")
+    Maybe<LocationAttribute[]> getLocationAttributes(@Header("x-access-token") String accesstoken);
+
+    @GET("location/attribute/type/")
+    Maybe<LocationAttributeType[]> getLocationAttributeTypes(@Header("x-access-token") String accesstoken);
 
     @GET("provider/")
-    Maybe<Provider[]> provider(@Header("x-access-token") String accesstoken);
+    Maybe<Provider[]> getProviders(@Header("x-access-token") String accesstoken);
 
     @GET("user/")
-    Maybe<User[]> user(@Header("x-access-token") String accesstoken);
+    Maybe<User[]> getUsers(@Header("x-access-token") String accesstoken);
 
     @GET("person/name/")
-    Maybe<PersonName[]> personName(@Header("x-access-token") String accesstoken);
+    Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accesstoken);
 
     @GET("person/address/")
-    Maybe<PersonAddress[]> personAddress(@Header("x-access-token") String accesstoken);
+    Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accesstoken);
 
     @GET("person/")
-    Maybe<Person[]> person(@Header("x-access-token") String accesstoken);
+    Maybe<Person[]> getPersons(@Header("x-access-token") String accesstoken);
 
     @GET("patient/")
-    Maybe<Patient[]> patient(@Header("x-access-token") String accesstoken);
+    Maybe<Patient[]> getPatients(@Header("x-access-token") String accesstoken);
 
     @GET("patient/identifier/")
-    Maybe<PatientIdentifier[]> patientIdentifier(@Header("x-access-token") String accesstoken);
+    Maybe<PatientIdentifier[]> getPatientIdentifiers(@Header("x-access-token") String accesstoken);
 
     @GET("patient/identifier/type")
-    Maybe<PatientIdentifierType[]> patientIdentifierType(@Header("x-access-token") String accesstoken);
+    Maybe<PatientIdentifierType[]> getPatientIdentifierTypes(@Header("x-access-token") String accesstoken);
+
+    @GET("obs/")
+    Maybe<Obs[]> getObs(@Header("x-access-token") String accesstoken);
 }

@@ -7,35 +7,17 @@ import android.arch.lifecycle.LiveData;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public class ClientDashboardViewModel extends AndroidViewModel implements InjectableViewModel {
+public class ClientDashboardViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
     private Client mClient;
-    private Repository mRepository;
 
 
     public ClientDashboardViewModel(Application application){
         super(application);
 
-        InjectorUtils.provideRepository(this, application);
-
-    }
-
-    @Override
-    public void setRepository(Repository repository) {
-
-        this.mRepository = repository;
-    }
-
-    public LiveData<Client> getClientById(long id){
-
-        return mRepository.getDatabase().clientDao().findById(id);
-    }
-
-    public LiveData<PersonAddress> getPersonAddressByPersonId(long id){
-
-        return mRepository.getDatabase().personAddressDao().findByPersonId(id);
     }
 }

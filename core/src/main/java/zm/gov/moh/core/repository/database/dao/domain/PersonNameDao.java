@@ -16,15 +16,18 @@ public interface PersonNameDao {
     @Query("SELECT * FROM person_name")
     List<PersonName> getAll();
 
-    // Inserts single person name
+    // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonName personName);
 
-    // Inserts single person name
+    // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonName... personNames);
 
-    //get persons name by person id
+    //get persons name by getPersons id
     @Query("SELECT * FROM person_name WHERE person_id = :id")
     PersonName findPersonNameById(long id);
+
+    @Query("SELECT MAX(person_name_id) FROM person_name")
+    Long getMaxId();
 }

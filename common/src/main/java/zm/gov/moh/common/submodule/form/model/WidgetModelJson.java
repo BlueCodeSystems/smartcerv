@@ -2,7 +2,7 @@ package zm.gov.moh.common.submodule.form.model;
 
 import java.util.List;
 
-import zm.gov.moh.common.submodule.form.model.widget.WidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 
 public class WidgetModelJson {
 

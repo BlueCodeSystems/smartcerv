@@ -32,29 +32,16 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Client ID"
-            android:textColor="@color/light_red"
+            android:text="@{client.identifier}"
+            android:textColor="@color/darker_grey"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/client_name"
-            app:layout_constraintEnd_toStartOf="@+id/client_id"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/client_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{String.valueOf(client.person_id)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/client_name"
@@ -72,23 +59,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="Age:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/client_name" />
-
-        <TextView
             android:id="@+id/client_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="32dp"
-            android:text="@{String.valueOf(LocalDate.now().getYear - client.birthdate.getYear())+`y`}"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="28dp"
+            android:text="@{String.valueOf(LocalDate.now().getYear - client.birthdate.getYear())+`years`}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView12" />
+            app:layout_constraintStart_toEndOf="@+id/imageView4" />
 
         <TextView
             android:id="@+id/textView18"

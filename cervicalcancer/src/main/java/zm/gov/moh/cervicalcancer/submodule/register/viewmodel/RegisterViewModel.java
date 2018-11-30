@@ -23,7 +23,7 @@ public class RegisterViewModel extends AndroidViewModel implements InjectableVie
 
         InjectorUtils.provideRepository(this, application);
 
-        allClients = repository.getDatabase().clientDao().findAllClients();
+        allClients = repository.getDatabase().cervicalCancerDao().getAllPatients();
     }
 
     @Override

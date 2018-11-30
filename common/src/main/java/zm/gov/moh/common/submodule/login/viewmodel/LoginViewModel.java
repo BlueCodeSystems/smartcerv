@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.login.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
@@ -10,11 +9,9 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
-import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
-import zm.gov.moh.core.utils.InjectorUtils;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.submodule.login.model.Credentials;
 
@@ -52,9 +49,10 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
                         //onSuccess
                         authentication -> {
+
                             getRepository().getDefaultSharePrefrences()
                                     .edit()
-                                    .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUuid())
+                                    .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUserUuid())
                                     .apply();
 
                             pending.set(true);

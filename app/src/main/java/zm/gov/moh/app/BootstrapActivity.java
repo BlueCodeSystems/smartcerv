@@ -7,14 +7,9 @@ import android.os.Bundle;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZonedDateTime;
-
 import zm.gov.moh.core.service.MetaDataSync;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.utils.Utils;
 
 public class BootstrapActivity extends BaseActivity {
 

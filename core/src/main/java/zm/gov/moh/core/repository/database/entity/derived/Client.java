@@ -9,7 +9,8 @@ import org.threeten.bp.ZonedDateTime;
 @Entity
 public class Client {
 
-    public long person_id;
+    public long patient_id;
+    public String identifier;
     public String given_name;
     public String family_name;
     public String gender;

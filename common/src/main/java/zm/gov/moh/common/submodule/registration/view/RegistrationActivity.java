@@ -21,7 +21,7 @@ import zm.gov.moh.common.R2;
 import zm.gov.moh.common.databinding.RegistrationActivityBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.registration.viewmodel.RegistrationViewModel;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.utils.Utils;

@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.register.view;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import zm.gov.moh.common.R;
+import zm.gov.moh.common.databinding.ActivityRegisterBinding;
 import zm.gov.moh.common.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.common.submodule.register.viewmodel.RegisterViewModel;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 
@@ -28,9 +30,13 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ActivityRegisterBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
         bundle = getIntent().getExtras();
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        toolBarEventHandler.setTitle("Client Register");
 
-        setContentView(R.layout.activity_register);
+
+
 
         defaultSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
 
@@ -57,6 +63,7 @@ public class RegisterActivity extends BaseActivity {
         }
 
 
+
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
 
         clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -65,6 +72,12 @@ public class RegisterActivity extends BaseActivity {
 
         clientRecyclerView.setAdapter(clientListAdapter);
 
-        registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
+
+        //registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
+
+        registerViewModel.getAllClients().observe(this, clients -> {
+            clientListAdapter.setClientList(clients);
+        });
+        binding.setToolbarhandler(toolBarEventHandler);
     }
 }

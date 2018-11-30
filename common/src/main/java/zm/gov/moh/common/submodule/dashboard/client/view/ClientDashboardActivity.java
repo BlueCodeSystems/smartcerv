@@ -8,12 +8,13 @@ import android.os.Bundle;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityClientDashboardBinding;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
 import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 
@@ -21,7 +22,7 @@ public class ClientDashboardActivity extends BaseActivity {
 
     public static final String CLIENT_ID_KEY = "CLIENT_ID_KEY";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
-    ClientDashboardViewModel mClientDashboardViewModel;
+    ClientDashboardViewModel viewModel;
     Submodule vitals;
     long clientId;
     Client client;
@@ -32,15 +33,19 @@ public class ClientDashboardActivity extends BaseActivity {
 
         AndroidThreeTen.init(this);
 
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        toolBarEventHandler.setTitle("Client Dashboard");
+
         vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
 
         clientId = getIntent().getExtras().getLong(CLIENT_ID_KEY);
 
-        mClientDashboardViewModel = ViewModelProviders.of(this).get(ClientDashboardViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ClientDashboardViewModel.class);
 
         ActivityClientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_client_dashboard);
+        binding.setToolbarhandler(toolBarEventHandler);
 
-        // Find the view pager that will allow the user to swipe between fragments
+        // Find the view pager that will allow the getUsers to swipe between fragments
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         // Create an adapter that knows which fragment should be shown on each page
@@ -53,13 +58,11 @@ public class ClientDashboardActivity extends BaseActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        mClientDashboardViewModel.getClientById(clientId).observe(this,client1 -> {
-
-            binding.setClient(client1);
-            client = client1;
+        viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this, binding::setClient);
+        viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
+        viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
+            binding.setVariable(BR.facility, location);
         });
-
-        mClientDashboardViewModel.getPersonAddressByPersonId(clientId).observe(this, binding::setClientAddress);
     }
 
     public Submodule getVitals() {
@@ -72,5 +75,9 @@ public class ClientDashboardActivity extends BaseActivity {
 
     public Client getClient() {
         return client;
+    }
+
+    public ClientDashboardViewModel getViewModel(){
+        return viewModel;
     }
 }

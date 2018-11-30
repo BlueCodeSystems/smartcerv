@@ -4,6 +4,7 @@
 
     <data>
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
+
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,7 +42,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/weight"
+                        android:id="@+id/heihgt_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_column="1"

@@ -38,8 +38,8 @@ public class RegistrationViewModel extends BaseAndroidViewModel implements Injec
          int female = R.id.radio_female;
 
         gender = new HashMap<>();
-        gender.put(male,"Male");
-        gender.put(female,"Female");
+        gender.put(male,"M");
+        gender.put(female,"F");
         registrationFormData = new RegistrationFormData();
         registrationFormData.setGender(gender.get(female));
         InjectorUtils.provideRepository(this, application);
@@ -72,25 +72,25 @@ public class RegistrationViewModel extends BaseAndroidViewModel implements Injec
 
         String province = registrationFormData.getProvince().toString();
 
-        //person
+        //getPersons
         Person person = new Person(id, dateOfBirth, gender);
 
-        //person name
+        //getPersons name
         PersonName personName = new PersonName(id,firstName,lastName, preffered());
 
-        //person address
+        //getPersons address
         PersonAddress personAddress = new PersonAddress(id, address1, district, province, preffered());
 
-        //person address
+        //getPersons address
         Patient patient = new Patient(id, ZonedDateTime.now());
 
-        repository.insertEntityAsync(repository.getDatabase().personDao()::insert, person);
+        repository.consumeAsync(repository.getDatabase().personDao()::insert, person);
 
-        repository.insertEntityAsync(repository.getDatabase().personNameDao()::insert, personName);
+        repository.consumeAsync(repository.getDatabase().personNameDao()::insert, personName);
 
-        repository.insertEntityAsync(repository.getDatabase().personAddressDao()::insert, personAddress);
+        repository.consumeAsync(repository.getDatabase().personAddressDao()::insert, personAddress);
 
-        repository.insertEntityAsync(repository.getDatabase().patientDao()::insert, patient);
+        repository.consumeAsync(repository.getDatabase().patientDao()::insert, patient);
 
         clientDashBoardTransition.setValue(id);
     }

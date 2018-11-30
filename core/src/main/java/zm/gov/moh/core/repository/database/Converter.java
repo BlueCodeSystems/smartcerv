@@ -52,4 +52,16 @@ public class Converter {
             return ZonedDateTime.parse(zonedDateTime);
         return null;
     }
+
+    @TypeConverter
+    public String charToString(char character){
+
+        return String.valueOf(character);
+    }
+
+    @TypeConverter
+    public char StringToChar(String character){
+
+        return character.charAt(0);
+    }
 }

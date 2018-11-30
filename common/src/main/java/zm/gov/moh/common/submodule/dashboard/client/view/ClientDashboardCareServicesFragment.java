@@ -14,7 +14,7 @@ import java.util.List;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.CareServicesExpandableListAdapter;
 import zm.gov.moh.core.model.submodule.SubmoduleGroup;
-import zm.gov.moh.core.utils.BaseActivity;
+import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 

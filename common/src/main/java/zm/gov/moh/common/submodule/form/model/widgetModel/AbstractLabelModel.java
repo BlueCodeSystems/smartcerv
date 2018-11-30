@@ -1,4 +1,4 @@
-package zm.gov.moh.common.submodule.form.model.widget;
+package zm.gov.moh.common.submodule.form.model.widgetModel;
 
 public abstract class AbstractLabelModel extends AbstractWidgetModel implements LabelModel {
 

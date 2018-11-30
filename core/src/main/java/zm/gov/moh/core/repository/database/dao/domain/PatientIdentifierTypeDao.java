@@ -17,15 +17,15 @@ public interface PatientIdentifierTypeDao {
     @Query("SELECT * FROM patient_identifier_type")
     List<PatientIdentifierType> getAll();
 
-    // Inserts single person name
+    // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PatientIdentifierType patientIdentifierType);
 
-    // Inserts single person name
+    // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PatientIdentifierType... patientIdentifierTypes);
 
-    //get persons name by person id
+    //get persons name by getPersons id
     @Query("SELECT * FROM patient_identifier_type WHERE patient_identifier_type_id = :id")
     PatientIdentifierType findById(long id);
 }
