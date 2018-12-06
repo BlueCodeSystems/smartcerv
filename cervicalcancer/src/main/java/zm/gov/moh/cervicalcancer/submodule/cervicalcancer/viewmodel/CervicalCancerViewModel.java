@@ -7,6 +7,7 @@ import android.content.Context;
 
 import java.util.EnumMap;
 
+import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.core.model.Submodules;
 import zm.gov.moh.core.model.submodule.Submodule;
@@ -30,7 +31,7 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
     public void startSubmodule(int index){
 
-        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(BaseApplication.CareSubmodules.CERVICAL_CANCER);
+        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.SUBMODULE);
 
         Submodule submodule1 = cervicalCancerSubmodule.getSubmodules().get(index);
         startSubmodule.setValue(submodule1);

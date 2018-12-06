@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
    <data>
        <variable name="fpocareviewmodel" type="zm.gov.moh.app.submodule.first.point.of.care.viewmodel.FirstPointOfCareViewModel"/>
        <variable name="submodules" type="zm.gov.moh.core.model.Submodules"/>
+       <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
    </data>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/base_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:toolbarhandler="@{toolbarhandler}">
+        </include>
 
-    <ScrollView
+        <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -56,5 +68,7 @@
         </TableLayout>
 
     </ScrollView>
+
+    </LinearLayout>
 
 </layout>

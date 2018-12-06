@@ -9,4 +9,5 @@ import zm.gov.moh.core.model.submodule.Submodule;
 public interface SubmoduleGroup extends Submodule{
 
    List<Submodule> getSubmodules();
+   Submodule getSubmodule(String name);
 }

@@ -43,7 +43,7 @@ public class ClientDashboardCareServicesFragment extends Fragment {
         this.context = (BaseActivity) this.getContext();
         View view = inflater.inflate(R.layout.fragment_client_dashboard_care_services, container, false);
 
-        CareServicesExpandableListAdapter careServicesExpandableListAdapter = new CareServicesExpandableListAdapter(context, getCareServices());
+        CareServicesExpandableListAdapter careServicesExpandableListAdapter = new CareServicesExpandableListAdapter(context, ((BaseApplication) getContext().getApplicationContext()).getCareServices());
 
         ExpandableListView clientServiceList = view.findViewById(R.id.care_service_list);
 
@@ -66,21 +66,5 @@ public class ClientDashboardCareServicesFragment extends Fragment {
 
     public void init(){
 
-    }
-
-    public List<SubmoduleGroup> getCareServices(){
-
-        Submodule registeration = ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.REGISTRATION);
-        List<Submodule> submodules = new ArrayList<>();
-        submodules.add(registeration);
-
-        SubmoduleGroup submoduleGroup1 = (SubmoduleGroup) ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CareSubmodules.CERVICAL_CANCER);
-
-
-        List<SubmoduleGroup> submoduleGroups = new ArrayList<>();
-
-        submoduleGroups.add(submoduleGroup1);
-
-        return submoduleGroups;
     }
 }

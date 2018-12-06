@@ -32,7 +32,7 @@
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:padding="5dp"
-                    android:background="@drawable/border_top">
+                    android:background="@drawable/border_bottom">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:background="@drawable/border_top"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:background="@drawable/border_top"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -118,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:background="@drawable/border_top"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -147,7 +147,7 @@
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:padding="5dp"
-                    android:background="@drawable/border_top">
+                    android:background="@drawable/border_bottom">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:background="@drawable/border_top"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -204,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:background="@drawable/border_top"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView
@@ -232,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:background="@drawable/border_top"
+                    android:background="@drawable/border_bottom"
                     android:padding="5dp">
 
                     <TextView

@@ -14,16 +14,14 @@ import zm.gov.moh.core.repository.database.Database;
 
 public interface Repository {
 
-    RestApi getRestApi(String token);
-
     @Deprecated
     <T>void consumeAsync(Consumer<T[]> consumer, T... entities);
 
     <T>void consumeAsync(Consumer<T> consumer, Consumer<Throwable> onError, T items);
 
-    <T>void consumeAsync(Consumer<T[]> consumer, Consumer<Throwable> onError, Maybe<T[]> observable, final int timeout);
+    <T>void consumeAsync(Consumer<T> consumer, Consumer<Throwable> onError, Maybe<T> observable, final int timeout);
 
-    <T>void consume(Consumer<T[]> consumer, Consumer<Throwable> onError, Maybe<T[]> observable, final int timeout);
+    <T>void consume(Consumer<T> consumer, Consumer<Throwable> onError, Maybe<T> observable, final int timeout);
 
     public <T>void consumeAsync(Consumer<T[]> consumer, Consumer<Throwable> onError, Action onComplete, Maybe<T[]> observable, final int timeout);
 

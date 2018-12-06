@@ -1,155 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable name="fpocontactviewmodel" type="zm.gov.moh.app.submodule.first.point.of.contact.viewmodel.FirstPointOfContactViewModel"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
         <import name="baseapp" type="zm.gov.moh.core.utils.BaseApplication"/>
     </data>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TableLayout
+        <include
+            layout="@layout/base_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="1"
-            android:paddingTop="20dp">
+            android:layout_height="?actionBarSize"
+            app:toolbarhandler="@{toolbarhandler}">
+        </include>
 
-            <TableRow>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:orientation="vertical">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:paddingTop="20dp">
 
-                    <ImageButton
-                        android:id="@+id/register_patient"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        android:elevation="4dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ico_registry"
-                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.registerPatient)}"
-                        android:textAllCaps="false" />
+                <TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Register Client"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_purple"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/smartcerv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        android:elevation="4dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ico_search"
-                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.findPatient)}"
-                        android:textAllCaps="false" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <ImageButton
+                            android:id="@+id/register_patient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:elevation="4dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ico_registry"
+                            android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.registerPatient)}"
+                            android:textAllCaps="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Register Client"
+                            android:textAllCaps="false"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Find Client"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_purple"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-            </TableRow>
-            <TableRow>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/first_point_of_contact"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:layout_gravity="center_horizontal"
-                        android:elevation="4dp"
-                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.firstPointOfCare)}"
-                        android:padding="10dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/fpoc_icon"
-                        android:textAllCaps="false" />
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <ImageButton
+                            android:id="@+id/smartcerv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:elevation="4dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ico_search"
+                            android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.findPatient)}"
+                            android:textAllCaps="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Find Client"
+                            android:textAllCaps="false"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                </TableRow>
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="First Point Of Care"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_purple"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/vitals"
-                        android:layout_width="match_parent"
-                        android:layout_height="150dp"
                         android:layout_gravity="center_horizontal"
-                        android:elevation="4dp"
-                        android:padding="10dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ico_vitals"
-                        android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.vitals)}"
-                        android:textAllCaps="false"
-                        android:clickable="false"/>
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <ImageButton
+                            android:id="@+id/first_point_of_contact"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:elevation="4dp"
+                            android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.firstPointOfCare)}"
+                            android:padding="10dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/fpoc_icon"
+                            android:textAllCaps="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="First Point Of Care"
+                            android:textAllCaps="false"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Record Vitals"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_purple"
-                        android:textSize="18dp" />
-                </LinearLayout>
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
+                        <ImageButton
+                            android:id="@+id/vitals"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:elevation="4dp"
+                            android:padding="10dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ico_vitals"
+                            android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.vitals)}"
+                            android:textAllCaps="false"
+                            android:clickable="false"/>
 
-            </TableRow>
-
-        </TableLayout>
-
-    </ScrollView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Capture Vitals"
+                            android:textAllCaps="false"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>

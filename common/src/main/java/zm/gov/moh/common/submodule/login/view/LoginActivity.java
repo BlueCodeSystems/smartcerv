@@ -32,7 +32,7 @@ import zm.gov.moh.common.databinding.LoginActivityBinding;
 
 public class LoginActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-    private LoginViewModel loginViewModel;
+    private LoginViewModel viewModel;
     private Context context;
     private ProgressDialog progressDialog;
     private Resources resources;
@@ -50,7 +50,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         locationArrayAdapter = new LocationArrayAdapter(this, new ArrayList<Location>());
 
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
 
         Bundle bundle = getIntent().getExtras();
@@ -65,14 +65,13 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         locationsSpinner.setAdapter(locationArrayAdapter);
         locationsSpinner.setOnItemSelectedListener(this);
 
-        binding.setCredentials(loginViewModel.getCredentials());
-        binding.setVariable(BR.viewmodel, loginViewModel);
+        binding.setCredentials(viewModel.getCredentials());
+        binding.setVariable(BR.viewmodel, viewModel);
         binding.setVariable(BR.toolbarhandler, getToolbarHandler());
-
 
         final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
 
-            if(loginViewModel.getPending().compareAndSet(true, false) && status != null) {
+            if(viewModel.getPending().compareAndSet(true, false) && status != null) {
 
                 switch (status){
 
@@ -92,7 +91,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
                     case PENDING:
                         progressDialog.show();
-                        loginViewModel.getCredentials().clear();
+                        viewModel.getCredentials().clear();
                         break;
 
                     case NO_INTERNET:
@@ -118,9 +117,8 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
             }
         };
 
-        loginViewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
-        loginViewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
-
+        viewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
+        viewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
     }
 
     public void setLocation(List<Location> locations){
@@ -134,7 +132,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         Location location = locationArrayAdapter.getItem(i);
-        loginViewModel.saveSessionLocation(location);
+        viewModel.saveSessionLocation(location);
     }
 
     @Override

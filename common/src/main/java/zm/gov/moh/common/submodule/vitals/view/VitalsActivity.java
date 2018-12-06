@@ -58,5 +58,9 @@ public class VitalsActivity extends BaseActivity {
 
         ActivityVitalsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_vitals);
         viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this, binding::setClient);
+
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        toolBarEventHandler.setTitle("Capture Vitals");
+        binding.setToolbarhandler(toolBarEventHandler);
     }
 }

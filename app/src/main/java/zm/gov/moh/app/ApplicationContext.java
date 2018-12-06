@@ -5,6 +5,7 @@ import java.util.List;
 
 import zm.gov.moh.app.submodule.first.point.of.care.view.FirstPointOfCareActivity;
 import zm.gov.moh.app.submodule.first.point.of.contact.view.FirstPointOfContactActivity;
+import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view.CervicalCancerActivity;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
@@ -37,15 +38,18 @@ public class ApplicationContext extends BaseApplication {
 
 
         //Load care service submodules
-        Submodule cervicalCancerEnrollment = new BasicSubmodule("Enroll Patient", CervicalCancerEnrollmentActivity.class);
-        Submodule cervicalCancerRegister = new BasicSubmodule("Register", zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
+        Submodule cervicalCancerEnrollment = new BasicSubmodule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT, CervicalCancerEnrollmentActivity.class);
+        Submodule cervicalCancerRegister = new BasicSubmodule(CervicalCancerModule.Submodules.CLIENT_REGISTER, zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
+        Submodule cervicalCancerPatientDashboard = new BasicSubmodule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD, zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity.class);
 
         List<Submodule> cervicalCancerSubmodules = new ArrayList<>();
         cervicalCancerSubmodules.add(cervicalCancerEnrollment);
         cervicalCancerSubmodules.add(cervicalCancerRegister);
+        cervicalCancerSubmodules.add(cervicalCancerPatientDashboard);
 
         SubmoduleGroup cervicalCancer = new BasicSubmoduleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerSubmodules);
-        loadSubmodule(CareSubmodules.CERVICAL_CANCER, cervicalCancer);
+        loadSubmodule(CervicalCancerModule.SUBMODULE, cervicalCancer);
+        loadFirstPointOfCareSubmodule(cervicalCancer);
     }
 }
 

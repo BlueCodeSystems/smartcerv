@@ -18,6 +18,7 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.BaseToolbarBinding;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.service.MetaDataSync;
+import zm.gov.moh.core.utils.BaseAndroidViewModel;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -25,13 +26,14 @@ public class BaseActivity extends AppCompatActivity {
     protected static final String START_SUBMODULE_KEY = "start_submodule";
     protected static final String CALLING_SUBMODULE_KEY = "calling_submodule";
     protected static final String FORM_FRAGMENT_KEY = "FORM_FRAGMENT_KEY";
-    protected static final String CLIENT_ID_KEY = "CLIENT_ID_KEY";
+    public static final String CLIENT_ID_KEY = "CLIENT_ID_KEY";
     protected static final String JSON_FORM_KEY = "JSON_FORM_KEY";
     public static final String ACTION_KEY = "ACTION_KEY";
     public static final String FORM_DATA_KEY = "FORM_DATA_KEY";
     public static final String START_SUBMODULE_ON_FORM_RESULT_KEY = "START_SUBMODULE_ON_FORM_RESULT_KEY";
     protected LocalBroadcastManager broadcastManager;
     BroadcastReceiver broadcastReceiver;
+    protected BaseAndroidViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,5 +112,13 @@ public class BaseActivity extends AppCompatActivity {
 
             Toast.makeText(context,"Sync Complete",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public BaseAndroidViewModel getViewModel(){
+       return viewModel;
+    }
+
+    protected void setViewModel(BaseAndroidViewModel viewModel){
+        this.viewModel = viewModel;
     }
 }

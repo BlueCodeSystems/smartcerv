@@ -30,6 +30,10 @@ public class FirstPointOfContactActivity extends BaseActivity {
 
 
         firstPointOfContactViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
+
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        toolBarEventHandler.setTitle("First Point Of Contact");
+        binding.setToolbarhandler(toolBarEventHandler);
     }
 
     final Observer<Submodule> startSubmoduleObserver = this::startSubmodule;

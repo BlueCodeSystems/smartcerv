@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:paddingTop="20dp">
+
+        <TableRow
+            android:background="@drawable/border_top_bottom">
+            <TextView android:text="Date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/border_right"/>
+            <TextView android:text="Initial VIA Completed Visit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_right"/>
+            <TextView android:text="Previous Post-poned Cryo Visit"
+                android:layout_width="0dp"
+                android:textStyle="bold"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:gravity="center"
+                android:background="@drawable/border_right" />
+            <TextView android:text="Post-Treatment Complication related to Cryotherapy"
+                android:layout_width="0dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:gravity="center" />
+        </TableRow>
+        <TableRow
+            android:background="@drawable/border_bottom">
+            <TextView android:text="10/04/18"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_right"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:padding="4dp"
+                android:src="@drawable/cross_mark"
+                android:background="@drawable/border_right"/>
+            <TextView android:text=""
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_right"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cross_mark"/>
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/border_bottom">
+            <TextView android:text="11/04/18"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_right"/>
+            <TextView android:text=""
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_right"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/cross_mark"
+                android:background="@drawable/border_right"/>
+            <TextView android:text=""
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </TableRow>
+    </TableLayout>
+
+</android.support.v7.widget.LinearLayoutCompat>

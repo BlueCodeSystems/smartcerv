@@ -13,6 +13,7 @@ import android.widget.Button;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
+import zm.gov.moh.common.ui.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +21,7 @@ import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
 public class ClientDashboardVitalsFragment extends Fragment {
 
 
-    private ClientDashboardActivity context;
+    private BaseActivity context;
 
     public ClientDashboardVitalsFragment() {
         // Required empty public constructor
@@ -30,9 +31,10 @@ public class ClientDashboardVitalsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        context = (ClientDashboardActivity) getContext();
-        context.getClientId();
+        context = (BaseActivity) getContext();
         // Inflate the layout for this fragment
+
+        long clientId = (long) getArguments().get(BaseActivity.CLIENT_ID_KEY);
 
         FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
         View view = binding.getRoot();
@@ -40,28 +42,28 @@ public class ClientDashboardVitalsFragment extends Fragment {
 
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getHeightByPersonId(context.getClientId()).observe(this, obs -> binding.setHeight((obs == null )? 0 : obs.value_numeric));
+                .getHeightByPersonId(clientId).observe(this, obs -> binding.setHeight((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getWeightByPersonId(context.getClientId()).observe(this, obs -> binding.setWeight((obs == null )? 0 : obs.value_numeric));
+                .getWeightByPersonId(clientId).observe(this, obs -> binding.setWeight((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getTemperatureByPersonId(context.getClientId()).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));
+                .getTemperatureByPersonId(clientId).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getPulseByPersonId(context.getClientId()).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
+                .getPulseByPersonId(clientId).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getRespiratoryRateByPersonId(context.getClientId()).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.value_numeric));
+                .getRespiratoryRateByPersonId(clientId).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getSysbolicBloodPressureByPersonId(context.getClientId()).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null )? 0 : obs.value_numeric));
+                .getSysbolicBloodPressureByPersonId(clientId).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getDiabolicBloodPressureByPersonId(context.getClientId()).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.value_numeric));
+                .getDiabolicBloodPressureByPersonId(clientId).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getBloodOxygenByPersonId(context.getClientId()).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.value_numeric));
+                .getBloodOxygenByPersonId(clientId).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.value_numeric));
 
         return view;
     }

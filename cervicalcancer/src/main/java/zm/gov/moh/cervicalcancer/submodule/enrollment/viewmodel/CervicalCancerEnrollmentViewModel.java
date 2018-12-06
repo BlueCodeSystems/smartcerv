@@ -29,6 +29,8 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
     private final String NRC_TAG = "nrc";
     private final String DOB_TAG = "dob";
     private final String VIA_SCREENING_DATE_TAG = "via screening date";
+
+    //TODO:Must read value from global context
     private final long CERVICAL_CANCER_ID_TYPE = 4;
     private final long OPENMRS_ID_TYPE = 3;
 
@@ -64,6 +66,8 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         ZonedDateTime dateOfBirth =  ZonedDateTime.parse((String)formData.get(DOB_TAG) + middayZonedTime,
                 DateTimeFormatter.ISO_ZONED_DATE_TIME);
 
+        //Create database entity instances
+
         //patient id Openmrs
         PatientIdentifier patientIdentifier = new PatientIdentifier(patientIdentifierIdOpenmrs, personId,
                 String.valueOf(id),
@@ -76,23 +80,22 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
                 CERVICAL_CANCER_ID_TYPE, preffered(),
                 (long)formData.get(FACILITY_TAG),ZonedDateTime.now());
 
-        //getPersons
+        //Persons
         Person person = new Person(personId, dateOfBirth, GENDER);
 
         Patient patient = new Patient(personId, ZonedDateTime.now());
 
-        //getPersons name
+        //Persons name
         PersonName personName = new PersonName(personNameId,personId,(String)formData.get(FIRST_NAME_TAG),
                 (String)formData.get(LAST_NAME_TAG),
                 preffered());
 
-        //getPersons address
+        //Persons address
         PersonAddress personAddress = new PersonAddress(personAddressId, personId,
                 (String) formData.get(ADDRESS_TAG),
                 null,null, preffered());
 
-
-        //persist data
+        //persist database entity instances asynchronously into the database
         getRepository().consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, ccpiz);
         getRepository().consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, patientIdentifier);
         getRepository().consumeAsync(getRepository().getDatabase().personDao()::insert,this::onError, person);

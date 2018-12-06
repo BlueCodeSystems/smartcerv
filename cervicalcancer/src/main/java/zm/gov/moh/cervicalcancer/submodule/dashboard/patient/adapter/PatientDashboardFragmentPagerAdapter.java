@@ -1,19 +1,22 @@
-package zm.gov.moh.common.submodule.dashboard.client.adapter;
+package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardCareServicesFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 
-public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
+public class PatientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private BaseActivity mContext;
 
-    public ClientDashboardFragmentPagerAdapter(Context context, FragmentManager fm) {
+    public PatientDashboardFragmentPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = (BaseActivity) context;
     }
@@ -23,22 +26,28 @@ public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         if (position == 0) {
-
+            return new PatientDashboardVisitTypeFragment();
+        }
+        else if (position == 1)
+            return new PatientDashboardScreeningFragment();
+        else if (position == 2)
+            return new PatientDashboardScreeningFragment();
+        else if (position == 3)
+            return new PatientDashboardScreeningFragment();
+        else if (position == 4) {
             Fragment fragment = new ClientDashboardVitalsFragment();
             fragment.setArguments(mContext.getIntent().getExtras());
             return fragment;
         }
-        else if (position == 1)
-            return new ClientDashboardCareServicesFragment();
          else
-            return new ClientDashboardVitalsFragment();
+            return new PatientDashboardVisitTypeFragment();
 
     }
 
     // This determines the number of tabs
     @Override
     public int getCount() {
-        return 2;
+        return 5;
     }
 
     // This determines the title for each tab
@@ -48,9 +57,15 @@ public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
         // Generate title based on item position
         switch (position) {
             case 0:
-                return "Vitals";
+                return "Visit Type";
             case 1:
-                return "Care Services";
+                return "Screening";
+            case 2:
+                return "Referral";
+            case 3:
+                return "Treatment";
+            case 4:
+                return "Vitals";
             default:
                 return null;
         }

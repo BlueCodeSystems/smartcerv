@@ -7,12 +7,13 @@
             type="zm.gov.moh.core.repository.database.entity.derived.Client" />
         <import type="org.threeten.bp.LocalDate"/>
     </data>
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:elevation="2dp"
         android:background="@color/card_detailing"
+        android:elevation="2dp"
         tools:context=".submodule.dashboard.client.view.ClientDashboardActivity">
 
         <ImageView
@@ -26,7 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/avartar" />
-
 
         <TextView
             android:id="@+id/textView9"
@@ -50,9 +50,9 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="8dp"
+            android:text="@{client.given_name+` `+client.family_name}"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:text="@{client.given_name+` `+client.family_name}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.012"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -63,48 +63,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginBottom="28dp"
+            android:layout_marginBottom="40dp"
             android:text="@{String.valueOf(LocalDate.now().getYear - client.birthdate.getYear())+`years`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4" />
 
         <TextView
             android:id="@+id/textView18"
-            android:layout_width="72dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="100dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/light_green"
-            android:visibility="gone"
             android:gravity="center"
-            android:text="OutPatient"
+            android:text="PICT Accepted"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.526"
-            app:layout_constraintStart_toEndOf="@+id/client_age" />
+            app:layout_constraintTop_toBottomOf="@+id/client_name" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
+            android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="VIA:"
+            android:text="HIV:"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/client_age"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.953" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:text="NR"
             android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"

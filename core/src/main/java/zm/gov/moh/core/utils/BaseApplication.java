@@ -4,15 +4,17 @@ import android.app.Application;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.SubmoduleGroup;
 
 public class BaseApplication extends Application {
 
 
     protected Map<String, Submodule> submodules;
-    protected ArrayList<Submodule> firstPointOfCareSubmodules;
+    protected ArrayList<SubmoduleGroup> firstPointOfCareSubmodules;
 
     @Override
     public void onCreate() {
@@ -33,7 +35,7 @@ public class BaseApplication extends Application {
         submodules.put(name , submodule);
     }
 
-    public void loadFirstPointOfCareSubmodule(Submodule submodule){
+    public void loadFirstPointOfCareSubmodule(SubmoduleGroup submodule){
 
         firstPointOfCareSubmodules.add(submodule);
     }
@@ -53,6 +55,11 @@ public class BaseApplication extends Application {
     public class CareSubmodules{
 
         public static final String CERVICAL_CANCER = "CERVICAL_CANCER";
+    }
+
+    public List<SubmoduleGroup> getCareServices(){
+
+        return firstPointOfCareSubmodules;
     }
 }
 

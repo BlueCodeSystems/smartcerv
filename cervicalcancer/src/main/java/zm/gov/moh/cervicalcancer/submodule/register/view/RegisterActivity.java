@@ -1,6 +1,7 @@
 package zm.gov.moh.cervicalcancer.submodule.register.view;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import zm.gov.moh.cervicalcancer.R;
+import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBinding;
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.RegisterViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
@@ -18,14 +20,18 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cervical_cancer_register);
 
-
+        ActivityCervicalCancerRegisterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_cervical_cancer_register);
         AndroidThreeTen.init(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
+
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        toolBarEventHandler.setTitle("Client Register");
+
+        binding.setToolbarhandler(toolBarEventHandler);
 
 
         /*if(bundle != null){

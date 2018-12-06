@@ -34,4 +34,14 @@ public abstract class AbstractSubmoduleGroup extends AbstractIconCriteriaSubmodu
     public List<Submodule> getSubmodules() {
         return submodules;
     }
+
+    @Override
+    public Submodule getSubmodule(String name){
+
+        for (Submodule submodule:submodules)
+            if(submodule.getName().equals(name))
+                return submodule;
+
+        return null;
+    }
 }

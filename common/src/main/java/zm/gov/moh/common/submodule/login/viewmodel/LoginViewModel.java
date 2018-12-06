@@ -9,6 +9,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
+import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
@@ -22,6 +23,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
     private MutableLiveData<AuthenticationStatus> authenticationStatus;
     private AtomicBoolean pending  = new  AtomicBoolean(true);
     private Application application;
+    private final int TIMEOUT = 30000;
 
     public LoginViewModel(Application application){
         super(application);
@@ -41,40 +43,16 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
             //Online authentication
             if (Utils.checkInternetConnectivity(application)) {
-               // credentials.clear();
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
-                getRepository().getRestApi("").session(credintialsBase64,
-
-                        //onSuccess
-                        authentication -> {
-
-                            getRepository().getDefaultSharePrefrences()
-                                    .edit()
-                                    .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUserUuid())
-                                    .apply();
-
-                            pending.set(true);
-                            authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
-                        },
-
-                        //onFailure
-                        throwable -> {
-
-                            pending.set(true);
-                            if (throwable instanceof HttpException) {
-
-                                HttpException httpException = (HttpException) throwable;
-
-                                if (httpException.code() == 401)
-                                    authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
-                            } else if (throwable instanceof TimeoutException)
-                                authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
-                            else
-                                authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
-                        });
-            } else
+                getRepository().consume(
+                        this::onSuccess,
+                        this::onError,
+                        getRepository().getRestApiAdapter().session(credintialsBase64),
+                        TIMEOUT);
+            }
+            else
                 authenticationStatus.setValue(AuthenticationStatus.NO_INTERNET);
         }
         else
@@ -105,9 +83,35 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
                 .apply();
     }
 
+    private void onSuccess(Authentication authentication){
+
+        getRepository().getDefaultSharePrefrences()
+                .edit()
+                .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUserUuid())
+                .apply();
+
+        pending.set(true);
+        authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+    }
+
+    private void onError(Throwable throwable){
+
+        pending.set(true);
+        if (throwable instanceof HttpException) {
+
+            HttpException httpException = (HttpException) throwable;
+
+            if (httpException.code() == 401)
+                authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+        }
+        else if (throwable instanceof TimeoutException)
+            authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
+        else
+            authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
+    }
+
     @Override
     protected void onCleared() {
-
         super.onCleared();
     }
 }
