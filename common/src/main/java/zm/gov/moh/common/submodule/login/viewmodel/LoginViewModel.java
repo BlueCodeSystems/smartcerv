@@ -30,6 +30,8 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         this.application = application;
         credentials = new Credentials();
+        credentials.setPassword("Openmrs3");
+        credentials.setUsername("anthony");
     }
 
 

@@ -1,16 +1,19 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
+import zm.gov.moh.common.ui.BaseActivity;
+
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.crossMarkCellView;
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +21,8 @@ import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
 public class PatientDashboardVisitTypeFragment extends Fragment {
 
 
-    private PatientDashboardActivity context;
+    private BaseActivity context;
+    TableLayout tableLayout;
 
     public PatientDashboardVisitTypeFragment() {
         // Required empty public constructor
@@ -28,6 +32,7 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        context = (BaseActivity)getContext();
         View view = inflater.inflate(R.layout.fragment_register_visit_type, container, false);
         //context = (PatientDashboardActivity) getContext();
         //context.getClientId();
@@ -36,9 +41,33 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
         //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
        // View view = binding.getRoot();
 
+        tableLayout = view.findViewById(R.id.visit_type_table);
 
+        populateVisitType("03/06/17", false, true, false);
+        populateVisitType("24/10/18", true, false, false);
+        populateVisitType("13/05/19", false, false, true);
+        populateVisitType("01/02/20", false, true, false);
+        populateVisitType("13/05/19", false, false, true);
+        populateVisitType("01/02/20", false, true, false);
+        populateVisitType("13/05/19", false, false, true);
+        populateVisitType("01/02/21", false, true, false);
         return view;
     }
+
+    public void populateVisitType(String date, boolean initialVia, boolean previousPostPonedCryo, boolean postTreatmentComplication){
+
+        TableRow tableRow = new TableRow(context);
+        tableRow.setBackground(getResources().getDrawable(R.drawable.border_bottom));
+
+        tableRow.addView(dateCellView(context,date));
+        tableRow.addView(crossMarkCellView(context, initialVia ));
+        tableRow.addView(crossMarkCellView(context, previousPostPonedCryo));
+        tableRow.addView(crossMarkCellView(context, postTreatmentComplication));
+
+        tableLayout.addView(tableRow);
+    }
+
+
 }
 
 
