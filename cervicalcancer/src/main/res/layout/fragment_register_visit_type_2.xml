@@ -19,7 +19,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="@drawable/border_right"/>
-            <TextView android:text="Initial VIA Completed Visit"
+            <TextView android:text="1-year Folow Up Visit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
@@ -27,7 +27,7 @@
                 android:padding="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_right"/>
-            <TextView android:text="Previous Post-poned Cryo Visit"
+            <TextView android:text="Routine VIA Screening Visit"
                 android:layout_width="0dp"
                 android:textStyle="bold"
                 android:layout_height="match_parent"
@@ -35,7 +35,7 @@
                 android:padding="2dp"
                 android:gravity="center"
                 android:background="@drawable/border_right" />
-            <TextView android:text="Post-Treatment Complication related to Cryotherapy"
+            <TextView android:text="Reffered Patient Visit"
                 android:layout_width="0dp"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"

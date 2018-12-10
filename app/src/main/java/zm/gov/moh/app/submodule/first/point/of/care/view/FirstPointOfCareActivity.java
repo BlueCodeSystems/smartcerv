@@ -15,17 +15,20 @@ import zm.gov.moh.common.ui.BaseActivity;
 public class FirstPointOfCareActivity extends BaseActivity {
 
 
+    FirstPointOfCareViewModel viewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirstPointOfCareViewModel firstPointOfCareViewModel = ViewModelProviders.of(this).get(FirstPointOfCareViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(FirstPointOfCareViewModel.class);
 
        FirstPointOfCareActivityBinding binding =  DataBindingUtil.setContentView(this, R.layout.first_point_of_care_activity);
        BaseActivity.ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("First Point of Care");
 
-       binding.setVariable(BR.fpocareviewmodel, firstPointOfCareViewModel);
+       binding.setVariable(BR.fpocareviewmodel, viewModel);
        binding.setToolbarhandler(toolBarEventHandler);
+
+       viewModel.getStartSubmodule().observe(this,this::startSubmodule);
     }
 }
