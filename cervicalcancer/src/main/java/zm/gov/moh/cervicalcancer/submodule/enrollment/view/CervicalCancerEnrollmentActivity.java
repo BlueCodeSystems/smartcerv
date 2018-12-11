@@ -1,6 +1,6 @@
 package zm.gov.moh.cervicalcancer.submodule.enrollment.view;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import java.util.HashMap;

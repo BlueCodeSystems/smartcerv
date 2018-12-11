@@ -1,8 +1,8 @@
 package zm.gov.moh.app.submodule.first.point.of.contact.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Submodule;
 

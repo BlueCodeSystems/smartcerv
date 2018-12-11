@@ -1,12 +1,12 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.support.v4.util.Consumer;
+import androidx.core.util.Consumer;
 import android.widget.RelativeLayout;
 
 import java.util.HashMap;
 
-public class FormSubmitButtonWidget extends android.support.v7.widget.AppCompatButton {
+public class FormSubmitButtonWidget extends androidx.appcompat.widget.AppCompatButton {
 
     private HashMap<String, Object> formData;
 

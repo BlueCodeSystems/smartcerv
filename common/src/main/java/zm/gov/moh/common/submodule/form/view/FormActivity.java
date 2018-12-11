@@ -1,6 +1,6 @@
 package zm.gov.moh.common.submodule.form.view;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import zm.gov.moh.common.R;

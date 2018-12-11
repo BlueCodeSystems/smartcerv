@@ -1,13 +1,13 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutCompat;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 
 import java.util.HashMap;
 
-public class FormEditTextWidget extends android.support.v7.widget.AppCompatEditText{
+public class FormEditTextWidget extends androidx.appcompat.widget.AppCompatEditText{
 
     HashMap<String,Object> formData;
 

@@ -1,8 +1,6 @@
 package zm.gov.moh.core.repository.database;
 
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.TypeConverters;
+import androidx.room.*;
 import android.content.Context;
 
 import zm.gov.moh.core.repository.database.dao.derived.CervicalCancerDao;
@@ -27,6 +25,10 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
+import zm.gov.moh.core.repository.database.entity.domain.Encounter;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterRole;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttributeType;
@@ -43,8 +45,12 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
 import zm.gov.moh.core.repository.database.entity.domain.User;
+import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.VisitAttributeType;
+import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 
-@android.arch.persistence.room.Database(
+@androidx.room.Database(
         entities = {
 
                 Person.class,
@@ -62,8 +68,16 @@ import zm.gov.moh.core.repository.database.entity.domain.User;
                 LocationAttributeType.class,
                 Provider.class,
                 User.class,
-                Obs.class
-        }, version = 2)
+                Obs.class,
+                Encounter.class,
+                EncounterProvider.class,
+                EncounterRole.class,
+                EncounterType.class,
+                Visit.class,
+                VisitType.class,
+                VisitAttribute.class,
+                VisitAttributeType.class
+        }, version = 1)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 

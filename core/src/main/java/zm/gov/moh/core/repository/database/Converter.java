@@ -1,6 +1,6 @@
 package zm.gov.moh.core.repository.database;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;

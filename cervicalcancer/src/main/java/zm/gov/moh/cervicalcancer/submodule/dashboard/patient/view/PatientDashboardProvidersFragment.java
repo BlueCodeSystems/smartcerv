@@ -4,8 +4,8 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatTextView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,9 +16,7 @@ import android.widget.TableRow;
 
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.utils.Utils;
 
-import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.crossMarkCellView;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
 
 /**

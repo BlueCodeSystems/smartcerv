@@ -1,7 +1,7 @@
 package zm.gov.moh.core.utils;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
+import androidx.lifecycle.AndroidViewModel;
 import zm.gov.moh.core.repository.api.Repository;
 
 

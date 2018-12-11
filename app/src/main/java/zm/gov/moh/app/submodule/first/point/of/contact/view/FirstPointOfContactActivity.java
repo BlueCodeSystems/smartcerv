@@ -1,8 +1,8 @@
 package zm.gov.moh.app.submodule.first.point.of.contact.view;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import zm.gov.moh.app.BR;

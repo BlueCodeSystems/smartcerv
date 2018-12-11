@@ -1,7 +1,7 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatTextView;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TableRow;

@@ -1,7 +1,7 @@
 package zm.gov.moh.common.submodule.vitals.view;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import zm.gov.moh.common.R;

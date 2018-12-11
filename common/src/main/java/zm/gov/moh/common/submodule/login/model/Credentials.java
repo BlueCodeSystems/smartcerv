@@ -1,7 +1,7 @@
 package zm.gov.moh.common.submodule.login.model;
 
-import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
 
 import zm.gov.moh.common.BR;
 

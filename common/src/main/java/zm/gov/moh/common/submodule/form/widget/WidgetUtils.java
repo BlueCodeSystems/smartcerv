@@ -1,7 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutCompat;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import android.view.View;
 
 public class WidgetUtils {

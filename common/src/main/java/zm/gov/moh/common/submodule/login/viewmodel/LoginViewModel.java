@@ -1,7 +1,7 @@
 package zm.gov.moh.common.submodule.login.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
