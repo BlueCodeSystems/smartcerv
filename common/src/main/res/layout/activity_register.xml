@@ -2,6 +2,7 @@
 <layout>
     <data>
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="search" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,8 +26,9 @@
             android:layout_marginTop="10dp"
             android:drawableStart="@android:drawable/ic_menu_search"
             android:inputType="textFilter"
+            android:text="@={search.term}"
             android:layout_marginHorizontal="10dp"
-            android:hint="Find client by ID or name" />
+            android:hint="Find client by name, ID, age or gender" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/client_list"

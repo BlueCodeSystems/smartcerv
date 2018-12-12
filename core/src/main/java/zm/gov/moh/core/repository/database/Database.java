@@ -24,7 +24,7 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
-import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
+import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterRole;
@@ -49,6 +49,7 @@ import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
+import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
 
 @androidx.room.Database(
         entities = {
@@ -76,7 +77,8 @@ import zm.gov.moh.core.repository.database.entity.domain.VisitType;
                 Visit.class,
                 VisitType.class,
                 VisitAttribute.class,
-                VisitAttributeType.class
+                VisitAttributeType.class,
+                ClientNameFts.class
         }, version = 1)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
@@ -103,6 +105,7 @@ public abstract class Database extends RoomDatabase {
     public abstract PatientIdentifierDao patientIdentifierDao();
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
     public abstract ObsDao obsDao();
+    public abstract ClientFtsDao clientFtsDao();
 
 
     //Derived

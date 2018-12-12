@@ -18,6 +18,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.service.MetaDataSync;
+import zm.gov.moh.core.service.SearchIndex;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 
 public class BaseActivity extends AppCompatActivity {
@@ -111,6 +112,7 @@ public class BaseActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             Toast.makeText(context,"Sync Complete",Toast.LENGTH_LONG).show();
+            startService(new Intent(context, SearchIndex.class));
         }
     }
 
