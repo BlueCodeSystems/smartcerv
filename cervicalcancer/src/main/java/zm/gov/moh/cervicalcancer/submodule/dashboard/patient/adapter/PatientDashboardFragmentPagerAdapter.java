@@ -1,14 +1,12 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardProviderFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardProvidersFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardReferralFragment;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreening2Fragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardTreatmentFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitType2Fragment;

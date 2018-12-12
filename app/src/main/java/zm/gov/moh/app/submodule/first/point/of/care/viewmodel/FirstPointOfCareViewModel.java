@@ -1,10 +1,8 @@
 package zm.gov.moh.app.submodule.first.point.of.care.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
-import android.content.Intent;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.EnumMap;
 

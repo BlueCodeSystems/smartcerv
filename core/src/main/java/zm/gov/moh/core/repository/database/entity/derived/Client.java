@@ -1,9 +1,6 @@
 package zm.gov.moh.core.repository.database.entity.derived;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Entity;
-
-import org.threeten.bp.LocalDate;
+import androidx.room.*;
 import org.threeten.bp.ZonedDateTime;
 
 @Entity

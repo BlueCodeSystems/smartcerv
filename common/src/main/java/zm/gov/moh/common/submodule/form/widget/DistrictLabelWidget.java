@@ -2,15 +2,14 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.TypedValue;
 
 import java.util.HashMap;
 
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 
 public class DistrictLabelWidget extends LinearLayoutCompat{

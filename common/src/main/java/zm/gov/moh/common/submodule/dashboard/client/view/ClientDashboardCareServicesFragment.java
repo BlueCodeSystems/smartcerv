@@ -2,21 +2,16 @@ package zm.gov.moh.common.submodule.dashboard.client.view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.CareServicesExpandableListAdapter;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.model.submodule.Submodule;
 
 public class ClientDashboardCareServicesFragment extends Fragment {
 

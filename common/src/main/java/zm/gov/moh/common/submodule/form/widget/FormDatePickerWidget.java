@@ -1,7 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatButton;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 

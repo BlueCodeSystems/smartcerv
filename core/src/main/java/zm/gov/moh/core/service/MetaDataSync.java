@@ -2,9 +2,10 @@ package zm.gov.moh.core.service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.Nullable;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
@@ -190,6 +191,42 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
                 repository.getRestApiAdapter().getObs(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
+
+
+        //--------------
+
+        /*Patient identifier types
+        repository.consumeAsync(
+                patientIdentifierTypes ->{
+                    repository.getDatabase().patientIdentifierTypeDao().insert(patientIdentifierTypes);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getPatientIdentifierTypes(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Providers
+        repository.consumeAsync(
+                providers ->{
+                    repository.getDatabase().providerDao().insert(providers);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getProviders(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Observations
+        repository.consumeAsync(
+                obs -> {
+                    repository.getDatabase().obsDao().insert(obs);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getObs(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();*/
     }
 
     @Override

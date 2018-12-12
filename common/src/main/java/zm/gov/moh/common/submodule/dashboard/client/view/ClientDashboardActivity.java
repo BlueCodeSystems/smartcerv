@@ -1,9 +1,9 @@
 package zm.gov.moh.common.submodule.dashboard.client.view;
 
-import android.arch.lifecycle.ViewModelProviders;
-import android.databinding.DataBindingUtil;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.databinding.DataBindingUtil;
+import com.google.android.material.tabs.TabLayout;
+import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;

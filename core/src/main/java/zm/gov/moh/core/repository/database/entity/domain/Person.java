@@ -1,8 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.*;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;

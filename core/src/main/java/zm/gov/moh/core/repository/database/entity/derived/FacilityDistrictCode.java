@@ -1,6 +1,6 @@
 package zm.gov.moh.core.repository.database.entity.derived;
 
-import android.arch.persistence.room.Entity;
+import androidx.room.*;
 
 @Entity
 public class FacilityDistrictCode {

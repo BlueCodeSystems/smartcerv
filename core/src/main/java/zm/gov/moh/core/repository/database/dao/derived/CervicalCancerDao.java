@@ -1,14 +1,12 @@
 package zm.gov.moh.core.repository.database.dao.derived;
 
-import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Query;
+import androidx.lifecycle.LiveData;
+import androidx.room.*;
 
 
 import java.util.List;
 
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.core.repository.database.entity.derived.Count;
 
 @Dao
 public interface CervicalCancerDao {
