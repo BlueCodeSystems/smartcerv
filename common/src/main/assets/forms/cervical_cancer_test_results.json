@@ -1,0 +1,259 @@
+{
+  "attributes": {
+    "type":"Basic",
+    "submitLabel":"Edit Visit"
+  },
+  "widgetGroup": [
+    {
+      "title":"Visual Inspection with Acetic Acid(VIA)",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "text":"Was inspection done?",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"via inspection done",
+              "widgetType":"",
+              "weight":1,
+              "text":"Yes"
+            },
+            {
+              "tag":"via inspection done",
+              "widgetType":"",
+              "weight":1,
+              "text":"No"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Enhanced Digital Imaging(EDI)",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Was inspection done?",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"edi inspection done",
+              "widgetType":"",
+              "weight":1,
+              "text":"Yes"
+            },
+            {
+              "tag":"edi inspection done",
+              "widgetType":"",
+              "weight":1,
+              "text":"No"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title":"Transformation zone",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"TextView",
+              "text":"Transformation zone completely seen",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"no transformation zone seen",
+              "widgetType":"EditText",
+              "hint":"Reason(e.g severe cervicitis)",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Screening Results",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"via positive",
+              "widgetType":"",
+              "weight":1,
+              "text":"VIA Position"
+            },
+            {
+              "tag":"via negative",
+              "widgetType":"",
+              "weight":1,
+              "text":"VIA Negative"
+            },
+            {
+              "tag":"suspect cancer",
+              "widgetType":"",
+              "weight":1,
+              "text":"Suspect Cancer"
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"TextView",
+              "text":"Eligible for cryotherapy",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Entire lesion seen",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Covers < 75% of cervix",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Atypical vessel",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Extends into cervical os",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Covers > 75% of cervix",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "text":"Mosaicism/ Punctuation",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            },
+            {
+              "widgetType":"",
+              "weight":1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
