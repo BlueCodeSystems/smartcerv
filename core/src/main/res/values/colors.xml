@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
         <color name="transparent">#00000000</color>
         <!-- card colors -->
         <color name="card_background">#ffffff</color>
@@ -13,8 +10,6 @@
         <color name="black">#000</color>
         <color name="light_teal">#fe06d4bf</color>
         <color name="dark_teal">#00463f</color>
-        <color name="primary">#00463f</color>
-        <color name="primary_dark">#01302b</color>
         <color name="dark_purple">#363463</color>
         <color name="dark_grey">#231F20</color>
         <color name="light_green">#a1d030</color>

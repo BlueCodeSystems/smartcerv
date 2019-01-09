@@ -9,6 +9,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboa
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardReferralFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardTreatmentFragment;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitType2Fragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
@@ -39,8 +40,9 @@ public class PatientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
             return new PatientDashboardTreatmentFragment();
         else if (position == 5)
             return new PatientDashboardProvidersFragment();
-        else if (position == 6){
-
+        else if (position == 6)
+            return new PatientDashboardVisitFragment();
+        else if (position == 7){
             Fragment fragment = new ClientDashboardVitalsFragment();
             fragment.setArguments(mContext.getIntent().getExtras());
             return fragment;
@@ -52,7 +54,7 @@ public class PatientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     // This determines the number of tabs
     @Override
     public int getCount() {
-        return 7;
+        return 8;
     }
 
     // This determines the title for each tab
@@ -74,6 +76,8 @@ public class PatientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
             case 5:
                 return "Provider";
             case 6:
+                return "Visit";
+            case 7:
                 return "Vitals";
             default:
                 return null;

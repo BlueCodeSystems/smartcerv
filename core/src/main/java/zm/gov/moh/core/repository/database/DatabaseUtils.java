@@ -33,6 +33,6 @@ public class DatabaseUtils {
         for(int subtermLen = 2; subtermLen <= combinedTerm.length(); subtermLen++)
             segmentTerm.append(combinedTerm.substring(0,subtermLen)).append(" OR ");
 
-        return segmentTerm.toString() + splitTerm.toString();
+        return segmentTerm.toString(); //+ splitTerm.toString();
     }
 }

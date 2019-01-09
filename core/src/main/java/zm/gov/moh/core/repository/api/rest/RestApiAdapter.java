@@ -5,6 +5,8 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import zm.gov.moh.core.model.Authentication;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttributeType;
@@ -66,4 +68,10 @@ public interface RestApiAdapter {
 
     @GET("obs/")
     Maybe<Obs[]> getObs(@Header("x-access-token") String accesstoken);
+
+    @GET("concept/name/")
+    Maybe<ConceptName[]> getConceptNames(@Header("x-access-token") String accesstoken);
+
+    @GET("concept/answer/")
+    Maybe<ConceptAnswer[]> getConceptAnswers(@Header("x-access-token") String accesstoken);
 }

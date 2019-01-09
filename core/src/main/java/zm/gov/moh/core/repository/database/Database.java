@@ -5,9 +5,12 @@ import android.content.Context;
 
 import zm.gov.moh.core.repository.database.dao.derived.CervicalCancerDao;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
+import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
 import zm.gov.moh.core.repository.database.dao.derived.VitalsDao;
+import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
+import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationDao;
@@ -25,6 +28,8 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterRole;
@@ -78,8 +83,10 @@ import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
                 VisitType.class,
                 VisitAttribute.class,
                 VisitAttributeType.class,
-                ClientNameFts.class
-        }, version = 1)
+                ClientNameFts.class,
+                ConceptName.class,
+                ConceptAnswer.class
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -106,6 +113,9 @@ public abstract class Database extends RoomDatabase {
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
     public abstract ObsDao obsDao();
     public abstract ClientFtsDao clientFtsDao();
+    public abstract ConceptAnswerDao conceptAnswerDao();
+    public abstract ConceptNameDao conceptNameDao();
+    public abstract ConceptAnswerNameDao conceptAnswerNameDao();
 
 
     //Derived
