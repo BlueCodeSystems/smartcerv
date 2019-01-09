@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+
+import androidx.annotation.ColorInt;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import android.util.TypedValue;
 import android.widget.RelativeLayout;
@@ -30,10 +32,21 @@ public class FormSectionWidget extends LinearLayoutCompat {
 
     public void setHeading(String heading){
 
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+
+
+        TypedValue typedValue = new TypedValue();
         TextView editText = new TextView(context);
+        editText.setPadding(0,0,0,Utils.dpToPx(context,20));
         editText.setText(heading);
         editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        editText.setTextColor(context.getResources().getColor(R.color.primary));
+        context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        @ColorInt int color = typedValue.data;
+
+        editText.setTextColor(color);
         this.addView(editText);
     }
 }

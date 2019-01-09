@@ -1,0 +1,175 @@
+{
+  "attributes": {
+    "type":"Basic",
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title": "HIV Status",
+      "widgets": [
+        {
+          "tag": "hiv status",
+          "widgetType": "Concept",
+          "conceptId": 165203,
+          "dataType": "Coded",
+          "style": "radio",
+          "label":"HIV Status",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["art status","art number"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165132
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for unknown status"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "art status",
+          "widgetType": "Concept",
+          "conceptId": 165223,
+          "dataType": "Coded",
+          "style": "radio",
+          "textSize": 18,
+          "label":"ART Enrollment Status",
+          "logic": [
+            {
+              "condition": {
+                "value": 165126
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["art number"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "art number",
+          "widgetType": "Concept",
+          "conceptId": 165128,
+          "dataType": "Text",
+          "textSize": 18,
+          "label":"ART No.",
+          "hint":"Number"
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"cd4 date",
+              "widgetType":"Concept",
+              "conceptId":165096,
+              "dataType":"Text",
+              "hint":"Number",
+              "label":"CD4 Count",
+              "textSize":18
+            },
+            {
+              "tag":"cd4 date",
+              "widgetType":"Concept",
+              "conceptId":165096,
+              "dataType":"Date",
+              "hint":"CD4 date",
+              "textSize":18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"cd4 date",
+              "widgetType":"Concept",
+              "conceptId":165096,
+              "dataType":"Text",
+              "hint":"Number",
+              "label":"Last Viral Load",
+              "textSize":18
+            },
+            {
+              "tag":"cd4 date",
+              "widgetType":"Concept",
+              "conceptId":165096,
+              "dataType":"Date",
+              "hint":"Date",
+              "textSize":18
+            }
+          ]
+        },
+        {
+          "tag":"reason for unknown status",
+          "widgetType":"Concept",
+          "conceptId":165096,
+          "dataType":"Text",
+          "hint":"Type the reason for unknown HIV status",
+          "label":"Reason",
+          "textSize":18
+        },
+        {
+          "tag":"pict offered",
+          "widgetType":"Concept",
+          "conceptId":165096,
+          "dataType":"Boolean",
+          "label":"PICT Offered",
+          "textSize":18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["pict accepted"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag":"pict accepted",
+          "widgetType":"Concept",
+          "conceptId":165096,
+          "dataType":"Boolean",
+          "label":"PICT Accepted",
+          "textSize":18
+        },
+        {
+          "tag":"pict result",
+          "widgetType":"Concept",
+          "conceptId":165239,
+          "dataType":"Coded",
+          "style":"radio",
+          "label":"Result",
+          "textSize":18
+        },
+        {
+          "tag":"pict result",
+          "widgetType":"Concept",
+          "conceptId":165239,
+          "dataType":"Boolean",
+          "label":"Referred to ART Clinic",
+          "textSize":18
+        }
+      ]
+  }]
+}

@@ -1,0 +1,125 @@
+{
+  "attributes": {
+    "type":"Basic",
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Reproductive Health",
+      "widgets":[
+          {
+            "tag":"parity",
+            "widgetType":"Concept",
+            "conceptId":165096,
+            "dataType":"Text",
+            "label":"Parity",
+            "textSize":18,
+            "hint":"Number"
+          },
+        {
+          "tag":"last menstrual period",
+          "widgetType":"Concept",
+          "conceptId":165096,
+          "dataType":"Date",
+          "label":"Last Menstrual Period",
+          "hint":"Select date",
+          "textSize":18
+        },
+        {
+          "tag":"fp methods",
+          "widgetType":"Concept",
+          "conceptId":165104,
+          "dataType":"Coded",
+          "style":"check",
+          "label":"Family Planning methods:",
+          "textSize":18
+        },
+        {
+          "tag":"last menstrual period",
+          "widgetType":"Concept",
+          "conceptId":"165096",
+          "dataType":"Boolean",
+          "label":"Any abnormal vaginal bleeding/contact bleeding:",
+          "hint":"Select date",
+          "textSize":18
+        }
+      ]
+    },
+    {
+      "title":"Previous Cervical Cancer Screening & Treatment",
+    "widgets":[
+    {
+    "tag":"last menstrual period",
+    "widgetType":"Concept",
+    "conceptId":"165096",
+    "dataType":"Date",
+    "label":"VIA",
+    "hint":"Select date",
+    "textSize":18
+    },
+    {
+    "tag":"last menstrual period",
+    "widgetType":"Concept",
+    "conceptId":"165096",
+    "dataType":"Date",
+    "label":"PAP Smear",
+    "hint":"Select date",
+    "textSize":18
+    },
+    {
+    "tag":"last menstrual period",
+    "widgetType":"Concept",
+    "conceptId":"165096",
+    "dataType":"Date",
+    "label":"Crytherapy",
+    "hint":"Select date",
+    "textSize":18
+    },
+    {
+    "tag":"last menstrual period",
+    "widgetType":"Concept",
+    "conceptId":"165096",
+    "dataType":"Date",
+    "label":"Thermal Coagulation",
+    "hint":"Select date",
+    "textSize":18
+    },
+    {
+    "tag":"last menstrual period",
+    "widgetType":"Concept",
+    "conceptId":"165096",
+    "dataType":"Date",
+    "label":"LEEP",
+    "hint":"Select date",
+    "textSize":18
+    },
+    {
+    "tag":"last menstrual period",
+    "widgetType":"Concept",
+    "conceptId":"165096",
+    "dataType":"Boolean",
+    "label":"History of STIs:",
+    "hint":"Select date",
+    "textSize":18
+    },
+    {
+    "tag":"fp methods",
+    "widgetType":"Concept",
+    "conceptId":165112,
+    "dataType":"Coded",
+    "style":"check",
+    "label":"Any Pertinent Surgical History",
+    "textSize":18
+    },
+    {
+    "tag":"parity",
+    "widgetType":"Concept",
+    "conceptId":165096,
+    "dataType":"Text",
+    "label":"Other",
+    "textSize":18,
+    "hint":"Surgical history"
+    }
+    ]
+  }]
+}

@@ -34,7 +34,7 @@ public class ApplicationContext extends BaseApplication {
         loadSubmodule(CoreSubmodules.FIRST_POINT_OF_CONTACT, new BasicSubmodule("First Point Of Contact",FirstPointOfContactActivity.class));
         loadSubmodule(CoreSubmodules.LOGIN, new BasicSubmodule("Login",LoginActivity.class));
         loadSubmodule(CoreSubmodules.VITALS, new BasicSubmodule("Vitals",VitalsActivity.class));
-        loadSubmodule(CoreSubmodules.FORM, new BasicSubmodule("Form", FormActivity.class));
+        loadSubmodule(CoreSubmodules.FORM, new BasicSubmodule("FormModel", FormActivity.class));
 
 
         //Load care service submodules

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".submodule.form.widget.BasicButtonWidget">
+    tools:context=".submodule.formJson.widget.BasicButtonWidget">
 
     <Button android:id="@+id/button_widget"
         android:layout_width="wrap_content"

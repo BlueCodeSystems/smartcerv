@@ -12,14 +12,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
+import zm.gov.moh.common.databinding.FragmentFormBinding;
+import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
 import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
-import zm.gov.moh.common.submodule.form.model.Form;
+import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
@@ -31,8 +34,8 @@ public class FormFragment extends BaseFragment {
     private View rootView;
     private HashMap<String,Object> formData;
     private AtomicBoolean renderWidgets;
-    private Form formModel;
-    private String formJson;
+    private FormModel formModel;
+    private FormJson formJson;
     private FormActivity context;
     private Bundle bundle;
 
@@ -45,22 +48,29 @@ public class FormFragment extends BaseFragment {
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        context = (FormActivity) getContext();
         renderWidgets = new AtomicBoolean();
 
         renderWidgets.set(true);
 
         bundle = getArguments();
 
-        rootView = inflater.inflate(R.layout.fragment_form, container, false);
+        FragmentFormBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_form,container,false);
+
+        rootView = binding.getRoot();
 
         this.container = rootView.findViewById(R.id.form_container);
 
-        context = (FormActivity) getContext();
+
+        BaseActivity.ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler();
+        binding.setToolbarhandler(toolBarEventHandler);
 
         try {
 
-            this.formJson = bundle.getString(BaseFragment.JSON_FORM_KEY);
-            formModel = FormAdapter.getAdapter().fromJson(this.formJson);
+            this.formJson =(FormJson) bundle.getSerializable(BaseFragment.JSON_FORM_KEY);
+            formModel = FormAdapter.getAdapter().fromJson(this.formJson.getJson());
+
+            toolBarEventHandler.setTitle(formJson.getName());
 
         }catch (Exception e){
             Exception ex = e;
@@ -68,11 +78,11 @@ public class FormFragment extends BaseFragment {
 
         if(renderWidgets.get()) {
 
-            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData);
+            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData,container);
 
             for(WidgetSectionModel section : formModel.getWidgetGroup()){
 
-                FormSectionWidget formSection = new FormSectionWidget(getContext());
+                FormSectionWidget formSection = new FormSectionWidget(context);
                 formSection.setHeading(section.getTitle());
 
                 for(WidgetModel widgetModel : section.getChildren()){
