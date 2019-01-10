@@ -18,9 +18,12 @@
             },
             {
               "tag":"via inspection done",
-              "widgetType":"",
-              "weight":1,
-              "text":"Yes"
+              "widgetType":"Concept",
+              "conceptId":2,
+              "dataType":"Coded",
+              "style":"radio",
+              "textSize":18,
+              "label":"ART Enrollment Status",
             },
             {
               "tag":"via inspection done",
