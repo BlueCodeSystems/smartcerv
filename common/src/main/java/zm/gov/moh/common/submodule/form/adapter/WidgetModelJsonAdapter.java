@@ -12,7 +12,6 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CodedConceptWidgetMode
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.DropDownWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
@@ -76,13 +75,6 @@ public class WidgetModelJsonAdapter {
                 formLabelModel.setTextSize(widgetModelJson.getTextSize());
 
                 return formLabelModel;
-            /*
-            case "DropDownView":
-                final DropDownWidgetModel dropDownViewModel = new DropDownWidgetModel();
-                dropDownViewModel.setWidgetType();
-
-                return dropDownViewModel;
-            */
 
             case "DistrictFacilityPicker":
 
