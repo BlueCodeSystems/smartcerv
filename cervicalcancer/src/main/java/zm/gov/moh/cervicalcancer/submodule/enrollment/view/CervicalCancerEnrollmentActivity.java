@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.viewmodel.CervicalCancerEnrollmentViewModel;
+import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.model.submodule.SubmoduleGroup;
 import zm.gov.moh.common.ui.BaseActivity;
@@ -50,7 +51,10 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                     if(bundle == null)
                         bundle = new Bundle();
 
-                    bundle.putString(BaseActivity.JSON_FORM_KEY,json);
+                    FormJson formJson = new FormJson("Facility Information",
+                            Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json")));
+
+                    bundle.putSerializable(BaseActivity.JSON_FORM_KEY,formJson);
                     bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);
                     bundle.putSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY, enrollmentSubmodule);
                 }catch (Exception ex){

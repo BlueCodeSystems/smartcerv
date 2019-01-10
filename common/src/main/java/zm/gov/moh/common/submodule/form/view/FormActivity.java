@@ -20,6 +20,7 @@ public class FormActivity extends BaseActivity {
         FormFragment formFragment = new FormFragment();
         formFragment.setArguments(getIntent().getExtras());
 
+        setTheme(R.style.Smartcerv);
         setFragment(formFragment);
 
 

@@ -17,6 +17,11 @@ public class WidgetModelJson {
     protected int textSize;
     protected String facilityText;
     protected String districtText;
+    protected long conceptId;
+    protected String dataType;
+    protected String style;
+    protected List<Logic> logic;
+
 
 
     public void setWidgetType(String widgetType) {
@@ -109,5 +114,37 @@ public class WidgetModelJson {
 
     public String getFacilityText() {
         return facilityText;
+    }
+
+    public void setConceptId(long conceptId) {
+        this.conceptId = conceptId;
+    }
+
+    public long getConceptId() {
+        return conceptId;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public List<Logic> getLogic() {
+        return logic;
+    }
+
+    public void setLogic(List<Logic> logic) {
+        this.logic = logic;
     }
 }

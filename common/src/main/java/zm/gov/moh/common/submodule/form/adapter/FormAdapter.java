@@ -3,21 +3,21 @@ package zm.gov.moh.common.submodule.form.adapter;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
-import zm.gov.moh.common.submodule.form.model.Form;
+import zm.gov.moh.common.submodule.form.model.FormModel;
 
 public class FormAdapter{
 
-    public static JsonAdapter<Form>  getAdapter(){
+    public static JsonAdapter<FormModel>  getAdapter(){
 
         Moshi moshi = new Moshi.Builder().add(new WidgetModelJsonAdapter()).build();
-        JsonAdapter<Form> jsonAdapter = moshi.adapter(Form.class);
+        JsonAdapter<FormModel> jsonAdapter = moshi.adapter(FormModel.class);
         return jsonAdapter;
     }
 
-    public static JsonAdapter<Form>  getFormComponentAdapter(){
+    public static JsonAdapter<FormModel>  getFormComponentAdapter(){
 
         Moshi moshi = new Moshi.Builder().build();
-        JsonAdapter<Form> jsonAdapter = moshi.adapter(Form.class);
+        JsonAdapter<FormModel> jsonAdapter = moshi.adapter(FormModel.class);
         return jsonAdapter;
     }
 }
