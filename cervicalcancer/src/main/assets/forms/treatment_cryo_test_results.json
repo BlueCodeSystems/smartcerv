@@ -1,7 +1,7 @@
 {
   "attributes": {
     "type":"Basic",
-    "submitLabel":"Edit Visit"
+    "submitLabel":"End Visit"
   },
   "widgetGroup": [
     {
@@ -9,27 +9,28 @@
       "widgets":[
         {
           "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType":"TextView",
-              "text":"Was inspection done?",
-              "textSize":18,
-              "weight":1
-            },
+          "widgets":[
             {
               "tag":"via inspection done",
               "widgetType":"Concept",
-              "conceptId":2,
-              "dataType":"Coded",
+              "conceptId":165155,
+              "dataType":"Boolean",
               "style":"radio",
               "textSize":18,
-              "label":"ART Enrollment Status",
-            },
+              "label":"Was inspection done?"
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
             {
-              "tag":"via inspection done",
-              "widgetType":"",
-              "weight":1,
-              "text":"No"
+              "tag":"via reason",
+              "widgetType":"Concept",
+              "conceptId":165216,
+              "dataType":"Text",
+              "hint":"Reason",
+              "textSize":18
             }
           ]
         }
@@ -42,22 +43,26 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Was inspection done?",
+              "tag":"edi inspection done",
+              "widgetType":"Concept",
+              "conceptId":165156,
+              "dataType":"Boolean",
+              "style":"radio",
               "textSize":18,
-              "weight":1
-            },
+              "label":"Was inspection done?"
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
             {
-              "tag":"edi inspection done",
-              "widgetType":"",
-              "weight":1,
-              "text":"Yes"
-            },
-            {
-              "tag":"edi inspection done",
-              "widgetType":"",
-              "weight":1,
-              "text":"No"
+              "tag":"edi reason",
+              "widgetType":"Concept",
+              "conceptId":165217,
+              "dataType":"Text",
+              "hint":"Reason",
+              "textSize":18
             }
           ]
         }
@@ -70,14 +75,13 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"TextView",
-              "text":"Transformation zone completely seen",
-              "textSize":18,
-              "weight":1
+              "tag":"transformation zone completely seen",
+              "widgetType":"Concept",
+              "conceptId": 165157,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"Transformation zone completely seen",
+              "textSize": 18
             }
           ]
         },
@@ -85,10 +89,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "tag":"no transformation zone seen",
-              "widgetType":"EditText",
+              "tag":"reason for no",
+              "widgetType":"Concept",
+              "conceptId":165158,
+              "dataType":"Text",
               "hint":"Reason(e.g severe cervicitis)",
-              "weight":1
+              "textSize":18
             }
           ]
         },
@@ -107,22 +113,13 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "tag":"via positive",
-              "widgetType":"",
-              "weight":1,
-              "text":"VIA Position"
-            },
-            {
-              "tag":"via negative",
-              "widgetType":"",
-              "weight":1,
-              "text":"VIA Negative"
-            },
-            {
-              "tag":"suspect cancer",
-              "widgetType":"",
-              "weight":1,
-              "text":"Suspect Cancer"
+              "tag":"screening results",
+              "widgetType":"Concept",
+              "conceptId": 165160,
+              "dataType": "Coded",
+              "style":"radio",
+              "label": "Screening Results",
+              "textSize":18
             }
           ]
         },
@@ -130,14 +127,13 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"TextView",
-              "text":"Eligible for cryotherapy",
-              "textSize":18,
-              "weight":1
+              "tag":"eligible for cryotherapy",
+              "widgetType":"Concept",
+              "conceptId": 165164,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"Eligible for cryotherapy",
+              "textSize": 18
             }
           ]
         },
@@ -145,18 +141,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Entire lesion seen",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
+              "tag":"entire lesion seen",
+              "widgetType":"Concept",
+              "conceptId": 165168,
+              "dataType":"Boolean",
+              "label":"Entire lesion seen",
+              "textSize": 18
             }
           ]
         },
@@ -164,18 +154,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Covers < 75% of cervix",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
+              "tag":"covers less than 75% of cervix",
+              "widgetType":"Concept",
+              "conceptId": 165169,
+              "dataType":"Boolean",
+              "label":"Covers < 75% of cervix",
+              "textSize": 18
             }
           ]
         },
@@ -183,18 +167,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Atypical vessel",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
+              "tag":"atypical vessel",
+              "widgetType":"Concept",
+              "conceptId": 165170,
+              "dataType":"Boolean",
+              "label":"Atypical vessel",
+              "textSize": 18
             }
           ]
         },
@@ -202,18 +180,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Extends into cervical os",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
+              "tag":"extends into cervical os",
+              "widgetType":"Concept",
+              "conceptId": 165171,
+              "dataType":"Boolean",
+              "label":"Extends into cervical os",
+              "textSize": 18
             }
           ]
         },
@@ -221,18 +193,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Covers > 75% of cervix",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
+              "tag":"covers greater than 75% of cervix",
+              "widgetType":"Concept",
+              "conceptId": 165172,
+              "dataType":"Boolean",
+              "label":"Covers > 75% of cervix",
+              "textSize": 18
             }
           ]
         },
@@ -240,18 +206,12 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
-              "widgetType":"TextView",
-              "text":"Mosaicism/ Punctuation",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
-            },
-            {
-              "widgetType":"",
-              "weight":1
+              "tag":"mosaicism or punctuation",
+              "widgetType":"Concept",
+              "conceptId": 165173,
+              "dataType":"Boolean",
+              "label":"Mosaicism/ Punctuation",
+              "textSize": 18
             }
           ]
         }

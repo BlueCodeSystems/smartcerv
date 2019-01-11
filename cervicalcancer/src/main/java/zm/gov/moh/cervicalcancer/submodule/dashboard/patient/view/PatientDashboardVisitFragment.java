@@ -67,10 +67,16 @@ public class PatientDashboardVisitFragment extends Fragment {
 
             FormJson physicalExam = new FormJson("Physical Exam",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_physical_exam.json")));
+            FormJson testResults = new FormJson("Test Results",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_test_results.json")));
+            FormJson prescriptions = new FormJson("Prescription(s)",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
 
             formJsonGroup.addForm(reproductiveHealth);
             formJsonGroup.addForm(hivStatus);
             formJsonGroup.addForm(physicalExam);
+            formJsonGroup.addForm(testResults);
+            formJsonGroup.addForm(prescriptions);
         }catch (Exception e){
 
         }

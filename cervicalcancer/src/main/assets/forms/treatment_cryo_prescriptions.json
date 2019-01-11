@@ -1,0 +1,276 @@
+{
+  "attributes":{
+    "type":"Basic",
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Prescription(s)",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"TextView",
+              "label":"[    ]",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Frequency",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Duration",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165187,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Ceftriaxone 125-250mg IM",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165188,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Cefixime 400mg oral",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165189,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Ciprofloxacin 500mg oral",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165190,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Clotrimazole 500mg pessary",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165191,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Clotrimazole/Miconazole 200mg pessary",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165192,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Doxycycline 100mg",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165193,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Erythromycin 400-500mg",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165194,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Fluconazole 150-200mg oral",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165195,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Metronidazole 400-5 oral",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165196,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Metronidazole 2g oral",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165196,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Metronidazole 2g oral",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165197,
+              "dataType":"Boolean",
+              "style":"check",
+              "label":"",
+              "textSize": 18
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Other",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
