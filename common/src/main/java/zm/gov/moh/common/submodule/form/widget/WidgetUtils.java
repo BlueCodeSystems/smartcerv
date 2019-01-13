@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatRadioButton;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.util.Consumer;
@@ -17,12 +18,16 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,6 +110,41 @@ public class WidgetUtils {
         }
 
         return radioGroup;
+    }
+
+    public static Spinner createDropDown(Context context, HashMap<String, Integer> labelValueMap,
+                                         Consumer<Integer> onSelectionChange, int width, int height, int weight) {
+
+        LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width, height);
+        layoutParams.weight = weight;
+
+        ArrayList<String> options = new ArrayList<>();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item,options);
+        AppCompatSpinner spinner = new AppCompatSpinner(context);
+
+        for (Map.Entry<String,Integer> hash:labelValueMap.entrySet()) {
+            options.add(hash.getKey());
+
+        }
+        spinner.setLayoutParams(layoutParams);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        onSelectionChange.accept(labelValueMap.get(options.get(position)));
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                }
+
+        );
+
+        return spinner;
     }
 
     public static AppCompatEditText createEditText(Context context, int width, int height, int weight){

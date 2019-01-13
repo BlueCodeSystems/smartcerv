@@ -47,6 +47,22 @@
               "label":"Ceftriaxone 125-250mg IM",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -67,6 +83,22 @@
               "label":"Cefixime 400mg oral",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -87,6 +119,22 @@
               "label":"Ciprofloxacin 500mg oral",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -107,6 +155,22 @@
               "label":"Clotrimazole 500mg pessary",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -127,6 +191,22 @@
               "label":"Clotrimazole/Miconazole 200mg pessary",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -147,6 +227,22 @@
               "label":"Doxycycline 100mg",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -167,6 +263,22 @@
               "label":"Erythromycin 400-500mg",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -187,6 +299,22 @@
               "label":"Fluconazole 150-200mg oral",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -207,6 +335,22 @@
               "label":"Metronidazole 400-5 oral",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -227,6 +371,22 @@
               "label":"Metronidazole 2g oral",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -247,6 +407,22 @@
               "label":"Metronidazole 2g oral",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -267,6 +443,22 @@
               "label":"Other",
               "textSize":18,
               "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         }

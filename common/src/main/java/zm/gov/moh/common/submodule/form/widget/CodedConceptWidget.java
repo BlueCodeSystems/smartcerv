@@ -3,6 +3,7 @@ package zm.gov.moh.common.submodule.form.widget;
 import android.content.Context;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +69,10 @@ public class CodedConceptWidget extends BasicConceptWidget {
             case "radio":
                 RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext,radioLabelValues,this::onSelectedValue, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView, radioGroup));
+                break;
+            case "dropdown":
+                Spinner dropdown = WidgetUtils.createDropDown(mContext, radioLabelValues, this::onSelectedValue, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
+                this.addView(dropdown);
                 break;
         }
 
