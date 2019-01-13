@@ -145,6 +145,7 @@
               "widgetType":"Concept",
               "conceptId": 165168,
               "dataType":"Boolean",
+              "style":"radio",
               "label":"Entire lesion seen",
               "textSize": 18
             }
@@ -158,6 +159,7 @@
               "widgetType":"Concept",
               "conceptId": 165169,
               "dataType":"Boolean",
+              "style":"radio",
               "label":"Covers < 75% of cervix",
               "textSize": 18
             }
@@ -171,6 +173,7 @@
               "widgetType":"Concept",
               "conceptId": 165170,
               "dataType":"Boolean",
+              "style":"radio",
               "label":"Atypical vessel",
               "textSize": 18
             }
@@ -184,6 +187,7 @@
               "widgetType":"Concept",
               "conceptId": 165171,
               "dataType":"Boolean",
+              "style":"radio",
               "label":"Extends into cervical os",
               "textSize": 18
             }
@@ -197,6 +201,7 @@
               "widgetType":"Concept",
               "conceptId": 165172,
               "dataType":"Boolean",
+              "style":"radio",
               "label":"Covers > 75% of cervix",
               "textSize": 18
             }
@@ -210,6 +215,7 @@
               "widgetType":"Concept",
               "conceptId": 165173,
               "dataType":"Boolean",
+              "style":"radio",
               "label":"Mosaicism/ Punctuation",
               "textSize": 18
             }

@@ -118,39 +118,6 @@ public class WidgetUtils {
         return radioGroup;
     }
 
-<<<<<<< HEAD
-    public static Spinner createDropDown(Context context, HashMap<String, Integer> labelValueMap,
-                                         Consumer<Integer> onSelectionChange, int width, int height, int weight) {
-
-        LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width, height);
-        layoutParams.weight = weight;
-
-        ArrayList<String> options = new ArrayList<>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item,options);
-        AppCompatSpinner spinner = new AppCompatSpinner(context);
-
-        for (Map.Entry<String,Integer> hash:labelValueMap.entrySet()) {
-            options.add(hash.getKey());
-
-        }
-        spinner.setLayoutParams(layoutParams);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                        onSelectionChange.accept(labelValueMap.get(options.get(position)));
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                }
-
-        );
-=======
     public static AppCompatSpinner createSpinner(Context context, Map<String,Long> labelValueMap, Consumer<Long> onItemSelected, int width, int height, int weight){
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
@@ -177,7 +144,6 @@ public class WidgetUtils {
             }
         });
 
->>>>>>> Merge Basic concept widget and Coded concept widget
 
         return spinner;
     }
