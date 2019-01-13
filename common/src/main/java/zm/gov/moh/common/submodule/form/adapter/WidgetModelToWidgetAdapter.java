@@ -8,7 +8,7 @@ import android.view.View;
 
 import java.util.HashMap;
 
-import zm.gov.moh.common.submodule.form.model.ConceptDataType;
+import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CodedConceptWidgetModel;
@@ -23,7 +23,6 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
-import zm.gov.moh.common.submodule.form.widget.CodedConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
@@ -39,14 +38,14 @@ public class WidgetModelToWidgetAdapter {
     Context context;
     Repository repository;
     HashMap<String, Object> formData;
-    View rootView;
+    Form form;
 
-    public WidgetModelToWidgetAdapter(Context context, Repository repository, HashMap<String, Object> formData, View rootView){
+    public WidgetModelToWidgetAdapter(Context context, Repository repository, HashMap<String, Object> formData, Form form){
 
         this.context = context;
         this.repository = repository;
         this.formData = formData;
-        this.rootView = rootView;
+        this.form = form;
 
     }
 
@@ -83,7 +82,10 @@ public class WidgetModelToWidgetAdapter {
             for(WidgetModel widgetModel1 : model.getChildren())
                 widgets[index++] = getWidget(widgetModel1);
 
-            return WidgetUtils.createLinearLayout(context,WidgetUtils.HORIZONTAL,widgets);
+            View widgetGroup = WidgetUtils.createLinearLayout(context,WidgetUtils.HORIZONTAL,widgets);
+            widgetGroup.setTag(model.getTag());
+
+            return widgetGroup;
         }
         else if(widgetModel instanceof FormLabelModel){
 
@@ -148,27 +150,10 @@ public class WidgetModelToWidgetAdapter {
             BasicConceptWidgetModel model = (BasicConceptWidgetModel) widgetModel;
 
             return new BasicConceptWidget(context)
-                    .setTag(model.getTag())
-                    .setFormData(formData)
-                    .setConceptId(model.getConceptId())
-                    .setDataType(model.getDataType())
-                    .setRepository(repository)
-                    .setRootView(rootView)
-                    .setLabel(model.getLabel())
-                    .setHint(model.getHint())
-                    .setTextSize(model.getTextSize())
-                    .setLogic(model.getLogic())
-                    .build();
-        }
-        else if(widgetModel instanceof CodedConceptWidgetModel){
-
-            CodedConceptWidgetModel model = (CodedConceptWidgetModel) widgetModel;
-
-            return new CodedConceptWidget(context)
                     .setStyle(model.getStyle())
                     .setTag(model.getTag())
                     .setFormData(formData)
-                    .setRootView(rootView)
+                    .setForm(form)
                     .setConceptId(model.getConceptId())
                     .setDataType(model.getDataType())
                     .setRepository(repository)
@@ -178,6 +163,7 @@ public class WidgetModelToWidgetAdapter {
                     .setLogic(model.getLogic())
                     .build();
         }
+
 
         return null;
     }

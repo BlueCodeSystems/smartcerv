@@ -23,7 +23,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["art status","art number"]
+                  "tags": ["art status"]
                 }
               }
             },
@@ -34,7 +34,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for unknown status"]
+                  "tags": ["reason for unknown status","pict offered"]
                 }
               }
             }
@@ -56,7 +56,18 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["art number"]
+                  "tags": ["art number","cd4","viral load"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165127
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["art clinic"]
                 }
               }
             }
@@ -73,6 +84,7 @@
         },
         {
           "widgetType":"WidgetGroupRow",
+          "tag":"cd4",
           "widgets": [
             {
               "tag":"cd4 date",
@@ -95,6 +107,7 @@
         },
         {
           "widgetType":"WidgetGroupRow",
+          "tag":"viral load",
           "widgets": [
             {
               "tag":"cd4 date",
@@ -129,6 +142,7 @@
           "widgetType":"Concept",
           "conceptId":165096,
           "dataType":"Boolean",
+          "style": "radio",
           "label":"PICT Offered",
           "textSize":18,
           "logic": [
@@ -150,8 +164,22 @@
           "widgetType":"Concept",
           "conceptId":165096,
           "dataType":"Boolean",
+          "style": "radio",
           "label":"PICT Accepted",
-          "textSize":18
+          "textSize":18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["pict result"]
+                }
+              }
+            }
+          ]
         },
         {
           "tag":"pict result",
@@ -160,13 +188,27 @@
           "dataType":"Coded",
           "style":"radio",
           "label":"Result",
-          "textSize":18
+          "textSize":18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165237
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["art clinic"]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag":"pict result",
+          "tag":"art clinic",
           "widgetType":"Concept",
           "conceptId":165239,
           "dataType":"Boolean",
+          "style": "radio",
           "label":"Referred to ART Clinic",
           "textSize":18
         }

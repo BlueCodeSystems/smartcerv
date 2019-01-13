@@ -3,12 +3,8 @@ package zm.gov.moh.common.submodule.form.adapter;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
-import zm.gov.moh.common.submodule.form.model.ConceptDataType;
-import zm.gov.moh.common.submodule.form.model.widgetModel.AbstractCodedConceptWidgetModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.AbstractConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.CodedConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
@@ -22,8 +18,6 @@ import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
 import zm.gov.moh.common.submodule.form.model.attribute.BasicFormAttribute;
 import zm.gov.moh.common.submodule.form.model.attribute.FormAttribute;
 import zm.gov.moh.common.submodule.form.model.attribute.FormAttributeJson;
-import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
-import zm.gov.moh.common.submodule.form.widget.CodedConceptWidget;
 
 public class WidgetModelJsonAdapter {
 
@@ -59,6 +53,7 @@ public class WidgetModelJsonAdapter {
                 final WidgetGroupRowModel widgetGroupRowModel = new WidgetGroupRowModel();
 
                 widgetGroupRowModel.setWidgetType(widgetModelJson.getWidgetType());
+                widgetGroupRowModel.setTag(widgetModelJson.getTag());
                 widgetGroupRowModel.addChildren(widgetModelJson.getWidgets());
 
 
@@ -71,7 +66,6 @@ public class WidgetModelJsonAdapter {
                 formLabelModel.setWidgetType(widgetModelJson.getWidgetType());
                 formLabelModel.setTag(widgetModelJson.getTag());
                 formLabelModel.setLabel(widgetModelJson.getLabel());
-               // formLabelModel.setText(widgetModelJson.getText());
                 formLabelModel.setTextSize(widgetModelJson.getTextSize());
 
                 return formLabelModel;
@@ -122,33 +116,17 @@ public class WidgetModelJsonAdapter {
 
             case "Concept":
 
-                if(widgetModelJson.getDataType().equals(ConceptDataType.CODED)){
-
-                    CodedConceptWidgetModel codedConceptWidgetModel = new CodedConceptWidgetModel();
-                    codedConceptWidgetModel.setConceptId(widgetModelJson.getConceptId());
-                    codedConceptWidgetModel.setStyle(widgetModelJson.getStyle());
-                    codedConceptWidgetModel.setDataType(widgetModelJson.getDataType());
-                    codedConceptWidgetModel.setLabel(widgetModelJson.getLabel());
-                    codedConceptWidgetModel.setTextSize(widgetModelJson.getTextSize());
-                    codedConceptWidgetModel.setLogic(widgetModelJson.getLogic());
-                    codedConceptWidgetModel.setTag(widgetModelJson.getTag());
-
-
-                    return codedConceptWidgetModel;
-                }
-
-
-                BasicConceptWidgetModel basicConceptWidgetModel = new BasicConceptWidgetModel();
+                final BasicConceptWidgetModel basicConceptWidgetModel = new BasicConceptWidgetModel();
 
                 basicConceptWidgetModel.setConceptId(widgetModelJson.getConceptId());
                 basicConceptWidgetModel.setDataType(widgetModelJson.getDataType());
                 basicConceptWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
                 basicConceptWidgetModel.setTag(widgetModelJson.getTag());
                 basicConceptWidgetModel.setLabel(widgetModelJson.getLabel());
+                basicConceptWidgetModel.setLogic(widgetModelJson.getLogic());
                 basicConceptWidgetModel.setTextSize(widgetModelJson.getTextSize());
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
-
-
+                basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
 
                 return basicConceptWidgetModel;
 

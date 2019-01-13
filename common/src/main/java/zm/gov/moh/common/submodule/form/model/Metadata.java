@@ -1,12 +1,13 @@
 package zm.gov.moh.common.submodule.form.model;
 
 import java.util.List;
+import java.util.Set;
 
 public class Metadata{
 
-    private List<String> tags;
+    private Set<String> tags;
 
-    public List<String> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 }

@@ -1,25 +1,35 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import zm.gov.moh.common.submodule.form.model.Action;
 import zm.gov.moh.common.submodule.form.model.ConceptDataType;
 
+import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.common.submodule.form.model.ObsValue;
 import zm.gov.moh.core.repository.api.Repository;
+import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.utils.Utils;
 
 public class BasicConceptWidget extends LinearLayoutCompat {
@@ -38,10 +48,197 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     HashMap<String, Object> formData;
     Repository repository;
     List<Logic> logic;
-    View rootView;
+    Form form;
     Object mValue;
+    String mStyle;
+    Set<Long> answerConcepts;
+    Map<String,Long> conceptNameIdMap;
+    AtomicBoolean canSetValue;
 
 
+    public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+
+        // set day of month , month and year value in the edit text
+        String date = (year+"-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))+"-"+((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth));
+        mObsValue.setValue(date);
+        mEditText.setText(date);
+    }
+
+    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+
+        long id = (long)compoundButton.getId();
+
+        if(!(checked) && answerConcepts.contains(id))
+            answerConcepts.remove(id);
+        else
+            answerConcepts.add(id);
+
+        setObsValue(answerConcepts);
+    }
+
+    public void onSelectedValue(long i){
+
+        if(!answerConcepts.isEmpty())
+            answerConcepts.clear();
+
+        answerConcepts.add(i);
+        setObsValue(answerConcepts);
+    }
+
+    @Override
+    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
+        super.onLayout(b, i,i1,i2,i3);
+    }
+
+    public void setObsValue(Object obsValue) {
+
+        if(canSetValue.get()) {
+            mValue = obsValue;
+            mObsValue.setValue(obsValue);
+
+            if (logic != null)
+                for (Logic logic : logic)
+                    if (logic.getAction().getType().equals("skipLogic"))
+                        if ((mValue != null) && (((Set<Long>) mValue).contains(Math.round((Double) logic.getCondition().getValue())))) {
+                            WidgetUtils.applyOnViewGroupChildren(form.getRootView(), v -> v.setVisibility(VISIBLE), logic.getAction().getMetadata().getTags().toArray());
+                            form.getFormContext().getVisibleWidgetTags().removeAll(logic.getAction().getMetadata().getTags());
+                        } else {
+
+                            Set<String> tags = new HashSet<>();
+                            WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
+                            form.getFormContext().getVisibleWidgetTags().addAll(tags);
+                        }
+            render();
+        }
+    }
+
+    public BasicConceptWidget setTag(String tag) {
+        super.setTag(tag);
+
+        return this;
+    }
+
+    public void render(){
+
+        WidgetUtils.applyOnViewGroupChildren(form.getRootView(),
+                        v ->{
+                                v.setVisibility(GONE);
+                                if(v instanceof BasicConceptWidget)
+                                    ((BasicConceptWidget)v).reset();
+                        },
+                        form.getFormContext().getVisibleWidgetTags().toArray());
+    }
+
+    public BasicConceptWidget build(){
+
+        mObsValue = new ObsValue<>();
+        answerConcepts = new HashSet<>();
+        mObsValue.setConceptId(mConceptId);
+        formData.put((String)this.getTag(),mObsValue);
+        canSetValue = new AtomicBoolean();
+        canSetValue.set(true);
+
+        if(logic != null)
+            for(Logic logic: logic)
+                if(logic.getAction().getType().equals("skipLogic"))
+                    form.getFormContext().getVisibleWidgetTags().addAll(logic.getAction().getMetadata().getTags());
+
+        WidgetUtils.setLayoutParams(this,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
+                .setOrientation(WidgetUtils.HORIZONTAL);
+
+        //Create and intialize widgets
+
+        mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext),WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
+        mTextView.setText(mLabel);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,mTextSize);
+
+        mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
+        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+        mEditText.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+        mEditText.setHint(mHint);
+
+
+        //Return view according to concept data type
+        switch (mDataType) {
+
+            case ConceptDataType.TEXT:
+                //this.addView(WidgetUtils.createLinearLayout(context, WidgetUtils.HORIZONTAL, this.label, mEditText));
+                View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
+                this.addView(view);
+                //WidgetUtils.enableView(view, false);
+                //WidgetUtils.enableView(view, true);
+                break;
+
+            case ConceptDataType.DATE:
+                mEditText.setHint(DATE_PICKER_LABEL);
+                Utils.dateDialog(mContext, mEditText, this::onDateValueChangeListener);
+                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText));
+                break;
+
+            case ConceptDataType.BOOLEAN:
+
+                HashMap<String, Long>  conceptNameIdMap = new HashMap<>();
+                if(mStyle.equals("radio")) {
+
+                     conceptNameIdMap.put("Yes", 1L);
+                     conceptNameIdMap.put("No", 2L);
+                    RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
+                    this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
+                }else if(mStyle.equals("check")){
+
+                     conceptNameIdMap.put(mLabel, 1L);
+                    RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap,this::onCheckedChanged, RadioGroup.HORIZONTAL,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                    this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView , checkBoxGroup));
+                    mObsValue.setValue(answerConcepts);
+                }
+                break;
+
+            case  ConceptDataType.CODED:
+
+                repository.getDatabase()
+                        .conceptAnswerNameDao()
+                        .getByConceptId(mConceptId)
+                        .observe((AppCompatActivity)mContext,this::onConceptIdAnswersRetrieved);
+                break;
+        }
+
+        render();
+        return this;
+    }
+
+    public void onConceptIdAnswersRetrieved(List<ConceptAnswerName> conceptAnswerNames){
+
+        conceptNameIdMap = new HashMap<>();
+        answerConcepts = new HashSet<>();
+        for(ConceptAnswerName conceptAnswerName: conceptAnswerNames)
+             conceptNameIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+
+        int orientation = ( conceptNameIdMap.size() > 2)? WidgetUtils.VERTICAL: WidgetUtils.HORIZONTAL;
+
+        switch (mStyle){
+
+            case "check":
+                RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap,this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView , checkBoxGroup));
+                mObsValue.setValue(answerConcepts);
+                break;
+
+            case "radio":
+                RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap,this::onSelectedValue, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView, radioGroup));
+                break;
+
+            case "dropdown":
+                AppCompatSpinner spinner = WidgetUtils.createSpinner(mContext, conceptNameIdMap,this::onSelectedValue,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                if(mLabel != null)
+                    this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView, spinner));
+                else
+                    this.addView(spinner);
+                break;
+        }
+
+        render();
+    }
     public BasicConceptWidget(Context context){
         super(context);
 
@@ -95,9 +292,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mObsValue.setValue(value);
     }
 
-    public BasicConceptWidget setRootView(View rootView) {
+    public BasicConceptWidget setForm(Form form) {
 
-        this.rootView = rootView;
+        this.form = form;
         return this;
     }
 
@@ -111,95 +308,33 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         return logic;
     }
 
-    public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+    public BasicConceptWidget setStyle(String style) {
 
-        // set day of month , month and year value in the edit text
-        String date = (year+"-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))+"-"+((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth));
-        mObsValue.setValue(date);
-        mEditText.setText(date);
-    }
-
-    public void onSelectedValue(int i){
-       setObsValue(i);
-    }
-
-    @Override
-    protected void onLayout(boolean b, int i, int i1, int i2, int i3) {
-        super.onLayout(b, i,i1,i2,i3);
-    }
-
-    public void setObsValue(Object obsValue) {
-
-        mValue = obsValue;
-        mObsValue.setValue(obsValue);
-    }
-
-    public void performAction(Action action){
-
-        View root = this.getRootView();
-
-        switch (action.getType()){
-
-            case "skipLogic":
-                for(String tag : action.getMetadata().getTags())
-                    root.findViewWithTag(tag).setVisibility(View.VISIBLE);
-        }
-    }
-
-    public BasicConceptWidget setTag(String tag) {
-        super.setTag(tag);
-
+        mStyle = style;
         return this;
     }
 
+    public void reset(){
 
-    public BasicConceptWidget build(){
+        canSetValue.compareAndSet(true,false);
+        if(mStyle != null)
+            switch (mStyle){
 
-        mObsValue = new ObsValue<>();
-        mObsValue.setConceptId(mConceptId);
-        formData.put((String)this.getTag(),mObsValue);
+                case "check":
+                    WidgetUtils.applyOnViewGroupChildren(this, view -> {
+                        if(view instanceof CheckBox)
+                            ((CheckBox)view).setChecked(false);
+                    });
+                    break;
 
-        WidgetUtils.setLayoutParams(this,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
-                .setOrientation(WidgetUtils.HORIZONTAL);
+                case "radio":
+                    WidgetUtils.applyOnViewGroupChildren(this, view -> {
+                        if(view instanceof RadioButton)
+                            ((RadioButton)view).setChecked(false);
+                    });
+                    break;
+            }
 
-        //Create and intialize widgets
-        mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext),WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
-        mTextView.setText(mLabel);
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,mTextSize);
-
-        mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
-        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-        mEditText.setTextAlignment(TEXT_ALIGNMENT_CENTER);
-        mEditText.setHint(mHint);
-
-
-        //Return view according to concept data type
-        switch (mDataType) {
-
-            case ConceptDataType.TEXT:
-                //this.addView(WidgetUtils.createLinearLayout(context, WidgetUtils.HORIZONTAL, this.label, mEditText));
-                View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
-                this.addView(view);
-                //WidgetUtils.enableView(view, false);
-                //WidgetUtils.enableView(view, true);
-                break;
-
-            case ConceptDataType.DATE:
-                mEditText.setHint(DATE_PICKER_LABEL);
-                Utils.dateDialog(mContext, mEditText, this::onDateValueChangeListener);
-                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText));
-                break;
-
-            case ConceptDataType.BOOLEAN:
-
-                HashMap<String, Integer> radioLabelValues = new HashMap<>();
-                radioLabelValues.put("Yes", 1);
-                radioLabelValues.put("No", 2);
-                RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, radioLabelValues, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
-                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
-                break;
-        }
-
-        return this;
+         canSetValue.compareAndSet(false,true);
     }
 }

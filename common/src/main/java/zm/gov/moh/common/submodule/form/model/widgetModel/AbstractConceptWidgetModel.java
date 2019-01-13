@@ -8,6 +8,7 @@ public abstract class AbstractConceptWidgetModel extends AbstractWidgetModel imp
     private int textSize;
     private String hint;
     private String text;
+    private String style;
 
     @Override
     public long getConceptId() {
@@ -67,5 +68,15 @@ public abstract class AbstractConceptWidgetModel extends AbstractWidgetModel imp
     @Override
     public String getText() {
         return text;
+    }
+
+    @Override
+    public String getStyle() {
+        return style;
+    }
+
+    @Override
+    public void setStyle(String style) {
+        this.style = style;
     }
 }

@@ -7,8 +7,10 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.arch.core.util.Function;
 import androidx.core.util.Consumer;
 import zm.gov.moh.common.R;
+import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.core.utils.Utils;
 
 import android.graphics.drawable.GradientDrawable;
@@ -29,7 +31,11 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class WidgetUtils {
@@ -66,7 +72,7 @@ public class WidgetUtils {
         return tv;
     }
 
-    public static RadioGroup createRadioButtons(Context context, HashMap<String,Integer> labelValueMap, Consumer<Integer> onSelectionChange, int orientation, int width, int height, int weight){
+    public static RadioGroup createRadioButtons(Context context, Map<String,Long> labelValueMap, Consumer<Integer> onSelectionChange, int orientation, int width, int height, int weight){
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
         layoutParams.weight = weight;
@@ -78,11 +84,11 @@ public class WidgetUtils {
                 onSelectionChange.accept(radioGroup1.getCheckedRadioButtonId());
             });
 
-        for (Map.Entry<String,Integer> hash:labelValueMap.entrySet()) {
+        for (Map.Entry<String,Long> hash:labelValueMap.entrySet()) {
 
             RadioButton radioButton = new RadioButton(context);
             radioButton.setText(hash.getKey());
-            radioButton.setId(hash.getValue());
+            radioButton.setId(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
             radioGroup.addView(radioButton);
         }
@@ -90,7 +96,7 @@ public class WidgetUtils {
         return radioGroup;
     }
 
-    public static RadioGroup createCheckBoxes(Context context, HashMap<String,Integer> labelValueMap, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, int orientation, int width, int height, int weight){
+    public static RadioGroup createCheckBoxes(Context context, Map<String,Long> labelValueMap, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, int orientation, int width, int height, int weight){
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
         layoutParams.weight = weight;
@@ -99,11 +105,11 @@ public class WidgetUtils {
         radioGroup.setOrientation(orientation);
         radioGroup.setLayoutParams(layoutParams);
 
-        for (Map.Entry<String,Integer> hash:labelValueMap.entrySet()) {
+        for (Map.Entry<String,Long> hash:labelValueMap.entrySet()) {
 
             CheckBox radioButton = new CheckBox(context);
             radioButton.setText(hash.getKey());
-            radioButton.setId(hash.getValue());
+            radioButton.setId(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
             radioButton.setOnCheckedChangeListener(onCheckedChangeListener);
             radioGroup.addView(radioButton);
@@ -112,6 +118,7 @@ public class WidgetUtils {
         return radioGroup;
     }
 
+<<<<<<< HEAD
     public static Spinner createDropDown(Context context, HashMap<String, Integer> labelValueMap,
                                          Consumer<Integer> onSelectionChange, int width, int height, int weight) {
 
@@ -143,6 +150,34 @@ public class WidgetUtils {
                 }
 
         );
+=======
+    public static AppCompatSpinner createSpinner(Context context, Map<String,Long> labelValueMap, Consumer<Long> onItemSelected, int width, int height, int weight){
+
+        LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
+        layoutParams.weight = weight;
+
+        List<String> options = new LinkedList<>(labelValueMap.keySet());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_dropdown_item,options);
+
+        AppCompatSpinner spinner = new AppCompatSpinner(context);
+        spinner.setAdapter(adapter);
+        //spinner.setLayoutParams(layoutParams);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                onItemSelected.accept(labelValueMap.get(options.get(i)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+>>>>>>> Merge Basic concept widget and Coded concept widget
 
         return spinner;
     }
@@ -209,17 +244,50 @@ public class WidgetUtils {
             view.setEnabled(enable);
     }
 
-    public static void setVisibilityOnViewWithTag(View rootView,final int VISIBILITY,Object... tags){
+    public static void applyOnViewGroupChildren(ViewGroup rootView, Consumer<View> callback, Object... tags){
 
         for(Object tag : tags)
-            rootView.findViewWithTag(tag).setVisibility(VISIBILITY);
+            if(rootView.findViewWithTag(tag) != null)
+                callback.accept(rootView.findViewWithTag(tag));
     }
 
-    public static void setVisibilityOnViewWithTag(View rootView,final boolean ENABLE,Object... tags){
+    public static void applyOnViewGroupChildren(View view, Consumer<View> callback){
 
-        for(Object tag : tags)
-            enableView(rootView.findViewWithTag(tag),ENABLE);
+            if((view instanceof LinearLayoutCompat) || (view instanceof  RadioGroup) || (view instanceof ViewGroup)){
+
+                ViewGroup viewGroup = (ViewGroup) view;
+                callback.accept(view);
+
+                for(int i = 0; i < viewGroup.getChildCount(); i++) {
+                    View child = viewGroup.getChildAt(i);
+                    applyOnViewGroupChildren(child, callback);
+                }
+            }
+            else{
+                callback.accept(view);
+            }
     }
 
+    public static void extractTagsRecursive(ViewGroup rootView,Set<String> result, Set<String> search) {
 
+        for(Object tag : search)
+            if(rootView.findViewWithTag(tag) != null && (rootView.findViewWithTag(tag) instanceof BasicConceptWidget)) {
+
+                BasicConceptWidget widget = rootView.findViewWithTag(tag);
+
+                if(widget.logic != null)
+                    for (Logic logic : ((BasicConceptWidget) rootView.findViewWithTag(tag)).logic) {
+
+                        if(logic.getAction().getType().equals("skipLogic")){
+
+                            result.addAll(search);
+                            extractTagsRecursive(rootView,result,logic.getAction().getMetadata().getTags());
+                        }
+                    }
+                else {
+                        result.add((String) widget.getTag());
+                        result.addAll(search);
+                }
+            }
+    }
 }

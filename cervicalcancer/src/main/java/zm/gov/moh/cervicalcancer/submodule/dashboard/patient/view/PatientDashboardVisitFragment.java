@@ -54,7 +54,7 @@ public class PatientDashboardVisitFragment extends Fragment {
         //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
        // View view = binding.getRoot();
 
-        FormJsonGroup formJsonGroup = new FormJsonGroup("Cryotherapy");
+        FormJsonGroup formJsonGroup = new FormJsonGroup("VIA");
 
         try {
 

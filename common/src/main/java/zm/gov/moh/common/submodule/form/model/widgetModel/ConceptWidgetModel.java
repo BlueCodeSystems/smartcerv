@@ -6,4 +6,7 @@ public interface ConceptWidgetModel {
      long getConceptId();
      void setDataType(String dataType);
      String getDataType();
+
+     String getStyle();
+     void setStyle(String style);
 }

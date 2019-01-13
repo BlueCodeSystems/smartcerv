@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +15,8 @@ import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
 import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.submodule.form.model.Form;
+import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.common.ui.BaseActivity;
@@ -30,7 +31,7 @@ import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
 
 public class FormFragment extends BaseFragment {
 
-    private LinearLayout container;
+    private Form form;
     private View rootView;
     private HashMap<String,Object> formData;
     private AtomicBoolean renderWidgets;
@@ -50,6 +51,7 @@ public class FormFragment extends BaseFragment {
 
         context = (FormActivity) getContext();
         renderWidgets = new AtomicBoolean();
+        this.form = new Form();
 
         renderWidgets.set(true);
 
@@ -59,8 +61,8 @@ public class FormFragment extends BaseFragment {
 
         rootView = binding.getRoot();
 
-        this.container = rootView.findViewById(R.id.form_container);
-
+        this.form.setRootView(rootView.findViewById(R.id.form_container));
+        this.form.setFormContext(new FormContext());
 
         BaseActivity.ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler();
         binding.setToolbarhandler(toolBarEventHandler);
@@ -78,7 +80,7 @@ public class FormFragment extends BaseFragment {
 
         if(renderWidgets.get()) {
 
-            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData,container);
+            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData,form);
 
             for(WidgetSectionModel section : formModel.getWidgetGroup()){
 
@@ -91,7 +93,7 @@ public class FormFragment extends BaseFragment {
                     formSection.addView(view);
                 }
 
-                this.container.addView(formSection);
+                this.form.getRootView().addView(formSection);
             }
 
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
@@ -107,7 +109,7 @@ public class FormFragment extends BaseFragment {
 
             });
 
-            this.container.addView(formSubmitButtonWidget);
+            this.form.getRootView().addView(formSubmitButtonWidget);
         }
         renderWidgets.set(false);
         // Inflate the layout for this fragment

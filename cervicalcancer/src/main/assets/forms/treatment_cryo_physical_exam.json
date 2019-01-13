@@ -13,6 +13,7 @@
           "conceptId": "165096",
           "dataType": "Boolean",
           "label": "Pelvic exam done",
+          "style":"radio",
           "textSize": 18
         },
         {
