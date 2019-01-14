@@ -1,7 +1,7 @@
 {
   "attributes": {
     "type":"Basic",
-    "submitLabel":"End Visit"
+    "submitLabel":"Submit"
   },
   "widgetGroup": [
     {
@@ -79,7 +79,7 @@
               "widgetType":"Concept",
               "conceptId": 165157,
               "dataType":"Boolean",
-              "style":"check",
+              "style":"radio",
               "label":"Transformation zone completely seen",
               "textSize": 18
             }

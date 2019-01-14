@@ -8,4 +8,6 @@ public interface FormAttribute {
     public void setSubmitLabel(String submitLabel);
 
     public String getSubmitLabel();
+
+
 }
