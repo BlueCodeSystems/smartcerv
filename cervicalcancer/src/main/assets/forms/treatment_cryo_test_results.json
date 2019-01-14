@@ -81,7 +81,20 @@
               "dataType":"Boolean",
               "style":"radio",
               "label":"Transformation zone completely seen",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":2
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["reason for no"]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -119,7 +132,20 @@
               "dataType": "Coded",
               "style":"radio",
               "label": "Screening Results",
-              "textSize":18
+              "textSize":18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":165162
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["eligible for cryotherapy"]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
