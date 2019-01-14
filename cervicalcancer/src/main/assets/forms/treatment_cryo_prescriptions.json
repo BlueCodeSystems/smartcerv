@@ -445,21 +445,14 @@
               "weight":1
             },
             {
-              "tag": "frequency",
-              "widgetType": "Concept",
+              "tag": "prescription",
+              "widgetType": "EditText",
               "conceptId": 165225,
               "dataType": "Coded",
-              "style":"dropdown",
-              "textSize": 18
-            },
-            {
-              "tag": "duration",
-              "widgetType": "Concept",
-              "conceptId": 165224,
-              "dataType": "Coded",
-              "style":"dropdown",
+              "style":"label",
               "textSize": 18
             }
+
           ]
         }
       ]
