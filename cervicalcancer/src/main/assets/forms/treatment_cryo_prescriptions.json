@@ -11,6 +11,7 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
+
               "widgetType":"TextView",
               "label":"[    ]",
               "textSize":18,
@@ -23,6 +24,7 @@
               "weight":1
             },
             {
+
               "widgetType":"TextView",
               "label":"Duration",
               "textSize":18,
@@ -34,13 +36,27 @@
           "widgetType":"WidgetGroupRow",
           "widgets":[
             {
+
+
               "tag":"prescription",
               "widgetType":"Concept",
               "conceptId": 165187,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize":18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency", "duration"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -75,8 +91,20 @@
               "conceptId": 165188,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency1", "duration1"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -85,7 +113,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency1",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -93,7 +121,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration1",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -111,8 +139,20 @@
               "conceptId": 165189,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency2", "duration2"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -121,7 +161,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency2",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -129,7 +169,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration2",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -147,8 +187,20 @@
               "conceptId": 165190,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency3", "duration3"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -157,7 +209,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency3",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -165,7 +217,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration3",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -183,8 +235,20 @@
               "conceptId": 165191,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency4", "duration4"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -193,20 +257,22 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency4",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
               "style":"dropdown",
-              "textSize": 18
+              "textSize": 18,
+              "weight":1
             },
             {
-              "tag": "duration",
+              "tag": "duration4",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
               "style":"dropdown",
-              "textSize": 18
+              "textSize": 18,
+              "weight":1
             }
           ]
         },
@@ -219,8 +285,20 @@
               "conceptId": 165192,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency5", "duration5"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -229,7 +307,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency5",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -237,7 +315,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration5",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -255,8 +333,20 @@
               "conceptId": 165193,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency6", "duration6"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -265,7 +355,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency6",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -273,7 +363,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration6",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -291,8 +381,20 @@
               "conceptId": 165194,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency7", "duration7"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -301,7 +403,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency7",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -309,7 +411,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration7",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -327,8 +429,20 @@
               "conceptId": 165195,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency8", "duration8"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -337,7 +451,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency8",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -345,7 +459,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
+              "tag": "duration8",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -363,8 +477,20 @@
               "conceptId": 165196,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
-              "textSize": 18
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency9", "duration9"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "widgetType":"TextView",
@@ -373,7 +499,7 @@
               "weight":1
             },
             {
-              "tag": "frequency",
+              "tag": "frequency9",
               "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
@@ -381,43 +507,7 @@
               "textSize": 18
             },
             {
-              "tag": "duration",
-              "widgetType": "Concept",
-              "conceptId": 165224,
-              "dataType": "Coded",
-              "style":"dropdown",
-              "textSize": 18
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"prescription",
-              "widgetType":"Concept",
-              "conceptId": 165196,
-              "dataType":"Boolean",
-              "style":"check",
-              "label":"",
-              "textSize": 18
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Metronidazole 2g oral",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "tag": "frequency",
-              "widgetType": "Concept",
-              "conceptId": 165225,
-              "dataType": "Coded",
-              "style":"dropdown",
-              "textSize": 18
-            },
-            {
-              "tag": "duration",
+              "tag": "duration9",
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
@@ -435,7 +525,6 @@
               "conceptId": 165197,
               "dataType":"Boolean",
               "style":"check",
-              "label":"",
               "textSize": 18
             },
             {
@@ -452,7 +541,6 @@
               "style":"label",
               "textSize": 18
             }
-
           ]
         }
       ]

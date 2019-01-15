@@ -1,7 +1,8 @@
-package zm.gov.moh.common.submodule.form.model;
+package zm.gov.moh.core.model;
 
 public class ConceptDataType {
 
+    public static final String NUMERIC = "Numeric";
     public static final String TEXT = "Text";
     public static final String CODED = "Coded";
     public static final String N_A = "N/A";

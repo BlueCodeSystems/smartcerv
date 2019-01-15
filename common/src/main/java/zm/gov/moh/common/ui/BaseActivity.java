@@ -106,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public class BaseReceiver extends BroadcastReceiver {
 
-        public static final String SYNC_COMPLETE_NOFICATION = "zm.gov.moh.common.SYNC_COMPLETE_NOFICATION";
+        public static final String SYNC_COMPLETE_NOTIFICATION = "zm.gov.moh.common.SYNC_COMPLETE_NOTIFICATION";
 
         @Override
         public void onReceive(Context context, Intent intent) {

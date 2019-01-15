@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.form.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.service.EncounterSubmission;
 import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
 import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
@@ -99,14 +101,17 @@ public class FormFragment extends BaseFragment {
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             formSubmitButtonWidget.setFormData(this.formData);
+
             formSubmitButtonWidget.setOnSubmit(formData -> {
-                HashMap f = formData;
 
-                bundle.putSerializable(BaseActivity.FORM_DATA_KEY, formData);
+                bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, formData);
+                Intent formSubmission = new Intent(context,EncounterSubmission.class);
+                formSubmission.putExtras(bundle);
+                context.startService(formSubmission);
 
-                Submodule submodule = (Submodule) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
-                context.startSubmodule(submodule, bundle);
-
+                context.onBackPressed();
+               // Submodule submodule = (Submodule) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
+                //context.startSubmodule(submodule, bundle);
             });
 
             this.form.getRootView().addView(formSubmitButtonWidget);

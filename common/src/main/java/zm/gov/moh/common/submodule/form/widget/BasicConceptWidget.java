@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
@@ -10,7 +9,6 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,11 +21,11 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import zm.gov.moh.common.submodule.form.model.ConceptDataType;
+import zm.gov.moh.core.model.ConceptDataType;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
-import zm.gov.moh.common.submodule.form.model.ObsValue;
+import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.utils.Utils;
@@ -39,7 +37,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     AppCompatEditText mEditText;
     AppCompatTextView mTextView;
     long mConceptId;
-    int weight;
+    int mWeight = 0;
     int mTextSize;
     Context mContext;
     String mDataType;
@@ -132,6 +130,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     public BasicConceptWidget build(){
 
         mObsValue = new ObsValue<>();
+        mObsValue.setConceptDataType(mDataType);
         answerConcepts = new HashSet<>();
         mObsValue.setConceptId(mConceptId);
         formData.put((String)this.getTag(),mObsValue);
@@ -188,7 +187,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
                      conceptNameIdMap.put(mLabel, 1L);
                     RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap,this::onCheckedChanged, RadioGroup.HORIZONTAL,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
-                    this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView , checkBoxGroup));
+                    this.addView(checkBoxGroup);
                     mObsValue.setValue(answerConcepts);
                 }
                 break;
@@ -218,18 +217,18 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         switch (mStyle){
 
             case "check":
-                RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap,this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap,this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView , checkBoxGroup));
                 mObsValue.setValue(answerConcepts);
                 break;
 
             case "radio":
-                RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap,this::onSelectedValue, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap,this::onSelectedValue, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView, radioGroup));
                 break;
 
             case "dropdown":
-                AppCompatSpinner spinner = WidgetUtils.createSpinner(mContext, conceptNameIdMap,this::onSelectedValue,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,0);
+                AppCompatSpinner spinner = WidgetUtils.createSpinner(mContext, conceptNameIdMap,this::onSelectedValue,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
                 if(mLabel != null)
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView, spinner));
                 else
@@ -302,6 +301,15 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         this.logic = logic;
         return this;
+    }
+
+    public BasicConceptWidget setWeight(int mWeight) {
+        this.mWeight = mWeight;
+        return this;
+    }
+
+    public int getWeight() {
+        return mWeight;
     }
 
     public List<Logic> getLogic() {
