@@ -3,20 +3,14 @@ package zm.gov.moh.common.submodule.form.widget;
 import android.content.Context;
 
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.arch.core.util.Function;
 import androidx.core.util.Consumer;
-import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.core.utils.Utils;
-
-import android.graphics.drawable.GradientDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -51,9 +39,12 @@ public class WidgetUtils {
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT,
                 LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
 
+
+
         linearLayoutCompat.setLayoutParams(layoutParams);
         linearLayoutCompat.setOrientation(orientation);
-        linearLayoutCompat.setGravity(Gravity.START);
+        linearLayoutCompat.setGravity(Gravity.CENTER_VERTICAL);
+        linearLayoutCompat.setPadding(0,0,Utils.dpToPx(context,20),0);
 
         for(View view: views)
             linearLayoutCompat.addView(view);
@@ -99,11 +90,13 @@ public class WidgetUtils {
     public static RadioGroup createCheckBoxes(Context context, Map<String,Long> labelValueMap, CompoundButton.OnCheckedChangeListener onCheckedChangeListener, int orientation, int width, int height, int weight){
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
+        layoutParams.setMargins(0,0,0,0);
         layoutParams.weight = weight;
 
         RadioGroup radioGroup = new RadioGroup(context);
         radioGroup.setOrientation(orientation);
         radioGroup.setLayoutParams(layoutParams);
+        radioGroup.setGravity(Gravity.CENTER_VERTICAL);
 
         for (Map.Entry<String,Long> hash:labelValueMap.entrySet()) {
 
@@ -111,6 +104,7 @@ public class WidgetUtils {
             radioButton.setText(hash.getKey());
             radioButton.setId(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
+            radioButton.setGravity(Gravity.CENTER_VERTICAL);
             radioButton.setOnCheckedChangeListener(onCheckedChangeListener);
             radioGroup.addView(radioButton);
         }
@@ -129,7 +123,7 @@ public class WidgetUtils {
 
         AppCompatSpinner spinner = new AppCompatSpinner(context);
         spinner.setAdapter(adapter);
-        //spinner.setLayoutParams(layoutParams);
+        spinner.setLayoutParams(layoutParams);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -174,8 +168,6 @@ public class WidgetUtils {
 
         return view;
     }
-
-
 
     public static TextWatcher createTextWatcher(Consumer<CharSequence> callback){
 

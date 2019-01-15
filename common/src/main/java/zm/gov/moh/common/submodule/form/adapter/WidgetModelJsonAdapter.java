@@ -127,6 +127,7 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setTextSize(widgetModelJson.getTextSize());
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
+                basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
 
                 return basicConceptWidgetModel;
 
@@ -186,12 +187,22 @@ public class WidgetModelJsonAdapter {
 
             case "Basic":
 
-                final BasicFormAttribute attribute = new BasicFormAttribute();
+                final BasicFormAttribute basicFormAttribute = new BasicFormAttribute();
 
-                attribute.setFormType(formAttributeJson.getType());
-                attribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                basicFormAttribute.setFormType(formAttributeJson.getType());
+                basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
 
-                return attribute;
+                return basicFormAttribute;
+
+            case "Encounter":
+
+                final BasicFormAttribute encounterFormAttribute = new BasicFormAttribute();
+
+                encounterFormAttribute.setFormType(formAttributeJson.getType());
+                encounterFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
+                encounterFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+
+                return encounterFormAttribute;
 
             default: return null;
         }

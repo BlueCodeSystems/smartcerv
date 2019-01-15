@@ -4,6 +4,7 @@ public abstract class AbstractFormAttribute implements FormAttribute {
 
     private String type;
     private String submitLabel;
+    private long encounterId;
 
     public void setFormType(String type){
         this.type = type;
@@ -19,5 +20,13 @@ public abstract class AbstractFormAttribute implements FormAttribute {
 
     public String getSubmitLabel() {
         return submitLabel;
+    }
+
+    public void setEncounterId(long encounterId) {
+        this.encounterId = encounterId;
+    }
+
+    public long getEncounterId() {
+        return encounterId;
     }
 }
