@@ -161,6 +161,7 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(model.getHint())
                     .setTextSize(model.getTextSize())
                     .setLogic(model.getLogic())
+                    .setWeight(model.getWeight())
                     .build();
         }
 
