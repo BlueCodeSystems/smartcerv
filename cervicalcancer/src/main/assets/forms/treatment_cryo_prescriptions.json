@@ -12,31 +12,6 @@
           "widgets":[
             {
 
-              "widgetType":"TextView",
-              "label":"[    ]",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Frequency",
-              "textSize":18,
-              "weight":1
-            },
-            {
-
-              "widgetType":"TextView",
-              "label":"Duration",
-              "textSize":18,
-              "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-
 
               "tag":"prescription",
               "widgetType":"Concept",
@@ -525,20 +500,43 @@
               "conceptId": 165197,
               "dataType":"Boolean",
               "style":"check",
-              "textSize": 18
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Other",
-              "textSize":18,
-              "weight":1
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency10", "duration10"]
+                    }
+                  }
+                }
+              ]
             },
             {
               "tag": "prescription",
-              "widgetType": "EditText",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Text",
+              "hint":"Other Prescription",
+              "textSize": 18
+            },
+            {
+              "tag": "frequency10",
+              "widgetType": "Concept",
               "conceptId": 165225,
               "dataType": "Coded",
-              "style":"label",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration10",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
               "textSize": 18
             }
           ]

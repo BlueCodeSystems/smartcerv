@@ -18,6 +18,7 @@ import zm.gov.moh.common.databinding.FragmentFormBinding;
 import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.FormContext;
+import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.common.ui.BaseActivity;
@@ -44,7 +45,6 @@ public class FormFragment extends BaseFragment {
 
     public FormFragment() {
         // Required empty public constructor
-        formData = new HashMap<>();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FormFragment extends BaseFragment {
         context = (FormActivity) getContext();
         renderWidgets = new AtomicBoolean();
         this.form = new Form();
-
+        formData = new HashMap<>();
         renderWidgets.set(true);
 
         bundle = getArguments();
@@ -62,7 +62,7 @@ public class FormFragment extends BaseFragment {
         FragmentFormBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_form,container,false);
 
         rootView = binding.getRoot();
-
+        initFormData(formData);
         this.form.setRootView(rootView.findViewById(R.id.form_container));
         this.form.setFormContext(new FormContext());
 
@@ -119,32 +119,29 @@ public class FormFragment extends BaseFragment {
         renderWidgets.set(false);
         // Inflate the layout for this fragment
 
-        context.getViewModel().getRepository().getDatabase().locationDao().getAll().observe(this, this::setLocations);
+
         return rootView;
     }
 
+    public void initFormData(HashMap<String,Object> formData){
 
-    public void populateChildLocations(Long parentLocationId){
+        final long sessionLocationId = context.getViewModel().getRepository().getDefaultSharePrefrences()
+                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+        final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
+                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
 
-        context.getViewModel().getRepository().getDatabase().locationDao().getChild(parentLocationId).observe(this, this::setChildLocations);
+        formData.put(FormDataBundleKey.LOCATION_ID,sessionLocationId);
+        context.getViewModel()
+                .getRepository()
+                .getDatabase()
+                .providerUserDao()
+                .getAllByUserUuid(USER_UUID)
+                .observe(context, providerUser -> {
+
+                    formData.put(FormDataBundleKey.PROVIDER_ID,providerUser.provider_id);
+                    formData.put(FormDataBundleKey.USER_ID,providerUser.user_id);
+                });
     }
-
-    public void setLocations(List<Location> locations){
-
-    }
-
-    public void setChildLocations(List<Location> locations){
-
-    }
-
-    public ArrayAdapter getLocationAdapter(){
-        return null;
-    }
-
-    public ArrayAdapter getChildLocationAdapter(){
-        return null;
-    }
-
 
     @Override
     public void onStart() {

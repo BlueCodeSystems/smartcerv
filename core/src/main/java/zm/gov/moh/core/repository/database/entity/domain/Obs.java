@@ -39,4 +39,60 @@ public class Obs {
     public String form_namespace_and_path;
     public String status;
     public String interpretation;
+
+    public Obs(){
+
+    }
+
+    //Numeric obs
+    @Ignore
+    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id,Double value_numeric){
+
+        this.obs_id = obs_id;
+        this.person_id = person_id;
+        this.concept_id = concept_id;
+        this.encounter_id = encounter_id;
+        this.obs_datetime = obs_datetime;
+        this.location_id = location_id;
+        this.value_numeric = value_numeric;
+    }
+
+    //Datetime obs
+    @Ignore
+    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id, ZonedDateTime value_datetime){
+
+        this.obs_id = obs_id;
+        this.person_id = person_id;
+        this.concept_id = concept_id;
+        this.encounter_id = encounter_id;
+        this.obs_datetime = obs_datetime;
+        this.location_id = location_id;
+        this.value_datetime = value_datetime;
+    }
+
+    //Text obs
+    @Ignore
+    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id, String value_text){
+
+        this.obs_id = obs_id;
+        this.person_id = person_id;
+        this.concept_id = concept_id;
+        this.encounter_id = encounter_id;
+        this.obs_datetime = obs_datetime;
+        this.location_id = location_id;
+        this.value_text = value_text;
+    }
+
+    //Coded obs
+    @Ignore
+    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id, long value_coded){
+
+        this.obs_id = obs_id;
+        this.person_id = person_id;
+        this.concept_id = concept_id;
+        this.encounter_id = encounter_id;
+        this.obs_datetime = obs_datetime;
+        this.location_id = location_id;
+        this.value_coded = value_coded;
+    }
 }
