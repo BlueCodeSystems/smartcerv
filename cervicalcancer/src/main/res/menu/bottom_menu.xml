@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/register_select"
+        android:title="@string/register"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@mipmap/register">
+    </item>
+    <item
+        android:id="@+id/visit_select"
+        android:title="@string/visit"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@mipmap/visit">
+    </item>
+    <item
+        android:id="@+id/vitals_select"
+        android:title="@string/vitals"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@mipmap/vitals">
+    </item>
+</menu>

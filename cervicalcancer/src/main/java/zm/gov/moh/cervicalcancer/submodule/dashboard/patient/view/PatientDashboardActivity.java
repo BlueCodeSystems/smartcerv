@@ -1,8 +1,15 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -27,6 +34,10 @@ public class PatientDashboardActivity extends BaseActivity {
     long clientId;
     Client client;
 
+    private BottomNavigationView bottomNavigationView;
+    private Fragment fragment;
+    private FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +47,13 @@ public class PatientDashboardActivity extends BaseActivity {
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Patient Dashboard");
 
-        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+        vitals = ((BaseApplication) this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
 
         clientId = getIntent().getExtras().getLong(CLIENT_ID_KEY);
 
         viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
 
-        ActivityPatientDashboardBinding  binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
+        ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
         binding.setToolbarhandler(toolBarEventHandler);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
@@ -61,9 +72,32 @@ public class PatientDashboardActivity extends BaseActivity {
         viewModel.getRepository().getDatabase().cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
 
-        viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this ,binding::setFacility);
-    }
+        viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, binding::setFacility);
 
+        // Set Bottom Navigation View Listener
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.inflateMenu(R.menu.bottom_menu);
+
+        fragmentManager = getSupportFragmentManager();
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id == R.id.register_select) {
+                    //fragment = new PatientDashboardVisitFragment();
+
+                } else if(id == R.id.visit_select){
+                    fragment = new PatientDashboardVisitFragment();
+                } else if(id == R.id.vitals_select) {
+                    //fragment = new PatientDashboardVisitFragment();
+                }
+
+                final FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.viewpager, fragment).commit();
+                return false;
+            }
+        });
+    }
     public Submodule getVitals() {
         return vitals;
     }
