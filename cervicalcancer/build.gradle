@@ -49,4 +49,5 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.15'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
     implementation project(':core')
+    implementation 'com.google.android.material:material:1.0.0'
 }
