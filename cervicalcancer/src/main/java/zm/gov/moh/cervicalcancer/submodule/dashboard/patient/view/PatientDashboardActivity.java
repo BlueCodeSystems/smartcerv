@@ -55,7 +55,7 @@ public class PatientDashboardActivity extends BaseActivity {
 
         ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
         binding.setToolbarhandler(toolBarEventHandler);
-
+        /*
         // Find the view pager that will allow the getUsers to swipe between fragments
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -65,10 +65,11 @@ public class PatientDashboardActivity extends BaseActivity {
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
 
+
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-
+        */
         viewModel.getRepository().getDatabase().cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
 
@@ -84,17 +85,17 @@ public class PatientDashboardActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if(id == R.id.register_select) {
-                    //fragment = new PatientDashboardVisitFragment();
+                    fragment = new PatientDashboardRegisterViewPagerFragment();
 
                 } else if(id == R.id.visit_select){
-                    fragment = new PatientDashboardVisitFragment();
+                    fragment = new PatientDashboardVisitViewPagerFragment();
                 } else if(id == R.id.vitals_select) {
-                    //fragment = new PatientDashboardVisitFragment();
+                    fragment = new PatientDashboardVitalsViewPagerFragment();
                 }
 
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.viewpager, fragment).commit();
-                return false;
+                transaction.replace(R.id.bottom_navigation_view_container, fragment).commit();
+                return true;
             }
         });
     }

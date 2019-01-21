@@ -51,11 +51,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable" />
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager"
+
+        <FrameLayout
+            android:id="@+id/bottom_navigation_view_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white" />
+            android:layout_height="wrap_content">
+
+            <!--<androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white" />-->
+
+        </FrameLayout>
         </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
