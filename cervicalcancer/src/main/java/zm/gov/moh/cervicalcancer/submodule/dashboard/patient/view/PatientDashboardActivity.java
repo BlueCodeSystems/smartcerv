@@ -87,7 +87,7 @@ public class PatientDashboardActivity extends BaseActivity {
                 if(id == R.id.register_select) {
                     fragment = new PatientDashboardRegisterViewPagerFragment();
 
-                } else if(id == R.id.visit_select){
+                } else if(id == R.id.visit_select) {
                     fragment = new PatientDashboardVisitViewPagerFragment();
                 } else if(id == R.id.vitals_select) {
                     fragment = new PatientDashboardVitalsViewPagerFragment();

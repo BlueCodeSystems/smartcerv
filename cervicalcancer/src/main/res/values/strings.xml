@@ -5,4 +5,5 @@
     <string name="register">Register</string>
     <string name="visit">Visit</string>
     <string name="vitals">Vitals</string>
+    <string name="visit_history">History Visit</string>
 </resources>

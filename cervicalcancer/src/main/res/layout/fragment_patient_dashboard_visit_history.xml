@@ -3,17 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".submodule.dashboard.patient.view.PatientDashboardVitalsViewPagerFragment">
+    tools:context=".submodule.dashboard.patient.view.PatientDashboardVisitHistoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/vitals" />
-    <!--<androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white" />-->
+        android:text="@string/visit_history" />
 
 </FrameLayout>
