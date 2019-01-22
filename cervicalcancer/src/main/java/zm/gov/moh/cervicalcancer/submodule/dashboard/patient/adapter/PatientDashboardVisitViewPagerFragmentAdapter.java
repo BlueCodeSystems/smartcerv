@@ -27,11 +27,6 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
         else if(position == 1) {
             return new PatientDashboardVisitHistoryFragment();
         }
-        /*else if(position == 2) {
-            Fragment fragment = new  PatientDashboardVisitHistoryFragment();
-            fragment.setArguments(mContext.getIntent().getExtras());
-            return fragment;
-        }*/
         else
             return new PatientDashboardVisitFragment();
     }
