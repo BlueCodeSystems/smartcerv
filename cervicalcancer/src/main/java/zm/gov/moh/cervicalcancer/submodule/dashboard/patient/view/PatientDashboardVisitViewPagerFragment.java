@@ -23,7 +23,6 @@ import zm.gov.moh.common.ui.BaseActivity;
 public class PatientDashboardVisitViewPagerFragment extends Fragment {
 
     private BaseActivity context;
-    Bundle bundle;
 
     public PatientDashboardVisitViewPagerFragment() {
         // Required empty public constructor
@@ -47,6 +46,10 @@ public class PatientDashboardVisitViewPagerFragment extends Fragment {
 
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         // Inflate the layout for this fragment
         return view;

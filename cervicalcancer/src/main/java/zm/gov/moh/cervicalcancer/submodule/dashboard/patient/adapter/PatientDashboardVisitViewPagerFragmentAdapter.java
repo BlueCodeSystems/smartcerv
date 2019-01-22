@@ -43,7 +43,7 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
             case 0:
                 return "Visit";
             case 1:
-                return "History Visit 1";
+                return "History Visit";
             default:
                 return null;
         }

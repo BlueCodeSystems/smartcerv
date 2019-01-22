@@ -53,34 +53,25 @@ public class PatientDashboardActivity extends BaseActivity {
 
         viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
 
-        ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
+        ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this,
+                R.layout.activity_patient_dashboard);
         binding.setToolbarhandler(toolBarEventHandler);
-        /*
-        // Find the view pager that will allow the getUsers to swipe between fragments
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        // Create an adapter that knows which fragment should be shown on each page
-        PatientDashboardFragmentPagerAdapter adapter = new PatientDashboardFragmentPagerAdapter(this, getSupportFragmentManager());
+        viewModel.getRepository().getDatabase().cervicalCancerDao().getPatientById(clientId).
+                observe(this, binding::setClient);
+        viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).
+                observe(this, binding::setClientAddress);
 
-        // Set the adapter onto the view pager
-        viewPager.setAdapter(adapter);
-
-
-        // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        */
-        viewModel.getRepository().getDatabase().cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
-        viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
-
-        viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, binding::setFacility);
+        viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
+                observe(this, binding::setFacility);
 
         // Set Bottom Navigation View Listener
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.inflateMenu(R.menu.bottom_menu);
 
         fragmentManager = getSupportFragmentManager();
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
