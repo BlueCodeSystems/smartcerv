@@ -29,7 +29,7 @@ import zm.gov.moh.core.utils.BaseApplication;
 
 public class PatientDashboardActivity extends BaseActivity {
 
-    public static final String CLIENT_ID_KEY = "PERSON_ID";
+    public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
     PatientDashboardViewModel viewModel;
     Submodule vitals;
@@ -57,7 +57,7 @@ public class PatientDashboardActivity extends BaseActivity {
         Database database = viewModel.getRepository().getDatabase();
 
         Bundle bundle = getIntent().getExtras();
-        clientId = bundle.getLong(CLIENT_ID_KEY);
+        clientId = bundle.getLong(PERSON_ID);
 
 
 
@@ -91,15 +91,17 @@ public class PatientDashboardActivity extends BaseActivity {
                     fragment = new PatientDashboardVitalsViewPagerFragment();
                 }
 
+                fragment.setArguments(bundle);
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
 				transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
+				return true;
             }			
         });
         bottomNavigationView.setSelectedItemId(R.id.register_select);
 		database.cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId).observe(this ,binding::setFacility);
-		
+
     }
     public Submodule getVitals() {
         return vitals;
