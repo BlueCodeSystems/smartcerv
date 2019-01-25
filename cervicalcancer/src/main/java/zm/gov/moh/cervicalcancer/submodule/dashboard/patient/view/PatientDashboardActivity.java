@@ -85,10 +85,12 @@ public class PatientDashboardActivity extends BaseActivity {
                 }
 
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.bottom_navigation_view_container, fragment).commit();
+                transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
+
                 return true;
             }
         });
+        bottomNavigationView.setSelectedItemId(R.id.register_select);
     }
     public Submodule getVitals() {
         return vitals;

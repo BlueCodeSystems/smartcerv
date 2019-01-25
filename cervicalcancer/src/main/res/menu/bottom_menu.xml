@@ -5,17 +5,17 @@
 
     <item
         android:id="@+id/register_select"
-        android:title="@string/register"
+        android:title="@string/recents"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@mipmap/register">
+        android:icon="@drawable/ic_round_history_24px">
     </item>
     <item
         android:id="@+id/visit_select"
         android:title="@string/visit"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@mipmap/visit">
+        android:icon="@android:drawable/ic_menu_today">
     </item>
     <item
         android:id="@+id/vitals_select"
