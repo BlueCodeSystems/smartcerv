@@ -10,15 +10,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardFragmentPagerAdapter;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
-import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
@@ -76,8 +72,7 @@ public class PatientDashboardActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if(id == R.id.register_select) {
-                    fragment = new PatientDashboardRegisterViewPagerFragment();
-
+                    fragment = new PatientDashboardHistoryViewPagerFragment();
                 } else if(id == R.id.visit_select) {
                     fragment = new PatientDashboardVisitViewPagerFragment();
                 } else if(id == R.id.vitals_select) {

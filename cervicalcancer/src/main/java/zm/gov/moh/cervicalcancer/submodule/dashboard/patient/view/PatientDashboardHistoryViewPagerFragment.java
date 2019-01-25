@@ -14,17 +14,16 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardRegisterViewPagerFragmentAdapter;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardVisitViewPagerFragmentAdapter;
 import zm.gov.moh.common.ui.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PatientDashboardRegisterViewPagerFragment extends Fragment {
+public class PatientDashboardHistoryViewPagerFragment extends Fragment {
 
     private BaseActivity context;
 
-    public PatientDashboardRegisterViewPagerFragment() {
+    public PatientDashboardHistoryViewPagerFragment() {
         // Required empty public constructor
     }
 
@@ -34,7 +33,7 @@ public class PatientDashboardRegisterViewPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         context = (PatientDashboardActivity) getContext();
-        View view = inflater.inflate(R.layout.fragment_patient_dashboard_register_view_pager,
+        View view = inflater.inflate(R.layout.fragment_patient_dashboard_history_view_pager,
                 container, false);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
@@ -52,6 +51,7 @@ public class PatientDashboardRegisterViewPagerFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+
     }
 
 }
