@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
         <variable name="clientAddress" type="zm.gov.moh.core.repository.database.entity.domain.PersonAddress"/>
@@ -7,50 +8,68 @@
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
         <import type="org.threeten.bp.LocalDate"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <FrameLayout
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".submodule.dashboard.patient.view.PatientDashboardActivity">
-        <include
-            layout="@layout/base_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:toolbarhandler="@{toolbarhandler}">
-        </include>
+         android:layout_width="match_parent">
 
-       <include android:id="@+id/client"
-           layout="@layout/client_card"
-           app:client="@{client}" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@{facility.name}"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="end"
-            android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
-            android:textColor="@color/darker_grey"/>
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="scrollable" />
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white" />
-    </LinearLayout>
+            android:orientation="vertical"
+            tools:context=".submodule.dashboard.patient.view.PatientDashboardActivity">
+
+            <include
+                layout="@layout/base_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:toolbarhandler="@{toolbarhandler}">
+            </include>
+
+            <include android:id="@+id/client"
+                layout="@layout/client_card"
+                app:client="@{client}" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{facility.name}"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="end"
+                android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
+                android:textColor="@color/darker_grey"/>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/sliding_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable" />
+
+            <FrameLayout
+                android:id="@+id/bottom_navigation_view_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?attr/colorPrimary"
+            app:itemTextColor="@drawable/selector_bottombar_item"
+            app:itemIconTint="@drawable/selector_bottombar_item" />
+    </FrameLayout>
+
 </layout>

@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:color="?attr/colorPrimaryDark" android:state_enabled="false" />
+
+    <item android:color="@color/white" android:state_checked="true" />
+
+    <item android:color="@color/darker_grey" android:state_checked="false" />
+</selector>
