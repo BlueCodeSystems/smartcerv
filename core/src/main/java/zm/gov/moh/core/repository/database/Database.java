@@ -11,6 +11,8 @@ import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
 import zm.gov.moh.core.repository.database.dao.derived.VitalsDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
+import zm.gov.moh.core.repository.database.dao.domain.EncounterDao;
+import zm.gov.moh.core.repository.database.dao.domain.EncounterProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationDao;
@@ -27,6 +29,7 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
+import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
@@ -86,7 +89,7 @@ import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
                 ClientNameFts.class,
                 ConceptName.class,
                 ConceptAnswer.class
-        }, version = 2, exportSchema = false)
+        }, version = 1, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -112,6 +115,9 @@ public abstract class Database extends RoomDatabase {
     public abstract PatientIdentifierDao patientIdentifierDao();
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
     public abstract ObsDao obsDao();
+    public abstract EncounterDao encounterDao();
+    public abstract EncounterProviderDao encounterProviderDao();
+    public abstract VisitDao visitDao();
     public abstract ClientFtsDao clientFtsDao();
     public abstract ConceptAnswerDao conceptAnswerDao();
     public abstract ConceptNameDao conceptNameDao();

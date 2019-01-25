@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
     protected static final String START_SUBMODULE_KEY = "start_submodule";
     protected static final String CALLING_SUBMODULE_KEY = "calling_submodule";
     protected static final String FORM_FRAGMENT_KEY = "FORM_FRAGMENT_KEY";
-    public static final String CLIENT_ID_KEY = "CLIENT_ID_KEY";
+    public static final String CLIENT_ID_KEY = "PERSON_ID";
     public static final String JSON_FORM_KEY = "JSON_FORM_KEY";
     public static final String ACTION_KEY = "ACTION_KEY";
     public static final String FORM_DATA_KEY = "FORM_DATA_KEY";

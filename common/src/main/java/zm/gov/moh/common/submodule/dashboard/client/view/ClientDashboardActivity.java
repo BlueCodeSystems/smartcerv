@@ -20,7 +20,7 @@ import zm.gov.moh.core.model.submodule.Submodule;
 
 public class ClientDashboardActivity extends BaseActivity {
 
-    public static final String CLIENT_ID_KEY = "CLIENT_ID_KEY";
+    public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
     ClientDashboardViewModel viewModel;
     Submodule vitals;
@@ -38,7 +38,7 @@ public class ClientDashboardActivity extends BaseActivity {
 
         vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
 
-        clientId = getIntent().getExtras().getLong(CLIENT_ID_KEY);
+        clientId = getIntent().getExtras().getLong(PERSON_ID);
 
         viewModel = ViewModelProviders.of(this).get(ClientDashboardViewModel.class);
 

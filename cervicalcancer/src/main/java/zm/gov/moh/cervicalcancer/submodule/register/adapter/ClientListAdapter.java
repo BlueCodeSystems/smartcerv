@@ -48,7 +48,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
 
             Client client = clientList.get(getAdapterPosition());
             long clientId = client.patient_id;
-            bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
+            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
             //Submodule call = (Submodule) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
            context.startSubmodule(patientDashboard, bundle);

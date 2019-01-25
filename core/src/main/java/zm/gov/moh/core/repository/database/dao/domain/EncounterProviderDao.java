@@ -8,6 +8,9 @@ import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 @Dao
 public interface EncounterProviderDao {
 
+    @Query("SELECT MAX(encounter_provider_id) FROM encounter_provider")
+    Long getMaxId();
+
     //get by patient and encouter type
     @Query("SELECT * FROM encounter_provider WHERE encounter_id = :encounterId AND provider_id = :providerId")
     LiveData<EncounterProvider> getByEncounterProviderId(long providerId, long encounterId);

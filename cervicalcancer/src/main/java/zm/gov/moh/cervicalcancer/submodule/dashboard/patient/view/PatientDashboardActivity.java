@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+
 import androidx.viewpager.widget.ViewPager;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -22,12 +23,13 @@ import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class PatientDashboardActivity extends BaseActivity {
 
-    public static final String CLIENT_ID_KEY = "CLIENT_ID_KEY";
+    public static final String CLIENT_ID_KEY = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
     PatientDashboardViewModel viewModel;
     Submodule vitals;
@@ -42,19 +44,24 @@ public class PatientDashboardActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
+        setViewModel(viewModel);
+
         AndroidThreeTen.init(this);
 
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Patient Dashboard");
 
-        vitals = ((BaseApplication) this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
 
-        clientId = getIntent().getExtras().getLong(CLIENT_ID_KEY);
+        Database database = viewModel.getRepository().getDatabase();
 
-        viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
+        Bundle bundle = getIntent().getExtras();
+        clientId = bundle.getLong(CLIENT_ID_KEY);
 
-        ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this,
-                R.layout.activity_patient_dashboard);
+
+
+        ActivityPatientDashboardBinding  binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
         binding.setToolbarhandler(toolBarEventHandler);
 
         viewModel.getRepository().getDatabase().cervicalCancerDao().getPatientById(clientId).
@@ -85,12 +92,14 @@ public class PatientDashboardActivity extends BaseActivity {
                 }
 
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
-
-                return true;
-            }
+				transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
+            }			
         });
         bottomNavigationView.setSelectedItemId(R.id.register_select);
+		database.cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
+        database.personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
+        database.locationDao().getByPatientId(clientId).observe(this ,binding::setFacility);
+		
     }
     public Submodule getVitals() {
         return vitals;
