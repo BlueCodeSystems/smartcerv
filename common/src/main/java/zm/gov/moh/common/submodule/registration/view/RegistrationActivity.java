@@ -130,7 +130,7 @@ public class RegistrationActivity extends BaseActivity {
 
         final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
 
-            bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
+            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
             startSubmodule(clientDashBoardSubmodule, bundle);
             finish();
         };

@@ -5,7 +5,6 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.BR;
 import zm.gov.moh.common.databinding.ActivityVitalsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
@@ -36,7 +35,7 @@ public class VitalsActivity extends BaseActivity {
 
             try {
 
-                clientId = bundle.getLong(ClientDashboardActivity.CLIENT_ID_KEY);
+                clientId = bundle.getLong(ClientDashboardActivity.PERSON_ID);
             } catch (Exception e) {
 
                 bundle = new Bundle();

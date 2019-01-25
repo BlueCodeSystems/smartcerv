@@ -5,6 +5,11 @@ import androidx.room.*;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 public class Obs {
 
@@ -44,55 +49,72 @@ public class Obs {
 
     }
 
-    //Numeric obs
     @Ignore
-    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id,Double value_numeric){
+    public Obs(long obs_id,long person_id,long encounter_id,ZonedDateTime obs_datetime,long location_id,long creator){
 
         this.obs_id = obs_id;
         this.person_id = person_id;
-        this.concept_id = concept_id;
         this.encounter_id = encounter_id;
         this.obs_datetime = obs_datetime;
+        this.date_created = obs_datetime;
         this.location_id = location_id;
+        this.creator = creator;
+    }
+
+    public Obs setConceptId(long concept_id){
+
+        this.concept_id = concept_id;
+        return this;
+    }
+
+    public Obs setObsGroupId(long obs_group_id){
+
+        this.obs_group_id = obs_group_id;
+        return this;
+    }
+
+    public Obs setValue(Double value_numeric){
+
         this.value_numeric = value_numeric;
+        return this;
     }
 
-    //Datetime obs
-    @Ignore
-    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id, ZonedDateTime value_datetime){
+    public Obs setValue(ZonedDateTime value_datetime){
 
-        this.obs_id = obs_id;
-        this.person_id = person_id;
-        this.concept_id = concept_id;
-        this.encounter_id = encounter_id;
-        this.obs_datetime = obs_datetime;
-        this.location_id = location_id;
         this.value_datetime = value_datetime;
+        return this;
     }
 
-    //Text obs
-    @Ignore
-    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id, String value_text){
 
-        this.obs_id = obs_id;
-        this.person_id = person_id;
-        this.concept_id = concept_id;
-        this.encounter_id = encounter_id;
-        this.obs_datetime = obs_datetime;
-        this.location_id = location_id;
+    public Obs setValue(String value_text){
+
         this.value_text = value_text;
+        return this;
     }
 
-    //Coded obs
-    @Ignore
-    public Obs(long obs_id,long person_id,long concept_id,long encounter_id,ZonedDateTime obs_datetime,long location_id, long value_coded){
+    public Obs setValue(long value_coded){
 
-        this.obs_id = obs_id;
-        this.person_id = person_id;
-        this.concept_id = concept_id;
-        this.encounter_id = encounter_id;
-        this.obs_datetime = obs_datetime;
-        this.location_id = location_id;
         this.value_coded = value_coded;
+        return this;
+    }
+
+    public List<Obs> setValue(Set<Long> answerConcepts){
+
+        List<Obs> obsList = new LinkedList<>();
+
+        if(answerConcepts.size() == 1) {
+
+            this.setValue(answerConcepts.iterator().next());
+            obsList.add(this);
+        }
+        else if(answerConcepts.size() > 1)
+            for(Long conceptId : answerConcepts) {
+                Obs obs = new Obs(obs_id++, person_id, encounter_id, obs_datetime, location_id, creator)
+                        .setConceptId(concept_id)
+                        .setValue(conceptId);
+                obsList.add(obs);
+            }
+
+        return obsList;
     }
 }

@@ -1,0 +1,150 @@
+{
+  "attributes":{
+    "type":"Basic",
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Treatment",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165187,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize":18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency", "duration"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Cryotherapy performed today",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165188,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency1", "duration1"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Thermal coagulation performed today",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165187,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize":18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency", "duration"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Cryotherapy delayed",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165188,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency1", "duration1"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Thermal coagulation delayed",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "tag":"reason for delayed treatment",
+          "widgetType":"Concept",
+          "label":"Reason for delayed treatment",
+          "conceptId": 165240,
+          "dataType":"Coded",
+          "style":"check",
+          "textSize": 18
+        }
+      ]
+    }
+  ]
+}

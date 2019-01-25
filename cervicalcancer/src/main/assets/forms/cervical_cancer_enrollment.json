@@ -111,7 +111,7 @@
           "widgets": [
             {
               "widgetType":"TextView",
-              "text":"Date Of Birth",
+              "label":"Date Of Birth",
               "textSize":18,
               "weight":1
             }

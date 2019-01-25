@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
@@ -161,12 +162,16 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         switch (mDataType) {
 
             case ConceptDataType.TEXT:
-                //this.addView(WidgetUtils.createLinearLayout(context, WidgetUtils.HORIZONTAL, this.label, mEditText));
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
                 this.addView(view);
-                //WidgetUtils.enableView(view, false);
-                //WidgetUtils.enableView(view, true);
                 break;
+
+            case ConceptDataType.NUMERIC:
+                mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
+                this.addView(view);
+                break;
+
 
             case ConceptDataType.DATE:
                 mEditText.setHint(DATE_PICKER_LABEL);

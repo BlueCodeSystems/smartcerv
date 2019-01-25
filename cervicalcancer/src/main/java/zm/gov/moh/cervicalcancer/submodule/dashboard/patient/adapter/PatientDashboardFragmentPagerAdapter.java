@@ -28,27 +28,29 @@ public class PatientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        Fragment fragment;
         if (position == 0)
-            return new PatientDashboardVisitTypeFragment();
+            fragment = new PatientDashboardVisitTypeFragment();
         else if (position == 1)
-            return new PatientDashboardVisitType2Fragment();
+            fragment = new PatientDashboardVisitType2Fragment();
         else if (position == 2)
-            return new PatientDashboardScreeningFragment();
+            fragment = new PatientDashboardScreeningFragment();
         else if (position == 3)
-            return new PatientDashboardReferralFragment();
+            fragment = new PatientDashboardReferralFragment();
         else if (position == 4)
-            return new PatientDashboardTreatmentFragment();
+            fragment = new PatientDashboardTreatmentFragment();
         else if (position == 5)
-            return new PatientDashboardProvidersFragment();
-        else if (position == 6)
-            return new PatientDashboardVisitFragment();
-        else if (position == 7){
-            Fragment fragment = new ClientDashboardVitalsFragment();
-            fragment.setArguments(mContext.getIntent().getExtras());
-            return fragment;
+            fragment = new PatientDashboardProvidersFragment();
+        else if (position == 6) {
+            fragment = new PatientDashboardVisitFragment();
         }
+        else if (position == 7)
+            fragment = new ClientDashboardVitalsFragment();
          else
             return new PatientDashboardVisitTypeFragment();
+
+        fragment.setArguments(mContext.getIntent().getExtras());
+        return fragment;
     }
 
     // This determines the number of tabs
