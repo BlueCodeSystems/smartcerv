@@ -5,6 +5,8 @@ import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+
+import android.os.Bundle;
 import android.util.TypedValue;
 
 import java.util.HashMap;
@@ -16,12 +18,12 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
 
     private AppCompatTextView label;
     private AppCompatTextView value;
-    private HashMap<String,Object> formaData;
+    private Bundle bundle;
 
-    public ProviderLabelWidget(Context context, Repository repository, HashMap<String, Object> formaData){
+    public ProviderLabelWidget(Context context, Repository repository, Bundle bundle){
         super(context);
 
-        this.formaData = formaData;
+        this.bundle = bundle;
         LinearLayoutCompat.LayoutParams textViewlayoutParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
         LinearLayoutCompat.LayoutParams linearlayoutParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
         label = new AppCompatTextView(context);
@@ -62,10 +64,10 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
 
         String displayName = providerUser.given_name+" "+providerUser.family_name;
         setTextValue(displayName);
-        this.formaData.put((String)getTag(), providerUser.provider_id);
+        this.bundle.putLong((String)getTag(), providerUser.provider_id);
     }
 
-    public void setFormData(HashMap<String,Object> formData){
-        this.formaData = formData;
+    public void setFormData(Bundle bundle){
+        this.bundle = bundle;
     }
 }

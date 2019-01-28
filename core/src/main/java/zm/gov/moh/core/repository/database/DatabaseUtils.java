@@ -11,7 +11,7 @@ public class DatabaseUtils {
 
         final Long MAX_VALUE = getMaxIndex.get();
 
-        if(MAX_VALUE >= PARTITION_VALUE)
+        if(MAX_VALUE != null && MAX_VALUE >= PARTITION_VALUE)
             return MAX_VALUE + 1;
         else
             return PARTITION_VALUE;

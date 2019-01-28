@@ -72,7 +72,7 @@ public class RegistrationActivity extends BaseActivity {
                 date.setError(null);
         });
 
-        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
+        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         init();
     }
@@ -130,7 +130,7 @@ public class RegistrationActivity extends BaseActivity {
 
         final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
 
-            bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
+            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
             startSubmodule(clientDashBoardSubmodule, bundle);
             finish();
         };

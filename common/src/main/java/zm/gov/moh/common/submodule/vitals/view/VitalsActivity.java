@@ -5,7 +5,6 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.BR;
 import zm.gov.moh.common.databinding.ActivityVitalsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
@@ -28,7 +27,7 @@ public class VitalsActivity extends BaseActivity {
 
         viewModel = ViewModelProviders.of(this).get(VitalsViewModel.class);
 
-        register = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.REGISTER);
+        register = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.REGISTER);
 
         long clientId = 0;
 
@@ -36,11 +35,11 @@ public class VitalsActivity extends BaseActivity {
 
             try {
 
-                clientId = bundle.getLong(ClientDashboardActivity.CLIENT_ID_KEY);
+                clientId = bundle.getLong(ClientDashboardActivity.PERSON_ID);
             } catch (Exception e) {
 
                 bundle = new Bundle();
-                callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+                callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
                 bundle.putSerializable(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY, callerSubmodule);
                 startSubmodule(register,bundle);
                 finish();
@@ -48,7 +47,7 @@ public class VitalsActivity extends BaseActivity {
         }else{
 
             bundle = new Bundle();
-            callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+            callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
             bundle.putSerializable(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY, callerSubmodule);
             startSubmodule(register,bundle);
             finish();

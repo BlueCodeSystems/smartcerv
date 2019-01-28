@@ -10,9 +10,8 @@ import zm.gov.moh.core.repository.database.entity.domain.Obs;
 @Dao
 public interface ObsDao {
 
-    //gets all persons
-    @Query("SELECT * FROM obs")
-    LiveData<List<Obs>> getAll();
+    @Query("SELECT MAX(obs_id) FROM obs")
+    Long getMaxId();
 
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -21,6 +20,10 @@ public interface ObsDao {
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Obs... obs);
+
+    // Inserts single getPersons
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<Obs> obs);
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")

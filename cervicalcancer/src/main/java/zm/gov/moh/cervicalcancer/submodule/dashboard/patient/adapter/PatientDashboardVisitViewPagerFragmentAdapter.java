@@ -22,13 +22,19 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
     @Override
     public Fragment getItem(int position) {
         // We want the visit fragment to have two tabs;
+
+        Fragment fragment;
         if(position == 0)
-            return new PatientDashboardVisitFragment();
+            fragment = new PatientDashboardVisitFragment();
         else if(position == 1) {
-            return new PatientDashboardVisitHistoryFragment();
+            fragment = new PatientDashboardVisitHistoryFragment();
         }
         else
-            return new PatientDashboardVisitFragment();
+            fragment =  new PatientDashboardVisitFragment();
+
+        fragment.setArguments(mContext.getIntent().getExtras());
+
+        return fragment;
     }
 
     @Override

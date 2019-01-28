@@ -28,12 +28,12 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
     private Bundle bundle;
     private Submodule formSubmodule;
 
-    public CareServicesExpandableListAdapter(Context context, List<SubmoduleGroup> submoduleGroups) {
+    public CareServicesExpandableListAdapter(Context context, List<SubmoduleGroup> submoduleGroups,Bundle bundle) {
 
         this.context = (BaseActivity) context;
         this.submoduleGroups = submoduleGroups;
-        this.bundle = ((BaseActivity) context).getIntent().getExtras();
-        this.formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreSubmodules.FORM);
+        this.bundle = bundle;
+        this.formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
     }
 
     @Override
@@ -62,7 +62,9 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
         TextView sequence = (TextView) view.findViewById(R.id.submodule_group_child_item_title);
         sequence.setText(submodule.getName());
 
-        view.setOnClickListener(view1 -> context.startSubmodule(formSubmodule,bundle));
+        view.setOnClickListener(view1 ->{
+            context.startSubmodule(submodule, bundle);
+        });
 
         return view;
     }

@@ -37,12 +37,13 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         ActivityRegisterBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
+        binding.setContext(this);
         bundle = getIntent().getExtras();
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Client Register");
 
 
-        defaultSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
+        defaultSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         AndroidThreeTen.init(this);
 

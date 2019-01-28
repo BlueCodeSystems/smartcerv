@@ -21,12 +21,17 @@ public class PatientDashboardVitalsViewPagerFragmentAdapter extends FragmentStat
 
     @Override
     public Fragment getItem(int position) {
+
+        Fragment fragment;
+
         if (position == 0) {
-            Fragment fragment = new ClientDashboardVitalsFragment();
-            fragment.setArguments(mContext.getIntent().getExtras());
-            return fragment;
+             fragment = new ClientDashboardVitalsFragment();
         }else
-            return new PatientDashboardVisitTypeFragment();
+            fragment = new PatientDashboardVisitTypeFragment();
+
+        fragment.setArguments(mContext.getIntent().getExtras());
+
+        return fragment;
     }
 
     @Override

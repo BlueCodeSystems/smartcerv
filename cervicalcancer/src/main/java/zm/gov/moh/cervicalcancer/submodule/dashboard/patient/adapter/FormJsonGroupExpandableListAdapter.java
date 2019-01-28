@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
         this.context = (BaseActivity) context;
         this.formJsonGroups = formJsonGroups;
         this.bundle = ((BaseActivity) context).getIntent().getExtras();
-        this.formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreSubmodules.FORM);
+        this.formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
     }
 
     @Override

@@ -68,11 +68,11 @@ public class PatientDashboardScreening2Fragment extends Fragment {
 
     public List<SubmoduleGroup> getCareServices(){
 
-        Submodule registeration = ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.REGISTRATION);
+        Submodule registeration = ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CoreModule.REGISTRATION);
         List<Submodule> submodules = new ArrayList<>();
         submodules.add(registeration);
 
-        SubmoduleGroup submoduleGroup1 = (SubmoduleGroup) ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CareSubmodules.CERVICAL_CANCER);
+        SubmoduleGroup submoduleGroup1 = (SubmoduleGroup) ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.Module.CERVICAL_CANCER);
 
 
         List<SubmoduleGroup> submoduleGroups = new ArrayList<>();

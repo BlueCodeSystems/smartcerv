@@ -24,7 +24,7 @@ public class FirstPointOfCareActivity extends BaseActivity {
 
        FirstPointOfCareActivityBinding binding =  DataBindingUtil.setContentView(this, R.layout.first_point_of_care_activity);
        BaseActivity.ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
-        toolBarEventHandler.setTitle("First Point of Care");
+        toolBarEventHandler.setTitle("Point of Care");
 
        binding.setVariable(BR.fpocareviewmodel, viewModel);
        binding.setToolbarhandler(toolBarEventHandler);

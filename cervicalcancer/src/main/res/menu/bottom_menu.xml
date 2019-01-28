@@ -15,7 +15,7 @@
         android:title="@string/visit"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@mipmap/visit">
+        android:icon="@android:drawable/ic_menu_today">
     </item>
     <item
         android:id="@+id/vitals_select"

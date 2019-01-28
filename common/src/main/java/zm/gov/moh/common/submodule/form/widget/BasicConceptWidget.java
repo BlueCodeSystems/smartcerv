@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
@@ -43,7 +45,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     String mDataType;
     ObsValue<Object> mObsValue;
     final String DATE_PICKER_LABEL = "Select Date";
-    HashMap<String, Object> formData;
+    Bundle bundle;
     Repository repository;
     List<Logic> logic;
     Form form;
@@ -133,7 +135,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mObsValue.setConceptDataType(mDataType);
         answerConcepts = new HashSet<>();
         mObsValue.setConceptId(mConceptId);
-        formData.put((String)this.getTag(),mObsValue);
+        bundle.putSerializable((String)this.getTag(),mObsValue);
         canSetValue = new AtomicBoolean();
         canSetValue.set(true);
 
@@ -161,12 +163,16 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         switch (mDataType) {
 
             case ConceptDataType.TEXT:
-                //this.addView(WidgetUtils.createLinearLayout(context, WidgetUtils.HORIZONTAL, this.label, mEditText));
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
                 this.addView(view);
-                //WidgetUtils.enableView(view, false);
-                //WidgetUtils.enableView(view, true);
                 break;
+
+            case ConceptDataType.NUMERIC:
+                mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
+                this.addView(view);
+                break;
+
 
             case ConceptDataType.DATE:
                 mEditText.setHint(DATE_PICKER_LABEL);
@@ -244,9 +250,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         this.mContext = context;
     }
 
-    public BasicConceptWidget setFormData(HashMap<String,Object> formData){
+    public BasicConceptWidget setBundle(Bundle bundle){
 
-        this.formData = formData;
+        this.bundle = bundle;
         return this;
     }
 

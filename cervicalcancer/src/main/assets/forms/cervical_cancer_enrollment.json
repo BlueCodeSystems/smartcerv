@@ -94,12 +94,12 @@
               "weight":1
             },
             {
-              "tag":"first name",
+              "tag":"PERSON_GIVEN_NAME",
               "widgetType":"EditText",
               "hint": "First Name",
               "weight":1
             },{
-              "tag":"last name",
+              "tag":"PERSON_FAMILY_NAME",
               "widgetType":"EditText",
               "hint": "Last Name",
               "weight":1
@@ -111,7 +111,7 @@
           "widgets": [
             {
               "widgetType":"TextView",
-              "text":"Date Of Birth",
+              "label":"Date Of Birth",
               "textSize":18,
               "weight":1
             }
@@ -150,7 +150,7 @@
               "weight":1
             },
             {
-              "tag":"address",
+              "tag":"PERSON_ADDRESS",
               "widgetType":"EditText",
               "hint": "Plot number, Village, Street",
               "weight":1
