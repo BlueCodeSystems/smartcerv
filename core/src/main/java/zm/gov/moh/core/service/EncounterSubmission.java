@@ -2,6 +2,7 @@ package zm.gov.moh.core.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -44,25 +45,26 @@ public class EncounterSubmission extends IntentService implements InjectableView
     protected void onHandleIntent(@Nullable Intent intent) {
 
         InjectorUtils.provideRepository(this, getApplication());
-        HashMap<String,Object> formData = (HashMap<String,Object>)intent.getExtras().getSerializable(FORM_DATA_KEY);
+        Bundle bundle = intent.getExtras();
         AndroidThreeTen.init(this);
 
-        repository.consumeAsync(this::onSubmit,this::onError,formData);
+
+        repository.consumeAsync(this::onSubmit,this::onError,bundle);
     }
 
-    public void onSubmit(HashMap<String,Object> formData){
+    public void onSubmit(Bundle bundle){
 
-        long provider_id = (long)formData.get(Key.PROVIDER_ID);
-        long user_id = (long)formData.get(Key.USER_ID);
-        long location_id = (long)formData.get(Key.LOCATION_ID);
-        long person_id = (long)formData.get(Key.PERSON_ID);
-        long encounter_type_id = (long)formData.get(Key.ENCOUNTER_TYPE_ID);
-        long visit_id = (long)formData.get(Key.VISIT_ID);
+        long provider_id = (long)bundle.get(Key.PROVIDER_ID);
+        long user_id = (long)bundle.get(Key.USER_ID);
+        long location_id = (long)bundle.get(Key.LOCATION_ID);
+        long person_id = (long)bundle.get(Key.PERSON_ID);
+        long encounter_type_id = (long)bundle.get(Key.ENCOUNTER_TYPE_ID);
+        long visit_id = (long)bundle.get(Key.VISIT_ID);
         ZonedDateTime zonedDatetimeNow = ZonedDateTime.now();
 
         long encounter_id = submitEncounter(encounter_type_id, person_id, location_id, visit_id, user_id, zonedDatetimeNow);
 
-        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow,formData.values());
+       submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow,bundle);
 
         submitEncounterProvider(encounter_id, provider_id,null,user_id);
     }
@@ -85,22 +87,24 @@ public class EncounterSubmission extends IntentService implements InjectableView
         return encounter_provider_id;
     }
 
-    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, ZonedDateTime zonedDatetimeNow,Collection<Object> formValues){
+    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, ZonedDateTime zonedDatetimeNow,Bundle bundle){
 
         long obs_id = DatabaseUtils.generateLocalId(repository.getDatabase().obsDao()::getMaxId);
 
-        for(Object value : formValues)
-            if(value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
+        for(String key : bundle.keySet()) {
+
+            Object value = bundle.get(key);
+            if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
 
                 Obs obs = new Obs(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
 
-                ObsValue<Object>obsValue = (ObsValue<Object>)value;
+                ObsValue<Object> obsValue = (ObsValue<Object>) value;
 
                 List<Obs> obsList = new LinkedList<>();
 
-                String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN))?
+                String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN)) ?
                         ConceptDataType.CODED
-                        :obsValue.getConceptDataType();
+                        : obsValue.getConceptDataType();
 
                 switch (conceptDataType) {
 
@@ -118,7 +122,7 @@ public class EncounterSubmission extends IntentService implements InjectableView
 
                     case ConceptDataType.DATE:
 
-                        String date = obsValue.getValue().toString()+this.getResources().getString(R.string.zoned_time_mid_day);
+                        String date = obsValue.getValue().toString() + this.getResources().getString(R.string.zoned_time_mid_day);
 
                         obsList.add(obs.setConceptId(obsValue.getConceptId())
                                 .setValue(ZonedDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME)));
@@ -126,18 +130,20 @@ public class EncounterSubmission extends IntentService implements InjectableView
 
                     case ConceptDataType.CODED:
 
-                        Set<Long> answerConcepts = (Set<Long>)obsValue.getValue();
+                        Set<Long> answerConcepts = (Set<Long>) obsValue.getValue();
                         obsList.addAll(obs.setConceptId(obsValue.getConceptId())
                                 .setValue(answerConcepts));
                         break;
                 }
 
                 repository.getDatabase().obsDao().insert(obsList);
+                bundle.remove(key);
 
                 return Observable.fromIterable(obsList)
                         .map(obs1 -> obs1.obs_id)
                         .toList().blockingGet();
             }
+        }
 
             return null;
     }

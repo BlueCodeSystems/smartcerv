@@ -2,16 +2,15 @@ package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
 import androidx.appcompat.widget.LinearLayoutCompat;
+
+import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 
-import java.util.HashMap;
-
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.CodedConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
@@ -37,14 +36,14 @@ public class WidgetModelToWidgetAdapter {
 
     Context context;
     Repository repository;
-    HashMap<String, Object> formData;
+    Bundle bundle;
     Form form;
 
-    public WidgetModelToWidgetAdapter(Context context, Repository repository, HashMap<String, Object> formData, Form form){
+    public WidgetModelToWidgetAdapter(Context context, Repository repository, Bundle bundle, Form form){
 
         this.context = context;
         this.repository = repository;
-        this.formData = formData;
+        this.bundle = bundle;
         this.form = form;
 
     }
@@ -59,15 +58,14 @@ public class WidgetModelToWidgetAdapter {
             FormEditTextWidget widget = new FormEditTextWidget(this.context, model.getWeight());
             widget.setHint(model.getHint());
             widget.setTag(model.getTag());
-            widget.setFormData(this.formData);
-            widget.setText(model.getText());
+            widget.setBundle(this.bundle);
            return widget;
         }
         else if(widgetModel instanceof DatePickerButtonModel){
 
             DatePickerButtonModel model = (DatePickerButtonModel) widgetModel;
 
-            FormDatePickerWidget widget = new FormDatePickerWidget(this.context, this.formData);
+            FormDatePickerWidget widget = new FormDatePickerWidget(this.context, this.bundle);
             widget.setTag(model.getTag());
             widget.setText(model.getText());
             return widget;
@@ -107,7 +105,7 @@ public class WidgetModelToWidgetAdapter {
 
             ProviderLabelModel model = (ProviderLabelModel) widgetModel;
 
-            ProviderLabelWidget widget = new ProviderLabelWidget(this.context,this.repository,formData);
+            ProviderLabelWidget widget = new ProviderLabelWidget(this.context,this.repository, bundle);
             widget.setLabelText(model.getLabel());
             widget.setLabelTextSize(model.getTextSize());
             widget.setValueTextSize(model.getTextSize());
@@ -118,7 +116,7 @@ public class WidgetModelToWidgetAdapter {
 
             DistrictLabelModel model = (DistrictLabelModel) widgetModel;
 
-            DistrictLabelWidget widget = new DistrictLabelWidget(this.context,this.repository,formData);
+            DistrictLabelWidget widget = new DistrictLabelWidget(this.context,this.repository, bundle);
             widget.setLabelText(model.getLabel());
             widget.setLabelTextSize(model.getTextSize());
             widget.setValueTextSize(model.getTextSize());
@@ -129,7 +127,7 @@ public class WidgetModelToWidgetAdapter {
 
             FacilityLabelModel model = (FacilityLabelModel) widgetModel;
 
-            FacilityLabelWidget widget = new FacilityLabelWidget(this.context,this.repository,formData);
+            FacilityLabelWidget widget = new FacilityLabelWidget(this.context,this.repository, bundle);
             widget.setLabelText(model.getLabel());
             widget.setLabelTextSize(model.getTextSize());
             widget.setValueTextSize(model.getTextSize());
@@ -141,7 +139,7 @@ public class WidgetModelToWidgetAdapter {
             CervicalCancerIDEditTextModel model = (CervicalCancerIDEditTextModel) widgetModel;
             CervicalCancerIDEditTextWidget widget = new CervicalCancerIDEditTextWidget(context,model.getWeight(),repository);
             widget.setTag(model.getTag());
-            widget.setFormData(formData);
+            widget.setBundle(bundle);
 
             return widget;
         }
@@ -152,7 +150,7 @@ public class WidgetModelToWidgetAdapter {
             return new BasicConceptWidget(context)
                     .setStyle(model.getStyle())
                     .setTag(model.getTag())
-                    .setFormData(formData)
+                    .setBundle(bundle)
                     .setForm(form)
                     .setConceptId(model.getConceptId())
                     .setDataType(model.getDataType())

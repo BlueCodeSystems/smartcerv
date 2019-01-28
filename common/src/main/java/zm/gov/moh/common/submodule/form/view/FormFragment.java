@@ -33,7 +33,6 @@ public class FormFragment extends BaseFragment {
 
     private Form form;
     private View rootView;
-    private HashMap<String,Object> formData;
     private AtomicBoolean renderWidgets;
     private FormModel formModel;
     private FormJson formJson;
@@ -56,7 +55,8 @@ public class FormFragment extends BaseFragment {
 
         bundle = getArguments();
 
-        formData = (HashMap<String, Object>)bundle.getSerializable(Key.FORM_STATE);
+        long person_id = (Long) bundle.get(Key.PERSON_ID);
+
         FragmentFormBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_form,container,false);
 
         rootView = binding.getRoot();
@@ -77,11 +77,11 @@ public class FormFragment extends BaseFragment {
             Exception ex = e;
         }
 
-        initFormData(formData);
+        initFormData(bundle);
 
         if(renderWidgets.get()) {
 
-            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),formData,form);
+            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),bundle,form);
 
             for(WidgetSectionModel section : formModel.getWidgetGroup()){
 
@@ -99,11 +99,11 @@ public class FormFragment extends BaseFragment {
 
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
-            formSubmitButtonWidget.setFormData(this.formData);
+            //formSubmitButtonWidget.setBundle(this.bundle);
 
             formSubmitButtonWidget.setOnSubmit(formData -> {
 
-                bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, formData);
+                //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 Intent formSubmission = new Intent(context,EncounterSubmission.class);
                 formSubmission.putExtras(bundle);
                 context.startService(formSubmission);
@@ -122,21 +122,19 @@ public class FormFragment extends BaseFragment {
         return rootView;
     }
 
-    public void initFormData(HashMap<String,Object> formData){
+    public void initFormData(Bundle bundle){
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
-        final Long PERSON_ID = bundle.getLong(Key.PERSON_ID);
 
         final long ENCOUNTER_ID = formModel.getAttributes().getEncounterId();
 
-        formData.put(Key.LOCATION_ID, SESSION_LOCATION_ID);
-        formData.put(Key.PERSON_ID, PERSON_ID);
+        bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         if(formModel.getAttributes().getFormType().equals("Encounter"))
-            formData.put(Key.ENCOUNTER_TYPE_ID, ENCOUNTER_ID);
+            this.bundle.putLong(Key.ENCOUNTER_TYPE_ID, ENCOUNTER_ID);
 
         context.getViewModel()
                 .getRepository()
@@ -145,10 +143,10 @@ public class FormFragment extends BaseFragment {
                 .getAllByUserUuid(USER_UUID)
                 .observe(context, providerUser -> {
 
-                    formData.put(FormDataBundleKey.PROVIDER_ID, providerUser.provider_id);
-                    formData.put(FormDataBundleKey.USER_ID, providerUser.user_id);
+                    bundle.putLong(FormDataBundleKey.PROVIDER_ID, providerUser.provider_id);
+                    bundle.putLong(FormDataBundleKey.USER_ID, providerUser.user_id);
                 });
-        //formData.put(Key.PERSON_ID,)
+        //bundle.put(Key.PERSON_ID,)
     }
 
     @Override

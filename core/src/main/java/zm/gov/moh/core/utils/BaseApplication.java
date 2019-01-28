@@ -30,7 +30,7 @@ public class BaseApplication extends Application {
         return submodules.get(submodule);
     }
 
-    public void loadSubmodule(String name, Submodule submodule){
+    public void registerModule(String name, Submodule submodule){
 
         submodules.put(name , submodule);
     }
@@ -40,7 +40,7 @@ public class BaseApplication extends Application {
         firstPointOfCareSubmodules.add(submodule);
     }
 
-    public class CoreSubmodules{
+    public class CoreModule {
 
         public static final String REGISTRATION = "REGISTRATION";
         public static final String REGISTER = "REGISTER";
@@ -52,7 +52,7 @@ public class BaseApplication extends Application {
         public static final String FORM = "FORM";
     }
 
-    public class CareSubmodules{
+    public class Module {
 
         public static final String CERVICAL_CANCER = "CERVICAL_CANCER";
     }

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -50,7 +49,6 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
     private PatientDashboardViewModel viewModel;
     private VisitState mVisitState;
     private Button startButton;
-    private HashMap<String,Object> formState;
     private ExpandableListView mFormGroupExpandableListView;
     private ImageView formInfoIcon;
     private TextView textView;
@@ -64,17 +62,18 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
 
         context = (BaseActivity)getContext();
         rootView = inflater.inflate(R.layout.fragment_patient_dashoard_visit, container, false);
-        formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreSubmodules.FORM);
+        formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
         viewModel = (PatientDashboardViewModel)context.getViewModel();
 
         this.bundle = getArguments();
 
-        if(viewModel.getFormState() == null)
-            viewModel.setFormState(new HashMap<>());
+        viewModel.setBundle(bundle);
 
-        formState = viewModel.getFormState();
+        if(viewModel.getBundle() == null)
+            viewModel.setBundle(new Bundle());
 
-        initFormState(formState);
+
+        initFormState(bundle);
 
         LinkedHashMap<String,Long> vistTypeIdMap = new LinkedHashMap<>();
 
@@ -129,7 +128,6 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
                 (ExpandableListView parent, View v, int groupPosition, int childPosition, long id) -> {
 
                     bundle.putSerializable(BaseActivity.JSON_FORM_KEY, adapter.getChild(groupPosition,childPosition));
-                    bundle.putSerializable(Key.FORM_STATE, formState);
 
                     context.startSubmodule(formSubmodule, bundle);
                     return false;
@@ -162,8 +160,8 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
 
                 if(viewModel.getVisitState().getState() == VisitState.ENDED) {
 
-                    formState.put(Key.VISIT_TYPE_ID, visitTypeId);
-                }else if(visitTypeId != (long)formState.get(Key.VISIT_TYPE_ID)) {
+                    bundle.putLong(Key.VISIT_TYPE_ID, visitTypeId);
+                }else if(visitTypeId != (long) bundle.get(Key.VISIT_TYPE_ID)) {
 
 
                     createDialog("Visit session will end",
@@ -259,17 +257,14 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
         }
     }
 
-    public void initFormState(HashMap<String,Object> formState){
+    public void initFormState(Bundle bundle){
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
-        final Long PERSON_ID = bundle.getLong(Key.PERSON_ID);
+        bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
-
-        formState.put(Key.LOCATION_ID, SESSION_LOCATION_ID);
-        formState.put(Key.PERSON_ID, PERSON_ID);
 
         context.getViewModel()
                 .getRepository()
@@ -278,8 +273,8 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
                 .getAllByUserUuid(USER_UUID)
                 .observe(context, providerUser -> {
 
-                    formState.put(Key.PROVIDER_ID, providerUser.provider_id);
-                    formState.put(Key.USER_ID, providerUser.user_id);
+                    bundle.putLong(Key.PROVIDER_ID, providerUser.provider_id);
+                    bundle.putLong(Key.USER_ID, providerUser.user_id);
                 });
     }
 

@@ -29,5 +29,6 @@ public class CervicalCancerActivity extends BaseActivity {
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Cervical Cancer");
         binding.setToolbarhandler(toolBarEventHandler);
+        binding.setContext(this);
     }
 }

@@ -31,7 +31,7 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
     public void startSubmodule(int index){
 
-        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.SUBMODULE);
+        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.MODULE);
 
         Submodule submodule1 = cervicalCancerSubmodule.getSubmodules().get(index);
         startSubmodule.setValue(submodule1);

@@ -8,18 +8,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-
-import androidx.viewpager.widget.ViewPager;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardFragmentPagerAdapter;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
-import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
@@ -52,12 +48,21 @@ public class PatientDashboardActivity extends BaseActivity {
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Patient Dashboard");
 
-        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
 
         Database database = viewModel.getRepository().getDatabase();
 
         Bundle bundle = getIntent().getExtras();
         clientId = bundle.getLong(PERSON_ID);
+
+        getViewModel().getRepository().getDatabase().cervicalCancerDao()
+                .getPatientById(clientId)
+                .observe(this,patient->{
+                    if(patient == null) {
+                        Toast.makeText(this, "Client not enrolled", Toast.LENGTH_LONG).show();
+                        onBackPressed();
+                    }
+                });
 
 
 

@@ -22,17 +22,19 @@ public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        Fragment fragment;
         if (position == 0) {
 
-            Fragment fragment = new ClientDashboardVitalsFragment();
-            fragment.setArguments(mContext.getIntent().getExtras());
-            return fragment;
+            fragment = new ClientDashboardVitalsFragment();
         }
         else if (position == 1)
-            return new ClientDashboardCareServicesFragment();
+            fragment = new ClientDashboardCareServicesFragment();
          else
-            return new ClientDashboardVitalsFragment();
+            fragment = new ClientDashboardVitalsFragment();
 
+        fragment.setArguments(mContext.getIntent().getExtras());
+
+        return fragment;
     }
 
     // This determines the number of tabs

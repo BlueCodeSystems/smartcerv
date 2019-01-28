@@ -21,10 +21,10 @@ public class FirstPointOfContactViewModel extends AndroidViewModel {
 
         applicationContext = (BaseApplication)application;
 
-        findPatient = BaseApplication.CoreSubmodules.REGISTER;
-        registerPatient = BaseApplication.CoreSubmodules.REGISTRATION;
-        vitals = BaseApplication.CoreSubmodules.VITALS;
-        firstPointOfCare = BaseApplication.CoreSubmodules.FIRST_POINT_OF_CARE;
+        findPatient = BaseApplication.CoreModule.REGISTER;
+        registerPatient = BaseApplication.CoreModule.REGISTRATION;
+        vitals = BaseApplication.CoreModule.VITALS;
+        firstPointOfCare = BaseApplication.CoreModule.FIRST_POINT_OF_CARE;
     }
 
     public void startSubmodule(String submodule){

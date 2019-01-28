@@ -72,7 +72,7 @@ public class RegistrationActivity extends BaseActivity {
                 date.setError(null);
         });
 
-        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
+        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         init();
     }

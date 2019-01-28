@@ -2,6 +2,8 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import androidx.appcompat.widget.AppCompatButton;
+
+import android.os.Bundle;
 import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 
@@ -13,7 +15,7 @@ public class FormDatePickerWidget extends AppCompatButton {
 
     private HashMap<String, Object> formData;
 
-    public FormDatePickerWidget(Context context, HashMap<String, Object> formData){
+    public FormDatePickerWidget(Context context, Bundle bundle){
         super(context);
 
         this.setAllCaps(false);
@@ -28,7 +30,7 @@ public class FormDatePickerWidget extends AppCompatButton {
             String dob = (year+"-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))+"-"+((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth));
             this.setText(dob);
 
-            formData.put((String)getTag(), dob);
+            bundle.putString((String)getTag(), dob);
         });
     }
 }

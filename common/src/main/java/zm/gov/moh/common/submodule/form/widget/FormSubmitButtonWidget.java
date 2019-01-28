@@ -5,13 +5,14 @@ import androidx.core.util.Consumer;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.utils.Utils;
 
+import android.os.Bundle;
 import android.widget.RelativeLayout;
 
 import java.util.HashMap;
 
 public class FormSubmitButtonWidget extends androidx.appcompat.widget.AppCompatButton {
 
-    private HashMap<String, Object> formData;
+    private Bundle bundle;
 
     public FormSubmitButtonWidget(Context context){
         super(context);
@@ -25,13 +26,13 @@ public class FormSubmitButtonWidget extends androidx.appcompat.widget.AppCompatB
         this.setLayoutParams(layoutParams);
     }
 
-    public void setOnSubmit(Consumer<HashMap<String, Object>> onSubmit) {
+    public void setOnSubmit(Consumer<Bundle> onSubmit) {
 
-        this.setOnClickListener(view -> onSubmit.accept(this.formData));
+        this.setOnClickListener(view -> onSubmit.accept(this.bundle));
     }
 
-    public void setFormData(HashMap<String, Object> formData) {
+    public void setBundle(Bundle bundle) {
 
-        this.formData = formData;
+        this.bundle = bundle;
     }
 }

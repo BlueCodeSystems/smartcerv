@@ -27,7 +27,7 @@ public class VitalsActivity extends BaseActivity {
 
         viewModel = ViewModelProviders.of(this).get(VitalsViewModel.class);
 
-        register = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.REGISTER);
+        register = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.REGISTER);
 
         long clientId = 0;
 
@@ -39,7 +39,7 @@ public class VitalsActivity extends BaseActivity {
             } catch (Exception e) {
 
                 bundle = new Bundle();
-                callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+                callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
                 bundle.putSerializable(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY, callerSubmodule);
                 startSubmodule(register,bundle);
                 finish();
@@ -47,7 +47,7 @@ public class VitalsActivity extends BaseActivity {
         }else{
 
             bundle = new Bundle();
-            callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.VITALS);
+            callerSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
             bundle.putSerializable(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY, callerSubmodule);
             startSubmodule(register,bundle);
             finish();

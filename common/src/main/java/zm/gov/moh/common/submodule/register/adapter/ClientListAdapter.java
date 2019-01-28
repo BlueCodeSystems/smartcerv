@@ -60,7 +60,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        clientDashboad = applicationContext.getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
+        clientDashboad = applicationContext.getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
         bundle = new Bundle();
     }
 

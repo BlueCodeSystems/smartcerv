@@ -1,6 +1,7 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel;
 
 import android.app.Application;
+import android.os.Bundle;
 
 import org.threeten.bp.ZonedDateTime;
 
@@ -18,7 +19,7 @@ import zm.gov.moh.core.utils.InjectableViewModel;
 public class PatientDashboardViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
     private MutableLiveData<Integer> emitVisitState;
-    private HashMap<String, Object> formState;
+    private Bundle bundle;
     private VisitState visitState;
     private Visit visit;
 
@@ -43,16 +44,16 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return emitVisitState;
     }
 
-    public void setFormState(HashMap<String, Object> formState) {
-        this.formState = formState;
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
     }
 
-    public HashMap<String, Object> getFormState() {
+    public Bundle getBundle() {
 
-        if(formState == null)
-            formState = new HashMap<>();
+        if(bundle == null)
+            bundle = new Bundle();
 
-        return formState;
+        return bundle;
     }
 
     public void setVisitState(VisitState visitState) {
@@ -83,10 +84,10 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                         ZonedDateTime start_time = ZonedDateTime.now();
                         visit = new Visit(visit_id,visit_type_id,person_id,location_id,creator,start_time);
                         visitDao.insert(visit);
-                        formState.put(Key.VISIT_ID, visit_id);;
+                        formState.putLong(Key.VISIT_ID, visit_id);;
                     },
                     this::onError,
-                    formState);
+                    bundle);
             }
             else if(visit.getDate_started() != null) {
 

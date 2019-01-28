@@ -61,7 +61,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        patientDashboard = ((SubmoduleGroup)applicationContext.getSubmodule(CervicalCancerModule.SUBMODULE))
+        patientDashboard = ((SubmoduleGroup)applicationContext.getSubmodule(CervicalCancerModule.MODULE))
                             .getSubmodule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD);
 
         bundle = new Bundle();

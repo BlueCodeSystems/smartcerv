@@ -2,6 +2,9 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import zm.gov.moh.core.model.Key;
+
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -9,7 +12,7 @@ import java.util.HashMap;
 
 public class FormEditTextWidget extends androidx.appcompat.widget.AppCompatEditText{
 
-    HashMap<String,Object> formData;
+    Bundle bundle;
 
 
     public FormEditTextWidget(Context context,int weight){
@@ -20,7 +23,7 @@ public class FormEditTextWidget extends androidx.appcompat.widget.AppCompatEditT
                 LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
         layoutParams.weight = weight;
 
-        this.setAllCaps(false);
+        //this.setAllCaps(false);
         this.setLayoutParams(layoutParams);
 
         this.addTextChangedListener(new TextWatcher() {
@@ -31,7 +34,9 @@ public class FormEditTextWidget extends androidx.appcompat.widget.AppCompatEditT
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                formData.put((String) getTag(),charSequence.toString());
+                String tag = getTag().toString();
+                if(charSequence != null && charSequence !="")
+                    bundle.putString((String) getTag(),charSequence.toString());
             }
 
             @Override
@@ -41,7 +46,10 @@ public class FormEditTextWidget extends androidx.appcompat.widget.AppCompatEditT
         });
     }
 
-    public void setFormData(HashMap<String, Object> formData) {
-        this.formData = formData;
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
+        if(bundle.containsKey(getTag().toString()))
+            setText(bundle.getString(getTag().toString()));
     }
+
 }
