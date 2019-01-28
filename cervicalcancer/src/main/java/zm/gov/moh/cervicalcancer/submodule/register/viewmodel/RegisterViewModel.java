@@ -8,10 +8,11 @@ import java.util.List;
 
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
+import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public class RegisterViewModel extends AndroidViewModel implements InjectableViewModel {
+public class RegisterViewModel extends BaseAndroidViewModel{
 
     private LiveData<List<Client>> allClients;
     private LiveData<List<Client>> searchClients;
@@ -21,9 +22,10 @@ public class RegisterViewModel extends AndroidViewModel implements InjectableVie
         super(application);
 
 
-        InjectorUtils.provideRepository(this, application);
+        long facilityLocationId = repository.getDefaultSharePrefrences()
+                .getLong(application.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
 
-        allClients = repository.getDatabase().cervicalCancerDao().getAllPatients();
+        allClients = repository.getDatabase().cervicalCancerDao().getAllPatientsByLocation(facilityLocationId);
     }
 
     @Override

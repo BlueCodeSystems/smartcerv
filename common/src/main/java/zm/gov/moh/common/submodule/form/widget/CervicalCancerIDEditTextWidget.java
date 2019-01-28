@@ -29,7 +29,7 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
     public void setFacilityDistrictCode(FacilityDistrictCode code){
 
       this.code = code;
-      repository.getDatabase().cervicalCancerDao().countPatients().observe((AppCompatActivity)context, this::appendSerial);
+      repository.getDatabase().cervicalCancerDao().countPatientsByLocationId(facilityLocationId).observe((AppCompatActivity)context, this::appendSerial);
     }
 
     public void  appendSerial(Long serial){

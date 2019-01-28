@@ -14,4 +14,5 @@ public class Key {
     public static final String PERSON_GIVEN_NAME = "PERSON_GIVEN_NAME";
     public static final String PERSON_FAMILY_NAME = "PERSON_FAMILY_NAME";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
+    public static final String START_MODULE_ON_RESULT = "START_MODULE_ON_RESULT";
 }

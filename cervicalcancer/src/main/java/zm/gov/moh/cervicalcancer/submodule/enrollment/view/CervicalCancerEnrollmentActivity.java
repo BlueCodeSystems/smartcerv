@@ -2,6 +2,7 @@ package zm.gov.moh.cervicalcancer.submodule.enrollment.view;
 
 import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -42,13 +43,20 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                 .getPatientById(personId)
                 .observe(this ,patient->{
                     if(patient != null) {
-                        Toast.makeText(this, "Client already exists", Toast.LENGTH_LONG).show();
+
+                        Toast toast = Toast.makeText(this,null, Toast.LENGTH_LONG);
+                        if(bundle.containsKey(BaseActivity.ACTION_KEY))
+                            toast.setText("Client has been enrolled");
+                        else
+                            toast.setText("Client already exists");
+
+                        toast.show();
                         CervicalCancerEnrollmentActivity.this.finish();
                     }else {
+
                         if(action != null && action.equals(Action.ENROLL_PATIENT)) {
 
-                            HashMap<String, Object> formData = (HashMap<String, Object>) bundle.getSerializable(BaseActivity.FORM_DATA_KEY);
-                            viewModel.enrollPatient(formData);
+                            viewModel.enrollPatient(bundle);
 
                         }
                         else{
@@ -66,7 +74,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
 
                                 bundle.putSerializable(BaseActivity.JSON_FORM_KEY,formJson);
                                 bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);
-                                bundle.putSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY, enrollmentSubmodule);
+                                bundle.putString(Key.START_MODULE_ON_RESULT, CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
                             }catch (Exception ex){
 
                             }

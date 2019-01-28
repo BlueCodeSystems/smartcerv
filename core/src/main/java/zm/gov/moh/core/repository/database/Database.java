@@ -89,7 +89,7 @@ import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
                 ClientNameFts.class,
                 ConceptName.class,
                 ConceptAnswer.class
-        }, version = 1, exportSchema = false)
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 

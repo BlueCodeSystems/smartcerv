@@ -101,14 +101,24 @@ public class FormFragment extends BaseFragment {
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             //formSubmitButtonWidget.setBundle(this.bundle);
 
-            formSubmitButtonWidget.setOnSubmit(formData -> {
+            formSubmitButtonWidget.setOnSubmit(bundle -> {
 
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 Intent formSubmission = new Intent(context,EncounterSubmission.class);
-                formSubmission.putExtras(bundle);
-                context.startService(formSubmission);
+                formSubmission.putExtras(this.bundle);
 
-                context.onBackPressed();
+                if(this.bundle.containsKey(Key.ENCOUNTER_TYPE_ID)) {
+                    context.startService(formSubmission);
+                    context.onBackPressed();
+                }
+                else{
+
+                    String moduleName = this.bundle.getString(Key.START_MODULE_ON_RESULT);
+                    context.startSubmodule(moduleName,this.bundle);
+                    context.onBackPressed();
+                }
+
+
                // Submodule submodule = (Submodule) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
                 //context.startSubmodule(submodule, bundle);
             });

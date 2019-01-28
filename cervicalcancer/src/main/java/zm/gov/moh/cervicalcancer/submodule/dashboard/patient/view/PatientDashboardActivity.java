@@ -105,7 +105,7 @@ public class PatientDashboardActivity extends BaseActivity {
         bottomNavigationView.setSelectedItemId(R.id.register_select);
 		database.cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
-        database.locationDao().getByPatientId(clientId).observe(this ,binding::setFacility);
+        database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
 
     }
     public Submodule getVitals() {
