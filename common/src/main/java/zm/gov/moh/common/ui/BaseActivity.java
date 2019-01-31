@@ -146,9 +146,9 @@ public class BaseActivity extends AppCompatActivity {
     public void initBundle(Bundle bundle){
 
         final long SESSION_LOCATION_ID = getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(this.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
         final String USER_UUID = getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
+                .getString(this.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         Long personId = bundle.getLong(Key.PERSON_ID);

@@ -12,6 +12,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -91,11 +92,18 @@ public class EncounterSubmission extends IntentService implements InjectableView
 
         long obs_id = DatabaseUtils.generateLocalId(repository.getDatabase().obsDao()::getMaxId);
 
-        for(String key : bundle.keySet()) {
+        ArrayList<String> keys = bundle.getStringArrayList(Key.FORM_TAGS);
+
+        for (String key: keys) {
+
+
+            key.toString();
+
 
             Object value = bundle.get(key);
             if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
 
+                String v = key;
                 Obs obs = new Obs(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
 
                 ObsValue<Object> obsValue = (ObsValue<Object>) value;
@@ -117,7 +125,7 @@ public class EncounterSubmission extends IntentService implements InjectableView
                     case ConceptDataType.TEXT:
 
                         obsList.add(obs.setConceptId(obsValue.getConceptId())
-                                .setValue(Double.valueOf(obsValue.getValue().toString())));
+                                .setValue(obsValue.getValue().toString()));
                         break;
 
                     case ConceptDataType.DATE:
@@ -131,6 +139,9 @@ public class EncounterSubmission extends IntentService implements InjectableView
                     case ConceptDataType.CODED:
 
                         Set<Long> answerConcepts = (Set<Long>) obsValue.getValue();
+
+                        if(answerConcepts.isEmpty())
+                            break;
                         obsList.addAll(obs.setConceptId(obsValue.getConceptId())
                                 .setValue(answerConcepts));
                         break;
@@ -138,10 +149,6 @@ public class EncounterSubmission extends IntentService implements InjectableView
 
                 repository.getDatabase().obsDao().insert(obsList);
                 bundle.remove(key);
-
-                return Observable.fromIterable(obsList)
-                        .map(obs1 -> obs1.obs_id)
-                        .toList().blockingGet();
             }
         }
 

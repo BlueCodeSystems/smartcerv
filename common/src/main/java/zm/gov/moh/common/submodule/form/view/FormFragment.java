@@ -105,7 +105,11 @@ public class FormFragment extends BaseFragment {
 
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 Intent formSubmission = new Intent(context,EncounterSubmission.class);
+
+                this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
+
                 formSubmission.putExtras(this.bundle);
+
 
                 if(this.bundle.containsKey(Key.ENCOUNTER_TYPE_ID)) {
                     context.startService(formSubmission);

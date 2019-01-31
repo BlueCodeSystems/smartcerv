@@ -2,10 +2,7 @@ package zm.gov.moh.cervicalcancer.submodule.enrollment.view;
 
 import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.Toast;
-
-import java.util.HashMap;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.viewmodel.CervicalCancerEnrollmentViewModel;
@@ -39,7 +36,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
 
         long personId = bundle.getLong(Key.PERSON_ID);
 
-        getViewModel().getRepository().getDatabase().cervicalCancerDao()
+        getViewModel().getRepository().getDatabase().genericDao()
                 .getPatientById(personId)
                 .observe(this ,patient->{
                     if(patient != null) {

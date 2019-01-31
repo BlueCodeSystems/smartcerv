@@ -17,6 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".submodule.first.point.of.contact.view.FirstPointOfContactActivity" />
+       <activity android:name=".submodule.first.point.of.contact.view.FirstPointOfContactActivity" />
     </application>
 </manifest>

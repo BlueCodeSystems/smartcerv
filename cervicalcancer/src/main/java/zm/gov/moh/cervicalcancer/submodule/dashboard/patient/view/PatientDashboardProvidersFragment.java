@@ -61,7 +61,7 @@ public class PatientDashboardProvidersFragment extends Fragment {
     public void populateProviderInitials(String date, String screening, String treatment){
 
         TableRow tableRow = new TableRow(context);
-        tableRow.setBackground(getResources().getDrawable(R.drawable.border_bottom));
+        tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
 
         tableRow.addView(dateCellView(context,date));
         tableRow.addView(providerInitialsCellView(context, screening ));

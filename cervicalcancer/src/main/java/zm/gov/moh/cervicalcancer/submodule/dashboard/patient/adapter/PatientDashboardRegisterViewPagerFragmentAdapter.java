@@ -2,7 +2,6 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter;
 
 import android.content.Context;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -10,10 +9,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboa
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardReferralFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardTreatmentFragment;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitFragment;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitType2Fragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
-import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 
 public class PatientDashboardRegisterViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
@@ -32,14 +28,12 @@ public class PatientDashboardRegisterViewPagerFragmentAdapter extends FragmentSt
         if (position == 0)
             fragment = new PatientDashboardVisitTypeFragment();
         else if (position == 1)
-            fragment =  new PatientDashboardVisitType2Fragment();
-        else if (position == 2)
             fragment =  new PatientDashboardScreeningFragment();
-        else if (position == 3)
+        else if (position == 2)
             fragment =  new PatientDashboardReferralFragment();
-        else if (position == 4)
+        else if (position == 3)
             fragment =  new PatientDashboardTreatmentFragment();
-        else if (position == 5)
+        else if (position == 4)
             fragment =  new PatientDashboardProvidersFragment();
         else
             fragment =  new PatientDashboardVisitTypeFragment();
@@ -51,7 +45,7 @@ public class PatientDashboardRegisterViewPagerFragmentAdapter extends FragmentSt
 
     @Override
     public int getCount() {
-        return 6;
+        return 5;
     }
 
     @Override
@@ -59,16 +53,14 @@ public class PatientDashboardRegisterViewPagerFragmentAdapter extends FragmentSt
         // Generate title based on item position
         switch (position) {
             case 0:
-                return "Visit Type 1|2";
+                return "Visit Type";
             case 1:
-                return "Visit Type 2|2";
-            case 2:
                 return "Screening";
-            case 3:
+            case 2:
                 return "Referral";
-            case 4:
+            case 3:
                 return "Treatment";
-            case 5:
+            case 4:
                 return "Provider";
             default:
                 return null;

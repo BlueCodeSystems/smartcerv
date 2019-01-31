@@ -2,9 +2,12 @@ package zm.gov.moh.core.repository.database.dao.domain;
 
 import org.threeten.bp.ZonedDateTime;
 
+import java.util.List;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 
 @Dao
@@ -14,7 +17,7 @@ public interface VisitDao {
     Long getMaxId();
     //gets all locations
     @Query("SELECT * FROM visit WHERE patient_id = :id")
-    LiveData<Visit> getByPatientId(long id);
+    LiveData<List<Visit>> getByPatientId(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Visit... visits);

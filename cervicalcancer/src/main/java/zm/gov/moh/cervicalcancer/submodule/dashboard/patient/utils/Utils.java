@@ -10,19 +10,19 @@ import zm.gov.moh.cervicalcancer.R;
 
 public class Utils {
 
-    public static ImageView crossMarkCellView(Context context, boolean check){
+    public static ImageView renderCheckMarkIconView(Context context, boolean check){
 
         int fourDp = zm.gov.moh.core.utils.Utils.dpToPx(context,2);
         TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(zm.gov.moh.core.utils.Utils.dpToPx(context,0), zm.gov.moh.core.utils.Utils.dpToPx(context,30));
         layoutParams.weight = 1;
-        ImageView crossMark = new ImageView(context);
-        if(check)crossMark.setImageResource(R.drawable.tick);
-        crossMark.setLayoutParams(layoutParams);
-        crossMark.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        crossMark.setPadding(fourDp,fourDp,fourDp,fourDp);
-        crossMark.setBackground(context.getResources().getDrawable(R.drawable.border_right));
+        ImageView checkMark = new ImageView(context);
+        if(check)checkMark.setImageResource(R.drawable.tick);
+        checkMark.setLayoutParams(layoutParams);
+        checkMark.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        checkMark.setPadding(fourDp,fourDp,fourDp,fourDp);
+        checkMark.setBackground(context.getResources().getDrawable(R.drawable.border_right));
 
-        return crossMark;
+        return checkMark;
     }
 
     public static AppCompatTextView dateCellView(Context context, String date){

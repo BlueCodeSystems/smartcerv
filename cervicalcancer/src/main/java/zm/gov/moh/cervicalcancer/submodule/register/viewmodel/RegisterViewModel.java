@@ -1,7 +1,7 @@
 package zm.gov.moh.cervicalcancer.submodule.register.viewmodel;
 
 import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -9,8 +9,6 @@ import java.util.List;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
-import zm.gov.moh.core.utils.InjectableViewModel;
-import zm.gov.moh.core.utils.InjectorUtils;
 
 public class RegisterViewModel extends BaseAndroidViewModel{
 
@@ -25,7 +23,7 @@ public class RegisterViewModel extends BaseAndroidViewModel{
         long facilityLocationId = repository.getDefaultSharePrefrences()
                 .getLong(application.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
 
-        allClients = repository.getDatabase().cervicalCancerDao().getAllPatientsByLocation(facilityLocationId);
+        allClients = repository.getDatabase().genericDao().getAllPatientsByLocation(facilityLocationId);
     }
 
     @Override
