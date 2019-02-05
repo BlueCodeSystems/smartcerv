@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ExpandableListView
+        android:id="@+id/recent_visits"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@color/darker_grey"
+        android:dividerHeight="0.5dp" >
+    </ExpandableListView>
+
+</LinearLayout>

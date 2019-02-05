@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:id="@+id/recent_visits_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*" >
+
+            <!--<TableRow>
+                <TextView
+                    android:id="@+id/submodule_form_child_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
+                    android:paddingEnd="?android:attr/expandableListPreferredChildPaddingLeft"
+                    android:textSize="18sp"
+                    android:background="@drawable/border_right"/>
+                <TextView
+                    android:text="value here"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
+                    android:paddingEnd="?android:attr/expandableListPreferredChildPaddingLeft"
+                    android:textSize="18sp" />
+            </TableRow>-->
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>
