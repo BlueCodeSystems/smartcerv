@@ -5,10 +5,10 @@
 
     <item
         android:id="@+id/register_select"
-        android:title="@string/history"
+        android:title="@string/recents"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:icon="@mipmap/history">
+        android:icon="@drawable/ic_round_history_24px">
     </item>
     <item
         android:id="@+id/visit_select"

@@ -1,29 +1,36 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardRegisterViewPagerFragmentAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardRecentsViewPagerFragmentAdapter;
 import zm.gov.moh.common.ui.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PatientDashboardHistoryViewPagerFragment extends Fragment {
+public class PatientDashboardRecentsViewPagerFragment extends Fragment {
 
     private BaseActivity context;
+    private Resources resources;
+    TableLayout tableLayout;
 
-    public PatientDashboardHistoryViewPagerFragment() {
+    public PatientDashboardRecentsViewPagerFragment() {
         // Required empty public constructor
     }
 
@@ -33,14 +40,14 @@ public class PatientDashboardHistoryViewPagerFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         context = (PatientDashboardActivity) getContext();
-        View view = inflater.inflate(R.layout.fragment_patient_dashboard_history_view_pager,
+        View view = inflater.inflate(R.layout.fragment_patient_dashboard_recents_view_pager,
                 container, false);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        PatientDashboardRegisterViewPagerFragmentAdapter adapter =
-                new PatientDashboardRegisterViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
+        PatientDashboardRecentsViewPagerFragmentAdapter adapter =
+                new PatientDashboardRecentsViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
 
         // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
@@ -51,7 +58,5 @@ public class PatientDashboardHistoryViewPagerFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
-
     }
-
 }

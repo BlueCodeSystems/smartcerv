@@ -90,7 +90,7 @@ public class PatientDashboardActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if(id == R.id.register_select) {
-                    fragment = new PatientDashboardHistoryViewPagerFragment();
+                    fragment = new PatientDashboardRecentsViewPagerFragment();
                 } else if(id == R.id.visit_select) {
                     fragment = new PatientDashboardVisitViewPagerFragment();
                 } else if(id == R.id.vitals_select) {
