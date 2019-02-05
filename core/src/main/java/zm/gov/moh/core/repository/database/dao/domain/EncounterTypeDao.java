@@ -11,7 +11,7 @@ public interface EncounterTypeDao {
 
     //gets all locations
     @Query("SELECT * FROM encounter_type WHERE encounter_type_id = :id")
-    LiveData<EncounterRole> getById(long id);
+    LiveData<EncounterType> getById(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EncounterType... encounterTypes);

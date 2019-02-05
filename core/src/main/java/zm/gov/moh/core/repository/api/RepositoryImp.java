@@ -9,6 +9,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import zm.gov.moh.core.R;
 import zm.gov.moh.core.repository.api.rest.RestApi;
@@ -55,6 +56,15 @@ public class RepositoryImp implements Repository{
         Single.just(items)
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
+                .subscribe(consumer, onError);
+    }
+
+    public <T,R>void asyncFunction(Function<T,R> function,Consumer<R> consumer,T items,Consumer<Throwable> onError){
+
+        Single.just(items)
+                .observeOn(Schedulers.io())
+                .map(function)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer, onError);
     }
 

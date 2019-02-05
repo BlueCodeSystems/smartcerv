@@ -221,6 +221,28 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
                 repository.getRestApiAdapter().getConceptAnswers(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
+
+        //Concept answer
+        repository.consumeAsync(
+                encounterTypes ->{
+                    repository.getDatabase().encounterTypeDao().insert(encounterTypes);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getEncounterTypes(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Concept
+        repository.consumeAsync(
+                encounterTypes ->{
+                    repository.getDatabase().conceptDao().insert(encounterTypes);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getConcept(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
     }
 
     @Override

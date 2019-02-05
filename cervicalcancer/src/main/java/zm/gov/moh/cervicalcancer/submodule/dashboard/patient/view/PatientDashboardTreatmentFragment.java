@@ -12,7 +12,7 @@ import android.widget.TableRow;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
 
-import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.crossMarkCellView;
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
 
 /**
@@ -57,12 +57,12 @@ public class PatientDashboardTreatmentFragment extends Fragment {
     public void populateVisitType(String date, boolean initialVia, boolean previousPostPonedCryo, boolean postTreatmentComplication){
 
         TableRow tableRow = new TableRow(context);
-        tableRow.setBackground(getResources().getDrawable(R.drawable.border_bottom));
+        tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
 
         tableRow.addView(dateCellView(context,date));
-        tableRow.addView(crossMarkCellView(context, initialVia ));
-        tableRow.addView(crossMarkCellView(context, previousPostPonedCryo));
-        tableRow.addView(crossMarkCellView(context, postTreatmentComplication));
+        tableRow.addView(renderCheckMarkIconView(context, initialVia ));
+        tableRow.addView(renderCheckMarkIconView(context, previousPostPonedCryo));
+        tableRow.addView(renderCheckMarkIconView(context, postTreatmentComplication));
 
         tableLayout.addView(tableRow);
     }

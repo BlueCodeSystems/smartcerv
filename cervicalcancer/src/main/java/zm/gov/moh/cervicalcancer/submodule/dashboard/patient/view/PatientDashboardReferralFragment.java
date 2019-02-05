@@ -12,7 +12,7 @@ import android.widget.TableRow;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
 
-import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.crossMarkCellView;
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
 
 /**
@@ -57,11 +57,11 @@ public class PatientDashboardReferralFragment extends Fragment {
     public void populateRefferrals(String date, boolean largeLesion, boolean suspectedCancer){
 
         TableRow tableRow = new TableRow(context);
-        tableRow.setBackground(getResources().getDrawable(R.drawable.border_bottom));
+        tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
 
         tableRow.addView(dateCellView(context,date));
-        tableRow.addView(crossMarkCellView(context, largeLesion ));
-        tableRow.addView(crossMarkCellView(context, suspectedCancer));
+        tableRow.addView(renderCheckMarkIconView(context, largeLesion ));
+        tableRow.addView(renderCheckMarkIconView(context, suspectedCancer));
 
         tableLayout.addView(tableRow);
     }

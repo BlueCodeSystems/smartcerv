@@ -3,16 +3,18 @@ package zm.gov.moh.core.repository.database;
 import androidx.room.*;
 import android.content.Context;
 
-import zm.gov.moh.core.repository.database.dao.derived.CervicalCancerDao;
+import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
 import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
 import zm.gov.moh.core.repository.database.dao.derived.VitalsDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
+import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterProviderDao;
+import zm.gov.moh.core.repository.database.dao.domain.EncounterTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.LocationDao;
@@ -31,6 +33,7 @@ import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
+import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
@@ -88,8 +91,9 @@ import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
                 VisitAttributeType.class,
                 ClientNameFts.class,
                 ConceptName.class,
-                ConceptAnswer.class
-        }, version = 1, exportSchema = false)
+                ConceptAnswer.class,
+                Concept.class
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -117,10 +121,12 @@ public abstract class Database extends RoomDatabase {
     public abstract ObsDao obsDao();
     public abstract EncounterDao encounterDao();
     public abstract EncounterProviderDao encounterProviderDao();
+    public abstract EncounterTypeDao encounterTypeDao();
     public abstract VisitDao visitDao();
     public abstract ClientFtsDao clientFtsDao();
     public abstract ConceptAnswerDao conceptAnswerDao();
     public abstract ConceptNameDao conceptNameDao();
+    public abstract ConceptDao conceptDao();
     public abstract ConceptAnswerNameDao conceptAnswerNameDao();
 
 
@@ -128,7 +134,7 @@ public abstract class Database extends RoomDatabase {
     public abstract ClientDao clientDao();
     public abstract VitalsDao vitalsDao();
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
-    public abstract CervicalCancerDao cervicalCancerDao();
+    public abstract GenericDao genericDao();
 
     //database getter
     public static Database getDatabase(final Context context){

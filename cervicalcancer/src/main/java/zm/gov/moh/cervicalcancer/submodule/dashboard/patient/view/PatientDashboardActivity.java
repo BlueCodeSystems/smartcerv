@@ -40,7 +40,10 @@ public class PatientDashboardActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = getIntent().getExtras();
+        clientId = bundle.getLong(PERSON_ID);
         viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
+        viewModel.setBundle(bundle);
         setViewModel(viewModel);
 
         AndroidThreeTen.init(this);
@@ -52,10 +55,9 @@ public class PatientDashboardActivity extends BaseActivity {
 
         Database database = viewModel.getRepository().getDatabase();
 
-        Bundle bundle = getIntent().getExtras();
-        clientId = bundle.getLong(PERSON_ID);
 
-        getViewModel().getRepository().getDatabase().cervicalCancerDao()
+
+        getViewModel().getRepository().getDatabase().genericDao()
                 .getPatientById(clientId)
                 .observe(this,patient->{
                     if(patient == null) {
@@ -69,7 +71,7 @@ public class PatientDashboardActivity extends BaseActivity {
         ActivityPatientDashboardBinding  binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
         binding.setToolbarhandler(toolBarEventHandler);
 
-        viewModel.getRepository().getDatabase().cervicalCancerDao().getPatientById(clientId).
+        viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
                 observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).
                 observe(this, binding::setClientAddress);
@@ -102,9 +104,12 @@ public class PatientDashboardActivity extends BaseActivity {
             }			
         });
         bottomNavigationView.setSelectedItemId(R.id.register_select);
-		database.cervicalCancerDao().getPatientById(clientId).observe(this, binding::setClient);
+
+
+		database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
-        database.locationDao().getByPatientId(clientId).observe(this ,binding::setFacility);
+        database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
+        database.visitDao().getByPatientId(clientId).observe(this,viewModel::onVisitsRetrieved);
 
     }
     public Submodule getVitals() {

@@ -29,6 +29,10 @@ public interface ObsDao {
     @Query("SELECT * FROM obs WHERE person_id = :id")
     List<Obs> findByPatientId(long id);
 
+    //get getPersons by id
+    @Query("SELECT * FROM obs WHERE person_id = :id")
+    List<Obs> getCodedValueByConceptId(long id);
+
     @Query("SELECT * FROM obs WHERE concept_id = :id")
     Obs findByConceptId(long id);
 

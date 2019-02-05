@@ -23,6 +23,7 @@ import java.util.LinkedList;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import zm.gov.moh.cervicalcancer.ModuleConfig;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.FormJsonGroupExpandableListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
@@ -135,12 +136,12 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
 
 
         //Add vist type map to their ids
-        vistTypeIdMap.put("Inital Visit",1L);
-        vistTypeIdMap.put("Delayed Cryotheraphy/Thermal Coagulation",2L);
-        vistTypeIdMap.put("Post-Treatment Complication",3L);
-        vistTypeIdMap.put("One-Year Follow Up",4L);
-        vistTypeIdMap.put("Routing Screening",5L);
-        vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation",6L);
+        vistTypeIdMap.put("Inital Visit", ModuleConfig.VISIT_TYPE_ID_INTIAL_VIA);
+        vistTypeIdMap.put("Delayed Cryotheraphy/Thermal Coagulation", ModuleConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION);
+        vistTypeIdMap.put("Post-Treatment Complication", ModuleConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION);
+        vistTypeIdMap.put("One-Year Follow Up", ModuleConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP);
+        vistTypeIdMap.put("Routing Screening",ModuleConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
+        vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation",ModuleConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
 
         LinkedList<String> visitType = new LinkedList<>(vistTypeIdMap.keySet());
         ArrayAdapter<String> visitAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, visitType);
@@ -218,12 +219,12 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
 
         if(visitState != VisitState.STARTED){
 
-            colorStateList = ColorStateList.valueOf(getResources().getColor(R.color.light_green));
+            colorStateList = ColorStateList.valueOf(context.getResources().getColor(R.color.light_green));
             text = "Start Visit";
         }
         else{
 
-            colorStateList = ColorStateList.valueOf(getResources().getColor(R.color.warning));
+            colorStateList = ColorStateList.valueOf(context.getResources().getColor(R.color.warning));
             text = "End Visit";
         }
 

@@ -46,10 +46,15 @@ public class ApplicationContext extends BaseApplication {
         registerModule(CoreModule.FORM, new BasicSubmodule("FormModel", FormActivity.class));
 
         //Load care service submodules
-        Submodule cervicalCancerEnrollment = new BasicSubmodule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT, CervicalCancerEnrollmentActivity.class);
-        Submodule cervicalCancerRegister = new BasicSubmodule(CervicalCancerModule.Submodules.CLIENT_REGISTER, zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
-        Submodule cervicalCancerPatientDashboard = new BasicSubmodule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD, zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity.class);
+        Submodule cervicalCancerEnrollment = new BasicSubmodule("Client Enrollment", CervicalCancerEnrollmentActivity.class);
+        Submodule cervicalCancerRegister = new BasicSubmodule("Client Register", zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
+        Submodule cervicalCancerPatientDashboard = new BasicSubmodule("Patient Dashboard", zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity.class);
 
+        registerModule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT, cervicalCancerEnrollment);
+        registerModule(CervicalCancerModule.Submodules.CLIENT_REGISTER, cervicalCancerRegister);
+        registerModule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD, cervicalCancerPatientDashboard);
+
+        //Add to module group
         List<Submodule> cervicalCancerSubmodules = new ArrayList<>();
         cervicalCancerSubmodules.add(cervicalCancerEnrollment);
         cervicalCancerSubmodules.add(cervicalCancerRegister);
