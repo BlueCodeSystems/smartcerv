@@ -7,21 +7,22 @@ import com.squareup.moshi.JsonReader;
 import com.squareup.moshi.ToJson;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 public class JsonAdapter {
 
     @ToJson
-    public String toTimeStampISO(ZonedDateTime zonedDateTime){
+    public String toTimeStampISO(LocalDateTime zonedDateTime){
 
         return zonedDateTime.toString();
     }
 
     @FromJson
-    public ZonedDateTime fromTimeStampISO(String zonedDateTime){
+    public LocalDateTime fromTimeStampISO(String zonedDateTime){
 
-        return ZonedDateTime.parse(zonedDateTime);
+        return LocalDateTime.parse(zonedDateTime,DateTimeFormatter.ISO_DATE_TIME);
     }
 
     @ToJson

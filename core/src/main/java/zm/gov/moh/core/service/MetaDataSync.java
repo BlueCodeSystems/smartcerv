@@ -1,19 +1,14 @@
 package zm.gov.moh.core.service;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.Nullable;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.List;
 
-import androidx.lifecycle.LifecycleOwner;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.repository.database.entity.domain.Encounter;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
@@ -21,7 +16,7 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
 
     private Repository repository;
     private String accesstoken = "";
-    private final int TIMEOUT = 30000;
+    private final int TIMEOUT = 30000000;
     private int tasksCompleted = 0;
     private int tasksStarted = 0;
 

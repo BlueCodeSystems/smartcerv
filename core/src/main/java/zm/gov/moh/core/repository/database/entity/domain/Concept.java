@@ -1,6 +1,6 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -18,12 +18,12 @@ public class Concept {
     private Long class_id;
     private short is_set;
     private Long creator;
-    private ZonedDateTime date_created;
+    private LocalDateTime date_created;
     private String version;
     private Long changed_by;
-    private ZonedDateTime date_changed;
+    private LocalDateTime date_changed;
     private Long retired_by;
-    private ZonedDateTime date_retired;
+    private LocalDateTime date_retired;
     private String retired_reason;
     private String uuid;
 
@@ -99,11 +99,11 @@ public class Concept {
         this.creator = creator;
     }
 
-    public ZonedDateTime getDate_created() {
+    public LocalDateTime getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(ZonedDateTime date_created) {
+    public void setDate_created(LocalDateTime date_created) {
         this.date_created = date_created;
     }
 
@@ -123,11 +123,11 @@ public class Concept {
         this.changed_by = changed_by;
     }
 
-    public ZonedDateTime getDate_changed() {
+    public LocalDateTime getDate_changed() {
         return date_changed;
     }
 
-    public void setDate_changed(ZonedDateTime date_changed) {
+    public void setDate_changed(LocalDateTime date_changed) {
         this.date_changed = date_changed;
     }
 
@@ -139,11 +139,11 @@ public class Concept {
         this.retired_by = retired_by;
     }
 
-    public ZonedDateTime getDate_retired() {
+    public LocalDateTime getDate_retired() {
         return date_retired;
     }
 
-    public void setDate_retired(ZonedDateTime date_retired) {
+    public void setDate_retired(LocalDateTime date_retired) {
         this.date_retired = date_retired;
     }
 

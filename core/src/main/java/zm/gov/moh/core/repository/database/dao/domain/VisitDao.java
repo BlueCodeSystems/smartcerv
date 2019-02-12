@@ -19,6 +19,9 @@ public interface VisitDao {
     @Query("SELECT * FROM visit WHERE patient_id = :id")
     LiveData<List<Visit>> getByPatientId(long id);
 
+    @Query("SELECT * FROM visit WHERE visit_type_id IN (:visitTypes) AND patient_id = :id")
+    LiveData<List<Visit>> getByPatientIdVisitTypeId(long id, long... visitTypes);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Visit... visits);
 

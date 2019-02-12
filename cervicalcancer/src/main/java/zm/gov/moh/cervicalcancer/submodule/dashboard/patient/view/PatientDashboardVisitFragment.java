@@ -99,9 +99,9 @@ public class PatientDashboardVisitFragment extends Fragment implements View.OnCl
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_test_results.json")));
 
             FormJson treatment = new FormJson("Referral",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
-            FormJson referral = new FormJson("Treatment",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_referral.json")));
+            FormJson referral = new FormJson("Treatment",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
 

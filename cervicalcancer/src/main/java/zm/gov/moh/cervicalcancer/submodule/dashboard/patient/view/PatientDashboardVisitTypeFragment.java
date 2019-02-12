@@ -66,7 +66,7 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
                 .getRepository()
                 .getDatabase()
                 .visitDao()
-                .getByPatientId(patientId)
+                .getByPatientIdVisitTypeId(patientId,2L,3L,4L,5L,6L,7L)
                 .observe(context,this::recordCompletedVisits);
 
         return view;

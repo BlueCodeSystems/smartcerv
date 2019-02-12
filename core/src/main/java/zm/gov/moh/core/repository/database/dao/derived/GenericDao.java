@@ -38,4 +38,21 @@ public interface GenericDao {
     @Query("SELECT * FROM obs Where encounter_id in (select encounter_id from encounter where encounter_type = 12)")
     List<Obs> testQ();
 
+    //get getPersons by id
+    @Query("SELECT value_coded FROM obs JOIN encounter ON obs.encounter_id = encounter.encounter_id JOIN visit ON encounter.visit_id = visit.visit_id WHERE person_id = :patientId AND concept_id = :conceptId AND visit.visit_id = :visitId")
+    List<Long> getPatientObsCodedValueByVisitIdConceptId(long patientId, long visitId, long conceptId);
+
+    //get getPersons by id
+    @Query("SELECT encounter_id FROM encounter WHERE encounter_type = (SELECT encounter_type_id FROM encounter_type WHERE uuid = :encounterTypeUuid) AND visit_id = :visitId AND patient_id = :patientId")
+    Long getPatientEncounterIdByVisitIdEncounterTypeId(long patientId, long visitId, String encounterTypeUuid);
+
+    @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId AND patient_id = :patientId)")
+    List<Obs> getPatientObsByVisitId(long patientId, long visitId);
+
+    @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId AND patient_id = :patientId) AND concept_id = :conceptId")
+    List<Obs> getPatientObsByConceptIdVisitId(long patientId,long conceptId, long visitId);
+
+    //get getPersons by id
+    @Query("SELECT * FROM obs WHERE encounter_id = :encounterId AND person_id = :patientId")
+    List<Obs> getPatientObsByEncounterId(long patientId, long encounterId);
 }

@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="fpocontactviewmodel" type="zm.gov.moh.app.submodule.first.point.of.contact.viewmodel.FirstPointOfContactViewModel"/>
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
         <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
         <import name="baseapp" type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
+        <variable name="metrics" type="java.util.Map"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,135 +24,39 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TableLayout
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:stretchColumns="1"
-                android:paddingTop="20dp">
+                android:orientation="vertical">
 
-                <TableRow>
+                <!-- Your home screen fragments are added here-->
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                <FrameLayout
+                    android:id="@+id/home_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <fragment
+                        android:name="zm.gov.moh.common.view.CommonHomeFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                        <ImageButton
-                            android:id="@+id/register_patient"
-                            android:layout_width="wrap_content"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            android:elevation="4dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ico_registry"
-                            android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.registerPatient)}"
-                            android:textAllCaps="false" />
+                    </fragment>
+                </FrameLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Register Client"
-                            android:textAllCaps="false"
-                            android:textColor="@color/dark_purple"
-                            android:textSize="18dp" />
-                    </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/home_fragmdent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <fragment
+                        android:name="zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                    </fragment>
+                </FrameLayout>
 
-                        <ImageButton
-                            android:id="@+id/smartcerv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            android:elevation="4dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ico_search"
-                            android:onClick="@{() -> fpocontactviewmodel.startSubmodule(fpocontactviewmodel.findPatient)}"
-                            android:textAllCaps="false" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Find Client"
-                            android:textAllCaps="false"
-                            android:textColor="@color/dark_purple"
-                            android:textSize="18dp" />
-                    </LinearLayout>
-
-                </TableRow>
-                <TableRow
-                    android:background="@drawable/border_bottom"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:gravity="center"
-                        android:background="@drawable/border_bottom"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Point Of Care"
-                            android:textAllCaps="false"
-                            android:textColor="@color/dark_purple"
-                            android:textSize="24dp" />
-                    </LinearLayout>
-                </TableRow>
-
-                <TableRow>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_gravity="left"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageButton
-                            android:id="@+id/vitalsb"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:elevation="4dp"
-                            android:padding="10dp"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/cervical_icon"
-                            android:onClick="@{() -> context.startSubmodule(ccmodule.MODULE)}"
-                            android:textAllCaps="false"
-                            android:clickable="false"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Cervical Cancer"
-                            android:textAllCaps="false"
-                            android:textColor="@color/dark_purple"
-                            android:textSize="18dp" />
-                    </LinearLayout>
-
-                </TableRow>
-            </TableLayout>
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
 </layout>

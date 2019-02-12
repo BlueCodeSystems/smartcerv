@@ -3,7 +3,7 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import androidx.room.*;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "person_attribute_type")
 public class PersonAttributeType {

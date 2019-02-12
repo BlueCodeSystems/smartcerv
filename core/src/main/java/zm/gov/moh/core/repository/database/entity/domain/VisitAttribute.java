@@ -1,7 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "visit_attribute")
 public class VisitAttribute {
@@ -13,11 +13,11 @@ public class VisitAttribute {
     public String value_reference;
     public String uuid;
     public Long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public Long changed_by;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public short voided;
     public Long voided_by;
-    public ZonedDateTime date_voided;
+    public LocalDateTime date_voided;
     public String void_reason;
 }

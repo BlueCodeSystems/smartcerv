@@ -1,6 +1,7 @@
 {
-  "attributes":{
-    "type":"Basic",
+  "attributes": {
+    "type":"Encounter",
+    "encounterId":15,
     "submitLabel":"Submit"
   },
   "widgetGroup":[

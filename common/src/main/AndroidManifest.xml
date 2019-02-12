@@ -9,6 +9,7 @@
         <activity android:name=".submodule.dashboard.client.view.ClientDashboardActivity" />
         <activity android:name=".submodule.vitals.view.VitalsActivity" />
         <activity android:name=".submodule.form.view.FormActivity" />
+        <activity android:name=".view.CommonHomeActivity"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,9 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
-import org.threeten.bp.ZonedDateTime;
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity
 public class Visit {
@@ -10,17 +12,17 @@ public class Visit {
     public long visit_id;
     public long patient_id;
     public long visit_type_id;
-    public ZonedDateTime date_started;
-    public ZonedDateTime date_stopped;
+    public LocalDateTime date_started;
+    public LocalDateTime date_stopped;
     public Long indication_concept_id;
     public Long location_id;
     public Long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public Long changed_by;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public short voided;
     public Long voided_by;
-    public ZonedDateTime date_voided;
+    public LocalDateTime date_voided;
     public String void_reason;
     public String uuid;
 
@@ -29,7 +31,7 @@ public class Visit {
     }
 
     @Ignore
-    public Visit(long visit_id, long visit_type_id, long patient_id, Long location_id, Long creator,ZonedDateTime date_started){
+    public Visit(long visit_id, long visit_type_id, long patient_id, Long location_id, Long creator,LocalDateTime date_started){
 
         this.visit_id = visit_id;
         this.visit_type_id = visit_type_id;
@@ -38,6 +40,19 @@ public class Visit {
         this.creator = creator;
         this.date_started = date_started;
         this.date_created = date_started;
+    }
+
+    @Ignore
+    public Visit(long visit_id, long visit_type_id, long patient_id, Long location_id, Long creator,LocalDateTime date_started,LocalDateTime date_stopped){
+
+        this.visit_id = visit_id;
+        this.visit_type_id = visit_type_id;
+        this.patient_id = patient_id;
+        this.location_id = location_id;
+        this.creator = creator;
+        this.date_started = date_started;
+        this.date_created = date_started;
+        this.date_stopped = date_stopped;
     }
 
     //Setters and Getters
@@ -65,19 +80,19 @@ public class Visit {
         this.visit_type_id = visit_type_id;
     }
 
-    public ZonedDateTime getDate_started() {
+    public LocalDateTime getDate_started() {
         return date_started;
     }
 
-    public void setDate_started(ZonedDateTime date_started) {
+    public void setDate_started(LocalDateTime date_started) {
         this.date_started = date_started;
     }
 
-    public ZonedDateTime getDate_stopped() {
+    public LocalDateTime getDate_stopped() {
         return date_stopped;
     }
 
-    public void setDate_stopped(ZonedDateTime date_stopped) {
+    public void setDate_stopped(LocalDateTime date_stopped) {
         this.date_stopped = date_stopped;
     }
 
@@ -105,11 +120,11 @@ public class Visit {
         this.creator = creator;
     }
 
-    public ZonedDateTime getDate_created() {
+    public LocalDateTime getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(ZonedDateTime date_created) {
+    public void setDate_created(LocalDateTime date_created) {
         this.date_created = date_created;
     }
 
@@ -121,11 +136,11 @@ public class Visit {
         this.changed_by = changed_by;
     }
 
-    public ZonedDateTime getDate_changed() {
+    public LocalDateTime getDate_changed() {
         return date_changed;
     }
 
-    public void setDate_changed(ZonedDateTime date_changed) {
+    public void setDate_changed(LocalDateTime date_changed) {
         this.date_changed = date_changed;
     }
 
@@ -145,11 +160,11 @@ public class Visit {
         this.voided_by = voided_by;
     }
 
-    public ZonedDateTime getDate_voided() {
+    public LocalDateTime getDate_voided() {
         return date_voided;
     }
 
-    public void setDate_voided(ZonedDateTime date_voided) {
+    public void setDate_voided(LocalDateTime date_voided) {
         this.date_voided = date_voided;
     }
 

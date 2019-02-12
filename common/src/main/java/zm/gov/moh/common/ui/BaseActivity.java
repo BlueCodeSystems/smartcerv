@@ -141,6 +141,10 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setViewModel(BaseAndroidViewModel viewModel){
         this.viewModel = viewModel;
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null )
+            viewModel.setBundle(bundle);
     }
 
     public void initBundle(Bundle bundle){

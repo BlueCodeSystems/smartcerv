@@ -8,6 +8,15 @@ public class ObsValue<T> implements Serializable {
     private T value;
     private String conceptDataType;
 
+    public ObsValue(){}
+
+    public ObsValue(long conceptId, String conceptDataType, T value){
+
+        this.conceptId = conceptId;
+        this.conceptDataType = conceptDataType;
+        this.value = value;
+    }
+
     public void setConceptId(long conceptId) {
         this.conceptId = conceptId;
     }

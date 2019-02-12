@@ -26,9 +26,6 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
         Fragment fragment;
         if(position == 0)
             fragment = new PatientDashboardVisitFragment();
-        else if(position == 1) {
-            fragment = new PatientDashboardVisitHistoryFragment();
-        }
         else
             fragment =  new PatientDashboardVisitFragment();
 
@@ -39,7 +36,7 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
 
     @Override
     public int getCount() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -48,8 +45,6 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
         switch (position) {
             case 0:
                 return "Visit";
-            case 1:
-                return "History Visit";
             default:
                 return null;
         }

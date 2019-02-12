@@ -62,4 +62,8 @@ dependencies {
 
     //Butter Knife
     api 'com.jakewharton:butterknife:9.0.0-rc2'
+
+    api 'com.google.guava:guava:27.0.1-android'
+
+    api 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 }

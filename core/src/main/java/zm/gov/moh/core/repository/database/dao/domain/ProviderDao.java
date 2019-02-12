@@ -18,6 +18,10 @@ public interface ProviderDao {
     @Query("SELECT * FROM provider WHERE person_id = :id")
     LiveData<Provider> getByPersonId(Long id);
 
+    //gets all locations
+    @Query("SELECT * FROM provider WHERE provider_id = :id")
+    Provider getById(Long id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Provider... providers);
 }

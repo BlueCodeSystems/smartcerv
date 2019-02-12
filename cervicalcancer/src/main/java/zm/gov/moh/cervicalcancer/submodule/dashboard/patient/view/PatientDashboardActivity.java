@@ -14,6 +14,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
@@ -110,8 +113,7 @@ public class PatientDashboardActivity extends BaseActivity {
 		database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
-        database.visitDao().getByPatientId(clientId).observe(this,viewModel::onVisitsRetrieved);
-
+        database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
     }
     public Submodule getVitals() {
         return vitals;

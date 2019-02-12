@@ -28,4 +28,7 @@ public interface PatientIdentifierDao {
     //get persons name by getPersons id
     @Query("SELECT MAX(patient_identifier_id) FROM patient_identifier")
     Long getMaxId();
+
+    @Query("SELECT patient_identifier_id FROM patient_identifier WHERE uuid = :uuid")
+    Long getIdByUuid(String uuid);
 }

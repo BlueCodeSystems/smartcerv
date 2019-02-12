@@ -45,7 +45,7 @@ public class BaseApplication extends Application {
         public static final String REGISTRATION = "REGISTRATION";
         public static final String REGISTER = "REGISTER";
         public static final String FIRST_POINT_OF_CARE = "FIRST_POINT_OF_CARE";
-        public static final String FIRST_POINT_OF_CONTACT = "FIRST_POINT_OF_CONTACT";
+        public static final String HOME = "HOME";
         public static final String LOGIN = "LOGIN";
         public static final String VITALS = "VITALS";
         public static final String CLIENT_DASHOARD = "CLIENT_DASHOARD";

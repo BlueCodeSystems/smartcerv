@@ -9,7 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import org.threeten.bp.Instant;
+import org.threeten.bp.ZoneId;
+
+import java.util.Collection;
+import java.util.Map;
+
 import zm.gov.moh.cervicalcancer.R;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
 
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
@@ -42,29 +49,51 @@ public class PatientDashboardReferralFragment extends Fragment {
        // View view = binding.getRoot();
 
         tableLayout = view.findViewById(R.id.visit_type_table);
-
-        populateRefferrals("03/06/17", false, true);
-        populateRefferrals("24/10/18", true, false);
-        populateRefferrals("13/05/19", false, false);
-        populateRefferrals("01/02/20", false, true);
-        populateRefferrals("13/05/19", false, false);
-        populateRefferrals("01/02/20", false, true);
-        populateRefferrals("13/05/19", false, false);
-        populateRefferrals("01/02/21", false, true);
+        ((PatientDashboardViewModel) context.getViewModel()).getReferralDataEmitter().observe(context,this::populateRefferrals);
         return view;
     }
 
-    public void populateRefferrals(String date, boolean largeLesion, boolean suspectedCancer){
+    public void populateRefferrals(Map<Long,Collection<Boolean>> refferalResults){
 
-        TableRow tableRow = new TableRow(context);
-        tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
+        if(tableLayout.getChildCount()> 0)
+            tableLayout.removeAllViews();
 
-        tableRow.addView(dateCellView(context,date));
-        tableRow.addView(renderCheckMarkIconView(context, largeLesion ));
-        tableRow.addView(renderCheckMarkIconView(context, suspectedCancer));
+        for (Map.Entry<Long,Collection<Boolean>> entry : refferalResults.entrySet()){
 
-        tableLayout.addView(tableRow);
+            Instant dateTime = Instant.ofEpochSecond(entry.getKey());
+
+            TableRow tableRow = new TableRow(context);
+            tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
+            tableRow.addView(dateCellView(context,String.valueOf(dateTime.atZone(ZoneId.systemDefault()).format(org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE))));
+
+            for(boolean v :entry.getValue())
+                tableRow.addView(renderCheckMarkIconView(context, v));
+
+            tableLayout.addView(tableRow);
+        }
     }
+
+    /*
+    public void populateScreeningObservations(Map<Long,Collection<Boolean>> screeningResults){
+
+        if(tableLayout.getChildCount()> 0)
+            tableLayout.removeAllViews();
+
+
+        for (Map.Entry<Long,Collection<Boolean>> b : screeningResults.entrySet()){
+
+            Instant dateTime = Instant.ofEpochSecond(b.getKey());
+
+            TableRow tableRow = new TableRow(context);
+            tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
+            tableRow.addView(dateCellView(context,String.valueOf(dateTime.atZone(ZoneId.systemDefault()).format(org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE))));
+                for(boolean v :b.getValue())
+                    tableRow.addView(renderCheckMarkIconView(context, v));
+
+            tableLayout.addView(tableRow);
+        }
+    }
+     */
 }
 
 

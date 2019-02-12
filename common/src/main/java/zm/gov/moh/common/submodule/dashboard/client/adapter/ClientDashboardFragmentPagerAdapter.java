@@ -52,7 +52,7 @@ public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Vitals";
             case 1:
-                return "Care Services";
+                return "Health care Services";
             default:
                 return null;
         }

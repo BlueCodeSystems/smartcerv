@@ -1,6 +1,6 @@
 package zm.gov.moh.core.repository.database.entity.derived;
 
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

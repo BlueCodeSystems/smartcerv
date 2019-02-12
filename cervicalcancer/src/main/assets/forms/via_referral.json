@@ -1,150 +1,47 @@
 {
-  "attributes":{
-    "type":"Basic",
+  "attributes": {
+    "type":"Encounter",
+    "encounterId": 14,
     "submitLabel":"Submit"
   },
   "widgetGroup":[
     {
-      "title":"Treatment",
+      "title":"Referral",
       "widgets":[
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"prescription",
-              "widgetType":"Concept",
-              "conceptId": 165187,
-              "dataType":"Boolean",
-              "style":"check",
-              "textSize":18,
-              "logic":[
-                {
-                  "condition":{
-                    "value":1
-                  },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["frequency", "duration"]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Cryotherapy performed today",
-              "textSize":18,
-              "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"prescription",
-              "widgetType":"Concept",
-              "conceptId": 165188,
-              "dataType":"Boolean",
-              "style":"check",
-              "textSize": 18,
-              "logic":[
-                {
-                  "condition":{
-                    "value":1
-                  },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["frequency1", "duration1"]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Thermal coagulation performed today",
-              "textSize":18,
-              "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"prescription",
-              "widgetType":"Concept",
-              "conceptId": 165187,
-              "dataType":"Boolean",
-              "style":"check",
-              "textSize":18,
-              "logic":[
-                {
-                  "condition":{
-                    "value":1
-                  },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["frequency", "duration"]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Cryotherapy delayed",
-              "textSize":18,
-              "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"prescription",
-              "widgetType":"Concept",
-              "conceptId": 165188,
-              "dataType":"Boolean",
-              "style":"check",
-              "textSize": 18,
-              "logic":[
-                {
-                  "condition":{
-                    "value":1
-                  },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["frequency1", "duration1"]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "widgetType":"TextView",
-              "label":"Thermal coagulation delayed",
-              "textSize":18,
-              "weight":1
-            }
-          ]
-        },
-        {
-          "tag":"reason for delayed treatment",
           "widgetType":"Concept",
-          "label":"Reason for delayed treatment",
-          "conceptId": 165240,
-          "dataType":"Coded",
-          "style":"check",
+          "label":"Health facility referred to",
+          "conceptId": 165186,
+          "dataType":"Text",
+          "hint":"Facility name",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "Reason for referral",
+          "widgetType": "Concept",
+          "label":"Reason for referral",
+          "conceptId": 165182,
+          "dataType": "Coded",
+          "style": "check",
           "textSize": 18
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"Concept",
+              "label":"Other Gyn. Referal",
+              "conceptId": 165186,
+              "dataType":"Text",
+              "hint":"Gyn Condition",
+              "textSize":18,
+              "weight":1
+            }
+          ]
         }
       ]
     }
   ]
+
 }

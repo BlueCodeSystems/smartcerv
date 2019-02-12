@@ -2,7 +2,7 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
 
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "location_attribute_type")
 public class LocationAttributeType{
@@ -18,12 +18,12 @@ public class LocationAttributeType{
     public Long min_occurs;
     public Long max_occurs;
     public Long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public Long changed_by;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public short retired;
     public Long retired_by;
-    public ZonedDateTime date_retired;
+    public LocalDateTime date_retired;
     public String retired_reason;
     public String uuid;
 }

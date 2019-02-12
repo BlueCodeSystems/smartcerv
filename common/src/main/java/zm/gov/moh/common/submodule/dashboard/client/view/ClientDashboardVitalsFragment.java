@@ -38,6 +38,8 @@ public class ClientDashboardVitalsFragment extends Fragment {
         FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
         View view = binding.getRoot();
         Button button = view.findViewById(R.id.client_dashbord_btn);
+        binding.setContext(context);
+        binding.setBundle(getArguments());
 
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()

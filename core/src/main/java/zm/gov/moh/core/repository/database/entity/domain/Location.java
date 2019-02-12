@@ -3,7 +3,7 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import androidx.room.*;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity
 public class Location {
@@ -21,7 +21,7 @@ public class Location {
     public String latitude;
     public String longitude;
     public long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public String county_district;
     public String address3;
     public String address4;
@@ -29,12 +29,12 @@ public class Location {
     public String address6;
     public short retired;
     public Long retired_by;
-    public ZonedDateTime date_retired;
+    public LocalDateTime date_retired;
     public String retire_reason;
     public Long parent_location;
     public String uuid;
     public Long changed_by;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public String address7;
     public String address8;
     public String address9;

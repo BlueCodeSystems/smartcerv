@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import zm.gov.moh.app.submodule.first.point.of.care.view.FirstPointOfCareActivity;
-import zm.gov.moh.app.submodule.first.point.of.contact.view.FirstPointOfContactActivity;
+import zm.gov.moh.app.view.HomeActivity;
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view.CervicalCancerActivity;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
@@ -39,8 +37,7 @@ public class ApplicationContext extends BaseApplication {
         registerModule(CoreModule.CLIENT_DASHOARD, new BasicSubmodule("Client Dashboard",ClientDashboardActivity.class));
         registerModule(CoreModule.REGISTER, new BasicSubmodule("Register",RegisterActivity.class));
         registerModule(CoreModule.REGISTRATION, new BasicSubmodule("Register Patient",RegistrationActivity.class));
-        registerModule(CoreModule.FIRST_POINT_OF_CARE, new BasicSubmodule("First Point Of Care", FirstPointOfCareActivity.class));
-        registerModule(CoreModule.FIRST_POINT_OF_CONTACT, new BasicSubmodule("Point Of Contact",FirstPointOfContactActivity.class));
+        registerModule(CoreModule.HOME, new BasicSubmodule("home",HomeActivity.class));
         registerModule(CoreModule.LOGIN, new BasicSubmodule("Login",LoginActivity.class));
         registerModule(CoreModule.VITALS, new BasicSubmodule("Vitals",VitalsActivity.class));
         registerModule(CoreModule.FORM, new BasicSubmodule("FormModel", FormActivity.class));

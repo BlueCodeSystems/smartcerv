@@ -1,7 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.derived;
 
 import androidx.room.*;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity
 public class Client {
@@ -11,5 +11,5 @@ public class Client {
     public String given_name;
     public String family_name;
     public String gender;
-    public ZonedDateTime birthdate;
+    public LocalDateTime birthdate;
 }

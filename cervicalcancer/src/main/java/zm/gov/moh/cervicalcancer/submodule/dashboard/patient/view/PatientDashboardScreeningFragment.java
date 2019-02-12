@@ -9,16 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import org.threeten.bp.DateTimeUtils;
 import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import org.threeten.bp.ZoneId;
-import org.threeten.bp.ZonedDateTime;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
@@ -37,7 +32,6 @@ public class PatientDashboardScreeningFragment extends Fragment {
     private BaseActivity context;
     TableLayout tableLayout;
     long patientId;
-    AtomicBoolean canEmit = new AtomicBoolean(true);
 
     public PatientDashboardScreeningFragment() {
         // Required empty public constructor
@@ -51,21 +45,11 @@ public class PatientDashboardScreeningFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_patient_dashoard_screening, container, false);
         Bundle bundle = getArguments();
         patientId = bundle.getLong(Key.PERSON_ID);
-        //context = (PatientDashboardActivity) getContext();
-        //context.getClientId();
-        // Inflate the layout for this fragment
-
-        //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
-       // View view = binding.getRoot();
 
         tableLayout = view.findViewById(R.id.visit_type_table);
 
-        //context.getViewModel().getRepository().getDatabase().genericDao().testQ().observe(context,p->{
-        //    List<Obs> pp = p;
-        //});
-        if(canEmit.get())
-            ((PatientDashboardViewModel) context.getViewModel()).getEmitScreenigData().observe(context,this::populateScreeningObservations);
-        canEmit.set(false);
+
+            ((PatientDashboardViewModel) context.getViewModel()).getScreeningDataEmitter().observe(context,this::populateScreeningObservations);
         return view;
     }
 

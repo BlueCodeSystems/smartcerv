@@ -19,7 +19,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="@drawable/border_right"/>
-            <TextView android:text="VIA/Cryo done"
+            <TextView android:text="Thermal/Cryo done"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textStyle="bold"

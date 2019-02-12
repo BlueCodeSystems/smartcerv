@@ -13,6 +13,9 @@ public interface EncounterTypeDao {
     @Query("SELECT * FROM encounter_type WHERE encounter_type_id = :id")
     LiveData<EncounterType> getById(long id);
 
+    @Query("SELECT encounter_type_id FROM encounter_type WHERE uuid = :uuid")
+    Long getIdByUuid(String uuid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EncounterType... encounterTypes);
 }

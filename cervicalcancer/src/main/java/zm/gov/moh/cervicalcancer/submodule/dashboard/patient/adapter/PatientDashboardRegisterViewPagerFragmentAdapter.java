@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardProvidersFragment;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardProviderFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardReferralFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardTreatmentFragment;
@@ -34,7 +34,7 @@ public class PatientDashboardRegisterViewPagerFragmentAdapter extends FragmentSt
         else if (position == 3)
             fragment =  new PatientDashboardTreatmentFragment();
         else if (position == 4)
-            fragment =  new PatientDashboardProvidersFragment();
+            fragment =  new PatientDashboardProviderFragment();
         else
             fragment =  new PatientDashboardVisitTypeFragment();
 

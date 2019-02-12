@@ -1,6 +1,6 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,14 +15,14 @@ public class ConceptName {
     public String locale;
     public short locale_preferred;
     public Long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public String concept_name_type;
     public short voided;
     public Long voided_by;
-    public ZonedDateTime date_voided;
+    public LocalDateTime date_voided;
     public String void_reason;
     public String uuid;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public Long changed_by;
 }
 

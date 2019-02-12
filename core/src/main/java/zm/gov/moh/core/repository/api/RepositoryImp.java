@@ -62,7 +62,7 @@ public class RepositoryImp implements Repository{
     public <T,R>void asyncFunction(Function<T,R> function,Consumer<R> consumer,T items,Consumer<Throwable> onError){
 
         Single.just(items)
-                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .map(function)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer, onError);

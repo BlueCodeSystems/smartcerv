@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import java.util.HashMap;
 import java.util.Map;
 import butterknife.BindView;
@@ -51,6 +54,8 @@ public class RegistrationActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         bundle = new Bundle();
+
+        AndroidThreeTen.init(this);
 
         registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
 

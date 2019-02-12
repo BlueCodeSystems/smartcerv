@@ -22,7 +22,7 @@ public class BootstrapActivity extends BaseActivity {
 
         ApplicationContext applicationContext = (ApplicationContext)getApplicationContext();
 
-        Submodule firstPointOfContactSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.FIRST_POINT_OF_CONTACT);
+        Submodule firstPointOfContactSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.HOME);
 
         Submodule loginSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.LOGIN);
 

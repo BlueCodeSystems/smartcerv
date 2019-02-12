@@ -3,7 +3,7 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import androidx.room.*;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,7 +19,7 @@ public class Obs {
     public long concept_id;
     public Long encounter_id;
     public Long order_id;
-    public ZonedDateTime obs_datetime;
+    public LocalDateTime obs_datetime;
     public Long location_id;
     public Long obs_group_id;
     public String accession_number;
@@ -27,17 +27,17 @@ public class Obs {
     public Long value_coded;
     public Long value_coded_name_id;
     public Long value_drug;
-    public ZonedDateTime value_datetime;
+    public LocalDateTime value_datetime;
     public Double value_numeric;
     public String value_modifier;
     public String value_text;
     public String value_complex;
     public String comments;
     public long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public short voided;
     public Long voided_by;
-    public ZonedDateTime date_voided;
+    public LocalDateTime date_voided;
     public String void_reason;
     public String uuid;
     public Long previous_version;
@@ -50,7 +50,7 @@ public class Obs {
     }
 
     @Ignore
-    public Obs(long obs_id,long person_id,long encounter_id,ZonedDateTime obs_datetime,long location_id,long creator){
+    public Obs(long obs_id,long person_id,long encounter_id,LocalDateTime obs_datetime,long location_id,long creator){
 
         this.obs_id = obs_id;
         this.person_id = person_id;
@@ -79,7 +79,7 @@ public class Obs {
         return this;
     }
 
-    public Obs setValue(ZonedDateTime value_datetime){
+    public Obs setValue(LocalDateTime value_datetime){
 
         this.value_datetime = value_datetime;
         return this;
@@ -159,11 +159,11 @@ public class Obs {
         this.order_id = order_id;
     }
 
-    public ZonedDateTime getObs_datetime() {
+    public LocalDateTime getObs_datetime() {
         return obs_datetime;
     }
 
-    public void setObs_datetime(ZonedDateTime obs_datetime) {
+    public void setObs_datetime(LocalDateTime obs_datetime) {
         this.obs_datetime = obs_datetime;
     }
 
@@ -223,11 +223,11 @@ public class Obs {
         this.value_drug = value_drug;
     }
 
-    public ZonedDateTime getValue_datetime() {
+    public LocalDateTime getValue_datetime() {
         return value_datetime;
     }
 
-    public void setValue_datetime(ZonedDateTime value_datetime) {
+    public void setValue_datetime(LocalDateTime value_datetime) {
         this.value_datetime = value_datetime;
     }
 
@@ -279,11 +279,11 @@ public class Obs {
         this.creator = creator;
     }
 
-    public ZonedDateTime getDate_created() {
+    public LocalDateTime getDate_created() {
         return date_created;
     }
 
-    public void setDate_created(ZonedDateTime date_created) {
+    public void setDate_created(LocalDateTime date_created) {
         this.date_created = date_created;
     }
 
@@ -303,11 +303,11 @@ public class Obs {
         this.voided_by = voided_by;
     }
 
-    public ZonedDateTime getDate_voided() {
+    public LocalDateTime getDate_voided() {
         return date_voided;
     }
 
-    public void setDate_voided(ZonedDateTime date_voided) {
+    public void setDate_voided(LocalDateTime date_voided) {
         this.date_voided = date_voided;
     }
 

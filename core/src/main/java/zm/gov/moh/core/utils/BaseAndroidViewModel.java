@@ -1,6 +1,8 @@
 package zm.gov.moh.core.utils;
 
 import android.app.Application;
+import android.os.Bundle;
+
 import androidx.lifecycle.AndroidViewModel;
 import zm.gov.moh.core.repository.api.Repository;
 
@@ -9,6 +11,7 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
 
     private Repository mRepository;
     private final short PREFERED = 1;
+    private Bundle bundle;
 
     public BaseAndroidViewModel(Application application){
         super(application);
@@ -27,5 +30,13 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
 
     public short preffered() {
         return PREFERED;
+    }
+
+    public void setBundle(Bundle bundle) {
+        this.bundle = bundle;
+    }
+
+    public Bundle getBundle() {
+        return bundle;
     }
 }

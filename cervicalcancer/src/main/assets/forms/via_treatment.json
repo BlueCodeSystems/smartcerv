@@ -1,54 +1,32 @@
 {
-  "attributes":{
-    "type":"Basic",
+  "attributes": {
+    "type":"Encounter",
+    "encounterId": 13,
     "submitLabel":"Submit"
   },
   "widgetGroup":[
     {
-      "title":"Referral",
+      "title":"Treatment",
       "widgets":[
         {
+          "tag":"via treatment done",
           "widgetType":"Concept",
-          "label":"Health facility referred to",
-          "conceptId": 165186,
-          "dataType":"Text",
-          "hint":"Facility name",
-          "textSize":18,
-          "weight":1
-        },
-        {
-          "tag": "prescription",
-          "widgetType": "Concept",
-          "label":"Reason for referral",
-          "conceptId": 165182,
-          "dataType": "Coded",
-          "style": "check",
+          "label":"VIA treatment done",
+          "conceptId": 165219,
+          "dataType":"Coded",
+          "style":"radio",
           "textSize": 18
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"prescription",
-              "widgetType":"Concept",
-              "conceptId": 165188,
-              "dataType":"Boolean",
-              "style":"check",
-              "textSize": 18
-            },
-            {
-              "widgetType":"Concept",
-              "label":"Other Gyn. Referal",
-              "conceptId": 165186,
-              "dataType":"Text",
-              "hint":"Gyn Condition",
-              "textSize":18,
-              "weight":1
-            }
-          ]
+          "tag":"reason for delayed treatment",
+          "widgetType":"Concept",
+          "label":"Reason for delayed treatment",
+          "conceptId": 165240,
+          "dataType":"Coded",
+          "style":"check",
+          "textSize": 18
         }
       ]
     }
   ]
-
 }

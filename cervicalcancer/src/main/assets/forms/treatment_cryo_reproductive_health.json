@@ -1,7 +1,7 @@
 {
   "attributes": {
     "type":"Encounter",
-    "encounterId":12,
+    "encounterId":8,
     "submitLabel":"Submit"
   },
   "widgetGroup":[
@@ -73,7 +73,7 @@
     "widgetType":"Concept",
     "conceptId":"165096",
     "dataType":"Date",
-    "label":"Crytherapy",
+    "label":"Cryotherapy",
     "hint":"Select date",
     "textSize":18
     },

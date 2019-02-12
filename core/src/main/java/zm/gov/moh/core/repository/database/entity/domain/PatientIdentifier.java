@@ -3,7 +3,7 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import androidx.room.*;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "patient_identifier")
 public class PatientIdentifier {
@@ -16,17 +16,17 @@ public class PatientIdentifier {
     public short preferred;
     public long location_id;
     public Long creator;
-    public ZonedDateTime date_created;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_created;
+    public LocalDateTime date_changed;
     public Long changed_by;
     public short voided;
     public Long voided_by;
-    public ZonedDateTime date_void;
+    public LocalDateTime date_void;
     public String void_reason;
     public String uuid;
 
 
-    public PatientIdentifier(long patient_identifier_id, long patient_id,String identifier,long identifier_type , long location_id, ZonedDateTime date_created){
+    public PatientIdentifier(long patient_identifier_id, long patient_id,String identifier,long identifier_type , long location_id, LocalDateTime date_created){
 
         this.patient_identifier_id = patient_identifier_id;
         this.patient_id = patient_id;
@@ -38,7 +38,7 @@ public class PatientIdentifier {
     }
 
     @Ignore
-    public PatientIdentifier(long patient_identifier_id, long patient_id,String identifier,long identifier_type ,short preferred, long location_id, ZonedDateTime date_created){
+    public PatientIdentifier(long patient_identifier_id, long patient_id,String identifier,long identifier_type ,short preferred, long location_id, LocalDateTime date_created){
 
         this(patient_identifier_id,patient_id,identifier,identifier_type,location_id,date_created);
         this.preferred = preferred;
