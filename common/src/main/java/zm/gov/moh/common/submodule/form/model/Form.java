@@ -1,28 +1,29 @@
 package zm.gov.moh.common.submodule.form.model;
 
-import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
-import zm.gov.moh.common.submodule.form.model.attribute.FormAttribute;
-import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
+public class Form{
 
-public class Form {
+    FormContext context;
+    ViewGroup rootView;
 
-    private FormAttribute attributes;
-    private List<WidgetSectionModel> widgetGroup;
 
-    public void setAttributes(FormAttribute attributes) {
-        this.attributes = attributes;
+    public void setFormContext(FormContext context) {
+        this.context = context;
     }
 
-    public FormAttribute getAttributes() {
-        return attributes;
+    public FormContext getFormContext() {
+        return context;
     }
 
-    public List<WidgetSectionModel> getWidgetGroup() {
-        return widgetGroup;
+    public void setRootView(ViewGroup rootView) {
+        this.rootView = rootView;
     }
 
-    public void setWidgetGroup(List<WidgetSectionModel> widgetGroup) {
-        this.widgetGroup = widgetGroup;
+    public ViewGroup getRootView() {
+        return rootView;
     }
 }

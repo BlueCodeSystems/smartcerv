@@ -2,21 +2,19 @@ package zm.gov.moh.common.submodule.dashboard.client.view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.CareServicesExpandableListAdapter;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.model.submodule.Submodule;
 
 public class ClientDashboardCareServicesFragment extends Fragment {
 
@@ -40,14 +38,23 @@ public class ClientDashboardCareServicesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        Bundle bundle = getArguments();
+
         this.context = (BaseActivity) this.getContext();
+        context.initBundle(bundle);
+
+        //String f = bundle.getString(Key.PERSON_GIVEN_NAME);
+       // f.length();
+
         View view = inflater.inflate(R.layout.fragment_client_dashboard_care_services, container, false);
 
-        CareServicesExpandableListAdapter careServicesExpandableListAdapter = new CareServicesExpandableListAdapter(context, ((BaseApplication) getContext().getApplicationContext()).getCareServices());
+        CareServicesExpandableListAdapter careServicesExpandableListAdapter = new CareServicesExpandableListAdapter(context, ((BaseApplication) getContext().getApplicationContext()).getCareServices(),bundle);
 
         ExpandableListView clientServiceList = view.findViewById(R.id.care_service_list);
 
         clientServiceList.setAdapter(careServicesExpandableListAdapter);
+
+
 
         // Inflate the layout for this fragment
         return view;

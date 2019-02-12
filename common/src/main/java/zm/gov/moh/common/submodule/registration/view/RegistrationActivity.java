@@ -1,15 +1,18 @@
 package zm.gov.moh.common.submodule.registration.view;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import java.util.HashMap;
 import java.util.Map;
 import butterknife.BindView;
@@ -52,6 +55,8 @@ public class RegistrationActivity extends BaseActivity {
 
         bundle = new Bundle();
 
+        AndroidThreeTen.init(this);
+
         registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
 
         //Data binding
@@ -72,7 +77,7 @@ public class RegistrationActivity extends BaseActivity {
                 date.setError(null);
         });
 
-        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.CLIENT_DASHOARD);
+        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         init();
     }
@@ -130,7 +135,7 @@ public class RegistrationActivity extends BaseActivity {
 
         final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
 
-            bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
+            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
             startSubmodule(clientDashBoardSubmodule, bundle);
             finish();
         };

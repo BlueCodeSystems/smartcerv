@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SmartCerv</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="recents">Recents</string>
+    <string name="visit">Visit</string>
+    <string name="vitals">Vitals</string>
+    <string name="visit_history">History Visit</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

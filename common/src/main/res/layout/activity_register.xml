@@ -1,41 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="search" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
+        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <LinearLayout
+       android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        tools:context=".submodule.register.view.RegisterActivity">
-
+        android:orientation="vertical">
         <include
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:toolbarhandler="@{toolbarhandler}">
         </include>
-
-        <EditText
+        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:inputType="textFilter"
-            android:layout_marginHorizontal="10dp"
-            android:hint="Find client by ID or name" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            tools:context=".submodule.register.view.RegisterActivity">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/client_list"
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                tools:listitem="@layout/client_demographics">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:inputType="textFilter"
+                android:text="@={search.term}"
+                android:layout_marginHorizontal="10dp"
+                android:hint="Find client by name, ID, age or gender" />
 
-            </android.support.v7.widget.RecyclerView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/client_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    tools:listitem="@layout/client_demographics">
 
+                </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_gravity="bottom|end"
+                android:onClick="@{()-> context.startSubmodule(coreModule.REGISTRATION)}"
+                android:src="@drawable/addavatar" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>
 </layout>

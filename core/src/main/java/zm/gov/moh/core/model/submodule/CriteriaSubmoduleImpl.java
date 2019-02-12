@@ -6,11 +6,11 @@ import zm.gov.moh.core.model.Criteria;
 
 public class CriteriaSubmoduleImpl extends AbstractIconCriteriaSubmodule {
 
-    CriteriaSubmoduleImpl(String name, Class classInstance, Bitmap icon, Criteria criteria ){
+    public CriteriaSubmoduleImpl(String name, Class classInstance, Bitmap icon, Criteria criteria){
         super(name,classInstance,icon, criteria);
     }
 
-    CriteriaSubmoduleImpl(String name, Class classInstance, Criteria criteria ){
+    public CriteriaSubmoduleImpl(String name, Class classInstance, Criteria criteria){
         super(name,classInstance, criteria);
     }
 

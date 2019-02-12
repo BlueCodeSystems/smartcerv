@@ -1,86 +1,78 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
-import android.content.Context;
+
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.threeten.bp.Instant;
+import org.threeten.bp.ZoneId;
 
-import zm.gov.moh.common.R;
-import zm.gov.moh.common.submodule.dashboard.client.adapter.CareServicesExpandableListAdapter;
+import java.util.Collection;
+import java.util.Map;
+
+import zm.gov.moh.cervicalcancer.R;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
-import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.model.Key;
 
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
 public class PatientDashboardScreeningFragment extends Fragment {
 
+
     private BaseActivity context;
+    TableLayout tableLayout;
+    long patientId;
 
     public PatientDashboardScreeningFragment() {
         // Required empty public constructor
     }
 
-    public static PatientDashboardScreeningFragment newInstance() {
-        PatientDashboardScreeningFragment fragment = new PatientDashboardScreeningFragment();
-
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        this.context = (BaseActivity) this.getContext();
-        View view = inflater.inflate(R.layout.fragment_client_dashboard_care_services, container, false);
+        context = (BaseActivity)getContext();
+        View view = inflater.inflate(R.layout.fragment_patient_dashoard_screening, container, false);
+        Bundle bundle = getArguments();
+        patientId = bundle.getLong(Key.PERSON_ID);
 
-        //CareServicesExpandableListAdapter careServicesExpandableListAdapter = new CareServicesExpandableListAdapter(context, getCareServices());
+        tableLayout = view.findViewById(R.id.visit_type_table);
 
-        //ExpandableListView clientServiceList = view.findViewById(R.id.care_service_list);
 
-        //clientServiceList.setAdapter(careServicesExpandableListAdapter);
-
-        // Inflate the layout for this fragment
+            ((PatientDashboardViewModel) context.getViewModel()).getScreeningDataEmitter().observe(context,this::populateScreeningObservations);
         return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-    }
-
-    public void init(){
-
-    }
-
-    public List<SubmoduleGroup> getCareServices(){
-
-        Submodule registeration = ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CoreSubmodules.REGISTRATION);
-        List<Submodule> submodules = new ArrayList<>();
-        submodules.add(registeration);
-
-        SubmoduleGroup submoduleGroup1 = (SubmoduleGroup) ((BaseApplication)context.getApplication()).getSubmodule(BaseApplication.CareSubmodules.CERVICAL_CANCER);
 
 
-        List<SubmoduleGroup> submoduleGroups = new ArrayList<>();
+    public void populateScreeningObservations(Map<Long,Collection<Boolean>> screeningResults){
 
-        submoduleGroups.add(submoduleGroup1);
+        if(tableLayout.getChildCount()> 0)
+            tableLayout.removeAllViews();
 
-        return submoduleGroups;
+        for (Map.Entry<Long,Collection<Boolean>> b : screeningResults.entrySet()){
+
+            Instant dateTime = Instant.ofEpochSecond(b.getKey());
+
+            TableRow tableRow = new TableRow(context);
+            tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
+            tableRow.addView(dateCellView(context,String.valueOf(dateTime.atZone(ZoneId.systemDefault()).format(org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE))));
+                for(boolean v :b.getValue())
+                    tableRow.addView(renderCheckMarkIconView(context, v));
+
+            tableLayout.addView(tableRow);
+        }
     }
 }
+
+

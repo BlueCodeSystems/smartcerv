@@ -1,9 +1,9 @@
 package zm.gov.moh.common.submodule.dashboard.client.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardCareServicesFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
@@ -22,17 +22,19 @@ public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+        Fragment fragment;
         if (position == 0) {
 
-            Fragment fragment = new ClientDashboardVitalsFragment();
-            fragment.setArguments(mContext.getIntent().getExtras());
-            return fragment;
+            fragment = new ClientDashboardVitalsFragment();
         }
         else if (position == 1)
-            return new ClientDashboardCareServicesFragment();
+            fragment = new ClientDashboardCareServicesFragment();
          else
-            return new ClientDashboardVitalsFragment();
+            fragment = new ClientDashboardVitalsFragment();
 
+        fragment.setArguments(mContext.getIntent().getExtras());
+
+        return fragment;
     }
 
     // This determines the number of tabs
@@ -50,7 +52,7 @@ public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Vitals";
             case 1:
-                return "Care Services";
+                return "Health care Services";
             default:
                 return null;
         }

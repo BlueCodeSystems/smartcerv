@@ -1,0 +1,32 @@
+{
+  "attributes": {
+    "type":"Encounter",
+    "encounterId": 13,
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Treatment",
+      "widgets":[
+        {
+          "tag":"via treatment done",
+          "widgetType":"Concept",
+          "label":"VIA treatment done",
+          "conceptId": 165219,
+          "dataType":"Coded",
+          "style":"radio",
+          "textSize": 18
+        },
+        {
+          "tag":"reason for delayed treatment",
+          "widgetType":"Concept",
+          "label":"Reason for delayed treatment",
+          "conceptId": 165240,
+          "dataType":"Coded",
+          "style":"check",
+          "textSize": 18
+        }
+      ]
+    }
+  ]
+}

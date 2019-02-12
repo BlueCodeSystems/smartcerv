@@ -1,10 +1,9 @@
 package zm.gov.moh.common.submodule.dashboard.client.view;
 
 
-import android.content.Context;
-import android.databinding.DataBindingUtil;
+import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,8 @@ public class ClientDashboardVitalsFragment extends Fragment {
         FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
         View view = binding.getRoot();
         Button button = view.findViewById(R.id.client_dashbord_btn);
+        binding.setContext(context);
+        binding.setBundle(getArguments());
 
 
         context.getViewModel().getRepository().getDatabase().vitalsDao()

@@ -1,10 +1,15 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
+import java.util.List;
+
+import zm.gov.moh.common.submodule.form.model.Logic;
+
 public abstract class AbstractWidgetModel implements WidgetModel {
 
     protected String tag;
     protected String widgetType;
     protected int weight;
+    protected List<Logic> logic;
 
     public AbstractWidgetModel(){
         super();
@@ -32,5 +37,13 @@ public abstract class AbstractWidgetModel implements WidgetModel {
 
     public int getWeight() {
         return weight;
+    }
+
+    public List<Logic> getLogic() {
+        return logic;
+    }
+
+    public void setLogic(List<Logic> logic) {
+        this.logic = logic;
     }
 }

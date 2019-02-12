@@ -25,7 +25,7 @@ public class Criteria {
         for (Map.Entry key : condition.entrySet())  {
             String hashkey = key.getKey().toString();
 
-            Field field = mClass.getDeclaredField(key.getKey().toString());
+            Field field = mClass.getDeclaredField(hashkey);
             field.setAccessible(true);
             String value = (String) field.get(sample);
 

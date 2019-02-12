@@ -2,9 +2,11 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.LinearLayoutCompat;
+
+import android.os.Bundle;
 import android.util.TypedValue;
 
 import java.util.HashMap;
@@ -16,18 +18,18 @@ public class FacilityLabelWidget extends LinearLayoutCompat  {
 
     private AppCompatTextView label;
     private AppCompatTextView value;
-    private HashMap<String,Object> formaData;
+    private Bundle bundle;
     private Repository repository;
     private Context context;
 
-    public FacilityLabelWidget(Context context, Repository repository, HashMap<String, Object> formaData){
+    public FacilityLabelWidget(Context context, Repository repository, Bundle bundle){
         super(context);
 
         long facilityLocationId = repository.getDefaultSharePrefrences()
                 .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
         this.repository = repository;
         this.context = context;
-        this.formaData = formaData;
+        this.bundle = bundle;
 
         LinearLayoutCompat.LayoutParams textViewlayoutParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
         LinearLayoutCompat.LayoutParams linearlayoutParams = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
@@ -63,8 +65,8 @@ public class FacilityLabelWidget extends LinearLayoutCompat  {
     }
 
 
-    public void setFormData(HashMap<String,Object> formData){
-        this.formaData = formData;
+    public void setFormData(Bundle bundle){
+        this.bundle = bundle;
     }
 
     public void setFacilityLocation(Location location){
@@ -72,7 +74,7 @@ public class FacilityLabelWidget extends LinearLayoutCompat  {
         if(location != null) {
 
           setTextValue(location.name);
-          formaData.put((String)getTag(),location.location_id);
+          bundle.putLong((String)getTag(),location.location_id);
         }
     }
 

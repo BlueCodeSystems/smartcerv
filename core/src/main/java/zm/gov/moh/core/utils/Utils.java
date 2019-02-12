@@ -5,11 +5,10 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.DatePicker;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,6 +100,7 @@ public class Utils {
 
         return reversed;
     }
+
 
 
 }

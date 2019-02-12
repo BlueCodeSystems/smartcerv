@@ -1,0 +1,47 @@
+{
+  "attributes": {
+    "type":"Encounter",
+    "encounterId": 14,
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Referral",
+      "widgets":[
+        {
+          "widgetType":"Concept",
+          "label":"Health facility referred to",
+          "conceptId": 165186,
+          "dataType":"Text",
+          "hint":"Facility name",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "Reason for referral",
+          "widgetType": "Concept",
+          "label":"Reason for referral",
+          "conceptId": 165182,
+          "dataType": "Coded",
+          "style": "check",
+          "textSize": 18
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "widgetType":"Concept",
+              "label":"Other Gyn. Referal",
+              "conceptId": 165186,
+              "dataType":"Text",
+              "hint":"Gyn Condition",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+}

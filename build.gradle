@@ -3,7 +3,7 @@
 buildscript {
     
     repositories {
-        google()
+       google()
         jcenter()
     }
     dependencies {
@@ -17,8 +17,9 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+       google()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -27,7 +28,8 @@ task clean(type: Delete) {
 }
 
 ext {
-    roomVersion = '1.1.1'
+    //roomVersion = '1.1.1'
+    roomVersion = "2.1.0-alpha03"
     archLifecycleVersion = '1.1.1'
     supportLibVersion = '28.0.0'
 }

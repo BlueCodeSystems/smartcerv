@@ -1,8 +1,9 @@
 package zm.gov.moh.common.submodule.registration.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -13,7 +14,9 @@ import java.util.Random;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.registration.model.RegistrationFormData;
 import zm.gov.moh.core.repository.api.Repository;
+import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -28,6 +31,9 @@ public class RegistrationViewModel extends BaseAndroidViewModel implements Injec
    private Repository repository;
    private MutableLiveData<Boolean> validateAndSubmitFormObserver;
    private MutableLiveData<Long> clientDashBoardTransition;
+
+    final long SESSION_LOCATION_ID = getRepository().getDefaultSharePrefrences()
+            .getLong(getApplication().getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
 
     private RegistrationFormData registrationFormData;
 
@@ -52,13 +58,18 @@ public class RegistrationViewModel extends BaseAndroidViewModel implements Injec
 
     public void submitForm(){
 
-        Random rand = new Random();
+        getRepository().asyncFunction(this::persistData,clientDashBoardTransition::setValue,registrationFormData,this::onError);
+    }
 
-        long  id = rand.nextInt(500) + 100;
+    public long persistData(RegistrationFormData registrationFormData){
+
+        long  id = DatabaseUtils.generateLocalId(getRepository().getDatabase().personDao()::getMaxId);
+
+        long  patientIdentifierId = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
 
         String d = registrationFormData.getDateOfBirth().toString()+"T12:00:00Z";
 
-        ZonedDateTime dateOfBirth = ZonedDateTime.parse( d,DateTimeFormatter.ISO_ZONED_DATE_TIME);
+        LocalDateTime dateOfBirth = ZonedDateTime.parse( d,DateTimeFormatter.ISO_ZONED_DATE_TIME).toLocalDateTime();
 
         String gender = registrationFormData.getGender().toString();
 
@@ -82,17 +93,22 @@ public class RegistrationViewModel extends BaseAndroidViewModel implements Injec
         PersonAddress personAddress = new PersonAddress(id, address1, district, province, preffered());
 
         //getPersons address
-        Patient patient = new Patient(id, ZonedDateTime.now());
+        Patient patient = new Patient(id, LocalDateTime.now());
 
-        repository.consumeAsync(repository.getDatabase().personDao()::insert, person);
+        PatientIdentifier ccpiz = new PatientIdentifier(patientIdentifierId, id, String.valueOf(id).substring(14), 3, preffered(),SESSION_LOCATION_ID,LocalDateTime.now());
 
-        repository.consumeAsync(repository.getDatabase().personNameDao()::insert, personName);
+        //persist database entity instances asynchronously into the database
+        getRepository().consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, ccpiz);
 
-        repository.consumeAsync(repository.getDatabase().personAddressDao()::insert, personAddress);
+        getRepository().consumeAsync(getRepository().getDatabase().personDao()::insert,this::onError, person);
 
-        repository.consumeAsync(repository.getDatabase().patientDao()::insert, patient);
+        getRepository().consumeAsync(getRepository().getDatabase().personNameDao()::insert,this::onError, personName);
 
-        clientDashBoardTransition.setValue(id);
+        getRepository().consumeAsync(getRepository().getDatabase().personAddressDao()::insert,this::onError, personAddress);
+
+        getRepository().consumeAsync(getRepository().getDatabase().patientDao()::insert,this::onError, patient);
+
+        return id;
     }
 
     public void onGenderRadioGroupCheckedChange(int buttonId){
@@ -125,16 +141,15 @@ public class RegistrationViewModel extends BaseAndroidViewModel implements Injec
         return registrationFormData;
     }
 
-    @Override
-    public void setRepository(Repository repository) {
-        this.repository = repository;
-    }
-
     public MutableLiveData<Long> getClientDashBoardTransition() {
 
         if(clientDashBoardTransition == null)
             clientDashBoardTransition = new MutableLiveData<>();
 
         return clientDashBoardTransition;
+    }
+
+    public void onError(Throwable throwable){
+
     }
 }

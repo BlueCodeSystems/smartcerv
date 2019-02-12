@@ -10,6 +10,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.utils.BaseApplication;
 
 public class BootstrapActivity extends BaseActivity {
 
@@ -21,11 +22,11 @@ public class BootstrapActivity extends BaseActivity {
 
         ApplicationContext applicationContext = (ApplicationContext)getApplicationContext();
 
-        Submodule firstPointOfContactSubmodule = applicationContext.getSubmodule(ApplicationContext.CoreSubmodules.FIRST_POINT_OF_CONTACT);
+        Submodule firstPointOfContactSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.HOME);
 
-        Submodule loginSubmodule = applicationContext.getSubmodule(ApplicationContext.CoreSubmodules.LOGIN);
+        Submodule loginSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.LOGIN);
 
-        Submodule formSubmodule = applicationContext.getSubmodule(ApplicationContext.CoreSubmodules.FORM);
+        Submodule formSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.FORM);
 
         Bundle bundle = new Bundle();
 

@@ -1,9 +1,9 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
+import androidx.room.*;
 
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 import org.threeten.bp.ZonedDateTime;
 
 @Entity
@@ -20,13 +20,13 @@ public class User {
     public String secret_question;
     public String secret_answer;
     public Long creator;
-    public ZonedDateTime date_created;
+    public LocalDateTime date_created;
     public Long changed_by;
-    public ZonedDateTime date_changed;
+    public LocalDateTime date_changed;
     public Long person_id;
     public short retired;
     public Long retired_by;
-    public ZonedDateTime date_retired;
+    public LocalDateTime date_retired;
     public String retired_reason;
     public String uuid;
 }

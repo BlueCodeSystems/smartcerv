@@ -1,6 +1,6 @@
 package zm.gov.moh.common.submodule.form.view;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import zm.gov.moh.common.R;
@@ -20,6 +20,7 @@ public class FormActivity extends BaseActivity {
         FormFragment formFragment = new FormFragment();
         formFragment.setArguments(getIntent().getExtras());
 
+        setTheme(R.style.Smartcerv);
         setFragment(formFragment);
 
 

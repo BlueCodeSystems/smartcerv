@@ -2,9 +2,12 @@ package zm.gov.moh.core.service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.annotation.Nullable;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import java.util.List;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
@@ -13,7 +16,7 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
 
     private Repository repository;
     private String accesstoken = "";
-    private final int TIMEOUT = 30000;
+    private final int TIMEOUT = 30000000;
     private int tasksCompleted = 0;
     private int tasksStarted = 0;
 
@@ -33,10 +36,11 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
 
         //Location
         repository.consumeAsync(
+
                 locations ->{
                     repository.getDatabase().locationDao().insert(locations);
                     this.onTaskCompleted();
-                }, //consumer
+                },//consumer
                 this::onError,
                 repository.getRestApiAdapter().getLocations(accesstoken),
                  //producer
@@ -188,6 +192,50 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
                 }, //consumer
                 this::onError,
                 repository.getRestApiAdapter().getObs(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Concept name
+        repository.consumeAsync(
+                conceptNames ->{
+                    repository.getDatabase().conceptNameDao().insert(conceptNames);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getConceptNames(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Concept answer
+        repository.consumeAsync(
+                conceptAnswers ->{
+                    repository.getDatabase().conceptAnswerDao().insert(conceptAnswers);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getConceptAnswers(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Concept answer
+        repository.consumeAsync(
+                encounterTypes ->{
+                    repository.getDatabase().encounterTypeDao().insert(encounterTypes);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getEncounterTypes(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Concept
+        repository.consumeAsync(
+                encounterTypes ->{
+                    repository.getDatabase().conceptDao().insert(encounterTypes);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getConcept(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
     }

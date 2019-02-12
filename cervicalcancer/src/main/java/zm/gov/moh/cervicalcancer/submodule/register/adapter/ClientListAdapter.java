@@ -2,7 +2,7 @@ package zm.gov.moh.cervicalcancer.submodule.register.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +48,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
 
             Client client = clientList.get(getAdapterPosition());
             long clientId = client.patient_id;
-            bundle.putLong(ClientDashboardActivity.CLIENT_ID_KEY, clientId);
+            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
             //Submodule call = (Submodule) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
            context.startSubmodule(patientDashboard, bundle);
@@ -61,7 +61,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        patientDashboard = ((SubmoduleGroup)applicationContext.getSubmodule(CervicalCancerModule.SUBMODULE))
+        patientDashboard = ((SubmoduleGroup)applicationContext.getSubmodule(CervicalCancerModule.MODULE))
                             .getSubmodule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD);
 
         bundle = new Bundle();

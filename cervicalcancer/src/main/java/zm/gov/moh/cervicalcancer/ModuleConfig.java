@@ -1,0 +1,32 @@
+package zm.gov.moh.cervicalcancer;
+
+public class ModuleConfig {
+
+    //Visit Types
+    public static final long VISIT_TYPE_ID_INTIAL_VIA = 2;
+    public static final long VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION = 3;
+    public static final long VISIT_TYPE_ID_POST_TREATMENT_COMPILATION = 4;
+    public static final long VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP = 5;
+    public static final long VISIT_TYPE_ID_ROUTINE_SCREENING = 6;
+    public static final long VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION = 7;
+
+    //Concepts
+    public static final String CONCEPT_UUID_VIA_INSPECTION_DONE = "a1dc1c20-074d-4cba-86e6-42a41b14f9f1";
+    public static final String CONCEPT_UUID_VIA_SCREENING_RESULT = "9cb76924-6d8c-4017-a0ed-27e9a5a1bc45";
+    public static final String CONCEPT_UUID_VIA_NEGATIVE = "41955487-8429-420a-b3c8-03aea3fb411d";
+    public static final String CONCEPT_UUID_VIA_POSITIVE = "6523eddf-8746-4051-a929-809440de274d";
+    public static final String CONCEPT_UUID_SUSPECTED_CANCER = "e989fbe3-3ffa-4764-bd24-f612cc172d5f";
+    public static final String CONCEPT_UUID_SUSPECTED_CANCER_REFFERAL = "927f44fc-de0f-46bd-b21c-d81068089bb1";
+    public static final String CONCEPT_UUID_LARGE_LESION_REFFERAL = "d9ffc8ab-5d16-4338-af00-52e70c982906";
+    public static final String CONCEPT_UUID_REASON_FOR_REFERRAL = "f3fc438b-fd59-4665-b584-6a567a3fb2e5";
+
+    public static final String CONCEPT_UUID_VIA_TREATMENT_TYPE_DONE = "b0f3a292-3fe1-4333-bf01-3da55fe5003c";
+    public static final String CONCEPT_UUID_THERMAL_COAGULATION_TODAY = "12b34703-0900-4c8d-a621-223ad4a84750";
+    public static final String CONCEPT_UUID_CRYTHERAPY_PERFORMED_TODAY = "00fdce3a-7e10-415f-90e0-0739257ccda4";
+    public static final String CONCEPT_UUID_CRYTHERAPY_DELAYED = "dfffbe57-d079-4279-8e2a-dbb4bc671f49";
+    public static final String CONCEPT_UUID_THERMAL_COAGULATION_DELAYED = "177b78d1-8dca-415a-9fdb-e2d2a5aa2491";
+
+    //Encounter Type
+    public static final String ENCOUNTER_TYPE_UUID_TEST_RESULT = "18c7295b-bd02-4766-8341-95337197606b";
+    public static final String ENCOUNTER_TYPE_UUID_TREAMENT = "792cdf01-d7c6-435b-8224-40159f5baea2";
+}

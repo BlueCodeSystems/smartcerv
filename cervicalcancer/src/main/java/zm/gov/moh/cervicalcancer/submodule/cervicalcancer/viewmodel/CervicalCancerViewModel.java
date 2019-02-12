@@ -1,8 +1,8 @@
 package zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 
 import java.util.EnumMap;
@@ -31,7 +31,7 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
     public void startSubmodule(int index){
 
-        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.SUBMODULE);
+        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.MODULE);
 
         Submodule submodule1 = cervicalCancerSubmodule.getSubmodules().get(index);
         startSubmodule.setValue(submodule1);

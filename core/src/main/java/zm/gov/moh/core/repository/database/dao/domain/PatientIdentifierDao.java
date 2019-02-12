@@ -1,10 +1,6 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
-
+import androidx.room.*;
 import java.util.List;
 
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
@@ -32,4 +28,7 @@ public interface PatientIdentifierDao {
     //get persons name by getPersons id
     @Query("SELECT MAX(patient_identifier_id) FROM patient_identifier")
     Long getMaxId();
+
+    @Query("SELECT patient_identifier_id FROM patient_identifier WHERE uuid = :uuid")
+    Long getIdByUuid(String uuid);
 }

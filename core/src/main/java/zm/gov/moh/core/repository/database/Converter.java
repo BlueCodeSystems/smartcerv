@@ -1,9 +1,11 @@
 package zm.gov.moh.core.repository.database;
 
-import android.arch.persistence.room.TypeConverter;
+import androidx.room.TypeConverter;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -12,8 +14,13 @@ public class Converter {
 
     @TypeConverter
     public LocalDateTime fromTimestamp(String datetime) {
-        
-        return datetime == null ? null : LocalDateTime.parse(datetime);
+
+        try {
+            return LocalDateTime.parse(datetime, DateTimeFormatter.ISO_DATE_TIME);
+        }
+        catch (Exception e){
+            return LocalDateTime.MIN;
+        }
     }
 
     @TypeConverter
@@ -21,7 +28,7 @@ public class Converter {
         if (datetime == null) {
             return null;
         } else
-            return datetime.toString();
+            return datetime.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     //Date time
@@ -38,7 +45,7 @@ public class Converter {
     }
 
     @TypeConverter
-    public String toTimeStampISO(ZonedDateTime zonedDateTime){
+    public String toTimeStampISO(LocalTime zonedDateTime){
 
         if(zonedDateTime != null)
             return zonedDateTime.toString();
@@ -50,7 +57,7 @@ public class Converter {
 
         if(zonedDateTime != null)
             return ZonedDateTime.parse(zonedDateTime);
-        return null;
+        return ZonedDateTime.of(LocalDateTime.MIN,ZoneId.systemDefault());
     }
 
     @TypeConverter

@@ -5,7 +5,12 @@ public interface FormAttribute {
     void setFormType(String formType);
     String getFormType();
 
-    public void setSubmitLabel(String submitLabel);
+    void setSubmitLabel(String submitLabel);
 
-    public String getSubmitLabel();
+    String getSubmitLabel();
+
+    void setEncounterId(long encounterId);
+
+    long getEncounterId();
+
 }

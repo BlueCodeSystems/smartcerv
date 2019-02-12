@@ -15,16 +15,6 @@ public abstract class AbstractLabelModel extends AbstractWidgetModel implements 
     }
 
     @Override
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Override
-    public String getText() {
-        return text;
-    }
-
-    @Override
     public void setTextSize(int textSize) {
         this.textSize = textSize;
     }

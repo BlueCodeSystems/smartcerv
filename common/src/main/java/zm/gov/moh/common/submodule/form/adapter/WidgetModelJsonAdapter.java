@@ -3,6 +3,7 @@ package zm.gov.moh.common.submodule.form.adapter;
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
@@ -52,6 +53,7 @@ public class WidgetModelJsonAdapter {
                 final WidgetGroupRowModel widgetGroupRowModel = new WidgetGroupRowModel();
 
                 widgetGroupRowModel.setWidgetType(widgetModelJson.getWidgetType());
+                widgetGroupRowModel.setTag(widgetModelJson.getTag());
                 widgetGroupRowModel.addChildren(widgetModelJson.getWidgets());
 
 
@@ -64,7 +66,6 @@ public class WidgetModelJsonAdapter {
                 formLabelModel.setWidgetType(widgetModelJson.getWidgetType());
                 formLabelModel.setTag(widgetModelJson.getTag());
                 formLabelModel.setLabel(widgetModelJson.getLabel());
-                formLabelModel.setText(widgetModelJson.getText());
                 formLabelModel.setTextSize(widgetModelJson.getTextSize());
 
                 return formLabelModel;
@@ -113,6 +114,23 @@ public class WidgetModelJsonAdapter {
 
                 return districtLabelModel;
 
+            case "Concept":
+
+                final BasicConceptWidgetModel basicConceptWidgetModel = new BasicConceptWidgetModel();
+
+                basicConceptWidgetModel.setConceptId(widgetModelJson.getConceptId());
+                basicConceptWidgetModel.setDataType(widgetModelJson.getDataType());
+                basicConceptWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                basicConceptWidgetModel.setTag(widgetModelJson.getTag());
+                basicConceptWidgetModel.setLabel(widgetModelJson.getLabel());
+                basicConceptWidgetModel.setLogic(widgetModelJson.getLogic());
+                basicConceptWidgetModel.setTextSize(widgetModelJson.getTextSize());
+                basicConceptWidgetModel.setHint(widgetModelJson.getHint());
+                basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
+                basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+
+                return basicConceptWidgetModel;
+
             case "CCPIZEditText":
 
                 final CervicalCancerIDEditTextModel cervicalCancerIDEditTextModel = new CervicalCancerIDEditTextModel();
@@ -155,7 +173,7 @@ public class WidgetModelJsonAdapter {
 
              json.setWidgetType(formLabelModel.getWidgetType());
              json.setTag(formLabelModel.getTag());
-             json.setText(formLabelModel.getText());
+             json.setText(formLabelModel.getLabel());
          }
 
         return json;
@@ -169,12 +187,22 @@ public class WidgetModelJsonAdapter {
 
             case "Basic":
 
-                final BasicFormAttribute attribute = new BasicFormAttribute();
+                final BasicFormAttribute basicFormAttribute = new BasicFormAttribute();
 
-                attribute.setFormType(formAttributeJson.getType());
-                attribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                basicFormAttribute.setFormType(formAttributeJson.getType());
+                basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
 
-                return attribute;
+                return basicFormAttribute;
+
+            case "Encounter":
+
+                final BasicFormAttribute encounterFormAttribute = new BasicFormAttribute();
+
+                encounterFormAttribute.setFormType(formAttributeJson.getType());
+                encounterFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
+                encounterFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+
+                return encounterFormAttribute;
 
             default: return null;
         }

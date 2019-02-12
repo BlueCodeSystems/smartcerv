@@ -14,11 +14,13 @@
             android:name=".submodule.enrollment.view.CervicalCancerEnrollmentActivity"
             android:label="MOH mCare - SmartCerv"
             android:theme="@style/Smartcerv" />
-        <activity android:name=".submodule.register.view.RegisterActivity"
+        <activity
+            android:name=".submodule.register.view.RegisterActivity"
             android:theme="@style/Smartcerv" />
         <activity
             android:name=".submodule.dashboard.patient.view.PatientDashboardActivity"
             android:theme="@style/Smartcerv" />
+        <activity android:name=".view.CervicalCancerHomeActivity"></activity>
     </application>
 
 </manifest>

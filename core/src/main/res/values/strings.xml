@@ -16,5 +16,6 @@
     <string name="regex_alphanumeric_words">(.*[^ ].*)([a-zA-Z0-9 ]){2,}</string>
     <string name="atleast_3_characters_long">Should be at least 3 alphabet characters long </string>
     <string name="only_aphanumeric_characters">Should only contain alphanumeric characters</string>
+    <string name="zoned_time_mid_day">T12:00:00Z</string>
 </resources>
 

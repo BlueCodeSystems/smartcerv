@@ -1,0 +1,548 @@
+{
+  "attributes": {
+    "type":"Encounter",
+    "encounterId":15,
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Prescription(s)",
+      "widgets":[
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+
+
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165187,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize":18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency", "duration"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Ceftriaxone 125-250mg IM",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165188,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency1", "duration1"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Cefixime 400mg oral",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency1",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration1",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165189,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency2", "duration2"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Ciprofloxacin 500mg oral",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency2",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration2",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165190,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency3", "duration3"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Clotrimazole 500mg pessary",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency3",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration3",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165191,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency4", "duration4"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Clotrimazole/Miconazole 200mg pessary",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency4",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18,
+              "weight":1
+            },
+            {
+              "tag": "duration4",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165192,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency5", "duration5"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Doxycycline 100mg",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency5",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration5",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165193,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency6", "duration6"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Erythromycin 400-500mg",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency6",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration6",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165194,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency7", "duration7"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Fluconazole 150-200mg oral",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency7",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration7",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165195,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency8", "duration8"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Metronidazole 400-5 oral",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency8",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration8",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165196,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency9", "duration9"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Metronidazole 2g oral",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "frequency9",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration9",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets":[
+            {
+              "tag":"prescription",
+              "widgetType":"Concept",
+              "conceptId": 165197,
+              "dataType":"Boolean",
+              "style":"check",
+              "textSize": 18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["frequency10", "duration10"]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "prescription",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Text",
+              "hint":"Other Prescription",
+              "textSize": 18
+            },
+            {
+              "tag": "frequency10",
+              "widgetType": "Concept",
+              "conceptId": 165225,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "duration10",
+              "widgetType": "Concept",
+              "conceptId": 165224,
+              "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
