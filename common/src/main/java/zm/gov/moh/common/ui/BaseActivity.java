@@ -1,19 +1,28 @@
 package zm.gov.moh.common.ui;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.service.MetaDataSync;
@@ -37,16 +46,43 @@ public class BaseActivity extends AppCompatActivity {
     protected LocalBroadcastManager broadcastManager;
     BroadcastReceiver broadcastReceiver;
     protected BaseAndroidViewModel viewModel;
+    protected ActionBarDrawerToggle drawerToggle;
+    DrawerLayout drawerLayout;
+    protected ListView drawerList;
+    protected String[] layers;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        if(drawerLayout != null) {
+            Toolbar toolbar = findViewById(R.id.base_toolbar);
+
+            drawerToggle = new BaseActionBarDrawerToggle((Activity) this, drawerLayout, toolbar, 0, 0) {
+                public void onDrawerClosed(View view) {
+                    getActionBar().setTitle(R.string.app_name);
+                }
+
+                public void onDrawerOpened(View drawerView) {
+                    getActionBar().setTitle("cool");
+                }
+            };
+            drawerLayout.setDrawerListener(drawerToggle);
+        }
         broadcastReceiver = new BaseReceiver();
         broadcastManager = LocalBroadcastManager.getInstance(this);
+
+
         IntentFilter intentFilter = new IntentFilter("zm.gov.moh.common.SYNC_COMPLETE_NOTIFICATION");
 
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
+
+       // setContentView(R.layout.base_activity);
+
+
 
     }
 
@@ -189,6 +225,13 @@ public class BaseActivity extends AppCompatActivity {
                     .observe(this, personAddress -> {
                        bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
                     });
+        }
+    }
+
+    public class BaseActionBarDrawerToggle extends ActionBarDrawerToggle{
+
+        public BaseActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout,Toolbar toolbar,int openDrawerContentDescRes,int closeDrawerContentDescRes ) {
+            super(activity, drawerLayout, toolbar,openDrawerContentDescRes,closeDrawerContentDescRes);
         }
     }
 }
