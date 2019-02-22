@@ -16,6 +16,9 @@ public interface EncounterTypeDao {
     @Query("SELECT encounter_type_id FROM encounter_type WHERE uuid = :uuid")
     Long getIdByUuid(String uuid);
 
+    @Query("SELECT name FROM encounter_type WHERE encounter_type_id = :id")
+    String getEncounterTypeNameById(long id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EncounterType... encounterTypes);
 }

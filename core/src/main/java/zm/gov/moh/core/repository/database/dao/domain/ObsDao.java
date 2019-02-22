@@ -3,6 +3,7 @@ package zm.gov.moh.core.repository.database.dao.domain;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
@@ -35,6 +36,9 @@ public interface ObsDao {
 
     @Query("SELECT * FROM obs WHERE concept_id = :id")
     Obs findByConceptId(long id);
+
+    @Query("SELECT * FROM obs WHERE encounter_id = :id")
+    List<Obs> getObsByEncountId(long id);
 
     @Query("SELECT * FROM obs WHERE concept_id IN (:ids)")
     List<Obs> findByConceptId(long... ids);

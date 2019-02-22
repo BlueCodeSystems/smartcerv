@@ -4,19 +4,21 @@ import android.app.Application;
 import android.os.Bundle;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.LinkedHashMultimap;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
-import org.threeten.bp.ZonedDateTime;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 import zm.gov.moh.cervicalcancer.ModuleConfig;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.ObsListItem;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitEncounterItem;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.Database;
@@ -24,6 +26,7 @@ import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
+import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
@@ -43,6 +46,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> treatmentDataEmitter;
     private MutableLiveData<LinkedHashMap<Long,Collection<String>>> providerDataEmitter;
+    private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>>> visitDataEmitter;
 
     public PatientDashboardViewModel(Application application){
         super(application);
@@ -90,6 +94,14 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             treatmentDataEmitter = new MutableLiveData<>();
 
         return treatmentDataEmitter;
+    }
+
+    public MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>>> getVisitDataEmitter() {
+
+        if(visitDataEmitter == null)
+            visitDataEmitter = new MutableLiveData<>();
+
+        return visitDataEmitter;
     }
 
     public MutableLiveData<LinkedHashMap<Long,Collection<String>>> getProviderDataEmitter() {
@@ -265,6 +277,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         getRepository().asyncFunction(this::extractReferralData, getReferralDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);
+        getRepository().asyncFunction(this::extractVisitData,getVisitDataEmitter()::setValue, visits, this::onError);
     }
 
     public void onError(Throwable throwable){
@@ -318,5 +331,50 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             return providerResults;
         }
         return null;
+    }
+
+    public LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> extractVisitData(List<Visit> visits){
+
+        LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> visitListItems = new LinkedList<>();
+        for(Visit visit: visits){
+
+            LinkedHashMultimap<VisitListItem,VisitEncounterItem> itemLinkedHashMultimap = LinkedHashMultimap.create();
+
+            VisitListItem visitListItem = new VisitListItem();
+            visitListItem.setId(visit.getVisit_id());
+            visitListItem.setDateTimeStart(visit.getDate_started());
+            visitListItem.setDateTimeStop(visit.getDate_stopped());
+            visitListItem.setDateCreated(visit.getDate_created());
+            visitListItem.setVisitType(db.visitTypeDao().getVisitTypeById(visit.visit_type_id));
+
+            for (Encounter encounter :db.encounterDao().getByEncounterByVisitId(visit.getVisit_id())) {
+
+                VisitEncounterItem visitEncounterItem = new VisitEncounterItem();
+                visitEncounterItem.setId(encounter.getEncounter_id());
+                visitEncounterItem.setEncounterType(db.encounterTypeDao().getEncounterTypeNameById(encounter.encounter_type));
+
+                for (Obs obs:db.obsDao().getObsByEncountId(encounter.getEncounter_id())) {
+                    ObsListItem obsListItem = new ObsListItem();
+                    obsListItem.setId(obs.getObs_id());
+                    obsListItem.setConceptName(db.conceptNameDao().getConceptNameByConceptId(obs.getConcept_id(),getLOCALE_EN(),preffered()));
+
+                    if(obs.getValue_coded() != null)
+                       obsListItem.setObsValue(db.conceptNameDao().getConceptNameByConceptId(obs.getValue_coded(),getLOCALE_EN(),preffered()));
+                    else if(obs.getValue_text() != null)
+                        obsListItem.setObsValue(obs.getValue_text());
+                    else if(obs.getValue_numeric() != null)
+                        obsListItem.setObsValue(obs.getValue_numeric().toString());
+
+                    visitEncounterItem.getObsListItems().add(obsListItem);
+                }
+
+                itemLinkedHashMultimap.put(visitListItem,visitEncounterItem);
+            }
+
+            visitListItems.add(itemLinkedHashMultimap);
+
+        }
+
+        return visitListItems;
     }
 }
