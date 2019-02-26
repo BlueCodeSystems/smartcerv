@@ -5,7 +5,7 @@
 
     <data>
         <variable name="ccancerviewmodel" type="zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel"/>
-        <variable name="submodules" type="zm.gov.moh.core.model.Submodules"/>
+        <variable name="modules" type="zm.gov.moh.core.model.Submodules"/>
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
         <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
@@ -51,7 +51,7 @@
                             android:elevation="4dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/woman_ico"
-                            android:onClick="@{()-> context.startSubmodule(coreModule.REGISTER)}"
+                            android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
                             android:textAllCaps="false" />
 
                         <TextView

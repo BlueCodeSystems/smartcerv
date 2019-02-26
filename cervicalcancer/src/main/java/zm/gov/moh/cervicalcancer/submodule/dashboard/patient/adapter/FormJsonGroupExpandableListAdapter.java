@@ -14,7 +14,7 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.common.model.FormJsonGroup;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapter {
@@ -22,14 +22,14 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
     private BaseActivity context;
     private List<FormJsonGroup> formJsonGroups;
     private Bundle bundle;
-    private Submodule formSubmodule;
+    private Module formModule;
 
     public FormJsonGroupExpandableListAdapter(Context context, List<FormJsonGroup> formJsonGroups) {
 
         this.context = (BaseActivity) context;
         this.formJsonGroups = formJsonGroups;
         this.bundle = ((BaseActivity) context).getIntent().getExtras();
-        this.formSubmodule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
     }
 
     @Override

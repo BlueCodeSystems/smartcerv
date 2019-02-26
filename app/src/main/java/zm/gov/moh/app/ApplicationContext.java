@@ -15,11 +15,10 @@ import zm.gov.moh.common.submodule.registration.view.RegistrationActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.common.submodule.vitals.view.VitalsActivity;
 import zm.gov.moh.core.model.Criteria;
-import zm.gov.moh.core.model.submodule.BasicSubmodule;
-import zm.gov.moh.core.model.submodule.BasicSubmoduleGroup;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.core.model.submodule.BasicModule;
+import zm.gov.moh.core.model.submodule.BasicModuleGroup;
+import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.model.submodule.Submodule;
 
 public class ApplicationContext extends BaseApplication {
 
@@ -27,37 +26,31 @@ public class ApplicationContext extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 
-        //Enrollment criteria
-        Map<String,String> condition = new HashMap<>();
-        condition.put("enrollment","yes");
+        //Load common modules
+        registerModule(CoreModule.CLIENT_DASHOARD, new BasicModule("Client Dashboard",ClientDashboardActivity.class));
+        registerModule(CoreModule.REGISTER, new BasicModule("Register",RegisterActivity.class));
+        registerModule(CoreModule.REGISTRATION, new BasicModule("Register Patient",RegistrationActivity.class));
+        registerModule(CoreModule.HOME, new BasicModule("home",HomeActivity.class));
+        registerModule(CoreModule.LOGIN, new BasicModule("Login",LoginActivity.class));
+        registerModule(CoreModule.VITALS, new BasicModule("Vitals",VitalsActivity.class));
+        registerModule(CoreModule.FORM, new BasicModule("FormModel", FormActivity.class));
 
-        Criteria enrollmentCriteria = new Criteria(condition);
-
-        //Load common submodules
-        registerModule(CoreModule.CLIENT_DASHOARD, new BasicSubmodule("Client Dashboard",ClientDashboardActivity.class));
-        registerModule(CoreModule.REGISTER, new BasicSubmodule("Register",RegisterActivity.class));
-        registerModule(CoreModule.REGISTRATION, new BasicSubmodule("Register Patient",RegistrationActivity.class));
-        registerModule(CoreModule.HOME, new BasicSubmodule("home",HomeActivity.class));
-        registerModule(CoreModule.LOGIN, new BasicSubmodule("Login",LoginActivity.class));
-        registerModule(CoreModule.VITALS, new BasicSubmodule("Vitals",VitalsActivity.class));
-        registerModule(CoreModule.FORM, new BasicSubmodule("FormModel", FormActivity.class));
-
-        //Load care service submodules
-        Submodule cervicalCancerEnrollment = new BasicSubmodule("Client Enrollment", CervicalCancerEnrollmentActivity.class);
-        Submodule cervicalCancerRegister = new BasicSubmodule("Client Register", zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
-        Submodule cervicalCancerPatientDashboard = new BasicSubmodule("Patient Dashboard", zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity.class);
+        //Load healthcare service modules
+        zm.gov.moh.core.model.submodule.Module cervicalCancerEnrollment = new BasicModule("Client Enrollment", CervicalCancerEnrollmentActivity.class);
+        zm.gov.moh.core.model.submodule.Module cervicalCancerRegister = new BasicModule("Client Register", zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
+        zm.gov.moh.core.model.submodule.Module cervicalCancerPatientDashboard = new BasicModule("Patient Dashboard", zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity.class);
 
         registerModule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT, cervicalCancerEnrollment);
         registerModule(CervicalCancerModule.Submodules.CLIENT_REGISTER, cervicalCancerRegister);
         registerModule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD, cervicalCancerPatientDashboard);
 
         //Add to module group
-        List<Submodule> cervicalCancerSubmodules = new ArrayList<>();
-        cervicalCancerSubmodules.add(cervicalCancerEnrollment);
-        cervicalCancerSubmodules.add(cervicalCancerRegister);
-        cervicalCancerSubmodules.add(cervicalCancerPatientDashboard);
+        List<zm.gov.moh.core.model.submodule.Module> cervicalCancerModules = new ArrayList<>();
+        cervicalCancerModules.add(cervicalCancerEnrollment);
+        cervicalCancerModules.add(cervicalCancerRegister);
+        cervicalCancerModules.add(cervicalCancerPatientDashboard);
 
-        SubmoduleGroup cervicalCancer = new BasicSubmoduleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerSubmodules);
+        ModuleGroup cervicalCancer = new BasicModuleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerModules);
         registerModule(CervicalCancerModule.MODULE, cervicalCancer);
         loadFirstPointOfCareSubmodule(cervicalCancer);
     }

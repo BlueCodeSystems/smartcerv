@@ -16,7 +16,7 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
 
     private Repository repository;
     private String accesstoken = "";
-    private final int TIMEOUT = 30000000;
+    private final int TIMEOUT = 300000;
     private int tasksCompleted = 0;
     private int tasksStarted = 0;
 

@@ -1,11 +1,11 @@
 package zm.gov.moh.core.model.submodule;
 
-public abstract class AbstractSubmodule implements Submodule {
+public abstract class AbstractModule implements Module {
 
     private  Class classInstance;
     private String name;
 
-    public AbstractSubmodule(String name, Class classInstance){
+    public AbstractModule(String name, Class classInstance){
         this.name = name;
         this.classInstance = classInstance;
     }

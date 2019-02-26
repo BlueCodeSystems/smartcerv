@@ -9,7 +9,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class BootstrapActivity extends BaseActivity {
@@ -22,17 +22,17 @@ public class BootstrapActivity extends BaseActivity {
 
         ApplicationContext applicationContext = (ApplicationContext)getApplicationContext();
 
-        Submodule firstPointOfContactSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.HOME);
+        Module firstPointOfContactModule = applicationContext.getSubmodule(BaseApplication.CoreModule.HOME);
 
-        Submodule loginSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.LOGIN);
+        Module loginModule = applicationContext.getSubmodule(BaseApplication.CoreModule.LOGIN);
 
-        Submodule formSubmodule = applicationContext.getSubmodule(BaseApplication.CoreModule.FORM);
+        Module formModule = applicationContext.getSubmodule(BaseApplication.CoreModule.FORM);
 
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactSubmodule);
+        bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactModule);
 
-        startSubmodule(loginSubmodule, bundle);
+        startModule(loginModule, bundle);
 
         finish();
 

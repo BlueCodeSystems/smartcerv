@@ -3,30 +3,27 @@ package zm.gov.moh.core.model.submodule;
 import android.graphics.Bitmap;
 
 import zm.gov.moh.core.model.Criteria;
-import zm.gov.moh.core.model.submodule.AbstractSubmodule;
-import zm.gov.moh.core.model.submodule.CriteriaSubmodule;
-import zm.gov.moh.core.model.submodule.IconSubmodule;
 
-public abstract class AbstractIconCriteriaSubmodule extends AbstractSubmodule implements IconSubmodule,CriteriaSubmodule {
+public abstract class AbstractIconCriteriaModule extends AbstractModule implements IconModule,CriteriaModule {
 
    Bitmap icon;
    Criteria criteria;
 
-    public AbstractIconCriteriaSubmodule(String string, Class classInstance){
+    public AbstractIconCriteriaModule(String string, Class classInstance){
         super(string,classInstance);
     }
 
-    public AbstractIconCriteriaSubmodule(String string, Class classInstance, Bitmap icon){
+    public AbstractIconCriteriaModule(String string, Class classInstance, Bitmap icon){
         super(string,classInstance);
         this.icon = icon;
     }
 
-    public AbstractIconCriteriaSubmodule(String string, Class classInstance, Bitmap icon, Criteria criteria){
+    public AbstractIconCriteriaModule(String string, Class classInstance, Bitmap icon, Criteria criteria){
         this(string,classInstance,icon);
         this.criteria = criteria;
     }
 
-    public AbstractIconCriteriaSubmodule(String string, Class classInstance, Criteria criteria){
+    public AbstractIconCriteriaModule(String string, Class classInstance, Criteria criteria){
         super(string,classInstance);
         this.criteria = criteria;
     }

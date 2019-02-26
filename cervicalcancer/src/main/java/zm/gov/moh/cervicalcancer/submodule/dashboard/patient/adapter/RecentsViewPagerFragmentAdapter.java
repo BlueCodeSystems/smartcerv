@@ -5,15 +5,16 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 
-public class PatientDashboardVitalsViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
+public class RecentsViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
 
     private BaseActivity mContext;
 
-    public PatientDashboardVitalsViewPagerFragmentAdapter(Context context, FragmentManager fm) {
+    public RecentsViewPagerFragmentAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = (BaseActivity) context;
     }
@@ -24,9 +25,11 @@ public class PatientDashboardVitalsViewPagerFragmentAdapter extends FragmentStat
 
         Fragment fragment;
 
-        if (position == 0) {
-             fragment = new ClientDashboardVitalsFragment();
-        }else
+        if (position == 0)
+             fragment = new PatientDashboardVisitFragment();
+        else if (position == 1)
+                fragment = new ClientDashboardVitalsFragment();
+        else
             fragment = new PatientDashboardVisitTypeFragment();
 
         fragment.setArguments(mContext.getIntent().getExtras());
@@ -36,7 +39,7 @@ public class PatientDashboardVitalsViewPagerFragmentAdapter extends FragmentStat
 
     @Override
     public int getCount() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -44,6 +47,8 @@ public class PatientDashboardVitalsViewPagerFragmentAdapter extends FragmentStat
 
         switch (position) {
             case 0:
+                return "Visit";
+            case 1:
                 return "Vitals";
 
             default:

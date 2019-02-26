@@ -22,7 +22,7 @@ import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         Bundle bundle = getIntent().getExtras();
 
-        Submodule nextSubmodule = (Submodule)bundle.getSerializable(START_SUBMODULE_KEY);
+        Module nextModule = (Module)bundle.getSerializable(START_SUBMODULE_KEY);
 
         bundle.remove(START_SUBMODULE_KEY);
 
@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                 switch (status){
 
                     case AUTHORIZED:
-                        startSubmodule(nextSubmodule);
+                        startModule(nextModule);
                         progressDialog.dismiss();
 
                         Intent intent = new Intent(this, MetaDataSync.class);

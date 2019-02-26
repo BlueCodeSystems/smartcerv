@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Visit"
+            android:text="Visit session"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:background="@drawable/border_bottom"/>
         <TextView
@@ -52,10 +52,12 @@
             android:text="Forms"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:background="@drawable/border_bottom"/>
+
         <ExpandableListView
             android:id="@+id/visit_forms"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
         <TextView
             android:id="@+id/no_forms_placeholder"
             android:layout_width="match_parent"

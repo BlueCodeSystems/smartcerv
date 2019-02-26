@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".submodule.dashboard.client.view.ClientDashboardActivity">
+        tools:context=".module.dashboard.client.view.ClientDashboardActivity">
         <include
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"

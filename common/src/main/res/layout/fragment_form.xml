@@ -24,7 +24,7 @@
                 android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                tools:context=".submodule.formJson.view.FormFragment">
+                tools:context=".module.formJson.view.FormFragment">
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

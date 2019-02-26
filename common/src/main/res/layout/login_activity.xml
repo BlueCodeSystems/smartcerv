@@ -19,7 +19,7 @@
         android:orientation="vertical"
         android:padding="20dp"
         tools:backgroundTint="@color/white"
-        tools:context="zm.gov.moh.cervicalcancer.submodule.login.view.LoginFragment">
+        tools:context="zm.gov.moh.cervicalcancer.module.login.view.LoginFragment">
 
         <TextView
             android:id="@+id/message"

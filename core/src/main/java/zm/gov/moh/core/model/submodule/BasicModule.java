@@ -1,8 +1,8 @@
 package zm.gov.moh.core.model.submodule;
 
-public class BasicSubmodule extends AbstractSubmodule {
+public class BasicModule extends AbstractModule {
 
-    public BasicSubmodule(String name, Class classInstance){
+    public BasicModule(String name, Class classInstance){
         super(name,classInstance);
     }
 }
@@ -16,27 +16,27 @@ import java.io.Serializable;
 
 import zm.gov.moh.core.model.Criteria;
 
-public class Submodule implements Serializable {
+public class Module implements Serializable {
 
     private String name;
     private Bitmap icon;
     private Criteria criteria;
     private Class classInstance;
 
-    public Submodule(String name, Class classInstance, Criteria criteria){
+    public Module(String name, Class classInstance, Criteria criteria){
 
         this.name = name;
         this.classInstance = classInstance;
         this.criteria = criteria;
     }
 
-    public Submodule(String name, Class classInstance){
+    public Module(String name, Class classInstance){
 
         this.name = name;
         this.classInstance = classInstance;
     }
 
-    public Submodule(String name, Class classInstance, Bitmap icon){
+    public Module(String name, Class classInstance, Bitmap icon){
 
         this(name,classInstance);
         this.icon = icon;
@@ -57,20 +57,20 @@ public class Submodule implements Serializable {
 
 
 /**
- public class SubmoduleGroup {
+ public class ModuleGroup {
 
  private String name;
- List<Submodule> submodules;
+ List<Module> modules;
  Criteria criteria;
 
- public SubmoduleGroup(String name, List<Submodule> submodules){
+ public ModuleGroup(String name, List<Module> modules){
 
  this.name = name;
- this.submodules = submodules;
+ this.modules = modules;
  }
 
- public SubmoduleGroup(String name, List<Submodule> submodules, Criteria criteria){
- this(name, submodules);
+ public ModuleGroup(String name, List<Module> modules, Criteria criteria){
+ this(name, modules);
  this.criteria = criteria;
  }
 
@@ -78,14 +78,14 @@ public class Submodule implements Serializable {
  return name;
  }
 
- public List<Submodule> getSubmodules() {
+ public List<Module> getModules() {
 
- return submodules;
+ return modules;
  }
 
- public Submodule getSubmodule(int index){
+ public Module getSubmodule(int index){
 
- return submodules.get(index);
+ return modules.get(index);
  }
 
  public boolean evaluateByCriteria(Object sample) throws Exception{

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        tools:context=".submodule.register.view.RegisterActivity">
+        tools:context=".module.register.view.RegisterActivity">
 
         <include
             layout="@layout/base_toolbar"

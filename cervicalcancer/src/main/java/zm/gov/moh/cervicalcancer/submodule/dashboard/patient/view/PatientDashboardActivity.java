@@ -14,39 +14,37 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
 
-public class PatientDashboardActivity extends BaseActivity {
+public class PatientDashboardActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
     PatientDashboardViewModel viewModel;
-    Submodule vitals;
+    Module vitals;
     long clientId;
     Client client;
 
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    Bundle mBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
-        clientId = bundle.getLong(PERSON_ID);
+        mBundle = getIntent().getExtras();
+        clientId = mBundle.getLong(PERSON_ID);
         viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
-        viewModel.setBundle(bundle);
+        viewModel.setBundle(mBundle);
         setViewModel(viewModel);
 
         AndroidThreeTen.init(this);
@@ -57,8 +55,6 @@ public class PatientDashboardActivity extends BaseActivity {
         vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
 
         Database database = viewModel.getRepository().getDatabase();
-
-
 
         getViewModel().getRepository().getDatabase().genericDao()
                 .getPatientById(clientId)
@@ -76,6 +72,7 @@ public class PatientDashboardActivity extends BaseActivity {
 
         viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
                 observe(this, binding::setClient);
+
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).
                 observe(this, binding::setClientAddress);
 
@@ -87,27 +84,8 @@ public class PatientDashboardActivity extends BaseActivity {
         bottomNavigationView.inflateMenu(R.menu.bottom_menu);
 
         fragmentManager = getSupportFragmentManager();
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                if(id == R.id.register_select) {
-                    fragment = new PatientDashboardRegisterViewPagerFragment();
-
-                } else if(id == R.id.visit_select) {
-                    fragment = new PatientDashboardVisitViewPagerFragment();
-                } else if(id == R.id.vitals_select) {
-                    fragment = new PatientDashboardVitalsViewPagerFragment();
-                }
-
-                fragment.setArguments(bundle);
-                final FragmentTransaction transaction = fragmentManager.beginTransaction();
-				transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
-				return true;
-            }			
-        });
-        bottomNavigationView.setSelectedItemId(R.id.register_select);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.recents_menu_item_id);
 
 
 		database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
@@ -115,12 +93,31 @@ public class PatientDashboardActivity extends BaseActivity {
         database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
     }
-    public Submodule getVitals() {
-        return vitals;
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == R.id.recents_menu_item_id)
+            fragment = new PatientDashboardRecentsViewPagerFragment();
+        else if(id == R.id.insights_menu_item_id)
+            fragment = new PatientDashboardInsightsViewPagerFragment();
+
+        fragment.setArguments(mBundle);
+        replaceFragment(fragment);
+
+        return true;
     }
 
-    public long getClientId() {
-        return clientId;
+    public void replaceFragment(Fragment fragment){
+
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
+    }
+
+    public Module getVitals() {
+        return vitals;
     }
 
     public Client getClient() {

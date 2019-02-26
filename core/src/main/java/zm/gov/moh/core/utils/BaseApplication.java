@@ -7,35 +7,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.core.model.submodule.ModuleGroup;
 
 public class BaseApplication extends Application {
 
 
-    protected Map<String, Submodule> submodules;
-    protected ArrayList<SubmoduleGroup> firstPointOfCareSubmodules;
+    protected Map<String, zm.gov.moh.core.model.submodule.Module> submodules;
+    protected ArrayList<ModuleGroup> firstPointOfCareSubmodules;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        //Load submodules
+        //Load modules
         submodules = new HashMap<>();
         firstPointOfCareSubmodules = new ArrayList<>();
     }
 
-    public Submodule getSubmodule(String submodule){
+    public zm.gov.moh.core.model.submodule.Module getSubmodule(String submodule){
 
         return submodules.get(submodule);
     }
 
-    public void registerModule(String name, Submodule submodule){
+    public void registerModule(String name, zm.gov.moh.core.model.submodule.Module module){
 
-        submodules.put(name , submodule);
+        submodules.put(name , module);
     }
 
-    public void loadFirstPointOfCareSubmodule(SubmoduleGroup submodule){
+    public void loadFirstPointOfCareSubmodule(ModuleGroup submodule){
 
         firstPointOfCareSubmodules.add(submodule);
     }
@@ -57,7 +56,7 @@ public class BaseApplication extends Application {
         public static final String CERVICAL_CANCER = "CERVICAL_CANCER";
     }
 
-    public List<SubmoduleGroup> getCareServices(){
+    public List<ModuleGroup> getCareServices(){
 
         return firstPointOfCareSubmodules;
     }

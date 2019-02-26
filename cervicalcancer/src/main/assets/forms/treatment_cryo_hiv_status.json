@@ -1,7 +1,7 @@
 {
   "attributes": {
     "type":"Encounter",
-    "encounterId": 2,
+    "encounterId": 10,
     "submitLabel":"Submit"
   },
   "widgetGroup":[
@@ -88,9 +88,9 @@
           "tag":"cd4",
           "widgets": [
             {
-              "tag":"cd4 date",
+              "tag":"cd4 count",
               "widgetType":"Concept",
-              "conceptId":165096,
+              "conceptId":165241,
               "dataType":"Text",
               "hint":"Number",
               "label":"CD4 Count",
@@ -99,7 +99,7 @@
             {
               "tag":"cd4 date",
               "widgetType":"Concept",
-              "conceptId":165096,
+              "conceptId":165210,
               "dataType":"Date",
               "hint":"CD4 date",
               "textSize":18
@@ -111,18 +111,18 @@
           "tag":"viral load",
           "widgets": [
             {
-              "tag":"cd4 date",
+              "tag":"viral load count",
               "widgetType":"Concept",
-              "conceptId":165096,
+              "conceptId":165242,
               "dataType":"Text",
               "hint":"Number",
               "label":"Last Viral Load",
               "textSize":18
             },
             {
-              "tag":"cd4 date",
+              "tag":"viral load date",
               "widgetType":"Concept",
-              "conceptId":165096,
+              "conceptId":165212,
               "dataType":"Date",
               "hint":"Date",
               "textSize":18
@@ -132,7 +132,7 @@
         {
           "tag":"reason for unknown status",
           "widgetType":"Concept",
-          "conceptId":165096,
+          "conceptId":165208,
           "dataType":"Text",
           "hint":"Type the reason for unknown HIV status",
           "label":"Reason",
@@ -141,7 +141,7 @@
         {
           "tag":"pict offered",
           "widgetType":"Concept",
-          "conceptId":165096,
+          "conceptId":165133,
           "dataType":"Boolean",
           "style": "radio",
           "label":"PICT Offered",
@@ -163,7 +163,7 @@
         {
           "tag":"pict accepted",
           "widgetType":"Concept",
-          "conceptId":165096,
+          "conceptId":165134,
           "dataType":"Boolean",
           "style": "radio",
           "label":"PICT Accepted",
@@ -207,7 +207,7 @@
         {
           "tag":"art clinic",
           "widgetType":"Concept",
-          "conceptId":165239,
+          "conceptId":165136,
           "dataType":"Boolean",
           "style": "radio",
           "label":"Referred to ART Clinic",

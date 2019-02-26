@@ -1,9 +1,20 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model;
 
 public class ObsListItem {
+
     long id;
+    long conceptId;
     String conceptName;
     String obsValue;
+
+    public ObsListItem(){}
+
+    public ObsListItem(long id,String conceptName,String obsValue){
+
+        this.id = id;
+        this.conceptName = conceptName;
+        this.obsValue = obsValue;
+    }
 
     public long getId() {
         return id;
@@ -27,5 +38,13 @@ public class ObsListItem {
 
     public void setObsValue(String obsValue) {
         this.obsValue = obsValue;
+    }
+
+    public long getConceptId() {
+        return conceptId;
+    }
+
+    public void setConceptId(long conceptId) {
+        this.conceptId = conceptId;
     }
 }

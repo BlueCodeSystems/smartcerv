@@ -20,7 +20,7 @@
         {
           "tag":"last menstrual period",
           "widgetType":"Concept",
-          "conceptId":165096,
+          "conceptId":165202,
           "dataType":"Date",
           "label":"Last Menstrual Period",
           "hint":"Select date",
@@ -38,7 +38,7 @@
         {
           "tag":"vaginal bleeding",
           "widgetType":"Concept",
-          "conceptId":"165096",
+          "conceptId":165105,
           "dataType":"Boolean",
           "style":"radio",
           "label":"Any abnormal vaginal bleeding/contact bleeding:",
@@ -53,7 +53,7 @@
     {
     "tag":"via",
     "widgetType":"Concept",
-    "conceptId":"165096",
+    "conceptId":165106,
     "dataType":"Date",
     "label":"VIA",
     "hint":"Select date",
@@ -62,7 +62,7 @@
     {
     "tag":"pap smear",
     "widgetType":"Concept",
-    "conceptId":"165096",
+    "conceptId":165107,
     "dataType":"Date",
     "label":"PAP Smear",
     "hint":"Select date",
@@ -71,7 +71,7 @@
     {
     "tag":"cryotherapy",
     "widgetType":"Concept",
-    "conceptId":"165096",
+    "conceptId":165108,
     "dataType":"Date",
     "label":"Cryotherapy",
     "hint":"Select date",
@@ -80,7 +80,7 @@
     {
     "tag":"thermal coagulation",
     "widgetType":"Concept",
-    "conceptId":"165096",
+    "conceptId":165109,
     "dataType":"Date",
     "label":"Thermal Coagulation",
     "hint":"Select date",
@@ -89,7 +89,7 @@
     {
     "tag":"leep",
     "widgetType":"Concept",
-    "conceptId":"165096",
+    "conceptId":165110,
     "dataType":"Date",
     "label":"LEEP",
     "hint":"Select date",
@@ -98,7 +98,7 @@
     {
     "tag":"history of stis",
     "widgetType":"Concept",
-    "conceptId":"165096",
+    "conceptId":165111,
     "dataType":"Boolean",
       "style":"radio",
     "label":"History of STIs:",
@@ -108,16 +108,16 @@
     {
     "tag":"surgical history",
     "widgetType":"Concept",
-    "conceptId":165112,
+    "conceptId":165205,
     "dataType":"Coded",
     "style":"check",
     "label":"Any Pertinent Surgical History",
     "textSize":18
     },
     {
-    "tag":"surgical history",
+    "tag":"other surgical history",
     "widgetType":"Concept",
-    "conceptId":165096,
+    "conceptId":165116,
     "dataType":"Text",
     "label":"Other",
     "textSize":18,

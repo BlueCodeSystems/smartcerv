@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.databinding.DataBindingUtil;
@@ -118,13 +117,13 @@ public class FormFragment extends BaseFragment {
                 else{
 
                     String moduleName = this.bundle.getString(Key.START_MODULE_ON_RESULT);
-                    context.startSubmodule(moduleName,this.bundle);
+                    context.startModule(moduleName,this.bundle);
                     context.onBackPressed();
                 }
 
 
-               // Submodule submodule = (Submodule) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
-                //context.startSubmodule(submodule, bundle);
+               // Module submodule = (Module) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
+                //context.startModule(submodule, bundle);
             });
 
             this.form.getRootView().addView(formSubmitButtonWidget);

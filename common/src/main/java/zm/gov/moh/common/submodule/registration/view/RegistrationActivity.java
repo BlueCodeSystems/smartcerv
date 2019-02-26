@@ -25,8 +25,8 @@ import zm.gov.moh.common.databinding.RegistrationActivityBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.registration.viewmodel.RegistrationViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.model.submodule.Submodule;
 import zm.gov.moh.core.utils.Utils;
 
 
@@ -42,7 +42,7 @@ public class RegistrationActivity extends BaseActivity {
     @BindView(R2.id.district) EditText district;
     @BindView(R2.id.address1) EditText address1;
     private Bundle bundle;
-    private Submodule clientDashBoardSubmodule;
+    private Module clientDashBoardModule;
 
 
     private RegistrationViewModel registrationViewModel;
@@ -77,7 +77,7 @@ public class RegistrationActivity extends BaseActivity {
                 date.setError(null);
         });
 
-        clientDashBoardSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
+        clientDashBoardModule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         init();
     }
@@ -136,7 +136,7 @@ public class RegistrationActivity extends BaseActivity {
         final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
 
             bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
-            startSubmodule(clientDashBoardSubmodule, bundle);
+            startModule(clientDashBoardModule, bundle);
             finish();
         };
 

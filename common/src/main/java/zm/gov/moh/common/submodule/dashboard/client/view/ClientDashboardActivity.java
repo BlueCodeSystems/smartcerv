@@ -13,17 +13,17 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityClientDashboardBinding;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
 import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.model.submodule.Submodule;
 
 public class ClientDashboardActivity extends BaseActivity {
 
     public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
     ClientDashboardViewModel viewModel;
-    Submodule vitals;
+    Module vitals;
     long clientId;
     Client client;
 
@@ -65,7 +65,7 @@ public class ClientDashboardActivity extends BaseActivity {
         });
     }
 
-    public Submodule getVitals() {
+    public Module getVitals() {
         return vitals;
     }
 

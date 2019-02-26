@@ -1,6 +1,6 @@
 package zm.gov.moh.cervicalcancer;
 
-public class ModuleConfig {
+public class OpenmrsConfig {
 
     //Visit Types
     public static final long VISIT_TYPE_ID_INTIAL_VIA = 2;
@@ -19,12 +19,18 @@ public class ModuleConfig {
     public static final String CONCEPT_UUID_SUSPECTED_CANCER_REFFERAL = "927f44fc-de0f-46bd-b21c-d81068089bb1";
     public static final String CONCEPT_UUID_LARGE_LESION_REFFERAL = "d9ffc8ab-5d16-4338-af00-52e70c982906";
     public static final String CONCEPT_UUID_REASON_FOR_REFERRAL = "f3fc438b-fd59-4665-b584-6a567a3fb2e5";
-
     public static final String CONCEPT_UUID_VIA_TREATMENT_TYPE_DONE = "b0f3a292-3fe1-4333-bf01-3da55fe5003c";
     public static final String CONCEPT_UUID_THERMAL_COAGULATION_TODAY = "12b34703-0900-4c8d-a621-223ad4a84750";
     public static final String CONCEPT_UUID_CRYTHERAPY_PERFORMED_TODAY = "00fdce3a-7e10-415f-90e0-0739257ccda4";
     public static final String CONCEPT_UUID_CRYTHERAPY_DELAYED = "dfffbe57-d079-4279-8e2a-dbb4bc671f49";
     public static final String CONCEPT_UUID_THERMAL_COAGULATION_DELAYED = "177b78d1-8dca-415a-9fdb-e2d2a5aa2491";
+
+    public static final String CONCEPT_UUID_HEALTH_FACILITY_REFERRED = "38905f09-b2fb-4c98-a530-a1e1e779f3db";
+    public static final String CONCEPT_UUID_REFERRAL_REASON = "f3fc438b-fd59-4665-b584-6a567a3fb2e5";
+    public static final String CONCEPT_UUID_VIA_TREATMENT_PERFORMED = "b0f3a292-3fe1-4333-bf01-3da55fe5003c";
+    public static final String CONCEPT_UUID_HIV_STATUS = "7febbfd6-1c41-4afd-9add-12f9fe338e6f";
+    public static final String CONCEPT_UUID_TREATMENT_PROVIDER = "e1364818-c8b6-4629-9356-561a658c9922";
+    public static final String CONCEPT_UUID_SCREENING_PROVIDER = "f80a9ba8-1771-46b9-9179-c228baad03b2";
 
     //Encounter Type
     public static final String ENCOUNTER_TYPE_UUID_TEST_RESULT = "18c7295b-bd02-4766-8341-95337197606b";
