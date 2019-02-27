@@ -13,18 +13,17 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardRegisterViewPagerFragmentAdapter;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardVisitViewPagerFragmentAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.RecentsViewPagerFragmentAdapter;
 import zm.gov.moh.common.ui.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PatientDashboardRegisterViewPagerFragment extends Fragment {
+public class PatientDashboardRecentsViewPagerFragment extends Fragment {
 
     private BaseActivity context;
 
-    public PatientDashboardRegisterViewPagerFragment() {
+    public PatientDashboardRecentsViewPagerFragment() {
         // Required empty public constructor
     }
 
@@ -32,18 +31,16 @@ public class PatientDashboardRegisterViewPagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         context = (PatientDashboardActivity) getContext();
-        View view = inflater.inflate(R.layout.fragment_patient_dashboard_register_view_pager,
+        View view = inflater.inflate(R.layout.fragment_patient_dashboard_vitals_view_pager,
                 container, false);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        PatientDashboardRegisterViewPagerFragmentAdapter adapter =
-                new PatientDashboardRegisterViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
+        RecentsViewPagerFragmentAdapter adapter =
+                new RecentsViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
 
-        // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
 
         // Give the TabLayout the ViewPager

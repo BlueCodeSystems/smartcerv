@@ -1,5 +1,8 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
@@ -17,6 +20,10 @@ public interface EncounterDao {
     //gets all locations
     @Query("SELECT * FROM encounter WHERE patient_id = :id")
     LiveData<Encounter> getByPatientId(long id);
+
+    //gets all locations
+    @Query("SELECT * FROM encounter WHERE visit_id = :visitId ORDER BY encounter_type")
+    List<Encounter> getByEncounterByVisitId(long visitId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Encounter... encounters);

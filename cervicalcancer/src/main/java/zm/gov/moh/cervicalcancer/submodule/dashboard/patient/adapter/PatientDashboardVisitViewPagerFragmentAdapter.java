@@ -5,9 +5,7 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitFragment;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitHistoryFragment;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitSessionFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 
 public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
@@ -25,9 +23,9 @@ public class PatientDashboardVisitViewPagerFragmentAdapter extends FragmentState
 
         Fragment fragment;
         if(position == 0)
-            fragment = new PatientDashboardVisitFragment();
+            fragment = new PatientDashboardVisitSessionFragment();
         else
-            fragment =  new PatientDashboardVisitFragment();
+            fragment =  new PatientDashboardVisitSessionFragment();
 
         fragment.setArguments(mContext.getIntent().getExtras());
 

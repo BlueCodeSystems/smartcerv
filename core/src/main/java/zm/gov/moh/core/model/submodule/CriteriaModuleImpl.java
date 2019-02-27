@@ -4,13 +4,13 @@ import android.graphics.Bitmap;
 
 import zm.gov.moh.core.model.Criteria;
 
-public class CriteriaSubmoduleImpl extends AbstractIconCriteriaSubmodule {
+public class CriteriaModuleImpl extends AbstractIconCriteriaModule {
 
-    public CriteriaSubmoduleImpl(String name, Class classInstance, Bitmap icon, Criteria criteria){
+    public CriteriaModuleImpl(String name, Class classInstance, Bitmap icon, Criteria criteria){
         super(name,classInstance,icon, criteria);
     }
 
-    public CriteriaSubmoduleImpl(String name, Class classInstance, Criteria criteria){
+    public CriteriaModuleImpl(String name, Class classInstance, Criteria criteria){
         super(name,classInstance, criteria);
     }
 

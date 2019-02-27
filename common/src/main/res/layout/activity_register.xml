@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            tools:context=".submodule.register.view.RegisterActivity">
+            tools:context=".module.register.view.RegisterActivity">
 
             <EditText
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_gravity="bottom|end"
-                android:onClick="@{()-> context.startSubmodule(coreModule.REGISTRATION)}"
+                android:onClick="@{()-> context.startModule(coreModule.REGISTRATION)}"
                 android:src="@drawable/addavatar" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

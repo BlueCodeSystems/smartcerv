@@ -10,8 +10,8 @@ import java.util.EnumMap;
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.core.model.Submodules;
-import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
 
@@ -19,7 +19,7 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
     EnumMap<Submodules, Class> submodules;
     Context context;
-    MutableLiveData<Submodule> startSubmodule;
+    MutableLiveData<Module> startSubmodule;
 
     public CervicalCancerViewModel(Application application){
         super(application);
@@ -31,13 +31,13 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
     public void startSubmodule(int index){
 
-        SubmoduleGroup cervicalCancerSubmodule = (SubmoduleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.MODULE);
+        ModuleGroup cervicalCancerSubmodule = (ModuleGroup)((BaseApplication)getApplication()).getSubmodule(CervicalCancerModule.MODULE);
 
-        Submodule submodule1 = cervicalCancerSubmodule.getSubmodules().get(index);
-        startSubmodule.setValue(submodule1);
+        Module module1 = cervicalCancerSubmodule.getModules().get(index);
+        startSubmodule.setValue(module1);
     }
 
-    public LiveData<Submodule> getStartSubmodule() {
+    public LiveData<Module> getStartSubmodule() {
 
         if(startSubmodule == null)
             startSubmodule = new MutableLiveData<>();
@@ -45,20 +45,20 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
         return startSubmodule;
     }
 
-    public void startSubmodule(Submodule submodule){
-        startSubmodule.setValue(submodule);
+    public void startSubmodule(Module module){
+        startSubmodule.setValue(module);
     }
 }
 
 /*
 *   private Repository mRepository;
-    private MutableLiveData<Submodule> startSubmodule;
+    private MutableLiveData<Module> startModule;
 
     public BaseAndroidViewModel(Application application){
         super(application);
 
         InjectorUtils.provideRepository(this, application);
-        startSubmodule = new MutableLiveData<>();
+        startModule = new MutableLiveData<>();
     }
 
     @Override
@@ -70,16 +70,16 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
         return mRepository;
     }
 
-    public LiveData<Submodule> getStartSubmodule() {
+    public LiveData<Module> getStartSubmodule() {
 
-        if(startSubmodule == null)
-            startSubmodule = new MutableLiveData<>();
+        if(startModule == null)
+            startModule = new MutableLiveData<>();
 
-        return startSubmodule;
+        return startModule;
     }
 
-    public void startSubmodule(Submodule submodule){
-        startSubmodule.setValue(submodule);
+    public void startModule(Module submodule){
+        startModule.setValue(submodule);
     }
 * **/
 

@@ -24,7 +24,7 @@ public class CervicalCancerActivity extends BaseActivity {
 
         binding.setVariable(BR.ccancerviewmodel, cervicalCancerViewModel);
 
-        cervicalCancerViewModel.getStartSubmodule().observe(this,this::startSubmodule);
+        cervicalCancerViewModel.getStartSubmodule().observe(this,this::startModule);
 
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Cervical Cancer");

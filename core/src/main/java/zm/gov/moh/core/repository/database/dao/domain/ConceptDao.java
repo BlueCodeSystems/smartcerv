@@ -17,6 +17,9 @@ public interface ConceptDao {
     @Query("SELECT concept_id FROM concept WHERE uuid = :uuid")
     Long getConceptIdByUuid(String uuid);
 
+    @Query("SELECT concept_id FROM concept WHERE uuid IN (:uuid)")
+    LiveData<List<Long>> getConceptIdByUuid(List<String> uuid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Concept... concepts);
 }

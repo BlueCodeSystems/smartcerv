@@ -16,7 +16,7 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
 
     private Repository repository;
     private String accesstoken = "";
-    private final int TIMEOUT = 30000000;
+    private final int TIMEOUT = 300000;
     private int tasksCompleted = 0;
     private int tasksStarted = 0;
 
@@ -236,6 +236,17 @@ public class MetaDataSync extends IntentService implements InjectableViewModel {
                 }, //consumer
                 this::onError,
                 repository.getRestApiAdapter().getConcept(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Concept
+        repository.consumeAsync(
+                visitTypes ->{
+                    repository.getDatabase().visitTypeDao().insert(visitTypes);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getVisitTypes(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
     }

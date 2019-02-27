@@ -17,7 +17,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:background="@color/card_detailing"
-        tools:context=".submodule.registration.view.RegistrationActivity">
+        tools:context=".module.registration.view.RegistrationActivity">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

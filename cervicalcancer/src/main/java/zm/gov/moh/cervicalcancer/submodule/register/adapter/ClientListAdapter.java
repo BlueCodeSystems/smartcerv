@@ -12,8 +12,8 @@ import java.util.List;
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.databinding.ClientCardBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
-import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
@@ -23,7 +23,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
     private LayoutInflater mInflater;
     private List<Client> clientList;
     private BaseActivity context;
-    private Submodule patientDashboard;
+    private Module patientDashboard;
     private Bundle bundle;
 
     class ClientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -50,8 +50,8 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
             long clientId = client.patient_id;
             bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
-            //Submodule call = (Submodule) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
-           context.startSubmodule(patientDashboard, bundle);
+            //Module call = (Module) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
+           context.startModule(patientDashboard, bundle);
         }
 
     }
@@ -61,7 +61,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        patientDashboard = ((SubmoduleGroup)applicationContext.getSubmodule(CervicalCancerModule.MODULE))
+        patientDashboard = ((ModuleGroup)applicationContext.getSubmodule(CervicalCancerModule.MODULE))
                             .getSubmodule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD);
 
         bundle = new Bundle();

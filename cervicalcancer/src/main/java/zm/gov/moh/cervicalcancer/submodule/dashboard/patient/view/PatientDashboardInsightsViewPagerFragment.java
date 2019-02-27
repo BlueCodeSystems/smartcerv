@@ -13,17 +13,17 @@ import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.PatientDashboardVitalsViewPagerFragmentAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.InsightsViewPagerFragmentAdapter;
 import zm.gov.moh.common.ui.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PatientDashboardVitalsViewPagerFragment extends Fragment {
+public class PatientDashboardInsightsViewPagerFragment extends Fragment {
 
     private BaseActivity context;
 
-    public PatientDashboardVitalsViewPagerFragment() {
+    public PatientDashboardInsightsViewPagerFragment() {
         // Required empty public constructor
     }
 
@@ -31,16 +31,18 @@ public class PatientDashboardVitalsViewPagerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         context = (PatientDashboardActivity) getContext();
-        View view = inflater.inflate(R.layout.fragment_patient_dashboard_vitals_view_pager,
+        View view = inflater.inflate(R.layout.fragment_patient_dashboard_register_view_pager,
                 container, false);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        PatientDashboardVitalsViewPagerFragmentAdapter adapter =
-                new PatientDashboardVitalsViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
+        InsightsViewPagerFragmentAdapter adapter =
+                new InsightsViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
 
+        // Set the adapter onto the view pager
         viewPager.setAdapter(adapter);
 
         // Give the TabLayout the ViewPager

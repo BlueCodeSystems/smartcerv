@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.core.service.SearchIndex;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
@@ -50,15 +50,15 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void startSubmodule(Submodule submodule, Bundle bundle){
+    public void startModule(Module module, Bundle bundle){
 
-        Intent intent = new Intent(this, submodule.getClassInstance());
+        Intent intent = new Intent(this, module.getClassInstance());
 
         intent.putExtras(bundle);
         this.startActivity(intent);
     }
 
-    public void startSubmodule(String moduleName, Bundle bundle){
+    public void startModule(String moduleName, Bundle bundle){
 
         BaseApplication baseApplication = (BaseApplication)getApplication();
 
@@ -68,16 +68,16 @@ public class BaseActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    public void startSubmodule(String moduleName){
+    public void startModule(String moduleName){
 
         BaseApplication baseApplication = (BaseApplication)getApplication();
         Intent intent = new Intent(this,baseApplication.getSubmodule(moduleName).getClassInstance());
         this.startActivity(intent);
     }
 
-    public void startSubmodule(Submodule submodule){
+    public void startModule(Module module){
 
-        this.startActivity( new Intent(this,submodule.getClassInstance()));
+        this.startActivity( new Intent(this,module.getClassInstance()));
     }
 
     protected void setFragment(Fragment fragment) {

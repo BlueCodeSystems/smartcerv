@@ -9,16 +9,16 @@
       "title": "Physical Exam",
       "widgets": [
         {
-          "tag": "last menstrual period",
+          "tag": "Pelvic exam",
           "widgetType": "Concept",
-          "conceptId": "165096",
+          "conceptId": 165137,
           "dataType": "Boolean",
           "label": "Pelvic exam done",
           "style":"radio",
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Vulva/Perineuem",
           "widgetType": "Concept",
           "conceptId": 165139,
           "dataType": "Coded",
@@ -27,7 +27,7 @@
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Cervix",
           "widgetType": "Concept",
           "conceptId": 165140,
           "dataType": "Coded",
@@ -36,7 +36,7 @@
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Vagina",
           "widgetType": "Concept",
           "conceptId": 165141,
           "dataType": "Coded",
@@ -45,7 +45,7 @@
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Lower Abdomen",
           "widgetType": "Concept",
           "conceptId": 165142,
           "dataType": "Coded",
@@ -54,7 +54,7 @@
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Post-Treatment Complication",
           "widgetType": "Concept",
           "conceptId": 165143,
           "dataType": "Coded",
@@ -63,7 +63,7 @@
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Clinical Findings",
           "widgetType": "Concept",
           "conceptId": 165147,
           "dataType": "Coded",
@@ -72,9 +72,9 @@
           "textSize": 18
         },
         {
-          "tag": "last menstrual period",
+          "tag": "Other Clinical Findings",
           "widgetType": "Concept",
-          "conceptId": 165147,
+          "conceptId": 165154,
           "dataType": "Text",
           "label": "Other",
           "hint":"Clinical Findings",

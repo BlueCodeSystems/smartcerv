@@ -49,8 +49,7 @@
               "conceptId":165156,
               "dataType":"Boolean",
               "style":"radio",
-              "textSize":18,
-              "label":"Was inspection done?"
+              "textSize":18
             }
           ]
         },

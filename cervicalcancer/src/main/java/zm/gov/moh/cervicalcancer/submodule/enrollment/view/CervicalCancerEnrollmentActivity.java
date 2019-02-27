@@ -8,8 +8,8 @@ import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.viewmodel.CervicalCancerEnrollmentViewModel;
 import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.model.submodule.Submodule;
-import zm.gov.moh.core.model.submodule.SubmoduleGroup;
+import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
@@ -17,7 +17,7 @@ import zm.gov.moh.core.utils.Utils;
 public class CervicalCancerEnrollmentActivity extends BaseActivity {
 
     private CervicalCancerEnrollmentViewModel viewModel;
-    private SubmoduleGroup cervicalCancerModule;
+    private ModuleGroup cervicalCancerModule;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +27,9 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
         setViewModel(viewModel);
 
         //viewModel.getRepository().getClientById(34).observe(this, );
-        cervicalCancerModule = (SubmoduleGroup)((BaseApplication) this.getApplication()).getSubmodule(CervicalCancerModule.MODULE);
+        cervicalCancerModule = (ModuleGroup)((BaseApplication) this.getApplication()).getSubmodule(CervicalCancerModule.MODULE);
 
-        Submodule enrollmentSubmodule = cervicalCancerModule.getSubmodule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
+        Module enrollmentModule = cervicalCancerModule.getSubmodule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
         final Bundle bundle = getIntent().getExtras();
 
         String action = (bundle != null)? bundle.getString(BaseActivity.ACTION_KEY): "";
@@ -58,7 +58,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                         }
                         else{
 
-                            Submodule formSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+                            Module formModule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
 
                             try{
                                 String json = Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json"));
@@ -76,7 +76,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
 
                             }
 
-                            startSubmodule(formSubmodule, bundle);
+                            startModule(formModule, bundle);
                             finish();
                         }
                     }

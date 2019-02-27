@@ -4,19 +4,21 @@ import android.app.Application;
 import android.os.Bundle;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.LinkedHashMultimap;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
-import org.threeten.bp.ZonedDateTime;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
-import zm.gov.moh.cervicalcancer.ModuleConfig;
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.ObsListItem;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitEncounterItem;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.Database;
@@ -24,6 +26,7 @@ import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
+import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
@@ -43,6 +46,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> treatmentDataEmitter;
     private MutableLiveData<LinkedHashMap<Long,Collection<String>>> providerDataEmitter;
+    private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>>> visitDataEmitter;
 
     public PatientDashboardViewModel(Application application){
         super(application);
@@ -92,6 +96,14 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return treatmentDataEmitter;
     }
 
+    public MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>>> getVisitDataEmitter() {
+
+        if(visitDataEmitter == null)
+            visitDataEmitter = new MutableLiveData<>();
+
+        return visitDataEmitter;
+    }
+
     public MutableLiveData<LinkedHashMap<Long,Collection<String>>> getProviderDataEmitter() {
 
         if(providerDataEmitter == null)
@@ -136,7 +148,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
     public LinkedHashMap<Long, Collection<Boolean>> extractScreeningData(List<Visit> visits){
 
-        final long CONCEPT_ID_VIA_INSPECTION_DONE = db.conceptDao().getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_VIA_INSPECTION_DONE);
+        final long CONCEPT_ID_VIA_INSPECTION_DONE = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_INSPECTION_DONE);
 
         if(visits.size() > 0) {
 
@@ -145,16 +157,15 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             LinkedHashMap<Long, Collection<Boolean>> screeningResults = new LinkedHashMap<>();
 
             for(Visit visit: visits) {
-                long currentVisitId = visit.visit_id;
 
                 LinkedHashMap<Long, Boolean> screeningData = new LinkedHashMap<>();
 
                 List<Obs> obsIterator = getRepository()
                         .getDatabase()
                         .genericDao()
-                        .getPatientObsByEncounterTypeAndVisitId(person_id,visit.getVisit_id(), ModuleConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
+                        .getPatientObsByEncounterTypeAndVisitId(person_id,visit.getVisit_id(), OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
-                List<Obs> obsList = db.genericDao().getPatientObsByConceptIdVisitId(34L,db.conceptDao().getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_VIA_SCREENING_RESULT),9223372036854725890L);
+                List<Obs> obsList = db.genericDao().getPatientObsByConceptIdVisitId(34L,db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_SCREENING_RESULT),9223372036854725890L);
 
 
                 for (Obs obs:obsIterator) {
@@ -164,9 +175,9 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                     Long i = genericDao.getPatientObsCodedValueByEncounterIdConceptId(person_id,CONCEPT_ID_VIA_INSPECTION_DONE,obs.getEncounter_id());
 
                     screeningData.put(CONCEPT_ID_VIA_INSPECTION_DONE, false);
-                    screeningData.put(conceptDao.getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_VIA_NEGATIVE), false);
-                    screeningData.put(conceptDao.getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_VIA_POSITIVE), false);
-                    screeningData.put(conceptDao.getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_SUSPECTED_CANCER), false);
+                    screeningData.put(conceptDao.getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_NEGATIVE), false);
+                    screeningData.put(conceptDao.getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_POSITIVE), false);
+                    screeningData.put(conceptDao.getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_SUSPECTED_CANCER), false);
 
 
                     if (screeningData.containsKey(obs.getValue_coded())|| i != null) {
@@ -194,7 +205,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         if(visits.size() > 0) {
 
             LinkedHashMap<Long, Collection<Boolean>> referralResults = new LinkedHashMap<>();
-            final long CONCEPT_ID_REASON_FOR_REFERRAL = db.conceptDao().getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_REASON_FOR_REFERRAL);
+            final long CONCEPT_ID_REASON_FOR_REFERRAL = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_REASON_FOR_REFERRAL);
 
             for(Visit visit: visits) {
 
@@ -202,8 +213,8 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                 LinkedHashMap<Long, Boolean> referralData = new LinkedHashMap<>();
                 List<Long> codedValues = db.genericDao().getPatientObsCodedValueByVisitIdConceptId(person_id,visit.getVisit_id(),CONCEPT_ID_REASON_FOR_REFERRAL);
 
-                referralData.put(db.conceptDao().getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_LARGE_LESION_REFFERAL), false);
-                referralData.put(db.conceptDao().getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_SUSPECTED_CANCER_REFFERAL), false);
+                referralData.put(db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_LARGE_LESION_REFFERAL), false);
+                referralData.put(db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_SUSPECTED_CANCER_REFFERAL), false);
 
                 if(codedValues != null && !codedValues.isEmpty()){
 
@@ -227,7 +238,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         if(visits.size() > 0) {
 
             LinkedHashMap<Long, Collection<Boolean>> treatResults = new LinkedHashMap<>();
-            final long CONCEPT_ID_VIA_TREATMENT_TYPE_DONE = db.conceptDao().getConceptIdByUuid(ModuleConfig.CONCEPT_UUID_VIA_TREATMENT_TYPE_DONE);
+            final long CONCEPT_ID_VIA_TREATMENT_TYPE_DONE = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_TREATMENT_TYPE_DONE);
 
             for(Visit visit: visits) {
 
@@ -265,6 +276,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         getRepository().asyncFunction(this::extractReferralData, getReferralDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);
+        getRepository().asyncFunction(this::extractVisitData,getVisitDataEmitter()::setValue, visits, this::onError);
     }
 
     public void onError(Throwable throwable){
@@ -295,8 +307,8 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
             for(Visit visit: visits) {
                 long datatime = visit.getDate_started().toInstant(ZoneOffset.UTC).getEpochSecond();
-                Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisit_id(),ModuleConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
-                Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisit_id(),ModuleConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
+                Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisit_id(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
+                Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisit_id(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
 
                 if(treatmentEncounterId !=null && screeningEncounterId != null) {
@@ -318,5 +330,61 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             return providerResults;
         }
         return null;
+    }
+
+    public LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> extractVisitData(List<Visit> visits){
+
+        LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> visitListItems = new LinkedList<>();
+        for(Visit visit: visits){
+
+            List<Obs> obsList = db.genericDao().getPatientObsByVisitId(person_id,visit.getVisit_id());
+
+            LinkedHashMultimap<VisitListItem,VisitEncounterItem> itemLinkedHashMultimap = LinkedHashMultimap.create();
+
+            VisitListItem visitListItem = new VisitListItem();
+            visitListItem.setId(visit.getVisit_id());
+            visitListItem.setDateTimeStart(visit.getDate_started());
+            visitListItem.setDateTimeStop(visit.getDate_stopped());
+            visitListItem.setDateCreated(visit.getDate_created());
+            visitListItem.setVisitType(db.visitTypeDao().getVisitTypeById(visit.visit_type_id));
+
+            List<Encounter> visitEncounters = db.encounterDao().getByEncounterByVisitId(visit.getVisit_id());
+
+            if(visitEncounters != null && visitEncounters.size() > 0)
+                for (Encounter encounter : visitEncounters) {
+
+                    VisitEncounterItem visitEncounterItem = new VisitEncounterItem();
+                    visitEncounterItem.setId(encounter.getEncounter_id());
+                    visitEncounterItem.setEncounterType(db.encounterTypeDao().getEncounterTypeNameById(encounter.encounter_type));
+
+                    List<Obs> encounterObs = db.obsDao().getObsByEncountId(encounter.getEncounter_id());
+                    for (Obs obs:encounterObs) {
+                        ObsListItem obsListItem = new ObsListItem();
+                        obsListItem.setId(obs.getObs_id());
+                        obsListItem.setConceptId(obs.getConcept_id());
+                        obsListItem.setConceptName(db.conceptNameDao().getConceptNameByConceptId(obs.getConcept_id(),getLOCALE_EN(),preffered()));
+
+                        if(obs.getValue_coded() != null)
+                           obsListItem.setObsValue(db.conceptNameDao().getConceptNameByConceptId(obs.getValue_coded(),getLOCALE_EN(),preffered()));
+                        else if(obs.getValue_text() != null)
+                            obsListItem.setObsValue(obs.getValue_text());
+                        else if(obs.getValue_numeric() != null)
+                            obsListItem.setObsValue(obs.getValue_numeric().toString());
+                        else if(obs.getValue_datetime() != null)
+                            obsListItem.setObsValue(obs.getValue_datetime().toString());
+
+                        visitEncounterItem.getObsListItems().add(obsListItem);
+                        visitEncounterItem.getId();
+                    }
+
+                    itemLinkedHashMultimap.put(visitListItem,visitEncounterItem);
+                }
+                else continue;
+
+            visitListItems.add(itemLinkedHashMultimap);
+
+        }
+
+        return visitListItems;
     }
 }

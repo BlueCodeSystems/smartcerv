@@ -18,7 +18,7 @@ import zm.gov.moh.common.submodule.register.viewmodel.RegisterViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -26,7 +26,7 @@ public class RegisterActivity extends BaseActivity {
 
     private RegisterViewModel registerViewModel;
 
-    private Submodule defaultSubmodule;
+    private Module defaultModule;
     private Bundle bundle;
     ClientListAdapter clientListAdapter;
     private List<Client> allClients;
@@ -43,7 +43,7 @@ public class RegisterActivity extends BaseActivity {
         toolBarEventHandler.setTitle("Client Register");
 
 
-        defaultSubmodule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
+        defaultModule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         AndroidThreeTen.init(this);
 
@@ -57,13 +57,13 @@ public class RegisterActivity extends BaseActivity {
             try {
                 getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
             }catch (Exception e){
-                getIntent().getExtras().putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
+                getIntent().getExtras().putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultModule);
             }
         }
         else {
 
             bundle = new Bundle();
-            bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
+            bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultModule);
             getIntent().putExtras(bundle);
         }
 

@@ -12,11 +12,11 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboa
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 
-public class PatientDashboardRegisterViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
+public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
 
     private BaseActivity mContext;
 
-    public PatientDashboardRegisterViewPagerFragmentAdapter(Context context, FragmentManager fm) {
+    public InsightsViewPagerFragmentAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = (BaseActivity) context;
     }

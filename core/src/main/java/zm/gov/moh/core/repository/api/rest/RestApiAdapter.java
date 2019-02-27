@@ -23,6 +23,7 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
 import zm.gov.moh.core.repository.database.entity.domain.User;
+import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 
 public interface RestApiAdapter {
 
@@ -82,4 +83,7 @@ public interface RestApiAdapter {
 
     @GET("encounter/type/")
     Maybe<EncounterType[]> getEncounterTypes(@Header("x-access-token") String accesstoken);
+
+    @GET("visit/type/")
+    Maybe<VisitType[]> getVisitTypes(@Header("x-access-token") String accesstoken);
 }

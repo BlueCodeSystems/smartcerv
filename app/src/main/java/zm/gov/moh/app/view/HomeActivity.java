@@ -14,16 +14,16 @@ import java.util.Map;
 
 import zm.gov.moh.app.R;
 import zm.gov.moh.app.databinding.FirstPointOfContactActivityBinding;
-import zm.gov.moh.app.viewmodel.FirstPointOfContactViewModel;
+import zm.gov.moh.app.viewmodel.HomeViewModel;
 import zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.common.view.CommonHomeFragment;
-import zm.gov.moh.core.model.submodule.Submodule;
+import zm.gov.moh.core.model.submodule.Module;
 
 
 public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnFragmentInteractionListener {
 
-    FirstPointOfContactViewModel firstPointOfContactViewModel;
+    HomeViewModel homeViewModel;
     Map<String,Long> metrics;
 
     @Override
@@ -31,8 +31,8 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_point_of_contact_activity);
 
-        firstPointOfContactViewModel = ViewModelProviders.of(this).get(FirstPointOfContactViewModel.class);
-        setViewModel(firstPointOfContactViewModel);
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+        setViewModel(homeViewModel);
 
         final long SESSION_LOCATION_ID = this.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(this.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
@@ -44,7 +44,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
       FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
 
 
-        firstPointOfContactViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
+        homeViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
 
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Home");
@@ -63,7 +63,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
     }
 
-    final Observer<Submodule> startSubmoduleObserver = this::startSubmodule;
+    final Observer<Module> startSubmoduleObserver = this::startModule;
 
     @Override
     public void onFragmentInteraction(Uri uri) {

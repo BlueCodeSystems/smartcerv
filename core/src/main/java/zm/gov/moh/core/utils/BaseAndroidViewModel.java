@@ -11,6 +11,7 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
 
     private Repository mRepository;
     private final short PREFERED = 1;
+    private final String LOCALE_EN = "en";
     private Bundle bundle;
 
     public BaseAndroidViewModel(Application application){
@@ -38,5 +39,9 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
 
     public Bundle getBundle() {
         return bundle;
+    }
+
+    public String getLOCALE_EN() {
+        return LOCALE_EN;
     }
 }

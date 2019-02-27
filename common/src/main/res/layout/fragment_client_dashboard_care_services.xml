@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".submodule.dashboard.client.view.ClientDashboardCareServicesFragment">
+    tools:context=".module.dashboard.client.view.ClientDashboardCareServicesFragment">
     <ExpandableListView
         android:id="@+id/care_service_list"
         android:layout_width="match_parent"

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".submodule.dashboard.patient.view.PatientDashboardActivity">
+            tools:context=".module.dashboard.patient.view.PatientDashboardActivity">
 
             <include
                 layout="@layout/base_toolbar"
@@ -54,25 +54,27 @@
                 android:layout_height="wrap_content"
                 app:tabMode="scrollable" />
 
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/bottom_navigation_view_container"
                 android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="55dp"
                 android:layout_height="wrap_content">
-            </FrameLayout>
+            </LinearLayout>
 
         </LinearLayout>
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
             android:elevation="4dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_gravity="bottom"
             app:itemIconTint="@color/selector_bottom_nav"
             app:itemTextColor="@color/selector_bottom_nav"
             android:text="@string/hello_blank_fragment"
             android:background="@color/pinker"
             />
+
     </FrameLayout>
 
 </layout>
