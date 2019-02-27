@@ -1,3 +1,1 @@
-[![Coverage Status](https://coveralls.io/repos/github/BlueCodeSystems/smartcerv/badge.svg?branch=master)](https://coveralls.io/github/BlueCodeSystems/smartcerv?branch=master)
-
-*SmartCerv*
+[![Coverage Status](https://coveralls.io/repos/github/BlueCodeSystems/smartcerv/badge.svg?branch=master)](https://coveralls.io/github/BlueCodeSystems/smartcerv?branch=master) [![Build Status](https://travis-ci.org/BlueCodeSystems/smartcerv.svg?branch=master)](https://travis-ci.org/BlueCodeSystems/smartcerv)
