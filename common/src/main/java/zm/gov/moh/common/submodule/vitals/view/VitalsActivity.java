@@ -43,6 +43,7 @@ public class VitalsActivity extends BaseActivity {
     public void onSubmit(Bundle bundle){
 
         viewModel.onSubmit(bundle);
+
         finish();
     }
 }
