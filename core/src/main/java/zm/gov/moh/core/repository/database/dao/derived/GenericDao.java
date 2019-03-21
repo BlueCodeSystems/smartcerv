@@ -54,7 +54,7 @@ public  interface GenericDao {
     List<Obs> getPatientObsByEncounterId(long patientId, long encounterId);
 
 
-    // Refactored Vitals
+    // Refactored Vitals Data Access Object
     //@Query("SELECT * FROM obs  WHERE  person_id = :patientId  AND concept_id = (select concept_id from openmrs.concept where uuid= :conceptUuid ) AND obs_datetime  ")
     @Query("SELECT * FROM obs LAST_INSERT_ID WHERE concept_id = (select concept_id from concept where uuid= :conceptUuid ) AND person_id = :patientId AND obs_datetime = (SELECT MAX(obs_datetime) FROM obs WHERE  concept_id = (select concept_id from concept where uuid= :conceptUuid )) AND person_id = :patientId")
     LiveData<Obs>getPatientObsValueByConceptId(long patientId, String conceptUuid);
