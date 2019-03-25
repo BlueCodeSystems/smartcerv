@@ -9,7 +9,7 @@ import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 
 @Dao
-public interface GenericDao {
+public  interface GenericDao {
 
     @Query("SELECT COUNT(DISTINCT patient_id) AS count from patient_identifier WHERE identifier_type=4 AND location_id = :id")
     LiveData<Long> countPatientsByLocationId(Long id);
@@ -60,9 +60,5 @@ public interface GenericDao {
     //@Query("SELECT * FROM obs  WHERE  person_id = :patientId  AND concept_id = (select concept_id from openmrs.concept where uuid= :conceptUuid ) AND obs_datetime  ")
     @Query("SELECT * FROM obs LAST_INSERT_ID WHERE concept_id = (select concept_id from concept where uuid= :conceptUuid ) AND person_id = :patientId AND obs_datetime = (SELECT MAX(obs_datetime) FROM obs WHERE  concept_id = (select concept_id from concept where uuid= :conceptUuid )) AND person_id = :patientId")
     LiveData<Obs>getPatientObsValueByConceptId(long patientId, String conceptUuid);
-
-
-
-
-
+    
 }

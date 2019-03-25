@@ -137,7 +137,7 @@ public abstract class Database extends RoomDatabase {
 
     //Derived
     public abstract ClientDao clientDao();
-    ;
+
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
 
