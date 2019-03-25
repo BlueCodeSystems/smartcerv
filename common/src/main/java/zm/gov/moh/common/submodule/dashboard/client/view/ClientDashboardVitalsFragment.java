@@ -1,15 +1,15 @@
 package zm.gov.moh.common.submodule.dashboard.client.view;
 
 
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import zm.gov.moh.common.BR;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import zm.gov.moh.common.ModuleConfig;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
 import zm.gov.moh.common.ui.BaseActivity;
@@ -42,29 +42,23 @@ public class ClientDashboardVitalsFragment extends Fragment {
         binding.setBundle(getArguments());
 
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getHeightByPersonId(clientId).observe(this, obs -> binding.setHeight((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao()
+                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_TEMPERATURE).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getWeightByPersonId(clientId).observe(this, obs -> binding.setWeight((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_WEIGHT).observe( this , obs -> binding.setWeight((obs == null )? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getTemperatureByPersonId(clientId).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_HEIGHT).observe( this , obs -> binding.setHeight((obs == null )? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getPulseByPersonId(clientId).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_PULSE).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getRespiratoryRateByPersonId(clientId).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao()
+                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null ) ? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getSysbolicBloodPressureByPersonId(clientId).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_RESPIRATORY_RATE).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getDiabolicBloodPressureByPersonId(clientId).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.value_numeric));
 
-        context.getViewModel().getRepository().getDatabase().vitalsDao()
-                .getBloodOxygenByPersonId(clientId).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.value_numeric));
 
         return view;
     }
