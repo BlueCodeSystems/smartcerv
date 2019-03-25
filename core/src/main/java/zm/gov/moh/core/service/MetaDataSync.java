@@ -2,11 +2,10 @@ package zm.gov.moh.core.service;
 
 import android.app.IntentService;
 import android.content.Intent;
-import androidx.annotation.Nullable;
+
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import java.util.List;
-
+import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.InjectableViewModel;
