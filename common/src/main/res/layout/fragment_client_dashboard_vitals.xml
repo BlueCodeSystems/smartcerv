@@ -24,6 +24,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,9 +34,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:background="@drawable/border_bottom">
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -52,9 +53,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"
                         android:text="@{(height > 0.0)?String.valueOf(height)+`cm`:`---`}"
-                        android:gravity="center_horizontal" />
+                        android:textColor="@color/black" />
 
                 </TableRow>
 
@@ -62,8 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
                     android:background="@drawable/border_bottom"
+                    android:gravity="center_vertical"
                     android:padding="5dp">
 
                     <TextView
@@ -81,9 +82,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(weight > 0.0)? String.valueOf(weight)+`Kg`:`---`}" />
+                        android:text="@{(weight > 0.0)? String.valueOf(weight)+`Kg`:`---`}"
+                        android:textColor="@color/black" />
 
                 </TableRow>
 
@@ -91,8 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
                     android:background="@drawable/border_bottom"
+                    android:gravity="center_vertical"
                     android:padding="5dp">
 
                     <TextView
@@ -110,9 +111,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(height > 0.0 &amp;&amp; weight > 0.0)?String.format(`%.1f`,weight / ((height/100) * (height/100))):`---`}" />
+                        android:text="@{(height > 0.0 &amp;&amp; weight > 0.0)?String.format(`%.1f`,weight / ((height/100) * (height/100))):`---`}"
+                        android:textColor="@color/black" />
 
                 </TableRow>
 
@@ -120,8 +121,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
                     android:background="@drawable/border_bottom"
+                    android:gravity="center_vertical"
                     android:padding="5dp">
 
                     <TextView
@@ -139,18 +140,18 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(temperature > 0.0)? String.valueOf(temperature)+`C`:`---`}" />
+                        android:text="@{(temperature > 0.0)? String.valueOf(temperature)+`C`:`---`}"
+                        android:textColor="@color/black" />
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="@drawable/border_bottom"
                     android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:background="@drawable/border_bottom">
+                    android:padding="5dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -167,9 +168,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(pulse > 0.0)?String.valueOf(pulse)+`/min`:`---`}" />
+                        android:text="@{(pulse > 0.0)?String.valueOf(pulse)+`/min`:`---`}"
+                        android:textColor="@color/black" />
 
                 </TableRow>
 
@@ -177,8 +178,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
                     android:background="@drawable/border_bottom"
+                    android:gravity="center_vertical"
                     android:padding="5dp">
 
                     <TextView
@@ -196,9 +197,9 @@
                         android:layout_column="1"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textColor="@color/black"
                         android:gravity="center_horizontal"
-                        android:text="@{(respiration > 0.0)?String.valueOf(respiration)+`/min`:`---`}" />
+                        android:text="@{(respiration > 0.0)?String.valueOf(respiration)+`/min`:`---`}"
+                        android:textColor="@color/black" />
 
                 </TableRow>
 
@@ -206,8 +207,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center_vertical"
                     android:background="@drawable/border_bottom"
+                    android:gravity="center_vertical"
                     android:padding="5dp">
 
                     <TextView
@@ -226,20 +227,20 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:textColor="@color/black"
-                        android:text="@{(bloodPressureSysbolic > 0.0 &amp;&amp; bloodPressureDiabolic > 0.0 )? String.valueOf(bloodPressureSysbolic)+`/`+String.valueOf(bloodPressureDiabolic):`---/---`}" />
+                        android:text="@{(bloodPressureSysbolic > 0.0 &amp;&amp; bloodPressureDiabolic > 0.0 )? String.valueOf(bloodPressureSysbolic)+`/`+String.valueOf(bloodPressureDiabolic):`---/---`}"
+                        android:textColor="@color/black" />
                 </TableRow>
 
                 <Button
                     android:id="@+id/client_dashbord_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:onClick="@{() -> context.startModule(coremodule.VITALS,bundle)}"
                     android:layout_marginHorizontal="100dp"
                     android:layout_marginVertical="10dp"
                     android:background="@color/light_green"
-                    android:text="Update"/>
+                    android:onClick="@{() -> context.startModule(coremodule.VITALS,bundle)}"
+                    android:text="Update"
+                    android:textColor="@color/white" />
             </TableLayout>
         </ScrollView>
 
