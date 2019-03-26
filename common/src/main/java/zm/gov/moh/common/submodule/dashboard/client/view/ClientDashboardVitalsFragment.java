@@ -43,6 +43,7 @@ public class ClientDashboardVitalsFragment extends Fragment {
 
 
         context.getViewModel().getRepository().getDatabase().genericDao()
+
                 .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_HEIGHT).observe(this, obs -> binding.setHeight((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().genericDao()
@@ -55,6 +56,7 @@ public class ClientDashboardVitalsFragment extends Fragment {
         context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_PULSE).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().genericDao()
+
                 .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.value_numeric));
@@ -62,6 +64,7 @@ public class ClientDashboardVitalsFragment extends Fragment {
         context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_RESPIRATORY_RATE).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.value_numeric));
+
 
         return view;
     }

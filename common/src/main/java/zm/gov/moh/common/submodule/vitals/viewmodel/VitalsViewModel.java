@@ -7,10 +7,8 @@ import android.util.LongSparseArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import androidx.arch.core.util.Function;
-
 import zm.gov.moh.common.ModuleConfig;
 import zm.gov.moh.common.submodule.vitals.model.Vitals;
 import zm.gov.moh.core.model.ConceptDataType;
@@ -55,12 +53,30 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
            bundle.putLong(Key.ENCOUNTER_TYPE_ID, encounterTypeUuidToId.apply(ModuleConfig.ENCOUNTER_TYPE_UUID_VITALS));
            bundle.putLong(Key.VISIT_TYPE_ID, 1);
 
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_HEIGHT), Double.valueOf(vitals.getHeight().toString()));
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_WEIGHT), Double.valueOf(vitals.getWeight().toString()));
+
+
+           //Additional If Statements to Enbale single field Update
+           //Checks if Vitals are not null and updates them withthe entered value
+
+           if(vitals.getHeight() != null)
+                conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_HEIGHT), Double.valueOf(vitals.getHeight().toString()));
+
+           if(vitals.getWeight() != null)
+                conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_WEIGHT), Double.valueOf(vitals.getWeight().toString()));
+
+           if (vitals.getTemperature() !=null)
            conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_TEMPERATURE), Double.valueOf(vitals.getTemperature().toString()));
+
+           if(vitals.getPulse() !=null)
            conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_PULSE), Double.valueOf(vitals.getPulse().toString()));
+
+           if(vitals.getRespiratory() !=null)
            conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_RESPIRATORY_RATE), Double.valueOf(vitals.getRespiratory().toString()));
+
+           if(vitals.getSystolicBloodPressure() !=null)
            conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE), Double.valueOf(vitals.getSystolicBloodPressure().toString()));
+
+           if(vitals.getDiastolicBloodPressure() !=null)
            conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE), Double.valueOf(vitals.getDiastolicBloodPressure().toString()));
            //conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION),Double.valueOf(vitals.getBloodOxygen().toString()));
 
