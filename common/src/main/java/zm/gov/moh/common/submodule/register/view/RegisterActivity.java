@@ -12,13 +12,16 @@ import java.util.List;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityRegisterBinding;
+import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.common.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.common.submodule.register.model.SearchTermObserver;
 import zm.gov.moh.common.submodule.register.viewmodel.RegisterViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.utils.Utils;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -27,7 +30,7 @@ public class RegisterActivity extends BaseActivity {
     private RegisterViewModel registerViewModel;
 
     private Module defaultModule;
-    private Bundle bundle;
+    private Bundle mBundle;
     ClientListAdapter clientListAdapter;
     private List<Client> allClients;
 
@@ -38,12 +41,12 @@ public class RegisterActivity extends BaseActivity {
 
         ActivityRegisterBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
         binding.setContext(this);
-        bundle = getIntent().getExtras();
+        mBundle = getIntent().getExtras();
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Client Register");
 
 
-        defaultModule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
+        defaultModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
         AndroidThreeTen.init(this);
 
@@ -52,7 +55,7 @@ public class RegisterActivity extends BaseActivity {
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
 
-        if(bundle != null){
+        if(mBundle != null){
 
             try {
                 getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
@@ -62,9 +65,9 @@ public class RegisterActivity extends BaseActivity {
         }
         else {
 
-            bundle = new Bundle();
-            bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultModule);
-            getIntent().putExtras(bundle);
+            mBundle = new Bundle();
+            mBundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultModule);
+            getIntent().putExtras(mBundle);
         }
 
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
@@ -87,6 +90,7 @@ public class RegisterActivity extends BaseActivity {
 
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setSearch(searchTermObserver);
+        binding.setContext(this);
     }
 
     public void searchCallback(String term){
@@ -97,5 +101,21 @@ public class RegisterActivity extends BaseActivity {
             });
         else
             clientListAdapter.setClientList(allClients);
+    }
+
+    public void registerClient(){
+
+        try {
+
+            FormJson clientRegistration = new FormJson("Client Registration",
+                    Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
+
+
+            mBundle.putSerializable(Key.JSON_FORM, clientRegistration);
+            startModule(BaseApplication.CoreModule.FORM, mBundle);
+
+        }catch (Exception e){
+
+        }
     }
 }

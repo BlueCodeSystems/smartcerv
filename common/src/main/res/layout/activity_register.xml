@@ -4,7 +4,7 @@
     <data>
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
         <variable name="search" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="context" type="zm.gov.moh.common.submodule.register.view.RegisterActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
     </data>
     <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_gravity="bottom|end"
-                android:onClick="@{()-> context.startModule(coreModule.REGISTRATION)}"
+                android:onClick="@{()-> context.registerClient()}"
                 android:src="@drawable/addavatar" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

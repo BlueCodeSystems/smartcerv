@@ -30,21 +30,11 @@
     "title":"Client Information",
       "widgets":[
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType":"TextView",
-              "label":"NRC No.",
-              "textSize":18,
-              "weight":1
-            },
-            {
-              "tag":"nrc",
-              "widgetType":"EditText",
-              "hint": "Example 145683/10/1",
-              "weight":1
-            }
-          ]
+          "label":"NRC No.",
+          "tag":"nrc",
+          "widgetType":"EditText",
+          "hint": "Example 145683/10/1",
+          "weight":1
         },
         {
           "widgetType":"WidgetGroupRow",

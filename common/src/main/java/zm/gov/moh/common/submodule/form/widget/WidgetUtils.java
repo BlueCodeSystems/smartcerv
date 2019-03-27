@@ -32,6 +32,7 @@ public class WidgetUtils {
     public static final int  WRAP_CONTENT = LinearLayoutCompat.LayoutParams.WRAP_CONTENT;
     public static final int  VERTICAL = LinearLayoutCompat.VERTICAL;
     public static final int  HORIZONTAL = LinearLayoutCompat.HORIZONTAL;
+    public static final int  NO_WEIGHT = 0;
 
     public static View createLinearLayout(Context context, int orientation,View... views){
 

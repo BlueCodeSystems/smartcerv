@@ -52,7 +52,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Patient Dashboard");
 
-        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
+        vitals = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
 
         Database database = viewModel.getRepository().getDatabase();
 
