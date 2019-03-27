@@ -54,8 +54,6 @@ public class FormFragment extends BaseFragment {
 
         bundle = getArguments();
 
-        long person_id = (Long) bundle.get(Key.PERSON_ID);
-
         FragmentFormBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_form,container,false);
 
         rootView = binding.getRoot();
@@ -67,7 +65,7 @@ public class FormFragment extends BaseFragment {
 
         try {
 
-            this.formJson =(FormJson) bundle.getSerializable(BaseFragment.JSON_FORM_KEY);
+            this.formJson =(FormJson) bundle.getSerializable(Key.JSON_FORM);
             formModel = FormAdapter.getAdapter().fromJson(this.formJson.getJson());
 
             toolBarEventHandler.setTitle(formJson.getName());

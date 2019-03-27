@@ -1,6 +1,6 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-public abstract class AbstractEditTextModel extends AbstractWidgetModel implements FormEditTextModel {
+public abstract class AbstractEditTextModel extends AbstractLabelModel implements FormEditTextModel {
 
     protected String hint;
     protected String text;

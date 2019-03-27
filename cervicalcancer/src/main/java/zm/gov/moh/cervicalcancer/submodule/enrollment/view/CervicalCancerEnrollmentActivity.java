@@ -27,7 +27,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
         setViewModel(viewModel);
 
         //viewModel.getRepository().getClientById(34).observe(this, );
-        cervicalCancerModule = (ModuleGroup)((BaseApplication) this.getApplication()).getSubmodule(CervicalCancerModule.MODULE);
+        cervicalCancerModule = (ModuleGroup)((BaseApplication) this.getApplication()).getModule(CervicalCancerModule.MODULE);
 
         Module enrollmentModule = cervicalCancerModule.getSubmodule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
         final Bundle bundle = getIntent().getExtras();
@@ -58,7 +58,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                         }
                         else{
 
-                            Module formModule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+                            Module formModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.FORM);
 
                             try{
                                 String json = Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json"));
@@ -69,7 +69,7 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                                 FormJson formJson = new FormJson("Facility Information",
                                         Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json")));
 
-                                bundle.putSerializable(BaseActivity.JSON_FORM_KEY,formJson);
+                                bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
                                 bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);
                                 bundle.putString(Key.START_MODULE_ON_RESULT, CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
                             }catch (Exception ex){

@@ -24,7 +24,7 @@ public class BaseApplication extends Application {
         firstPointOfCareSubmodules = new ArrayList<>();
     }
 
-    public zm.gov.moh.core.model.submodule.Module getSubmodule(String submodule){
+    public zm.gov.moh.core.model.submodule.Module getModule(String submodule){
 
         return submodules.get(submodule);
     }
