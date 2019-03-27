@@ -37,7 +37,7 @@ public interface Module extends Serializable {
  return modules;
  }
 
- public Module getSubmodule(int index){
+ public Module getModule(int index){
 
  return modules.get(index);
  }

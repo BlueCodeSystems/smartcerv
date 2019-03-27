@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,7 +38,7 @@ public class BaseActivity extends AppCompatActivity {
     protected static final String CALLING_SUBMODULE_KEY = "calling_submodule";
     protected static final String FORM_FRAGMENT_KEY = "FORM_FRAGMENT_KEY";
     public static final String CLIENT_ID_KEY = "PERSON_ID";
-    public static final String JSON_FORM_KEY = "JSON_FORM_KEY";
+    public static final String JSON_FORM = "JSON_FORM";
     public static final String ACTION_KEY = "ACTION_KEY";
     public static final String FORM_DATA_KEY = "FORM_DATA_KEY";
     public static final String START_SUBMODULE_ON_FORM_RESULT_KEY = "START_SUBMODULE_ON_FORM_RESULT_KEY";
@@ -98,7 +97,7 @@ public class BaseActivity extends AppCompatActivity {
 
         BaseApplication baseApplication = (BaseApplication)getApplication();
 
-        Intent intent = new Intent(this,   baseApplication.getSubmodule(moduleName).getClassInstance());
+        Intent intent = new Intent(this,   baseApplication.getModule(moduleName).getClassInstance());
 
         intent.putExtras(bundle);
         this.startActivity(intent);
@@ -107,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
     public void startModule(String moduleName){
 
         BaseApplication baseApplication = (BaseApplication)getApplication();
-        Intent intent = new Intent(this,baseApplication.getSubmodule(moduleName).getClassInstance());
+        Intent intent = new Intent(this,baseApplication.getModule(moduleName).getClassInstance());
         this.startActivity(intent);
     }
 

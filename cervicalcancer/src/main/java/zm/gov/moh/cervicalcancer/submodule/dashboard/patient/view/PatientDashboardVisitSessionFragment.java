@@ -63,7 +63,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
 
         context = (BaseActivity)getContext();
         rootView = inflater.inflate(R.layout.fragment_patient_dashoard_visit_session, container, false);
-        formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
         viewModel = (PatientDashboardViewModel)context.getViewModel();
 
         this.bundle = getArguments();
@@ -128,7 +128,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         mFormGroupExpandableListView.setOnChildClickListener(
                 (ExpandableListView parent, View v, int groupPosition, int childPosition, long id) -> {
 
-                    bundle.putSerializable(BaseActivity.JSON_FORM_KEY, adapter.getChild(groupPosition,childPosition));
+                    bundle.putSerializable(BaseActivity.JSON_FORM, adapter.getChild(groupPosition,childPosition));
 
                     context.startModule(formModule, bundle);
                     return false;

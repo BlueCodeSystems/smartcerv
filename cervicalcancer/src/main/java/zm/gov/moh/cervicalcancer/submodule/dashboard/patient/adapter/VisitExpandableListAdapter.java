@@ -42,7 +42,7 @@ public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
         this.context = (BaseActivity) context;
         this.visitListItems = visitListItems;
         this.bundle = ((BaseActivity) context).getIntent().getExtras();
-        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
 
     @Override
