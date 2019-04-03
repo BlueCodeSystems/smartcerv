@@ -1,0 +1,87 @@
+{
+  "attributes": {
+    "type":"Encounter",
+    "encounterId":16,
+    "submitLabel":"Submit"
+  },
+
+  "widgetGroup":[
+    {
+      "title": "Notes And Recommendations",
+      "widgets": [
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Notes",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag":"notes",
+              "widgetType":"EditText",
+              "hint": " ",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "label":"Provider Name",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag":"Provider Name",
+              "widgetType":"ProviderNameEditText",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "label":"FOLLOW UP DATES",
+              "textSize":18,
+              "weight":1
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"FOLLOW UP DATES",
+              "widgetType":"DatePickerButton",
+              "weight":1,
+              "text":"Select Date"
+            }
+          ]
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"FOLLOW UP DATES",
+              "widgetType":"DatePickerButton",
+              "weight":1,
+              "text":"Select Date"
+            },
+            {
+              "tag":"FOLLOW UP DATES",
+              "widgetType":"DatePickerButton",
+              "weight":1,
+              "text":"Select Date"
+            }
+          ]
+        }
+      ]
+    }
+    ]
+}
