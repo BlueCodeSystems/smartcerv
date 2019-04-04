@@ -2,7 +2,7 @@
   "attributes": {
     "type":"Encounter",
     "encounterId":16,
-    "submitLabel":"Submit"
+    "submitLabel":"End Visit"
   },
 
   "widgetGroup":[
@@ -19,11 +19,17 @@
               "weight": 1
             },
             {
-              "tag":"notes",
-              "widgetType":"EditText",
+              "tag": "notes",
+              "widgetType": "EditText",
               "hint": " ",
-              "weight":1
+              "weight": 1
             }
+              ]
+
+
+            }
+
+
           ]
         },
         {
@@ -31,57 +37,62 @@
           "widgets": [
             {
               "widgetType":"TextView",
-              "label":"Provider Name",
+              "label":"Follow Up Dates",
               "textSize":18,
               "weight":1
             },
             {
-              "tag":"Provider Name",
-              "widgetType":"ProviderNameEditText",
-              "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
+              "tag": "follow up dates",
+              "widgetType": "DatePickerButton",
+              "weight": 1,
+              "text": "Select Date"
+            },
             {
               "widgetType":"TextView",
-              "label":"FOLLOW UP DATES",
+              "label":"Follow Up Dates",
               "textSize":18,
               "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "tag":"FOLLOW UP DATES",
-              "widgetType":"DatePickerButton",
-              "weight":1,
-              "text":"Select Date"
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "tag":"FOLLOW UP DATES",
-              "widgetType":"DatePickerButton",
-              "weight":1,
-              "text":"Select Date"
             },
             {
-              "tag":"FOLLOW UP DATES",
-              "widgetType":"DatePickerButton",
-              "weight":1,
-              "text":"Select Date"
+              "tag": "follow up dates",
+              "widgetType": "DatePickerButton",
+              "weight": 1,
+              "text": "Select Date"
+            },
+            {
+              "widgetType":"TextView",
+              "label":"Follow Up Dates",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "follow up dates",
+              "widgetType": "DatePickerButton",
+              "weight": 1,
+              "text": "Select Date"
+            }
+              ]
+            },
+            {
+              "widgetType":"WidgetGroupRow",
+              "widgets":[
+                {
+                  "widgetType":"TextView",
+                  "label":"Provider name",
+                  "textSize":18,
+                  "weight":1
+                },
+                {
+                  "tag":"Provider_name",
+                  "widgetType":"EditText",
+                  "hint": "First and Last Name",
+                  "weight":1
+                }
+
+              ]
             }
           ]
         }
-      ]
-    }
-    ]
-}
+
+
+
