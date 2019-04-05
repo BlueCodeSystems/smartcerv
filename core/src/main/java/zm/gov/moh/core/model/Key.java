@@ -16,4 +16,5 @@ public class Key {
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
     public static final String START_MODULE_ON_RESULT = "START_MODULE_ON_RESULT";
     public static final String FORM_TAGS = "FORM_TAGS";
+    public static final String SERVICE_NAME = "SERVICE_NAME";
 }

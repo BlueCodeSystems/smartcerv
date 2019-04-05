@@ -14,10 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.DataSync;
 import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.core.service.SearchIndex;
+import zm.gov.moh.core.service.ServiceName;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
 
@@ -125,13 +128,29 @@ public class BaseActivity extends AppCompatActivity {
 
     public class BaseReceiver extends BroadcastReceiver {
 
-        public static final String SYNC_COMPLETE_NOTIFICATION = "zm.gov.moh.common.SYNC_COMPLETE_NOTIFICATION";
-
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            Toast.makeText(context,"Sync Complete",Toast.LENGTH_LONG).show();
+            String action = intent.getAction();
+            Bundle bundle;
+
             startService(new Intent(context, SearchIndex.class));
+
+            if(action.equals(IntentAction.SYNC_COMPLETE)){
+
+                bundle = intent.getExtras();
+                String serviceName = bundle.getString(Key.SERVICE_NAME);
+
+                if(serviceName.equals(ServiceName.META_DATA_SYNC)){
+
+                    Intent intentService = new Intent(context, DataSync.class);
+                    startService(intentService);
+                }else if(serviceName.equals(ServiceName.DATA_SYNC)){
+
+                    Toast.makeText(context,"Sync Complete",Toast.LENGTH_LONG).show();
+                }
+            }
+
         }
     }
 
