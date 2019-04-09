@@ -18,7 +18,20 @@
               "dataType":"Boolean",
               "style":"radio",
               "textSize":18,
-              "label":"Was inspection done?"
+              "label":"Was inspection done?",
+              "logic":[
+                {
+                  "condition":{
+                    "value":2
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["via reason"]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -49,7 +62,20 @@
               "conceptId":165156,
               "dataType":"Boolean",
               "style":"radio",
-              "textSize":18
+              "textSize":18,
+              "logic":[
+                {
+                  "condition":{
+                    "value":2
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["edi reason"]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -83,6 +109,17 @@
               "label":"Transformation zone completely seen",
               "textSize": 18,
               "logic":[
+                {
+                  "condition":{
+                    "value":1
+                  },
+                  "action":{
+                    "type":"skipLogic",
+                    "metadata":{
+                      "tags":["screening results"]
+                    }
+                  }
+                },
                 {
                   "condition":{
                     "value":2
