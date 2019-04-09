@@ -5,6 +5,9 @@
             android:name=".service.MetaDataSync"
             android:exported="false"/>
         <service
+            android:name=".service.DataSync"
+            android:exported="false"/>
+        <service
             android:name=".service.SearchIndex"
             android:exported="false"/>
         <service
