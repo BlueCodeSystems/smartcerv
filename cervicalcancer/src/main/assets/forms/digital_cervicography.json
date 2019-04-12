@@ -13,7 +13,7 @@
             {
               "widgetType": "ImageView",
               "label": "",
-              "style": "radio",
+              "style": "",
               "weight": 1
             }
               ]
