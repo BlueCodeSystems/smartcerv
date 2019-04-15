@@ -144,6 +144,11 @@ public class RegistrationActivity extends BaseActivity {
         registrationViewModel.getClientDashBoardTransition().observe(this, getClientDashBoardTransitionObserver);
     }
 
+    @Override
+    public void onClick(View view) {
+
+    }
+
     //validate on focus lost
     @OnFocusChange({R2.id.first_name,R2.id.last_name,R2.id.address1,R2.id.district,R2.id.province})
     public void onFocusChange(View view){

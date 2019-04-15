@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -26,7 +28,7 @@ import zm.gov.moh.core.utils.BaseApplication;
 
 import static zm.gov.moh.core.model.Key.PERSON_ADDRESS;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
 
     protected static final String START_SUBMODULE_KEY = "start_submodule";
@@ -153,6 +155,10 @@ public class BaseActivity extends AppCompatActivity {
 
         }
     }
+
+    public abstract void init();
+
+    public abstract void onClick(View view);
 
     public BaseAndroidViewModel getViewModel(){
        return viewModel;

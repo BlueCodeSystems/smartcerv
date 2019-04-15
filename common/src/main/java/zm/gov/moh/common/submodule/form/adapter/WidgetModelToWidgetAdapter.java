@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
@@ -27,6 +29,7 @@ import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormEditTextWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
@@ -68,6 +71,15 @@ public class WidgetModelToWidgetAdapter {
             FormDatePickerWidget widget = new FormDatePickerWidget(this.context, this.bundle);
             widget.setTag(model.getTag());
             widget.setText(model.getText());
+            return widget;
+        }
+        else if(widgetModel instanceof ImageViewButtonModel){
+
+            ImageViewButtonModel model = (ImageViewButtonModel) widgetModel;
+
+            FormImageViewButtonWidget widget = new FormImageViewButtonWidget(this.context, this.bundle);
+            widget.setTag(model.getTag());
+            //widget.setView(model.getView());
             return widget;
         }
         else if(widgetModel instanceof WidgetGroupRowModel){

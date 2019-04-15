@@ -21,26 +21,6 @@
             android:orientation="vertical"
             tools:context=".module.dashboard.patient.view.PatientDashboardImageFragment">
 
-            <!-- <android.support.v4.view.ViewPager
-                android:id="@+id/gallery_item"
-                android:layout_width="fill_parent"
-                android:layout_height="709dp"
-                android:layout_below="@+id/relative_headerBar">
-
-            </android.support.v4.view.ViewPager>!-->
-
-            <!--<CameraUtils
-                android:id="@+id/selectedImageView"
-                android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:scaleType="fitXY"/>
-
-            <Gallery
-                android:id="@+id/simpleGallery"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:unselectedAlpha="0.80"/>!-->
 
 
             <include
@@ -54,19 +34,6 @@
                 layout="@layout/client_card"
                 app:client="@{client}" />
 
-            <!--ImageView
-                android:id="@+id/imgPreview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"></ImageView>
-
-            <Button
-                android:id="@+id/btnLoadPicture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0"
-                android:text="Load Picture"></Button!-->
 
 
 
@@ -87,6 +54,15 @@
                 android:gravity="end"
                 android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
                 android:textColor="@color/darker_grey" />
+
+            <Button
+                android:id="@+id/load_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_green"
+                android:text="Load Image"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/sliding_tabs"

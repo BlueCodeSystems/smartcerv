@@ -15,4 +15,5 @@ public abstract class AbstractButtonModel extends AbstractWidgetModel implements
     public String getText() {
         return text;
     }
+
 }
