@@ -28,9 +28,6 @@
         <!--activity android:name=".submodule.dashboard.patient.view.PatientImageActivity"
             android:configChanges="orientation|screenSize"/!-->
 
-        <activity android:name=".submodule.dashboard.patient.view.PatientImageGalleryPreview"
-            android:configChanges="orientation|screenSize"/>
-
 
     </application>
 
