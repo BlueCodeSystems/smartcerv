@@ -12,6 +12,7 @@ import android.view.View;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
@@ -172,7 +173,11 @@ public class WidgetModelToWidgetAdapter {
                     .setWeight(model.getWeight())
                     .build();
         }
+        else if(widgetModel instanceof BasicDrugWidgetModel) {
+            BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
+            return null;
+        }
 
         return null;
     }
