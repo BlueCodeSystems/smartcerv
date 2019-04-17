@@ -1,0 +1,32 @@
+{
+  "attributes": {
+  "type":"Basic"
+  },
+
+  "widgetGroup":[
+    {
+      "title": "Images",
+      "widgets": [
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "ImageView",
+              "label": "",
+              "style": "",
+              "weight": 1
+            }
+              ]
+
+
+            }
+
+
+          ]
+
+            }
+          ]
+        }
+
+
+
