@@ -5,8 +5,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -18,6 +25,9 @@ import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
+
+import static zm.gov.moh.cervicalcancer.R.id.load_image;
+
 public class PatientDashboardActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
@@ -25,10 +35,16 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     Module vitals;
     long clientId;
     Client client;
+    private Button LoadImageButton;
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
     Bundle mBundle;
+    private View v;
+    private ImageView img1, img2;
+    private final int CODE_IMG_GALLERY = 1;
+    private final int CODE_MULTIPLE_IMG_GALLERY = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +85,12 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
     }
+
+    @Override
+    public void init() {
+
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -80,6 +102,17 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         replaceFragment(fragment);
         return true;
     }
+
+
+
+
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+
     public void replaceFragment(Fragment fragment){
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();
@@ -93,4 +126,23 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     public PatientDashboardViewModel getViewModel(){
         return viewModel;
     }
+
+    public void loadImageMethod(View view) {
+        img1.setOnClickListener((View v) -> {
+                    loadImageMethod(v);
+                    startActivityForResult(Intent.createChooser(new Intent().setAction(Intent.ACTION_GET_CONTENT).setType("image/*"),
+                            "Digital Cervicography"), CODE_IMG_GALLERY);
+                });
+        img2.setOnClickListener((View v) -> {
+        loadImageMethod(v);
+        //MULTIPLE IMGS
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Digital Cervicography"),
+                CODE_MULTIPLE_IMG_GALLERY);
+    }
+        );
 }
+    }

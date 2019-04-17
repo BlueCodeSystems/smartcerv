@@ -2,6 +2,7 @@ package zm.gov.moh.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -39,5 +40,15 @@ public class BootstrapActivity extends BaseActivity {
        Intent intent = new Intent(this, MetaDataSync.class);
 
        startService(intent);
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

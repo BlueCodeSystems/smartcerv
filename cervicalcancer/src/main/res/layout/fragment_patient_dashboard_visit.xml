@@ -52,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
-            android:tint="@color/white"
             android:onClick="@{()-> context.replaceFragment(visitSessionPage)}"
-            android:src="@android:drawable/ic_input_add" />
+            android:src="@android:drawable/ic_input_add"
+            android:tint="@color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

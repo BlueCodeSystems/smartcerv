@@ -38,7 +38,7 @@ public class PatientDashboardVisitViewPagerFragment extends Fragment {
                 container, false);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ViewPager viewPager = view.findViewById(R.id.viewpager);
 
         // Create an adapter that knows which fragment should be shown on each page
         PatientDashboardVisitViewPagerFragmentAdapter adapter =
@@ -48,7 +48,7 @@ public class PatientDashboardVisitViewPagerFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         // Inflate the layout for this fragment

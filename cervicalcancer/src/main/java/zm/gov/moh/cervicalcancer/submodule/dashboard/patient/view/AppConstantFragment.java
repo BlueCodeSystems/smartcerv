@@ -6,7 +6,7 @@ import java.util.List;
 public class AppConstantFragment {
 
     // SD card image directory
-    public static final String PHOTO_ALBUM = "SoftScanner";
+    public static final String PHOTO_ALBUM = " ";
 
     // supported file formats
     public static final List<String> FILE_EXTN = Arrays.asList("jpg", "jpeg",

@@ -63,7 +63,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
 
         context = (BaseActivity)getContext();
         rootView = inflater.inflate(R.layout.fragment_patient_dashoard_visit_session, container, false);
-        formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        formModule = ((BaseApplication) context.getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
         viewModel = (PatientDashboardViewModel)context.getViewModel();
 
         this.bundle = getArguments();
@@ -106,8 +106,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
             FormJson notes = new FormJson("Notes And Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
-            FormJson photos = new FormJson("Images",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/photos.json")));
+            FormJson cervicography = new FormJson("Images",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/digital_cervicography.json")));
 
                     //Add via forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
@@ -118,7 +118,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
-            viaFormGroup.addForm(photos);
+            viaFormGroup.addForm(cervicography);
         }catch (Exception e){
 
         }
