@@ -1,15 +1,16 @@
 package zm.gov.moh.core.repository.database;
 
-import androidx.room.*;
 import android.content.Context;
 
-import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
 import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
+import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.derived.MetricsDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
-import zm.gov.moh.core.repository.database.dao.derived.VitalsDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
@@ -136,7 +137,7 @@ public abstract class Database extends RoomDatabase {
 
     //Derived
     public abstract ClientDao clientDao();
-    public abstract VitalsDao vitalsDao();
+
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
 

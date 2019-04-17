@@ -1,14 +1,14 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
-import androidx.room.*;
-
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 @Entity
 public class Obs {
