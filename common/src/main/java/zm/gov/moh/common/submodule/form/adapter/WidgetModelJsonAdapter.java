@@ -11,6 +11,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -47,6 +48,12 @@ public class WidgetModelJsonAdapter {
                 datePickerButtonModel.setText(widgetModelJson.getText());
 
                 return datePickerButtonModel;
+
+            case "ImageViewButton":
+
+                final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
+
+                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
 
             case "WidgetGroupRow":
 
