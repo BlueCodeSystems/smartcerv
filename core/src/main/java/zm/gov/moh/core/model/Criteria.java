@@ -35,9 +35,6 @@ public class Criteria {
                 evaluations.add(false);
         }
 
-        if(evaluations.contains(false))
-            return false;
-
-        return true;
+        return !evaluations.contains(false);
     }
 }

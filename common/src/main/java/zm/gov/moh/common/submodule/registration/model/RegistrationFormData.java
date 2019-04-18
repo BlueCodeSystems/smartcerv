@@ -77,7 +77,7 @@ public class RegistrationFormData extends BaseObservable {
 
             this.address1 = address1;
             notifyPropertyChanged(BR.address1);
-        };
+        }
     }
 
     public void setDateOfBirth(CharSequence dateOfBirth) {
