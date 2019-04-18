@@ -1,0 +1,77 @@
+{
+  "attributes": {
+    "type":"Basic",
+    "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Demographics",
+      "widgets":[
+        {
+          "label":"Client's names",
+          "widgetType":"TextView",
+          "textSize":24,
+          "weight":1
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"PERSON_GIVEN_NAME",
+              "widgetType":"EditText",
+              "hint": "First name",
+              "weight":1
+            },
+            {
+              "tag":"PERSON_FAMILY_NAME",
+              "widgetType":"EditText",
+              "hint": "Last name",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "label":"Gender",
+          "widgetType":"TextView",
+          "textSize":24,
+          "weight":1
+        }
+      ]
+    },
+    {
+    "title":"Contact Information",
+      "widgets":[
+        {
+          "label":"Address",
+          "tag":"nrc",
+          "widgetType":"EditText",
+          "hint": "Plot number, Village, Street",
+          "weight":1
+        },
+        {
+          "widgetType":"WidgetGroupRow",
+          "widgets": [
+            {
+              "tag":"nrc",
+              "widgetType":"EditText",
+              "hint": "District",
+              "weight":1
+            },
+            {
+              "tag":"nrc",
+              "widgetType":"EditText",
+              "hint": "Province",
+              "weight":1
+            }
+          ]
+        },
+        {
+          "tag":"phone",
+          "label":"Phone",
+          "widgetType":"EditText",
+          "hint": "Example 0967546754",
+          "weight":1
+        }
+      ]
+  }]
+}

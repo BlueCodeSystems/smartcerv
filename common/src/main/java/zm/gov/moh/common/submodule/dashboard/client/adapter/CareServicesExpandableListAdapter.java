@@ -33,7 +33,7 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
         this.context = (BaseActivity) context;
         this.submoduleGroups = submoduleGroups;
         this.bundle = bundle;
-        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
 
     @Override

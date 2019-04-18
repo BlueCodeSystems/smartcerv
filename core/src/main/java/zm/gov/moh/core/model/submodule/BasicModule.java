@@ -83,7 +83,7 @@ public class Module implements Serializable {
  return modules;
  }
 
- public Module getSubmodule(int index){
+ public Module getModule(int index){
 
  return modules.get(index);
  }

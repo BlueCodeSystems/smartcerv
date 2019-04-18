@@ -23,11 +23,11 @@ public class BootstrapActivity extends BaseActivity {
 
         ApplicationContext applicationContext = (ApplicationContext)getApplicationContext();
 
-        Module firstPointOfContactModule = applicationContext.getSubmodule(BaseApplication.CoreModule.HOME);
+        Module firstPointOfContactModule = applicationContext.getModule(BaseApplication.CoreModule.HOME);
 
-        Module loginModule = applicationContext.getSubmodule(BaseApplication.CoreModule.LOGIN);
+        Module loginModule = applicationContext.getModule(BaseApplication.CoreModule.LOGIN);
 
-        Module formModule = applicationContext.getSubmodule(BaseApplication.CoreModule.FORM);
+        Module formModule = applicationContext.getModule(BaseApplication.CoreModule.FORM);
 
         Bundle bundle = new Bundle();
 

@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
+
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
@@ -22,16 +25,19 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
+import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
 import zm.gov.moh.core.repository.api.Repository;
 
@@ -58,10 +64,14 @@ public class WidgetModelToWidgetAdapter {
 
             EditTextModel model = (EditTextModel) widgetModel;
 
-            FormEditTextWidget widget = new FormEditTextWidget(this.context, model.getWeight());
-            widget.setHint(model.getHint());
-            widget.setTag(model.getTag());
-            widget.setBundle(this.bundle);
+            BaseWidget widget = new EditTextWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .build();
+
            return widget;
         }
         else if(widgetModel instanceof DatePickerButtonModel){
@@ -101,9 +111,12 @@ public class WidgetModelToWidgetAdapter {
 
             FormLabelModel model = (FormLabelModel) widgetModel;
 
-            FormLabelWidget widget = new FormLabelWidget(this.context,model.getWeight());
-            widget.setText(model.getLabel());
-            widget.setTextSize(TypedValue.COMPLEX_UNIT_SP, model.getTextSize());
+            BaseWidget widget = new TextViewWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
+                    .setTextSize(model.getTextSize())
+                    .setWeight(model.getWeight())
+                    .build();
+
             return widget;
         }
         else if(widgetModel instanceof DistrictFacilityPickerModel){
@@ -174,7 +187,11 @@ public class WidgetModelToWidgetAdapter {
                     .setWeight(model.getWeight())
                     .build();
         }
+        else if(widgetModel instanceof BasicDrugWidgetModel) {
+            BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
+            return null;
+        }
 
         return null;
     }

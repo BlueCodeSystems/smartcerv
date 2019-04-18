@@ -56,7 +56,9 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         AndroidThreeTen.init(this);
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Patient Dashboard");
-        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
+
+        vitals = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
+        
         Database database = viewModel.getRepository().getDatabase();
         getViewModel().getRepository().getDatabase().genericDao()
                 .getPatientById(clientId)

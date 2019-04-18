@@ -29,7 +29,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
         this.context = (BaseActivity) context;
         this.formJsonGroups = formJsonGroups;
         this.bundle = ((BaseActivity) context).getIntent().getExtras();
-        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
 
     @Override

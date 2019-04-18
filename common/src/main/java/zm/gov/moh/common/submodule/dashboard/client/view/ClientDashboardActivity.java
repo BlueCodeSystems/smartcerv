@@ -37,7 +37,7 @@ public class ClientDashboardActivity extends BaseActivity {
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Client Dashboard");
 
-        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
+        vitals = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
 
         clientId = getIntent().getExtras().getLong(PERSON_ID);
 
