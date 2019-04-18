@@ -83,7 +83,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency1", "duration1", "Follow up dates1"]
+                      "tags":["frequency1", "duration1","Follow up dates1"]
                     }
                   }
                 }
@@ -427,7 +427,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency7", "duration7","Follow up dates7"]
+                      "tags":["frequency7","duration7","Follow up dates7"]
                     }
                   }
                 }
@@ -456,7 +456,7 @@
               "textSize": 18
             },
             {
-              "tag": "Follow up dates",
+              "tag": "Follow up dates7",
               "widgetType": "Concept",
               "conceptId": 165200,
               "dataType": "Date",
@@ -464,7 +464,6 @@
               "style":"dropdown",
               "textSize": 18
             }
-
           ]
         },
         {
@@ -485,7 +484,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency8", "duration8","Follow up dates"]
+                      "tags":["frequency8", "duration8","Follow up dates8"]
                     }
                   }
                 }
@@ -512,7 +511,17 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
+            },
+            {
+              "tag": "Follow up dates8",
+              "widgetType": "Concept",
+              "conceptId": 165200,
+              "dataType": "Date",
+              "label":"Follow up date",
+              "style":"dropdown",
+              "textSize": 18
             }
+
           ]
         },
         {
@@ -533,7 +542,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency9", "duration9"]
+                      "tags":["frequency9", "duration9","Follow up dates9"]
                     }
                   }
                 }
@@ -560,6 +569,15 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
+            },
+            {
+              "tag": "Follow up dates9",
+              "widgetType": "Concept",
+              "conceptId": 165200,
+              "dataType": "Date",
+              "label":"Follow up date",
+              "style":"dropdown",
+              "textSize": 18
             }
           ]
         },
@@ -581,7 +599,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency10", "duration10"]
+                      "tags":["frequency10", "duration10","Follow up dates10"]
                     }
                   }
                 }
@@ -608,6 +626,15 @@
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
+              "style":"dropdown",
+              "textSize": 18
+            },
+            {
+              "tag": "Follow up dates10",
+              "widgetType": "Concept",
+              "conceptId": 165200,
+              "dataType": "Date",
+              "label":"Follow up date",
               "style":"dropdown",
               "textSize": 18
             }
