@@ -14,7 +14,7 @@ import zm.gov.moh.core.utils.InjectorUtils;
 public class MetaDataSync extends IntentService implements InjectableViewModel {
 
     private Repository repository;
-    private String accesstoken = "";
+    private String accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InV1aWQiOiJhM2FjYTE4MS1kMDJhLTRiODgtOTc1NC1lYWM0NWQzZGUzZmUiLCJkaXNwbGF5IjoiYW50aG9ueSIsInVzZXJuYW1lIjoiYW50aG9ueSIsInN5c3RlbUlkIjoiMy00In0sImlhdCI6MTU0MjE0MzU3NiwiZXhwIjoxNTkyMTQzNTc2fQ.DsDbPXwaZ5sg2SFCq1CBykITJjog-9u-4XzNGw9IYV8";
     private final int TIMEOUT = 300000;
     private int tasksCompleted = 0;
     private int tasksStarted = 0;
