@@ -1,43 +1,25 @@
 {
   "attributes": {
-  "type":"Basic"
+    "type": "Basic",
+    "submitLabel": "Submit"
   },
-
-  "title":"Enhanced Digital Imaging(EDI)",
-  "widgets":[
+  "widgetGroup": [
     {
-      "widgetType":"WidgetGroupRow",
-      "widgets":[
+      "title": "Enhanced Digital Imaging(EDI)",
+      "widgets": [
         {
-          "tag":"edi inspection done",
-          "widgetType":"Concept",
-          "conceptId":165156,
-          "dataType":"Boolean",
-          "style":"radio",
-          "textSize":18
-        }
-      ]
-    },
-    {
-      "widgetType":"WidgetGroupRow",
-      "widgets":[
-        {
-          "tag":"edi reason",
-          "widgetType":"Concept",
-          "conceptId":165217,
-          "dataType":"Text",
-          "hint":"Reason",
-          "textSize":18
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "ImageViewButton",
+              "label": "Image Load",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
         }
       ]
     }
   ]
 }
-
-
-
-
-
-
-
 

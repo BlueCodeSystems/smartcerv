@@ -106,8 +106,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
             FormJson notes = new FormJson("Notes And Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
-            FormJson enhancedDigitalImaging = new FormJson("Enhanced Digital Imaging(EDI)",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/enhanced_digital_imaging.json")));
+            //FormJson enhancedDigitalImaging = new FormJson("Enhanced Digital Imaging(EDI)",
+                    //Utils.getStringFromInputStream(context.getAssets().open("forms/enhanced_digital_imaging.json")));
 
                     //Add via forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
@@ -118,7 +118,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
-            viaFormGroup.addForm(enhancedDigitalImaging);
+            //viaFormGroup.addForm(enhancedDigitalImaging);
         }catch (Exception e){
 
         }

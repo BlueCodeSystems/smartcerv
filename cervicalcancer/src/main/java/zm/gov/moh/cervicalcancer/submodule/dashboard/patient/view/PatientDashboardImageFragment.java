@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.GalleryImageAdapter;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.IRecyclerViewClickListener;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.IRecyclerViewClickListener;*/
 
-public class PatientDashboardImageFragment extends AppCompatActivity {
+/*public class PatientDashboardImageFragment extends AppCompatActivity {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;

@@ -44,7 +44,6 @@ dependencies {
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.jsibbold:zoomage:1.1.0'
-    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.afollestad:drag-select-recyclerview:0.3.6'
     implementation 'com.github.nostra13:Android-Universal-Image-Loader:v1.9.5'
     implementation 'com.android.support:design:28.0.0'
@@ -61,10 +60,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
     implementation project(':core')
     implementation 'com.google.android.material:material:1.0.0'
-    implementation 'com.android.support:recyclerview-v7:28.0.0'
-    implementation 'com.android.support:support-annotations:28.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'com.android.support:support-annotations:28.0.0'
+
 
 
 }

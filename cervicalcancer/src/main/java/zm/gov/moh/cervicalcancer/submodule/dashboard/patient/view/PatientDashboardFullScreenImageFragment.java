@@ -6,9 +6,9 @@ import android.os.Bundle;
 
 import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.FullSizeAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.FullSizeAdapter;*/
 
-public class PatientDashboardFullScreenImageFragment extends Activity {
+/*public class PatientDashboardFullScreenImageFragment extends Activity {
 
     ViewPager viewPager;
     String[] images;
@@ -31,5 +31,4 @@ public class PatientDashboardFullScreenImageFragment extends Activity {
         ViewPager.setAdapter(fullSizeAdapter);
         viewPager.setCurrentItem(position,true);
     }
-}
-*/
+}*/

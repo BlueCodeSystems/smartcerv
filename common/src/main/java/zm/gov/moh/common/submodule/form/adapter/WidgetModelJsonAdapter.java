@@ -55,7 +55,10 @@ public class WidgetModelJsonAdapter {
 
                 final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
 
-                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                imageViewButtonModel.setWidgetType(widgetModelJson.getTag());
+                imageViewButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return imageViewButtonModel;
 
             case "WidgetGroupRow":
 

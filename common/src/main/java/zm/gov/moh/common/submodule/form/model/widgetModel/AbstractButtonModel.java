@@ -15,4 +15,6 @@ public abstract class AbstractButtonModel extends AbstractWidgetModel implements
     public String getText() {
         return text;
     }
+
+    public abstract void setLabel(String label);
 }

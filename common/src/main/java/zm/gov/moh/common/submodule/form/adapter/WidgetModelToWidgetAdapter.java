@@ -20,6 +20,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -31,6 +32,7 @@ import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
@@ -76,6 +78,16 @@ public class WidgetModelToWidgetAdapter {
             FormDatePickerWidget widget = new FormDatePickerWidget(this.context, this.bundle);
             widget.setTag(model.getTag());
             widget.setText(model.getText());
+            return widget;
+        }
+        else if(widgetModel instanceof ImageViewButtonModel) {
+
+            ImageViewButtonModel model = (ImageViewButtonModel) widgetModel;
+
+            BaseWidget widget = new FormImageViewButtonWidget.Builder(this.context)
+                .setLabel(model.getLabel())
+                    .setBundle(bundle)
+                    .build();
             return widget;
         }
         else if(widgetModel instanceof WidgetGroupRowModel){
