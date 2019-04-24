@@ -104,6 +104,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
+            FormJson prescriptions2 = new FormJson("Prescription(s) 2",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions2.json")));
 
             //Add via forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
@@ -113,6 +115,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(referral);
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
+            viaFormGroup.addForm(prescriptions2);
         }catch (Exception e){
 
         }

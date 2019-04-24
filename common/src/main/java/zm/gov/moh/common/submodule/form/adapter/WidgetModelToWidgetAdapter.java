@@ -25,6 +25,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
@@ -176,7 +177,8 @@ public class WidgetModelToWidgetAdapter {
         else if(widgetModel instanceof BasicDrugWidgetModel) {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
-            return null;
+            return new BasicDrugWidget(context)
+                    .setUuid(model.getUuid()).build(); // test
         }
 
         return null;
