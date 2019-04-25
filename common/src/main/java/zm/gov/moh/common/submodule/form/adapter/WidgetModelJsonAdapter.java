@@ -13,6 +13,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -59,6 +60,15 @@ public class WidgetModelJsonAdapter {
                 imageViewButtonModel.setLabel(widgetModelJson.getLabel());
 
                 return imageViewButtonModel;
+
+            case "CameraButton":
+
+                final CameraButtonModel CameraButtonModel = new CameraButtonModel();
+
+                CameraButtonModel.setWidgetType(widgetModelJson.getTag());
+                CameraButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return CameraButtonModel;
 
             case "WidgetGroupRow":
 

@@ -51,6 +51,12 @@
               "weight": 1
             },
             {
+              "widgetType": "CameraButton",
+              "label": "Take Photo",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
               "tag":"edi inspection done",
               "widgetType":"Concept",
               "conceptId":165156,
