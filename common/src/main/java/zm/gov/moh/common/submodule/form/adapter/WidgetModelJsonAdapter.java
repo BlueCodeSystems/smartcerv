@@ -4,6 +4,7 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
@@ -165,7 +166,15 @@ public class WidgetModelJsonAdapter {
                 districtPickerModel.setWeight(widgetModelJson.getWeight());
 
                 return districtPickerModel;
-               default: return null;
+
+            case "ConceptDrug":
+                final BasicDrugWidgetModel basicDrugWidgetModel = new BasicDrugWidgetModel();
+
+                basicDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+
+                return basicDrugWidgetModel;
+
+            default: return null;
         }
     }
 

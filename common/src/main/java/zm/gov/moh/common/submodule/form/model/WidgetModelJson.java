@@ -21,7 +21,7 @@ public class WidgetModelJson {
     protected String dataType;
     protected String style;
     protected List<Logic> logic;
-
+    protected String uuid;
 
 
     public void setWidgetType(String widgetType) {
@@ -146,5 +146,13 @@ public class WidgetModelJson {
 
     public void setLogic(List<Logic> logic) {
         this.logic = logic;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

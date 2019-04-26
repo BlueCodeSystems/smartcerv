@@ -10,6 +10,7 @@ import android.view.View;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
@@ -24,6 +25,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
@@ -175,7 +177,13 @@ public class WidgetModelToWidgetAdapter {
                     .setWeight(model.getWeight())
                     .build();
         }
+        else if(widgetModel instanceof BasicDrugWidgetModel) {
+            BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
+
+            return new BasicDrugWidget(context)
+                    .setUuid(model.getUuid()).build(); // test
+        }
         else if(widgetModel instanceof GenderPickerModel){
 
             GenderPickerModel model = (GenderPickerModel) widgetModel;
@@ -202,7 +210,6 @@ public class WidgetModelToWidgetAdapter {
 
             return widget;
         }
-
 
         return null;
     }
