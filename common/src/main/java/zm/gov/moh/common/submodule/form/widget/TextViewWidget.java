@@ -83,6 +83,8 @@ public class TextViewWidget extends BaseWidget implements Labeled {
 
            if(mLabel != null)
                widget.setLabel(mLabel);
+            if(mTag != null)
+                widget.setTag(mTag);
 
            widget.setWeight(mWeight);
            widget.setTextSize(mTextSize);

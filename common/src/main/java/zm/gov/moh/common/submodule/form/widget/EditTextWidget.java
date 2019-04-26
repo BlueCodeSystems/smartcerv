@@ -75,6 +75,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         @Override
         public BaseWidget build() {
 
+            super.build();
             EditTextWidget widget = new EditTextWidget(mContext);
 
             if(mHint != null)
@@ -83,6 +84,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setBundle(mBundle);
             if(mLabel != null)
                 widget.setLabel(mLabel);
+            if(mTag != null)
+                widget.setTag(mTag);
             widget.setTextSize(mTextSize);
 
             widget.addViewToViewGroup();

@@ -8,9 +8,11 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTe
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -142,6 +144,27 @@ public class WidgetModelJsonAdapter {
                 cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
 
                 return cervicalCancerIDEditTextModel;
+
+            case "GenderPicker":
+
+                final GenderPickerModel genderPickerModel = new GenderPickerModel();
+
+                genderPickerModel.setWidgetType(widgetModelJson.getWidgetType());
+                genderPickerModel.setTag(widgetModelJson.getTag());
+                genderPickerModel.setWeight(widgetModelJson.getWeight());
+                genderPickerModel.setStyle(widgetModelJson.getStyle());
+
+                return genderPickerModel;
+
+            case "DistrictPicker":
+
+                final DistrictPickerModel districtPickerModel = new DistrictPickerModel();
+
+                districtPickerModel.setWidgetType(widgetModelJson.getWidgetType());
+                districtPickerModel.setTag(widgetModelJson.getTag());
+                districtPickerModel.setWeight(widgetModelJson.getWeight());
+
+                return districtPickerModel;
                default: return null;
         }
     }

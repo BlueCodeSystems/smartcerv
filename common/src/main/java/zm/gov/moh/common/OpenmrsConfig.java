@@ -1,6 +1,6 @@
 package zm.gov.moh.common;
 
-public class ModuleConfig {
+public class OpenmrsConfig {
 
     //Vitals
     public static final String CONCEPT_UUID_RESPIRATORY_RATE = "5242AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -17,4 +17,8 @@ public class ModuleConfig {
 
     //Visit types
     public static final String VISIT_TYPE_UUID_FACILITY_VISIT = "7b0f5697-27e3-40c4-8bae-f4049abfb4ed";
+
+    //Location tags
+    public static final String LOCATION_TAG_UUID_DISTRICT = "332f8bdb-7a2d-4063-9c76-cbb4a969fb8d";
+    public static final String LOCATION_TAG_UUID_PROVINCE ="4bd0baf0-40eb-4209-bc6b-1080f3b34b41";
 }

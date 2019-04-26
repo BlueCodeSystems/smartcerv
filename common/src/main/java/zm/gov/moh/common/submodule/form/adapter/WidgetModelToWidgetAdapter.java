@@ -2,11 +2,9 @@ package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
 
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 
@@ -16,9 +14,11 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTe
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -27,9 +27,11 @@ import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
@@ -64,6 +66,7 @@ public class WidgetModelToWidgetAdapter {
                     .setLabel(model.getLabel())
                     .setTextSize(18)
                     .setWeight(1)
+                    .setTag(model.getTag())
                     .build();
 
            return widget;
@@ -171,6 +174,33 @@ public class WidgetModelToWidgetAdapter {
                     .setLogic(model.getLogic())
                     .setWeight(model.getWeight())
                     .build();
+        }
+
+        else if(widgetModel instanceof GenderPickerModel){
+
+            GenderPickerModel model = (GenderPickerModel) widgetModel;
+
+            BaseWidget widget = new GenderPickerWidget.Builder(this.context)
+                    .setFemaleLabel("Female")
+                    .setMaleLabel("Male")
+                    .setBundle(this.bundle)
+                    .setTag(model.getTag())
+                    .setWeight(1)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DistrictPickerModel){
+
+            BaseWidget widget = new DistrictPickerWidget.Builder(this.context)
+                    .setDistrictLabel("District")
+                    .setProvinceLabel("Province")
+                    .setRepository(repository)
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .build();
+
+            return widget;
         }
 
 

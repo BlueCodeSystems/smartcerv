@@ -35,6 +35,13 @@
           "widgetType":"TextView",
           "textSize":24,
           "weight":1
+        },
+        {
+          "tag":"PERSON_GENDER",
+          "label":"Gender",
+          "widgetType":"GenderPicker",
+          "textSize":24,
+          "weight":1
         }
       ]
     },
@@ -42,8 +49,15 @@
     "title":"Contact Information",
       "widgets":[
         {
+          "tag":"PERSON_PHONE",
+          "label":"Phone",
+          "widgetType":"EditText",
+          "hint": "Example 0967546754",
+          "weight":1
+        },
+        {
           "label":"Address",
-          "tag":"nrc",
+          "tag":"PERSON_ADDRESS",
           "widgetType":"EditText",
           "hint": "Plot number, Village, Street",
           "weight":1
@@ -53,24 +67,10 @@
           "widgets": [
             {
               "tag":"nrc",
-              "widgetType":"EditText",
-              "hint": "District",
-              "weight":1
-            },
-            {
-              "tag":"nrc",
-              "widgetType":"EditText",
-              "hint": "Province",
+              "widgetType":"DistrictPicker",
               "weight":1
             }
           ]
-        },
-        {
-          "tag":"phone",
-          "label":"Phone",
-          "widgetType":"EditText",
-          "hint": "Example 0967546754",
-          "weight":1
         }
       ]
   }]

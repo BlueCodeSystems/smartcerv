@@ -12,8 +12,12 @@ public class Key {
     public static final String VISIT_ID = "VISIT_ID";
     public static final String PERSON_GIVEN_NAME = "PERSON_GIVEN_NAME";
     public static final String PERSON_FAMILY_NAME = "PERSON_FAMILY_NAME";
+    public static final String PERSON_DOB = "PERSON_DOB";
     public static final String PERSON_GENDER = "PERSON_GENDER";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
+    public static final String PERSON_PHONE = "PERSON_PHONE";
+    public static final String PERSON_DISTRICT_LOCATION_ID = "PERSON_DISTRICT_LOCATION_ID";
+    public static final String PERSON_PROVINCE_LOCATION_ID = "PERSON_PROVINCE_LOCATION_ID";
     public static final String START_MODULE_ON_RESULT = "START_MODULE_ON_RESULT";
     public static final String FORM_TAGS = "FORM_TAGS";
     public static final String SERVICE_NAME = "SERVICE_NAME";

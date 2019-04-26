@@ -173,6 +173,11 @@ public class EncounterSubmission extends IntentService implements InjectableView
         this.repository = repository;
     }
 
+    @Override
+    public Repository getRepository() {
+        return repository;
+    }
+
     public void onError(Throwable throwable){
         Exception e = new Exception(throwable);
     }

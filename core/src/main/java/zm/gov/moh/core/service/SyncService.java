@@ -47,6 +47,10 @@ public abstract class SyncService extends IntentService implements InjectableVie
         this.repository = repository;
     }
 
+    @Override
+    public Repository getRepository() {
+        return repository;
+    }
 
     public void onError(Throwable throwable){
         Exception e = new Exception(throwable);
