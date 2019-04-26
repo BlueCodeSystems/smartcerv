@@ -12,4 +12,9 @@
         <activity android:name=".view.CommonHomeActivity"></activity>
     </application>
 
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths" />!-->
+
 </manifest>

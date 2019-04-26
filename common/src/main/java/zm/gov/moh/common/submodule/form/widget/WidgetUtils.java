@@ -32,6 +32,7 @@ public class WidgetUtils {
     public static final int  WRAP_CONTENT = LinearLayoutCompat.LayoutParams.WRAP_CONTENT;
     public static final int  VERTICAL = LinearLayoutCompat.VERTICAL;
     public static final int  HORIZONTAL = LinearLayoutCompat.HORIZONTAL;
+    public static final int  NO_WEIGHT = 0;
 
     public static View createLinearLayout(Context context, int orientation,View... views){
 
@@ -161,6 +162,7 @@ public class WidgetUtils {
         return view;
     }
 
+
     public static <T extends View> T setLayoutParams(T view, int width, int height){
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
@@ -225,6 +227,8 @@ public class WidgetUtils {
                 callback.accept(view);
             }
     }
+
+
 
     public static void extractTagsRecursive(ViewGroup rootView,Set<String> result, Set<String> search) {
 

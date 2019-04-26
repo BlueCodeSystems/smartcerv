@@ -29,7 +29,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
         this.context = (BaseActivity) context;
         this.formJsonGroups = formJsonGroups;
         this.bundle = ((BaseActivity) context).getIntent().getExtras();
-        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
             view = infalInflater.inflate(R.layout.submodule_group_child_item, null);
         }
 
-        TextView sequence = (TextView) view.findViewById(R.id.submodule_group_child_item_title);
+        TextView sequence = view.findViewById(R.id.submodule_group_child_item_title);
         sequence.setText(formJson.getName());
 
         return view;
@@ -95,7 +95,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
             view = inf.inflate(R.layout.submodule_group_item, null);
         }
 
-        TextView heading = (TextView) view.findViewById(R.id.submodule_group_item_title);
+        TextView heading = view.findViewById(R.id.submodule_group_item_title);
         heading.setText(formJsonGroup.getName());
 
         return view;

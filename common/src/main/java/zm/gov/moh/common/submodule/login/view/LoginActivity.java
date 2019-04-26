@@ -121,6 +121,16 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         viewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
     }
 
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
     public void setLocation(List<Location> locations){
 
         locationArrayAdapter.clear();

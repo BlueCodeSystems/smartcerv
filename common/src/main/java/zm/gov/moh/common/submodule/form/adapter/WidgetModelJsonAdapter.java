@@ -1,11 +1,15 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
+import android.widget.ImageView;
+
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
@@ -35,6 +39,7 @@ public class WidgetModelJsonAdapter {
                 editText.setHint(widgetModelJson.getHint());
                 editText.setText(widgetModelJson.getText());
                 editText.setWeight(widgetModelJson.getWeight());
+                editText.setLabel(widgetModelJson.getLabel());
 
                 return editText;
 
@@ -47,6 +52,16 @@ public class WidgetModelJsonAdapter {
                 datePickerButtonModel.setText(widgetModelJson.getText());
 
                 return datePickerButtonModel;
+
+            case "ImageViewButton":
+
+                final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
+
+                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                imageViewButtonModel.setTag(widgetModelJson.getTag());
+                imageViewButtonModel.setText(widgetModelJson.getText());
+
+                return imageViewButtonModel;
 
             case "WidgetGroupRow":
 
@@ -141,7 +156,15 @@ public class WidgetModelJsonAdapter {
                 cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
 
                 return cervicalCancerIDEditTextModel;
-               default: return null;
+
+            case "ConceptDrug":
+                final BasicDrugWidgetModel basicDrugWidgetModel = new BasicDrugWidgetModel();
+
+                basicDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+
+                return basicDrugWidgetModel;
+
+            default: return null;
         }
     }
 
@@ -167,6 +190,13 @@ public class WidgetModelJsonAdapter {
             json.setWidgetType(datePickerButtonModel.getWidgetType());
             json.setTag(datePickerButtonModel.getTag());
         }
+        else if(widgetModel instanceof ImageViewButtonModel){
+
+             ImageViewButtonModel imageViewButtonModel = (ImageViewButtonModel) widgetModel;
+
+             json.setWidgetType(imageViewButtonModel.getWidgetType());
+             json.setTag(imageViewButtonModel.getTag());
+         }
          else if(widgetModel instanceof FormLabelModel){
 
              FormLabelModel formLabelModel = (FormLabelModel) widgetModel;

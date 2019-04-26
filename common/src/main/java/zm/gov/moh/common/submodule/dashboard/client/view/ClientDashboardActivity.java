@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
+import android.view.View;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -36,7 +37,7 @@ public class ClientDashboardActivity extends BaseActivity {
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Client Dashboard");
 
-        vitals = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.VITALS);
+        vitals = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
 
         clientId = getIntent().getExtras().getLong(PERSON_ID);
 
@@ -46,7 +47,7 @@ public class ClientDashboardActivity extends BaseActivity {
         binding.setToolbarhandler(toolBarEventHandler);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPager viewPager = findViewById(R.id.viewpager);
 
         // Create an adapter that knows which fragment should be shown on each page
         ClientDashboardFragmentPagerAdapter adapter = new ClientDashboardFragmentPagerAdapter(this, getSupportFragmentManager());
@@ -55,7 +56,7 @@ public class ClientDashboardActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
 
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this, binding::setClient);
@@ -63,6 +64,16 @@ public class ClientDashboardActivity extends BaseActivity {
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     public Module getVitals() {

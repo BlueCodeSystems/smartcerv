@@ -51,7 +51,7 @@ public class ClientDashboardVitalsFragment extends Fragment {
 
 
         context.getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_TEMPERATURE).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));;
+                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_TEMPERATURE).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));
 
         context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_PULSE).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
 

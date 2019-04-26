@@ -22,9 +22,11 @@ import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.R2;
 import zm.gov.moh.common.databinding.RegistrationActivityBinding;
+import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.registration.viewmodel.RegistrationViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
@@ -41,8 +43,9 @@ public class RegistrationActivity extends BaseActivity {
     @BindView(R2.id.province) EditText province;
     @BindView(R2.id.district) EditText district;
     @BindView(R2.id.address1) EditText address1;
-    private Bundle bundle;
+    private Bundle mBundle;
     private Module clientDashBoardModule;
+    private Module formModule;
 
 
     private RegistrationViewModel registrationViewModel;
@@ -53,9 +56,14 @@ public class RegistrationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        bundle = new Bundle();
+        if(getIntent().getExtras() != null)
+            mBundle = getIntent().getExtras();
+        else
+            mBundle = new Bundle();
 
         AndroidThreeTen.init(this);
+
+    /*    formModule = ((BaseApplication)((BaseActivity) this).getApplication()).getModule(BaseApplication.CoreModule.FORM);
 
         registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
 
@@ -77,9 +85,23 @@ public class RegistrationActivity extends BaseActivity {
                 date.setError(null);
         });
 
-        clientDashBoardModule = ((BaseApplication)this.getApplication()).getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
+        clientDashBoardModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
-        init();
+        init();*/
+
+        try {
+
+            FormJson clientRegistration = new FormJson("Client Registration",
+                    Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
+
+
+            mBundle.putSerializable(Key.JSON_FORM, clientRegistration);
+            startModule(BaseApplication.CoreModule.FORM, mBundle);
+
+        }catch (Exception e){
+
+        }
+
     }
 
     public void init(){
@@ -135,13 +157,18 @@ public class RegistrationActivity extends BaseActivity {
 
         final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
 
-            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
-            startModule(clientDashBoardModule, bundle);
+            mBundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
+            startModule(clientDashBoardModule, mBundle);
             finish();
         };
 
         registrationViewModel.getValidateAndSubmitFormObserver().observe(this, observer);
         registrationViewModel.getClientDashBoardTransition().observe(this, getClientDashBoardTransitionObserver);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     //validate on focus lost

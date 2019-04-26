@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
@@ -8,28 +9,33 @@
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
         <import type="org.threeten.bp.LocalDate"/>
     </data>
-    <FrameLayout
-        android:layout_height="match_parent"
-         android:layout_width="match_parent">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".module.dashboard.patient.view.PatientDashboardActivity">
+            tools:context=".module.dashboard.patient.view.PatientDashboardImageFragment">
+
+
 
             <include
                 layout="@layout/base_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:toolbarhandler="@{toolbarhandler}">
-            </include>
+                app:toolbarhandler="@{toolbarhandler}"></include>
 
-            <include android:id="@+id/client"
+            <include
+                android:id="@+id/client"
                 layout="@layout/client_card"
                 app:client="@{client}" />
+
+
+
 
             <TextView
                 android:id="@+id/textView15"
@@ -38,7 +44,7 @@
                 android:layout_margin="10dp"
                 android:text="@{facility.name}"
                 android:textColor="@color/colorAccent"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -47,7 +53,17 @@
                 android:layout_margin="10dp"
                 android:gravity="end"
                 android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
-                android:textColor="@color/darker_grey"/>
+                android:textColor="@color/darker_grey" />
+
+            <Button
+                android:id="@+id/load_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_green"
+                android:text="Load Image"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
@@ -57,23 +73,22 @@
             <LinearLayout
                 android:id="@+id/bottom_navigation_view_container"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="55dp"
-                android:layout_height="wrap_content">
-            </LinearLayout>
+                android:orientation="vertical"></LinearLayout>
 
         </LinearLayout>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
             android:layout_width="match_parent"
-            android:elevation="4dp"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
-            app:itemIconTint="@color/selector_bottom_nav"
-            app:itemTextColor="@color/selector_bottom_nav"
-            android:text="@string/hello_blank_fragment"
             android:background="@color/pinker"
-            />
+            android:elevation="4dp"
+            android:text="@string/hello_blank_fragment"
+            app:itemIconTint="@color/selector_bottom_nav"
+            app:itemTextColor="@color/selector_bottom_nav" />
 
     </FrameLayout>
 

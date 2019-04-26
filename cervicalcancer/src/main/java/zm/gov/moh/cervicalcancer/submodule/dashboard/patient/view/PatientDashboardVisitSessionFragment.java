@@ -63,7 +63,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
 
         context = (BaseActivity)getContext();
         rootView = inflater.inflate(R.layout.fragment_patient_dashoard_visit_session, container, false);
-        formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
         viewModel = (PatientDashboardViewModel)context.getViewModel();
 
         this.bundle = getArguments();
@@ -104,8 +104,12 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
+            FormJson notes = new FormJson("Notes And Recommendations",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
+            FormJson cervicography = new FormJson("Images",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/digital_cervicography.json")));
 
-            //Add via forms to a form group
+                    //Add via forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
             viaFormGroup.addForm(hivStatus);
             viaFormGroup.addForm(physicalExam);
@@ -113,6 +117,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(referral);
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
+            viaFormGroup.addForm(notes);
+            viaFormGroup.addForm(cervicography);
         }catch (Exception e){
 
         }
@@ -128,7 +134,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         mFormGroupExpandableListView.setOnChildClickListener(
                 (ExpandableListView parent, View v, int groupPosition, int childPosition, long id) -> {
 
-                    bundle.putSerializable(BaseActivity.JSON_FORM_KEY, adapter.getChild(groupPosition,childPosition));
+                    bundle.putSerializable(BaseActivity.JSON_FORM, adapter.getChild(groupPosition,childPosition));
 
                     context.startModule(formModule, bundle);
                     return false;

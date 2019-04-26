@@ -33,7 +33,7 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
         this.context = (BaseActivity) context;
         this.submoduleGroups = submoduleGroups;
         this.bundle = bundle;
-        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getSubmodule(BaseApplication.CoreModule.FORM);
+        this.formModule = ((BaseApplication)((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
 
     @Override
@@ -52,14 +52,14 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-        Module module = (Module) getChild(groupPosition, childPosition);
+        Module module = getChild(groupPosition, childPosition);
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.submodule_group_child_item, null);
         }
 
-        TextView sequence = (TextView) view.findViewById(R.id.submodule_group_child_item_title);
+        TextView sequence = view.findViewById(R.id.submodule_group_child_item_title);
         sequence.setText(module.getName());
 
         view.setOnClickListener(view1 ->{
@@ -110,7 +110,7 @@ public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter
             view = inf.inflate(R.layout.submodule_group_item, null);
         }
 
-        TextView heading = (TextView) view.findViewById(R.id.submodule_group_item_title);
+        TextView heading = view.findViewById(R.id.submodule_group_item_title);
         heading.setText(submoduleGroup.getName());
 
 
