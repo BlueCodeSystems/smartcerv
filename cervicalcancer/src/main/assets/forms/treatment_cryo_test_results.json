@@ -1,133 +1,141 @@
 {
   "attributes": {
-    "type":"Encounter",
+    "type": "Encounter",
     "encounterId": 12,
-    "submitLabel":"Submit"
+    "submitLabel": "Submit"
   },
   "widgetGroup": [
     {
-      "title":"Visual Inspection with Acetic Acid(VIA)",
-      "widgets":[
+      "title": "Visual Inspection with Acetic Acid(VIA)",
+      "widgets": [
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"via inspection done",
-              "widgetType":"Concept",
-              "conceptId":165155,
-              "dataType":"Boolean",
-              "style":"radio",
-              "textSize":18,
-              "label":"Was inspection done?",
-              "logic":[
-                {
-                  "condition":{
-                    "value":2
-                  },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["via reason"]
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"via reason",
-              "widgetType":"Concept",
-              "conceptId":165216,
-              "dataType":"Text",
-              "hint":"Reason",
-              "textSize":18
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title":"Enhanced Digital Imaging(EDI)",
-      "widgets":[
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"edi inspection done",
-              "widgetType":"Concept",
-              "conceptId":165156,
-              "dataType":"Boolean",
-              "style":"radio",
-              "textSize":18,
-              "logic":[
-                {
-                  "condition":{
-                    "value":2
-                  },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["edi reason"]
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"edi reason",
-              "widgetType":"Concept",
-              "conceptId":165217,
-              "dataType":"Text",
-              "hint":"Reason",
-              "textSize":18
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title":"Transformation zone",
-      "widgets":[
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-            {
-              "tag":"transformation zone completely seen",
-              "widgetType":"Concept",
-              "conceptId": 165157,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Transformation zone completely seen",
+              "tag": "via inspection done",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
               "textSize": 18,
-              "logic":[
+              "label": "Was inspection done?",
+              "logic": [
                 {
-                  "condition":{
-                    "value":1
+                  "condition": {
+                    "value": 2
                   },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["screening results"]
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "via reason"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "via reason",
+              "widgetType": "Concept",
+              "conceptId": 165216,
+              "dataType": "Text",
+              "hint": "Reason",
+              "textSize": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Enhanced Digital Imaging(EDI)",
+      "widgets": [
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "edi inspection done",
+              "widgetType": "Concept",
+              "conceptId": 165156,
+              "dataType": "Boolean",
+              "style": "radio",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "edi reason"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "edi reason",
+              "widgetType": "Concept",
+              "conceptId": 165217,
+              "dataType": "Text",
+              "hint": "Reason",
+              "textSize": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Transformation zone",
+      "widgets": [
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "transformation zone completely seen",
+              "widgetType": "Concept",
+              "conceptId": 165157,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Transformation zone completely seen",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "screening results"
+                      ]
                     }
                   }
                 },
                 {
-                  "condition":{
-                    "value":2
+                  "condition": {
+                    "value": 2
                   },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["reason for no"]
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "reason for no"
+                      ]
                     }
                   }
                 }
@@ -136,49 +144,51 @@
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"reason for no",
-              "widgetType":"Concept",
-              "conceptId":165158,
-              "dataType":"Text",
-              "hint":"Reason(e.g severe cervicitis)",
-              "textSize":18
+              "tag": "reason for no",
+              "widgetType": "Concept",
+              "conceptId": 165158,
+              "dataType": "Text",
+              "hint": "Reason(e.g severe cervicitis)",
+              "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "widgetType":"TextView",
-              "text":"Screening Results",
-              "textSize":18,
-              "weight":1
+              "widgetType": "TextView",
+              "text": "Screening Results",
+              "textSize": 18,
+              "weight": 1
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"screening results",
-              "widgetType":"Concept",
+              "tag": "screening results",
+              "widgetType": "Concept",
               "conceptId": 165160,
               "dataType": "Coded",
-              "style":"radio",
+              "style": "radio",
               "label": "Screening Results",
-              "textSize":18,
-              "logic":[
+              "textSize": 18,
+              "logic": [
                 {
-                  "condition":{
-                    "value":165162
+                  "condition": {
+                    "value": 165162
                   },
-                  "action":{
-                    "type":"skipLogic",
-                    "metadata":{
-                      "tags":["eligible for cryotherapy"]
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "eligible for cryotherapy"
+                      ]
                     }
                   }
                 }
@@ -187,99 +197,99 @@
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"eligible for cryotherapy",
-              "widgetType":"Concept",
+              "tag": "eligible for cryotherapy",
+              "widgetType": "Concept",
               "conceptId": 165164,
-              "dataType":"Boolean",
-              "style":"check",
-              "label":"Eligible for cryotherapy",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Eligible for cryotherapy",
               "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"entire lesion seen",
-              "widgetType":"Concept",
+              "tag": "entire lesion seen",
+              "widgetType": "Concept",
               "conceptId": 165168,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Entire lesion seen",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Entire lesion seen",
               "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"covers less than 75% of cervix",
-              "widgetType":"Concept",
+              "tag": "covers less than 75% of cervix",
+              "widgetType": "Concept",
               "conceptId": 165169,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Covers < 75% of cervix",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Covers < 75% of cervix",
               "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"atypical vessel",
-              "widgetType":"Concept",
+              "tag": "atypical vessel",
+              "widgetType": "Concept",
               "conceptId": 165170,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Atypical vessel",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Atypical vessel",
               "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"extends into cervical os",
-              "widgetType":"Concept",
+              "tag": "extends into cervical os",
+              "widgetType": "Concept",
               "conceptId": 165171,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Extends into cervical os",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Extends into cervical os",
               "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"covers greater than 75% of cervix",
-              "widgetType":"Concept",
+              "tag": "covers greater than 75% of cervix",
+              "widgetType": "Concept",
               "conceptId": 165172,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Covers > 75% of cervix",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Covers > 75% of cervix",
               "textSize": 18
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"mosaicism or punctuation",
-              "widgetType":"Concept",
+              "tag": "mosaicism or punctuation",
+              "widgetType": "Concept",
               "conceptId": 165173,
-              "dataType":"Boolean",
-              "style":"radio",
-              "label":"Mosaicism/ Punctuation",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Mosaicism/ Punctuation",
               "textSize": 18
             }
           ]
