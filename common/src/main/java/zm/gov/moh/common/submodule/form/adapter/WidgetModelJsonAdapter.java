@@ -181,30 +181,30 @@ public class WidgetModelJsonAdapter {
 
         WidgetModelJson json = new WidgetModelJson();
 
-         if(widgetModel instanceof EditTextModel){
+        if(widgetModel instanceof EditTextModel){
 
-             EditTextModel basicFormEditText = (EditTextModel) widgetModel;
+            EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
-             json.setWidgetType(basicFormEditText.getWidgetType());
-             json.setHint(basicFormEditText.getHint());
-             json.setTag(basicFormEditText.getTag());
-             json.setText(basicFormEditText.getText());
-         }
+            json.setWidgetType(basicFormEditText.getWidgetType());
+            json.setHint(basicFormEditText.getHint());
+            json.setTag(basicFormEditText.getTag());
+            json.setText(basicFormEditText.getText());
+        }
         else if(widgetModel instanceof DatePickerButtonModel){
 
-             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
+            DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
 
             json.setWidgetType(datePickerButtonModel.getWidgetType());
             json.setTag(datePickerButtonModel.getTag());
         }
-         else if(widgetModel instanceof FormLabelModel){
+        else if(widgetModel instanceof FormLabelModel){
 
-             FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
+            FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
 
-             json.setWidgetType(formLabelModel.getWidgetType());
-             json.setTag(formLabelModel.getTag());
-             json.setText(formLabelModel.getLabel());
-         }
+            json.setWidgetType(formLabelModel.getWidgetType());
+            json.setTag(formLabelModel.getTag());
+            json.setText(formLabelModel.getLabel());
+        }
 
         return json;
     }

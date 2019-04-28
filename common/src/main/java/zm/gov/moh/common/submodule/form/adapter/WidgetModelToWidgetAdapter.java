@@ -72,7 +72,7 @@ public class WidgetModelToWidgetAdapter {
                     .setWeight(1)
                     .build();
 
-           return widget;
+            return widget;
         }
         else if(widgetModel instanceof DatePickerButtonModel){
 

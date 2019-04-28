@@ -78,7 +78,7 @@ public class FormImageViewButtonWidget extends TextViewWidget implements Submitt
         protected Bundle mBundle;
 
         public Builder(Context context){
-           super(context);
+            super(context);
         }
 
         public FormImageViewButtonWidget.Builder setLabel(String label){

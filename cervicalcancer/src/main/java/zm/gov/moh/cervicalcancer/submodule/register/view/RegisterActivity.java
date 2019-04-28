@@ -35,7 +35,6 @@ public class RegisterActivity extends BaseActivity {
 
 
         /*if(bundle != null){
-
             try {
                 getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
             }catch (Exception e){
@@ -43,7 +42,6 @@ public class RegisterActivity extends BaseActivity {
             }
         }
         else {
-
             bundle = new Bundle();
             bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
             getIntent().putExtras(bundle);

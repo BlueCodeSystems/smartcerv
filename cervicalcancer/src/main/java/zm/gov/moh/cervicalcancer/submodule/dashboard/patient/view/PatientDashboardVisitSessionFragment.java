@@ -107,9 +107,9 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             FormJson notes = new FormJson("Notes And Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
             //FormJson enhancedDigitalImaging = new FormJson("Enhanced Digital Imaging(EDI)",
-                    //Utils.getStringFromInputStream(context.getAssets().open("forms/enhanced_digital_imaging.json")));
+            //Utils.getStringFromInputStream(context.getAssets().open("forms/enhanced_digital_imaging.json")));
 
-                    //Add via forms to a form group
+            //Add via forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
             viaFormGroup.addForm(hivStatus);
             viaFormGroup.addForm(physicalExam);
@@ -205,9 +205,9 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         if(id == R.id.start_visit){
 
             if(mVisitState.getState() != VisitState.STARTED)
-              createDialog("Start Visit?",
-                      (DialogInterface dialogInterface, int i)-> viewModel.setVisitState(VisitState.STARTED),
-                      null).show();
+                createDialog("Start Visit?",
+                        (DialogInterface dialogInterface, int i)-> viewModel.setVisitState(VisitState.STARTED),
+                        null).show();
             else
                 createDialog("Stop Visit?",
                         (DialogInterface dialogInterface, int i)-> viewModel.setVisitState(VisitState.ENDED),

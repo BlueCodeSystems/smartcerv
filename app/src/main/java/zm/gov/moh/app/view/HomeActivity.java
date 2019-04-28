@@ -41,7 +41,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
         metrics = new HashMap<>();
 
-      FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
+        FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
 
 
         homeViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);

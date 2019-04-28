@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                         progressDialog.dismiss();
                         break;
 
-                        default: break;
+                    default: break;
                 }
             }
         };
