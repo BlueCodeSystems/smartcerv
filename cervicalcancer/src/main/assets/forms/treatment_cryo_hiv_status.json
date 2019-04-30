@@ -50,10 +50,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": [
-                    "reason for unknown status",
-                    "pict offered"
-                  ]
+                  "tags": ["pict offered","reason for unknown status"]
                 }
               }
             }

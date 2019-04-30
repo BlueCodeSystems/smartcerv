@@ -1,27 +1,26 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
-import android.widget.ImageView;
-
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
+import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
+import zm.gov.moh.common.submodule.form.model.attribute.BasicFormAttribute;
+import zm.gov.moh.common.submodule.form.model.attribute.FormAttribute;
+import zm.gov.moh.common.submodule.form.model.attribute.FormAttributeJson;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextAreaModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
-import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
-import zm.gov.moh.common.submodule.form.model.attribute.BasicFormAttribute;
-import zm.gov.moh.common.submodule.form.model.attribute.FormAttribute;
-import zm.gov.moh.common.submodule.form.model.attribute.FormAttributeJson;
 
 public class WidgetModelJsonAdapter {
 
@@ -29,6 +28,20 @@ public class WidgetModelJsonAdapter {
     WidgetModel fromJson(WidgetModelJson widgetModelJson) {
 
         switch (widgetModelJson.getWidgetType()) {
+
+
+            case "TextArea":
+
+                final TextAreaModel textArea = new TextAreaModel();
+                textArea.setWidgetType(widgetModelJson.getWidgetType());
+                textArea.setTag(widgetModelJson.getTag());
+                textArea.setHint(widgetModelJson.getHint());
+                textArea.setText(widgetModelJson.getText());
+                textArea.setWeight(widgetModelJson.getWeight());
+                textArea.setLabel(widgetModelJson.getLabel());
+
+                return textArea;
+
 
             case "EditText":
 
@@ -164,7 +177,8 @@ public class WidgetModelJsonAdapter {
 
                 return basicDrugWidgetModel;
 
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -174,37 +188,34 @@ public class WidgetModelJsonAdapter {
 
         WidgetModelJson json = new WidgetModelJson();
 
-         if(widgetModel instanceof EditTextModel){
+        if (widgetModel instanceof EditTextModel) {
 
-             EditTextModel basicFormEditText = (EditTextModel) widgetModel;
+            EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
-             json.setWidgetType(basicFormEditText.getWidgetType());
-             json.setHint(basicFormEditText.getHint());
-             json.setTag(basicFormEditText.getTag());
-             json.setText(basicFormEditText.getText());
-         }
-        else if(widgetModel instanceof DatePickerButtonModel){
+            json.setWidgetType(basicFormEditText.getWidgetType());
+            json.setHint(basicFormEditText.getHint());
+            json.setTag(basicFormEditText.getTag());
+            json.setText(basicFormEditText.getText());
+        } else if (widgetModel instanceof DatePickerButtonModel) {
 
-             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
+            DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
 
             json.setWidgetType(datePickerButtonModel.getWidgetType());
             json.setTag(datePickerButtonModel.getTag());
+        } else if (widgetModel instanceof ImageViewButtonModel) {
+
+            ImageViewButtonModel imageViewButtonModel = (ImageViewButtonModel) widgetModel;
+
+            json.setWidgetType(imageViewButtonModel.getWidgetType());
+            json.setTag(imageViewButtonModel.getTag());
+        } else if (widgetModel instanceof FormLabelModel) {
+
+            FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
+
+            json.setWidgetType(formLabelModel.getWidgetType());
+            json.setTag(formLabelModel.getTag());
+            json.setText(formLabelModel.getLabel());
         }
-        else if(widgetModel instanceof ImageViewButtonModel){
-
-             ImageViewButtonModel imageViewButtonModel = (ImageViewButtonModel) widgetModel;
-
-             json.setWidgetType(imageViewButtonModel.getWidgetType());
-             json.setTag(imageViewButtonModel.getTag());
-         }
-         else if(widgetModel instanceof FormLabelModel){
-
-             FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
-
-             json.setWidgetType(formLabelModel.getWidgetType());
-             json.setTag(formLabelModel.getTag());
-             json.setText(formLabelModel.getLabel());
-         }
 
         return json;
     }
@@ -234,7 +245,8 @@ public class WidgetModelJsonAdapter {
 
                 return encounterFormAttribute;
 
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -243,7 +255,7 @@ public class WidgetModelJsonAdapter {
 
         FormAttributeJson json = new FormAttributeJson();
 
-        if(formAttribute instanceof BasicFormAttribute){
+        if (formAttribute instanceof BasicFormAttribute) {
             BasicFormAttribute basicFormEditText = (BasicFormAttribute) formAttribute;
 
             json.setType(basicFormEditText.getFormType());
