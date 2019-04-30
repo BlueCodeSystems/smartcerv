@@ -32,6 +32,10 @@ public interface LocationDao {
     LiveData<Location> findById(Long id);
 
     //get getLocations by id
+    @Query("SELECT name FROM location WHERE location_id = :id")
+    String getNameById(Long id);
+
+    //get getLocations by id
     @Query("SELECT location.* FROM location JOIN patient_identifier ON patient_identifier.location_id = location.location_id WHERE patient_identifier.patient_id = :id AND identifier_type = 3")
     LiveData<Location> getByPatientId(Long id);
 

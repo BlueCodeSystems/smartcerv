@@ -14,7 +14,7 @@ import zm.gov.moh.common.submodule.vitals.model.Vitals;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
-import zm.gov.moh.core.service.EncounterSubmission;
+import zm.gov.moh.core.service.EncounterPersist;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.InjectableViewModel;
 
@@ -97,7 +97,7 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
 
     public void onVitalsDataReceived(Bundle bundle){
 
-        Intent encounterSubmission = new Intent(getApplication(),EncounterSubmission.class);
+        Intent encounterSubmission = new Intent(getApplication(),EncounterPersist.class);
         encounterSubmission.putExtras(bundle);
 
         getApplication().startService(encounterSubmission);

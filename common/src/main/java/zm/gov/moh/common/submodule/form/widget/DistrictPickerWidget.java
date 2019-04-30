@@ -62,7 +62,7 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
 
         this.setGravity(Gravity.CENTER_VERTICAL);
 
@@ -146,7 +146,7 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
             if(mProvinceLabel != null)
                 widget.setProvinceLabel(mProvinceLabel);
 
-            widget.addViewToViewGroup();
+            widget.onCreateView();
 
             return  widget;
         }

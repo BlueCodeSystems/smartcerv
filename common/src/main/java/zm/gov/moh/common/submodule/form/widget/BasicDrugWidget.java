@@ -27,7 +27,7 @@ public class BasicDrugWidget extends BaseWidget {
     }
 
 
-    public void addViewToViewGroup(){
+    public void onCreateView(){
 
     }
 

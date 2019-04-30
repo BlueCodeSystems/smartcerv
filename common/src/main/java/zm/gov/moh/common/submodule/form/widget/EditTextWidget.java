@@ -12,7 +12,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     protected String mHint;
     protected Bundle mBundle;
     protected AppCompatEditText mEditText;
-    private EditTextWidget(Context context){
+
+    public EditTextWidget(Context context){
         super(context);
     }
 
@@ -37,14 +38,19 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
 
-        super.addViewToViewGroup();
+        super.onCreateView();
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
         WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
         addView(mEditText);
+
+        //auto populate
+        String value = mBundle.getString((String) getTag());
+        if(value != null)
+            mEditText.setText(value);
     }
 
     AppCompatEditText getEditTextView(){
@@ -75,7 +81,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         @Override
         public BaseWidget build() {
 
-            super.build();
+           // super.build();
             EditTextWidget widget = new EditTextWidget(mContext);
 
             if(mHint != null)
@@ -88,7 +94,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setTag(mTag);
             widget.setTextSize(mTextSize);
 
-            widget.addViewToViewGroup();
+            widget.onCreateView();
 
             return  widget;
         }

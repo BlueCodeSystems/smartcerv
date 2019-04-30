@@ -35,12 +35,11 @@ import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public class EncounterSubmission extends IntentService implements InjectableViewModel {
+public class EncounterPersist extends IntentService implements InjectableViewModel {
 
-    public final static String FORM_DATA_KEY = "formdata";
     private Repository repository;
 
-    public EncounterSubmission(){
+    public EncounterPersist(){
         super("");
     }
 

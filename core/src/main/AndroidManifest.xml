@@ -11,7 +11,10 @@
             android:name=".service.SearchIndex"
             android:exported="false"/>
         <service
-            android:name=".service.EncounterSubmission"
+            android:name=".service.EncounterPersist"
+            android:exported="false"/>
+        <service
+            android:name=".service.DemographicsPersist"
             android:exported="false"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

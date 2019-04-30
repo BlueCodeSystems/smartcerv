@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.widget.RadioGroup;
 
 import java.util.LinkedHashMap;
@@ -45,7 +44,7 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
 
         genderData = new LinkedHashMap<>();
         genderData.put(mMaleLabel, Long.valueOf(BUTTON_ID_MALE));
@@ -89,7 +88,7 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
             if(mTag != null)
                 widget.setTag(mTag);
 
-            widget.addViewToViewGroup();
+            widget.onCreateView();
 
             return  widget;
         }

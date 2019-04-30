@@ -29,21 +29,26 @@ public class DemographicsPersist extends PersistService {
         final String dob = bundle.getString(Key.PERSON_DOB);
         final String gender = bundle.getString(Key.PERSON_GENDER);
         final String address = bundle.getString(Key.PERSON_ADDRESS);
-        final String district = bundle.getString(Key.PERSON_DISTRICT_LOCATION_ID);
-        final String province = bundle.getString(Key.PERSON_PROVINCE_LOCATION_ID);
+        final Long districtId = bundle.getLong(Key.PERSON_DISTRICT_LOCATION_ID);
+        final Long provinceId = bundle.getLong(Key.PERSON_PROVINCE_LOCATION_ID);
         final long locationId = bundle.getLong(Key.LOCATION_ID);
 
+        final String MID_DAY_TIME = "T12:00:00Z";
 
-        if (givenName != null && familyName != null && gender != null && address != null && district != null && province != null && dob != null) {
+
+        if (givenName != null && familyName != null && gender != null && address != null && districtId != null && provinceId != null && dob != null) {
 
 
-            LocalDateTime dateOfBirth = LocalDateTime.parse(dob, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+            LocalDateTime dateOfBirth = LocalDateTime.parse(dob + MID_DAY_TIME, DateTimeFormatter.ISO_ZONED_DATE_TIME);
+
+            String districtName = getRepository().getDatabase().locationDao().getNameById(districtId);
+            String provinceName = getRepository().getDatabase().locationDao().getNameById(provinceId);
 
             //Create database entity instances
             PatientIdentifier patientId = new PatientIdentifier(patientIdentifierId, personId, String.valueOf(personId).substring(14), 3, PREFERRED, locationId, LocalDateTime.now());
             PersonName personName = new PersonName(personId, givenName, familyName, PREFERRED);
             Person person = new Person(personId, dateOfBirth, gender);
-            PersonAddress personAddress = new PersonAddress(personId, address, district, province, PREFERRED);
+            PersonAddress personAddress = new PersonAddress(personId, address, districtName, provinceName, PREFERRED);
             Patient patient = new Patient(personId, LocalDateTime.now());
 
             //Persist database entity instances asynchronously into the database

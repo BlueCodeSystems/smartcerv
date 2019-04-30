@@ -21,6 +21,7 @@ public class Key {
     public static final String START_MODULE_ON_RESULT = "START_MODULE_ON_RESULT";
     public static final String FORM_TAGS = "FORM_TAGS";
     public static final String SERVICE_NAME = "SERVICE_NAME";
+    public static final String SERVICE_TYPE = "SERVICE_TYPE";
     public static final String JSON_FORM = "JSON_FORM";
 
 }

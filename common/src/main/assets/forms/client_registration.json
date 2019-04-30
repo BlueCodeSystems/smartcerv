@@ -1,6 +1,7 @@
 {
   "attributes": {
-    "type":"Basic",
+    "panelType":"form",
+    "formType":"demographics",
     "submitLabel":"Submit"
   },
   "widgetGroup":[
@@ -40,6 +41,20 @@
           "tag":"PERSON_GENDER",
           "label":"Gender",
           "widgetType":"GenderPicker",
+          "textSize":24,
+          "weight":1
+        },
+        {
+          "label":"Date of birth",
+          "widgetType":"TextView",
+          "textSize":24,
+          "weight":1
+        },
+
+        {
+          "tag":"PERSON_DOB",
+          "widgetType":"DatePicker",
+          "hint":"dd MMM yyyy",
           "textSize":24,
           "weight":1
         }

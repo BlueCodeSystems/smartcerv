@@ -33,7 +33,7 @@ public  abstract class BaseWidget extends LinearLayoutCompat implements Widget{
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public abstract void addViewToViewGroup();
+    public abstract void onCreateView();
 
     public abstract static class Builder {
 

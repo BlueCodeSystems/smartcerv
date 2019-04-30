@@ -5,8 +5,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.view.GravityCompat;
-import zm.gov.moh.common.ui.Utils;
 
 public class TextViewWidget extends BaseWidget implements Labeled {
 
@@ -46,7 +44,7 @@ public class TextViewWidget extends BaseWidget implements Labeled {
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
 
         mTextView = new AppCompatTextView(mContext);
         mTextView.setText(mLabel);
@@ -88,7 +86,7 @@ public class TextViewWidget extends BaseWidget implements Labeled {
 
            widget.setWeight(mWeight);
            widget.setTextSize(mTextSize);
-           widget.addViewToViewGroup();
+           widget.onCreateView();
 
             return widget;
         }
