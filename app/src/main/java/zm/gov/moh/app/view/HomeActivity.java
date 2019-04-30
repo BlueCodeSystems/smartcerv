@@ -9,8 +9,6 @@ import androidx.databinding.DataBindingUtil;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +41,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
         metrics = new HashMap<>();
 
-      FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
+        FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
 
 
         homeViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
@@ -62,16 +60,6 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
         FragmentTransaction transaction = fragmentTransitionSupport.beginTransaction();
 
 
-
-    }
-
-    @Override
-    public void init() {
-        
-    }
-
-    @Override
-    public void onClick(View view) {
 
     }
 

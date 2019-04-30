@@ -17,6 +17,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextAreaModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
@@ -70,11 +71,19 @@ public class WidgetModelJsonAdapter {
 
                 final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
 
-                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
-                imageViewButtonModel.setTag(widgetModelJson.getTag());
-                imageViewButtonModel.setText(widgetModelJson.getText());
+                imageViewButtonModel.setWidgetType(widgetModelJson.getTag());
+                imageViewButtonModel.setLabel(widgetModelJson.getLabel());
 
                 return imageViewButtonModel;
+
+            case "CameraButton":
+
+                final CameraButtonModel CameraButtonModel = new CameraButtonModel();
+
+                CameraButtonModel.setWidgetType(widgetModelJson.getTag());
+                CameraButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return CameraButtonModel;
 
             case "WidgetGroupRow":
 
@@ -190,77 +199,79 @@ public class WidgetModelJsonAdapter {
 
         if (widgetModel instanceof EditTextModel) {
 
-            EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
-            json.setWidgetType(basicFormEditText.getWidgetType());
-            json.setHint(basicFormEditText.getHint());
-            json.setTag(basicFormEditText.getTag());
-            json.setText(basicFormEditText.getText());
-        } else if (widgetModel instanceof DatePickerButtonModel) {
+                EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
-            DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
+                json.setWidgetType(basicFormEditText.getWidgetType());
+                json.setHint(basicFormEditText.getHint());
+                json.setTag(basicFormEditText.getTag());
+                json.setText(basicFormEditText.getText());
+            } else if (widgetModel instanceof DatePickerButtonModel) {
 
-            json.setWidgetType(datePickerButtonModel.getWidgetType());
-            json.setTag(datePickerButtonModel.getTag());
-        } else if (widgetModel instanceof ImageViewButtonModel) {
 
-            ImageViewButtonModel imageViewButtonModel = (ImageViewButtonModel) widgetModel;
+                DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
 
-            json.setWidgetType(imageViewButtonModel.getWidgetType());
-            json.setTag(imageViewButtonModel.getTag());
-        } else if (widgetModel instanceof FormLabelModel) {
+                json.setWidgetType(datePickerButtonModel.getWidgetType());
+                json.setTag(datePickerButtonModel.getTag());
+            } else if (widgetModel instanceof ImageViewButtonModel) {
 
-            FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
+                ImageViewButtonModel imageViewButtonModel = (ImageViewButtonModel) widgetModel;
 
-            json.setWidgetType(formLabelModel.getWidgetType());
-            json.setTag(formLabelModel.getTag());
-            json.setText(formLabelModel.getLabel());
+                json.setWidgetType(imageViewButtonModel.getWidgetType());
+                json.setTag(imageViewButtonModel.getTag());
+            } else if (widgetModel instanceof FormLabelModel) {
+
+                FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
+
+                json.setWidgetType(formLabelModel.getWidgetType());
+                json.setTag(formLabelModel.getTag());
+                json.setText(formLabelModel.getLabel());
+            }
+
+            return json;
         }
 
-        return json;
-    }
+        //form attritube converters
+        @FromJson
+        FormAttribute fromJson (FormAttributeJson formAttributeJson){
 
-    //form attritube converters
-    @FromJson
-    FormAttribute fromJson(FormAttributeJson formAttributeJson) {
+            switch (formAttributeJson.getType()) {
 
-        switch (formAttributeJson.getType()) {
+                case "Basic":
 
-            case "Basic":
+                    final BasicFormAttribute basicFormAttribute = new BasicFormAttribute();
 
-                final BasicFormAttribute basicFormAttribute = new BasicFormAttribute();
+                    basicFormAttribute.setFormType(formAttributeJson.getType());
+                    basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
 
-                basicFormAttribute.setFormType(formAttributeJson.getType());
-                basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                    return basicFormAttribute;
 
-                return basicFormAttribute;
+                case "Encounter":
 
-            case "Encounter":
+                    final BasicFormAttribute encounterFormAttribute = new BasicFormAttribute();
 
-                final BasicFormAttribute encounterFormAttribute = new BasicFormAttribute();
+                    encounterFormAttribute.setFormType(formAttributeJson.getType());
+                    encounterFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
+                    encounterFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
 
-                encounterFormAttribute.setFormType(formAttributeJson.getType());
-                encounterFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
-                encounterFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                    return encounterFormAttribute;
 
-                return encounterFormAttribute;
-
-            default:
-                return null;
-        }
-    }
-
-    @ToJson
-    FormAttributeJson toJson(FormAttribute formAttribute) {
-
-        FormAttributeJson json = new FormAttributeJson();
-
-        if (formAttribute instanceof BasicFormAttribute) {
-            BasicFormAttribute basicFormEditText = (BasicFormAttribute) formAttribute;
-
-            json.setType(basicFormEditText.getFormType());
+                default:
+                    return null;
+            }
         }
 
-        return json;
+        @ToJson
+        FormAttributeJson toJson (FormAttribute formAttribute){
+
+            FormAttributeJson json = new FormAttributeJson();
+
+            if (formAttribute instanceof BasicFormAttribute) {
+                BasicFormAttribute basicFormEditText = (BasicFormAttribute) formAttribute;
+
+                json.setType(basicFormEditText.getFormType());
+            }
+
+            return json;
+        }
     }
-}

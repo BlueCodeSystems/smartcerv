@@ -112,23 +112,13 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                         progressDialog.dismiss();
                         break;
 
-                        default: break;
+                    default: break;
                 }
             }
         };
 
         viewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
         viewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     public void setLocation(List<Location> locations){

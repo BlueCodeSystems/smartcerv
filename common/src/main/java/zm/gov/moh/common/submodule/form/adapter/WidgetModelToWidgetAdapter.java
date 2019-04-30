@@ -9,19 +9,20 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -33,9 +34,8 @@ import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
-import zm.gov.moh.common.submodule.form.widget.FormEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
-import zm.gov.moh.common.submodule.form.widget.FormLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
@@ -72,7 +72,7 @@ public class WidgetModelToWidgetAdapter {
                     .setWeight(1)
                     .build();
 
-           return widget;
+            return widget;
         }
         else if(widgetModel instanceof DatePickerButtonModel){
 
@@ -83,13 +83,24 @@ public class WidgetModelToWidgetAdapter {
             widget.setText(model.getText());
             return widget;
         }
-        else if(widgetModel instanceof ImageViewButtonModel){
+        else if(widgetModel instanceof CameraButtonModel) {
+
+            CameraButtonModel model = (CameraButtonModel) widgetModel;
+
+            BaseWidget widget = new FormCameraButtonWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
+                    .setBundle(bundle)
+                    .build();
+            return widget;
+        }
+        else if(widgetModel instanceof ImageViewButtonModel) {
 
             ImageViewButtonModel model = (ImageViewButtonModel) widgetModel;
 
-            FormImageViewButtonWidget widget = new FormImageViewButtonWidget(this.context, this.bundle);
-            widget.setTag(model.getTag());
-            //widget.setView(model.getView());
+            BaseWidget widget = new FormImageViewButtonWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
+                    .setBundle(bundle)
+                    .build();
             return widget;
         }
         else if(widgetModel instanceof WidgetGroupRowModel){

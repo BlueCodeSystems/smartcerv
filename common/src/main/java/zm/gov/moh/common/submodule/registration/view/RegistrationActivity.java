@@ -36,7 +36,7 @@ public class RegistrationActivity extends BaseActivity {
 
     Resources resources;
     @BindView(R2.id.date_of_birth)
-     Button date;
+    Button date;
 
     @BindView(R2.id.first_name) EditText firstName;
     @BindView(R2.id.last_name) EditText lastName;
@@ -64,29 +64,21 @@ public class RegistrationActivity extends BaseActivity {
         AndroidThreeTen.init(this);
 
     /*    formModule = ((BaseApplication)((BaseActivity) this).getApplication()).getModule(BaseApplication.CoreModule.FORM);
-
         registrationViewModel = ViewModelProviders.of(this).get(RegistrationViewModel.class);
-
         //Data binding
         RegistrationActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.registration_activity);
         binding.setRegformdata(registrationViewModel.getRegistrationFormData());
         binding.setVariable(BR.regviewmodel, registrationViewModel);
         ButterKnife.bind(this);
-
         resources = this.getResources();
-
         Utils.dateDialog(this, date, (DatePicker view, int year, int monthOfYear, int dayOfMonth) -> {
-
             // set day of month , month and year value in the edit text
             String dob = year + "-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))  + "-" + ((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth);
             registrationViewModel.onDateOfBirthChanged(dob);
-
             if(date.getError() != null)
                 date.setError(null);
         });
-
         clientDashBoardModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
-
         init();*/
 
         try {
@@ -138,21 +130,21 @@ public class RegistrationActivity extends BaseActivity {
 
                 }
 
-                if(registrationViewModel.getRegistrationFormData().getDateOfBirth() == null){
+            if(registrationViewModel.getRegistrationFormData().getDateOfBirth() == null){
 
-                    date.setError("select a date");
-                    registrationViewModel.setFormValid(false);
-                }
+                date.setError("select a date");
+                registrationViewModel.setFormValid(false);
+            }
 
-                if(earliestEditTextwithErr != null)
-                    earliestEditTextwithErr.requestFocus();
+            if(earliestEditTextwithErr != null)
+                earliestEditTextwithErr.requestFocus();
 
 
-                if(registrationViewModel.getFormValid()){
+            if(registrationViewModel.getFormValid()){
 
-                    Toast.makeText(this,"New Client was registered",Toast.LENGTH_LONG).show();
-                    registrationViewModel.submitForm();
-                }
+                Toast.makeText(this,"New Client was registered",Toast.LENGTH_LONG).show();
+                registrationViewModel.submitForm();
+            }
         };
 
         final Observer<Long> getClientDashBoardTransitionObserver = clientId -> {
@@ -164,11 +156,6 @@ public class RegistrationActivity extends BaseActivity {
 
         registrationViewModel.getValidateAndSubmitFormObserver().observe(this, observer);
         registrationViewModel.getClientDashBoardTransition().observe(this, getClientDashBoardTransitionObserver);
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     //validate on focus lost

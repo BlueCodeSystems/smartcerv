@@ -106,10 +106,10 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
             FormJson notes = new FormJson("Notes And Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
-            FormJson cervicography = new FormJson("Images",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/digital_cervicography.json")));
+            FormJson evaluation = new FormJson("Evaluation",
+            Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
 
-                    //Add via forms to a form group
+            //Add via and leep forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
             viaFormGroup.addForm(hivStatus);
             viaFormGroup.addForm(physicalExam);
@@ -118,7 +118,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
-            viaFormGroup.addForm(cervicography);
+            leepFormGroup.addForm(evaluation);
         }catch (Exception e){
 
         }
@@ -205,9 +205,9 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         if(id == R.id.start_visit){
 
             if(mVisitState.getState() != VisitState.STARTED)
-              createDialog("Start Visit?",
-                      (DialogInterface dialogInterface, int i)-> viewModel.setVisitState(VisitState.STARTED),
-                      null).show();
+                createDialog("Start Visit?",
+                        (DialogInterface dialogInterface, int i)-> viewModel.setVisitState(VisitState.STARTED),
+                        null).show();
             else
                 createDialog("Stop Visit?",
                         (DialogInterface dialogInterface, int i)-> viewModel.setVisitState(VisitState.ENDED),

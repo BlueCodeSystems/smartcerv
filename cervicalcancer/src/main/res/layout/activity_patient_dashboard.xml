@@ -55,14 +55,14 @@
                 android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
                 android:textColor="@color/darker_grey" />
 
-            <Button
+            <!--Button
                 android:id="@+id/load_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/light_green"
                 android:text="Load Image"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:textColor="@color/white" /!-->
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/sliding_tabs"

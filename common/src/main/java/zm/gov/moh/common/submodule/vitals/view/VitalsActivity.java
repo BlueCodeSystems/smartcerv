@@ -3,7 +3,6 @@ package zm.gov.moh.common.submodule.vitals.view;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.View;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.BR;
@@ -39,16 +38,6 @@ public class VitalsActivity extends BaseActivity {
         ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
         toolBarEventHandler.setTitle("Capture Vitals");
         binding.setToolbarhandler(toolBarEventHandler);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     public void onSubmit(Bundle bundle){
