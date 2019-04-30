@@ -1,5 +1,7 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
+import android.view.View;
+
 import java.util.List;
 
 import zm.gov.moh.common.submodule.form.model.Logic;
@@ -46,4 +48,6 @@ public abstract class AbstractWidgetModel implements WidgetModel {
     public void setLogic(List<Logic> logic) {
         this.logic = logic;
     }
+
+
 }

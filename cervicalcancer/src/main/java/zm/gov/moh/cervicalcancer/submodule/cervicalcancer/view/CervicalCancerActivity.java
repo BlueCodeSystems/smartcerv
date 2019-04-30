@@ -3,7 +3,6 @@ package zm.gov.moh.cervicalcancer.submodule.cervicalcancer.view;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.View;
 
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.BR;
@@ -31,15 +30,5 @@ public class CervicalCancerActivity extends BaseActivity {
         toolBarEventHandler.setTitle("Cervical Cancer");
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setContext(this);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 }

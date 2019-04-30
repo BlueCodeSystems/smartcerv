@@ -1,7 +1,5 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
-import android.widget.ImageView;
-
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
@@ -9,12 +7,13 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetMode
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -57,11 +56,19 @@ public class WidgetModelJsonAdapter {
 
                 final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
 
-                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
-                imageViewButtonModel.setTag(widgetModelJson.getTag());
-                imageViewButtonModel.setText(widgetModelJson.getText());
+                imageViewButtonModel.setWidgetType(widgetModelJson.getTag());
+                imageViewButtonModel.setLabel(widgetModelJson.getLabel());
 
                 return imageViewButtonModel;
+
+            case "CameraButton":
+
+                final CameraButtonModel CameraButtonModel = new CameraButtonModel();
+
+                CameraButtonModel.setWidgetType(widgetModelJson.getTag());
+                CameraButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return CameraButtonModel;
 
             case "WidgetGroupRow":
 
@@ -174,37 +181,30 @@ public class WidgetModelJsonAdapter {
 
         WidgetModelJson json = new WidgetModelJson();
 
-         if(widgetModel instanceof EditTextModel){
+        if(widgetModel instanceof EditTextModel){
 
-             EditTextModel basicFormEditText = (EditTextModel) widgetModel;
+            EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
-             json.setWidgetType(basicFormEditText.getWidgetType());
-             json.setHint(basicFormEditText.getHint());
-             json.setTag(basicFormEditText.getTag());
-             json.setText(basicFormEditText.getText());
-         }
+            json.setWidgetType(basicFormEditText.getWidgetType());
+            json.setHint(basicFormEditText.getHint());
+            json.setTag(basicFormEditText.getTag());
+            json.setText(basicFormEditText.getText());
+        }
         else if(widgetModel instanceof DatePickerButtonModel){
 
-             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
+            DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
 
             json.setWidgetType(datePickerButtonModel.getWidgetType());
             json.setTag(datePickerButtonModel.getTag());
         }
-        else if(widgetModel instanceof ImageViewButtonModel){
+        else if(widgetModel instanceof FormLabelModel){
 
-             ImageViewButtonModel imageViewButtonModel = (ImageViewButtonModel) widgetModel;
+            FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
 
-             json.setWidgetType(imageViewButtonModel.getWidgetType());
-             json.setTag(imageViewButtonModel.getTag());
-         }
-         else if(widgetModel instanceof FormLabelModel){
-
-             FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
-
-             json.setWidgetType(formLabelModel.getWidgetType());
-             json.setTag(formLabelModel.getTag());
-             json.setText(formLabelModel.getLabel());
-         }
+            json.setWidgetType(formLabelModel.getWidgetType());
+            json.setTag(formLabelModel.getTag());
+            json.setText(formLabelModel.getLabel());
+        }
 
         return json;
     }

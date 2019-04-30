@@ -41,9 +41,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.SlideshowDialogFragment;*/
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.SlideshowDialogFragment;
 
-/*public class PatientImageActivity extends AppCompatActivity {
+public class PatientImageActivity extends AppCompatActivity {
 
     private String TAG = PatientImageActivity.class.getSimpleName();
     private static final String endpoint = "http://www.delaroystudios.com/glide/json/gideimages.json";

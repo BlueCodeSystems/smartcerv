@@ -34,7 +34,7 @@ import zm.gov.moh.core.utils.BaseApplication;
 
 import static zm.gov.moh.core.model.Key.PERSON_ADDRESS;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
 
     protected static final String START_SUBMODULE_KEY = "start_submodule";
@@ -82,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 
-       // setContentView(R.layout.base_activity);
+        // setContentView(R.layout.base_activity);
 
 
 
@@ -189,12 +189,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public abstract void init();
-
-    public abstract void onClick(View view);
-
     public BaseAndroidViewModel getViewModel(){
-       return viewModel;
+        return viewModel;
     }
 
     protected void setViewModel(BaseAndroidViewModel viewModel){
@@ -245,7 +241,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .personAddressDao()
                     .findByPersonId(personId)
                     .observe(this, personAddress -> {
-                       bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
+                        bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
                     });
         }
     }

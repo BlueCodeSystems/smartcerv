@@ -3,8 +3,6 @@ package zm.gov.moh.cervicalcancer.submodule.register.view;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.View;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +35,6 @@ public class RegisterActivity extends BaseActivity {
 
 
         /*if(bundle != null){
-
             try {
                 getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
             }catch (Exception e){
@@ -45,7 +42,6 @@ public class RegisterActivity extends BaseActivity {
             }
         }
         else {
-
             bundle = new Bundle();
             bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
             getIntent().putExtras(bundle);
@@ -61,15 +57,5 @@ public class RegisterActivity extends BaseActivity {
         clientRecyclerView.setAdapter(clientListAdapter);
 
         registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
-    }
-
-    @Override
-    public void init() {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 }

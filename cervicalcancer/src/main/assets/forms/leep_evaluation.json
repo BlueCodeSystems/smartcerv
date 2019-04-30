@@ -1,0 +1,386 @@
+{
+  "attributes": {
+    "type": "Basic",
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Evaluation",
+      "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "Leep Visit Date",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "leep visit date",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "tag": "facility",
+          "widgetType": "FacilityLabel",
+          "label": "Facility Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Client ID",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client ID",
+          "widgetType": "CCPIZEditText",
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_GIVEN_NAME",
+          "widgetType": "EditText",
+          "hint": "First Name",
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_FAMILY_NAME",
+          "widgetType": "EditText",
+          "hint": "Last Name",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date Of Birth",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dob",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "label": "NRC No.",
+          "tag": "nrc",
+          "widgetType": "EditText",
+          "hint": "Example 145683/10/1",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Address",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_ADDRESS",
+          "widgetType": "EditText",
+          "hint": "Plot number, Village, Street",
+          "weight": 1
+        },
+        {
+          "tag": "hiv status",
+          "widgetType": "Concept",
+          "conceptId": 165203,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "HIV Status",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "The date on which the client took an HIV test",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Date tested for hiv",
+          "widgetType": "DatePickerButton",
+          "textSize": 18,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Place",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PLACE_OF_HIV_TEST",
+          "widgetType": "EditText",
+          "hint": "Enter the name of the Place where the client took an HIV test",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Most recent CD4",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "recent cd4 count",
+          "widgetType": "EditText",
+          "hint": "Enter the Client's most recent CD4 count",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date for CD4 result",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "date for cd4 result",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date on which the client started ARVs if on ARVs",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client's arvs start date ",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date of referral",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client reffered for leep date",
+          "widgetType": "DatePickerButton",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Clinic referral form",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "referring facility",
+          "widgetType": "EditText",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Reason For Referral",
+      "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "Leep Visit Date",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "leep visit date",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "tag": "facility",
+          "widgetType": "FacilityLabel",
+          "label": "Facility Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Client ID",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client ID",
+          "widgetType": "CCPIZEditText",
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_GIVEN_NAME",
+          "widgetType": "EditText",
+          "hint": "First Name",
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_FAMILY_NAME",
+          "widgetType": "EditText",
+          "hint": "Last Name",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date Of Birth",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dob",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "label": "NRC No.",
+          "tag": "nrc",
+          "widgetType": "EditText",
+          "hint": "Example 145683/10/1",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Address",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_ADDRESS",
+          "widgetType": "EditText",
+          "hint": "Plot number, Village, Street",
+          "weight": 1
+        },
+        {
+          "tag": "hiv status",
+          "widgetType": "Concept",
+          "conceptId": 165203,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "HIV Status",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "The date on which the client took an HIV test",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Date tested for hiv",
+          "widgetType": "DatePickerButton",
+          "textSize": 18,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Place",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PLACE_OF_HIV_TEST",
+          "widgetType": "EditText",
+          "hint": "Enter the name of the Place where the client took an HIV test",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Most recent CD4",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "recent cd4 count",
+          "widgetType": "EditText",
+          "hint": "Enter the Client's most recent CD4 count",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date for CD4 result",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "date for cd4 result",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date on which the client started ARVs if on ARVs",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client's arvs start date ",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date of referral",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client reffered for leep date",
+          "widgetType": "DatePickerButton",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Clinic referral form",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "referring facility",
+          "widgetType": "EditText",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

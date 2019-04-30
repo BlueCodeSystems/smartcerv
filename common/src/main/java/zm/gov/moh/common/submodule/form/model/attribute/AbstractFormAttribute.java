@@ -6,6 +6,7 @@ public abstract class AbstractFormAttribute implements FormAttribute {
     private String submitLabel;
     private long encounterId;
 
+
     public void setFormType(String type){
         this.type = type;
     }
