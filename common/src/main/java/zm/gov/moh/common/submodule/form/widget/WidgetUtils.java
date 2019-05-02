@@ -162,6 +162,7 @@ public class WidgetUtils {
         return view;
     }
 
+
     public static <T extends View> T setLayoutParams(T view, int width, int height){
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(width,height);
@@ -226,6 +227,8 @@ public class WidgetUtils {
                 callback.accept(view);
             }
     }
+
+
 
     public static void extractTagsRecursive(ViewGroup rootView,Set<String> result, Set<String> search) {
 

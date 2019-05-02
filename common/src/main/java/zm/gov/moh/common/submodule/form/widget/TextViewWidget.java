@@ -1,12 +1,11 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.TypedValue;
 import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.view.GravityCompat;
-import zm.gov.moh.common.ui.Utils;
 
 public class TextViewWidget extends BaseWidget implements Labeled {
 
@@ -46,13 +45,13 @@ public class TextViewWidget extends BaseWidget implements Labeled {
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
 
         mTextView = new AppCompatTextView(mContext);
         mTextView.setText(mLabel);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
         WidgetUtils.setLayoutParams(mTextView, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight)
-        .setGravity(Gravity.CENTER_VERTICAL);
+                .setGravity(Gravity.CENTER_VERTICAL);
         addView(mTextView);
 
     }
@@ -79,14 +78,16 @@ public class TextViewWidget extends BaseWidget implements Labeled {
         @Override
         public BaseWidget build() {
 
-           TextViewWidget widget = new TextViewWidget(mContext);
+            TextViewWidget widget = new TextViewWidget(mContext);
 
            if(mLabel != null)
                widget.setLabel(mLabel);
+            if(mTag != null)
+                widget.setTag(mTag);
 
            widget.setWeight(mWeight);
            widget.setTextSize(mTextSize);
-           widget.addViewToViewGroup();
+           widget.onCreateView();
 
             return widget;
         }

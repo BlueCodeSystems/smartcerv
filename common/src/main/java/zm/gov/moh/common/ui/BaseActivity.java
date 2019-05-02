@@ -82,7 +82,7 @@ public class BaseActivity extends AppCompatActivity {
 
         broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
 
-       // setContentView(R.layout.base_activity);
+        // setContentView(R.layout.base_activity);
 
 
 
@@ -190,7 +190,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public BaseAndroidViewModel getViewModel(){
-       return viewModel;
+        return viewModel;
     }
 
     protected void setViewModel(BaseAndroidViewModel viewModel){
@@ -241,7 +241,7 @@ public class BaseActivity extends AppCompatActivity {
                     .personAddressDao()
                     .findByPersonId(personId)
                     .observe(this, personAddress -> {
-                       bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
+                        bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
                     });
         }
     }

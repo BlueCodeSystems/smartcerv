@@ -2,6 +2,7 @@ package zm.gov.moh.common.submodule.form.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
@@ -16,9 +18,11 @@ import zm.gov.moh.common.model.FormJson;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
+import zm.gov.moh.common.submodule.form.model.FormType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.service.EncounterSubmission;
+import zm.gov.moh.core.service.DemographicsPersist;
+import zm.gov.moh.core.service.EncounterPersist;
 import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
 import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
@@ -27,6 +31,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 
 public class FormFragment extends BaseFragment {
 
@@ -42,6 +47,7 @@ public class FormFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,39 +99,50 @@ public class FormFragment extends BaseFragment {
 
                 this.form.getRootView().addView(formSection);
             }
-
+            //FormImageViewButtonWidget formImageViewButtonWidget = new FormImageViewButtonWidget(getContext());
+            //formImageViewButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             //formSubmitButtonWidget.setBundle(this.bundle);
 
-            formSubmitButtonWidget.setOnSubmit(bundle -> {
+            //formImageViewButtonWidget.setOnClick(bundle1 ->
 
+            formSubmitButtonWidget.setOnSubmit(bundle -> {
+                bundle = this.bundle;
+                Bundle contextbundle = context.getIntent().getExtras();
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
-                Intent formSubmission = new Intent(context,EncounterSubmission.class);
+                this.bundle.putAll(contextbundle);
+                Intent intent = new Intent(context,EncounterPersist.class);
+
 
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 
-                formSubmission.putExtras(this.bundle);
 
-
-                if(this.bundle.containsKey(Key.ENCOUNTER_TYPE_ID)) {
-                    context.startService(formSubmission);
-                    context.onBackPressed();
+                if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
+                    intent = new Intent(context, EncounterPersist.class);
+                }
+                else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
+                    intent = new Intent(context, DemographicsPersist.class);
                 }
                 else{
 
                     String moduleName = this.bundle.getString(Key.START_MODULE_ON_RESULT);
                     context.startModule(moduleName,this.bundle);
                     context.onBackPressed();
+                    return;
                 }
 
-
+                intent.putExtras(this.bundle);
+                context.startService(intent);
+                context.onBackPressed();
                // Module submodule = (Module) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
                 //context.startModule(submodule, bundle);
             });
 
+            //this.form.getRootView().addView(formImageViewButtonWidget);
             this.form.getRootView().addView(formSubmitButtonWidget);
         }
+
         renderWidgets.set(false);
         // Inflate the layout for this fragment
 
@@ -140,12 +157,10 @@ public class FormFragment extends BaseFragment {
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
 
-        final long ENCOUNTER_ID = formModel.getAttributes().getEncounterId();
-
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
-        if(formModel.getAttributes().getFormType().equals("Encounter"))
-            this.bundle.putLong(Key.ENCOUNTER_TYPE_ID, ENCOUNTER_ID);
+        if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER))
+            this.bundle.putLong(Key.ENCOUNTER_TYPE_ID, formModel.getAttributes().getEncounterId());
 
         context.getViewModel()
                 .getRepository()

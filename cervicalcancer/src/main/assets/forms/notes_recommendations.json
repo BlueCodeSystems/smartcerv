@@ -1,0 +1,70 @@
+{
+  "attributes": {
+    "type":"Encounter",
+    "encounterId":16,
+    "submitLabel":"End Visit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Notes And Recommendations",
+      "widgets":[
+        {
+          "widgetType":"TextView",
+          "label":"Notes",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "notes",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "notes",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "notes",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title":" Follow up Date & Provider Details",
+      "widgets":[
+        {
+          "widgetType": "TextView",
+          "label": "Follow Up Date",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "follow up dates",
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Select Date"
+        },
+
+
+        {
+          "widgetType": "TextView",
+          "label": "Provider name",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Provider_name",
+          "widgetType": "EditText",
+          "hint": "First and Last Name",
+          "weight": 1
+        }
+
+
+      ]
+    }]
+}

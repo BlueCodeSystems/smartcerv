@@ -25,6 +25,7 @@ import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */

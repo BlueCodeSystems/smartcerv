@@ -24,14 +24,14 @@ public class BasicDrugWidget extends BaseWidget {
         return this;
     }
 
-    public void addViewToViewGroup(){
+    public void onCreateView(){
 
-        mTextView = new TextViewWidget(mContext);
+        /*mTextView = new TextViewWidget(mContext);
         mTextView.setLabel("Ceftriaxone 125-250mg IM");// retrieve name using uuid here
         mTextView.setTextSize(18);
         mTextView.addViewToViewGroup();
 
-        addView(mTextView);
+        addView(mTextView);*/
 
     }
 
@@ -59,7 +59,7 @@ public class BasicDrugWidget extends BaseWidget {
             if(mUuid != null)
                 widget.setUuid(mUuid);
 
-            widget.addViewToViewGroup();
+            //widget.addViewToViewGroup();
 
             return  widget;
         }

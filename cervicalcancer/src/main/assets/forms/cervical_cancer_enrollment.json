@@ -1,6 +1,7 @@
 {
   "attributes": {
-    "type":"Basic",
+    "panelType":"form",
+    "formType":"basic",
     "submitLabel":"Submit"
   },
   "widgetGroup":[

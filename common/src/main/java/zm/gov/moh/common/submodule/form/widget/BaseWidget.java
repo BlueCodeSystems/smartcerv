@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 
@@ -33,7 +34,8 @@ public  abstract class BaseWidget extends LinearLayoutCompat implements Widget{
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-    public abstract void addViewToViewGroup();
+    public abstract void onCreateView();
+
 
     public abstract static class Builder {
 
