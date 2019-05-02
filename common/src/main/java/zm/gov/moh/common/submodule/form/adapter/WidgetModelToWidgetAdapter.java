@@ -177,8 +177,9 @@ public class WidgetModelToWidgetAdapter {
         else if(widgetModel instanceof BasicDrugWidgetModel) {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
-            return new BasicDrugWidget(context)
-                    .setUuid(model.getUuid()).build(); // test
+            return new BasicDrugWidget.Builder(context)
+                    .setUuid(model.getUuid())
+                    .build();
         }
 
         return null;
