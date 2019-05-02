@@ -52,17 +52,13 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
         AppCompatButton button = new AppCompatButton(this.mContext);
         button.setOnClickListener(this);
         button.setText(this.mLabel);
         this.addView(button);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
 
     @Override
     public void setBundle(Bundle bundle) {
@@ -177,7 +173,7 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
 
             widget.setTextSize(mTextSize);
 
-            widget.addViewToViewGroup();
+            widget.onCreateView();
 
             return widget;
         }

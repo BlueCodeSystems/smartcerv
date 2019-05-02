@@ -5,6 +5,9 @@ public class FormAttributeJson {
     private String type;
     private long encounterId;
     private String submitLabel;
+    private String formType;
+    private String panelType;
+
 
     public void setType(String type) {
         this.type = type;
@@ -28,5 +31,21 @@ public class FormAttributeJson {
 
     public String getSubmitLabel() {
         return submitLabel;
+    }
+
+    public String getPanelType() {
+        return panelType;
+    }
+
+    public void setPanelType(String panelType) {
+        this.panelType = panelType;
+    }
+
+    public void setFormType(String formType) {
+        this.formType = formType;
+    }
+
+    public String getFormType() {
+        return formType;
     }
 }
