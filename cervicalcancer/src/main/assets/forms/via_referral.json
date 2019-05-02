@@ -1,6 +1,7 @@
 {
   "attributes": {
-    "type":"Encounter",
+    "panelType":"form",
+    "formType":"encounter",
     "encounterId": 14,
     "submitLabel":"Submit"
   },

@@ -33,7 +33,7 @@ public class DemographicsPersist extends PersistService {
         final Long provinceId = bundle.getLong(Key.PERSON_PROVINCE_LOCATION_ID);
         final long locationId = bundle.getLong(Key.LOCATION_ID);
 
-        final String MID_DAY_TIME = "T12:00:00Z";
+
 
 
         if (givenName != null && familyName != null && gender != null && address != null && districtId != null && provinceId != null && dob != null) {

@@ -15,6 +15,7 @@ public abstract class PersistService extends IntentService implements Injectable
 
     private Repository repository;
     protected final short PREFERRED = 1;
+    protected final String MID_DAY_TIME = "T12:00:00Z";
 
     public PersistService(String name){
         super(name);
