@@ -1,5 +1,5 @@
-apply plugin: 'com.android.application'
 
+apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -25,7 +25,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'

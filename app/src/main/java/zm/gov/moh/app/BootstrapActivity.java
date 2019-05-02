@@ -36,8 +36,8 @@ public class BootstrapActivity extends BaseActivity {
 
         finish();
 
-       Intent intent = new Intent(this, MetaDataSync.class);
+        Intent intent = new Intent(this, MetaDataSync.class);
 
-       startService(intent);
+        startService(intent);
     }
 }

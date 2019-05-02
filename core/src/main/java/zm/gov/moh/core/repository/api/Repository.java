@@ -24,9 +24,9 @@ public interface Repository {
 
     <T>void consume(Consumer<T> consumer, Consumer<Throwable> onError, Maybe<T> observable, final int timeout);
 
-    public <T>void consumeAsync(Consumer<T[]> consumer, Consumer<Throwable> onError, Action onComplete, Maybe<T[]> observable, final int timeout);
+    <T>void consumeAsync(Consumer<T[]> consumer, Consumer<Throwable> onError, Action onComplete, Maybe<T[]> observable, final int timeout);
 
-    public <T,R>void asyncFunction(Function<T, R> function, Consumer<R> consumer, T items, Consumer<Throwable> onError);
+    <T,R>void asyncFunction(Function<T, R> function, Consumer<R> consumer, T items, Consumer<Throwable> onError);
 
     Database getDatabase();
 

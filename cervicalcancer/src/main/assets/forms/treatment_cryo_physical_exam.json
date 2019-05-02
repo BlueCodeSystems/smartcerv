@@ -73,8 +73,42 @@
           "textSize": 18
         },
         {
-          "tag": "Other Clinical Findings",
+          "tag": "Other_findings",
           "widgetType": "Concept",
+          "conceptId":165260,
+          "dataType":"Boolean",
+          "style":"check",
+          "label":"Other",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Other Clinical Findings"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            }
+          ]
+
+        },
+        {
+          "tag":"Other Clinical Findings",
+          "widgetType":"Concept",
           "conceptId": 165154,
           "dataType": "Text",
           "label": "Other",

@@ -31,6 +31,17 @@
             },
             {
               "condition": {
+                "value":165131
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Date tested negative"]
+                }
+              }
+            },
+            {
+              "condition": {
                 "value": 165132
               },
               "action": {
@@ -76,6 +87,15 @@
           ]
         },
         {
+          "tag": "Date tested negative",
+          "widgetType": "Concept",
+          "conceptId": 165251,
+          "dataType": "Date",
+          "textSize": 18,
+          "label":"Enter date patient tested negative",
+          "hint":"Select Date"
+        },
+        {
           "tag": "art number",
           "widgetType": "Concept",
           "conceptId": 165128,
@@ -83,6 +103,15 @@
           "textSize": 18,
           "label":"ART No.",
           "hint":"Number"
+        },
+        {
+          "tag": "PICT was not offered",
+          "widgetType": "Concept",
+          "conceptId": 165253,
+          "dataType": "Text",
+          "textSize": 18,
+          "label":"Reason PICT was not offered",
+          "hint":"Reason"
         },
         {
           "widgetType":"WidgetGroupRow",
@@ -158,8 +187,18 @@
                   "tags": ["pict accepted"]
                 }
               }
-            }
-          ]
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["PICT was not offered"]
+                }
+              }
+            }]
         },
         {
           "tag":"pict accepted",
@@ -180,8 +219,19 @@
                   "tags": ["pict result"]
                 }
               }
-            }
-          ]
+            },
+
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            }]
         },
         {
           "tag":"pict result",
@@ -212,6 +262,40 @@
           "dataType":"Boolean",
           "style": "radio",
           "label":"Referred to ART Clinic",
+          "textSize":18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Reason_for_no_ART"]
+                }
+              }
+            }]
+        },
+        {
+          "tag":"Reason_for_no_ART",
+          "widgetType":"Concept",
+          "conceptId":165259,
+          "dataType":"Text",
+          "Hint": "Reason",
+          "label":"Reason for patient not being referred",
+          "hint":"Reason",
           "textSize":18
         }
       ]

@@ -2,6 +2,7 @@ package zm.gov.moh.common.submodule.form.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
@@ -29,6 +31,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 
 public class FormFragment extends BaseFragment {
 
@@ -44,6 +47,7 @@ public class FormFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,15 +99,21 @@ public class FormFragment extends BaseFragment {
 
                 this.form.getRootView().addView(formSection);
             }
-
+            //FormImageViewButtonWidget formImageViewButtonWidget = new FormImageViewButtonWidget(getContext());
+            //formImageViewButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             //formSubmitButtonWidget.setBundle(this.bundle);
 
-            formSubmitButtonWidget.setOnSubmit(bundle -> {
+            //formImageViewButtonWidget.setOnClick(bundle1 ->
 
-                //bundle.putSerializable(EncounterPersist.FORM_DATA_KEY, bundle);
+            formSubmitButtonWidget.setOnSubmit(bundle -> {
+                bundle = this.bundle;
+                Bundle contextbundle = context.getIntent().getExtras();
+                //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
+                this.bundle.putAll(contextbundle);
                 Intent intent = new Intent(context,EncounterPersist.class);
+
 
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 
@@ -129,8 +139,10 @@ public class FormFragment extends BaseFragment {
                 //context.startModule(submodule, bundle);
             });
 
+            //this.form.getRootView().addView(formImageViewButtonWidget);
             this.form.getRootView().addView(formSubmitButtonWidget);
         }
+
         renderWidgets.set(false);
         // Inflate the layout for this fragment
 

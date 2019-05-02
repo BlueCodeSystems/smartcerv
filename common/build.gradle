@@ -41,4 +41,5 @@ dependencies {
 
     //Butter Knife
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    implementation 'com.google.android.material:material:1.0.0'
 }

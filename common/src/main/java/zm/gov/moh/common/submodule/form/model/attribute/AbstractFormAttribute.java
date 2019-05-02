@@ -9,6 +9,7 @@ public abstract class AbstractFormAttribute implements FormAttribute {
     private String formType;
 
     public void setType(String type){
+
         this.type = type;
     }
 

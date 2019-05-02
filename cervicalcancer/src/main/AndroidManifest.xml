@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zm.gov.moh.cervicalcancer">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application>
         <activity
             android:name=".submodule.cervicalcancer.view.CervicalCancerActivity"
@@ -21,6 +24,18 @@
             android:name=".submodule.dashboard.patient.view.PatientDashboardActivity"
             android:theme="@style/Smartcerv" />
         <activity android:name=".view.CervicalCancerHomeActivity"></activity>
+        <activity android:name=".submodule.dashboard.patient.view.PatientDashboardImageFragment"/>
+        
+
+        <!--activity android:name=".submodule.dashboard.patient.view.PatientImageActivity"
+            android:configChanges="orientation|screenSize"/!-->
+
+
     </application>
+
+
+    <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths" />
 
 </manifest>
