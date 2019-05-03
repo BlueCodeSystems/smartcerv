@@ -20,6 +20,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.threeten.bp.format.DateTimeFormatter;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.common.R;
@@ -233,6 +235,7 @@ public class BaseActivity extends AppCompatActivity {
                     .observe(this, client -> {
                         bundle.putString(Key.PERSON_GIVEN_NAME, client.given_name);
                         bundle.putString(Key.PERSON_FAMILY_NAME, client.family_name);
+                        bundle.putString(Key.PERSON_DOB, client.birthdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                     });
 
             getViewModel()
