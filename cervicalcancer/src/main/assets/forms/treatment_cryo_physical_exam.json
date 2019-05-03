@@ -114,8 +114,8 @@
           "widgetType": "Concept",
           "conceptId": 165154,
           "dataType": "Text",
-          "label": "Other",
-          "hint": "Clinical Findings",
+          "style": "multiline",
+          "hint": "Other Clinical Findings",
           "textSize": 18
         }
       ]

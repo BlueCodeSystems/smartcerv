@@ -57,12 +57,12 @@
             },
             {
               "tag": "Follow up dates",
-              "widgetType": "Concept",
               "conceptId": 165200,
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "widgetType": "DatePickerButton",
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -114,12 +114,12 @@
             },
             {
               "tag": "Follow up dates1",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -171,11 +171,11 @@
             },
             {
               "tag": "Follow up dates2",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
+              "weight": 1,
+              "text": "Select follow up date",
               "textSize": 18
             }
           ]
@@ -228,12 +228,12 @@
             },
             {
               "tag": "Follow up dates3",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -287,12 +287,12 @@
             },
             {
               "tag": "Follow up dates4",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -344,12 +344,12 @@
             },
             {
               "tag": "Follow up dates5",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -401,12 +401,12 @@
             },
             {
               "tag": "Follow up dates6",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -458,12 +458,12 @@
             },
             {
               "tag": "Follow up dates7",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -515,15 +515,13 @@
             },
             {
               "tag": "Follow up dates8",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
+              "weight": 1,
+              "text": "Select follow up date",
               "textSize": 18
-            }
-
-          ]
+            }]
         },
         {
           "widgetType":"WidgetGroupRow",
@@ -573,12 +571,12 @@
             },
             {
               "tag": "Follow up dates9",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         },
@@ -632,12 +630,12 @@
             },
             {
               "tag": "Follow up dates10",
-              "widgetType": "Concept",
               "conceptId": 165200,
+              "widgetType": "DatePickerButton",
               "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
+              "weight": 1,
+              "text": "Select follow up date",
+              "textSize":18
             }
           ]
         }

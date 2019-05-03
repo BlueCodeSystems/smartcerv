@@ -101,12 +101,11 @@
         },
         {
           "tag": "Date tested negative",
-          "widgetType": "Concept",
           "conceptId": 165251,
           "dataType": "Date",
-          "textSize": 18,
-          "label": "Enter date patient tested negative",
-          "hint": "Select Date"
+          "widgetType": "DatePickerButton",
+          "text": "Enter date patient tested negative",
+          "textSize": 18
         },
         {
           "tag": "art number",
@@ -123,8 +122,8 @@
           "conceptId": 165253,
           "dataType": "Text",
           "textSize": 18,
-          "label": "Reason PICT was not offered",
-          "hint": "Reason"
+          "style": "multiline",
+          "hint": "Reason PICT was not offered"
         },
         {
           "widgetType": "WidgetGroupRow",
@@ -141,10 +140,10 @@
             },
             {
               "tag": "cd4 date",
-              "widgetType": "Concept",
               "conceptId": 165210,
               "dataType": "Date",
-              "hint": "CD4 date",
+              "widgetType": "DatePickerButton",
+              "text": "Select Date  of Last CD4",
               "textSize": 18
             }
           ]
@@ -164,10 +163,10 @@
             },
             {
               "tag": "viral load date",
-              "widgetType": "Concept",
               "conceptId": 165212,
               "dataType": "Date",
-              "hint": "Date",
+              "widgetType": "DatePickerButton",
+              "text": "Select Date of Last Viral Load Check",
               "textSize": 18
             }
           ]
@@ -177,9 +176,9 @@
           "widgetType": "Concept",
           "conceptId": 165208,
           "dataType": "Text",
-          "hint": "Type the reason for unknown HIV status",
-          "label": "Reason",
-          "textSize": 18
+          "style": "multiline",
+          "textSize": 18,
+          "hint": "Enter Reason for Unknown HIV Satus "
         },
         {
           "tag": "pict offered",
@@ -321,10 +320,9 @@
           "widgetType": "Concept",
           "conceptId": 165259,
           "dataType": "Text",
-          "Hint": "Reason",
-          "label": "Reason for patient not being referred",
-          "hint": "Reason",
-          "textSize": 18
+          "style": "multiline",
+          "textSize": 18,
+          "hint": "Reason why patient was not reffred to ART Clinic"
         }
       ]
     }
