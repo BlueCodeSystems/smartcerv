@@ -1,6 +1,7 @@
 {
   "attributes": {
-    "type": "Encounter",
+    "panelType": "form",
+    "formType": "encounter",
     "encounterId": 10,
     "submitLabel": "Submit"
   },
@@ -50,7 +51,10 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["pict offered","reason for unknown status"]
+                  "tags": [
+                    "pict offered",
+                    "reason for unknown status"
+                  ]
                 }
               }
             }
@@ -123,7 +127,7 @@
           "hint": "Reason"
         },
         {
-          "widgetType":"WidgetGroupRow",
+          "widgetType": "WidgetGroupRow",
           "tag": "cd4",
           "widgets": [
             {

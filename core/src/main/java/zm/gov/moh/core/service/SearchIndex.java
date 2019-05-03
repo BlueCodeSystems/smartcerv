@@ -58,6 +58,11 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
         this.repository = repository;
     }
 
+    @Override
+    public Repository getRepository() {
+        return repository;
+    }
+
     public void onError(Throwable throwable){
         Exception e = new Exception(throwable);
     }

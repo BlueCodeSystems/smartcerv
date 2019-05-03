@@ -61,11 +61,6 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                             Module formModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.FORM);
 
                             try{
-                                String json = Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json"));
-
-                                // if(bundle == null)
-                                // bundle = new Bundle();
-
                                 FormJson formJson = new FormJson("Facility Information",
                                         Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json")));
 
