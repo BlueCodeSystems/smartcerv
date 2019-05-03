@@ -2,6 +2,8 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 
+import java.util.List;
+
 import androidx.annotation.Nullable;
 
 public class MetaDataSync extends SyncService {
@@ -150,6 +152,17 @@ public class MetaDataSync extends SyncService {
                 }, //consumer
                 this::onError,
                 repository.getRestApiAdapter().getVisitTypes(accesstoken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        repository.consumeAsync(
+                concepts ->{
+                    repository.getDatabase().conceptDao().insert(concepts);
+                    this.onTaskCompleted();
+
+                }, //consumer
+                this::onError,
+                repository.getRestApiAdapter().getConcept(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
     }
