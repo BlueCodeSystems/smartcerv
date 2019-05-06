@@ -37,10 +37,9 @@ public class DatePickerWidget extends EditTextWidget {
             String dob = (year+"-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))+"-"+((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth));
 
 
-            LocalDate localDate = LocalDate.parse(dob);
 
-           String d = localDate.format(DateTimeFormatter.ofPattern(mHint));
-           getEditTextView().setText(d);
+
+
             this.setValue(dob);
 
         });
@@ -50,7 +49,18 @@ public class DatePickerWidget extends EditTextWidget {
 
     @Override
     public void setValue(CharSequence value) {
-        mBundle.putString((String)getTag(), value.toString());
+
+        String date = value.toString();
+
+        try {
+
+            LocalDate localDate = LocalDate.parse(date);
+            String formattedDate = localDate.format(DateTimeFormatter.ofPattern(mHint));
+            mBundle.putString((String) getTag(), date);
+            getEditTextView().setText(formattedDate);
+        }catch (Exception e){
+
+        }
     }
 
     @Override
