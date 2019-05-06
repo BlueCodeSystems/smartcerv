@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".submodule.dashboard.patient.view.PatientDashboardFullScreenImageFragment">
+    android:layout_height="match_parent">
+    tools:context="zm.gov.moh.common.submodule.dashboard.client.viewmodel.GalleryActivity">
 
-    <android.support.v4.view.ViewPager
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000"
-        android:id="@+id/viewPager" />
+        android:layout_height="match_parent">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
