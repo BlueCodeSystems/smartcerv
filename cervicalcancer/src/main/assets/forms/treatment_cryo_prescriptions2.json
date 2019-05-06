@@ -1,0 +1,20 @@
+{
+  "attributes": {
+    "panelType":"form",
+    "formType":"encounter",
+    "encounterId":15,
+    "submitLabel":"Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Prescription(s)",
+      "widgets": [
+        {
+          "tag":"prescription",
+          "widgetType":"ConceptDrug",
+          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
+        }
+      ]
+    }
+  ]
+}

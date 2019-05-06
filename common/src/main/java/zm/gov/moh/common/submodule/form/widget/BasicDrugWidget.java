@@ -1,10 +1,16 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.os.Bundle;
 
-public class BasicDrugWidget extends BasicConceptWidget {
+import androidx.appcompat.widget.AppCompatTextView;
 
-    protected String uuid;
+public class BasicDrugWidget extends BaseWidget {
+
+    protected String mValue;
+    protected Bundle mBundle;
+    protected String mUuid;
+    protected AppCompatTextView mTextViewWidget;
 
     public BasicDrugWidget(Context context) {
         super(context);
@@ -12,15 +18,28 @@ public class BasicDrugWidget extends BasicConceptWidget {
     }
 
     public String getUuid() {
-        return uuid;
+        return mUuid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public BasicDrugWidget setUuid(String uuid) {
+        this.mUuid = uuid;
+        return this;
     }
 
-    public BasicDrugWidget build() {
 
-        return null;
+    public void onCreateView(){
+
+    }
+
+    public static class Builder extends BaseWidget.Builder {
+
+        public Builder(Context context) {
+            super(context);
+        }
+
+        public BasicDrugWidget build() {
+
+            return  null;
+        }
     }
 }

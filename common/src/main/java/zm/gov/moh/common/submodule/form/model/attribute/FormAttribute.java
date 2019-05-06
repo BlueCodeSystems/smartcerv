@@ -2,10 +2,8 @@ package zm.gov.moh.common.submodule.form.model.attribute;
 
 public interface FormAttribute {
 
-    void setImageViewLabel(String imageViewLabel);
-    String getImageViewLabel();
+    void setType(String formType);
 
-    void setFormType(String formType);
     String getFormType();
 
     void setSubmitLabel(String submitLabel);
@@ -16,4 +14,11 @@ public interface FormAttribute {
 
     long getEncounterId();
 
+    String getPanelType();
+
+    void setPanelType(String panelType);
+
+    void setFormType(String formType);
+
+    String getType();
 }

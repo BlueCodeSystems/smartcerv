@@ -31,17 +31,13 @@ public class FormImageViewButtonWidget extends TextViewWidget implements Submitt
     }
 
     @Override
-    public void addViewToViewGroup() {
+    public void onCreateView() {
         AppCompatButton button = new AppCompatButton(this.mContext);
         button.setOnClickListener(this);
         button.setText(this.mLabel);
         this.addView(button);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
 
     @Override
     public void setBundle(Bundle bundle) {
@@ -105,7 +101,7 @@ public class FormImageViewButtonWidget extends TextViewWidget implements Submitt
 
             widget.setTextSize(mTextSize);
 
-            widget.addViewToViewGroup();
+            widget.onCreateView();
 
             return  widget;
         }

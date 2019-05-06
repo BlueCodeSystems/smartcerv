@@ -7,7 +7,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 
 public interface Widget {
 
-    void addViewToViewGroup();
+    void onCreateView();
     void setWeight(int weight);
     int getWeight();
 

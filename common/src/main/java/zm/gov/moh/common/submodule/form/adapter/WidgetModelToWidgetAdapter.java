@@ -2,11 +2,9 @@ package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
 
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 
@@ -16,24 +14,30 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
+import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
@@ -70,6 +74,7 @@ public class WidgetModelToWidgetAdapter {
                     .setLabel(model.getLabel())
                     .setTextSize(18)
                     .setWeight(1)
+                    .setTag(model.getTag())
                     .build();
 
             return widget;
@@ -198,26 +203,53 @@ public class WidgetModelToWidgetAdapter {
                     .setWeight(model.getWeight())
                     .build();
         }
-        else if(widgetModel instanceof BasicDrugWidgetModel) {
+        /*else if(widgetModel instanceof BasicDrugWidgetModel) {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
-            return null;
+
+            return new BasicDrugWidget(context)
+                    .setUuid(model.getUuid()).build();
+        }*/
+        else if(widgetModel instanceof GenderPickerModel){
+
+            GenderPickerModel model = (GenderPickerModel) widgetModel;
+
+            BaseWidget widget = new GenderPickerWidget.Builder(this.context)
+                    .setFemaleLabel("Female")
+                    .setMaleLabel("Male")
+                    .setBundle(this.bundle)
+                    .setTag(model.getTag())
+                    .setWeight(1)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DistrictPickerModel){
+
+            BaseWidget widget = new DistrictPickerWidget.Builder(this.context)
+                    .setDistrictLabel("District")
+                    .setProvinceLabel("Province")
+                    .setRepository(repository)
+                    .setBundle(this.bundle)
+                    .setTag(widgetModel.getTag())
+                    .setWeight(1)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DatePickerModel){
+
+            DatePickerModel model = (DatePickerModel)widgetModel;
+            BaseWidget widget = new DatePickerWidget.Builder(this.context)
+                    .setHint(((DatePickerModel) widgetModel).getHint())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
         }
 
         return null;
-    }
-
-    private static LinearLayoutCompat createLinerLayout(Context context){
-
-        LinearLayoutCompat linearLayoutCompat = new LinearLayoutCompat(context);
-
-        LinearLayoutCompat.LayoutParams  layoutParams = new LinearLayoutCompat.LayoutParams(
-                LinearLayoutCompat.LayoutParams.MATCH_PARENT,LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
-
-        linearLayoutCompat.setLayoutParams(layoutParams);
-        linearLayoutCompat.setOrientation(LinearLayoutCompat.HORIZONTAL);
-        linearLayoutCompat.setGravity(Gravity.CENTER_VERTICAL);
-
-        return linearLayoutCompat;
     }
 }

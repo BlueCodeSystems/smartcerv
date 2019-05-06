@@ -1,8 +1,9 @@
 {
   "attributes": {
-    "type":"Encounter",
-    "encounterId":16,
-    "submitLabel":"End Visit"
+    "panelType":"form",
+    "formType":"encounter",
+    "encounterId": 16,
+    "submitLabel":"Submit"
   },
   "widgetGroup":[
     {

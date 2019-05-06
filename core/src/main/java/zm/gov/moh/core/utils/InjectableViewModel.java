@@ -5,4 +5,5 @@ import zm.gov.moh.core.repository.api.Repository;
 public interface InjectableViewModel {
 
     void setRepository(Repository repository);
+    Repository getRepository();
 }
