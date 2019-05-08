@@ -2,7 +2,21 @@
   "attributes": {
     "panelType":"form",
     "formType":"basic",
-    "submitLabel":"Submit"
+    "submitLabel":"Submit",
+    "logic":[
+      {
+        "condition": {
+          "value": "F"
+        },
+        "action": {
+          "type": "criteria",
+          "metadata": {
+            "tags": [
+              "PERSON_GENDER"
+            ]
+          }
+        }
+      }]
   },
   "widgetGroup":[
     {

@@ -56,6 +56,14 @@
           ]
         },
         {
+          "tag": "last menstrual period",
+          "conceptId": 165202,
+          "widgetType": "DatePickerButton",
+          "weight": 1,
+          "text": "Date of Last Menstrual Period ",
+          "textSize": 18
+        },
+        {
           "tag": "Amenorrhea or Menopause",
           "widgetType": "Concept",
           "conceptId": 165246,
@@ -79,13 +87,13 @@
             },
             {
               "condition": {
-                "value": 165248
+                "value":165248
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    ""
+
                   ]
                 }
               }
@@ -99,14 +107,6 @@
           "dataType": "Text",
           "style": "multiline",
           "hint": "Reasons for Amenorrhea",
-          "textSize": 18
-        },
-        {
-          "tag": "last menstrual period",
-          "conceptId": 165202,
-          "widgetType": "DatePickerButton",
-          "weight": 1,
-          "text": "Date of Last Menstrual Period ",
           "textSize": 18
         },
         {
@@ -162,9 +162,9 @@
             },
             {
               "tag": "via_date",
-              "widgetType": "DatePickerButton",
+              "widgetType": "DatePicker",
               "weight": 1,
-              "text": "Select Last Via Date",
+              "hint":"dd MM yyyy",
               "textSize": 18
             }
           ]

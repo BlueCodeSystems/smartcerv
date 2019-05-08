@@ -25,7 +25,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": [""]
                 }
               }
             },
@@ -36,7 +36,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": [""]
                 }
               }
             },
@@ -47,7 +47,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": [""]
                 }
               }
             },
@@ -58,7 +58,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": [""]
                 }
               }
             }

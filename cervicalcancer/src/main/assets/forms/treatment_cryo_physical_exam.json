@@ -115,7 +115,7 @@
           "conceptId": 165154,
           "dataType": "Text",
           "style": "multiline",
-          "hint": "Other Clinical Findings",
+          "hint": " Enter Other Clinical Findings",
           "textSize": 18
         }
       ]

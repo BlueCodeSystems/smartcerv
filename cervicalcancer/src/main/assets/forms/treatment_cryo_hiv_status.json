@@ -61,6 +61,14 @@
           ]
         },
         {
+          "tag": "Date tested negative",
+          "conceptId": 165251,
+          "dataType": "Date",
+          "widgetType": "DatePickerButton",
+          "text": "Enter date patient tested negative",
+          "textSize": 18
+        },
+        {
           "tag": "art status",
           "widgetType": "Concept",
           "conceptId": 165223,
@@ -98,14 +106,6 @@
               }
             }
           ]
-        },
-        {
-          "tag": "Date tested negative",
-          "conceptId": 165251,
-          "dataType": "Date",
-          "widgetType": "DatePickerButton",
-          "text": "Enter date patient tested negative",
-          "textSize": 18
         },
         {
           "tag": "art number",

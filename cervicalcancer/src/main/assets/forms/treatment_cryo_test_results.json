@@ -19,7 +19,34 @@
               "dataType": "Boolean",
               "style": "radio",
               "textSize": 18,
-              "label": "Was inspection done?"
+              "label": "Was inspection done?",
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "via reason"
+                      ]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -31,7 +58,8 @@
               "widgetType": "Concept",
               "conceptId": 165216,
               "dataType": "Text",
-              "hint": "Reason",
+              "style": "multiline",
+              "hint": "Reason why VIA inspection not done",
               "textSize": 18
             }
           ]
@@ -57,13 +85,7 @@
               "weight": 1
             },
             {
-              "widgetType": "PhotoAlbumButton",
-              "label": "View Photos",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "tag": "edi inspectionw done",
+              "tag": "edi inspection done",
               "widgetType": "Concept",
               "conceptId": 165156,
               "dataType": "Boolean",
@@ -80,7 +102,8 @@
               "widgetType": "Concept",
               "conceptId": 165217,
               "dataType": "Text",
-              "hint": "Reason",
+              "style": "multiline",
+              "hint": "Reason for no EDI",
               "textSize": 18
             }
           ]
@@ -102,6 +125,19 @@
               "label": "Transformation zone completely seen",
               "textSize": 18,
               "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [ "screening results"
+
+                      ]
+                    }
+                  }
+                },
                 {
                   "condition": {
                     "value": 2
@@ -127,6 +163,7 @@
               "widgetType": "Concept",
               "conceptId": 165158,
               "dataType": "Text",
+              "style": "multiline",
               "hint": "Reason(e.g severe cervicitis)",
               "textSize": 18
             }
@@ -210,7 +247,35 @@
               "dataType": "Boolean",
               "style": "radio",
               "label": "Covers < 75% of cervix",
-              "textSize": 18
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "covers greater than 75% of cervix"
+                      ]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
