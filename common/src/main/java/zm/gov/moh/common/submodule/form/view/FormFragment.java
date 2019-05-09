@@ -2,14 +2,19 @@ package zm.gov.moh.common.submodule.form.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
@@ -21,6 +26,7 @@ import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.service.DemographicsPersist;
 import zm.gov.moh.core.service.EncounterPersist;
 import zm.gov.moh.core.utils.BaseFragment;
@@ -59,6 +65,8 @@ public class FormFragment extends BaseFragment {
         renderWidgets.set(true);
 
         bundle = getArguments();
+
+        context.activityResultEmitter.observe(context,this::onUriRetrieved);
 
         FragmentFormBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_form,container,false);
 
@@ -114,9 +122,11 @@ public class FormFragment extends BaseFragment {
                 this.bundle.putAll(contextbundle);
                 Intent intent = new Intent(context,EncounterPersist.class);
 
+               ArrayList<String> tags = form.getFormContext().getTags();
 
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 
+                ObsValue<String> obsValue1 = ( ObsValue<String>)bundle.getSerializable("image view button");
 
                 if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
                     intent = new Intent(context, EncounterPersist.class);
@@ -173,6 +183,14 @@ public class FormFragment extends BaseFragment {
                     bundle.putLong(FormDataBundleKey.USER_ID, providerUser.user_id);
                 });
         //bundle.put(Key.PERSON_ID,)
+    }
+
+    public void onUriRetrieved(Map.Entry<String, Uri> data) {
+        System.out.println("HERE --> " + data.getKey() + " AND " + data.getValue());
+       String tag = bundle.getString(Key.VIEW_TAG);
+         View view = rootView.findViewWithTag(tag);
+        ((FormImageViewButtonWidget)view).onUriRetrieved(data.getValue());
+
     }
 
     @Override

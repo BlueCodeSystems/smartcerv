@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -52,6 +53,12 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         if(value != null)
             mEditText.setText(value);
     }
+
+    @Override
+    public void addViewToViewGroup() {
+
+    }
+
 
     AppCompatEditText getEditTextView(){
         return mEditText;

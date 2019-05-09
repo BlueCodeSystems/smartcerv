@@ -40,6 +40,9 @@ public interface ObsDao {
     @Query("SELECT * FROM obs WHERE encounter_id = :id")
     List<Obs> getObsByEncountId(long id);
 
+    @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId) AND concept_id = :conceptId")
+    List<Obs> getObsByVisitIdConceptId(Long visitId, Long conceptId);
+
     @Query("SELECT * FROM obs WHERE concept_id IN (:ids)")
     List<Obs> findByConceptId(long... ids);
 }
