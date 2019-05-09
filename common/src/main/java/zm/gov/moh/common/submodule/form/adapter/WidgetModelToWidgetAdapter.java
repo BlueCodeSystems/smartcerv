@@ -2,15 +2,11 @@ package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
 
-import androidx.appcompat.widget.LinearLayoutCompat;
-
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
@@ -23,12 +19,12 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
-import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
@@ -64,6 +60,7 @@ public class WidgetModelToWidgetAdapter {
     public View getWidget(WidgetModel widgetModel){
 
 
+        form.getFormContext().getTags().add(widgetModel.getTag());
         if(widgetModel instanceof EditTextModel){
 
             EditTextModel model = (EditTextModel) widgetModel;
@@ -104,7 +101,10 @@ public class WidgetModelToWidgetAdapter {
 
             BaseWidget widget = new FormImageViewButtonWidget.Builder(this.context)
                     .setLabel(model.getLabel())
+                    .setUuid(model.getUuid())
+                    .setRepository(repository)
                     .setBundle(bundle)
+                    .setTag(model.getTag())
                     .build();
             return widget;
         }

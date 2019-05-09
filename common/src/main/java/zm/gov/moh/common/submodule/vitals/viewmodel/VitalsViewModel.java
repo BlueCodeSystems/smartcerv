@@ -55,8 +55,8 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
 
 
 
-           //Additional If Statements to Enbale single field Update
-           //Checks if Vitals are not null and updates them withthe entered value
+           //Additional If Statements to Enable single field Update
+           //Checks if Vitals are not null and updates them with the entered value
 
            if(vitals.getHeight() != null)
                 conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_HEIGHT), Double.valueOf(vitals.getHeight().toString()));

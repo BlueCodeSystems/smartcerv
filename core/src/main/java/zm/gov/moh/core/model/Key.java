@@ -23,5 +23,7 @@ public class Key {
     public static final String SERVICE_NAME = "SERVICE_NAME";
     public static final String SERVICE_TYPE = "SERVICE_TYPE";
     public static final String JSON_FORM = "JSON_FORM";
+    public static final String EDI_IMAGE = "EDI IMAGE";
+    public static final String VIEW_TAG = "VIEW_TAG";
 
 }

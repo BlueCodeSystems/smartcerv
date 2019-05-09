@@ -21,4 +21,7 @@ public class OpenmrsConfig {
     //Location tags
     public static final String LOCATION_TAG_UUID_DISTRICT = "332f8bdb-7a2d-4063-9c76-cbb4a969fb8d";
     public static final String LOCATION_TAG_UUID_PROVINCE ="4bd0baf0-40eb-4209-bc6b-1080f3b34b41";
+
+    //Person Attribute types
+    public static final String PERSON_ATTRIBUTE_TYPE = "0dc3daad-1ff2-4e6e-934f-e675a092a3ed";
 }

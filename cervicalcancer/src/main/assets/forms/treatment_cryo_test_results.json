@@ -70,75 +70,64 @@
       "title": "Enhanced Digital Imaging(EDI)",
       "widgets": [
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
+          "tag": "image view button",
+          "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "ImageViewButton",
+          "label": "Image Load",
+          "textSize": 18,
+          "weight": 1
+
+        },
+        {
+          "widgetType": "CameraButton",
+          "label": "Take Photo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "edi inspection done",
+          "widgetType": "Concept",
+          "conceptId": 165156,
+          "dataType": "Boolean",
+          "style": "radio",
+          "textSize": 18,
+          "logic": [
             {
-              "widgetType": "ImageViewButton",
-              "label": "Image Load",
-              "textSize": 18,
-              "weight": 1
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
             },
             {
-              "widgetType": "CameraButton",
-              "label": "Take Photo",
-              "textSize": 18,
-              "weight": 1
-            }
-          ]
-        },
-        { "widgetType":"WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "edi inspection done",
-              "widgetType": "Concept",
-              "conceptId": 165156,
-              "dataType": "Boolean",
-              "style": "radio",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        ""
-                      ]
-                    }
-                  }
-                },
-                {
-                  "condition": {
-                    "value": 2
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "edi reason"
-                      ]
-                    }
-                  }
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "edi reason"
+                  ]
                 }
-              ]
+              }
             }
           ]
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "edi reason",
-              "widgetType": "Concept",
-              "conceptId": 165217,
-              "dataType": "Text",
-              "style": "multiline",
-              "hint": "Reason for no EDI",
-              "textSize": 18
-            }
-          ]
+          "tag": "edi reason",
+          "widgetType": "Concept",
+          "conceptId": 165217,
+          "dataType": "Text",
+          "style": "multiline",
+          "hint": "Reason for no EDI",
+          "textSize": 18
         }
       ]
     },

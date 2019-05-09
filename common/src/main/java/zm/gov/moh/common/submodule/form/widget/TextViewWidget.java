@@ -2,12 +2,13 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
-public class TextViewWidget extends BaseWidget implements Labeled {
+public abstract class TextViewWidget extends BaseWidget implements Labeled {
 
     protected String mLabel;
     protected int mTextSize;
@@ -56,6 +57,8 @@ public class TextViewWidget extends BaseWidget implements Labeled {
 
     }
 
+    public abstract void addViewToViewGroup();
+
     public static class Builder extends BaseWidget.Builder{
 
         protected String mLabel;
@@ -78,7 +81,12 @@ public class TextViewWidget extends BaseWidget implements Labeled {
         @Override
         public BaseWidget build() {
 
-            TextViewWidget widget = new TextViewWidget(mContext);
+            TextViewWidget widget = new TextViewWidget(mContext) {
+                @Override
+                public void addViewToViewGroup() {
+
+                }
+            };
 
            if(mLabel != null)
                widget.setLabel(mLabel);

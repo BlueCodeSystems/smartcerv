@@ -138,7 +138,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         answerConcepts = new LinkedHashSet<>();
         mObsValue.setConceptId(mConceptId);
         bundle.putSerializable((String)this.getTag(),mObsValue);
-        form.getFormContext().getTags().add((String)this.getTag());
         canSetValue = new AtomicBoolean();
         canSetValue.set(true);
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zm.gov.moh.common.submodule.dashboard.client.viewmodel.EnlargeActivity">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="224dp"
+        android:layout_height="192dp"
+        app:srcCompat="@android:drawable/alert_dark_frame"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="38dp"
+        android:layout_marginTop="79dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/thumbnail"
+        android:layout_marginTop="66dp"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:onClick="right"
+        app:srcCompat="@android:drawable/ic_media_next" />
+
+    <ImageButton
+        android:id="@+id/left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/right"
+        android:layout_toStartOf="@+id/thumbnail"
+        android:onClick="left"
+        app:srcCompat="@android:drawable/ic_media_previous" />
+
+    <ImageButton
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:onClick="takePhoto"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_below="@+id/thumbnail"
+        android:layout_alignStart="@+id/setting" />
+
+    <ImageButton
+        android:id="@+id/zoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="enlarge"
+        app:srcCompat="@android:drawable/ic_menu_zoom"
+        android:layout_alignTop="@+id/camera"
+        android:layout_alignStart="@+id/filter" />
+
+    <ImageButton
+        android:id="@+id/filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_search"
+        android:onClick="filter"
+        android:layout_alignTop="@+id/setting"
+        android:layout_alignEnd="@+id/thumbnail" />
+
+    <ImageButton
+        android:id="@+id/setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:onClick="upload"
+        app:srcCompat="@android:drawable/ic_menu_upload"
+        android:layout_below="@+id/camera"
+        android:layout_alignStart="@+id/thumbnail" />
+
+</RelativeLayout>

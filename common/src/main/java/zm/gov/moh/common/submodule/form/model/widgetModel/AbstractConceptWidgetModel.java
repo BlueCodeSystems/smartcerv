@@ -1,7 +1,8 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-public abstract class AbstractConceptWidgetModel extends AbstractWidgetModel implements ConceptWidgetModel,LabelModel,FormEditTextModel,WidgetModel{
+public abstract class AbstractConceptWidgetModel extends OpenmrsEntity implements ConceptWidgetModel,LabelModel,FormEditTextModel,WidgetModel{
 
+    @Deprecated
     private long conceptId;
     private String dataType;
     private String label;
