@@ -24,20 +24,15 @@ import zm.gov.moh.core.model.Key;
 
 public class FormActivity extends BaseActivity {
 
-    private HashMap<Integer, Uri> uris;
     Bundle mBundle;
 
     FormViewModel viewModel;
-    MutableLiveData<Map.Entry<String, Uri>> activityResultEmitter;
+    MutableLiveData<Map.Entry<Integer, Uri>> activityResultEmitter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
         activityResultEmitter = new MutableLiveData<>();
-        uris = new HashMap<>();
-
-        if(mBundle == null)
-            mBundle = new Bundle();
 
         viewModel = ViewModelProviders.of(this).get(FormViewModel.class);
 
@@ -59,14 +54,8 @@ public class FormActivity extends BaseActivity {
     { //create obs, get concept id, data type, & value
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
-            uris.put(requestCode, data.getData());
-            Bundle bundle = data.getExtras();
-            int i = 1;
-            i++;
-
-            Map.Entry<String,Uri> result = new AbstractMap.SimpleEntry<>("test",data.getData());
-           activityResultEmitter.setValue(result);
-
+            Map.Entry<Integer,Uri> result = new AbstractMap.SimpleEntry<>(requestCode,data.getData());
+            activityResultEmitter.setValue(result);
         }
 
 
