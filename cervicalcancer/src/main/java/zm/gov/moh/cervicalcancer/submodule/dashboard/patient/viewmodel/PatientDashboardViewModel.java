@@ -1,7 +1,11 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel;
 
 import android.app.Application;
+import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.system.Os;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.LinkedHashMultimap;
@@ -9,10 +13,13 @@ import com.google.common.collect.LinkedHashMultimap;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
+import java.util.AbstractMap;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import androidx.lifecycle.MutableLiveData;
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
@@ -42,13 +49,17 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     Database db = getRepository().getDatabase();
     long person_id;
 
-    private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> screeningDataEmitter;
-    private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> referralDataEmitter;
-    private MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> treatmentDataEmitter;
-    private MutableLiveData<LinkedHashMap<Long,Collection<String>>> providerDataEmitter;
-    private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>>> visitDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> screeningDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> referralDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> treatmentDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerDataEmitter;
+    private MutableLiveData<LinkedHashMultimap<Long, String>>  ediDataEmitter;
+    private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem, VisitEncounterItem>>> visitDataEmitter;
+    private Intent data;
+    private Object requestCode;
+    private HashMap uris;
 
-    public PatientDashboardViewModel(Application application){
+    public PatientDashboardViewModel(Application application) {
         super(application);
 
         this.visitState = new VisitState();
@@ -56,7 +67,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
     }
 
-    public void setVisitState(final int state){
+    public void setVisitState(final int state) {
 
         visitState.setState(state);
         persistVisit(state);
@@ -66,51 +77,61 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
     public MutableLiveData<Integer> getEmitVisitState() {
 
-        if(emitVisitState == null)
+        if (emitVisitState == null)
             emitVisitState = new MutableLiveData<>();
 
         return emitVisitState;
     }
 
-    public MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> getScreeningDataEmitter() {
+    public MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> getScreeningDataEmitter() {
 
-        if(screeningDataEmitter == null)
+        if (screeningDataEmitter == null)
             screeningDataEmitter = new MutableLiveData<>();
 
         return screeningDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> getReferralDataEmitter() {
+    public MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> getReferralDataEmitter() {
 
-        if(referralDataEmitter == null)
+        if (referralDataEmitter == null)
             referralDataEmitter = new MutableLiveData<>();
 
         return referralDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMap<Long,Collection<Boolean>>> getTreatmentDataEmitter() {
+    public MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> getTreatmentDataEmitter() {
 
-        if(treatmentDataEmitter == null)
+        if (treatmentDataEmitter == null)
             treatmentDataEmitter = new MutableLiveData<>();
 
         return treatmentDataEmitter;
     }
 
-    public MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>>> getVisitDataEmitter() {
+    public MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem, VisitEncounterItem>>> getVisitDataEmitter() {
 
-        if(visitDataEmitter == null)
+        if (visitDataEmitter == null)
             visitDataEmitter = new MutableLiveData<>();
 
         return visitDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMap<Long,Collection<String>>> getProviderDataEmitter() {
+    public MutableLiveData<LinkedHashMap<Long, Collection<String>>> getProviderDataEmitter() {
 
-        if(providerDataEmitter == null)
+        if (providerDataEmitter == null)
             providerDataEmitter = new MutableLiveData<>();
 
         return providerDataEmitter;
     }
+
+    public MutableLiveData<LinkedHashMultimap<Long, String>> getEDIDataEmitter() {
+
+        if (ediDataEmitter == null)
+            ediDataEmitter = new MutableLiveData<>();
+
+        return ediDataEmitter;
+    }
+
+
 
     public void setBundle(Bundle bundle) {
         this.bundle = bundle;
@@ -199,6 +220,27 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
+    public LinkedHashMultimap<Long, String> extractEDIData(List<Visit> visits){
+
+        if(visits.size() > 0) {
+
+            LinkedHashMultimap<Long, String> ediData = LinkedHashMultimap.create();
+            Long ediConceptId = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_EDI_IMAGE);
+
+            Obs eiObs = db.obsDao().findByConceptId(ediConceptId);
+
+            for(Visit visit: visits) {
+                long visitDatetime = visit.getDate_started().toInstant(ZoneOffset.UTC).getEpochSecond();
+                List<Obs> ediObs = db.obsDao().getObsByVisitIdConceptId(visit.getVisit_id(),ediConceptId);
+
+                for(Obs obs: ediObs){
+                    ediData.put(visitDatetime, obs.getValue_text());
+                }
+            }
+            return ediData;
+        }
+        return null;
+    }
 
     public LinkedHashMap<Long, Collection<Boolean>> extractReferralData(List<Visit> visits){
 
@@ -273,6 +315,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     public void onVisitsRetrieved(List<Visit> visits){
 
         getRepository().asyncFunction(this::extractScreeningData, getScreeningDataEmitter()::setValue, visits, this::onError);
+        getRepository().asyncFunction(this::extractEDIData, getEDIDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractReferralData, getReferralDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
         getRepository().asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);

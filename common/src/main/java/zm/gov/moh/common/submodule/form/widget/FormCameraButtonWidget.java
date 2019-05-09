@@ -7,7 +7,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,6 +57,13 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         button.setText(this.mLabel);
         this.addView(button);
     }
+
+    @Override
+    public void addViewToViewGroup() {
+
+    }
+
+   
 
 
     @Override

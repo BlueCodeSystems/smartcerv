@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="zm.gov.moh.common.submodule.dashboard.client.viewmodel.EnlargeActivity">
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="377dp"
+        android:layout_height="423dp"
+        android:contentDescription="an image"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/picture"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:onClick="tag"
+        android:layout_marginEnd="34dp"
+        android:text="Tag"
+        tools:ignore="OnClick" />
+
+    <EditText
+        android:id="@+id/textfield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button3"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@+id/button3"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Enter text here" />
+
+</RelativeLayout>

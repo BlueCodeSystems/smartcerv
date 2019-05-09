@@ -42,14 +42,26 @@
       "title":"Enhanced Digital Imaging(EDI)",
       "widgets":[
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
-
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
+              "tag": "edi inspection done",
+              "widgetType": "Concept",
+              "conceptId": 165156,
+              "dataType": "Boolean",
+              "style": "radio",
+              "textSize": 18
+            }
+          ]
+        },
+            {
+              "tag": "image view button",
+              "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
               "widgetType": "ImageViewButton",
               "label": "Image Load",
               "textSize": 18,
               "weight": 1
+
             },
             {
               "widgetType": "CameraButton",
@@ -57,16 +69,7 @@
               "textSize": 18,
               "weight": 1
             },
-            {
-              "tag":"edi inspection done",
-              "widgetType":"Concept",
-              "conceptId":165156,
-              "dataType":"Boolean",
-              "style":"radio",
-              "textSize":18
-            }
-          ]
-        },
+
 
         {
           "widgetType": "WidgetGroupRow",
