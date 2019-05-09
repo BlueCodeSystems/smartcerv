@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <ImageView
+        android:id="@+id/icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/img"/>
+        android:adjustViewBounds="true"
+        android:baselineAligned="false"
+        android:src="@drawable/galleryicon"
+        tools:layout_width="match_parent"
+        tools:src="@drawable/galleryicon" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="photo" />
 
 </LinearLayout>

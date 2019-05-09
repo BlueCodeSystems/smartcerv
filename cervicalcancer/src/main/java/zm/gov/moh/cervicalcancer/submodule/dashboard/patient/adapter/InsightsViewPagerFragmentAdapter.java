@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardEDIGalleryFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardProviderFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardReferralFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
@@ -36,7 +37,8 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
         else if (position == 4)
             fragment =  new PatientDashboardProviderFragment();
         else
-            fragment =  new PatientDashboardVisitTypeFragment();
+            fragment = new PatientDashboardEDIGalleryFragment();
+
 
         fragment.setArguments(mContext.getIntent().getExtras());
 
@@ -45,7 +47,7 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
 
     @Override
     public int getCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -62,6 +64,8 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
                 return "Treatment";
             case 4:
                 return "Provider";
+            case 5:
+                return "Enhanced Digital Imaging";
             default:
                 return null;
         }

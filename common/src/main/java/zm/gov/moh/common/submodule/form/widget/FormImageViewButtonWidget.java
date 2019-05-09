@@ -2,60 +2,54 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.util.Consumer;
-import butterknife.OnClick;
-import zm.gov.moh.common.R;
-import zm.gov.moh.core.utils.Utils;
+import zm.gov.moh.core.model.ConceptDataType;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.ObsValue;
 
 import android.content.Intent;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 
-public class FormImageViewButtonWidget extends TextViewWidget implements Submittable <String>, View.OnClickListener  {
+public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> implements View.OnClickListener  {
 
-    private Bundle bundle;
     public DoubleSummaryStatistics onClick;
+    private long key;
+    private Double value;
+    private ArrayList<String> tags;
+    protected String mLabel;
 
-
+    //Function<String,Long> encounterTypeUuidToId = getRepository().getDatabase().encounterTypeDao()::getIdByUuid;
 
     public FormImageViewButtonWidget(Context context) {
         super(context);
     }
 
+    public void setLabel(String label) {
+        mLabel = label;
+    }
+
     @Override
     public void onCreateView() {
+        super.onCreateView();
         AppCompatButton button = new AppCompatButton(this.mContext);
         button.setOnClickListener(this);
         button.setText(this.mLabel);
         this.addView(button);
     }
 
-
     @Override
-    public void setBundle(Bundle bundle) {
-        this.bundle = bundle;
-
-    }
-
-    public Bundle getBundle() {
-        return bundle;
-    }
-
-    @Override
-    public void setValue(String value) {
+    public void setValue(ObsValue<String> value) {
 
     }
 
     @Override
-    public String getValue() {
+    public ObsValue<String> getValue() {
         return null;
     }
 
@@ -64,14 +58,23 @@ public class FormImageViewButtonWidget extends TextViewWidget implements Submitt
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
+
+        mBundle.putString(Key.VIEW_TAG, (String)getTag());
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ((AppCompatActivity)mContext).startActivityForResult(intent,5);
     }
 
-    public static class Builder extends TextViewWidget.Builder{
+    public void onUriRetrieved(Uri uri){
+
+        ObsValue<String> obsValue = new ObsValue<>(mConceptId,ConceptDataType.TEXT,uri.toString());
+
+        String tagg = (String)getTag();
+        mBundle.putSerializable(tagg,obsValue);
+    }
+
+    public static class Builder extends ConceptWidget.Builder{
 
         protected String mLabel;
-        protected Bundle mBundle;
 
         public Builder(Context context){
             super(context);
@@ -89,6 +92,8 @@ public class FormImageViewButtonWidget extends TextViewWidget implements Submitt
             return this;
         }
 
+
+
         @Override
         public BaseWidget build() {
 
@@ -98,8 +103,15 @@ public class FormImageViewButtonWidget extends TextViewWidget implements Submitt
                 widget.setLabel(mLabel);
             if(mBundle != null)
                 widget.setBundle(mBundle);
+            if(mRepository != null)
+                widget.setRepository(mRepository);
+            if(mUuid != null)
+                widget.setUuid(mUuid);
+            if(mTag != null)
+                widget.setTag(mTag);
 
-            widget.setTextSize(mTextSize);
+
+            //widget.setTextSize(mTextSize);
 
             widget.onCreateView();
 
