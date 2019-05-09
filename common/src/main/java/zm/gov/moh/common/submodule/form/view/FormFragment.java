@@ -186,7 +186,6 @@ public class FormFragment extends BaseFragment {
     }
 
     public void onUriRetrieved(Map.Entry<String, Uri> data) {
-        System.out.println("HERE --> " + data.getKey() + " AND " + data.getValue());
        String tag = bundle.getString(Key.VIEW_TAG);
          View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget)view).onUriRetrieved(data.getValue());
