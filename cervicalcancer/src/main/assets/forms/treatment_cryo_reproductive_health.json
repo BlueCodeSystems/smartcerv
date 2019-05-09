@@ -35,7 +35,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "last menstrual period"
+                    "last_menstrual_period"
                   ]
                 }
               }
@@ -56,11 +56,11 @@
           ]
         },
         {
-          "tag": "last menstrual period",
+          "tag": "last_menstrual_period",
           "conceptId": 165202,
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Date of Last Menstrual Period ",
+          "hint": "Date of Last Menstrual Period ",
           "textSize": 18
         },
         {
@@ -87,13 +87,13 @@
             },
             {
               "condition": {
-                "value":165248
+                "value": 165248
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-
+                    ""
                   ]
                 }
               }
@@ -157,14 +157,28 @@
                       ]
                     }
                   }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  }
                 }
               ]
             },
             {
               "tag": "via_date",
+              "conceptId": 165269,
               "widgetType": "DatePicker",
               "weight": 1,
-              "hint":"dd MM yyyy",
+              "hint": "Select Date(dd MM yyyy)",
               "textSize": 18
             }
           ]
@@ -193,15 +207,28 @@
                       ]
                     }
                   }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  }
                 }
               ]
             },
             {
               "tag": "pap smear_date",
               "conceptId": 165107,
-              "widgetType": "DatePickerButton",
+              "widgetType": "DatePicker",
               "dataType": "Date",
-              "text": "Select Date of Last Pap Smear",
+              "hint": "Select Date(dd MM yyyy)",
               "textSize": 18
             }
           ]
@@ -236,8 +263,8 @@
             {
               "tag": "cryotherapy_date",
               "conceptId": 165108,
-              "widgetType": "DatePickerButton",
-              "text": "Select Date of Last Cryotherapy",
+              "widgetType": "DatePicker",
+              "hint": "Select Date(dd MM yyyy)",
               "textSize": 18
             }
           ]
@@ -272,8 +299,8 @@
             {
               "tag": "thermal coagulation_date",
               "conceptId": 165109,
-              "widgetType": "DatePickerButton",
-              "text": "Select Date of Thermal Coagulation",
+              "widgetType": "DatePicker",
+              "hint": "Select Date(dd MM yyyy)",
               "textSize": 18
             }
           ]
@@ -308,8 +335,8 @@
             {
               "tag": "leep_date",
               "conceptId": 165110,
-              "widgetType": "DatePickerButton",
-              "text": "Select Date of Last LEEP",
+              "widgetType": "DatePicker",
+              "hint": "Select Date(dd MM yyyy)",
               "textSize": 18
             }
           ]

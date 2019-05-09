@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,7 +53,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     Form form;
     Object mValue;
     String mStyle;
-    Set<Long> answerConcepts;
+    LinkedHashSet<Long> answerConcepts;
     Map<String,Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
 
@@ -133,7 +135,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         mObsValue = new ObsValue<>();
         mObsValue.setConceptDataType(mDataType);
-        answerConcepts = new HashSet<>();
+        answerConcepts = new LinkedHashSet<>();
         mObsValue.setConceptId(mConceptId);
         bundle.putSerializable((String)this.getTag(),mObsValue);
         form.getFormContext().getTags().add((String)this.getTag());
@@ -214,8 +216,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     public void onConceptIdAnswersRetrieved(List<ConceptAnswerName> conceptAnswerNames){
 
-        conceptNameIdMap = new HashMap<>();
-        answerConcepts = new HashSet<>();
+        conceptNameIdMap = new LinkedHashMap<>();
+        answerConcepts = new LinkedHashSet<>();
         for(ConceptAnswerName conceptAnswerName: conceptAnswerNames)
              conceptNameIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
 

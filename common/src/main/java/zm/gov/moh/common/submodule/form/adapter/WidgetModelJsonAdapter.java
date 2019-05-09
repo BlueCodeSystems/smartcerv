@@ -201,6 +201,7 @@ public class WidgetModelJsonAdapter {
 
                 datePickerModel.setWidgetType(widgetModelJson.getWidgetType());
                 datePickerModel.setTag(widgetModelJson.getTag());
+                datePickerModel.setLogic(widgetModelJson.getLogic());
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
 

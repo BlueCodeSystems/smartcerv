@@ -6,25 +6,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.common.R;
+import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.service.DataSync;
@@ -235,7 +233,7 @@ public class BaseActivity extends AppCompatActivity {
                     .observe(this, client -> {
                         bundle.putString(Key.PERSON_GIVEN_NAME, client.given_name);
                         bundle.putString(Key.PERSON_FAMILY_NAME, client.family_name);
-                        //Added for pass client gender with bundle
+                        //Added yo pass client gender with bundle
                         bundle.putString(Key.PERSON_GENDER, client.gender);
                          bundle.putString(Key.PERSON_DOB, client.birthdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 

@@ -94,7 +94,7 @@ public class FormFragment extends BaseFragment {
                             String value = bundle.getString(tag);
                             if(!value.equals(logic.getCondition().getValue())){
                                 context.onBackPressed();
-                                Toast.makeText(context,"",Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Male Patients cannnot enroll for this service",Toast.LENGTH_SHORT).show();
                             }
                         }
                 }

@@ -15,7 +15,7 @@
         },
         {
           "tag": "leep visit date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -56,7 +56,7 @@
         },
         {
           "tag": "dob",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -114,7 +114,7 @@
         },
         {
           "tag": "Date tested for hiv",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "textSize": 18,
           "text": "Select Date"
         },
@@ -150,7 +150,7 @@
         },
         {
           "tag": "date for cd4 result",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -162,7 +162,7 @@
         },
         {
           "tag": "client's arvs start date ",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -174,7 +174,7 @@
         },
         {
           "tag": "client reffered for leep date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
           "text": "Select Date"
@@ -204,7 +204,7 @@
         },
         {
           "tag": "leep visit date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -245,7 +245,7 @@
         },
         {
           "tag": "dob",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -303,7 +303,7 @@
         },
         {
           "tag": "Date tested for hiv",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "textSize": 18,
           "text": "Select Date"
         },
@@ -339,7 +339,7 @@
         },
         {
           "tag": "date for cd4 result",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -351,7 +351,7 @@
         },
         {
           "tag": "client's arvs start date ",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -363,7 +363,7 @@
         },
         {
           "tag": "client reffered for leep date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
           "text": "Select Date"

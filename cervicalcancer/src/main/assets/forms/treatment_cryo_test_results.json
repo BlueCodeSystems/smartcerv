@@ -83,14 +83,46 @@
               "label": "Take Photo",
               "textSize": 18,
               "weight": 1
-            },
+            }
+          ]
+        },
+        { "widgetType":"WidgetGroupRow",
+          "widgets": [
             {
               "tag": "edi inspection done",
               "widgetType": "Concept",
               "conceptId": 165156,
               "dataType": "Boolean",
               "style": "radio",
-              "textSize": 18
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "edi reason"
+                      ]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -237,48 +269,7 @@
             }
           ]
         },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "covers less than 75% of cervix",
-              "widgetType": "Concept",
-              "conceptId": 165169,
-              "dataType": "Boolean",
-              "style": "radio",
-              "label": "Covers < 75% of cervix",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        ""
-                      ]
-                    }
-                  }
-                },
-                {
-                  "condition": {
-                    "value": 2
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "covers greater than 75% of cervix"
-                      ]
-                    }
-                  }
-                }
-              ]
-            }
-          ]
-        },
+
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
@@ -311,12 +302,12 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "covers greater than 75% of cervix",
+              "tag": "percentage of cervix covered",
               "widgetType": "Concept",
-              "conceptId": 165172,
-              "dataType": "Boolean",
+              "conceptId": 165268,
+              "dataType": "Coded",
               "style": "radio",
-              "label": "Covers > 75% of cervix",
+              "label": "Percentage(%) of cervix covered",
               "textSize": 18
             }
           ]

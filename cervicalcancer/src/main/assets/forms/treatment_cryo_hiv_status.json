@@ -20,19 +20,6 @@
           "logic": [
             {
               "condition": {
-                "value": 165125
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [
-                    "art status"
-                  ]
-                }
-              }
-            },
-            {
-              "condition": {
                 "value": 165131
               },
               "action": {
@@ -52,8 +39,19 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "pict offered",
-                    "reason for unknown status"
+                    "reason for unknown status","pict offered"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                     "art status"
                   ]
                 }
               }
@@ -64,9 +62,8 @@
           "tag": "Date tested negative",
           "conceptId": 165251,
           "dataType": "Date",
-          "widgetType": "DatePickerButton",
-          "text": "Enter date patient tested negative",
-          "textSize": 18
+          "widgetType": "DatePicker",
+          "hint":"Select Date tested negative"
         },
         {
           "tag": "art status",
@@ -142,9 +139,8 @@
               "tag": "cd4 date",
               "conceptId": 165210,
               "dataType": "Date",
-              "widgetType": "DatePickerButton",
-              "text": "Select Date  of Last CD4",
-              "textSize": 18
+              "widgetType": "DatePicker",
+              "hint":"Select Date(dd MM yyyy)"
             }
           ]
         },
@@ -165,9 +161,8 @@
               "tag": "viral load date",
               "conceptId": 165212,
               "dataType": "Date",
-              "widgetType": "DatePickerButton",
-              "text": "Select Date of Last Viral Load Check",
-              "textSize": 18
+              "widgetType": "DatePicker",
+              "hint": "Select Date(dd MM yyyy)"
             }
           ]
         },
