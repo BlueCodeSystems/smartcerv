@@ -60,7 +60,8 @@
           "conceptId": 165202,
           "widgetType": "DatePicker",
           "weight": 1,
-          "hint": "Date of Last Menstrual Period ",
+          "label":"Date of Last Menstrual Period",
+          "hint": "dd MMM yyyy",
           "textSize": 18
         },
         {

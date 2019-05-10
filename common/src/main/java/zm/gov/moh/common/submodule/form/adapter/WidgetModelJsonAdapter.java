@@ -198,6 +198,7 @@ public class WidgetModelJsonAdapter {
                 districtPickerModel.setWidgetType(widgetModelJson.getWidgetType());
                 districtPickerModel.setTag(widgetModelJson.getTag());
                 districtPickerModel.setWeight(widgetModelJson.getWeight());
+                districtPickerModel.setLabel(widgetModelJson.getLabel());
 
                 return districtPickerModel;
 
@@ -217,6 +218,7 @@ public class WidgetModelJsonAdapter {
                 datePickerModel.setLogic(widgetModelJson.getLogic());
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
+                datePickerModel.setLabel(widgetModelJson.getLabel());
 
                 return datePickerModel;
 
