@@ -48,7 +48,7 @@
           "tag": "follow up dates",
           "widgetType": "DatePicker",
           "weight": 1,
-          "hint": "Select Date"
+          "hint": "dd MMM yyyy"
         },
 
         {
