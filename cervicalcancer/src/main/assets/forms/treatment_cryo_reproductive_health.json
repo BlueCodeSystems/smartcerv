@@ -126,7 +126,6 @@
           "dataType": "Boolean",
           "style": "radio",
           "label": "Any abnormal vaginal bleeding/contact bleeding:",
-          "hint": "Select date",
           "textSize": 18
         }
       ]
