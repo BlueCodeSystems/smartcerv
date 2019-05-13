@@ -13,6 +13,7 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
     Repository repository;
     Context context;
     FacilityDistrictCode code;
+    final long offset = 10000;
 
     public CervicalCancerIDEditTextWidget(Context context, int weight, Repository repository){
         super(context, weight);
@@ -33,6 +34,8 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
     }
 
     public void  appendSerial(Long serial){
-        this.setText(this.code.district_code+"-"+this.code.facility_code +"-000"+serial);
+
+        serial+=offset;
+        this.setText(this.code.district_code+"-"+this.code.facility_code +"-"+serial);
     }
 }
