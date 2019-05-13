@@ -72,7 +72,7 @@
           "widgets": [
             {
               "widgetType":"TextView",
-              "label":"Via Screening Date",
+              "label":"VIA Screening Date",
               "textSize":18,
               "weight":1
             },

@@ -63,7 +63,8 @@
           "conceptId": 165251,
           "dataType": "Date",
           "widgetType": "DatePicker",
-          "hint":"Select Date tested negative"
+          "label":"Select Date tested negative",
+          "hint": "dd MM yyyy"
         },
         {
           "tag": "art status",
@@ -140,7 +141,7 @@
               "conceptId": 165210,
               "dataType": "Date",
               "widgetType": "DatePicker",
-              "hint":"Select Date(dd MM yyyy)"
+              "hint": "dd MM yyyy"
             }
           ]
         },
@@ -162,7 +163,7 @@
               "conceptId": 165212,
               "dataType": "Date",
               "widgetType": "DatePicker",
-              "hint": "Select Date(dd MM yyyy)"
+              "hint": "dd MM yyyy"
             }
           ]
         },
