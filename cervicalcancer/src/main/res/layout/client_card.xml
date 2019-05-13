@@ -93,6 +93,7 @@
             android:layout_marginBottom="8dp"
             android:text="HIV:"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/client_age"
             app:layout_constraintTop_toTopOf="parent"
@@ -105,6 +106,7 @@
             android:layout_marginBottom="8dp"
             android:text="NR"
             android:textColor="@color/red"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView5" />
     </androidx.constraintlayout.widget.ConstraintLayout>

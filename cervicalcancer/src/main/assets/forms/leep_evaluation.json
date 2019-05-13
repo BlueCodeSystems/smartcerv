@@ -1,7 +1,8 @@
 {
   "attributes": {
-    "type": "Basic",
-    "submitLabel": "Submit"
+    "panelType":"form",
+    "formType":"basic",
+    "submitLabel":"Submit"
   },
   "widgetGroup": [
     {
@@ -197,52 +198,93 @@
       "title": "Reason For Referral",
       "widgets": [
         {
-          "widgetType": "TextView",
-          "label": "Leep Visit Date",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "leep visit date",
-          "widgetType": "DatePicker",
-          "weight": 1,
-          "text": "Select Date"
-        },
-        {
-          "tag": "facility",
-          "widgetType": "FacilityLabel",
-          "label": "Facility Name",
+          "tag": "covers less than 75% of cervix",
+          "widgetType": "Concept",
+          "conceptId": 165169,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Covers < 75% of cervix",
           "textSize": 18
         },
         {
-          "widgetType": "TextView",
-          "label": "Client ID",
-          "textSize": 18,
-          "weight": 1
+          "tag": "extends into cervical os",
+          "widgetType": "Concept",
+          "conceptId": 165171,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Extends into cervical os",
+          "textSize": 18
         },
         {
-          "tag": "client ID",
-          "widgetType": "CCPIZEditText",
-          "weight": 1
+          "tag": "atypical vessel",
+          "widgetType": "Concept",
+          "conceptId": 165170,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Atypical vessel",
+          "textSize": 18
         },
         {
-          "tag": "PERSON_GIVEN_NAME",
-          "widgetType": "EditText",
-          "hint": "First Name",
-          "weight": 1
+          "tag": "mosaicism or punctuation",
+          "widgetType": "Concept",
+          "conceptId": 165173,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Mosaicism/ Punctuation",
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "title": "Evaluation",
+      "widgets": [
+        {
+          "tag": "covers less than 75% of cervix",
+          "widgetType": "Concept",
+          "conceptId": 165169,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Covers < 75% of cervix",
+          "textSize": 18
         },
         {
-          "tag": "PERSON_FAMILY_NAME",
-          "widgetType": "EditText",
-          "hint": "Last Name",
-          "weight": 1
+          "tag": "extends into cervical os",
+          "widgetType": "Concept",
+          "conceptId": 165171,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Extends into cervical os",
+          "textSize": 18
+        },
+        {
+          "tag": "atypical vessel",
+          "widgetType": "Concept",
+          "conceptId": 165170,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Atypical vessel",
+          "textSize": 18
+        },
+        {
+          "tag": "mosaicism or punctuation",
+          "widgetType": "Concept",
+          "conceptId": 165173,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Mosaicism/ Punctuation",
+          "textSize": 18
         },
         {
           "widgetType": "TextView",
           "label": "Date Of Birth",
           "textSize": 18,
           "weight": 1
-        },
+        }
+      ]
+    },
+    {
+      "title": "TREATMENT/RESULTS/PATHOLOGY",
+      "widgets": [
         {
           "tag": "dob",
           "widgetType": "DatePicker",
@@ -374,13 +416,15 @@
           "textSize": 18,
           "weight": 1
         },
-        {
-          "tag": "referring facility",
-          "widgetType": "EditText",
-          "hint": "Can be obtained from the referral slip",
-          "weight": 1
-        }
-      ]
+      {
+        "tag": "referring facility",
+        "widgetType": "EditText",
+        "hint": "Can be obtained from the referral slip",
+        "weight": 1
+      }
+    ]
+
     }
   ]
 }
+

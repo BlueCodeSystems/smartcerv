@@ -60,7 +60,8 @@
           "conceptId": 165202,
           "widgetType": "DatePicker",
           "weight": 1,
-          "hint": "Date of Last Menstrual Period ",
+          "label":"Date of Last Menstrual Period",
+          "hint": "dd MMM yyyy",
           "textSize": 18
         },
         {
@@ -177,7 +178,7 @@
               "conceptId": 165269,
               "widgetType": "DatePicker",
               "weight": 1,
-              "hint": "dd MM yyyy",
+              "hint": "dd MMM yyyy",
               "textSize": 18
             }
           ]
@@ -227,7 +228,7 @@
               "conceptId": 165107,
               "widgetType": "DatePicker",
               "dataType": "Date",
-              "hint": "dd MM yyyy",
+              "hint": "dd MMM yyyy",
               "textSize": 18
             }
           ]
@@ -263,7 +264,7 @@
               "tag": "cryotherapy_date",
               "conceptId": 165108,
               "widgetType": "DatePicker",
-              "hint": "dd MM yyyy",
+              "hint": "dd MMM yyyy",
               "textSize": 18
             }
           ]
@@ -299,7 +300,7 @@
               "tag": "thermal coagulation_date",
               "conceptId": 165109,
               "widgetType": "DatePicker",
-              "hint": "dd MM yyyy",
+              "hint": "dd MMM yyyy",
               "textSize": 18
             }
           ]
@@ -335,7 +336,7 @@
               "tag": "leep_date",
               "conceptId": 165110,
               "widgetType": "DatePicker",
-              "hint": "dd MM yyyy",
+              "hint":"dd MMM yyyy",
               "textSize": 18
             }
           ]
@@ -347,7 +348,6 @@
           "dataType": "Boolean",
           "style": "radio",
           "label": "History of STIs:",
-          "hint": "Select date",
           "textSize": 18
         },
         {

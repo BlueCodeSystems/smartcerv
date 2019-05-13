@@ -17,6 +17,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -59,10 +60,22 @@ public class WidgetModelJsonAdapter {
 
                 final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
 
-                imageViewButtonModel.setWidgetType(widgetModelJson.getTag());
+                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                imageViewButtonModel.setTag(widgetModelJson.getTag());
                 imageViewButtonModel.setLabel(widgetModelJson.getLabel());
+                imageViewButtonModel.setUuid(widgetModelJson.getUuid());
+
 
                 return imageViewButtonModel;
+
+            case "PhotoAlbumButton":
+
+                final PhotoAlbumButtonWidgetModel photoAlbumButtonWidgetModel = new PhotoAlbumButtonWidgetModel();
+
+                photoAlbumButtonWidgetModel.setWidgetType(widgetModelJson.getTag());
+                photoAlbumButtonWidgetModel.setLabel(widgetModelJson.getLabel());
+
+                return photoAlbumButtonWidgetModel;
 
             case "CameraButton":
 
@@ -185,6 +198,7 @@ public class WidgetModelJsonAdapter {
                 districtPickerModel.setWidgetType(widgetModelJson.getWidgetType());
                 districtPickerModel.setTag(widgetModelJson.getTag());
                 districtPickerModel.setWeight(widgetModelJson.getWeight());
+                districtPickerModel.setLabel(widgetModelJson.getLabel());
 
                 return districtPickerModel;
 
@@ -204,6 +218,7 @@ public class WidgetModelJsonAdapter {
                 datePickerModel.setLogic(widgetModelJson.getLogic());
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
+                datePickerModel.setLabel(widgetModelJson.getLabel());
 
                 return datePickerModel;
 

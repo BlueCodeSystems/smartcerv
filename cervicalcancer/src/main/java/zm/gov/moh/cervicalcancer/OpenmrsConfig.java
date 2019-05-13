@@ -23,6 +23,7 @@ public class OpenmrsConfig {
     public static final String CONCEPT_UUID_THERMAL_COAGULATION_TODAY = "12b34703-0900-4c8d-a621-223ad4a84750";
     public static final String CONCEPT_UUID_CRYTHERAPY_PERFORMED_TODAY = "00fdce3a-7e10-415f-90e0-0739257ccda4";
     public static final String CONCEPT_UUID_CRYTHERAPY_DELAYED = "dfffbe57-d079-4279-8e2a-dbb4bc671f49";
+    public static final String CONCEPT_UUID_EDI_IMAGE = "4da37d55-3754-4648-8549-35abf708dee9";
     public static final String CONCEPT_UUID_THERMAL_COAGULATION_DELAYED = "177b78d1-8dca-415a-9fdb-e2d2a5aa2491";
 
     public static final String CONCEPT_UUID_HEALTH_FACILITY_REFERRED = "38905f09-b2fb-4c98-a530-a1e1e779f3db";
@@ -35,4 +36,5 @@ public class OpenmrsConfig {
     //Encounter Type
     public static final String ENCOUNTER_TYPE_UUID_TEST_RESULT = "18c7295b-bd02-4766-8341-95337197606b";
     public static final String ENCOUNTER_TYPE_UUID_TREAMENT = "792cdf01-d7c6-435b-8224-40159f5baea2";
+
 }
