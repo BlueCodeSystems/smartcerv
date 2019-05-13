@@ -4,11 +4,8 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
-import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 
 @Dao
 public interface ConceptAnswerNameDao {

@@ -1,11 +1,11 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
+    "panelType": "form",
+    "formType": "encounter",
     "encounterId": 10,
-    "submitLabel":"Submit"
+    "submitLabel": "Submit"
   },
-  "widgetGroup":[
+  "widgetGroup": [
     {
       "title": "HIV Status",
       "widgets": [
@@ -15,28 +15,19 @@
           "conceptId": 165203,
           "dataType": "Coded",
           "style": "radio",
-          "label":"HIV Status",
+          "label": "HIV Status",
           "textSize": 18,
           "logic": [
             {
               "condition": {
-                "value": 165125
+                "value": 165131
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["art status"]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value":165131
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": ["Date tested negative"]
+                  "tags": [
+                    "Date tested negative"
+                  ]
                 }
               }
             },
@@ -47,11 +38,33 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for unknown status","pict offered"]
+                  "tags": [
+                    "reason for unknown status","pict offered"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                     "art status"
+                  ]
                 }
               }
             }
           ]
+        },
+        {
+          "tag": "Date tested negative",
+          "conceptId": 165251,
+          "dataType": "Date",
+          "widgetType": "DatePicker",
+          "label":"Select Date tested negative",
+          "hint": "dd MM yyyy"
         },
         {
           "tag": "art status",
@@ -60,7 +73,7 @@
           "dataType": "Coded",
           "style": "radio",
           "textSize": 18,
-          "label":"ART Enrollment Status",
+          "label": "ART Enrollment Status",
           "logic": [
             {
               "condition": {
@@ -69,7 +82,11 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["art number","cd4","viral load"]
+                  "tags": [
+                    "art number",
+                    "cd4",
+                    "viral load"
+                  ]
                 }
               }
             },
@@ -80,20 +97,13 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["art clinic"]
+                  "tags": [
+                    "art clinic"
+                  ]
                 }
               }
             }
           ]
-        },
-        {
-          "tag": "Date tested negative",
-          "widgetType": "Concept",
-          "conceptId": 165251,
-          "dataType": "Date",
-          "textSize": 18,
-          "label":"Enter date patient tested negative",
-          "hint":"Select Date"
         },
         {
           "tag": "art number",
@@ -101,8 +111,8 @@
           "conceptId": 165128,
           "dataType": "Text",
           "textSize": 18,
-          "label":"ART No.",
-          "hint":"Number"
+          "label": "ART No.",
+          "hint": "Number"
         },
         {
           "tag": "PICT was not offered",
@@ -110,72 +120,70 @@
           "conceptId": 165253,
           "dataType": "Text",
           "textSize": 18,
-          "label":"Reason PICT was not offered",
-          "hint":"Reason"
+          "style": "multiline",
+          "hint": "Reason PICT was not offered"
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "tag":"cd4",
+          "widgetType": "WidgetGroupRow",
+          "tag": "cd4",
           "widgets": [
             {
-              "tag":"cd4 count",
-              "widgetType":"Concept",
-              "conceptId":165241,
-              "dataType":"Text",
-              "hint":"Number",
-              "label":"CD4 Count",
-              "textSize":18
+              "tag": "cd4 count",
+              "widgetType": "Concept",
+              "conceptId": 165241,
+              "dataType": "Text",
+              "hint": "Number",
+              "label": "CD4 Count",
+              "textSize": 18
             },
             {
-              "tag":"cd4 date",
-              "widgetType":"Concept",
-              "conceptId":165210,
-              "dataType":"Date",
-              "hint":"CD4 date",
-              "textSize":18
+              "tag": "cd4 date",
+              "conceptId": 165210,
+              "dataType": "Date",
+              "widgetType": "DatePicker",
+              "hint": "dd MM yyyy"
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "tag":"viral load",
+          "widgetType": "WidgetGroupRow",
+          "tag": "viral load",
           "widgets": [
             {
-              "tag":"viral load count",
-              "widgetType":"Concept",
-              "conceptId":165242,
-              "dataType":"Text",
-              "hint":"Number",
-              "label":"Last Viral Load",
-              "textSize":18
+              "tag": "viral load count",
+              "widgetType": "Concept",
+              "conceptId": 165242,
+              "dataType": "Text",
+              "hint": "Number",
+              "label": "Last Viral Load",
+              "textSize": 18
             },
             {
-              "tag":"viral load date",
-              "widgetType":"Concept",
-              "conceptId":165212,
-              "dataType":"Date",
-              "hint":"Date",
-              "textSize":18
+              "tag": "viral load date",
+              "conceptId": 165212,
+              "dataType": "Date",
+              "widgetType": "DatePicker",
+              "hint": "dd MM yyyy"
             }
           ]
         },
         {
-          "tag":"reason for unknown status",
-          "widgetType":"Concept",
-          "conceptId":165208,
-          "dataType":"Text",
-          "hint":"Type the reason for unknown HIV status",
-          "label":"Reason",
-          "textSize":18
+          "tag": "reason for unknown status",
+          "widgetType": "Concept",
+          "conceptId": 165208,
+          "dataType": "Text",
+          "style": "multiline",
+          "textSize": 18,
+          "hint": "Enter Reason for Unknown HIV Satus "
         },
         {
-          "tag":"pict offered",
-          "widgetType":"Concept",
-          "conceptId":165133,
-          "dataType":"Boolean",
+          "tag": "pict offered",
+          "widgetType": "Concept",
+          "conceptId": 165133,
+          "dataType": "Boolean",
           "style": "radio",
-          "label":"PICT Offered",
-          "textSize":18,
+          "label": "PICT Offered",
+          "textSize": 18,
           "logic": [
             {
               "condition": {
@@ -184,7 +192,9 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["pict accepted"]
+                  "tags": [
+                    "pict accepted"
+                  ]
                 }
               }
             },
@@ -195,19 +205,22 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["PICT was not offered"]
+                  "tags": [
+                    "PICT was not offered"
+                  ]
                 }
               }
-            }]
+            }
+          ]
         },
         {
-          "tag":"pict accepted",
-          "widgetType":"Concept",
-          "conceptId":165134,
-          "dataType":"Boolean",
+          "tag": "pict accepted",
+          "widgetType": "Concept",
+          "conceptId": 165134,
+          "dataType": "Boolean",
           "style": "radio",
-          "label":"PICT Accepted",
-          "textSize":18,
+          "label": "PICT Accepted",
+          "textSize": 18,
           "logic": [
             {
               "condition": {
@@ -216,11 +229,12 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["pict result"]
+                  "tags": [
+                    "pict result"
+                  ]
                 }
               }
             },
-
             {
               "condition": {
                 "value": 2
@@ -228,19 +242,22 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": [""]
+                  "tags": [
+                    ""
+                  ]
                 }
               }
-            }]
+            }
+          ]
         },
         {
-          "tag":"pict result",
-          "widgetType":"Concept",
-          "conceptId":165239,
-          "dataType":"Coded",
-          "style":"radio",
-          "label":"Result",
-          "textSize":18,
+          "tag": "pict result",
+          "widgetType": "Concept",
+          "conceptId": 165239,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Result",
+          "textSize": 18,
           "logic": [
             {
               "condition": {
@@ -249,20 +266,22 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["art clinic"]
+                  "tags": [
+                    "art clinic"
+                  ]
                 }
               }
             }
           ]
         },
         {
-          "tag":"art clinic",
-          "widgetType":"Concept",
-          "conceptId":165136,
-          "dataType":"Boolean",
+          "tag": "art clinic",
+          "widgetType": "Concept",
+          "conceptId": 165136,
+          "dataType": "Boolean",
           "style": "radio",
-          "label":"Referred to ART Clinic",
-          "textSize":18,
+          "label": "Referred to ART Clinic",
+          "textSize": 18,
           "logic": [
             {
               "condition": {
@@ -271,11 +290,12 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": [""]
+                  "tags": [
+                    ""
+                  ]
                 }
               }
             },
-
             {
               "condition": {
                 "value": 2
@@ -283,21 +303,24 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["Reason_for_no_ART"]
+                  "tags": [
+                    "Reason_for_no_ART"
+                  ]
                 }
               }
-            }]
+            }
+          ]
         },
         {
-          "tag":"Reason_for_no_ART",
-          "widgetType":"Concept",
-          "conceptId":165259,
-          "dataType":"Text",
-          "Hint": "Reason",
-          "label":"Reason for patient not being referred",
-          "hint":"Reason",
-          "textSize":18
+          "tag": "Reason_for_no_ART",
+          "widgetType": "Concept",
+          "conceptId": 165259,
+          "dataType": "Text",
+          "style": "multiline",
+          "textSize": 18,
+          "hint": "Reason why patient was not reffred to ART Clinic"
         }
       ]
-  }]
+    }
+  ]
 }

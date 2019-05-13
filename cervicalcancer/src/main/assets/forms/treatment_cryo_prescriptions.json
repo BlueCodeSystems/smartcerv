@@ -27,7 +27,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency", "duration","Follow up dates"]
+                      "tags":["frequency", "duration"]
                     }
                   }
                 }
@@ -54,15 +54,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -84,7 +75,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency1", "duration1","Follow up dates1"]
+                      "tags":["frequency1", "duration1"]
                     }
                   }
                 }
@@ -111,15 +102,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates1",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -141,7 +123,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency2", "duration2","Follow up dates2"]
+                      "tags":["frequency2", "duration2"]
                     }
                   }
                 }
@@ -168,15 +150,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates2",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -198,7 +171,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency3", "duration3","Follow up dates3"]
+                      "tags":["frequency3", "duration3"]
                     }
                   }
                 }
@@ -225,15 +198,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates3",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -255,7 +219,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency4", "duration4","Follow up dates4"]
+                      "tags":["frequency4", "duration4"]
                     }
                   }
                 }
@@ -284,15 +248,6 @@
               "style":"dropdown",
               "textSize": 18,
               "weight":1
-            },
-            {
-              "tag": "Follow up dates4",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -314,7 +269,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency5", "duration5","Follow up dates5"]
+                      "tags":["frequency5", "duration5"]
                     }
                   }
                 }
@@ -341,15 +296,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates5",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -371,7 +317,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency6", "duration6","Follow up dates6"]
+                      "tags":["frequency6", "duration6"]
                     }
                   }
                 }
@@ -398,15 +344,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates6",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -428,7 +365,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency7","duration7","Follow up dates7"]
+                      "tags":["frequency7","duration7"]
                     }
                   }
                 }
@@ -453,15 +390,6 @@
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
-              "style":"dropdown",
-              "textSize": 18
-            },
-            {
-              "tag": "Follow up dates7",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
               "style":"dropdown",
               "textSize": 18
             }
@@ -512,18 +440,7 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates8",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
-            }
-
-          ]
+            }]
         },
         {
           "widgetType":"WidgetGroupRow",
@@ -543,7 +460,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency9", "duration9","Follow up dates9"]
+                      "tags":["frequency9", "duration9"]
                     }
                   }
                 }
@@ -570,15 +487,6 @@
               "dataType": "Coded",
               "style":"dropdown",
               "textSize": 18
-            },
-            {
-              "tag": "Follow up dates9",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
-              "style":"dropdown",
-              "textSize": 18
             }
           ]
         },
@@ -600,7 +508,7 @@
                   "action":{
                     "type":"skipLogic",
                     "metadata":{
-                      "tags":["frequency10", "duration10","Follow up dates10"]
+                      "tags":["frequency10", "duration10"]
                     }
                   }
                 }
@@ -627,15 +535,6 @@
               "widgetType": "Concept",
               "conceptId": 165224,
               "dataType": "Coded",
-              "style":"dropdown",
-              "textSize": 18
-            },
-            {
-              "tag": "Follow up dates10",
-              "widgetType": "Concept",
-              "conceptId": 165200,
-              "dataType": "Date",
-              "label":"Follow up date",
               "style":"dropdown",
               "textSize": 18
             }
