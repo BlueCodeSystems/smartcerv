@@ -165,5 +165,16 @@ public class MetaDataSync extends SyncService {
                 repository.getRestApiAdapter().getConcept(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
+
+        repository.consumeAsync(
+                drugs ->{
+                    repository.getDatabase().drugDao().insert(drugs);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApiAdapter().getDrugs(accesstoken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
     }
 }
