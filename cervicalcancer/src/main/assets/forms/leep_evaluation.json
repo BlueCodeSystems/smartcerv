@@ -16,7 +16,7 @@
         },
         {
           "tag": "leep visit date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -57,7 +57,7 @@
         },
         {
           "tag": "dob",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -115,7 +115,7 @@
         },
         {
           "tag": "Date tested for hiv",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "textSize": 18,
           "text": "Select Date"
         },
@@ -151,7 +151,7 @@
         },
         {
           "tag": "date for cd4 result",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -163,7 +163,7 @@
         },
         {
           "tag": "client's arvs start date ",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date"
         },
@@ -175,7 +175,7 @@
         },
         {
           "tag": "client reffered for leep date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
           "text": "Select Date"
@@ -326,6 +326,17 @@
           "dataType": "Boolean",
           "style": "radio",
           "label": "Polyp",
+        },
+        {
+          "tag": "dob",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
@@ -345,6 +356,30 @@
           "style": "radio",
           "label": "Lesion extends into cervical os",
           "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "The date on which the client took an HIV test",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Date tested for hiv",
+          "widgetType": "DatePicker",
+          "textSize": 18,
+          "text": "Select Date"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Place",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PLACE_OF_HIV_TEST",
+          "widgetType": "EditText",
+          "hint": "Enter the name of the Place where the client took an HIV test",
+          "weight": 1
         },
         {
           "tag": "lesion_too_thick_for_cryo",
@@ -381,6 +416,10 @@
           "style": "radio",
           "label": "Querry ICC",
           "textSize": 18
+          "tag": "date for cd4 result",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Select Date"
         },
         {
           "tag": "atypical vessel",
@@ -401,6 +440,12 @@
           "textSize": 18
         },
         {
+          "tag": "client's arvs start date ",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Select Date"
+        },
+        {
           "tag": "extends into cervical os",
           "widgetType": "Concept",
           "conceptId": 165171,
@@ -417,6 +462,13 @@
           "style": "radio",
           "label": "Post cryo lesion",
           "textSize": 18
+        },
+        {
+          "tag": "client reffered for leep date",
+          "widgetType": "DatePicker",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1,
+          "text": "Select Date"
         },
         {
           "tag": "other",

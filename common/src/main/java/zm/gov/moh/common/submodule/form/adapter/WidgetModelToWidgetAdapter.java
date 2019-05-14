@@ -243,6 +243,7 @@ public class WidgetModelToWidgetAdapter {
             BaseWidget widget = new DatePickerWidget.Builder(this.context)
                     .setHint(((DatePickerModel) widgetModel).getHint())
                     .setBundle(this.bundle)
+                    .setLabel(model.getLabel())
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();
