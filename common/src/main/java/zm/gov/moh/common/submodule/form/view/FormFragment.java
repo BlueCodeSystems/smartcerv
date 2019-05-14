@@ -206,7 +206,7 @@ public class FormFragment extends BaseFragment {
     }
     public void onUriRetrieved(Map.Entry<Integer, Uri> data) {
        String tag = bundle.getString(Key.VIEW_TAG);
-         View view = rootView.findViewWithTag(tag);
+       View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget)view).onUriRetrieved(data.getValue());
 
     }
