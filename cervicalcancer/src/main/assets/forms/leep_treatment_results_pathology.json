@@ -9,22 +9,35 @@
       "title": "Treatment/Results/Pathology",
       "widgets": [
         {
+          "tag": "treatment",
+          "widgetType": "Concept",
+          "conceptId": 165286,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "TREATMENT",
+          "textSize": 18
+        },
+        {
           "widgetType": "TextView",
-          "label": "Treatment",
+          "label": "Drug",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "drug",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
           "widgetType": "TextView",
-          "weight": 1,
-          "label": "Drug",
-          "text": "Select Date"
+          "label": "Dosage",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "tag": "dosage",
-          "widgetType": "TextView",
-          "label": "Facility Name",
+          "widgetType": "EditText",
+          "hint": "mg",
           "textSize": 18
         },
         {
@@ -34,10 +47,26 @@
           "weight": 1
         },
         {
-          "tag": "duration",
+          "tag": "frequency",
+          "widgetType": "Concept",
+          "conceptId": 165225,
+          "dataType": "Coded",
+          "style": "dropdown",
+          "textSize": 18
+        },
+        {
           "widgetType": "TextView",
           "label": "Duration",
+          "textSize": 18,
           "weight": 1
+        },
+        {
+          "tag": "duration",
+          "widgetType": "Concept",
+          "conceptId": 165224,
+          "dataType": "Coded",
+          "style": "dropdown",
+          "textSize": 18
         },
         {
           "tag": "clinician signature",
@@ -631,9 +660,3 @@
     }
   ]
 }
-
-
-
-
-
-

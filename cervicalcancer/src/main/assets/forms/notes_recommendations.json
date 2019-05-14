@@ -19,20 +19,9 @@
           "tag": "notes",
           "widgetType": "EditText",
           "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
-          "tag": "notes",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
-          "tag": "notes",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
+          "weight": 0
         }
+
       ]
     },
     {

@@ -111,8 +111,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
             FormJson treatment_results_pathology = new FormJson("Treatment/Results/Pathology",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_treatment_results_pathology.json")));
-            FormJson final_diagnosis = new FormJson("Final Diagnosis",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_final_diagnosis.json")));
+            FormJson final_diagnosis = new FormJson("Final Diagnosis & Plan",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_final_diagnosis_plan.json")));
 
             //Add via and leep forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
