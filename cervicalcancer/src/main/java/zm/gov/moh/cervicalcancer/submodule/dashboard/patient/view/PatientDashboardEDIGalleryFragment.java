@@ -8,8 +8,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,6 +24,7 @@ import java.util.ArrayList;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +40,7 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
     RecyclerView recyclerView;
     private TextView visitDate;
     private View rootView;
+
 
 
     public PatientDashboardEDIGalleryFragment() {
@@ -80,6 +81,8 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
 
 
+
+
             }
         }
 
@@ -98,11 +101,24 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
             return new ViewHolder(view);
 
+
+
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int viewType) {
-            GridView gridView = viewHolder.img;
+        public void onBindViewHolder(ViewHolder viewHolder, int i) {
+            AppCompatImageView imageView = viewHolder.img;
+            String res =uris.get(i);
+            //File file = new File( pathname: "/storage/emulated/0/DCIM/Camera/IMG_20190429_154929.jpg")
+            Uri uri = Uri.parse( "/storage/emulated/0/DCIM/Camera/" + "IMG_20190429_154929.jpg");
+
+            Uri uri2 = Uri.parse( "/storage/emulated/0/DCIM/Camera/" + "IMG_20190429_154929.jpg");
+            imageView.setImageURI(Uri.parse(res));
+            /*Glide
+                    .with(context)
+                    .asBitmap()
+                    .load(uri)
+                    .into(imageView);*/
             //String fileName = "IMG_20190429_154929.jpg";
             //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/" + fileName;
             //File file = new File(completePath);
@@ -126,12 +142,7 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
            // Uri imageUris = Uri.fromFile(file);
 
 
-            //File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "IMG_20190408_142022.JPG");
 
-            //Glide
-                    //.with(context)
-                    //.load(uris.get(viewType))
-                    //.into(gridView);
 
                     //.load(new File(completePath+path))
 
@@ -146,7 +157,7 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            GridView img;
+            AppCompatImageView img;
 
             public ViewHolder(View view) {
                 super(view);

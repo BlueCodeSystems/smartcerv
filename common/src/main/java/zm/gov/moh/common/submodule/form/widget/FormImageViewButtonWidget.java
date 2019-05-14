@@ -4,15 +4,22 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.utils.widget.ImageFilterView;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 
@@ -23,6 +30,7 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
     private Double value;
     private ArrayList<String> tags;
     protected String mLabel;
+    protected AppCompatImageView imageView;
 
     //Function<String,Long> encounterTypeUuidToId = getRepository().getDatabase().encounterTypeDao()::getIdByUuid;
 
@@ -38,9 +46,12 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
     public void onCreateView() {
         super.onCreateView();
         AppCompatButton button = new AppCompatButton(this.mContext);
+        imageView = new AppCompatImageView(mContext);
+        WidgetUtils.setLayoutParams(imageView,1200,600);
         button.setOnClickListener(this);
         button.setText(this.mLabel);
         this.addView(button);
+        this.addView(imageView);
     }
 
     @Override
@@ -64,12 +75,33 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         ((AppCompatActivity)mContext).startActivityForResult(intent,5);
     }
 
-    public void onUriRetrieved(Uri uri){
+    public void onUriRetrieved(int Request,Uri uri){
 
-        ObsValue<String> obsValue = new ObsValue<>(mConceptId,ConceptDataType.TEXT,uri.toString());
+        //File file = new File(uri.);
+        String path = getRealPathFromURI(mContext,uri );
 
-        String tagg = (String)getTag();
-        mBundle.putSerializable(tagg,obsValue);
+        ObsValue<String> obsValue = new ObsValue<>(mConceptId,ConceptDataType.TEXT, uri.toString());
+
+
+        mBundle.putSerializable( (String)getTag(),obsValue);
+        imageView.setImageURI(uri);
+    }
+
+
+    public static String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            cursor.moveToFirst();
+            int column_index = cursor.getColumnIndex(proj[0]);
+            String path = cursor.getString(column_index);
+            return path;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     public static class Builder extends ConceptWidget.Builder{

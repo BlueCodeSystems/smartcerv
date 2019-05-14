@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
 
 import android.content.Intent;
@@ -56,6 +57,14 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         button.setOnClickListener(this);
         button.setText(this.mLabel);
         this.addView(button);
+        //{super.onCreateView();
+            //AppCompatButton button = new AppCompatButton(this.mContext)
+            //mageView = new AppCompatImageView(mContext);
+            //WidgetUtils.setLayoutParams(cam,100,100);
+            //button.setOnClickListener(this);
+            //button.setText(this.mLabel);
+            //this.addView(button);
+            //this.addView(imageView);}
     }
 
     @Override

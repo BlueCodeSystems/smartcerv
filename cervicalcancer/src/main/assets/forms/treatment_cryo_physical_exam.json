@@ -1,11 +1,11 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
-    "encounterId":11,
-    "submitLabel":"Submit"
+    "panelType": "form",
+    "formType": "encounter",
+    "encounterId": 11,
+    "submitLabel": "Submit"
   },
-  "widgetGroup":[
+  "widgetGroup": [
     {
       "title": "Physical Exam",
       "widgets": [
@@ -15,7 +15,7 @@
           "conceptId": 165137,
           "dataType": "Boolean",
           "label": "Pelvic exam done",
-          "style":"radio",
+          "style": "radio",
           "textSize": 18
         },
         {
@@ -24,7 +24,7 @@
           "conceptId": 165139,
           "dataType": "Coded",
           "label": "Vulva/Perineuem",
-          "style":"radio",
+          "style": "radio",
           "textSize": 18
         },
         {
@@ -33,7 +33,7 @@
           "conceptId": 165140,
           "dataType": "Coded",
           "label": "Cervix",
-          "style":"radio",
+          "style": "radio",
           "textSize": 18
         },
         {
@@ -41,7 +41,7 @@
           "widgetType": "Concept",
           "conceptId": 165141,
           "dataType": "Coded",
-          "style":"radio",
+          "style": "radio",
           "label": "Vagina",
           "textSize": 18
         },
@@ -50,7 +50,7 @@
           "widgetType": "Concept",
           "conceptId": 165142,
           "dataType": "Coded",
-          "style":"radio",
+          "style": "radio",
           "label": "Lower Abdomen",
           "textSize": 18
         },
@@ -59,7 +59,7 @@
           "widgetType": "Concept",
           "conceptId": 165143,
           "dataType": "Coded",
-          "style":"check",
+          "style": "check",
           "label": "Post-Treatment Complication",
           "textSize": 18
         },
@@ -68,51 +68,53 @@
           "widgetType": "Concept",
           "conceptId": 165147,
           "dataType": "Coded",
-          "style":"check",
+          "style": "check",
           "label": "Clinical Findings",
           "textSize": 18
         },
         {
           "tag": "Other_findings",
           "widgetType": "Concept",
-          "conceptId":165260,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"Other",
+          "conceptId": 165260,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Other",
           "textSize": 18,
           "logic": [
             {
               "condition": {
-                "value":1
+                "value": 1
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["Other Clinical Findings"]
+                  "tags": [
+                    "Other Clinical Findings"
+                  ]
                 }
               }
             },
             {
               "condition": {
-                "value":2
+                "value": 2
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": [""]
+                  "tags": [
+                    ""
+                  ]
                 }
               }
             }
           ]
-
         },
         {
-          "tag":"Other Clinical Findings",
-          "widgetType":"Concept",
+          "tag": "Other Clinical Findings",
+          "widgetType": "EditText",
           "conceptId": 165154,
           "dataType": "Text",
-          "label": "Other",
-          "hint":"Clinical Findings",
+          "hint": " Enter Other Clinical Findings",
           "textSize": 18
         }
       ]

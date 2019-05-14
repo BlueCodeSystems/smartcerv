@@ -16,7 +16,31 @@
           "conceptId": 165219,
           "dataType":"Coded",
           "style":"radio",
-          "textSize": 18
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
         },
         {
           "tag":"reason for delayed treatment",

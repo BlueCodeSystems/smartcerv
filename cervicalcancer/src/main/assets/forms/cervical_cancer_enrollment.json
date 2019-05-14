@@ -2,7 +2,21 @@
   "attributes": {
     "panelType":"form",
     "formType":"basic",
-    "submitLabel":"Submit"
+    "submitLabel":"Submit",
+    "logic":[
+      {
+        "condition": {
+          "value": "F"
+        },
+        "action": {
+          "type": "criteria",
+          "metadata": {
+            "tags": [
+              "PERSON_GENDER"
+            ]
+          }
+        }
+      }]
   },
   "widgetGroup":[
     {
@@ -58,19 +72,15 @@
           "widgets": [
             {
               "widgetType":"TextView",
-              "label":"Via Screening Date",
+              "label":"VIA Screening Date",
               "textSize":18,
               "weight":1
-            }
-          ]
-        },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets": [
+            },
             {
               "tag":"via screening date",
-              "widgetType":"DatePickerButton",
+              "widgetType":"DatePicker",
               "weight":1,
+              "hint":"dd MMM yyyy",
               "text":"Select Date"
             }
           ]
@@ -107,10 +117,11 @@
               "weight":1
             }
             ,{
-              "tag":"dob",
-              "widgetType":"DatePickerButton",
+              "tag":"PERSON_DOB",
+              "label":"Date Of Birth",
+              "widgetType":"DatePicker",
               "weight":1,
-              "text":"Select Date"
+              "hint":"dd MMM yyyy"
             }
           ]
         },
