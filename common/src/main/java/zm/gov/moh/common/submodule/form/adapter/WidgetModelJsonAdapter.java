@@ -19,6 +19,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
@@ -45,6 +46,19 @@ public class WidgetModelJsonAdapter {
                 editText.setLabel(widgetModelJson.getLabel());
 
                 return editText;
+
+            case "TextBox":
+
+                final TextBoxModel textBox = new TextBoxModel();
+
+                textBox.setWidgetType(widgetModelJson.getWidgetType());
+                textBox.setTag(widgetModelJson.getTag());
+                textBox.setHint(widgetModelJson.getHint());
+                textBox.setText(widgetModelJson.getText());
+                textBox.setWeight(widgetModelJson.getWeight());
+                textBox.setLabel(widgetModelJson.getLabel());
+
+                return textBox;
 
             case "DatePickerButton":
 
@@ -198,6 +212,7 @@ public class WidgetModelJsonAdapter {
                 districtPickerModel.setWidgetType(widgetModelJson.getWidgetType());
                 districtPickerModel.setTag(widgetModelJson.getTag());
                 districtPickerModel.setWeight(widgetModelJson.getWeight());
+                districtPickerModel.setLabel(widgetModelJson.getLabel());
 
                 return districtPickerModel;
 
@@ -214,12 +229,15 @@ public class WidgetModelJsonAdapter {
 
                 datePickerModel.setWidgetType(widgetModelJson.getWidgetType());
                 datePickerModel.setTag(widgetModelJson.getTag());
+                datePickerModel.setLogic(widgetModelJson.getLogic());
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
+                datePickerModel.setLabel(widgetModelJson.getLabel());
 
                 return datePickerModel;
 
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -229,7 +247,7 @@ public class WidgetModelJsonAdapter {
 
         WidgetModelJson json = new WidgetModelJson();
 
-        if(widgetModel instanceof EditTextModel){
+        if (widgetModel instanceof EditTextModel) {
 
             EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
@@ -237,15 +255,23 @@ public class WidgetModelJsonAdapter {
             json.setHint(basicFormEditText.getHint());
             json.setTag(basicFormEditText.getTag());
             json.setText(basicFormEditText.getText());
-        }
-        else if(widgetModel instanceof DatePickerButtonModel){
+
+        } else if (widgetModel instanceof TextBoxModel) {
+
+            TextBoxModel basicFormTextBox = (TextBoxModel) widgetModel;
+
+            json.setWidgetType(basicFormTextBox.getWidgetType());
+            json.setHint(basicFormTextBox.getHint());
+            json.setTag(basicFormTextBox.getTag());
+            json.setText(basicFormTextBox.getText());
+
+        } else if (widgetModel instanceof DatePickerButtonModel) {
 
             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
 
             json.setWidgetType(datePickerButtonModel.getWidgetType());
             json.setTag(datePickerButtonModel.getTag());
-        }
-        else if(widgetModel instanceof FormLabelModel){
+        } else if (widgetModel instanceof FormLabelModel) {
 
             FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
 
@@ -273,6 +299,8 @@ public class WidgetModelJsonAdapter {
                 basicFormAttribute.setType(formAttributeJson.getType());
                 basicFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
                 basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                //Added new form attribute called logic
+                basicFormAttribute.setLogic(formAttributeJson.getLogic());
 
                 return basicFormAttribute;
 
@@ -286,7 +314,8 @@ public class WidgetModelJsonAdapter {
 
                 return encounterFormAttribute;
 
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -295,7 +324,7 @@ public class WidgetModelJsonAdapter {
 
         FormAttributeJson json = new FormAttributeJson();
 
-        if(formAttribute instanceof BasicFormAttribute){
+        if (formAttribute instanceof BasicFormAttribute) {
             BasicFormAttribute basicFormEditText = (BasicFormAttribute) formAttribute;
 
             json.setType(basicFormEditText.getType());

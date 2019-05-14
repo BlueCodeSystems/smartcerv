@@ -2,6 +2,8 @@ package zm.gov.moh.common.submodule.form.model;
 
 public class Action{
 
+//added aststic field for criteria
+    public static final String ACTION_TYPE_CRITERIA = "criteria";
     String type;
     Metadata metadata;
 

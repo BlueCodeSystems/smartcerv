@@ -14,16 +14,16 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 import zm.gov.moh.common.R;
 
-public class EditTextWidget extends TextViewWidget implements Submittable<CharSequence> {
+public class TextBoxWidget extends TextViewWidget implements Submittable<CharSequence> {
 
 
     protected String mValue;
     protected String mHint;
     protected Bundle mBundle;
-    protected AppCompatEditText mEditText;
+    protected AppCompatEditText mTextBox;
     private Context context;
 
-    public EditTextWidget(Context context){
+    public TextBoxWidget(Context context){
         super(context);
     }
 
@@ -51,21 +51,21 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     public void onCreateView() {
 
         super.onCreateView();
-        mEditText = new AppCompatEditText(mContext);
-        mEditText.setHint(mHint);
-        //mEditText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(500) });
-        //ShapeDrawable border = new ShapeDrawable(new RectShape());
-        //border.getPaint().setStyle(Paint.Style.STROKE);
-        //border.getPaint().setColor(Color.BLACK);
-        //mEditText.setBackground(border);
-        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
-        addView(mEditText);
+        mTextBox = new AppCompatEditText(mContext);
+        mTextBox.setHint(mHint);
+        mTextBox.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(500) });
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        border.getPaint().setColor(Color.BLACK);
+        mTextBox.setBackground(border);
+        mTextBox.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
+        WidgetUtils.setLayoutParams(mTextBox,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
+        addView(mTextBox);
 
         //auto populate
         String value = mBundle.getString((String) getTag());
         if(value != null)
-            mEditText.setText(value);
+            mTextBox.setText(value);
     }
 
     @Override
@@ -74,8 +74,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     }
 
 
-    AppCompatEditText getEditTextView(){
-        return mEditText;
+    AppCompatEditText getTextBoxView(){
+        return mTextBox;
     }
 
     public static class Builder extends TextViewWidget.Builder{
@@ -102,8 +102,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         @Override
         public BaseWidget build() {
 
-           // super.build();
-            EditTextWidget widget = new EditTextWidget(mContext);
+            // super.build();
+            TextBoxWidget widget = new TextBoxWidget(mContext);
 
             if(mHint != null)
                 widget.setHint(mHint);

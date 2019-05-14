@@ -1,5 +1,9 @@
 package zm.gov.moh.common.submodule.form.model.attribute;
 
+import java.util.List;
+
+import zm.gov.moh.common.submodule.form.model.Logic;
+
 public class FormAttributeJson {
 
     private String type;
@@ -7,6 +11,7 @@ public class FormAttributeJson {
     private String submitLabel;
     private String formType;
     private String panelType;
+    private List<Logic> logic;
 
 
     public void setType(String type) {
@@ -47,5 +52,15 @@ public class FormAttributeJson {
 
     public String getFormType() {
         return formType;
+    }
+
+    //Added constructor for logic attribute: setter
+    public void setLogic(List<Logic> logic) {
+        this.logic = logic;
+    }
+
+    //getter for logic
+    public List<Logic> getLogic() {
+        return logic;
     }
 }
