@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 public abstract class TextViewWidget extends BaseWidget implements Labeled {
 
     protected String mLabel;
-    protected int mTextSize;
+    protected int mTextSize = 18;
     protected AppCompatTextView mTextView;
 
     @Override

@@ -2,7 +2,21 @@
   "attributes": {
     "panelType":"form",
     "formType":"basic",
-    "submitLabel":"Submit"
+    "submitLabel":"Submit",
+    "logic":[
+      {
+        "condition": {
+          "value": "F"
+        },
+        "action": {
+          "type": "criteria",
+          "metadata": {
+            "tags": [
+              "PERSON_GENDER"
+            ]
+          }
+        }
+      }]
   },
   "widgetGroup":[
     {
@@ -58,7 +72,7 @@
           "widgets": [
             {
               "widgetType":"TextView",
-              "label":"Via Screening Date",
+              "label":"VIA Screening Date",
               "textSize":18,
               "weight":1
             },

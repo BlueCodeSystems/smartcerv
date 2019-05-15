@@ -5,6 +5,7 @@ import android.content.Intent;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 
 public class MetaDataSync extends SyncService {
 
@@ -125,8 +126,14 @@ public class MetaDataSync extends SyncService {
         //Concept answer
         repository.consumeAsync(
                 conceptAnswers ->{
+
+                    //repository.getDatabase().conceptAnswerDao().removeAll();
+
+                    List<ConceptAnswer> ans = repository.getDatabase().conceptAnswerDao().getAll();
+
                     repository.getDatabase().conceptAnswerDao().insert(conceptAnswers);
                     this.onTaskCompleted();
+
                 }, //consumer
                 this::onError,
                 repository.getRestApiAdapter().getConceptAnswers(accesstoken), //producer

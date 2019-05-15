@@ -1,405 +1,403 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
-    "encounterId":8,
-    "submitLabel":"Submit"
+    "panelType": "form",
+    "formType": "encounter",
+    "encounterId": 8,
+    "submitLabel": "Submit"
   },
-  "widgetGroup":[
+  "widgetGroup": [
     {
-      "title":"Reproductive Health",
-      "widgets":[
-          {
-            "tag":"parity",
-            "widgetType":"Concept",
-            "conceptId":165096,
-            "dataType":"Numeric",
-            "label":"Parity",
-            "textSize":18,
-            "hint":"Number"
-          },
-          {
-            "tag":"Does patient menstruate",
-            "widgetType":"Concept",
-            "conceptId":165245,
-            "dataType":"Boolean",
-            "label":"Does patient menstruate ",
-            "style":"radio",
-            "textSize":18,
-            "logic": [
-              {
-                "condition": {
-                  "value": 1
-                },
-                "action": {
-                  "type": "skipLogic",
-                  "metadata": {
-                    "tags": ["last menstrual period"]
-                  }
-                }
+      "title": "Reproductive Health",
+      "widgets": [
+        {
+          "tag": "parity",
+          "widgetType": "Concept",
+          "conceptId": 165096,
+          "dataType": "Numeric",
+          "label": "Parity",
+          "textSize": 18,
+          "hint": "Number"
+        },
+        {
+          "tag": "Does patient menstruate",
+          "widgetType": "Concept",
+          "conceptId": 165245,
+          "dataType": "Boolean",
+          "label": "Does patient menstruate ",
+          "style": "radio",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
               },
-              {
-                "condition": {
-                  "value": 2
-                },
-                "action": {
-                  "type": "skipLogic",
-                  "metadata": {
-                    "tags": ["Amenorrhea or Menopause"]
-                  }
-                    }
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "last_menstrual_period"
+                  ]
+                }
               }
-            ]
-          },
-          {
-            "tag":"Amenorrhea or Menopause",
-            "widgetType":"Concept",
-            "conceptId":165246,
-            "dataType":"Coded",
-            "style":"radio",
-            "label":"Select Amenorrhea or Menopause",
-            "textSize":18,
-            "logic": [
-               {
-                 "condition": {
-                   "value":165247
-                 },
-                 "action": {
-                   "type": "skipLogic",
-                   "metadata": {
-                     "tags": ["Reasons for Amenorrhea"]
-                   }
-                 }
-               },
-               {
-                 "condition": {
-                   "value":165248
-                 },
-                 "action": {
-                   "type": "skipLogic",
-                   "metadata": {
-                     "tags": [""]
-                   }
-                 }
-               }
-            ]
-          },
-          {
-            "tag":"last menstrual period",
-            "widgetType":"Concept",
-            "conceptId":165202,
-            "dataType":"Date",
-            "label":"Last Menstrual Period",
-            "hint":"Select date",
-            "textSize":18
-          },
-          {
-            "tag":"Reasons for Amenorrhea",
-            "widgetType":"Concept",
-            "conceptId":165249,
-            "dataType":"Text",
-            "label":"Provide reason for patient having amenorrhea:",
-              "hint":"Reason",
-            "textSize":18
-          },
-          {
-            "tag":"fp methods",
-            "widgetType":"Concept",
-            "conceptId":165104,
-            "dataType":"Coded",
-            "style":"check",
-            "label":"Family Planning methods:",
-            "textSize":18
-          },
-          {
-            "tag":"vaginal bleeding",
-            "widgetType":"Concept",
-            "conceptId":165105,
-            "dataType":"Boolean",
-            "style":"radio",
-            "label":"Any abnormal vaginal bleeding/contact bleeding:",
-            "hint":"Select date",
-            "textSize":18
-          }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Amenorrhea or Menopause"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "last_menstrual_period",
+          "conceptId": 165202,
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "label":"Date of Last Menstrual Period",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "Amenorrhea or Menopause",
+          "widgetType": "Concept",
+          "conceptId": 165246,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Select Amenorrhea or Menopause",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165247
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reasons for Amenorrhea"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165248
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reasons for Amenorrhea",
+          "widgetType": "Concept",
+          "conceptId": 165249,
+          "dataType": "Text",
+          "style": "multiline",
+          "hint": "Reasons for Amenorrhea",
+          "textSize": 18
+        },
+        {
+          "tag": "fp methods",
+          "widgetType": "Concept",
+          "conceptId": 165104,
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Family Planning methods:",
+          "textSize": 18
+        },
+        {
+          "tag": "vaginal bleeding",
+          "widgetType": "Concept",
+          "conceptId": 165105,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Any abnormal vaginal bleeding/contact bleeding:",
+          "textSize": 18
+        }
       ]
     },
     {
-      "title":"Previous Cervical Cancer Screening & Treatment",
-      "widgets":[
+      "title": "Previous Cervical Cancer Screening & Treatment",
+      "widgets": [
         {
-          "tag":"VIA_check",
-          "widgetType":"Concept",
-          "conceptId":165254,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"VIA",
-          "textSize":18,
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "VIA_check",
+              "widgetType": "Concept",
+              "conceptId": 165254,
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "VIA",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "via_date"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "via_date",
+              "conceptId": 165269,
+              "widgetType": "DatePicker",
+              "weight": 1,
+              "hint": "dd MMM yyyy",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "PAP_Smear_Check",
+              "widgetType": "Concept",
+              "conceptId": 165255,
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "PAP Smear",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "pap smear_date"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "pap smear_date",
+              "conceptId": 165107,
+              "widgetType": "DatePicker",
+              "dataType": "Date",
+              "hint": "dd MMM yyyy",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "Cryotherapy_Check",
+              "widgetType": "Concept",
+              "conceptId": 165256,
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Cryotherapy",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "cryotherapy_date"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "cryotherapy_date",
+              "conceptId": 165108,
+              "widgetType": "DatePicker",
+              "hint": "dd MMM yyyy",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "Thermal Coagulation_check",
+              "widgetType": "Concept",
+              "conceptId": 165257,
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Thermal Coagulation",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "thermal coagulation_date"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "thermal coagulation_date",
+              "conceptId": 165109,
+              "widgetType": "DatePicker",
+              "hint": "dd MMM yyyy",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "Leep_Check",
+              "widgetType": "Concept",
+              "conceptId": 165258,
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "LEEP",
+              "textSize": 18,
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "leep_date"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "leep_date",
+              "conceptId": 165110,
+              "widgetType": "DatePicker",
+              "hint":"dd MMM yyyy",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "tag": "history of stis",
+          "widgetType": "Concept",
+          "conceptId": 165111,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "History of STIs:",
+          "textSize": 18
+        },
+        {
+          "tag": "Other Pertinent Surgical History",
+          "widgetType": "Concept",
+          "conceptId": 165205,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Any Pertinent Surgical History",
+          "textSize": 18,
           "logic": [
             {
               "condition": {
-                "value":1
+                "value": 1
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["via"]
+                  "tags": [
+                    "Hysterectomy",
+                    "other surgical history"
+                  ]
                 }
               }
             },
             {
               "condition": {
-                "value":2
+                "value": 2
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": [""]
+                  "tags": [
+                    ""
+                  ]
                 }
               }
             }
           ]
         },
         {
-      "tag":"via",
-      "widgetType":"Concept",
-      "conceptId":165106,
-      "dataType":"Date",
-      "label":"VIA",
-      "hint":"Select date",
-      "textSize":18
-      },
-        {
-          "tag":"PAP_Smear_Check",
-          "widgetType":"Concept",
-          "conceptId":165255,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"PAP Smear",
-          "textSize":18,
-          "logic": [
-            {
-              "condition": {
-                "value":1
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": ["pap smear"]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value":2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [""]
-                }
-              }
-            }
-          ]
-        },
-      {
-      "tag":"pap smear",
-      "widgetType":"Concept",
-      "conceptId":165107,
-      "dataType":"Date",
-      "label":"PAP Smear",
-      "hint":"Select date",
-      "textSize":18
-      },
-        {
-          "tag":"Cryotherapy_Check",
-          "widgetType":"Concept",
-          "conceptId":165256,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"Cryotherapy",
-          "textSize":18,
-          "logic": [
-            {
-              "condition": {
-                "value":1
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": ["cryotherapy"]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value":2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [""]
-                }
-              }
-            }
-          ]
-        },
-
-
-        {
-      "tag":"cryotherapy",
-      "widgetType":"Concept",
-      "conceptId":165108,
-      "dataType":"Date",
-      "label":"Cryotherapy",
-      "hint":"Select date",
-      "textSize":18
-      },
-        {
-          "tag":"Thermal Coagulation_check",
-          "widgetType":"Concept",
-          "conceptId":165257,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"Thermal Coagulation",
-          "textSize":18,
-          "logic": [
-            {
-              "condition": {
-                "value":1
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": ["thermal coagulation"]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value":2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [""]
-                }
-              }
-            }
-          ]
-        },
-        {
-      "tag":"thermal coagulation",
-      "widgetType":"Concept",
-      "conceptId":165109,
-      "dataType":"Date",
-      "label":"Thermal Coagulation",
-      "hint":"Select date",
-      "textSize":18
-      },
-        {
-          "tag":"Leep_Check",
-          "widgetType":"Concept",
-          "conceptId":165258,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"LEEP",
-          "textSize":18,
-          "logic": [
-            {
-              "condition": {
-                "value":1
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": ["leep"]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value":2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [""]
-                }
-              }
-            }
-          ]
-        },
-      {
-      "tag":"leep",
-      "widgetType":"Concept",
-      "conceptId":165110,
-      "dataType":"Date",
-      "label":"LEEP",
-      "hint":"Select date",
-      "textSize":18
-      },
-        {
-          "tag":"history of stis",
-          "widgetType":"Concept",
-          "conceptId":165111,
-          "dataType":"Boolean",
-          "style":"radio",
-          "label":"History of STIs:",
-          "hint":"Select date",
-          "textSize":18
-        },
-        {
-          "tag":"Other Pertinent Surgical History",
-          "widgetType":"Concept",
-          "conceptId":165205,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"Any Pertinent Surgical History",
-          "textSize":18,
-          "logic": [
-            {
-              "condition": {
-                "value":1
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": ["Hysterectomy","other surgical history"]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value":2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [""]
-                }
-              }
-            }
-          ]
-        },
-        {
-          "tag":"other surgical history",
-          "widgetType":"Concept",
-          "conceptId":165116,
-          "dataType":"Text",
-          "label":"Other",
-          "textSize":18,
-          "hint":"Surgical history"
-        },
-        {
-          "tag":"Hysterectomy",
-          "widgetType":"Concept",
-          "conceptId":165114,
-          "dataType":"Boolean",
-          "style":"check",
-          "label":"Hysterectomy",
-          "textSize":18
+          "tag": "other surgical history",
+          "widgetType": "Concept",
+          "conceptId": 165116,
+          "dataType": "Text",
+          "style": "multiline",
+          "textSize": 18,
+          "hint": "Other Surgical History"
         }
-
-    ]
-  }]
+      ]
+    }
+  ]
 }
