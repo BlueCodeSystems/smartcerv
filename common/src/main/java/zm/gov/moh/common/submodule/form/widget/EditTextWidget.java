@@ -53,11 +53,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         super.onCreateView();
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
-        //mEditText.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(500) });
-        //ShapeDrawable border = new ShapeDrawable(new RectShape());
-        //border.getPaint().setStyle(Paint.Style.STROKE);
-        //border.getPaint().setColor(Color.BLACK);
-        //mEditText.setBackground(border);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
         WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
         addView(mEditText);

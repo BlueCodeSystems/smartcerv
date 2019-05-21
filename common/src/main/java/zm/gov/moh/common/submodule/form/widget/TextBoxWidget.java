@@ -9,8 +9,10 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
 import zm.gov.moh.common.R;
 
@@ -59,14 +61,25 @@ public class TextBoxWidget extends TextViewWidget implements Submittable<CharSeq
         border.getPaint().setColor(Color.BLACK);
         mTextBox.setBackground(border);
         mTextBox.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        WidgetUtils.setLayoutParams(mTextBox,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
+        mTextBox.setGravity(Gravity.TOP);
+        //mTextBox.setTextAlignment(TEXT_ALIGNMENT_GRAVITY);
+        //mTextBox.setGravity(Gravity.CENTER_HORIZONTAL);
+        WidgetUtils.setLayoutParams(mTextBox,800,200, mWeight);
+            //.setGravity(Gravity.CENTER_VERTICAL);
         addView(mTextBox);
+
+
+
 
         //auto populate
         String value = mBundle.getString((String) getTag());
         if(value != null)
             mTextBox.setText(value);
+
+
     }
+
+
 
     @Override
     public void addViewToViewGroup() {
