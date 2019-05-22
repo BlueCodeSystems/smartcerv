@@ -98,6 +98,8 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
         AppCompatSpinner districtSelector = WidgetUtils.createSpinner(mContext, mDistrictData,this::onDistrictSelected,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
         AppCompatTextView districtTextView = new AppCompatTextView(mContext);
         districtTextView.setText(mDistrictLabel);
+
+        this.removeAllViews();
         this.addView(WidgetUtils.createLinearLayout(mContext,WidgetUtils.HORIZONTAL,mDistrictTextView, districtSelector));
         this.addView(WidgetUtils.createLinearLayout(mContext,WidgetUtils.HORIZONTAL,mProvinceTextView, mProvinceName));
     }

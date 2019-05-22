@@ -318,7 +318,7 @@
           "dataType": "Text",
           "style": "multiline",
           "textSize": 18,
-          "hint": "Reason why patient was not reffred to ART Clinic"
+          "hint": "Reason why patient was not referred to ART clinic"
         }
       ]
     }
