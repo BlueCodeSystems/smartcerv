@@ -36,6 +36,7 @@ import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitTypeDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
+import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
@@ -64,6 +65,7 @@ import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
 @androidx.room.Database(
         entities = {
@@ -95,8 +97,9 @@ import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
                 ClientNameFts.class,
                 ConceptName.class,
                 ConceptAnswer.class,
-                Concept.class
-        }, version = 2, exportSchema = false)
+                Concept.class,
+                EntityMetadata.class
+        }, version = 1, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -140,6 +143,9 @@ public abstract class Database extends RoomDatabase {
 
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
+
+    //System
+    public abstract EntityMetadataDao entityMetadataDao();
 
     //database getter
     public static Database getDatabase(final Context context){

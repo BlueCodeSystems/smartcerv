@@ -2,8 +2,6 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 
-import java.util.List;
-
 import androidx.annotation.Nullable;
 
 public class MetaDataSync extends SyncService {
@@ -24,7 +22,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 },//consumer
                 this::onError,
-                repository.getRestApiAdapter().getLocations(accesstoken),
+                repository.getRestApi().getLocations(accesstoken),
                  //producer
                 TIMEOUT);
         onTaskStarted();
@@ -36,7 +34,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getLocationAttributes(accesstoken), //producer
+                repository.getRestApi().getLocationAttributes(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -48,7 +46,7 @@ public class MetaDataSync extends SyncService {
                 } , //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApiAdapter().getLocationAttributeTypes(accesstoken), //producer
+                repository.getRestApi().getLocationAttributeTypes(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -60,7 +58,7 @@ public class MetaDataSync extends SyncService {
                 } , //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApiAdapter().getLocationTags(accesstoken), //producer
+                repository.getRestApi().getLocationTags(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -72,7 +70,7 @@ public class MetaDataSync extends SyncService {
                 } , //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApiAdapter().getLocationTagMaps(accesstoken), //producer
+                repository.getRestApi().getLocationTagMaps(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -84,7 +82,7 @@ public class MetaDataSync extends SyncService {
                 },  //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApiAdapter().getUsers(accesstoken), //producer
+                repository.getRestApi().getUsers(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -96,7 +94,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPatientIdentifierTypes(accesstoken), //producer
+                repository.getRestApi().getPatientIdentifierTypes(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -107,7 +105,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getProviders(accesstoken), //producer
+                repository.getRestApi().getProviders(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -118,7 +116,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getConceptNames(accesstoken), //producer
+                repository.getRestApi().getConceptNames(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -129,7 +127,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getConceptAnswers(accesstoken), //producer
+                repository.getRestApi().getConceptAnswers(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -138,9 +136,10 @@ public class MetaDataSync extends SyncService {
                 encounterTypes ->{
                     repository.getDatabase().encounterTypeDao().insert(encounterTypes);
                     this.onTaskCompleted();
+
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getEncounterTypes(accesstoken), //producer
+                repository.getRestApi().getEncounterTypes(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -151,7 +150,7 @@ public class MetaDataSync extends SyncService {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getVisitTypes(accesstoken), //producer
+                repository.getRestApi().getVisitTypes(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -162,8 +161,13 @@ public class MetaDataSync extends SyncService {
 
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getConcept(accesstoken), //producer
+                repository.getRestApi().getConcept(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
+    }
+
+    @Override
+    protected void executeAsync() {
+
     }
 }

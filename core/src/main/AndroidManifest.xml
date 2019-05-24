@@ -16,6 +16,9 @@
         <service
             android:name=".service.DemographicsPersist"
             android:exported="false"/>
+        <service
+            android:name=".service.PushData"
+            android:exported="false"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

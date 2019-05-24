@@ -3,14 +3,11 @@ package zm.gov.moh.core.repository.api;
 import android.content.SharedPreferences;
 
 import io.reactivex.Maybe;
-import io.reactivex.Observable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import zm.gov.moh.core.repository.api.rest.RestApi;
-import zm.gov.moh.core.repository.api.rest.RestApiAdapter;
 import zm.gov.moh.core.repository.database.Database;
-
 
 
 public interface Repository {
@@ -28,9 +25,11 @@ public interface Repository {
 
     <T,R>void asyncFunction(Function<T, R> function, Consumer<R> consumer, T items, Consumer<Throwable> onError);
 
+    void asyncRunnable(Runnable runnable, Consumer<Throwable> onError);
+
     Database getDatabase();
 
     SharedPreferences getDefaultSharePrefrences();
 
-    RestApiAdapter getRestApiAdapter();
+    RestApi getRestApi();
 }

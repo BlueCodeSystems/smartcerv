@@ -6,10 +6,11 @@ import androidx.room.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 
 @Dao
-public interface ObsDao {
+public interface ObsDao extends Synchronizable<Obs> {
 
     @Query("SELECT MAX(obs_id) FROM obs")
     Long getMaxId();
@@ -45,4 +46,8 @@ public interface ObsDao {
 
     @Query("SELECT * FROM obs WHERE concept_id IN (:ids)")
     List<Obs> findByConceptId(long... ids);
+
+    @Override
+    @Query("SELECT * FROM obs WHERE obs_id NOT IN (:id)")
+    Obs[] findEntityNotWithId(long... id);
 }

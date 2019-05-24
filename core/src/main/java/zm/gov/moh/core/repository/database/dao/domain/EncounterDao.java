@@ -6,10 +6,11 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 
 @Dao
-public interface EncounterDao {
+public interface EncounterDao extends Synchronizable<Encounter> {
 
     @Query("SELECT MAX(encounter_id) FROM encounter")
     Long getMaxId();
@@ -27,4 +28,8 @@ public interface EncounterDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Encounter... encounters);
+
+    @Override
+    @Query("SELECT * FROM encounter WHERE encounter_id NOT IN (:id)")
+    Encounter[] findEntityNotWithId(long... id);
 }

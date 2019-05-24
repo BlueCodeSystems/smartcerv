@@ -49,7 +49,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
                 getRepository().consume(
                         this::onSuccess,
                         this::onError,
-                        getRepository().getRestApiAdapter().session(credintialsBase64),
+                        getRepository().getRestApi().session(credintialsBase64),
                         TIMEOUT);
             }
             else

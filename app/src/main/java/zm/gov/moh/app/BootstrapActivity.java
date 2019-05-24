@@ -10,6 +10,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import zm.gov.moh.core.service.MetaDataSync;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.PushData;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class BootstrapActivity extends BaseActivity {
@@ -39,5 +40,8 @@ public class BootstrapActivity extends BaseActivity {
         Intent intent = new Intent(this, MetaDataSync.class);
 
         startService(intent);
+
+        Intent intent2 = new Intent(this, PushData.class);
+        startService(intent2);
     }
 }

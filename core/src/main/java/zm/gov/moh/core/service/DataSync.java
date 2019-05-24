@@ -20,7 +20,7 @@ public class DataSync extends SyncService  {
                     this.onTaskCompleted();
                 },//consumer
                 this::onError,
-                repository.getRestApiAdapter().getPersonNames(accesstoken), //producer
+                repository.getRestApi().getPersonNames(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -32,7 +32,7 @@ public class DataSync extends SyncService  {
                 }
                 , //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPersonAddresses(accesstoken), //producer
+                repository.getRestApi().getPersonAddresses(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -43,7 +43,7 @@ public class DataSync extends SyncService  {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPersons(accesstoken), //producer
+                repository.getRestApi().getPersons(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -54,7 +54,7 @@ public class DataSync extends SyncService  {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPatients(accesstoken), //producer
+                repository.getRestApi().getPatients(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -65,7 +65,7 @@ public class DataSync extends SyncService  {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPatientIdentifiers(accesstoken), //producer
+                repository.getRestApi().getPatientIdentifiers(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
 
@@ -76,8 +76,13 @@ public class DataSync extends SyncService  {
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getObs(accesstoken), //producer
+                repository.getRestApi().getObs(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
+    }
+
+    @Override
+    protected void executeAsync() {
+
     }
 }

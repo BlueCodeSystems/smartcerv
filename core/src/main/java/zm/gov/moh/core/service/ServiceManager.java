@@ -27,7 +27,6 @@ public class ServiceManager {
 
             case SERVICE_DEMOGRAPHICS_PERSIST:
                 mIntent = new Intent(mContext, DemographicsPersist.class);
-
         }
 
         if(mBundle != null)

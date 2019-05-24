@@ -8,7 +8,7 @@ import com.squareup.moshi.Moshi;
 import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 import zm.gov.moh.core.repository.api.RepositoryImp;
-import zm.gov.moh.core.repository.api.rest.RestApiAdapter;
+import zm.gov.moh.core.repository.api.rest.RestApi;
 
 public class InjectorUtils {
 
@@ -18,17 +18,17 @@ public class InjectorUtils {
         injectableViewModel.setRepository(new RepositoryImp(application));
     }
 
-    public static RestApiAdapter provideRestAPIAdapter() {
+    public static RestApi provideRestAPIAdapter() {
 
         Moshi moshi = new Moshi.Builder().add(new JsonAdapter()).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://openmrs.bluecodeltd.com/middleware/rest/")
+                .baseUrl("http://34.240.241.171:8087/middleware/rest/")
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        return  retrofit.create(RestApiAdapter.class);
+        return  retrofit.create(RestApi.class);
     }
 
 

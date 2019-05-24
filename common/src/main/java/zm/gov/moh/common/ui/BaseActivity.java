@@ -29,6 +29,7 @@ import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.service.DataSync;
 import zm.gov.moh.core.service.MetaDataSync;
+import zm.gov.moh.core.service.PushData;
 import zm.gov.moh.core.service.SearchIndex;
 import zm.gov.moh.core.service.ServiceName;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
@@ -184,7 +185,7 @@ public class BaseActivity extends AppCompatActivity {
                     startService(intentService);
                 }else if(serviceName.equals(ServiceName.DATA_SYNC)){
 
-                    Toast.makeText(context,"Sync Complete",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"EntityMetadata Complete",Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -3,11 +3,12 @@ package zm.gov.moh.core.repository.database.dao.domain;
 import androidx.room.*;
 import java.util.List;
 
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 
 @Dao
-public interface PatientIdentifierDao {
+public interface PatientIdentifierDao extends Synchronizable<PatientIdentifier> {
 
     //gets all persons attribute type
     @Query("SELECT * FROM patient_identifier")
@@ -31,4 +32,8 @@ public interface PatientIdentifierDao {
 
     @Query("SELECT patient_identifier_id FROM patient_identifier WHERE uuid = :uuid")
     Long getIdByUuid(String uuid);
+
+    @Override
+    @Query("SELECT * FROM patient_identifier WHERE patient_identifier_id NOT IN (:id)")
+    PatientIdentifier[] findEntityNotWithId(long... id);
 }

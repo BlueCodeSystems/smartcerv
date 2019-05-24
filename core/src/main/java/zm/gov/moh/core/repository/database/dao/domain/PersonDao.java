@@ -6,10 +6,12 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 
 @Dao
-public interface PersonDao {
+public interface PersonDao extends Synchronizable<Person> {
 
     //gets all persons
     @Query("SELECT * FROM person")
@@ -29,4 +31,8 @@ public interface PersonDao {
 
     @Query("SELECT MAX(person_id) FROM person")
     Long getMaxId();
+
+    @Override
+    @Query("SELECT * FROM person WHERE person_id NOT IN (:id)")
+    Person[] findEntityNotWithId(long[] id);
 }

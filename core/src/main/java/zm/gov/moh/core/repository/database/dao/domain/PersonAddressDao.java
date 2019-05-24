@@ -5,10 +5,11 @@ import androidx.room.*;
 
 import java.util.List;
 
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 
 @Dao
-public interface PersonAddressDao {
+public interface PersonAddressDao extends Synchronizable<PersonAddress> {
 
     //gets all persons
     @Query("SELECT * FROM person_address WHERE preferred = 1")
@@ -27,4 +28,8 @@ public interface PersonAddressDao {
 
     @Query("SELECT MAX(person_address_id) FROM person_address")
     Long getMaxId();
+
+    @Override
+    @Query("SELECT * FROM person_address WHERE person_address_id NOT IN (:id)")
+    PersonAddress[] findEntityNotWithId(long... id);
 }
