@@ -19,6 +19,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
@@ -45,6 +46,19 @@ public class WidgetModelJsonAdapter {
                 editText.setLabel(widgetModelJson.getLabel());
 
                 return editText;
+
+            case "TextBox":
+
+                final TextBoxModel textBox = new TextBoxModel();
+
+                textBox.setWidgetType(widgetModelJson.getWidgetType());
+                textBox.setTag(widgetModelJson.getTag());
+                textBox.setHint(widgetModelJson.getHint());
+                textBox.setText(widgetModelJson.getText());
+                textBox.setWeight(widgetModelJson.getWeight());
+                textBox.setLabel(widgetModelJson.getLabel());
+
+                return textBox;
 
             case "DatePickerButton":
 
@@ -241,6 +255,16 @@ public class WidgetModelJsonAdapter {
             json.setHint(basicFormEditText.getHint());
             json.setTag(basicFormEditText.getTag());
             json.setText(basicFormEditText.getText());
+
+        } else if (widgetModel instanceof TextBoxModel) {
+
+            TextBoxModel basicFormTextBox = (TextBoxModel) widgetModel;
+
+            json.setWidgetType(basicFormTextBox.getWidgetType());
+            json.setHint(basicFormTextBox.getHint());
+            json.setTag(basicFormTextBox.getTag());
+            json.setText(basicFormTextBox.getText());
+
         } else if (widgetModel instanceof DatePickerButtonModel) {
 
             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;

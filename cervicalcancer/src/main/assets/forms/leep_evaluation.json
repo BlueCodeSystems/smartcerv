@@ -325,7 +325,7 @@
           "conceptId": 165276,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Polyp",
+          "label": "Polyp"
         },
         {
           "tag": "dob",
@@ -416,6 +416,8 @@
           "style": "radio",
           "label": "Querry ICC",
           "textSize": 18
+        },
+        {
           "tag": "date for cd4 result",
           "widgetType": "DatePicker",
           "weight": 1,

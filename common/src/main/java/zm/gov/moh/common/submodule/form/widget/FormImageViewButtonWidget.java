@@ -75,7 +75,7 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         ((AppCompatActivity)mContext).startActivityForResult(intent,5);
     }
 
-    public void onUriRetrieved(int Request,Uri uri){
+    public void onUriRetrieved(Uri uri){
 
         //File file = new File(uri.);
         String path = getRealPathFromURI(mContext,uri );

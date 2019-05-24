@@ -105,7 +105,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
 
-            FormJson notes = new FormJson("Notes And Recommendations",
+            FormJson notes = new FormJson("Notes & Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
             FormJson evaluation = new FormJson("Evaluation",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));

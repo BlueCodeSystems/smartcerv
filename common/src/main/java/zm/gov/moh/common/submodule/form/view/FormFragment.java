@@ -101,7 +101,7 @@ public class FormFragment extends BaseFragment {
                             String value = bundle.getString(tag);
                             if(!value.equals(logic.getCondition().getValue())){
                                 context.onBackPressed();
-                                Toast.makeText(context, context.getString(R.string.male_patient_block),Toast.LENGTH_LONG).show();
+                                //Toast.makeText(context, context.getString(R.string.male_patient_block),Toast.LENGTH_LONG).show();
                             }
                         }
                 }
@@ -204,10 +204,10 @@ public class FormFragment extends BaseFragment {
                 });
         //bundle.put(Key.PERSON_ID,)
     }
-public void onUriRetrieved(Map.Entry<String, Uri> data) {
-  String tag = bundle.getString(Key.VIEW_TAG);
-         View view = rootView.findViewWithTag(tag);
-        ((FormImageViewButtonWidget)view).onUriRetrieved(data.getKey(),data.getValue());
+    public void onUriRetrieved(Map.Entry<Integer, Uri> data) {
+       String tag = bundle.getString(Key.VIEW_TAG);
+       View view = rootView.findViewWithTag(tag);
+        ((FormImageViewButtonWidget)view).onUriRetrieved(data.getValue());
 
     }
 
