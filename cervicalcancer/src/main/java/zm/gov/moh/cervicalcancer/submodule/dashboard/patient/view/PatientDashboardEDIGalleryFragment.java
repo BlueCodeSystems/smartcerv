@@ -1,35 +1,28 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.Resource;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.common.collect.LinkedHashMultimap;
 
 import org.threeten.bp.Instant;
 
 import java.io.File;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
+import zm.gov.moh.common.submodule.form.utils.MediaStorageUtil;
 import zm.gov.moh.common.ui.BaseActivity;
 
 public class PatientDashboardEDIGalleryFragment extends Fragment {
@@ -87,13 +80,13 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
         }
 
     public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
-        private ArrayList<String> uris;
+        private ArrayList<String> samples;
         private Context context;
 
 
         public ImageDataAdapter(Context context, ArrayList<String> imageUris) {
             this.context = context;
-            this.uris = imageUris;
+            this.samples = imageUris;
         }
 
         @Override
@@ -108,17 +101,21 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
             AppCompatImageView imageView = viewHolder.img;
-            String res =uris.get(i);
-            //File file = new File( pathname: "/storage/emulated/0/DCIM/Camera/IMG_20190429_154929.jpg")
-            Uri uri = Uri.parse( "/storage/emulated/0/DCIM/Camera/" + "IMG_20190429_154929.jpg");
+            String res = samples.get(i);
+            File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
 
-            Uri uri2 = Uri.parse( "/storage/emulated/0/DCIM/Camera/" + "IMG_20190429_154929.jpg");
-            imageView.setImageURI(Uri.parse(res));
-            /*Glide
-                    .with(context)
-                    .asBitmap()
-                    .load(uri)
-                    .into(imageView);*/
+            try {
+
+
+                Glide
+                        .with(context)
+                        .asBitmap()
+                        .load(image.getCanonicalPath()+"/"+res+".png")
+                        .into(imageView);
+            }catch (Exception e){
+               Exception ex = e;
+            }
+
             //String fileName = "IMG_20190429_154929.jpg";
             //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/" + fileName;
             //File file = new File(completePath);
@@ -136,7 +133,7 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
                     //.load(fileName)
                     //.into(imageView);
             //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/Camera";
-            //String uri = uris.get(i);
+            //String uri = samples.get(i);
             //String path = Uri.decode(uri.substring(uri.lastIndexOf('/')));
             //File file = new File(completePath);
            // Uri imageUris = Uri.fromFile(file);
@@ -152,7 +149,7 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
         @Override
         public int getItemCount() {
 
-            return uris.size();
+            return samples.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {

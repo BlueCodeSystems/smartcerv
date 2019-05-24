@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.utils.widget.ImageFilterView;
+import zm.gov.moh.common.submodule.form.utils.MediaStorageUtil;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,8 +22,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
+import java.util.UUID;
 
 public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> implements View.OnClickListener  {
 
@@ -31,6 +35,7 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
     private ArrayList<String> tags;
     protected String mLabel;
     protected AppCompatImageView imageView;
+    protected final String pictureFolder = "EDI";
 
     //Function<String,Long> encounterTypeUuidToId = getRepository().getDatabase().encounterTypeDao()::getIdByUuid;
 
@@ -77,30 +82,22 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
 
     public void onUriRetrieved(Uri uri){
 
-        //File file = new File(uri.);
-        String path = getRealPathFromURI(mContext,uri );
+        String sampleName = UUID.randomUUID().toString();
+        ObsValue<String> obsValue = new ObsValue<>(mConceptId,ConceptDataType.TEXT, sampleName);
 
-        ObsValue<String> obsValue = new ObsValue<>(mConceptId,ConceptDataType.TEXT, uri.toString());
-
-
-        mBundle.putSerializable( (String)getTag(),obsValue);
+        mBundle.putSerializable( (String)getTag(), obsValue);
         imageView.setImageURI(uri);
-    }
 
-
-    public static String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
         try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-            cursor.moveToFirst();
-            int column_index = cursor.getColumnIndex(proj[0]);
-            String path = cursor.getString(column_index);
-            return path;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+
+            File ediSamples = MediaStorageUtil.getPrivateAlbumStorageDir(mContext, MediaStorageUtil.EDI_DIRECTORY);
+            mContext.getContentResolver().openInputStream(uri);
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(ediSamples.getAbsolutePath()+"/"+sampleName+".png"));
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+        }
+        catch (Exception e){
+            Exception ex = e;
         }
     }
 
