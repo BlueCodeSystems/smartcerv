@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -220,6 +222,18 @@ public class MediaStorageUtils {
                         + "='"
                         + filePath
                         + "'", null);
+    }
+
+    //New
+
+    public File getPrivateAlbumStorageDir(Context context, String albumName) {
+        // Get the directory for the app's private pictures directory.
+        File file = new File(context.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()) {
+            Log.v("CameraDir", "Directory not created");
+        }
+        return file;
     }
 
 }

@@ -40,6 +40,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     String mHint;
     AppCompatEditText mEditText;
     AppCompatTextView mTextView;
+    AppCompatActivity mTextBox;
     long mConceptId;
     int mWeight = 0;
     int mTextSize;
@@ -159,6 +160,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
         mEditText.setTextAlignment(TEXT_ALIGNMENT_CENTER);
         mEditText.setHint(mHint);
+
+
 
 
         //Return view according to concept data type

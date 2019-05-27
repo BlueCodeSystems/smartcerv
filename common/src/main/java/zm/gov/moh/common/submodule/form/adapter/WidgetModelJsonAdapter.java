@@ -20,6 +20,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
@@ -59,6 +60,19 @@ public class WidgetModelJsonAdapter {
                 textBox.setLabel(widgetModelJson.getLabel());
 
                 return textBox;
+
+            case "TextBoxTwo":
+
+                final TextBoxTwoModel textBoxtwo = new TextBoxTwoModel();
+
+                textBoxtwo.setWidgetType(widgetModelJson.getWidgetType());
+                textBoxtwo.setTag(widgetModelJson.getTag());
+                textBoxtwo.setHint(widgetModelJson.getHint());
+                textBoxtwo.setText(widgetModelJson.getText());
+                textBoxtwo.setWeight(widgetModelJson.getWeight());
+                textBoxtwo.setLabel(widgetModelJson.getLabel());
+
+                return textBoxtwo;
 
             case "DatePickerButton":
 

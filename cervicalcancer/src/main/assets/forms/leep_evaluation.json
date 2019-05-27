@@ -480,6 +480,18 @@
           "style": "radio",
           "label": "Other",
           "textSize": 18
+        },
+        {
+          "widgetType":"TextView",
+          "label":"Comments",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "notes",
+          "widgetType": "TextBox",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
         }
       ]
     }

@@ -22,6 +22,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
@@ -39,6 +40,7 @@ import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
+import zm.gov.moh.common.submodule.form.widget.TextBoxWidgetTwo;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
 import zm.gov.moh.core.repository.api.Repository;
@@ -83,6 +85,22 @@ public class WidgetModelToWidgetAdapter {
             TextBoxModel model = (TextBoxModel) widgetModel;
 
             BaseWidget widget = new TextBoxWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+        else if(widgetModel instanceof TextBoxTwoModel) {
+
+            TextBoxTwoModel model = (TextBoxTwoModel) widgetModel;
+
+            BaseWidget widget = new TextBoxWidgetTwo.Builder(this.context)
                     .setBundle(this.bundle)
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())

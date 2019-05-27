@@ -6,12 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.utils.widget.ImageFilterView;
+import zm.gov.moh.common.submodule.form.util.MediaStorageUtil;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,7 +21,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.data.mediastore.MediaStoreUtil;
+import com.bumptech.glide.load.model.MediaStoreFileLoader;
+
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
 
@@ -31,6 +37,7 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
     private ArrayList<String> tags;
     protected String mLabel;
     protected AppCompatImageView imageView;
+    protected String pictureFolder = "EDI";
 
     //Function<String,Long> encounterTypeUuidToId = getRepository().getDatabase().encounterTypeDao()::getIdByUuid;
 
@@ -85,6 +92,19 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
 
         mBundle.putSerializable( (String)getTag(),obsValue);
         imageView.setImageURI(uri);
+
+        /*try {
+            InputStream in = mContext.getContentResolver().openInputStream(uri);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri)
+            File pictures = MediaStorageUtil.getPrivateAlbumStorageDir(mContext,pictureFolder);
+        }catch (Exception e){
+
+        }*/
+
+    }
+
+    public void saveToStorage(Uri uri){
+
     }
 
 

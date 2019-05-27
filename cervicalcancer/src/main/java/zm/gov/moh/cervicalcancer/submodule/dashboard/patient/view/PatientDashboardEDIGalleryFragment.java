@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import org.threeten.bp.Instant;
 import java.io.File;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 import androidx.annotation.NonNull;
@@ -65,26 +67,26 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
         ((PatientDashboardViewModel) context.getViewModel()).getEDIDataEmitter().observe(context, this::populateEDIRole);
         return rootView;
+    }
+
+    private void populateEDIRole(LinkedHashMultimap<Long, String> ediData) {
+        for (long visitEpochSeconds : ediData.keySet()) {
+
+            Instant dateTime = Instant.ofEpochSecond(visitEpochSeconds);
+            visitDate.setText(dateTime.toString());
+            ArrayList<String> uris = new ArrayList<>(ediData.get(visitEpochSeconds));
+            ImageDataAdapter adapter = new ImageDataAdapter(context,uris);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+
+            recyclerView = rootView.findViewById(R.id.recyclerview1);
+            recyclerView.setLayoutManager(gridLayoutManager);
+            recyclerView.setAdapter(adapter);
+
+
+
+
         }
-
-        private void populateEDIRole(LinkedHashMultimap<Long, String> ediData) {
-            for (long visitEpochSeconds : ediData.keySet()) {
-
-                Instant dateTime = Instant.ofEpochSecond(visitEpochSeconds);
-                visitDate.setText(dateTime.toString());
-                ArrayList<String> uris = new ArrayList<>(ediData.get(visitEpochSeconds));
-                ImageDataAdapter adapter = new ImageDataAdapter(context,uris);
-                GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
-
-                recyclerView = rootView.findViewById(R.id.recyclerview1);
-                recyclerView.setLayoutManager(gridLayoutManager);
-                recyclerView.setAdapter(adapter);
-
-
-
-
-            }
-        }
+    }
 
     public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
         private ArrayList<String> uris;
@@ -114,6 +116,13 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
             Uri uri2 = Uri.parse( "/storage/emulated/0/DCIM/Camera/" + "IMG_20190429_154929.jpg");
             imageView.setImageURI(Uri.parse(res));
+
+            Glide.with(context)
+                    .load(uris)
+                    .into(imageView);
+
+
+
             /*Glide
                     .with(context)
                     .asBitmap()
@@ -128,23 +137,23 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
             //Uri.fromFile(new File(completePath));
 
             //Glide.with(context)
-                    //.load(Uri.fromFile(new File(completePath)))
-                    //.apply(new RequestOptions().override(100, 100))
-                    //.into(imageView);
+            //.load(Uri.fromFile(new File(completePath)))
+            //.apply(new RequestOptions().override(100, 100))
+            //.into(imageView);
 
             //Glide.with(context)
-                    //.load(fileName)
-                    //.into(imageView);
+            //.load(fileName)
+            //.into(imageView);
             //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/Camera";
             //String uri = uris.get(i);
             //String path = Uri.decode(uri.substring(uri.lastIndexOf('/')));
             //File file = new File(completePath);
-           // Uri imageUris = Uri.fromFile(file);
+            // Uri imageUris = Uri.fromFile(file);
 
 
 
 
-                    //.load(new File(completePath+path))
+            //.load(new File(completePath+path))
 
 
         }
@@ -171,13 +180,8 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
             public Resource<Bitmap> transform(@NonNull Context context, @NonNull Resource<Bitmap> resource, int outWidth, int outHeight) {
                 return null;
             }
-
             @Override
             public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-
             }*/
-        }
     }
-
-
-
+}

@@ -23,17 +23,20 @@
 
 
 
+
+
             <include
                 layout="@layout/base_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 app:toolbarhandler="@{toolbarhandler}"></include>
 
+
+
             <include
                 android:id="@+id/client"
                 layout="@layout/client_card"
                 app:client="@{client}" />
-
 
 
 
@@ -46,6 +49,15 @@
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/load_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_green"
+                android:text="View Image Gallery"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
@@ -55,14 +67,7 @@
                 android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
                 android:textColor="@color/darker_grey" />
 
-            <!--Button
-                android:id="@+id/load_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_green"
-                android:text="Load Image"
-                android:textAllCaps="false"
-                android:textColor="@color/white" /!-->
+
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/sliding_tabs"

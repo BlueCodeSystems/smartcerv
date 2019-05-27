@@ -154,7 +154,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         vistTypeIdMap.put("Post-Treatment Complication", OpenmrsConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION);
         vistTypeIdMap.put("One-Year Follow Up", OpenmrsConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP);
         vistTypeIdMap.put("Routing Screening",OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
-        vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation",OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
+        vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation", OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
 
         LinkedList<String> visitType = new LinkedList<>(vistTypeIdMap.keySet());
         ArrayAdapter<String> visitAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, visitType);

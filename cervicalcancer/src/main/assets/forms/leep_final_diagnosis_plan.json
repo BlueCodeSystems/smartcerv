@@ -6,30 +6,177 @@
   },
   "widgetGroup": [
     {
-      "title": "Final Diagnosis & Plan",
+      "title": "Results",
       "widgets": [
         {
-          "tag": "normal",
+          "widgetType": "TextBoxTwo",
+          "label": "Size:",
+          "dataType": "Text",
+          "hint": "10mm x 20mm",
+          "style": "textboxtwo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextBoxTwo",
+          "label": "Size:",
+          "dataType": "Text",
+          "hint": "10mm x 20mm",
+          "style": "textboxtwo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextBoxTwo",
+          "label": "Size:",
+          "dataType": "Text",
+          "hint": "10mm x 20mm",
+          "style": "textboxtwo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "specimen size",
           "widgetType": "Concept",
-          "conceptId": 165169,
-          "dataType": "Boolean",
+          "conceptId": 165305,
+          "dataType": "Coded",
           "style": "radio",
-          "label": "Normal",
+          "label": "Other options for size(dimensions) of specimen given",
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "title": "Margins",
+      "widgets": [
+        {
+          "tag": "exocervical",
+          "widgetType": "Concept",
+          "conceptId": 165310,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Exocervical",
           "textSize": 18
         },
         {
-          "tag": "cervicitis_inflammation",
+          "tag": "endocervical",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165311,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Endocervical",
+          "textSize": 18
+        },
+        {
+          "tag": "electronic_copy_saved",
+          "widgetType": "Concept",
+          "conceptId": 165313,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Cervicitis/inflammation",
+          "label": "Electronic copy saved?",
+          "textSize": 18
+        },
+        {
+          "tag": "reason",
+          "widgetType": "TextView",
+          "label": "Reason",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "reason",
+          "widgetType": "TextBox",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "date",
+          "widgetType": "DatePicker",
+          "label": "Date saved",
+          "textSize": 18,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Pathology Description",
+      "widgets": [
+        {
+          "tag": "cervicitis_inflammation",
+          "widgetType": "Concept",
+          "conceptId": 165314,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Cervicitis/Inflammation",
+          "textSize": 18
+        },
+        {
+          "tag": "squamous_hyperplasia",
+          "widgetType": "Concept",
+          "conceptId": 165317,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Squamous hyperplasia",
+          "textSize": 18
+        },
+        {
+          "tag": "glandular_hyperplasia",
+          "widgetType": "Concept",
+          "conceptId": 165318,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Glandular hyperplasia",
+          "textSize": 18
+        },
+        {
+          "tag": "squamous_metaplasia",
+          "widgetType": "Concept",
+          "conceptId": 165317,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Squamous metaplasia",
+          "textSize": 18
+        },
+        {
+          "tag": "hyperkeratosis",
+          "widgetType": "Concept",
+          "conceptId": 165318,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Hyperkeratosis",
+          "textSize": 18
+        },
+        {
+          "tag": "acanthosis",
+          "widgetType": "Concept",
+          "conceptId": 165319,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Acanthosis",
+          "textSize": 18
+        },
+        {
+          "tag": "ulcer",
+          "widgetType": "Concept",
+          "conceptId": 165320,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Ulcer",
+          "textSize": 18
+        },
+        {
+          "tag": "schistosomiasis",
+          "widgetType": "Concept",
+          "conceptId": 165321,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Schistosomiasis",
           "textSize": 18
         },
         {
           "tag": "cin1_hpv",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165322,
           "dataType": "Boolean",
           "style": "radio",
           "label": "CIN1/HPV",
@@ -38,7 +185,7 @@
         {
           "tag": "cin2",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165323,
           "dataType": "Boolean",
           "style": "radio",
           "label": "CIN2",
@@ -47,7 +194,96 @@
         {
           "tag": "cin3",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165324,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN3",
+          "textSize": 18
+        },
+        {
+          "tag": "superficial_invasion",
+          "widgetType": "Concept",
+          "conceptId": 165325,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Superficial invasion",
+          "textSize": 18
+        },
+        {
+          "tag": "invasive",
+          "widgetType": "Concept",
+          "conceptId": 165326,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Invasive",
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 5622,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Other",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "TextBox",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Final Diagnosis & Plan",
+      "widgets": [
+        {
+          "tag": "normal",
+          "widgetType": "Concept",
+          "conceptId": 165327,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Normal",
+          "textSize": 18
+        },
+        {
+          "tag": "cervicitis_inflammation",
+          "widgetType": "Concept",
+          "conceptId": 165314,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Cervicitis/inflammation",
+          "textSize": 18
+        },
+        {
+          "tag": "cin1_hpv",
+          "widgetType": "Concept",
+          "conceptId": 165322,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN1/HPV",
+          "textSize": 18
+        },
+        {
+          "tag": "cin2",
+          "widgetType": "Concept",
+          "conceptId": 165323,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN2",
+          "textSize": 18
+        },
+        {
+          "tag": "cin3",
+          "widgetType": "Concept",
+          "conceptId": 165324,
           "dataType": "Boolean",
           "style": "radio",
           "label": "CIN3",
@@ -56,7 +292,7 @@
         {
           "tag": "microinvasive_cancer",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165328,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Microinvasive cancer",
@@ -65,7 +301,7 @@
         {
           "tag": "invasive_adenocarcinoma",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165329,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Invasive adenocarcinoma",
@@ -74,16 +310,34 @@
         {
           "tag": "invasive_squamous_cell_carcinoma",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165330,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Invasive squamous cell carcinoma",
           "textSize": 18
         },
         {
+          "tag": "invasive_adenosquamous_cell_carcinoma",
+          "widgetType": "Concept",
+          "conceptId": 165331,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Invasive adenosquamous cell carcinoma",
+          "textSize": 18
+        },
+        {
+          "tag": "insufficient_for_processing",
+          "widgetType": "Concept",
+          "conceptId": 165332,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Insufficient for processing",
+          "textSize": 18
+        },
+        {
           "tag": "no_cervical_epithelial_cells",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165333,
           "dataType": "Boolean",
           "style": "radio",
           "label": "No cervical epithelial cells",
@@ -93,25 +347,27 @@
           "tag": "other",
           "widgetType": "TextView",
           "label": "Other",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         },
         {
           "tag": "other",
-          "widgetType": "EditText",
+          "widgetType": "TextBox",
           "weight": 1
         },
         {
           "tag": "clinician id",
           "widgetType": "TextView",
           "label": "Clinician ID",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         },
         {
           "tag": "clinician id",
           "widgetType": "EditText",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         }
-
       ]
     },
     {
@@ -119,32 +375,45 @@
       "widgets": [
         {
           "tag": "date_discussed",
-          "widgetType": "DatePickerButton",
-          "label": "Date discussed ",
+          "widgetType": "DatePicker",
+          "label": "Date discussed",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "drug",
           "widgetType": "TextView",
-          "label": "Reason",
+          "label": "Drug 1",
           "weight": 1
         },
         {
           "tag": "drug",
-          "widgetType": "EditText",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x ",
           "weight": 1
         },
         {
-          "tag": "dosage",
+          "tag": "drug",
           "widgetType": "TextView",
-          "label": "Facility Name",
-          "textSize": 18
+          "label": "Drug 2",
+          "weight": 1
         },
         {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x ",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
           "widgetType": "TextView",
-          "label": "Frequency",
-          "textSize": 18,
+          "label": "Drug 3",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x ",
           "weight": 1
         },
         {
@@ -154,123 +423,91 @@
           "weight": 1
         },
         {
-          "tag": "recommended_art_initiation",
-          "widgetType": "Concept",
-          "conceptId": 165169,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Recommended ART initiation",
-          "textSize": 18
-        },
-        {
-          "tag": "pelvic_exam_done",
-          "widgetType": "Concept",
-          "conceptId": 165171,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Pelvic exam done?",
-          "textSize": 18
-        },
-        {
           "tag": "referred_for_hysterectomy",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "label": "Referred for hysterectomy",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "referred_for_eua",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "label": "Referred for EUA",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "referred_to_radiotherapy",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "label": "Referred to radiotherapy",
           "textSize": 18,
           "weight": 1
         },
         {
-          "tag": "repeat_LEEP",
-          "widgetType": "DatePickerButton",
+          "tag": "repeat_leep",
+          "widgetType": "DatePicker",
           "label": "Repeat LEEP",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "repeat_biopsy",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "label": "Repeat biopsy",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "return_to_referral_clinic",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "label": "Return to referral clinic for follow up",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "other",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "label": "Other",
+          "style": "textboxtwo",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "referred_to_vct",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165335,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Referral to VCT",
           "textSize": 18
         },
         {
-        "widgetType":"TextView",
-        "label":"Comments",
-        "textSize":18,
-        "weight":1
-        },
-        {
-          "tag": "comments",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
-          "tag": "comments",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
-          "tag": "comments",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
           "tag": "clinician id",
           "widgetType": "TextView",
           "label": "Clinician ID",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         },
         {
           "tag": "clinician id",
           "widgetType": "EditText",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "comments",
+          "widgetType": "TextView",
+          "label": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "TextBox",
           "weight": 1
         }
-
       ]
     }
-
-
-
-
   ]
 }
 
