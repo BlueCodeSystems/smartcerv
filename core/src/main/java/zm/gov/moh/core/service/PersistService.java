@@ -26,6 +26,8 @@ public abstract class PersistService extends IntentService implements Injectable
 
         InjectorUtils.provideRepository(this, getApplication());
         Bundle bundle = intent.getExtras();
+         if(bundle == null)
+             bundle = new Bundle();
         AndroidThreeTen.init(this);
 
 

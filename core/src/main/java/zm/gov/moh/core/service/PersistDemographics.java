@@ -13,10 +13,10 @@ import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 
-public class DemographicsPersist extends PersistService {
+public class PersistDemographics extends PersistService {
 
-    public DemographicsPersist(){
-        super("Demographics Persist");
+    public PersistDemographics(){
+        super(ServiceManager.SERVICE_PERSIST_DEMOGRAPHICS);
     }
 
     @Override

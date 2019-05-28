@@ -7,49 +7,70 @@ import android.os.Bundle;
 public class ServiceManager {
 
 
-    public static final int SERVICE_META_DATA_SYNC = 1;
-    public static final int SERVICE_DATA_SYNC = 2;
-    public static final int SERVICE_DEMOGRAPHICS_PERSIST = 3;
-    protected Context mContext;
-    protected int mService;
+    public static final String SERVICE_PULL_META_DATA_REMOTE = "pull metadata remote";
+    public static final String SERVICE_PULL_ENTITY_REMOTE = "pull entity remote";
+    public static final String SERVICE_PUSH_ENTITY_REMOTE = "push entity remote";
+    public static final String SERVICE_PERSIST_DEMOGRAPHICS = "demographics persist";
+
+    protected static Context context;
+    protected String mService;
     protected Intent mIntent;
     protected Bundle mBundle;
+    protected static ServiceManager instance;
+
+    public ServiceManager(){
+
+    }
+
+    public static ServiceManager getInstance(Context context) {
+        ServiceManager.context = context;
+        if(instance == null)
+            instance = new ServiceManager();
+        return instance;
+    }
 
     public void start(){
 
         switch (mService){
 
-            case SERVICE_META_DATA_SYNC:
-                mIntent = new Intent(mContext, MetaDataSync.class);
+            case SERVICE_PULL_META_DATA_REMOTE:
+                mIntent = new Intent(context, PullMetaDataRemote.class);
+                break;
 
-            case SERVICE_DATA_SYNC:
-               mIntent = new Intent(mContext, DataSync.class);
+            case SERVICE_PULL_ENTITY_REMOTE:
+               mIntent = new Intent(context, PullEntityRemote.class);
+               break;
 
-            case SERVICE_DEMOGRAPHICS_PERSIST:
-                mIntent = new Intent(mContext, DemographicsPersist.class);
+            case SERVICE_PUSH_ENTITY_REMOTE:
+                mIntent = new Intent(context, PushEntityRemote.class);
+                break;
+
+            case SERVICE_PERSIST_DEMOGRAPHICS:
+                mIntent = new Intent(context, PersistDemographics.class);
+                break;
         }
 
         if(mBundle != null)
             mIntent.putExtras(mBundle);
 
-        mContext.startService(mIntent);
+        context.startService(mIntent);
     }
 
     public ServiceManager setContext(Context mContext) {
-        this.mContext = mContext;
+        this.context = mContext;
         return this;
     }
 
     public Context getContext() {
-        return mContext;
+        return context;
     }
 
-    public ServiceManager setService(int service) {
+    public ServiceManager setService(String service) {
         this.mService = service;
         return this;
     }
 
-    public int getService() {
+    public String getService() {
         return mService;
     }
 

@@ -30,6 +30,6 @@ public interface VisitDao extends Synchronizable<Visit> {
     void updateVisit(Visit visit);
 
     @Override
-    @Query("SELECT * FROM visit WHERE visit_id NOT IN (:id)")
-    Visit[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
+    Visit[] findEntityNotWithId(long offsetId,long... id);
 }

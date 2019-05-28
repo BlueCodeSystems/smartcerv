@@ -20,9 +20,10 @@ import java.util.List;
 import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
-import zm.gov.moh.core.service.MetaDataSync;
+import zm.gov.moh.core.service.PullMetaDataRemote;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -67,7 +68,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         binding.setCredentials(viewModel.getCredentials());
         binding.setVariable(BR.viewmodel, viewModel);
-        binding.setVariable(BR.toolbarhandler, getToolbarHandler());
+        binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
 
         final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
 
@@ -78,9 +79,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                     case AUTHORIZED:
                         startModule(nextModule);
                         progressDialog.dismiss();
-
-                        Intent intent = new Intent(this, MetaDataSync.class);
-                        startService(intent);
+                        ServiceManager.getInstance(this).setService(ServiceManager.SERVICE_PULL_META_DATA_REMOTE).start();
                         finish();
                         break;
 

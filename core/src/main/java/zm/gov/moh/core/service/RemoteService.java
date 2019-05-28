@@ -16,7 +16,7 @@ import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public abstract class SyncService extends IntentService implements InjectableViewModel {
+public abstract class RemoteService extends IntentService implements InjectableViewModel {
 
     protected Repository repository;
     protected String accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InV1aWQiOiJhM2FjYTE4MS1kMDJhLTRiODgtOTc1NC1lYWM0NWQzZGUzZmUiLCJkaXNwbGF5IjoiYW50aG9ueSIsInVzZXJuYW1lIjoiYW50aG9ueSIsInN5c3RlbUlkIjoiMy00In0sImlhdCI6MTU0MjE0MzU3NiwiZXhwIjoxNTkyMTQzNTc2fQ.DsDbPXwaZ5sg2SFCq1CBykITJjog-9u-4XzNGw9IYV8";
@@ -28,8 +28,10 @@ public abstract class SyncService extends IntentService implements InjectableVie
     protected Database db;
     protected RestApi restApi;
     protected final short SYNCED = 1;
+    protected final short PUSHED = 2;
+    protected final short PULLED = 3;
 
-    public SyncService(String name){
+    public RemoteService(String name){
         super(name);
         this.mName = name;
     }
@@ -70,7 +72,7 @@ public abstract class SyncService extends IntentService implements InjectableVie
 
 
     private void notifySyncCompleted(){
-        Intent intent = new Intent(IntentAction.SYNC_COMPLETE);
+        Intent intent = new Intent(IntentAction.REMOTE_SERVICE_COMPLETE);
         intent.putExtras(mBundle);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }

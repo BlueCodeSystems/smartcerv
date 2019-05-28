@@ -32,6 +32,6 @@ public interface PatientDao extends Synchronizable<Patient> {
     Long getMaxId();
 
     @Override
-    @Query("SELECT * FROM patient WHERE patient_id NOT IN (:id)")
-    Patient[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM patient WHERE patient_id NOT IN (:id)) WHERE patient_id >= :offsetId")
+    Patient[] findEntityNotWithId(long offsetId,long... id);
 }

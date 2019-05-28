@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import io.reactivex.Maybe;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import zm.gov.moh.core.repository.api.rest.RestApi;
@@ -16,6 +17,8 @@ public interface Repository {
     <T>void consumeAsync(Consumer<T[]> consumer, T... entities);
 
     <T>void consumeAsync(Consumer<T> consumer, Consumer<Throwable> onError, T items);
+
+    <T1, T2>void consumeAsync(BiConsumer<T1,T2> consumer, Consumer<Throwable> onError, T1 param1, T2 param2);
 
     <T>void consumeAsync(Consumer<T> consumer, Consumer<Throwable> onError, Maybe<T> observable, final int timeout);
 

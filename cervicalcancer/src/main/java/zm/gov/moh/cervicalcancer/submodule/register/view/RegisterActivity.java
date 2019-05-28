@@ -13,6 +13,7 @@ import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBindi
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.RegisterViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.ui.ToolBarEventHandler;
 
 public class RegisterActivity extends BaseActivity {
 
@@ -28,7 +29,7 @@ public class RegisterActivity extends BaseActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Client Register");
 
         binding.setToolbarhandler(toolBarEventHandler);

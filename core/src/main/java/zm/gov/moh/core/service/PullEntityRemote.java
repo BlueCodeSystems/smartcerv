@@ -3,10 +3,10 @@ package zm.gov.moh.core.service;
 import android.content.Intent;
 import androidx.annotation.Nullable;
 
-public class DataSync extends SyncService  {
+public class PullEntityRemote extends RemoteService {
 
-    public DataSync(){
-        super(ServiceName.DATA_SYNC);
+    public PullEntityRemote(){
+        super(ServiceManager.SERVICE_PULL_ENTITY_REMOTE);
     }
 
     @Override

@@ -3,12 +3,15 @@ package zm.gov.moh.core.repository.api;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import java.util.AbstractMap;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -56,6 +59,15 @@ public class RepositoryImp implements Repository{
                 .observeOn(Schedulers.io())
                 .subscribeOn(Schedulers.io())
                 .subscribe(consumer, onError);
+    }
+
+    public <T1, T2>void consumeAsync(BiConsumer<T1,T2> consumer, Consumer<Throwable> onError, T1 param1, T2 param2){
+
+        AbstractMap.SimpleImmutableEntry<T1,T2>  params = new AbstractMap.SimpleImmutableEntry<>(param1,param2);
+        Single.just(params)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribe(p -> consumer.accept(p.getKey(),p.getValue()), onError);
     }
 
     public <T,R>void asyncFunction(Function<T,R> function,Consumer<R> consumer,T items,Consumer<Throwable> onError){

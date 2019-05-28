@@ -6,6 +6,8 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import zm.gov.moh.core.Constant;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 
@@ -30,6 +32,6 @@ public interface EncounterDao extends Synchronizable<Encounter> {
     void insert(Encounter... encounters);
 
     @Override
-    @Query("SELECT * FROM encounter WHERE encounter_id NOT IN (:id)")
-    Encounter[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM encounter WHERE encounter_id NOT IN (:id)) WHERE encounter_id >= :offsetId")
+    Encounter[] findEntityNotWithId(long offsetId, long... id);
 }

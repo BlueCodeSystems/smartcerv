@@ -7,10 +7,11 @@ import android.os.Bundle;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 
-import zm.gov.moh.core.service.MetaDataSync;
+import zm.gov.moh.core.service.PullMetaDataRemote;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
-import zm.gov.moh.core.service.PushData;
+import zm.gov.moh.core.service.PushEntityRemote;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class BootstrapActivity extends BaseActivity {
@@ -37,11 +38,6 @@ public class BootstrapActivity extends BaseActivity {
 
         finish();
 
-        Intent intent = new Intent(this, MetaDataSync.class);
-
-        startService(intent);
-
-        Intent intent2 = new Intent(this, PushData.class);
-        startService(intent2);
+        ServiceManager.getInstance(this).setService(ServiceManager.SERVICE_PULL_META_DATA_REMOTE).start();
     }
 }

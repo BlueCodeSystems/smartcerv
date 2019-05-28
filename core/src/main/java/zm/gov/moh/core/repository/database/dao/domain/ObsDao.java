@@ -48,6 +48,6 @@ public interface ObsDao extends Synchronizable<Obs> {
     List<Obs> findByConceptId(long... ids);
 
     @Override
-    @Query("SELECT * FROM obs WHERE obs_id NOT IN (:id)")
-    Obs[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM obs WHERE obs_id NOT IN (:id)) WHERE obs_id >= :offsetId")
+    Obs[] findEntityNotWithId(long offsetId,long... id);
 }

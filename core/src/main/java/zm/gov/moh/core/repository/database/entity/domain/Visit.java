@@ -1,12 +1,13 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
 @Entity
-public class Visit {
+public class Visit extends SynchronizableEntity {
 
     @PrimaryKey
     public long visit_id;
@@ -182,5 +183,10 @@ public class Visit {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    @Override
+    public long getId() {
+        return visit_id;
     }
 }

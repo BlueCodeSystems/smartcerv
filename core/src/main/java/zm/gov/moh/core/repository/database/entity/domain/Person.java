@@ -2,12 +2,13 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 @Entity
-public class Person {
+public class Person extends SynchronizableEntity {
 
     @PrimaryKey
     public long person_id;
@@ -33,5 +34,10 @@ public class Person {
         this.person_id = person_id;
         this.birthdate = birthdate;
         this.gender = gender;
+    }
+
+    @Override
+    public long getId() {
+        return person_id;
     }
 }

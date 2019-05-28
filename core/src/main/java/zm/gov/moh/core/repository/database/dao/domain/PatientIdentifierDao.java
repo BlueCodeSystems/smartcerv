@@ -34,6 +34,6 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifier> 
     Long getIdByUuid(String uuid);
 
     @Override
-    @Query("SELECT * FROM patient_identifier WHERE patient_identifier_id NOT IN (:id)")
-    PatientIdentifier[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM patient_identifier WHERE patient_identifier_id NOT IN (:id)) WHERE patient_identifier_id >= :offsetId")
+    PatientIdentifier[] findEntityNotWithId(long offsetId,long... id);
 }

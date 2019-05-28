@@ -9,9 +9,10 @@ import java.util.Set;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 @Entity
-public class Obs {
+public class Obs extends SynchronizableEntity {
 
     @PrimaryKey
     public long obs_id;
@@ -357,5 +358,10 @@ public class Obs {
 
     public void setInterpretation(String interpretation) {
         this.interpretation = interpretation;
+    }
+
+    @Override
+    public long getId() {
+        return obs_id;
     }
 }

@@ -4,10 +4,10 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
-public class MetaDataSync extends SyncService {
+public class PullMetaDataRemote extends RemoteService {
 
-    public MetaDataSync(){
-        super(ServiceName.META_DATA_SYNC);
+    public PullMetaDataRemote(){
+        super(ServiceManager.SERVICE_PULL_META_DATA_REMOTE);
     }
 
     @Override

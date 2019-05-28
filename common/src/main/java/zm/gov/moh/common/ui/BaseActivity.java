@@ -1,7 +1,6 @@
 package zm.gov.moh.common.ui;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -27,11 +25,6 @@ import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
-import zm.gov.moh.core.service.DataSync;
-import zm.gov.moh.core.service.MetaDataSync;
-import zm.gov.moh.core.service.PushData;
-import zm.gov.moh.core.service.SearchIndex;
-import zm.gov.moh.core.service.ServiceName;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
 
@@ -41,25 +34,21 @@ public class BaseActivity extends AppCompatActivity {
 
 
     protected static final String START_SUBMODULE_KEY = "start_submodule";
-    protected static final String CALLING_SUBMODULE_KEY = "calling_submodule";
-    protected static final String FORM_FRAGMENT_KEY = "FORM_FRAGMENT_KEY";
     public static final String CLIENT_ID_KEY = "PERSON_ID";
     public static final String JSON_FORM = "JSON_FORM";
     public static final String ACTION_KEY = "ACTION_KEY";
-    public static final String FORM_DATA_KEY = "FORM_DATA_KEY";
-    public static final String START_SUBMODULE_ON_FORM_RESULT_KEY = "START_SUBMODULE_ON_FORM_RESULT_KEY";
     protected LocalBroadcastManager broadcastManager;
-    BroadcastReceiver broadcastReceiver;
+    protected static BaseReceiver baseReceiver;
     protected BaseAndroidViewModel viewModel;
     protected ActionBarDrawerToggle drawerToggle;
     DrawerLayout drawerLayout;
     protected ListView drawerList;
     protected String[] layers;
+    ToolBarEventHandler toolBarEventHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -77,18 +66,15 @@ public class BaseActivity extends AppCompatActivity {
             };
             drawerLayout.setDrawerListener(drawerToggle);
         }
-        broadcastReceiver = new BaseReceiver();
-        broadcastManager = LocalBroadcastManager.getInstance(this);
 
+        if(baseReceiver == null) {
+            baseReceiver = new BaseReceiver();
+            broadcastManager = LocalBroadcastManager.getInstance(this);
 
-        IntentFilter intentFilter = new IntentFilter("zm.gov.moh.common.SYNC_COMPLETE_NOTIFICATION");
+            IntentFilter intentFilter = new IntentFilter(IntentAction.REMOTE_SERVICE_COMPLETE);
 
-        broadcastManager.registerReceiver(broadcastReceiver, intentFilter);
-
-        // setContentView(R.layout.base_activity);
-
-
-
+            broadcastManager.registerReceiver(baseReceiver, intentFilter);
+        }
     }
 
     public void startModule(Module module, Bundle bundle){
@@ -129,67 +115,18 @@ public class BaseActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public ToolBarEventHandler getToolbarHandler(){
+    public ToolBarEventHandler getToolbarHandler(Context context){
 
-        return new ToolBarEventHandler(this);
+        if(toolBarEventHandler == null)
+         toolBarEventHandler = new ToolBarEventHandler(context);
+        return toolBarEventHandler;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        broadcastManager.unregisterReceiver(broadcastReceiver);
-    }
-
-    public class ToolBarEventHandler{
-
-        Context context;
-        String title;
-
-        public ToolBarEventHandler(Context context){
-            this.context = context;
-        }
-
-        public void syncMetaData(){
-            Intent intent = new Intent(context, MetaDataSync.class);
-            startService(intent);
-            Toast.makeText(context,"Syncing",Toast.LENGTH_LONG).show();
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-    }
-
-    public class BaseReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String action = intent.getAction();
-            Bundle bundle;
-
-            startService(new Intent(context, SearchIndex.class));
-
-            if(action.equals(IntentAction.SYNC_COMPLETE)){
-
-                bundle = intent.getExtras();
-                String serviceName = bundle.getString(Key.SERVICE_NAME);
-
-                if(serviceName.equals(ServiceName.META_DATA_SYNC)){
-
-                    Intent intentService = new Intent(context, DataSync.class);
-                    startService(intentService);
-                }else if(serviceName.equals(ServiceName.DATA_SYNC)){
-
-                    Toast.makeText(context,"EntityMetadata Complete",Toast.LENGTH_LONG).show();
-                }
-            }
-
-        }
+        if(broadcastManager != null && baseReceiver != null)
+            broadcastManager.unregisterReceiver(baseReceiver);
     }
 
     public BaseAndroidViewModel getViewModel(){

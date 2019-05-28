@@ -30,6 +30,6 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
     Long getMaxId();
 
     @Override
-    @Query("SELECT * FROM person_address WHERE person_address_id NOT IN (:id)")
-    PersonAddress[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM person_address WHERE person_address_id NOT IN (:id)) WHERE person_address_id >= :offsetId")
+    PersonAddress[] findEntityNotWithId(long offsetId,long... id);
 }

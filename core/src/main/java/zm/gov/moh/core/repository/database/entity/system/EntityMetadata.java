@@ -14,8 +14,8 @@ public class EntityMetadata {
     private long entityId;
     @Json(name = "entity_type_id")
     private int entityTypeId;
-    @Json(name = "sync_status")
-    private short syncStatus;
+    @Json(name = "remote_status")
+    private short remoteStatus;
 
     public long getId() {
         return id;
@@ -41,11 +41,17 @@ public class EntityMetadata {
         this.entityId = entityId;
     }
 
-    public void setSyncStatus(short syncStatus) {
-        this.syncStatus = syncStatus;
+    public short getRemoteStatus() {
+        return remoteStatus;
     }
 
-    public short getSyncStatus() {
-        return syncStatus;
+    public void setRemoteStatus(short remoteStatus) {
+        this.remoteStatus = remoteStatus;
+    }
+
+    public EntityMetadata(long entityId, int entityTypeId, short remoteStatus){
+        this.entityId = entityId;
+        this.entityTypeId = entityTypeId;
+        this.remoteStatus = remoteStatus;
     }
 }

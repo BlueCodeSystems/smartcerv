@@ -1,12 +1,13 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "patient_identifier")
-public class PatientIdentifier {
+public class PatientIdentifier extends SynchronizableEntity {
 
     @PrimaryKey
     public long patient_identifier_id;
@@ -42,5 +43,10 @@ public class PatientIdentifier {
 
         this(patient_identifier_id,patient_id,identifier,identifier_type,location_id,date_created);
         this.preferred = preferred;
+    }
+
+    @Override
+    public long getId() {
+        return patient_identifier_id;
     }
 }

@@ -10,11 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
@@ -24,11 +22,12 @@ import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormType;
+import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.ObsValue;
-import zm.gov.moh.core.service.DemographicsPersist;
-import zm.gov.moh.core.service.EncounterPersist;
+import zm.gov.moh.core.service.PersistDemographics;
+import zm.gov.moh.core.service.PersistEncounter;
 import zm.gov.moh.core.utils.BaseFragment;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
 import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
@@ -74,7 +73,7 @@ public class FormFragment extends BaseFragment {
         this.form.setRootView(rootView.findViewById(R.id.form_container));
         this.form.setFormContext(new FormContext());
 
-        BaseActivity.ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler();
+        ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler(context);
         binding.setToolbarhandler(toolBarEventHandler);
 
         try {
@@ -120,7 +119,7 @@ public class FormFragment extends BaseFragment {
                 Bundle contextbundle = context.getIntent().getExtras();
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 this.bundle.putAll(contextbundle);
-                Intent intent = new Intent(context,EncounterPersist.class);
+                Intent intent = new Intent(context,PersistEncounter.class);
 
                ArrayList<String> tags = form.getFormContext().getTags();
 
@@ -129,10 +128,10 @@ public class FormFragment extends BaseFragment {
                 ObsValue<String> obsValue1 = ( ObsValue<String>)bundle.getSerializable("image view button");
 
                 if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
-                    intent = new Intent(context, EncounterPersist.class);
+                    intent = new Intent(context, PersistEncounter.class);
                 }
                 else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
-                    intent = new Intent(context, DemographicsPersist.class);
+                    intent = new Intent(context, PersistDemographics.class);
                 }
                 else{
 

@@ -35,9 +35,9 @@ import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public class EncounterPersist extends PersistService {
+public class PersistEncounter extends PersistService {
 
-    public EncounterPersist(){
+    public PersistEncounter(){
         super("");
     }
 

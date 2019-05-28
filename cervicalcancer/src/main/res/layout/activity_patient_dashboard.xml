@@ -6,7 +6,7 @@
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
         <variable name="clientAddress" type="zm.gov.moh.core.repository.database.entity.domain.PersonAddress"/>
         <variable name="facility" type="zm.gov.moh.core.repository.database.entity.domain.Location"/>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
         <import type="org.threeten.bp.LocalDate"/>
     </data>
 

@@ -28,8 +28,8 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
 
     //get persons name by getPersons id
     @Override
-    @Query("SELECT * FROM person_name WHERE person_name_id NOT IN (:id)")
-    PersonName[] findEntityNotWithId(long... id);
+    @Query("SELECT * FROM (SELECT * FROM person_name WHERE person_name_id NOT IN (:id)) WHERE person_name_id >= :offsetId")
+    PersonName[] findEntityNotWithId(long offsetId,long... id);
 
     @Query("SELECT MAX(person_name_id) FROM person_name")
     Long getMaxId();

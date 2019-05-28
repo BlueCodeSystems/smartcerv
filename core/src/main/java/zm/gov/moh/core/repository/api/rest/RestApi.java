@@ -8,6 +8,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
@@ -96,34 +97,34 @@ public interface RestApi {
 
     //PUT
     @Headers("Content-Type: application/json")
-    @PUT("person/name/")
-    Maybe<Response[]> putPersonNames(@Header("x-access-token") String accesstoken, @Body PersonName... personNames);
+    @PUT("person/name/{batchVersion}")
+    Maybe<Response[]> putPersonNames(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body PersonName... personNames);
 
     @Headers("Content-Type: application/json")
-    @PUT("person/")
-    Maybe<Response[]> putPersons(@Header("x-access-token") String accesstoken, @Body Person... persons);
+    @PUT("person/{batchVersion}")
+    Maybe<Response[]> putPersons(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body Person... persons);
 
     @Headers("Content-Type: application/json")
-    @PUT("person/address/")
-    Maybe<Response[]> putPersonAddresses(@Header("x-access-token") String accesstoken, @Body PersonAddress... personAddresses );
+    @PUT("person/address/{batchVersion}")
+    Maybe<Response[]> putPersonAddresses(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body PersonAddress... personAddresses );
 
     @Headers("Content-Type: application/json")
-    @PUT("patient/")
-    Maybe<Response[]> putPatients(@Header("x-access-token") String accesstoken, @Body Patient... patients);
+    @PUT("patient/{batchVersion}")
+    Maybe<Response[]> putPatients(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body Patient... patients);
 
     @Headers("Content-Type: application/json")
-    @PUT("patient/identifier/")
-    Maybe<Response[]> putPatientIdentifiers(@Header("x-access-token") String accesstoken, @Body PatientIdentifier... patientIdentifiers);
+    @PUT("patient/identifier/{batchVersion}")
+    Maybe<Response[]> putPatientIdentifiers(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body PatientIdentifier... patientIdentifiers);
 
     @Headers("Content-Type: application/json")
-    @PUT("obs/")
-    Maybe<Response[]> putObs(@Header("x-access-token") String accesstoken, @Body Obs... obs);
+    @PUT("obs/{batchVersion}")
+    Maybe<Response[]> putObs(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body Obs... obs);
 
     @Headers("Content-Type: application/json")
-    @PUT("visit/")
-    Maybe<Response[]> putVisit(@Header("x-access-token") String accesstoken, @Body Visit... visits);
+    @PUT("visit/{batchVersion}")
+    Maybe<Response[]> putVisit(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body Visit... visits);
 
     @Headers("Content-Type: application/json")
-    @PUT("encounter/")
-    Maybe<Response[]> putEncounter(@Header("x-access-token") String accesstoken, @Body Encounter... encounters);
+    @PUT("encounter/{batchVersion}")
+    Maybe<Response[]> putEncounter(@Header("x-access-token") String accesstoken, @Path("batchVersion") long batchVersion, @Body Encounter... encounters);
 }
