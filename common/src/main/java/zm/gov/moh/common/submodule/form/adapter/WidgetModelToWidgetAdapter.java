@@ -210,7 +210,9 @@ public class WidgetModelToWidgetAdapter {
 
             BaseWidget widget = new BasicDrugWidget.Builder(this.context)
                     .setUuid(model.getUuid())
-                    .setRepository(repository).build();
+                    .setRepository(repository)
+                    .setBundle(bundle)
+                    .build();
 
             return widget;
         }

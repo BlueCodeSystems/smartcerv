@@ -1,9 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -12,11 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.R;
@@ -76,7 +71,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
     public void onCreateView(){
 
-        //WidgetUtils.setLayoutParams(this,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT);
         layoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
             TableLayout.LayoutParams.WRAP_CONTENT);
 
@@ -151,7 +145,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     private void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
         long id = (long)compoundButton.getId();
 
-            answerConcept = id;
+        answerConcept = id;
 
         setDrugObsValue(answerConcept, answerFrequencyConcept, answerDurationConcept);
     }
@@ -162,24 +156,12 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
             drugConceptId = obsValue;
             mFrequency = obsFrequencyValue;
             mDuration = obsDurationValue;
+
             mDrugObsValue.setValue(obsValue);
             mDrugObsValue.setFrequency(obsFrequencyValue);
             mDrugObsValue.setDuration(obsDurationValue);
 
-            mBundle.putSerializable((String)this.getTag(),mDrugObsValue);
-            /*for (Logic logic : logic) {
-                if (logic.getAction().getType().equals("skipLogic"))
-                    if ((drugConceptId != null) && (((Set<Long>) drugConceptId).contains(Math.round((Double) logic.getCondition().getValue())))) {
-                        WidgetUtils.applyOnViewGroupChildren(form.getRootView(), v -> v.setVisibility(VISIBLE), logic.getAction().getMetadata().getTags().toArray());
-                        form.getFormContext().getVisibleWidgetTags().removeAll(logic.getAction().getMetadata().getTags());
-                    } else {
-
-                        Set<String> tags = new HashSet<>();
-                        WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
-                        form.getFormContext().getVisibleWidgetTags().addAll(tags);
-                    }
-            }*/
-            //render();
+            mBundle.putSerializable((String)this.getTag(), mDrugObsValue);
         }
     }
 
@@ -191,18 +173,8 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         answerDurationConcept = value;
     }
 
-    /*public void render(){
-
-        WidgetUtils.applyOnViewGroupChildren(form.getRootView(),
-                v ->{
-                    v.setVisibility(GONE);
-                    if(v instanceof BasicDrugWidget)
-                        ((BasicDrugWidget)v).reset();
-                },
-                form.getFormContext().getVisibleWidgetTags().toArray());
-    }*/
-
     public static class Builder extends RepositoryWidget.Builder {
+
 
         protected String mUuid;
 
@@ -222,6 +194,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         public BasicDrugWidget build() {
             BasicDrugWidget widget = new BasicDrugWidget(mContext);
+            widget.mDrugObsValue = new DrugObsValue();
             widget.canSetValue = new AtomicBoolean();
             widget.canSetValue.set(true);
 
@@ -229,6 +202,8 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
                 widget.setUuid(mUuid);
             if(mRepository != null)
                 widget.setRepository(mRepository);
+            if(mBundle != null)
+                widget.setBundle(mBundle);
 
             widget.onCreateView();
 
@@ -236,27 +211,4 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         }
     }
 
-    public void reset(){
-
-        /*canSetValue.compareAndSet(true,false);
-        if(mStyle != null)
-            switch (mStyle){
-
-                case "check":
-                    WidgetUtils.applyOnViewGroupChildren(this, view -> {
-                        if(view instanceof CheckBox)
-                            ((CheckBox)view).setChecked(false);
-                    });
-                    break;
-
-                case "radio":
-                    WidgetUtils.applyOnViewGroupChildren(this, view -> {
-                        if(view instanceof RadioButton)
-                            ((RadioButton)view).setChecked(false);
-                    });
-                    break;
-            }
-
-        canSetValue.compareAndSet(false,true);*/
-    }
 }
