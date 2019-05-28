@@ -40,11 +40,13 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     protected Map<String, Long> frequencyIdMap = new HashMap<>();
     protected Map<String, Long> durationIdMap = new HashMap<>();
     protected Map<String, Long> checkboxNameIdMap = new HashMap<>();
-    LinkedHashSet<Long> answerConcepts;
+    Long answerConcept;
+    Long answerFrequencyConcept;
+    Long answerDurationConcept;
 
     AtomicBoolean canSetValue;
-    Object mValue;
-    DrugObsValue<Object> mDrugObsValue;
+    Long drugConceptId, mFrequency, mDuration;
+    DrugObsValue mDrugObsValue;
     List<Logic> logic;
     Form form;
 
@@ -119,8 +121,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
     public void onDrugReceived(Drug drug) {
 
-        answerConcepts = new LinkedHashSet<>();
-
         String strength = "";
         if(drug.strength != null)
             strength = drug.strength;
@@ -132,9 +132,9 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         tableRow = new TableRow(mContext);
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
 
-        frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedValue,
+        frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
             WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
-        durationSpinner = WidgetUtils.createSpinner(mContext, durationIdMap, this::onSelectedValue,
+        durationSpinner = WidgetUtils.createSpinner(mContext, durationIdMap, this::onSelectedDurationValue,
             WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
 
         checkBoxGroup.setLayoutParams(rowLayoutParams);
@@ -151,23 +151,25 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     private void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
         long id = (long)compoundButton.getId();
 
-        if(!(checked) && answerConcepts.contains(id))
-            answerConcepts.remove(id);
-        else
-            answerConcepts.add(id);
+            answerConcept = id;
 
-        setObsValue(answerConcepts);
+        setDrugObsValue(answerConcept, answerFrequencyConcept, answerDurationConcept);
     }
 
-    public void setObsValue(Object obsValue) {
+    public void setDrugObsValue(Long obsValue, Long obsFrequencyValue, Long obsDurationValue) {
 
         if(canSetValue.get()) {
-            mValue = obsValue;
+            drugConceptId = obsValue;
+            mFrequency = obsFrequencyValue;
+            mDuration = obsDurationValue;
             mDrugObsValue.setValue(obsValue);
+            mDrugObsValue.setFrequency(obsFrequencyValue);
+            mDrugObsValue.setDuration(obsDurationValue);
 
+            mBundle.putSerializable((String)this.getTag(),mDrugObsValue);
             /*for (Logic logic : logic) {
                 if (logic.getAction().getType().equals("skipLogic"))
-                    if ((mValue != null) && (((Set<Long>) mValue).contains(Math.round((Double) logic.getCondition().getValue())))) {
+                    if ((drugConceptId != null) && (((Set<Long>) drugConceptId).contains(Math.round((Double) logic.getCondition().getValue())))) {
                         WidgetUtils.applyOnViewGroupChildren(form.getRootView(), v -> v.setVisibility(VISIBLE), logic.getAction().getMetadata().getTags().toArray());
                         form.getFormContext().getVisibleWidgetTags().removeAll(logic.getAction().getMetadata().getTags());
                     } else {
@@ -181,15 +183,15 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         }
     }
 
-    private void onSelectedValue(Long value) {
-        /*if(!answerConcepts.isEmpty())
-            answerConcepts.clear();
-
-        answerConcepts.add(value);
-        //setObsValue(answerConcepts);*/
+    private void onSelectedFrequencyValue(Long value) {
+        answerFrequencyConcept = value;
     }
 
-    public void render(){
+    private void onSelectedDurationValue(Long value) {
+        answerDurationConcept = value;
+    }
+
+    /*public void render(){
 
         WidgetUtils.applyOnViewGroupChildren(form.getRootView(),
                 v ->{
@@ -198,7 +200,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
                         ((BasicDrugWidget)v).reset();
                 },
                 form.getFormContext().getVisibleWidgetTags().toArray());
-    }
+    }*/
 
     public static class Builder extends RepositoryWidget.Builder {
 
@@ -221,7 +223,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         public BasicDrugWidget build() {
             BasicDrugWidget widget = new BasicDrugWidget(mContext);
             widget.canSetValue = new AtomicBoolean();
-            widget.mDrugObsValue = new DrugObsValue<>();
             widget.canSetValue.set(true);
 
             if(mUuid != null)

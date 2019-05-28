@@ -1,18 +1,73 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
-    "encounterId":15,
-    "submitLabel":"Submit"
+  "panelType":"form",
+  "formType":"encounter",
+  "encounterId":15,
+  "submitLabel":"Submit"
   },
   "widgetGroup": [
     {
       "title": "Prescription(s)",
       "widgets": [
         {
-          "tag":"prescription",
+          "tag":"ceftriaxone",
           "widgetType":"ConceptDrug",
+          "weight": 1,
           "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
+        },
+        {
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
+        },
+        {
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
+        },
+        {
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
+        },
+        {
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
+        },
+        {
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
+        },
+        {
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
+        },
+        {
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+        },
+        {
+          "tag":"Metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+        },
+        {
+          "tag":"Metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
         }
       ]
     }
