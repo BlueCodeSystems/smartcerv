@@ -37,11 +37,10 @@
           "widgets":[
             {
               "widgetType":"Concept",
-              "label":"Other Gyn. Referal",
+              "label":"Other Gyn. Referral",
               "conceptId": 165186,
               "dataType":"Text",
-              "hint":"Enter Gyn Refferal",
-              "style":"multiline",
+              "hint":"Enter Gyn Referral",
               "textSize":18,
               "weight":1
             }

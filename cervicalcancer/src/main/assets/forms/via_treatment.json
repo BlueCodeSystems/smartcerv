@@ -1,54 +1,117 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
+    "panelType": "form",
+    "formType": "encounter",
     "encounterId": 13,
-    "submitLabel":"Submit"
+    "submitLabel": "Submit"
   },
-  "widgetGroup":[
+  "widgetGroup": [
     {
-      "title":"Treatment",
-      "widgets":[
+      "title": "Treatment",
+      "widgets": [
         {
-          "tag":"via treatment done",
-          "widgetType":"Concept",
-          "label":"VIA treatment done",
+          "tag": "via treatment done",
+          "widgetType": "TextView",
+          "label": "VIA treatment done",
           "conceptId": 165219,
-          "dataType":"Coded",
-          "style":"radio",
-          "textSize": 18,
+          "dataType": "Coded",
+          "textSize": 18
+        },
+        {
+          "tag": "Cryotherapy",
+          "widgetType": "Concept",
+          "label": "Cryotherapy",
+          "conceptId": 165174,
+          "dataType": "Boolean",
+          "style": "check"
+        },
+        {
+          "tag": "Thermal coagulation",
+          "widgetType": "Concept",
+          "label": "Thermal coagulation",
+          "conceptId": 165175,
+          "dataType": "Boolean",
+          "style": "check"
+        },
+        {
+          "tag": "Cryotherapy delayed",
+          "widgetType": "Concept",
+          "label": "	Cryotherapy delayed",
+          "conceptId": 165176,
+          "dataType": "Boolean",
+          "style": "check",
           "logic": [
             {
               "condition": {
-                "value":165176
+                "value": 1
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": [
+                    "reason for delayed treatment"
+                  ]
                 }
               }
             },
             {
               "condition": {
-                "value":165177
+                "value": 2
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": [
+                    ""
+                  ]
                 }
               }
             }
           ]
         },
         {
-          "tag":"reason for delayed treatment",
-          "widgetType":"Concept",
-          "label":"Reason for delayed treatment",
+          "tag": "Thermal coagulation delayed",
+          "widgetType": "Concept",
+          "label": "Thermal coagulation delayed",
+          "conceptId": 165177,
+          "dataType": "Boolean",
+          "style": "check",
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "reason for delayed treatment"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "reason for delayed treatment",
+          "widgetType": "Concept",
+          "label": "Reason for delayed treatment",
           "conceptId": 165240,
-          "dataType":"Coded",
-          "style":"check",
+          "dataType": "Coded",
+          "style": "check",
           "textSize": 18
         }
       ]
