@@ -40,13 +40,14 @@ public class PersonName extends SynchronizableEntity {
     }
 
     @Ignore
-    public PersonName(long person_name_id, long person_id, String given_name, String family_name, short preferred){
+    public PersonName(long person_name_id, long person_id, String given_name, String family_name, short preferred, LocalDateTime date_created){
 
         this.person_name_id = person_name_id;
         this.person_id = person_id;
         this.given_name = given_name;
         this.family_name = family_name;
         this.preferred = preferred;
+        this.date_created = date_created;
 
     }
 

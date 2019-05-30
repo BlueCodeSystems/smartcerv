@@ -38,6 +38,6 @@ public class BootstrapActivity extends BaseActivity {
 
         finish();
 
-        ServiceManager.getInstance(this).setService(ServiceManager.SERVICE_PULL_META_DATA_REMOTE).start();
+        ServiceManager.getInstance(this).setService(ServiceManager.Service.PULL_META_DATA_REMOTE).start();
     }
 }

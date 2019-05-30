@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                     case AUTHORIZED:
                         startModule(nextModule);
                         progressDialog.dismiss();
-                        ServiceManager.getInstance(this).setService(ServiceManager.SERVICE_PULL_META_DATA_REMOTE).start();
+                        ServiceManager.getInstance(this).setService(ServiceManager.Service.PULL_META_DATA_REMOTE).start();
                         finish();
                         break;
 

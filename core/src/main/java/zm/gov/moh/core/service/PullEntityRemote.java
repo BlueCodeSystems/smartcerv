@@ -2,11 +2,13 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.model.IntentAction;
 
 public class PullEntityRemote extends RemoteService {
 
     public PullEntityRemote(){
-        super(ServiceManager.SERVICE_PULL_ENTITY_REMOTE);
+        super(ServiceManager.Service.PULL_ENTITY_REMOTE);
     }
 
     @Override
@@ -79,6 +81,22 @@ public class PullEntityRemote extends RemoteService {
                 repository.getRestApi().getObs(accesstoken), //producer
                 TIMEOUT);
         onTaskStarted();
+    }
+
+    @Override
+    protected void notifySyncCompleted() {
+        Intent intent = new Intent(ServiceManager.IntentAction.PULL_ENTITY_REMOTE_COMPLETE);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        super.onError(throwable);
+
+        Intent intent = new Intent(ServiceManager.IntentAction.PULL_ENTITY_REMOTE_INTERRUPT);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
     @Override

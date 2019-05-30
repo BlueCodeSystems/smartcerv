@@ -67,14 +67,16 @@ public class BaseActivity extends AppCompatActivity {
             drawerLayout.setDrawerListener(drawerToggle);
         }
 
-        if(baseReceiver == null) {
+
+        //TODO: Register local broadcast receivers and intent filters here
+        /*if(baseReceiver == null) {
             baseReceiver = new BaseReceiver();
             broadcastManager = LocalBroadcastManager.getInstance(this);
 
             IntentFilter intentFilter = new IntentFilter(IntentAction.REMOTE_SERVICE_COMPLETE);
 
             broadcastManager.registerReceiver(baseReceiver, intentFilter);
-        }
+        }*/
     }
 
     public void startModule(Module module, Bundle bundle){
@@ -120,13 +122,6 @@ public class BaseActivity extends AppCompatActivity {
         if(toolBarEventHandler == null)
          toolBarEventHandler = new ToolBarEventHandler(context);
         return toolBarEventHandler;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(broadcastManager != null && baseReceiver != null)
-            broadcastManager.unregisterReceiver(baseReceiver);
     }
 
     public BaseAndroidViewModel getViewModel(){

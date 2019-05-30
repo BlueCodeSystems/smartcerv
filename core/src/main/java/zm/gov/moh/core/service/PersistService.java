@@ -1,6 +1,5 @@
 package zm.gov.moh.core.service;
 
-import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,14 +10,14 @@ import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public abstract class PersistService extends IntentService implements InjectableViewModel {
+public abstract class PersistService extends BaseIntentService implements InjectableViewModel {
 
     private Repository repository;
     protected final short PREFERRED = 1;
     protected final String MID_DAY_TIME = "T12:00:00Z";
 
-    public PersistService(String name){
-        super(name);
+    public PersistService(ServiceManager.Service service){
+        super(service);
 
     }
 

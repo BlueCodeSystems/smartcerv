@@ -29,11 +29,12 @@ public class Person extends SynchronizableEntity {
     public short deathdate_estimated;
     public LocalDateTime birthtime;
 
-    public Person(long person_id, LocalDateTime birthdate,String gender){
+    public Person(long person_id, LocalDateTime birthdate,String gender, LocalDateTime date_created){
 
         this.person_id = person_id;
         this.birthdate = birthdate;
         this.gender = gender;
+        this.date_created = date_created;
     }
 
     @Override

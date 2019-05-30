@@ -1,8 +1,13 @@
 package zm.gov.moh.core.service;
 
+import android.content.Intent;
+
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
+import java.util.List;
+
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Response;
@@ -21,7 +26,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityType;
 public class PushEntityRemote extends RemoteService {
 
     public PushEntityRemote(){
-        super(ServiceManager.SERVICE_PUSH_ENTITY_REMOTE);
+        super(ServiceManager.Service.PUSH_ENTITY_REMOTE);
     }
 
     @Override
@@ -34,7 +39,7 @@ public class PushEntityRemote extends RemoteService {
 
     protected void pushEntityRemote(EntityType entityType, long batchVersion){
 
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(entityType.getId(), PUSHED);
+        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(entityType.getId(), Status.PUSHED.getCode());
         final int RETRY_ATTEMPTS = 5;
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
 
@@ -131,10 +136,27 @@ public class PushEntityRemote extends RemoteService {
 
             for(SynchronizableEntity entity:entities) {
 
-                EntityMetadata entityMetadata = new EntityMetadata(entity.getId(),entityTypeId, PUSHED);
+                EntityMetadata entityMetadata = new EntityMetadata(entity.getId(),entityTypeId, Status.PUSHED.getCode());
                 db.entityMetadataDao().insert(entityMetadata);
             }
             onTaskCompleted();
         };
+    }
+
+    protected void notifySyncCompleted() {
+        Intent intent = new Intent(ServiceManager.IntentAction.PUSH_ENTITY_REMOTE_COMPLETE);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
+
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        super.onError(throwable);
+
+        Intent intent = new Intent(ServiceManager.IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }

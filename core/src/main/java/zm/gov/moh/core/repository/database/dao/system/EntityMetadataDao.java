@@ -12,7 +12,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 @Dao
 public interface EntityMetadataDao {
 
-    @Query("SELECT DISTINCT entityId FROM entity_metadata WHERE entityTypeId = :entityTypeId AND remoteStatus = :remoteStatus")
+    @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus")
     long[] findEntityIdByTypeRemoteStatus(int entityTypeId, short remoteStatus);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

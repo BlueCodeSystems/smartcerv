@@ -38,7 +38,7 @@ import zm.gov.moh.core.utils.InjectorUtils;
 public class PersistEncounter extends PersistService {
 
     public PersistEncounter(){
-        super("");
+        super(ServiceManager.Service.PERSIST_ENCOUNTERS);
     }
 
     @Override

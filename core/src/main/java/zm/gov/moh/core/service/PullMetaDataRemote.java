@@ -2,17 +2,16 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 
-import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class PullMetaDataRemote extends RemoteService {
 
     public PullMetaDataRemote(){
-        super(ServiceManager.SERVICE_PULL_META_DATA_REMOTE);
+        super(ServiceManager.Service.PULL_META_DATA_REMOTE);
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        super.onHandleIntent(intent);
+    protected void executeAsync() {
         //Get from rest API and insert into database asynchronously
         //Location
         repository.consumeAsync(
@@ -23,11 +22,11 @@ public class PullMetaDataRemote extends RemoteService {
                 },//consumer
                 this::onError,
                 repository.getRestApi().getLocations(accesstoken),
-                 //producer
+                //producer
                 TIMEOUT);
         onTaskStarted();
 
-       //Location attributes
+        //Location attributes
         repository.consumeAsync(
                 locationAttributes -> {
                     repository.getDatabase().locationAttributeDao().insert(locationAttributes);
@@ -166,8 +165,18 @@ public class PullMetaDataRemote extends RemoteService {
         onTaskStarted();
     }
 
-    @Override
-    protected void executeAsync() {
+    protected void notifySyncCompleted() {
+        Intent intent = new Intent(ServiceManager.IntentAction.PULL_META_DATA_REMOTE_COMPLETE);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
 
+    @Override
+    public void onError(Throwable throwable) {
+        super.onError(throwable);
+
+        Intent intent = new Intent(ServiceManager.IntentAction.PULL_META_DATA_REMOTE_INTERRUPT);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }

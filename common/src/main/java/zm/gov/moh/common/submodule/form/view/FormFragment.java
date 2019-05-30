@@ -110,7 +110,7 @@ public class FormFragment extends BaseFragment {
             //formImageViewButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
-            //formSubmitButtonWidget.setBundle(this.bundle);
+            //formSubmitButtonWidget.putExtras(this.bundle);
 
             //formImageViewButtonWidget.setOnClick(bundle1 ->
 

@@ -57,7 +57,7 @@ public class PersonAddress extends SynchronizableEntity {
     }
 
     @Ignore
-    public PersonAddress(long person_address_id,long person_id, String address1, String city_village, String state_province, short preferred ){
+    public PersonAddress(long person_address_id,long person_id, String address1, String city_village, String state_province, short preferred, LocalDateTime date_created ){
 
         this.person_address_id = person_address_id;
         this.person_id = person_id;
@@ -65,6 +65,7 @@ public class PersonAddress extends SynchronizableEntity {
         this.city_village = city_village;
         this.state_province = state_province;
         this.preferred = preferred;
+        this.date_created = date_created;
     }
 
     @Override

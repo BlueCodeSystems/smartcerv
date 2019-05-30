@@ -2,6 +2,7 @@ package zm.gov.moh.core.repository.database.entity.system;
 
 import com.squareup.moshi.Json;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,12 +11,18 @@ public class EntityMetadata {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
+
     @Json(name = "entity_id")
+    @ColumnInfo(name = "entity_id")
     private long entityId;
+
     @Json(name = "entity_type_id")
+    @ColumnInfo(name = "entity_type_id")
     private int entityTypeId;
-    @Json(name = "remote_status")
-    private short remoteStatus;
+
+    @Json(name = "remote_status_code")
+    @ColumnInfo(name = "remote_status_code")
+    private short remoteStatusCode;
 
     public long getId() {
         return id;
@@ -41,17 +48,17 @@ public class EntityMetadata {
         this.entityId = entityId;
     }
 
-    public short getRemoteStatus() {
-        return remoteStatus;
+    public short getRemoteStatusCode() {
+        return remoteStatusCode;
     }
 
-    public void setRemoteStatus(short remoteStatus) {
-        this.remoteStatus = remoteStatus;
+    public void setRemoteStatusCode(short remoteStatusCode) {
+        this.remoteStatusCode = remoteStatusCode;
     }
 
-    public EntityMetadata(long entityId, int entityTypeId, short remoteStatus){
+    public EntityMetadata(long entityId, int entityTypeId, short remoteStatusCode){
         this.entityId = entityId;
         this.entityTypeId = entityTypeId;
-        this.remoteStatus = remoteStatus;
+        this.remoteStatusCode = remoteStatusCode;
     }
 }

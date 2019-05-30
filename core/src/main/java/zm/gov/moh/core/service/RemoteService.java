@@ -1,6 +1,5 @@
 package zm.gov.moh.core.service;
 
-import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,24 +15,19 @@ import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
-public abstract class RemoteService extends IntentService implements InjectableViewModel {
+public abstract class RemoteService extends BaseIntentService implements InjectableViewModel {
 
     protected Repository repository;
-    protected String accesstoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InV1aWQiOiJhM2FjYTE4MS1kMDJhLTRiODgtOTc1NC1lYWM0NWQzZGUzZmUiLCJkaXNwbGF5IjoiYW50aG9ueSIsInVzZXJuYW1lIjoiYW50aG9ueSIsInN5c3RlbUlkIjoiMy00In0sImlhdCI6MTU0MjE0MzU3NiwiZXhwIjoxNTkyMTQzNTc2fQ.DsDbPXwaZ5sg2SFCq1CBykITJjog-9u-4XzNGw9IYV8";
+    protected String accesstoken = "DeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InV1aWQiOiJhM2FjYTE4MS1kMDJhLTRiODgtOTc1NC1lYWM0NWQzZGUzZmUiLCJkaXNwbGF5IjoiYW50aG9ueSIsInVzZXJuYW1lIjoiYW50aG9ueSIsInN5c3RlbUlkIjoiMy00In0sImlhdCI6MTU0MjE0MzU3NiwiZXhwIjoxNTkyMTQzNTc2fQ.DsDbPXwaZ5sg2SFCq1CBykITJjog-9u-4XzNGw9IYV8";
     protected final int TIMEOUT = 300000;
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
     protected Bundle mBundle;
-    protected String mName;
     protected Database db;
     protected RestApi restApi;
-    protected final short SYNCED = 1;
-    protected final short PUSHED = 2;
-    protected final short PULLED = 3;
 
-    public RemoteService(String name){
-        super(name);
-        this.mName = name;
+    public RemoteService(ServiceManager.Service service){
+        super(service);
     }
 
     @Override
@@ -48,7 +42,7 @@ public abstract class RemoteService extends IntentService implements InjectableV
         if(mBundle == null)
             mBundle = new Bundle();
 
-        mBundle.putString(Key.SERVICE_NAME, mName);
+        mBundle.putSerializable(Key.SERVICE_NAME, mService);
 
         repository.asyncRunnable(this::executeAsync,this::onError);
     }
@@ -71,7 +65,7 @@ public abstract class RemoteService extends IntentService implements InjectableV
 
 
 
-    private void notifySyncCompleted(){
+    protected void notifySyncCompleted(){
         Intent intent = new Intent(IntentAction.REMOTE_SERVICE_COMPLETE);
         intent.putExtras(mBundle);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
@@ -87,5 +81,19 @@ public abstract class RemoteService extends IntentService implements InjectableV
 
         if(tasksCompleted == tasksStarted)
             notifySyncCompleted();
+    }
+
+    public enum Status{
+
+        SYNCED((short)1),PUSHED((short)2),PULLED((short)3);
+        private short code;
+
+        Status(short code){
+            this.code = code;
+        }
+
+        public short getCode(){
+            return this.code;
+        }
     }
 }
