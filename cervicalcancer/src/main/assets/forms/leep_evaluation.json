@@ -18,7 +18,8 @@
           "tag": "leep visit date",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "facility",
@@ -59,7 +60,8 @@
           "tag": "dob",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "provider",
@@ -101,7 +103,7 @@
         {
           "tag": "most_recent_hiv_status",
           "widgetType": "Concept",
-          "conceptId": 165203,
+          "conceptId": 165341,
           "dataType": "Coded",
           "style": "radio",
           "label": "Most recent HIV test",
@@ -117,7 +119,8 @@
           "tag": "Date tested for hiv",
           "widgetType": "DatePicker",
           "textSize": 18,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -153,7 +156,8 @@
           "tag": "date for cd4 result",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -165,7 +169,8 @@
           "tag": "client's arvs start date ",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -178,7 +183,8 @@
           "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -313,6 +319,54 @@
           "style": "radio",
           "label": "Other",
           "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Reason For Other",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "TextBox",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
+          "weight": 1
         }
       ]
     },
@@ -331,7 +385,8 @@
           "tag": "dob",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "provider",
@@ -367,7 +422,8 @@
           "tag": "Date tested for hiv",
           "widgetType": "DatePicker",
           "textSize": 18,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -421,7 +477,8 @@
           "tag": "date for cd4 result",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "atypical vessel",
@@ -445,7 +502,8 @@
           "tag": "client's arvs start date ",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "extends into cervical os",
@@ -470,7 +528,8 @@
           "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "other",
@@ -483,12 +542,24 @@
         },
         {
           "widgetType":"TextView",
+          "label":"Reason For Other",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "widgetType":"TextView",
           "label":"Comments",
           "textSize":18,
           "weight":1
         },
         {
-          "tag": "notes",
+          "tag": "comments",
           "widgetType": "TextBox",
           "hint": "                                                                                                                                          ",
           "weight": 1

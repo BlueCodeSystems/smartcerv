@@ -19,6 +19,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
@@ -47,6 +48,19 @@ public class WidgetModelJsonAdapter {
                 editText.setLabel(widgetModelJson.getLabel());
 
                 return editText;
+
+            case "ReadonlyText":
+
+                final ReadonlyTextModel readonlyText = new ReadonlyTextModel();
+
+                readonlyText.setWidgetType(widgetModelJson.getWidgetType());
+                readonlyText.setTag(widgetModelJson.getTag());
+                readonlyText.setHint(widgetModelJson.getHint());
+                readonlyText.setText(widgetModelJson.getText());
+                readonlyText.setWeight(widgetModelJson.getWeight());
+                readonlyText.setLabel(widgetModelJson.getLabel());
+
+                return readonlyText;
 
             case "TextBox":
 

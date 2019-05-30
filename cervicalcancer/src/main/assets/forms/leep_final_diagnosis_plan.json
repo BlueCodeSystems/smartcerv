@@ -85,7 +85,7 @@
         },
         {
           "tag": "reason",
-          "widgetType": "TextBox",
+          "widgetType": "EditText",
           "weight": 1,
           "textSize": 18
         },
@@ -94,7 +94,8 @@
           "widgetType": "DatePicker",
           "label": "Date saved",
           "textSize": 18,
-          "weight": 1
+          "weight": 1,
+          "hint":"dd MMM yyyy"
         }
       ]
     },
@@ -229,13 +230,13 @@
         },
         {
           "widgetType": "TextView",
-          "label": "Other",
+          "label": "Reason For Other",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "other",
-          "widgetType": "TextBox",
+          "widgetType": "EditText",
           "hint": "                                                                                                                                          ",
           "weight": 1
         }
@@ -345,14 +346,35 @@
         },
         {
           "tag": "other",
-          "widgetType": "TextView",
+          "widgetType": "Concept",
+          "conceptId": 165170,
+          "dataType": "Boolean",
+          "style": "radio",
           "label": "Other",
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "TextView",
+          "label": "Reason For Other",
           "weight": 1,
           "textSize": 18
         },
         {
           "tag": "other",
-          "widgetType": "TextBox",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
           "weight": 1
         },
         {
@@ -365,21 +387,13 @@
         {
           "tag": "clinician id",
           "widgetType": "EditText",
-          "weight": 1,
-          "textSize": 18
+          "weight": 1
         }
       ]
     },
     {
       "title": "Plan",
       "widgets": [
-        {
-          "tag": "date_discussed",
-          "widgetType": "DatePicker",
-          "label": "Date discussed",
-          "textSize": 18,
-          "weight": 1
-        },
         {
           "tag": "drug",
           "widgetType": "TextView",
@@ -389,7 +403,7 @@
         {
           "tag": "drug",
           "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x ",
+          "hint": "Drug name x mg x days",
           "weight": 1
         },
         {
@@ -401,7 +415,7 @@
         {
           "tag": "drug",
           "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x ",
+          "hint": "Drug name x mg x days",
           "weight": 1
         },
         {
@@ -413,14 +427,34 @@
         {
           "tag": "drug",
           "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x ",
+          "hint": "Drug name x mg x days",
           "weight": 1
         },
         {
-          "tag": "duration",
-          "widgetType": "TextView",
-          "label": "Duration",
-          "weight": 1
+          "tag": "date_discussed",
+          "widgetType": "DatePicker",
+          "label": "Date discussed",
+          "textSize": 18,
+          "weight": 1,
+          "hint":"dd MMM yyyy"
+        },
+        {
+          "tag": "recommended art initiation",
+          "widgetType": "Concept",
+          "conceptId": 165342,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Recommended ART initiation",
+          "textSize": 18
+        },
+        {
+          "tag": "pelvic_exam_done",
+          "widgetType": "Concept",
+          "conceptId": 165137,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Pelvic exam done?",
+          "textSize": 18
         },
         {
           "tag": "referred_for_hysterectomy",
@@ -468,7 +502,7 @@
           "tag": "other",
           "widgetType": "DatePicker",
           "label": "Other",
-          "style": "textboxtwo",
+          "style": "edittext",
           "textSize": 18,
           "weight": 1
         },
@@ -489,21 +523,32 @@
           "textSize": 18
         },
         {
-          "tag": "clinician id",
-          "widgetType": "EditText",
+          "tag": "comments",
+          "widgetType": "TextBox",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
           "weight": 1,
           "textSize": 18
         },
         {
-          "tag": "comments",
-          "widgetType": "TextView",
-          "label": "Comments",
-          "textSize": 18,
+          "tag": "clinician signature",
+          "widgetType": "EditText",
           "weight": 1
         },
         {
-          "tag": "comments",
-          "widgetType": "TextBox",
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
           "weight": 1
         }
       ]

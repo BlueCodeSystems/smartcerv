@@ -1,26 +1,29 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
+import zm.gov.moh.common.R;
 
-public class TextBoxWidgetTwo extends TextViewWidget implements Submittable<CharSequence> {
+public class ReadonlyTextWidget extends TextViewWidget implements Submittable<CharSequence> {
 
 
     protected String mValue;
     protected String mHint;
     protected Bundle mBundle;
-    protected AppCompatEditText mTextBox;
+    protected AppCompatEditText mEditText;
     private Context context;
 
-    public TextBoxWidgetTwo(Context context){
+    public ReadonlyTextWidget(Context context){
         super(context);
     }
 
@@ -48,33 +51,20 @@ public class TextBoxWidgetTwo extends TextViewWidget implements Submittable<Char
     public void onCreateView() {
 
         super.onCreateView();
-        mTextBox = new AppCompatEditText(mContext);
-        mTextBox.setHint(mHint);
-        mTextBox.setFilters(new InputFilter[]{ new InputFilter.LengthFilter(500) });
-        ShapeDrawable border = new ShapeDrawable(new RectShape());
-        border.getPaint().setStyle(Paint.Style.STROKE);
-        border.getPaint().setColor(Color.BLACK);
-        mTextBox.setBackground(border);
-        mTextBox.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        mTextBox.setGravity(Gravity.CENTER);
-        //mTextBox.setTextAlignment(TEXT_ALIGNMENT_GRAVITY);
-        //mTextBox.setGravity(Gravity.CENTER_HORIZONTAL);
-        WidgetUtils.setLayoutParams(mTextBox,300,70, mWeight);
-            //.setGravity(Gravity.CENTER_VERTICAL);
-        addView(mTextBox);
-
-
-
+        mEditText = new AppCompatEditText(mContext);
+        mEditText.setHint(mHint);
+        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
+        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
+        addView(mEditText);
 
         //auto populate
         String value = mBundle.getString((String) getTag());
         if(value != null)
-            mTextBox.setText(value);
-
+            mEditText.setText(value);
+        //mEditText.setEnabled(false);
+        mEditText.setKeyListener(null);
 
     }
-
-
 
     @Override
     public void addViewToViewGroup() {
@@ -82,8 +72,8 @@ public class TextBoxWidgetTwo extends TextViewWidget implements Submittable<Char
     }
 
 
-    AppCompatEditText getTextBoxView(){
-        return mTextBox;
+    AppCompatEditText getEditTextView(){
+        return mEditText;
     }
 
     public static class Builder extends TextViewWidget.Builder{
@@ -111,7 +101,7 @@ public class TextBoxWidgetTwo extends TextViewWidget implements Submittable<Char
         public BaseWidget build() {
 
             // super.build();
-            TextBoxWidgetTwo widget = new TextBoxWidgetTwo(mContext);
+            EditTextWidget widget = new EditTextWidget(mContext);
 
             if(mHint != null)
                 widget.setHint(mHint);

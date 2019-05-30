@@ -37,20 +37,14 @@
           "tag": "follow up dates",
           "widgetType": "DatePicker",
           "weight": 1,
-          "hint": "Select Date"
-        },
-
-        {
-          "widgetType": "TextView",
-          "label": "Provider name",
-          "textSize": 18,
-          "weight": 1
+          "label": "Select Date",
+          "hint": "dd MMM yyyy"
         },
         {
-          "tag": "Provider_name",
-          "widgetType": "EditText",
-          "hint": "First & Last Name",
-          "weight": 1
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
         }
       ]
     }]

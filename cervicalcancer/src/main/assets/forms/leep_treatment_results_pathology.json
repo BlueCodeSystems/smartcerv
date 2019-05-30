@@ -14,7 +14,7 @@
           "conceptId": 165286,
           "dataType": "Coded",
           "style": "radio",
-          "label": "TREATMENT",
+          "label": "Treatment",
           "textSize": 18
         },
         {
@@ -83,7 +83,8 @@
           "tag": "clinician id",
           "widgetType": "TextView",
           "label": "Clinician ID",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         },
         {
           "tag": "clinician id",
@@ -133,13 +134,13 @@
         },
         {
           "widgetType": "TextView",
-          "label": "Other",
+          "label": "Reason For Other",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "other",
-          "widgetType": "TextBox",
+          "widgetType": "EditText",
           "hint": "                                                                                                                                          ",
           "weight": 1
         },
@@ -162,6 +163,29 @@
           "tag": "comments",
           "widgetType": "TextBox",
           "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
           "weight": 1
         }
 
@@ -253,7 +277,8 @@
           "tag": "clinician id",
           "widgetType": "TextView",
           "label": "Clinician ID",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         },
         {
           "tag": "clinician id",
@@ -269,7 +294,8 @@
           "tag": "date",
           "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Date"
+          "text": "Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "bleeding_prompting_return_visit_to_clinic",
@@ -318,13 +344,13 @@
         },
         {
           "widgetType": "TextView",
-          "label": "Other",
+          "label": "Reason For Other",
           "textSize": 18,
           "weight": 1
         },
         {
           "tag": "other",
-          "widgetType": "TextBox",
+          "widgetType": "EditText",
           "hint": "                                                                                                                                          ",
           "weight": 1
         }
@@ -366,8 +392,44 @@
           "conceptId": 165304,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Antibiotics",
+          "label": "Antibiotics (if yes, list)",
           "textSize": 18
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 1",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 2",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 3",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
         },
         {
           "tag": "other",
@@ -381,19 +443,49 @@
         {
           "tag": "other",
           "widgetType": "TextView",
-          "label": "Other",
+          "label": "Reason For Other",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
           "weight": 1
         },
         {
           "tag": "comments",
           "widgetType": "TextView",
           "label": "Comments",
-          "weight": 1
+          "weight": 1,
+          "textSize": 18
         },
         {
           "tag": "comments",
           "widgetType": "TextBox",
           "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
           "weight": 1
         }
       ]
