@@ -46,11 +46,10 @@
         },
         {
           "tag": "follow up dates",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "hint": "dd MMM yyyy"
         },
-
 
         {
           "widgetType": "TextView",
@@ -64,8 +63,6 @@
           "hint": "First and Last Name",
           "weight": 1
         }
-
-
       ]
     }]
 }

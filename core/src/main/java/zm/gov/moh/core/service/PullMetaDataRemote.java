@@ -2,7 +2,10 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 
+import java.util.List;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 
 public class PullMetaDataRemote extends RemoteService {
 
@@ -122,8 +125,10 @@ public class PullMetaDataRemote extends RemoteService {
         //Concept answer
         repository.consumeAsync(
                 conceptAnswers ->{
+
                     repository.getDatabase().conceptAnswerDao().insert(conceptAnswers);
                     this.onTaskCompleted();
+
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getConceptAnswers(accesstoken), //producer

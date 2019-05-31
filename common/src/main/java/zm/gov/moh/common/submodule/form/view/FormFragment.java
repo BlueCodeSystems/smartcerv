@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -18,25 +19,28 @@ import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
 import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
+import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
+import zm.gov.moh.common.submodule.form.model.Action;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
+import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.common.submodule.form.model.Logic;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
+import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.service.PersistDemographics;
 import zm.gov.moh.core.service.PersistEncounter;
 import zm.gov.moh.core.utils.BaseFragment;
-import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
-import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
-import zm.gov.moh.common.submodule.form.model.FormModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
-import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
-import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
-import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 
 public class FormFragment extends BaseFragment {
 
@@ -55,7 +59,7 @@ public class FormFragment extends BaseFragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                              Bundle savedInstanceState) {
 
         context = (FormActivity) getContext();
         renderWidgets = new AtomicBoolean();
@@ -86,6 +90,25 @@ public class FormFragment extends BaseFragment {
         }catch (Exception e){
             Exception ex = e;
         }
+
+        //Criteria,Action
+        if( formModel.getAttributes().getLogic() != null)
+            for(Logic logic : formModel.getAttributes().getLogic()){
+
+                if(logic.getAction().getType().equals(Action.ACTION_TYPE_CRITERIA)){
+
+                    for(String tag : logic.getAction().getMetadata().getTags())
+                        if(bundle.containsKey(tag)) {
+
+                            String value = bundle.getString(tag);
+                            if(!value.equals(logic.getCondition().getValue())){
+                                context.onBackPressed();
+                                Toast.makeText(context, context.getString(R.string.male_patient_block),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                }
+
+            }
 
         initFormData(bundle);
 
@@ -144,7 +167,7 @@ public class FormFragment extends BaseFragment {
                 intent.putExtras(this.bundle);
                 context.startService(intent);
                 context.onBackPressed();
-               // Module submodule = (Module) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
+                // Module submodule = (Module) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
                 //context.startModule(submodule, bundle);
             });
 
@@ -185,7 +208,6 @@ public class FormFragment extends BaseFragment {
     }
 
     public void onUriRetrieved(Map.Entry<String, Uri> data) {
-        System.out.println("HERE --> " + data.getKey() + " AND " + data.getValue());
        String tag = bundle.getString(Key.VIEW_TAG);
          View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget)view).onUriRetrieved(data.getValue());

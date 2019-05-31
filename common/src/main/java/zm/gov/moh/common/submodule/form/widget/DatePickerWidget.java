@@ -9,7 +9,9 @@ import android.widget.LinearLayout;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.utils.Utils;
@@ -24,9 +26,10 @@ public class DatePickerWidget extends EditTextWidget {
     public void onCreateView() {
         super.onCreateView();
         AppCompatImageButton button = new AppCompatImageButton(mContext);
-        getEditTextView().setGravity(Gravity.CENTER_HORIZONTAL);
+        super.setGravity(Gravity.CENTER_HORIZONTAL);
 
         button.setBackgroundResource(R.drawable.calendar);
+
         WidgetUtils.setLayoutParams(button,Utils.dpToPx(mContext,25), Utils.dpToPx(mContext,25));
         ((LinearLayoutCompat.LayoutParams)button.getLayoutParams()).setMarginEnd(Utils.dpToPx(mContext,20));
 
@@ -43,6 +46,7 @@ public class DatePickerWidget extends EditTextWidget {
             this.setValue(dob);
 
         });
+
         this.setGravity(Gravity.CENTER_VERTICAL);
         addView(button);
     }
@@ -85,6 +89,8 @@ public class DatePickerWidget extends EditTextWidget {
                 widget.setTag(mTag);
             if(mHint != null)
                 widget.setHint(mHint);
+            if(mLabel != null)
+                widget.setLabel(mLabel);
 
             widget.onCreateView();
 
