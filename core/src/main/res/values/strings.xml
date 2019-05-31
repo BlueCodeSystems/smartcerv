@@ -18,5 +18,6 @@
     <string name="only_aphanumeric_characters">Should only contain alphanumeric characters</string>
     <string name="zoned_time_mid_day">T12:00:00Z</string>
     <string name="male_patient_block">Male patients cannot register for this service</string>
+    <string name="menopause_block">Patient must be above 4O years</string>
 </resources>
 

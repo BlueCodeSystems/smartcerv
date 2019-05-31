@@ -11,7 +11,7 @@
       "widgets": [
         {
           "tag": "via treatment done",
-          "widgetType": "TextView",
+          "widgetType": "Concept",
           "label": "VIA treatment done",
           "conceptId": 165219,
           "dataType": "Coded",
