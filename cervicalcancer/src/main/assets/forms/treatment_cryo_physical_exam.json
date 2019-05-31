@@ -111,10 +111,10 @@
         },
         {
           "tag": "Other Clinical Findings",
-          "widgetType": "Concept",
+          "widgetType": "EditText",
           "conceptId": 165154,
           "dataType": "Text",
-          "hint": "Other Clinical Findings",
+          "hint": " Enter Other Clinical Findings",
           "textSize": 18
         }
       ]

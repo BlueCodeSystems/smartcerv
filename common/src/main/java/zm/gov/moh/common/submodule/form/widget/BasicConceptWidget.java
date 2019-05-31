@@ -10,10 +10,6 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,10 +25,10 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import zm.gov.moh.common.submodule.form.model.Condition;
+import zm.gov.moh.core.model.ConceptDataType;
+
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
-import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
@@ -96,17 +92,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         super.onLayout(b, i,i1,i2,i3);
     }
 
-   /* public ObsValue<Object> getmObsValue() {
-        long patientId = bundle.getLong(Key.PERSON_ID);
-      repository.getDatabase().obsDao().findPatientObsByConceptId(patientId,mConceptId).observe((AppCompatActivity)mContext, v ->{
-            Obs obs = v;
-            double d = v.value_numeric;
-
-        });
-
-        return mObsValue;
-    }*/
-
     public void setObsValue(Object obsValue) {
 
         if(canSetValue.get()) {
@@ -115,42 +100,16 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             if (logic != null)
                 for (Logic logic : logic)
-                    if (logic.getAction().getType().equals("skipLogic")) {
+                    if (logic.getAction().getType().equals("skipLogic"))
+                        if ((mValue != null) && (((Set<Long>) mValue).contains(Math.round((Double) logic.getCondition().getValue())))) {
+                            WidgetUtils.applyOnViewGroupChildren(form.getRootView(), v -> v.setVisibility(VISIBLE), logic.getAction().getMetadata().getTags().toArray());
+                            form.getFormContext().getVisibleWidgetTags().removeAll(logic.getAction().getMetadata().getTags());
+                        } else {
 
-                        Condition condition = logic.getCondition();
-                        String dataType = logic.getCondition().getDataType();
-                        if(dataType != null && logic.getCondition().getDataType().equals("date")){
-
-                            if(condition.getExpression().getLessThan() != null){
-                                String dob = bundle.getString((String)logic.getCondition().getValue());
-
-                                LocalDate ld = LocalDate.parse(dob);
-                                int clientAge = LocalDateTime.now().getYear() - ld.getYear();
-                                int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
-
-                                if(clientAge < conditionAge){
-
-                                    Toast.makeText(mContext,"Patient should be older than 40",Toast.LENGTH_LONG).show();
-                                    Set<String> tags = new HashSet<>();
-                                    WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
-                                    form.getFormContext().getVisibleWidgetTags().addAll(tags);
-
-                                }
-
-                            }
-                        }else {
-
-                            if ((mValue != null) && (((Set<Long>) mValue).contains(Math.round((Double) logic.getCondition().getValue())))) {
-                                WidgetUtils.applyOnViewGroupChildren(form.getRootView(), v -> v.setVisibility(VISIBLE), logic.getAction().getMetadata().getTags().toArray());
-                                form.getFormContext().getVisibleWidgetTags().removeAll(logic.getAction().getMetadata().getTags());
-                            } else {
-
-                                Set<String> tags = new HashSet<>();
-                                WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
-                                form.getFormContext().getVisibleWidgetTags().addAll(tags);
-                            }
+                            Set<String> tags = new HashSet<>();
+                            WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
+                            form.getFormContext().getVisibleWidgetTags().addAll(tags);
                         }
-                    }
             render();
         }
     }
@@ -195,10 +154,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext),WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mTextView.setText(mLabel);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,mTextSize);
+
         mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES|InputType.TYPE_CLASS_TEXT);
-        mEditText.setSelection(0);
+        mEditText.setTextAlignment(TEXT_ALIGNMENT_CENTER);
         mEditText.setHint(mHint);
 
 
@@ -251,36 +210,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         }
 
         render();
-        //getmObsValue();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return this;
     }
 

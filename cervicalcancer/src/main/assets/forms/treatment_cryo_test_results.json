@@ -125,6 +125,7 @@
           "widgetType": "Concept",
           "conceptId": 165217,
           "dataType": "Text",
+          "style": "multiline",
           "hint": "Reason for no EDI",
           "textSize": 18
         }
@@ -183,6 +184,7 @@
               "widgetType": "Concept",
               "conceptId": 165158,
               "dataType": "Text",
+              "style": "multiline",
               "hint": "Reason(e.g severe cervicitis)",
               "textSize": 18
             }
