@@ -70,14 +70,14 @@ public class DistrictLabelWidget extends LinearLayoutCompat{
     }
 
     public void setDistrictLocation(Location location){
-       setTextValue(location.name);
-        bundle.putLong((String)getTag(),location.location_id);
+       setTextValue(location.getName());
+        bundle.putLong((String)getTag(),location.getLocationId());
     }
 
     public void setFacilityLocation(Location location){
 
         if(location != null)
-            populateFacilityDistrictLocation(location.parent_location);
+            populateFacilityDistrictLocation(location.getParentLocation());
 
     }
 
