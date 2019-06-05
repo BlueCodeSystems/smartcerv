@@ -219,8 +219,8 @@ public class BaseActivity extends AppCompatActivity {
                 .getAllByUserUuid(USER_UUID)
                 .observe(this, providerUser -> {
 
-                    bundle.putLong(Key.PROVIDER_ID, providerUser.provider_id);
-                    bundle.putLong(Key.USER_ID, providerUser.user_id);
+                    bundle.putLong(Key.PROVIDER_ID, providerUser.getProviderId());
+                    bundle.putLong(Key.USER_ID, providerUser.getUserId());
                 });
 
         if(personId != null){
@@ -231,11 +231,11 @@ public class BaseActivity extends AppCompatActivity {
                     .clientDao()
                     .findById(personId)
                     .observe(this, client -> {
-                        bundle.putString(Key.PERSON_GIVEN_NAME, client.given_name);
-                        bundle.putString(Key.PERSON_FAMILY_NAME, client.family_name);
+                        bundle.putString(Key.PERSON_GIVEN_NAME, client.getGivenName());
+                        bundle.putString(Key.PERSON_FAMILY_NAME, client.getFamilyName());
                         //Added yo pass client gender with bundle
-                        bundle.putString(Key.PERSON_GENDER, client.gender);
-                         bundle.putString(Key.PERSON_DOB, client.birthdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                        bundle.putString(Key.PERSON_GENDER, client.getGender());
+                         bundle.putString(Key.PERSON_DOB, client.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
                     });
 
@@ -245,7 +245,7 @@ public class BaseActivity extends AppCompatActivity {
                     .personAddressDao()
                     .findByPersonId(personId)
                     .observe(this, personAddress -> {
-                        bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
+                        bundle.putString(PERSON_ADDRESS,personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince());
                     });
         }
     }

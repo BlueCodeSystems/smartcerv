@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="@{facility.name}"
+                android:text="@{facility.getName}"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
             <androidx.appcompat.widget.AppCompatImageButton
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:gravity="end"
-                android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
+                android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
                 android:textColor="@color/darker_grey" />
 
 

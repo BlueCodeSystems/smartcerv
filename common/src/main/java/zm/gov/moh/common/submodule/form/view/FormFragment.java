@@ -199,8 +199,8 @@ public class FormFragment extends BaseFragment {
                 .getAllByUserUuid(USER_UUID)
                 .observe(context, providerUser -> {
 
-                    bundle.putLong(FormDataBundleKey.PROVIDER_ID, providerUser.provider_id);
-                    bundle.putLong(FormDataBundleKey.USER_ID, providerUser.user_id);
+                    bundle.putLong(FormDataBundleKey.PROVIDER_ID, providerUser.getProviderId());
+                    bundle.putLong(FormDataBundleKey.USER_ID, providerUser.getUserId());
                 });
         //bundle.put(Key.PERSON_ID,)
     }
