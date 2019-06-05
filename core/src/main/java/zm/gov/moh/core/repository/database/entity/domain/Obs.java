@@ -6,95 +6,184 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import androidx.room.*;
+
+import com.squareup.moshi.Json;
 
 @Entity
 public class Obs {
 
     @PrimaryKey
-    public long obs_id;
-    public long person_id;
-    public long concept_id;
-    public Long encounter_id;
-    public Long order_id;
-    public LocalDateTime obs_datetime;
-    public Long location_id;
-    public Long obs_group_id;
-    public String accession_number;
-    public Long value_group_id;
-    public Long value_coded;
-    public Long value_coded_name_id;
-    public Long value_drug;
-    public LocalDateTime value_datetime;
-    public Double value_numeric;
-    public String value_modifier;
-    public String value_text;
-    public String value_complex;
-    public String comments;
-    public long creator;
-    public LocalDateTime date_created;
-    public short voided;
-    public Long voided_by;
-    public LocalDateTime date_voided;
-    public String void_reason;
-    public String uuid;
-    public Long previous_version;
-    public String form_namespace_and_path;
-    public String status;
-    public String interpretation;
+    @ColumnInfo(name = "obs_id")
+    @Json(name = "obs_id")
+    private long obsId;
+
+    @ColumnInfo(name = "person_id")
+    @Json(name = "person_id")
+    private long personId;
+
+    @ColumnInfo(name = "concept_id")
+    @Json(name = "concept_id")
+    private long conceptId;
+
+    @ColumnInfo(name = "encounter_id")
+    @Json(name = "encounter_id")
+    private Long encounterId;
+
+    @ColumnInfo(name = "order_id")
+    @Json(name = "order_id")
+    private Long orderId;
+
+    @ColumnInfo(name = "obs_datetime")
+    @Json(name = "obs_datetime")
+    private LocalDateTime obsDateTime;
+
+    @ColumnInfo(name = "location_id")
+    @Json(name = "location_id")
+    private Long locationId;
+
+    @ColumnInfo(name = "obs_group_id")
+    @Json(name = "obs_group_id")
+    private Long obsGroupId;
+
+    @ColumnInfo(name = "accession_number")
+    @Json(name = "accession_number")
+    private String accessionNumber;
+
+    @ColumnInfo(name = "value_group_id")
+    @Json(name = "value_group_id")
+    private Long valueGroupId;
+
+    @ColumnInfo(name = "value_coded")
+    @Json(name = "value_coded")
+    private Long valueCoded;
+
+    @ColumnInfo(name = "value_coded_name_id")
+    @Json(name = "value_coded_name_id")
+    private Long valueCodedNameId;
+
+    @ColumnInfo(name = "value_drug")
+    @Json(name = "value_drug")
+    private Long valueDrug;
+
+    @ColumnInfo(name = "value_datetime")
+    @Json(name = "value_datetime")
+    private LocalDateTime valueDateTime;
+
+    @ColumnInfo(name = "value_numeric")
+    @Json(name = "value_numeric")
+    private Double valueNumeric;
+
+    @ColumnInfo(name = "value_modifier")
+    @Json(name = "value_modifier")
+    private String valueModifier;
+
+    @ColumnInfo(name = "value_text")
+    @Json(name = "value_text")
+    private String valueText;
+
+    @ColumnInfo(name = "value_complex")
+    @Json(name = "value_complex")
+    private String valueComplex;
+
+    @ColumnInfo(name = "comments")
+    @Json(name = "comments")
+    private String comments;
+
+    @ColumnInfo(name = "creator")
+    @Json(name = "creator")
+    private long creator;
+
+    @ColumnInfo(name = "date_created")
+    @Json(name = "date_created")
+    private LocalDateTime dateCreated;
+
+    @ColumnInfo(name = "voided")
+    @Json(name = "voided")
+    private short voided;
+
+    @ColumnInfo(name = "voided_by")
+    @Json(name = "voided_by")
+    private Long voidedBy;
+
+    @ColumnInfo(name = "date_voided")
+    @Json(name = "date_voided")
+    private LocalDateTime dateVoided;
+
+    @ColumnInfo(name = "void_reason")
+    @Json(name = "void_reason")
+    private String voidReason;
+
+    @ColumnInfo(name = "uuid")
+    @Json(name = "uuid")
+    private String uuid;
+
+    @ColumnInfo(name = "previous_version")
+    @Json(name = "previous_version")
+    private Long previousVersion;
+
+    @ColumnInfo(name = "form_namespace_and_path")
+    @Json(name = "form_namespace_and_path")
+    private String formNamespaceAndPath;
+
+    @ColumnInfo(name = "status")
+    @Json(name = "status")
+    private String status;
+
+    @ColumnInfo(name = "interpretation")
+    @Json(name = "interpretation")
+    private String interpretation;
 
     public Obs(){
 
     }
 
     @Ignore
-    public Obs(long obs_id,long person_id,long encounter_id,LocalDateTime obs_datetime,long location_id,long creator){
+    public Obs(long obsId,long personId,long encounterId,LocalDateTime obsDateTime,long locationId,long creator){
 
-        this.obs_id = obs_id;
-        this.person_id = person_id;
-        this.encounter_id = encounter_id;
-        this.obs_datetime = obs_datetime;
-        this.date_created = obs_datetime;
-        this.location_id = location_id;
+        this.obsId = obsId;
+        this.personId = personId;
+        this.encounterId = encounterId;
+        this.obsDateTime = obsDateTime;
+        this.dateCreated = obsDateTime;
+        this.locationId = locationId;
         this.creator = creator;
     }
 
-    public Obs setConceptId(long concept_id){
+    public Obs setObsConceptId(long conceptId){
 
-        this.concept_id = concept_id;
+        this.conceptId = conceptId;
         return this;
     }
 
-    public Obs setObsGroupId(long obs_group_id){
+    public Obs setObsGroupId(long obsGroupId){
 
-        this.obs_group_id = obs_group_id;
+        this.obsGroupId = obsGroupId;
         return this;
     }
 
-    public Obs setValue(Double value_numeric){
+    public Obs setValue(Double valueNumeric){
 
-        this.value_numeric = value_numeric;
+        this.valueNumeric = valueNumeric;
         return this;
     }
 
-    public Obs setValue(LocalDateTime value_datetime){
+    public Obs setValue(LocalDateTime valueDateTime){
 
-        this.value_datetime = value_datetime;
+        this.valueDateTime = valueDateTime;
         return this;
     }
 
 
-    public Obs setValue(String value_text){
+    public Obs setValue(String valueText){
 
-        this.value_text = value_text;
+        this.valueText = valueText;
         return this;
     }
 
-    public Obs setValue(long value_coded){
+    public Obs setValue(long valueCoded){
 
-        this.value_coded = value_coded;
+        this.valueCoded = valueCoded;
         return this;
     }
 
@@ -109,8 +198,8 @@ public class Obs {
         }
         else if(answerConcepts.size() > 1)
             for(Long conceptId : answerConcepts) {
-                Obs obs = new Obs(obs_id++, person_id, encounter_id, obs_datetime, location_id, creator)
-                        .setConceptId(concept_id)
+                Obs obs = new Obs(obsId++, personId, encounterId, obsDateTime, locationId, creator)
+                        .setObsConceptId(this.conceptId)
                         .setValue(conceptId);
                 obsList.add(obs);
             }
@@ -119,148 +208,148 @@ public class Obs {
     }
 
     //Setters and getters
-    public long getObs_id() {
-        return obs_id;
+    public long getObsId() {
+        return obsId;
     }
 
-    public void setObs_id(long obs_id) {
-        this.obs_id = obs_id;
+    public void setObsId(long obsId) {
+        this.obsId = obsId;
     }
 
-    public long getPerson_id() {
-        return person_id;
+    public long getPersonId() {
+        return personId;
     }
 
-    public void setPerson_id(long person_id) {
-        this.person_id = person_id;
+    public void setPersonId(long personId) {
+        this.personId = personId;
     }
 
-    public long getConcept_id() {
-        return concept_id;
+    public long getConceptId() {
+        return conceptId;
     }
 
-    public void setConcept_id(long concept_id) {
-        this.concept_id = concept_id;
+    public void setConceptId(long conceptId) {
+        this.conceptId = conceptId;
     }
 
-    public Long getEncounter_id() {
-        return encounter_id;
+    public Long getEncounterId() {
+        return encounterId;
     }
 
-    public void setEncounter_id(Long encounter_id) {
-        this.encounter_id = encounter_id;
+    public void setEncounterId(Long encounterId) {
+        this.encounterId = encounterId;
     }
 
-    public Long getOrder_id() {
-        return order_id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(Long order_id) {
-        this.order_id = order_id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public LocalDateTime getObs_datetime() {
-        return obs_datetime;
+    public LocalDateTime getObsDateTime() {
+        return obsDateTime;
     }
 
-    public void setObs_datetime(LocalDateTime obs_datetime) {
-        this.obs_datetime = obs_datetime;
+    public void setObsDateTime(LocalDateTime obsDateTime) {
+        this.obsDateTime = obsDateTime;
     }
 
-    public Long getLocation_id() {
-        return location_id;
+    public Long getLocationId() {
+        return locationId;
     }
 
-    public void setLocation_id(Long location_id) {
-        this.location_id = location_id;
+    public void setLocation_id(Long locationId) {
+        this.locationId = locationId;
     }
 
-    public Long getObs_group_id() {
-        return obs_group_id;
+    public Long getObsGroupId() {
+        return obsGroupId;
     }
 
-    public void setObs_group_id(Long obs_group_id) {
-        this.obs_group_id = obs_group_id;
+    public void setObsGroupId(Long obsGroupId) {
+        this.obsGroupId = obsGroupId;
     }
 
-    public String getAccession_number() {
-        return accession_number;
+    public String getAccessionNumber() {
+        return accessionNumber;
     }
 
-    public void setAccession_number(String accession_number) {
-        this.accession_number = accession_number;
+    public void setAccessionNumber(String accessionNumber) {
+        this.accessionNumber = accessionNumber;
     }
 
-    public Long getValue_group_id() {
-        return value_group_id;
+    public Long getValueGroupId() {
+        return valueGroupId;
     }
 
-    public void setValue_group_id(Long value_group_id) {
-        this.value_group_id = value_group_id;
+    public void setValueGroupId(Long valueGroupId) {
+        this.valueGroupId = valueGroupId;
     }
 
-    public Long getValue_coded() {
-        return value_coded;
+    public Long getValueCoded() {
+        return valueCoded;
     }
 
-    public void setValue_coded(Long value_coded) {
-        this.value_coded = value_coded;
+    public void setValueCoded(Long valueCoded) {
+        this.valueCoded = valueCoded;
     }
 
-    public Long getValue_coded_name_id() {
-        return value_coded_name_id;
+    public Long getValueCodedNameId() {
+        return valueCodedNameId;
     }
 
-    public void setValue_coded_name_id(Long value_coded_name_id) {
-        this.value_coded_name_id = value_coded_name_id;
+    public void setValueCodedNameId(Long valueCodedNameId) {
+        this.valueCodedNameId = valueCodedNameId;
     }
 
-    public Long getValue_drug() {
-        return value_drug;
+    public Long getValueDrug() {
+        return valueDrug;
     }
 
-    public void setValue_drug(Long value_drug) {
-        this.value_drug = value_drug;
+    public void setValueDrug(Long valueDrug) {
+        this.valueDrug = valueDrug;
     }
 
-    public LocalDateTime getValue_datetime() {
-        return value_datetime;
+    public LocalDateTime getValueDateTime() {
+        return valueDateTime;
     }
 
-    public void setValue_datetime(LocalDateTime value_datetime) {
-        this.value_datetime = value_datetime;
+    public void setValueDateTime(LocalDateTime valueDateTime) {
+        this.valueDateTime = valueDateTime;
     }
 
-    public Double getValue_numeric() {
-        return value_numeric;
+    public Double getValueNumeric() {
+        return valueNumeric;
     }
 
-    public void setValue_numeric(Double value_numeric) {
-        this.value_numeric = value_numeric;
+    public void setValueNumeric(Double valueNumeric) {
+        this.valueNumeric = valueNumeric;
     }
 
     public String getValue_modifier() {
-        return value_modifier;
+        return valueModifier;
     }
 
-    public void setValue_modifier(String value_modifier) {
-        this.value_modifier = value_modifier;
+    public void setValueModifier(String valueModifier) {
+        this.valueModifier = valueModifier;
     }
 
-    public String getValue_text() {
-        return value_text;
+    public String getValueText() {
+        return valueText;
     }
 
-    public void setValue_text(String value_text) {
-        this.value_text = value_text;
+    public void setValueText(String valueText) {
+        this.valueText = valueText;
     }
 
-    public String getValue_complex() {
-        return value_complex;
+    public String getValueComplex() {
+        return valueComplex;
     }
 
-    public void setValue_complex(String value_complex) {
-        this.value_complex = value_complex;
+    public void setValueComplex(String valueComplex) {
+        this.valueComplex = valueComplex;
     }
 
     public String getComments() {
@@ -279,12 +368,12 @@ public class Obs {
         this.creator = creator;
     }
 
-    public LocalDateTime getDate_created() {
-        return date_created;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate_created(LocalDateTime date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public short getVoided() {
@@ -295,28 +384,28 @@ public class Obs {
         this.voided = voided;
     }
 
-    public Long getVoided_by() {
-        return voided_by;
+    public Long getVoidedBy() {
+        return voidedBy;
     }
 
-    public void setVoided_by(Long voided_by) {
-        this.voided_by = voided_by;
+    public void setVoidedBy(Long voided_by) {
+        this.voidedBy = voidedBy;
     }
 
-    public LocalDateTime getDate_voided() {
-        return date_voided;
+    public LocalDateTime getDateVoided() {
+        return dateVoided;
     }
 
-    public void setDate_voided(LocalDateTime date_voided) {
-        this.date_voided = date_voided;
+    public void setDate_voided(LocalDateTime dateVoided) {
+        this.dateVoided = dateVoided;
     }
 
     public String getVoid_reason() {
-        return void_reason;
+        return voidReason;
     }
 
-    public void setVoid_reason(String void_reason) {
-        this.void_reason = void_reason;
+    public void setVoid_reason(String voidReason) {
+        this.voidReason = voidReason;
     }
 
     public String getUuid() {
@@ -327,20 +416,20 @@ public class Obs {
         this.uuid = uuid;
     }
 
-    public Long getPrevious_version() {
-        return previous_version;
+    public Long getPreviousVersion() {
+        return previousVersion;
     }
 
-    public void setPrevious_version(Long previous_version) {
-        this.previous_version = previous_version;
+    public void setPreviousVersion(Long previousVersion) {
+        this.previousVersion = previousVersion;
     }
 
-    public String getForm_namespace_and_path() {
-        return form_namespace_and_path;
+    public String getFormNamespaceAndPath() {
+        return formNamespaceAndPath;
     }
 
-    public void setForm_namespace_and_path(String form_namespace_and_path) {
-        this.form_namespace_and_path = form_namespace_and_path;
+    public void setFormNamespaceAndPath(String formNamespaceAndPath) {
+        this.formNamespaceAndPath = formNamespaceAndPath;
     }
 
     public String getStatus() {
@@ -357,5 +446,25 @@ public class Obs {
 
     public void setInterpretation(String interpretation) {
         this.interpretation = interpretation;
+    }
+
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
+    }
+
+    public String getValueModifier() {
+        return valueModifier;
+    }
+
+    public void setDateVoided(LocalDateTime dateVoided) {
+        this.dateVoided = dateVoided;
+    }
+
+    public String getVoidReason() {
+        return voidReason;
+    }
+
+    public void setVoidReason(String voidReason) {
+        this.voidReason = voidReason;
     }
 }

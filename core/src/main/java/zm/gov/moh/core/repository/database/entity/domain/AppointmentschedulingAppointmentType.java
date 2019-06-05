@@ -6,13 +6,13 @@ import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
-@Entity(tableName = "encounter_role")
-public class EncounterRole {
+@Entity(tableName = "appointmentscheduling_appointment_type")
+public class AppointmentschedulingAppointmentType {
 
     @PrimaryKey
-    @ColumnInfo(name = "encounter_role_id")
-    @Json(name = "encounter_role_id")
-    private long encounterRoleId;
+    @ColumnInfo(name = "appointment_type_id")
+    @Json(name = "appointment_type_id")
+    private Long appointmentTypeId;
 
     @ColumnInfo(name = "name")
     @Json(name = "name")
@@ -22,9 +22,17 @@ public class EncounterRole {
     @Json(name = "description")
     private String description;
 
+    @ColumnInfo(name = "duration")
+    @Json(name = "duration")
+    private Integer duration;
+
+    @ColumnInfo(name = "uuid")
+    @Json(name = "uuid")
+    private String uuid;
+
     @ColumnInfo(name = "creator")
     @Json(name = "creator")
-    private Long creator;
+    private Integer creator;
 
     @ColumnInfo(name = "date_created")
     @Json(name = "date_created")
@@ -32,7 +40,7 @@ public class EncounterRole {
 
     @ColumnInfo(name = "changed_by")
     @Json(name = "changed_by")
-    private Long changedBy;
+    private Integer changedBy;
 
     @ColumnInfo(name = "date_changed")
     @Json(name = "date_changed")
@@ -40,30 +48,30 @@ public class EncounterRole {
 
     @ColumnInfo(name = "retired")
     @Json(name = "retired")
-    private short retired;
+    private Integer retired;
 
     @ColumnInfo(name = "retired_by")
     @Json(name = "retired_by")
-    private Long retiredBy;
+    private Integer retiredBy;
 
-    @ColumnInfo(name = "dateRetired")
-    @Json(name = "dateRetired")
+    @ColumnInfo(name = "date_retired")
+    @Json(name = "date_retired")
     private LocalDateTime dateRetired;
 
-    @ColumnInfo(name = "retire_reason")
-    @Json(name = "retire_reason")
-    private String retireReason;
+    @ColumnInfo(name = "retired_reason")
+    @Json(name = "retired_reason")
+    private String retiredReason;
 
-    @ColumnInfo(name = "uuid")
-    @Json(name = "uuid")
-    private String uuid;
+    @ColumnInfo(name = "confidential")
+    @Json(name = "confidential")
+    private Integer confidential;
 
-    public long getEncounterRoleId() {
-        return encounterRoleId;
+    public Long getAppointmentTypeId() {
+        return appointmentTypeId;
     }
 
-    public void setEncounterRoleId(long encounterRoleId) {
-        this.encounterRoleId = encounterRoleId;
+    public void setAppointmentTypeId(Long appointmentTypeId) {
+        this.appointmentTypeId = appointmentTypeId;
     }
 
     public String getName() {
@@ -82,11 +90,27 @@ public class EncounterRole {
         this.description = description;
     }
 
-    public Long getCreator() {
+    public Integer getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public Integer getCreator() {
         return creator;
     }
 
-    public void setCreator(Long creator) {
+    public void setCreator(Integer creator) {
         this.creator = creator;
     }
 
@@ -98,11 +122,11 @@ public class EncounterRole {
         this.dateCreated = dateCreated;
     }
 
-    public Long getChangedBy() {
+    public Integer getChangedBy() {
         return changedBy;
     }
 
-    public void setChangedBy(Long changedBy) {
+    public void setChangedBy(Integer changedBy) {
         this.changedBy = changedBy;
     }
 
@@ -114,19 +138,19 @@ public class EncounterRole {
         this.dateChanged = dateChanged;
     }
 
-    public short getRetired() {
+    public Integer getRetired() {
         return retired;
     }
 
-    public void setRetired(short retired) {
+    public void setRetired(Integer retired) {
         this.retired = retired;
     }
 
-    public Long getRetiredBy() {
+    public Integer getRetiredBy() {
         return retiredBy;
     }
 
-    public void setRetiredBy(Long retiredBy) {
+    public void setRetiredBy(Integer retiredBy) {
         this.retiredBy = retiredBy;
     }
 
@@ -138,19 +162,19 @@ public class EncounterRole {
         this.dateRetired = dateRetired;
     }
 
-    public String getRetireReason() {
-        return retireReason;
+    public String getRetiredReason() {
+        return retiredReason;
     }
 
-    public void setRetireReason(String retireReason) {
-        this.retireReason = retireReason;
+    public void setRetiredReason(String retiredReason) {
+        this.retiredReason = retiredReason;
     }
 
-    public String getUuid() {
-        return uuid;
+    public Integer getConfidential() {
+        return confidential;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setConfidential(Integer confidential) {
+        this.confidential = confidential;
     }
 }

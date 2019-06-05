@@ -6,25 +6,37 @@ import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
-@Entity(tableName = "visit_attribute")
-public class VisitAttribute {
+@Entity(tableName = "appointmentscheduling_appointment")
+public class AppointmentschedulingAppointment {
 
     @PrimaryKey
-    @ColumnInfo(name = "visit_attribute_id")
-    @Json(name = "visit_attribute_id")
-    private long visitAttributeId;
+    @ColumnInfo(name = "appointment_id") //name here should same as in Json
+    @Json(name = "appointment_id")
+    private Long appointmentId;
+
+    @ColumnInfo(name = "time_slot_id")
+    @Json(name = "time_slot_id")
+    private Long timeSlotId;
 
     @ColumnInfo(name = "visit_id")
     @Json(name = "visit_id")
-    private long visitId;
+    private Long visitId;
 
-    @ColumnInfo(name = "attribute_type_id")
-    @Json(name = "attribute_type_id")
-    private long attributeTypeId;
+    @ColumnInfo(name = "patient_id")
+    @Json(name = "patient_id")
+    private Long patientId;
 
-    @ColumnInfo(name = "value_reference")
-    @Json(name = "value_reference")
-    private String valueReference;
+    @ColumnInfo(name = "appointment_type_id")
+    @Json(name = "appointment_type_id")
+    private Long appointmentTypeId;
+
+    @ColumnInfo(name = "status")
+    @Json(name = "status")
+    private String status;
+
+    @ColumnInfo(name = "reason")
+    @Json(name = "reason")
+    private String reason;
 
     @ColumnInfo(name = "uuid")
     @Json(name = "uuid")
@@ -48,11 +60,11 @@ public class VisitAttribute {
 
     @ColumnInfo(name = "voided")
     @Json(name = "voided")
-    private short voided;
+    private Integer voided;
 
     @ColumnInfo(name = "voided_by")
     @Json(name = "voided_by")
-    private Long voidedBy;
+    private Integer voidedBy;
 
     @ColumnInfo(name = "date_voided")
     @Json(name = "date_voided")
@@ -62,36 +74,64 @@ public class VisitAttribute {
     @Json(name = "void_reason")
     private String voidReason;
 
-    public long getVisitAttributeId() {
-        return visitAttributeId;
+    @ColumnInfo(name = "cancel_reason")
+    @Json(name = "cancel_reason")
+    private String cancelReason;
+
+    public Long getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setVisitAttributeId(long visitAttributeId) {
-        this.visitAttributeId = visitAttributeId;
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
-    public long getVisitId() {
+    public Long getTimeSlotId() {
+        return timeSlotId;
+    }
+
+    public void setTimeSlotId(Long timeSlotId) {
+        this.timeSlotId = timeSlotId;
+    }
+
+    public Long getVisitId() {
         return visitId;
     }
 
-    public void setVisitId(long visitId) {
+    public void setVisitId(Long visitId) {
         this.visitId = visitId;
     }
 
-    public long getAttributeTypeId() {
-        return attributeTypeId;
+    public Long getPatientId() {
+        return patientId;
     }
 
-    public void setAttributeTypeId(long attributeTypeId) {
-        this.attributeTypeId = attributeTypeId;
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
-    public String getValueReference() {
-        return valueReference;
+    public Long getAppointmentTypeId() {
+        return appointmentTypeId;
     }
 
-    public void setValueReference(String valueReference) {
-        this.valueReference = valueReference;
+    public void setAppointmentTypeId(Long appointmentTypeId) {
+        this.appointmentTypeId = appointmentTypeId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public String getUuid() {
@@ -134,19 +174,19 @@ public class VisitAttribute {
         this.dateChanged = dateChanged;
     }
 
-    public short getVoided() {
+    public Integer getVoided() {
         return voided;
     }
 
-    public void setVoided(short voided) {
+    public void setVoided(Integer voided) {
         this.voided = voided;
     }
 
-    public Long getVoidedBy() {
+    public Integer getVoidedBy() {
         return voidedBy;
     }
 
-    public void setVoidedBy(Long voidedBy) {
+    public void setVoidedBy(Integer voidedBy) {
         this.voidedBy = voidedBy;
     }
 
@@ -164,5 +204,13 @@ public class VisitAttribute {
 
     public void setVoidReason(String voidReason) {
         this.voidReason = voidReason;
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason;
     }
 }

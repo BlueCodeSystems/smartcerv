@@ -36,6 +36,6 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
     public void  appendSerial(Long serial){
 
         serial+=offset;
-        this.setText(this.code.district_code+"-"+this.code.facility_code +"-"+serial);
+        this.setText(this.code.getFacilityCode()+"-"+this.code.getFacilityCode() +"-"+serial);
     }
 }

@@ -6,25 +6,25 @@ import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
-@Entity(tableName = "visit_attribute")
-public class VisitAttribute {
+@Entity(tableName = "appointmentscheduling_time_slot")
+public class AppointmentschedulingTimeSlot {
 
     @PrimaryKey
-    @ColumnInfo(name = "visit_attribute_id")
-    @Json(name = "visit_attribute_id")
-    private long visitAttributeId;
+    @ColumnInfo(name = "time_slot_id")
+    @Json(name = "time_slot_id")
+    private Long timeSlotId;
 
-    @ColumnInfo(name = "visit_id")
-    @Json(name = "visit_id")
-    private long visitId;
+    @ColumnInfo(name = "appointment_block_id")
+    @Json(name = "appointment_block_id")
+    private Long appointmentBlockId;
 
-    @ColumnInfo(name = "attribute_type_id")
-    @Json(name = "attribute_type_id")
-    private long attributeTypeId;
+    @ColumnInfo(name = "start_date")
+    @Json(name = "start_date")
+    private LocalDateTime startDate;
 
-    @ColumnInfo(name = "value_reference")
-    @Json(name = "value_reference")
-    private String valueReference;
+    @ColumnInfo(name = "end_date")
+    @Json(name = "end_date")
+    private LocalDateTime endDate;
 
     @ColumnInfo(name = "uuid")
     @Json(name = "uuid")
@@ -32,7 +32,7 @@ public class VisitAttribute {
 
     @ColumnInfo(name = "creator")
     @Json(name = "creator")
-    private Long creator;
+    private Integer creator;
 
     @ColumnInfo(name = "date_created")
     @Json(name = "date_created")
@@ -40,7 +40,7 @@ public class VisitAttribute {
 
     @ColumnInfo(name = "changed_by")
     @Json(name = "changed_by")
-    private Long changedBy;
+    private Integer changedBy;
 
     @ColumnInfo(name = "date_changed")
     @Json(name = "date_changed")
@@ -48,11 +48,11 @@ public class VisitAttribute {
 
     @ColumnInfo(name = "voided")
     @Json(name = "voided")
-    private short voided;
+    private Integer voided;
 
     @ColumnInfo(name = "voided_by")
     @Json(name = "voided_by")
-    private Long voidedBy;
+    private Integer voidedBy;
 
     @ColumnInfo(name = "date_voided")
     @Json(name = "date_voided")
@@ -62,36 +62,36 @@ public class VisitAttribute {
     @Json(name = "void_reason")
     private String voidReason;
 
-    public long getVisitAttributeId() {
-        return visitAttributeId;
+    public Long getTimeSlotId() {
+        return timeSlotId;
     }
 
-    public void setVisitAttributeId(long visitAttributeId) {
-        this.visitAttributeId = visitAttributeId;
+    public void setTimeSlotId(Long timeSlotId) {
+        this.timeSlotId = timeSlotId;
     }
 
-    public long getVisitId() {
-        return visitId;
+    public Long getAppointmentBlockId() {
+        return appointmentBlockId;
     }
 
-    public void setVisitId(long visitId) {
-        this.visitId = visitId;
+    public void setAppointmentBlockId(Long appointmentBlockId) {
+        this.appointmentBlockId = appointmentBlockId;
     }
 
-    public long getAttributeTypeId() {
-        return attributeTypeId;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setAttributeTypeId(long attributeTypeId) {
-        this.attributeTypeId = attributeTypeId;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
-    public String getValueReference() {
-        return valueReference;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public void setValueReference(String valueReference) {
-        this.valueReference = valueReference;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
     public String getUuid() {
@@ -102,11 +102,11 @@ public class VisitAttribute {
         this.uuid = uuid;
     }
 
-    public Long getCreator() {
+    public Integer getCreator() {
         return creator;
     }
 
-    public void setCreator(Long creator) {
+    public void setCreator(Integer creator) {
         this.creator = creator;
     }
 
@@ -118,11 +118,11 @@ public class VisitAttribute {
         this.dateCreated = dateCreated;
     }
 
-    public Long getChangedBy() {
+    public Integer getChangedBy() {
         return changedBy;
     }
 
-    public void setChangedBy(Long changedBy) {
+    public void setChangedBy(Integer changedBy) {
         this.changedBy = changedBy;
     }
 
@@ -134,19 +134,19 @@ public class VisitAttribute {
         this.dateChanged = dateChanged;
     }
 
-    public short getVoided() {
+    public Integer getVoided() {
         return voided;
     }
 
-    public void setVoided(short voided) {
+    public void setVoided(Integer voided) {
         this.voided = voided;
     }
 
-    public Long getVoidedBy() {
+    public Integer getVoidedBy() {
         return voidedBy;
     }
 
-    public void setVoidedBy(Long voidedBy) {
+    public void setVoidedBy(Integer voidedBy) {
         this.voidedBy = voidedBy;
     }
 
