@@ -35,7 +35,7 @@
             android:textStyle="bold"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@{client.identifier}"
+            android:text="@{client.getIdentifier}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:text="@{client.given_name+` `+client.family_name}"
+            android:text="@{client.getGivenName+` `+client.getFamilyName}"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@{String.valueOf(LocalDate.now().getYear - client.birthdate.getYear())+`years`}"
+            android:text="@{String.valueOf(LocalDate.now().getYear - client.getBirthDate.getYear())+`years`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/client_gender" />
 
@@ -70,7 +70,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{(client.gender.equals(`F`))? `Female`:`Male`}"
+            android:text="@{(client.getGender.equals(`F`))? `Female`:`Male`}"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/client_age"
             app:layout_constraintEnd_toEndOf="parent"

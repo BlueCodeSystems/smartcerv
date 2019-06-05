@@ -281,8 +281,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                 .getAllByUserUuid(USER_UUID)
                 .observe(context, providerUser -> {
 
-                    bundle.putLong(Key.PROVIDER_ID, providerUser.provider_id);
-                    bundle.putLong(Key.USER_ID, providerUser.user_id);
+                    bundle.putLong(Key.PROVIDER_ID, providerUser.getProviderId());
+                    bundle.putLong(Key.USER_ID, providerUser.getUserId());
                 });
     }
 

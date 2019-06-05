@@ -219,8 +219,8 @@ public class BaseActivity extends AppCompatActivity {
                 .getAllByUserUuid(USER_UUID)
                 .observe(this, providerUser -> {
 
-                    bundle.putLong(Key.PROVIDER_ID, providerUser.provider_id);
-                    bundle.putLong(Key.USER_ID, providerUser.user_id);
+                    bundle.putLong(Key.PROVIDER_ID, providerUser.getProviderId());
+                    bundle.putLong(Key.USER_ID, providerUser.getUserId());
                 });
 
         if (personId != null) {
@@ -231,6 +231,7 @@ public class BaseActivity extends AppCompatActivity {
                     .clientDao()
                     .findById(personId)
                     .observe(this, client -> {
+
                         bundle.putString(Key.PERSON_GIVEN_NAME, client.given_name);
                         bundle.putString(Key.PERSON_FAMILY_NAME, client.family_name);
                         //Added to pass client gender with bundle
@@ -238,6 +239,7 @@ public class BaseActivity extends AppCompatActivity {
                         //Added to pass client age with bundle
                         bundle.putString(Key.PERSON_AGE, calculateClientAge(client.birthdate).toString());
                         bundle.putString(Key.PERSON_DOB, client.birthdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
 
                     });
 
@@ -247,7 +249,9 @@ public class BaseActivity extends AppCompatActivity {
                     .personAddressDao()
                     .findByPersonId(personId)
                     .observe(this, personAddress -> {
+
                         bundle.putString(PERSON_ADDRESS, personAddress.address1 + " " + personAddress.city_village + " " + personAddress.state_province);
+
                     });
         }
     }

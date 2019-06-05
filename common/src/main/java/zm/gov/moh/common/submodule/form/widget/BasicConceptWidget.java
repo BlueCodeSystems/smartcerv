@@ -250,8 +250,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         conceptNameIdMap = new LinkedHashMap<>();
         answerConcepts = new LinkedHashSet<>();
-        for (ConceptAnswerName conceptAnswerName : conceptAnswerNames)
-            conceptNameIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+
+        for(ConceptAnswerName conceptAnswerName: conceptAnswerNames)
+             conceptNameIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
 
         int orientation = (conceptNameIdMap.size() > 2) ? WidgetUtils.VERTICAL : WidgetUtils.HORIZONTAL;
 
