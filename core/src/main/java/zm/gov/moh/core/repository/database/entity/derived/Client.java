@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.derived;
 
+import androidx.room.*;
+
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
@@ -9,6 +11,7 @@ import androidx.room.Entity;
 
 @Entity
 public class Client {
+
     @ColumnInfo(name = "patient_id")
     @Json(name = "patient_id")
     private long patientId;

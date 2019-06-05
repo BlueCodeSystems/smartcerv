@@ -98,10 +98,12 @@ public class EncounterPersist extends PersistService {
 
                     case ConceptDataType.NUMERIC:
                         String numericValue = obsValue.getValue().toString();
+
                           if(android.text.TextUtils.isDigitsOnly(numericValue)){
                               obsList.add(obs.setObsConceptId(obsValue.getConceptId())
                                       .setValue(Double.valueOf(obsValue.getValue().toString())));
                           }
+
 
                         break;
 

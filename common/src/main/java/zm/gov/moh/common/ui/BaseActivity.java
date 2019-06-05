@@ -232,13 +232,17 @@ public class BaseActivity extends AppCompatActivity {
                     .findById(personId)
                     .observe(this, client -> {
 
+
                         bundle.putString(Key.PERSON_GIVEN_NAME, client.getGivenName());
                         bundle.putString(Key.PERSON_FAMILY_NAME,client.getFamilyName());
+
                         //Added to pass client gender with bundle
                         bundle.putString(Key.PERSON_GENDER, client.getGender());
                         //Added to pass client age with bundle
+
                         bundle.putString(Key.PERSON_AGE, calculateClientAge(client.getBirthDate()).toString());
                         bundle.putString(Key.PERSON_DOB, client.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
 
                     });
 
@@ -248,6 +252,7 @@ public class BaseActivity extends AppCompatActivity {
                     .personAddressDao()
                     .findByPersonId(personId)
                     .observe(this, personAddress -> {
+
 
                         bundle.putString(PERSON_ADDRESS,personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince());
 
