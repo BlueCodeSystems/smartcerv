@@ -62,9 +62,9 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
 
     private void setProvider(ProviderUser providerUser) {
 
-        String displayName = providerUser.given_name+" "+providerUser.family_name;
+        String displayName = providerUser.getGivenName()+" "+providerUser.getFamilyName();
         setTextValue(displayName);
-        this.bundle.putLong((String)getTag(), providerUser.provider_id);
+        this.bundle.putLong((String)getTag(), providerUser.getProviderId());
     }
 
     public void setFormData(Bundle bundle){

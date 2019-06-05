@@ -35,7 +35,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@{client.identifier}"
+            android:text="@{client.getIdentifier}"
             android:textColor="@color/darker_grey"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/client_name"
@@ -50,7 +50,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="8dp"
-            android:text="@{client.given_name+` `+client.family_name}"
+            android:text="@{client.getGivenName+` `+client.getFamilyName}"
             android:textColor="@color/black"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="40dp"
-            android:text="@{String.valueOf(LocalDate.now().getYear - client.birthdate.getYear())+`years`}"
+            android:text="@{String.valueOf(LocalDate.now().getYear - client.getBirthDate.getYear())+`years`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4" />
 
