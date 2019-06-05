@@ -1,7 +1,9 @@
 package zm.gov.moh.common.submodule.form.model;
 
 import com.squareup.moshi.Json;
-public class Expression{
+
+// Class was added to implement usage of comparison operators
+public class Expression {
 
     @Json(name = "$lt")
     private String lessThan;

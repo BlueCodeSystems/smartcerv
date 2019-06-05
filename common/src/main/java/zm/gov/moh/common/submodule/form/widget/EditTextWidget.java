@@ -2,7 +2,6 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.InputType;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -45,8 +44,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES|InputType.TYPE_CLASS_TEXT);
-        mEditText.setSelection(0);
         WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
         addView(mEditText);
 
