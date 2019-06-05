@@ -257,7 +257,6 @@ public class FormFragment extends BaseFragment {
             BasicConceptWidget conceptWidget = (BasicConceptWidget) widget;
 
             //get UUid and patientId
-
             String uuid = conceptWidget.getUuid();
             long patientid = bundle.getLong(Key.PERSON_ID);
 
