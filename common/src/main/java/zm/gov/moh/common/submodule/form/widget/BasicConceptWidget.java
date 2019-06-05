@@ -250,8 +250,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         conceptNameIdMap = new LinkedHashMap<>();
         answerConcepts = new LinkedHashSet<>();
-        for (ConceptAnswerName conceptAnswerName : conceptAnswerNames)
-            conceptNameIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+
+        for(ConceptAnswerName conceptAnswerName: conceptAnswerNames)
+             conceptNameIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
+
 
         int orientation = (conceptNameIdMap.size() > 2) ? WidgetUtils.VERTICAL : WidgetUtils.HORIZONTAL;
 
@@ -409,7 +411,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             // Behaviour when numeric value are retrieved
             case ConceptDataType.NUMERIC:
-                String value = String.valueOf(obs.value_numeric);
+                String value = String.valueOf(obs.getValueNumeric());
 
                 //print value as int by trimming it into a sub string and pass the value to an EditText Object
                 String sub = value.substring(value.length() - 2);

@@ -73,8 +73,8 @@ public class FacilityLabelWidget extends LinearLayoutCompat  {
 
         if(location != null) {
 
-          setTextValue(location.name);
-          bundle.putLong((String)getTag(),location.location_id);
+          setTextValue(location.getName());
+          bundle.putLong((String)getTag(),location.getLocationId());
         }
     }
 

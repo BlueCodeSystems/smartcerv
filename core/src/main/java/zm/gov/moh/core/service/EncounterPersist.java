@@ -98,16 +98,17 @@ public class EncounterPersist extends PersistService {
 
                     case ConceptDataType.NUMERIC:
                         String numericValue = obsValue.getValue().toString();
-                        if (android.text.TextUtils.isDigitsOnly(numericValue)) {
-                            //Capture numeric values in the bundle and persist the value
-                            obsList.add(obs.setConceptId(obsValue.getConceptId())
-                                    .setValue(Double.valueOf(obsValue.getValue().toString())));
-                        }
+              if(android.text.TextUtils.isDigitsOnly(numericValue))
+                            break;
+
+                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                .setValue(Double.valueOf(obsValue.getValue().toString())));
+
                         break;
 
                     case ConceptDataType.TEXT:
 
-                        obsList.add(obs.setConceptId(obsValue.getConceptId())
+                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
                                 .setValue(obsValue.getValue().toString()));
                         break;
 
@@ -115,7 +116,7 @@ public class EncounterPersist extends PersistService {
 
                         String date = obsValue.getValue().toString() + MID_DAY_TIME;
 
-                        obsList.add(obs.setConceptId(obsValue.getConceptId())
+                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
                                 .setValue(LocalDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME)));
                         break;
 
@@ -125,7 +126,7 @@ public class EncounterPersist extends PersistService {
 
                         if (answerConcepts.isEmpty())
                             break;
-                        obsList.addAll(obs.setConceptId(obsValue.getConceptId())
+                        obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
                                 .setValue(answerConcepts));
                         break;
                 }
