@@ -8,6 +8,7 @@ import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
+import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
@@ -86,4 +87,7 @@ public interface RestApiAdapter {
 
     @GET("visit/type/")
     Maybe<VisitType[]> getVisitTypes(@Header("x-access-token") String accesstoken);
+
+    @GET("drug/")
+    Maybe<Drug[]> getDrugs(@Header("x-access-token") String accesstoken);
 }
