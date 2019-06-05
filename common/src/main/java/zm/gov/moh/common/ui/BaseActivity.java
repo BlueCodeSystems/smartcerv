@@ -245,7 +245,7 @@ public class BaseActivity extends AppCompatActivity {
                     .personAddressDao()
                     .findByPersonId(personId)
                     .observe(this, personAddress -> {
-                        bundle.putString(PERSON_ADDRESS,personAddress.address1+" "+personAddress.city_village+" "+personAddress.state_province);
+                        bundle.putString(PERSON_ADDRESS,personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince());
                     });
         }
     }

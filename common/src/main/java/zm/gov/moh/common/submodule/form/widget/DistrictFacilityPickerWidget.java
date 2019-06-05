@@ -74,14 +74,14 @@ public class DistrictFacilityPickerWidget extends LinearLayoutCompat {
     }
 
     public void setDistrictLocation(Location location){
-        districtValue.setText(location.name);
+        districtValue.setText(location.getName());
     }
 
     public void setFacilityLocation(Location location){
 
         if(location != null){
-            facilityValue.setText(location.name);
-            populateFacilityDistrictLocation(location.parent_location);
+            facilityValue.setText(location.getName());
+            populateFacilityDistrictLocation(location.getParentLocation());
         }
 
     }
