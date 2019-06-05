@@ -1,9 +1,15 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -34,6 +40,7 @@ import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.utils.Utils;
 
+@SuppressWarnings("deprecation")
 public class BasicConceptWidget extends LinearLayoutCompat {
 
     String mLabel;
@@ -132,29 +139,29 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         form.getFormContext().getVisibleWidgetTags().toArray());
     }
 
-    public BasicConceptWidget build(){
+    public BasicConceptWidget build() {
 
         mObsValue = new ObsValue<>();
         mObsValue.setConceptDataType(mDataType);
         answerConcepts = new LinkedHashSet<>();
         mObsValue.setConceptId(mConceptId);
-        bundle.putSerializable((String)this.getTag(),mObsValue);
+        bundle.putSerializable((String) this.getTag(), mObsValue);
         canSetValue = new AtomicBoolean();
         canSetValue.set(true);
 
-        if(logic != null)
-            for(Logic logic: logic)
-                if(logic.getAction().getType().equals("skipLogic"))
+        if (logic != null)
+            for (Logic logic : logic)
+                if (logic.getAction().getType().equals("skipLogic"))
                     form.getFormContext().getVisibleWidgetTags().addAll(logic.getAction().getMetadata().getTags());
 
-        WidgetUtils.setLayoutParams(this,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT)
+        WidgetUtils.setLayoutParams(this, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
                 .setOrientation(WidgetUtils.HORIZONTAL);
 
         //Create and intialize widgets
 
-        mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext),WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
+        mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mTextView.setText(mLabel);
-        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,mTextSize);
+        mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
 
         mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
@@ -162,14 +169,34 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mEditText.setHint(mHint);
 
 
-
-
         //Return view according to concept data type
         switch (mDataType) {
 
             case ConceptDataType.TEXT:
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
-                this.addView(view);
+                if (mStyle.equals("TextBoxOne")) {
+                    mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                    ShapeDrawable border = new ShapeDrawable(new RectShape());
+                    border.getPaint().setStyle(Paint.Style.STROKE);
+                    border.getPaint().setColor(Color.BLACK);
+                    mEditText.setBackground(border);
+                    mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+                    mEditText.setGravity(Gravity.LEFT);
+                    WidgetUtils.setLayoutParams(mEditText, 800, 200, mWeight);
+                    this.addView(view);
+                } else if (mStyle.equals("TextBoxTwo")) {
+                    mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                    ShapeDrawable border = new ShapeDrawable(new RectShape());
+                    border.getPaint().setStyle(Paint.Style.STROKE);
+                    border.getPaint().setColor(Color.BLACK);
+                    mEditText.setBackground(border);
+                    mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+                    mEditText.setGravity(Gravity.CENTER);
+                    WidgetUtils.setLayoutParams(mEditText, 300, 70, mWeight);
+                    addView(mEditText);
+                }
+
+
                 break;
 
             case ConceptDataType.NUMERIC:
@@ -184,6 +211,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 Utils.dateDialog(mContext, mEditText, this::onDateValueChangeListener);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText));
                 break;
+
+
 
             case ConceptDataType.BOOLEAN:
 
@@ -244,6 +273,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL,mTextView, spinner));
                 else
                     this.addView(spinner);
+
+
                 break;
         }
 

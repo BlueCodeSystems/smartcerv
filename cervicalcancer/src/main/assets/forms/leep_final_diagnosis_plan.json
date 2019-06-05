@@ -524,7 +524,13 @@
         },
         {
           "tag": "comments",
-          "widgetType": "TextBox",
+          "widgetType": "Concept",
+          "uuid": "	c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
           "weight": 1
         },
         {

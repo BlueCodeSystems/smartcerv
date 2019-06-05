@@ -62,18 +62,18 @@ public class WidgetModelJsonAdapter {
 
                 return readonlyText;
 
-            case "TextBox":
+            case "TextBoxOne":
 
-                final TextBoxModel textBox = new TextBoxModel();
+                final TextBoxModel textBoxone = new TextBoxModel();
 
-                textBox.setWidgetType(widgetModelJson.getWidgetType());
-                textBox.setTag(widgetModelJson.getTag());
-                textBox.setHint(widgetModelJson.getHint());
-                textBox.setText(widgetModelJson.getText());
-                textBox.setWeight(widgetModelJson.getWeight());
-                textBox.setLabel(widgetModelJson.getLabel());
+                textBoxone.setWidgetType(widgetModelJson.getWidgetType());
+                textBoxone.setTag(widgetModelJson.getTag());
+                textBoxone.setHint(widgetModelJson.getHint());
+                textBoxone.setText(widgetModelJson.getText());
+                textBoxone.setWeight(widgetModelJson.getWeight());
+                textBoxone.setLabel(widgetModelJson.getLabel());
 
-                return textBox;
+                return textBoxone;
 
             case "TextBoxTwo":
 

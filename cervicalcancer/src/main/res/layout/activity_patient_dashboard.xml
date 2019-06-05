@@ -22,9 +22,6 @@
             tools:context=".module.dashboard.patient.view.PatientDashboardImageFragment">
 
 
-
-
-
             <include
                 layout="@layout/base_toolbar"
                 android:layout_width="match_parent"
@@ -32,12 +29,10 @@
                 app:toolbarhandler="@{toolbarhandler}"></include>
 
 
-
             <include
                 android:id="@+id/client"
                 layout="@layout/client_card"
                 app:client="@{client}" />
-
 
 
             <TextView
@@ -48,15 +43,12 @@
                 android:text="@{facility.name}"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
-
-            <Button
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/load_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_green"
-                android:text="View Image Gallery"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
+                android:layout_width="85dp"
+                android:layout_height="54dp"
+                android:src="@drawable/ic_gallery" />
+
 
             <TextView
                 android:id="@+id/textView17"
@@ -66,7 +58,6 @@
                 android:gravity="end"
                 android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
                 android:textColor="@color/darker_grey" />
-
 
 
             <com.google.android.material.tabs.TabLayout

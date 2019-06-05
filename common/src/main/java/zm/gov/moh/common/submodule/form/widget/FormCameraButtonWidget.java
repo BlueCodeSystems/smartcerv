@@ -4,26 +4,17 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageView;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.DatagramPacket;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.DoubleSummaryStatistics;
-
-import static android.app.Activity.RESULT_OK;
 
 public class FormCameraButtonWidget extends TextViewWidget implements Submittable <String>, View.OnClickListener {
 
@@ -39,7 +30,6 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
     private int SELECT_FILE2 = 8;
     private String selectedPath2;
     private DatagramPacket data;
-    private Uri uri;
     private WidgetModelJson tv;
     private ImageView imageView;
     private int requestCode;
@@ -72,7 +62,7 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
 
     }
 
-   
+
 
 
     @Override
@@ -95,6 +85,11 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         return null;
     }
 
+    /*@Override
+    public String getValue() {
+        return null;
+    }
+
     String currentPhotoPath;
 
     private File createImageFile() throws IOException {
@@ -104,23 +99,32 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+                //".jpg",         /* suffix */
+                //storageDir      /* directory */
+        //);
 
         // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
+        /*currentPhotoPath = image.getAbsolutePath();
         return image;
-    }
+    }*/
 
-    private File getExternalFilesDir(String directoryPictures) {
-        return image;
-    }
+    //private File getExternalFilesDir(String directoryPictures) {
+        //return image;
+    //}
 
     @Override
     public void onClick(View v) {
+        Intent cameraIntent = mContext.getPackageManager().getLaunchIntentForPackage("jp.co.canon.ic.cameraconnect");
+        ((AppCompatActivity)mContext).startActivity(cameraIntent);  
+    }
 
-        Intent i = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+    public PackageManager getPackageManager() {
+        return mContext.getPackageManager();
+    }
+
+
+
+        /*
         {
             i.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/storage/emulated/0/DCIM/Camera/")));
         }
@@ -153,7 +157,7 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
         }
-    }
+    }*/
 
     public static class Builder extends TextViewWidget.Builder {
 
