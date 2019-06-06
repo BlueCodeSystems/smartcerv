@@ -3,6 +3,7 @@ package zm.gov.moh.core.service;
 import android.content.Intent;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullMetaDataRemote extends RemoteService {
 
@@ -14,153 +15,153 @@ public class PullMetaDataRemote extends RemoteService {
     protected void executeAsync() {
         //Get from rest API and insert into database asynchronously
         //Location
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
 
                 locations ->{
                     repository.getDatabase().locationDao().insert(locations);
                     this.onTaskCompleted();
                 },//consumer
                 this::onError,
-                repository.getRestApi().getLocations(accesstoken),
+                repository.getRestApi().getLocations(accessToken),
                 //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Location attributes
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 locationAttributes -> {
                     repository.getDatabase().locationAttributeDao().insert(locationAttributes);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getLocationAttributes(accesstoken), //producer
+                repository.getRestApi().getLocationAttributes(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Location attributes types
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 locationAttributeTypes -> {
                     repository.getDatabase().locationAttributeTypeDao().insert(locationAttributeTypes);
                     this.onTaskCompleted();
                 } , //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApi().getLocationAttributeTypes(accesstoken), //producer
+                repository.getRestApi().getLocationAttributeTypes(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Location tag types
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 locationTag -> {
                     repository.getDatabase().locationTagDao().insert(locationTag);
                     this.onTaskCompleted();
                 } , //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApi().getLocationTags(accesstoken), //producer
+                repository.getRestApi().getLocationTags(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Location tag map types
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 locationTagMap -> {
                     repository.getDatabase().locationTagMapDao().insert(locationTagMap);
                     this.onTaskCompleted();
                 } , //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApi().getLocationTagMaps(accesstoken), //producer
+                repository.getRestApi().getLocationTagMaps(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Users
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 users ->{
                     repository.getDatabase().userDao().insert(users);
                     this.onTaskCompleted();
                 },  //consumer
                 this::onError,
                 this::onTaskCompleted,
-                repository.getRestApi().getUsers(accesstoken), //producer
+                repository.getRestApi().getUsers(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
 
         //Patient identifier types
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 patientIdentifierTypes ->{
                     repository.getDatabase().patientIdentifierTypeDao().insert(patientIdentifierTypes);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getPatientIdentifierTypes(accesstoken), //producer
+                repository.getRestApi().getPatientIdentifierTypes(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Providers
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 providers ->{
                     repository.getDatabase().providerDao().insert(providers);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getProviders(accesstoken), //producer
+                repository.getRestApi().getProviders(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Concept name
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 conceptNames ->{
                     repository.getDatabase().conceptNameDao().insert(conceptNames);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getConceptNames(accesstoken), //producer
+                repository.getRestApi().getConceptNames(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Concept answer
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 conceptAnswers ->{
                     repository.getDatabase().conceptAnswerDao().insert(conceptAnswers);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getConceptAnswers(accesstoken), //producer
+                repository.getRestApi().getConceptAnswers(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Encounter types
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 encounterTypes ->{
                     repository.getDatabase().encounterTypeDao().insert(encounterTypes);
                     this.onTaskCompleted();
 
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getEncounterTypes(accesstoken), //producer
+                repository.getRestApi().getEncounterTypes(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Concept
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 visitTypes ->{
                     repository.getDatabase().visitTypeDao().insert(visitTypes);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getVisitTypes(accesstoken), //producer
+                repository.getRestApi().getVisitTypes(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 concepts ->{
                     repository.getDatabase().conceptDao().insert(concepts);
                     this.onTaskCompleted();
 
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getConcept(accesstoken), //producer
+                repository.getRestApi().getConcept(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
     }

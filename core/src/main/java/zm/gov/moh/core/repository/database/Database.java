@@ -99,7 +99,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 ConceptAnswer.class,
                 Concept.class,
                 EntityMetadata.class
-        }, version = 2, exportSchema = false)
+        }, version = 1, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 

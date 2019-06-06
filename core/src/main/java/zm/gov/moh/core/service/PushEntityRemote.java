@@ -5,8 +5,6 @@ import android.content.Intent;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
-import java.util.List;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
@@ -22,6 +20,7 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PushEntityRemote extends RemoteService {
 
@@ -34,13 +33,12 @@ public class PushEntityRemote extends RemoteService {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         for (EntityType entitiyId:EntityType.values())
-            repository.consumeAsync(this::pushEntityRemote, this::onError, entitiyId, batchVersion);
+            ConcurrencyUtils.consumeAsync(this::pushEntityRemote, this::onError, entitiyId, batchVersion);
     }
 
     protected void pushEntityRemote(EntityType entityType, long batchVersion){
 
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(entityType.getId(), Status.PUSHED.getCode());
-        final int RETRY_ATTEMPTS = 5;
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
 
         onTaskStarted();
@@ -50,8 +48,7 @@ public class PushEntityRemote extends RemoteService {
             case PERSON_NAME:
                 PersonName[] unpushedPersonName = db.personNameDao().findEntityNotWithId(offset, pushedEntityId);
                 if(unpushedPersonName.length != 0) {
-                    restApi.putPersonNames(accesstoken, batchVersion, unpushedPersonName)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putPersonNames(accessToken, batchVersion, unpushedPersonName)
                             .subscribe(onComplete(unpushedPersonName, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -60,8 +57,7 @@ public class PushEntityRemote extends RemoteService {
             case PERSON:
                 Person[] unpushedPerson = db.personDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedPerson.length != 0) {
-                    restApi.putPersons(accesstoken, batchVersion, unpushedPerson)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putPersons(accessToken, batchVersion, unpushedPerson)
                             .subscribe(onComplete(unpushedPerson, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -70,8 +66,7 @@ public class PushEntityRemote extends RemoteService {
             case PERSON_ADDRESS:
                 PersonAddress[] unpushedPersonAddress = db.personAddressDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedPersonAddress.length != 0) {
-                    restApi.putPersonAddresses(accesstoken, batchVersion, unpushedPersonAddress)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putPersonAddresses(accessToken, batchVersion, unpushedPersonAddress)
                             .subscribe(onComplete(unpushedPersonAddress, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -80,8 +75,7 @@ public class PushEntityRemote extends RemoteService {
             case PATIENT:
                 Patient[] unpushedPatient = db.patientDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedPatient.length != 0) {
-                    restApi.putPatients(accesstoken, batchVersion, unpushedPatient)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putPatients(accessToken, batchVersion, unpushedPatient)
                             .subscribe(onComplete(unpushedPatient, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -90,8 +84,7 @@ public class PushEntityRemote extends RemoteService {
             case PATIENT_IDENTIFIER:
                 PatientIdentifier[] unpushedPatietIdentifier = db.patientIdentifierDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedPatietIdentifier.length != 0) {
-                    restApi.putPatientIdentifiers(accesstoken, batchVersion, unpushedPatietIdentifier)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putPatientIdentifiers(accessToken, batchVersion, unpushedPatietIdentifier)
                             .subscribe(onComplete(unpushedPatietIdentifier, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -100,8 +93,7 @@ public class PushEntityRemote extends RemoteService {
             case OBS:
                 Obs[] unpushedObs = db.obsDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedObs.length != 0) {
-                    restApi.putObs(accesstoken, batchVersion, unpushedObs)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putObs(accessToken, batchVersion, unpushedObs)
                             .subscribe(onComplete(unpushedObs, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -110,8 +102,7 @@ public class PushEntityRemote extends RemoteService {
             case ENCOUNTER:
                 Encounter[] unpushedEncounter = db.encounterDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedEncounter.length != 0) {
-                    restApi.putEncounter(accesstoken, batchVersion, unpushedEncounter)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putEncounter(accessToken, batchVersion, unpushedEncounter)
                             .subscribe(onComplete(unpushedEncounter, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();
@@ -120,8 +111,7 @@ public class PushEntityRemote extends RemoteService {
             case VISIT:
                 Visit[] unpushedVisit = db.visitDao().findEntityNotWithId(offset,pushedEntityId);
                 if(unpushedVisit.length != 0) {
-                    restApi.putVisit(accesstoken, batchVersion, unpushedVisit)
-                            .retry(RETRY_ATTEMPTS)
+                    restApi.putVisit(accessToken, batchVersion, unpushedVisit)
                             .subscribe(onComplete(unpushedVisit, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();

@@ -21,11 +21,12 @@ public class ServiceManager {
     protected static ServiceManager instance;
     protected static ServiceBroadcastReceiver broadcastReceiver;
     private  static LinkedList<Service> serviceExecutionPool;
+    private LocalBroadcastManager mLocalBroadcastManager;
 
 
 
     private ServiceManager(){
-
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     public static LinkedList<Service> getServiceExecutionPool() {
@@ -42,30 +43,15 @@ public class ServiceManager {
             serviceExecutionPool = new LinkedList<>();
 
 
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PULL_META_DATA_REMOTE_COMPLETE));
+            instance.registerIntent(IntentAction.PULL_META_DATA_REMOTE_COMPLETE);
+            instance.registerIntent(IntentAction.PULL_ENTITY_REMOTE_COMPLETE);
+            instance.registerIntent(IntentAction.PUSH_ENTITY_REMOTE_COMPLETE);
+            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_REMOTE_COMPLETE);
 
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PULL_ENTITY_REMOTE_COMPLETE));
-
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PUSH_ENTITY_REMOTE_COMPLETE));
-
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PERSIST_ENCOUNTERS_REMOTE_COMPLETE));
-
-            //interrupts
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PULL_META_DATA_REMOTE_INTERRUPT));
-
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PULL_ENTITY_REMOTE_INTERRUPT));
-
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT));
-
-            LocalBroadcastManager.getInstance(context)
-                    .registerReceiver(broadcastReceiver, new IntentFilter(IntentAction.PERSIST_ENCOUNTERS_REMOTE_INTERRUPT));
+            instance.registerIntent(IntentAction.PULL_META_DATA_REMOTE_INTERRUPT);
+            instance.registerIntent(IntentAction.PULL_ENTITY_REMOTE_INTERRUPT);
+            instance.registerIntent(IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT);
+            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_REMOTE_INTERRUPT);
         }
         return instance;
     }
@@ -76,10 +62,17 @@ public class ServiceManager {
         return broadcastReceiver;
     }
 
+    public void toastSyncInterrupted(){
+        Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
+    }
+
+    private void registerIntent(String intentAction){
+        mLocalBroadcastManager.registerReceiver(broadcastReceiver,new IntentFilter(intentAction));
+    }
+
     public void start(){
 
         if(serviceExecutionPool.contains(mService)) {
-            Toast.makeText(context,mService.toString()+":already running",Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -180,19 +173,16 @@ public class ServiceManager {
             ServiceManager.Service serviceName = (ServiceManager.Service) bundle.getSerializable(Key.SERVICE_NAME);
 
             switch (action){
-
+                //Complete
                 case IntentAction.PULL_META_DATA_REMOTE_COMPLETE:
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     serviceManager.setService(Service.PULL_ENTITY_REMOTE).start();
-
-                    Toast.makeText(context,"PULL_ENTITY_REMOTE",Toast.LENGTH_LONG).show();
 
                     break;
                 case IntentAction.PULL_ENTITY_REMOTE_COMPLETE:
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     serviceManager.setService(Service.PUSH_ENTITY_REMOTE).start();
 
-                    Toast.makeText(context,"PUSH_ENTITY_REMOTE",Toast.LENGTH_LONG).show();
                     break;
                 case IntentAction.PUSH_ENTITY_REMOTE_COMPLETE:
                     Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
@@ -207,16 +197,16 @@ public class ServiceManager {
                 //Interrupt
                 case IntentAction.PULL_META_DATA_REMOTE_INTERRUPT:
                     serviceManager.getServiceExecutionPool().remove(serviceName);
-                    Toast.makeText(context,"PULL_ENTITY_REMOTE: Interrupted",Toast.LENGTH_LONG).show();
+                    serviceManager.toastSyncInterrupted();
 
                     break;
                 case IntentAction.PULL_ENTITY_REMOTE_INTERRUPT:
                     serviceManager.getServiceExecutionPool().remove(serviceName);
-                    Toast.makeText(context,"PUSH_ENTITY_REMOTE: Interrupted",Toast.LENGTH_LONG).show();
+                    serviceManager.toastSyncInterrupted();
                     break;
 
                 case IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT:
-                    Toast.makeText(context,"Sync complete : Interrupted",Toast.LENGTH_LONG).show();
+                    serviceManager.toastSyncInterrupted();
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
 

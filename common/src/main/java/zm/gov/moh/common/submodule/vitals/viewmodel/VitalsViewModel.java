@@ -15,6 +15,7 @@ import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class VitalsViewModel extends BaseAndroidViewModel implements InjectableViewModel {
@@ -102,7 +103,7 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
     public void onSubmit(Bundle bundle){
 
         if(vitals != null)
-            getRepository().asyncFunction(extractVitalsData(bundle)::apply,this::onVitalsDataReceived, vitals,this::onError);
+            ConcurrencyUtils.asyncFunction(extractVitalsData(bundle)::apply,this::onVitalsDataReceived, vitals,this::onError);
     }
 
     public void onError(Throwable throwable){

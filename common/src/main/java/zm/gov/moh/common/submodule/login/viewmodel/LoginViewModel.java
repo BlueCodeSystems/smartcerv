@@ -12,6 +12,7 @@ import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.submodule.login.model.Credentials;
@@ -47,7 +48,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
-                getRepository().consume(
+                ConcurrencyUtils.consume(
                         this::onSuccess,
                         this::onError,
                         getRepository().getRestApi().session(credintialsBase64),

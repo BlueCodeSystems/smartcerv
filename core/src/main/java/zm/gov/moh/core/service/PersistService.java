@@ -7,6 +7,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.Nullable;
 import zm.gov.moh.core.repository.api.Repository;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
@@ -30,7 +31,7 @@ public abstract class PersistService extends BaseIntentService implements Inject
         AndroidThreeTen.init(this);
 
 
-        repository.consumeAsync(this::persistAsync,this::onError,bundle);
+        ConcurrencyUtils.consumeAsync(this::persistAsync,this::onError,bundle);
     }
 
     public abstract void persistAsync(Bundle bundle);
