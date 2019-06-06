@@ -2,8 +2,11 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 
+import java.util.List;
+
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 
 public class PullMetaDataRemote extends RemoteService {
 
@@ -123,8 +126,14 @@ public class PullMetaDataRemote extends RemoteService {
         //Concept answer
         ConcurrencyUtils.consumeAsync(
                 conceptAnswers ->{
+
+                    //repository.getDatabase().conceptAnswerDao().removeAll();
+
+                    List<ConceptAnswer> ans = repository.getDatabase().conceptAnswerDao().getAll();
+
                     repository.getDatabase().conceptAnswerDao().insert(conceptAnswers);
                     this.onTaskCompleted();
+
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getConceptAnswers(accessToken), //producer
@@ -162,6 +171,17 @@ public class PullMetaDataRemote extends RemoteService {
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getConcept(accessToken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        ConcurrencyUtils.consumeAsync(
+                drugs ->{
+                    repository.getDatabase().drugDao().insert(drugs);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getDrugs(accessToken),
+                //producer
                 TIMEOUT);
         onTaskStarted();
     }

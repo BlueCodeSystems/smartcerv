@@ -14,6 +14,7 @@ import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
+import zm.gov.moh.core.repository.database.dao.domain.DrugDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.EncounterTypeDao;
@@ -40,6 +41,7 @@ import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
+import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterRole;
@@ -98,8 +100,9 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 ConceptName.class,
                 ConceptAnswer.class,
                 Concept.class,
-                EntityMetadata.class
-        }, version = 1, exportSchema = false)
+                EntityMetadata.class,
+                Drug.class
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -136,6 +139,7 @@ public abstract class Database extends RoomDatabase {
     public abstract ConceptNameDao conceptNameDao();
     public abstract ConceptDao conceptDao();
     public abstract ConceptAnswerNameDao conceptAnswerNameDao();
+    public abstract DrugDao drugDao();
 
 
     //Derived

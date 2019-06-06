@@ -105,10 +105,14 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
 
-            FormJson notes = new FormJson("Notes And Recommendations",
+            FormJson notes = new FormJson("Notes & Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
             FormJson evaluation = new FormJson("Evaluation",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
+            FormJson treatment_results_pathology = new FormJson("Treatment/Results/Pathology",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_treatment_results_pathology.json")));
+            FormJson final_diagnosis = new FormJson("Final Diagnosis & Plan",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_final_diagnosis_plan.json")));
 
             //Add via and leep forms to a form group
             viaFormGroup.addForm(reproductiveHealth);
@@ -120,6 +124,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
             leepFormGroup.addForm(evaluation);
+            leepFormGroup.addForm(treatment_results_pathology);
+            leepFormGroup.addForm(final_diagnosis);
         }catch (Exception e){
 
         }
@@ -148,7 +154,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         vistTypeIdMap.put("Post-Treatment Complication", OpenmrsConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION);
         vistTypeIdMap.put("One-Year Follow Up", OpenmrsConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP);
         vistTypeIdMap.put("Routing Screening",OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
-        vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation",OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
+        vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation", OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
 
         LinkedList<String> visitType = new LinkedList<>(vistTypeIdMap.keySet());
         ArrayAdapter<String> visitAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, visitType);
@@ -281,8 +287,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                 .getAllByUserUuid(USER_UUID)
                 .observe(context, providerUser -> {
 
-                    bundle.putLong(Key.PROVIDER_ID, providerUser.provider_id);
-                    bundle.putLong(Key.USER_ID, providerUser.user_id);
+                    bundle.putLong(Key.PROVIDER_ID, providerUser.getProviderId());
+                    bundle.putLong(Key.USER_ID, providerUser.getUserId());
                 });
     }
 

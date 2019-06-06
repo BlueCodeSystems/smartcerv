@@ -1,12 +1,12 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
-
 import android.os.Bundle;
 import android.view.View;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
@@ -19,12 +19,15 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
@@ -32,11 +35,14 @@ import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
-import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
-import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
-import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
+import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
+import zm.gov.moh.common.submodule.form.widget.TextBoxWidgetTwo;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
 import zm.gov.moh.core.repository.api.Repository;
@@ -61,11 +67,60 @@ public class WidgetModelToWidgetAdapter {
 
 
         form.getFormContext().getTags().add(widgetModel.getTag());
-        if(widgetModel instanceof EditTextModel){
+        if(widgetModel instanceof EditTextModel) {
 
             EditTextModel model = (EditTextModel) widgetModel;
 
             BaseWidget widget = new EditTextWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+        else if(widgetModel instanceof ReadonlyTextModel){
+
+            ReadonlyTextModel model = (ReadonlyTextModel) widgetModel;
+
+            BaseWidget widget = new ReadonlyTextWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+
+        else if(widgetModel instanceof TextBoxModel){
+
+            TextBoxModel model = (TextBoxModel) widgetModel;
+
+            BaseWidget widget = new TextBoxWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+        else if(widgetModel instanceof TextBoxTwoModel) {
+
+            TextBoxTwoModel model = (TextBoxTwoModel) widgetModel;
+
+            BaseWidget widget = new TextBoxWidgetTwo.Builder(this.context)
                     .setBundle(this.bundle)
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())
@@ -200,16 +255,22 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(model.getHint())
                     .setTextSize(model.getTextSize())
                     .setLogic(model.getLogic())
+                    //pass Uuid to basic widget
+                    .setUuid(model.getUuid())
                     .setWeight(model.getWeight())
                     .build();
         }
-        /*else if(widgetModel instanceof BasicDrugWidgetModel) {
+        else if(widgetModel instanceof BasicDrugWidgetModel) {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
+            BaseWidget widget = new BasicDrugWidget.Builder(this.context)
+                    .setUuid(model.getUuid())
+                    .setRepository(repository)
+                    .setBundle(bundle)
+                    .build();
 
-            return new BasicDrugWidget(context)
-                    .setUuid(model.getUuid()).build();
-        }*/
+            return widget;
+        }
         else if(widgetModel instanceof GenderPickerModel){
 
             GenderPickerModel model = (GenderPickerModel) widgetModel;
@@ -243,6 +304,7 @@ public class WidgetModelToWidgetAdapter {
             BaseWidget widget = new DatePickerWidget.Builder(this.context)
                     .setHint(((DatePickerModel) widgetModel).getHint())
                     .setBundle(this.bundle)
+                    .setLabel(model.getLabel())
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();

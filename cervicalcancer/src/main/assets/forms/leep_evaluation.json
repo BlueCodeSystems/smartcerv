@@ -16,9 +16,10 @@
         },
         {
           "tag": "leep visit date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "facility",
@@ -57,9 +58,10 @@
         },
         {
           "tag": "dob",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "provider",
@@ -99,12 +101,12 @@
           "weight": 1
         },
         {
-          "tag": "hiv status",
+          "tag": "most_recent_hiv_status",
           "widgetType": "Concept",
-          "conceptId": 165203,
+          "conceptId": 165341,
           "dataType": "Coded",
           "style": "radio",
-          "label": "HIV Status",
+          "label": "Most recent HIV test",
           "textSize": 18
         },
         {
@@ -115,9 +117,10 @@
         },
         {
           "tag": "Date tested for hiv",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "textSize": 18,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -151,9 +154,10 @@
         },
         {
           "tag": "date for cd4 result",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -163,9 +167,10 @@
         },
         {
           "tag": "client's arvs start date ",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -175,10 +180,11 @@
         },
         {
           "tag": "client reffered for leep date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -191,6 +197,15 @@
           "widgetType": "EditText",
           "hint": "Can be obtained from the referral slip",
           "weight": 1
+        },
+        {
+          "tag": "visit_type",
+          "widgetType": "Concept",
+          "conceptId": 165117,
+          "dataType": "Coded",
+          "style":"dropdown",
+          "label": "Type of visit",
+          "textSize": 18
         }
       ]
     },
@@ -198,6 +213,15 @@
       "title": "Reason For Referral",
       "widgets": [
         {
+          "tag": "polyp",
+          "widgetType": "Concept",
+          "conceptId": 165276,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Polyp",
+          "textSize": 18
+        },
+        {
           "tag": "covers less than 75% of cervix",
           "widgetType": "Concept",
           "conceptId": 165169,
@@ -207,12 +231,48 @@
           "textSize": 18
         },
         {
-          "tag": "extends into cervical os",
+          "tag": "lesion_extends_into_os",
           "widgetType": "Concept",
           "conceptId": 165171,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Extends into cervical os",
+          "label": "Lesion extends into cervical os",
+          "textSize": 18
+        },
+        {
+          "tag": "lesion_too_thick_for_cryo",
+          "widgetType": "Concept",
+          "conceptId": 165277,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Lession too thick for cryo",
+          "textSize": 18
+        },
+        {
+          "tag": "contact_post_coital_bleeding ",
+          "widgetType": "Concept",
+          "conceptId": 165272,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Contact/post coital bleeding",
+          "textSize": 18
+        },
+        {
+          "tag": "no_lesion_visible",
+          "widgetType": "Concept",
+          "conceptId": 165278,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "No lesion visible",
+          "textSize": 18
+        },
+        {
+          "tag": "querry_icc",
+          "widgetType": "Concept",
+          "conceptId": 165279,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Querry ICC",
           "textSize": 18
         },
         {
@@ -225,13 +285,93 @@
           "textSize": 18
         },
         {
-          "tag": "mosaicism or punctuation",
+          "tag": "mosaicism/punctation",
           "widgetType": "Concept",
           "conceptId": 165173,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Mosaicism/ Punctuation",
+          "label": "Mosaicism/Punctation",
           "textSize": 18
+        },
+        {
+          "tag": "extends into cervical os",
+          "widgetType": "Concept",
+          "conceptId": 165171,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Extends into cervical os",
+          "textSize": 18
+        },
+        {
+          "tag": "post_cryo_lesion",
+          "widgetType": "Concept",
+          "conceptId": 165280,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Post cryo lesion",
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 	5622,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Reason For Other",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "	c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
+          "weight": 1
         }
       ]
     },
@@ -239,57 +379,19 @@
       "title": "Evaluation",
       "widgets": [
         {
-          "tag": "covers less than 75% of cervix",
+          "tag": "polyp",
           "widgetType": "Concept",
-          "conceptId": 165169,
+          "conceptId": 165276,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Covers < 75% of cervix",
-          "textSize": 18
+          "label": "Polyp"
         },
-        {
-          "tag": "extends into cervical os",
-          "widgetType": "Concept",
-          "conceptId": 165171,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Extends into cervical os",
-          "textSize": 18
-        },
-        {
-          "tag": "atypical vessel",
-          "widgetType": "Concept",
-          "conceptId": 165170,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Atypical vessel",
-          "textSize": 18
-        },
-        {
-          "tag": "mosaicism or punctuation",
-          "widgetType": "Concept",
-          "conceptId": 165173,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Mosaicism/ Punctuation",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Date Of Birth",
-          "textSize": 18,
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "title": "TREATMENT/RESULTS/PATHOLOGY",
-      "widgets": [
         {
           "tag": "dob",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "tag": "provider",
@@ -298,43 +400,21 @@
           "textSize": 18
         },
         {
-          "label": "NRC No.",
-          "tag": "nrc",
-          "widgetType": "EditText",
-          "hint": "Example 145683/10/1",
-          "weight": 1
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Phone",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "phone",
-          "widgetType": "EditText",
-          "hint": "Example +260967546754",
-          "weight": 1
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Address",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "PERSON_ADDRESS",
-          "widgetType": "EditText",
-          "hint": "Plot number, Village, Street",
-          "weight": 1
-        },
-        {
-          "tag": "hiv status",
+          "tag": "covers less than 75% of cervix",
           "widgetType": "Concept",
-          "conceptId": 165203,
-          "dataType": "Coded",
+          "conceptId": 165169,
+          "dataType": "Boolean",
           "style": "radio",
-          "label": "HIV Status",
+          "label": "Covers < 75% of cervix",
+          "textSize": 18
+        },
+        {
+          "tag": "lesion_extends_into_os",
+          "widgetType": "Concept",
+          "conceptId": 165171,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Lesion extends into cervical os",
           "textSize": 18
         },
         {
@@ -345,9 +425,10 @@
         },
         {
           "tag": "Date tested for hiv",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "textSize": 18,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -362,69 +443,140 @@
           "weight": 1
         },
         {
-          "widgetType": "TextView",
-          "label": "Most recent CD4",
-          "textSize": 18,
-          "weight": 1
+          "tag": "lesion_too_thick_for_cryo",
+          "widgetType": "Concept",
+          "conceptId": 165277,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Lession too thick for cryo",
+          "textSize": 18
         },
         {
-          "tag": "recent cd4 count",
-          "widgetType": "EditText",
-          "hint": "Enter the Client's most recent CD4 count",
-          "weight": 1
+          "tag": "contact_post_coital_bleeding ",
+          "widgetType": "Concept",
+          "conceptId": 165272,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Contact/post coital bleeding",
+          "textSize": 18
         },
         {
-          "widgetType": "TextView",
-          "label": "Date for CD4 result",
-          "textSize": 18,
-          "weight": 1
+          "tag": "no_lesion_visible",
+          "widgetType": "Concept",
+          "conceptId": 165278,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "No lesion visible",
+          "textSize": 18
+        },
+        {
+          "tag": "querry_icc",
+          "widgetType": "Concept",
+          "conceptId": 165279,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Querry ICC",
+          "textSize": 18
         },
         {
           "tag": "date for cd4 result",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
-          "widgetType": "TextView",
-          "label": "Date on which the client started ARVs if on ARVs",
-          "textSize": 18,
-          "weight": 1
+          "tag": "atypical vessel",
+          "widgetType": "Concept",
+          "conceptId": 165170,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Atypical vessel",
+          "textSize": 18
+        },
+        {
+          "tag": "mosaicism/punctation",
+          "widgetType": "Concept",
+          "conceptId": 165173,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Mosaicism/Punctation",
+          "textSize": 18
         },
         {
           "tag": "client's arvs start date ",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
-          "widgetType": "TextView",
-          "label": "Date of referral",
-          "textSize": 18,
-          "weight": 1
+          "tag": "extends into cervical os",
+          "widgetType": "Concept",
+          "conceptId": 165171,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Extends into cervical os",
+          "textSize": 18
+        },
+        {
+          "tag": "post_cryo_lesion",
+          "widgetType": "Concept",
+          "conceptId": 165280,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Post cryo lesion",
+          "textSize": 18
         },
         {
           "tag": "client reffered for leep date",
-          "widgetType": "DatePickerButton",
+          "widgetType": "DatePicker",
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
-          "text": "Select Date"
+          "text": "Select Date",
+          "hint":"dd MMM yyyy"
         },
         {
-          "widgetType": "TextView",
-          "label": "Clinic referral form",
-          "textSize": 18,
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 	5622,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
+          "widgetType":"TextView",
+          "label":"Reason For Other",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
           "weight": 1
         },
-      {
-        "tag": "referring facility",
-        "widgetType": "EditText",
-        "hint": "Can be obtained from the referral slip",
-        "weight": 1
-      }
-    ]
-
+        {
+          "widgetType":"TextView",
+          "label":"Comments",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "	c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        }
+      ]
     }
+
   ]
 }
 

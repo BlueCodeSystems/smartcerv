@@ -3,92 +3,141 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import androidx.room.*;
 import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
+import com.squareup.moshi.Json;
+
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "encounter")
 public class Encounter extends SynchronizableEntity {
 
     @PrimaryKey
-    public long encounter_id;
-    public long encounter_type;
-    public long patient_id;
-    public long location_id;
-    public long form_id;
-    public LocalDateTime encounter_datetime;
-    public Long creator;
-    public LocalDateTime date_created;
-    public short voided;
-    public Long voided_by;
-    public LocalDateTime date_voided;
-    public String void_reason;
-    public Long changed_by;
-    public LocalDateTime date_changed;
-    public long visit_id;
-    public String uuid;
+    @ColumnInfo(name = "encounter_id")
+    @Json(name = "encounter_id")
+    private long encounterId;
+
+    @ColumnInfo(name = "encounter_type")
+    @Json(name = "encounter_type")
+    private long encounterType;
+
+    @ColumnInfo(name = "patient_id")
+    @Json(name = "patient_id")
+    private long patientId;
+
+    @ColumnInfo(name = "location_id")
+    @Json(name = "location_id")
+    private long locationId;
+
+    @ColumnInfo(name = "form_id")
+    @Json(name = "form_id")
+    private long formId;
+
+    @ColumnInfo(name = "encounter_datetime")
+    @Json(name = "encounter_datetime")
+    private LocalDateTime encounterDatetime;
+
+    @ColumnInfo(name = "creator")
+    @Json(name = "creator")
+    private Long creator;
+
+    @ColumnInfo(name = "date_created")
+    @Json(name = "date_created")
+    private LocalDateTime dateCreated;
+
+    @ColumnInfo(name = "voided")
+    @Json(name = "voided")
+    private short voided;
+
+    @ColumnInfo(name = "voided_by")
+    @Json(name = "voided_by")
+    private Long voidedBy;
+
+    @ColumnInfo(name = "date_voided")
+    @Json(name = "date_voided")
+    private LocalDateTime dateVoided;
+
+    @ColumnInfo(name = "void_reason")
+    @Json(name = "void_reason")
+    private String voidReason;
+
+    @ColumnInfo(name = "changed_by")
+    @Json(name = "changed_by")
+    private Long changedBy;
+
+    @ColumnInfo(name = "date_changed")
+    @Json(name = "date_changed")
+    private LocalDateTime dateChanged;
+
+    @ColumnInfo(name = "visit_id")
+    @Json(name = "visit_id")
+    private long visitId;
+
+    @ColumnInfo(name = "uuid")
+    @Json(name = "uuid")
+    private String uuid;
 
     public Encounter(){
 
     }
 
     @Ignore
-    public Encounter(long encounter_id,long encounter_type, long patient_id, long location_id,long visit_id, long creator, LocalDateTime zonedDatetimeNow){
+    public Encounter(long encounterId,long encounterType, long patientId, long locationId,long visitId, long creator, LocalDateTime zonedDatetimeNow){
 
-        this.encounter_id = encounter_id;
-        this.encounter_type = encounter_type;
-        this.patient_id = patient_id;
-        this.location_id = location_id;
-        this.visit_id = visit_id;
+        this.encounterId = encounterId;
+        this.encounterType = encounterType;
+        this.patientId = patientId;
+        this.locationId = locationId;
+        this.visitId = visitId;
         this.creator = creator;
-        this.encounter_datetime = zonedDatetimeNow;
-        this.date_created = zonedDatetimeNow;
+        this.encounterDatetime = zonedDatetimeNow;
+        this.dateCreated = zonedDatetimeNow;
     }
 
-    public long getEncounter_id() {
-        return encounter_id;
+    public long getEncounterId() {
+        return encounterId;
     }
 
-    public void setEncounter_id(long encounter_id) {
-        this.encounter_id = encounter_id;
+    public void setEncounterId(long encounterId) {
+        this.encounterId = encounterId;
     }
 
-    public long getEncounter_type() {
-        return encounter_type;
+    public long getEncounterType() {
+        return encounterType;
     }
 
-    public void setEncounter_type(long encounter_type) {
-        this.encounter_type = encounter_type;
+    public void setEncounterType(long encounterType) {
+        this.encounterType = encounterType;
     }
 
-    public long getPatient_id() {
-        return patient_id;
+    public long getPatientId() {
+        return patientId;
     }
 
-    public void setPatient_id(long patient_id) {
-        this.patient_id = patient_id;
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
     }
 
-    public long getLocation_id() {
-        return location_id;
+    public long getLocationId() {
+        return locationId;
     }
 
-    public void setLocation_id(long location_id) {
-        this.location_id = location_id;
+    public void setLocationId(long locationId) {
+        this.locationId = locationId;
     }
 
-    public long getForm_id() {
-        return form_id;
+    public long getFormId() {
+        return formId;
     }
 
-    public void setForm_id(long form_id) {
-        this.form_id = form_id;
+    public void setFormId(long formId) {
+        this.formId = formId;
     }
 
-    public LocalDateTime getEncounter_datetime() {
-        return encounter_datetime;
+    public LocalDateTime getEncounterDatetime() {
+        return encounterDatetime;
     }
 
-    public void setEncounter_datetime(LocalDateTime encounter_datetime) {
-        this.encounter_datetime = encounter_datetime;
+    public void setEncounterDatetime(LocalDateTime encounterDatetime) {
+        this.encounterDatetime = encounterDatetime;
     }
 
     public Long getCreator() {
@@ -99,12 +148,12 @@ public class Encounter extends SynchronizableEntity {
         this.creator = creator;
     }
 
-    public LocalDateTime getDate_created() {
-        return date_created;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate_created(LocalDateTime date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public short getVoided() {
@@ -115,52 +164,52 @@ public class Encounter extends SynchronizableEntity {
         this.voided = voided;
     }
 
-    public Long getVoided_by() {
-        return voided_by;
+    public Long getVoidedBy() {
+        return voidedBy;
     }
 
-    public void setVoided_by(Long voided_by) {
-        this.voided_by = voided_by;
+    public void setVoidedBy(Long voidedBy) {
+        this.voidedBy = voidedBy;
     }
 
-    public LocalDateTime getDate_voided() {
-        return date_voided;
+    public LocalDateTime getDateVoided() {
+        return dateVoided;
     }
 
-    public void setDate_voided(LocalDateTime date_voided) {
-        this.date_voided = date_voided;
+    public void setDateVoided(LocalDateTime dateVoided) {
+        this.dateVoided = dateVoided;
     }
 
-    public String getVoid_reason() {
-        return void_reason;
+    public String getVoidReason() {
+        return voidReason;
     }
 
-    public void setVoid_reason(String void_reason) {
-        this.void_reason = void_reason;
+    public void setVoidReason(String voidReason) {
+        this.voidReason = voidReason;
     }
 
-    public Long getChanged_by() {
-        return changed_by;
+    public Long getChangedBy() {
+        return changedBy;
     }
 
-    public void setChanged_by(Long changed_by) {
-        this.changed_by = changed_by;
+    public void setChangedBy(Long changedBy) {
+        this.changedBy = changedBy;
     }
 
-    public LocalDateTime getDate_changed() {
-        return date_changed;
+    public LocalDateTime getDateChanged() {
+        return dateChanged;
     }
 
-    public void setDate_changed(LocalDateTime date_changed) {
-        this.date_changed = date_changed;
+    public void setDateChanged(LocalDateTime dateChanged) {
+        this.dateChanged = dateChanged;
     }
 
-    public long getVisit_id() {
-        return visit_id;
+    public long getVisitId() {
+        return visitId;
     }
 
-    public void setVisit_id(long visit_id) {
-        this.visit_id = visit_id;
+    public void setVisitId(long visitId) {
+        this.visitId = visitId;
     }
 
     public String getUuid() {
@@ -173,6 +222,6 @@ public class Encounter extends SynchronizableEntity {
 
     @Override
     public long getId() {
-        return encounter_id;
+        return encounterId;
     }
 }

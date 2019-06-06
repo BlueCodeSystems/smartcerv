@@ -1,0 +1,508 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "basic",
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Treatment/Results/Pathology",
+      "widgets": [
+        {
+          "tag": "treatment",
+          "widgetType": "Concept",
+          "conceptId": 165286,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Treatment",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Drug",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Dosage",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dosage",
+          "widgetType": "EditText",
+          "hint": "mg",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Frequency",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "frequency",
+          "widgetType": "Concept",
+          "conceptId": 165225,
+          "dataType": "Coded",
+          "style": "dropdown",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Duration",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "duration",
+          "widgetType": "Concept",
+          "conceptId": 165224,
+          "dataType": "Coded",
+          "style": "dropdown",
+          "textSize": 18
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Intraoperative Complications (Please describe comments) ",
+      "widgets": [
+        {
+          "tag": "cervical_arterial_bleed",
+          "widgetType": "Concept",
+          "conceptId": 165287,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "cervical_arterial_bleed",
+          "textSize": 18
+        },
+        {
+          "tag": "vaginal_laceration",
+          "widgetType": "Concept",
+          "conceptId": 165288,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "vaginal_laceration",
+          "textSize": 18
+        },
+        {
+          "tag": "anesthesia_reaction",
+          "widgetType": "Concept",
+          "conceptId": 165289,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "anesthesia_reaction",
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 5622,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Reason For Other",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "none",
+          "widgetType": "Concept",
+          "conceptId": 165097,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "None",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "	c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
+          "weight": 1
+        }
+
+      ]
+    },
+    {
+      "title": "Resolution",
+      "widgets": [
+        {
+          "tag": "cautery",
+          "widgetType": "Concept",
+          "conceptId": 165291,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Cautery",
+          "textSize": 18
+        },
+        {
+          "tag": "monsel_solution",
+          "widgetType": "Concept",
+          "conceptId": 165292,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Monsel's Solution",
+          "textSize": 18
+        },
+        {
+          "tag": "vaginal_packing",
+          "widgetType": "Concept",
+          "conceptId": 165293,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Vaginal Packing",
+          "textSize": 18
+        },
+        {
+          "tag": "suturing",
+          "widgetType": "Concept",
+          "conceptId": 165294,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Suturing",
+          "textSize": 18
+        },
+        {
+          "tag": "self_resolved_no_intervention_needed",
+          "widgetType": "Concept",
+          "conceptId": 165295,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Self resolved / no interevention needed",
+          "textSize": 18
+        },
+        {
+          "tag": "return_to_evaluation_site_for_pathology_results",
+          "widgetType": "DatePicker",
+          "label": "Return to evaluation site for pathology results",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "return_to_referring_clinic_for_follow_up",
+          "widgetType": "DatePicker",
+          "label": "Return to referring clinic for follow up",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "scheduled_visit_type",
+          "widgetType": "Concept",
+          "conceptId": 165117,
+          "dataType": "Coded",
+          "style":"dropdown",
+          "label": "Scheduled visit type",
+          "textSize": 18
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Post-operative complications",
+      "widgets": [
+        {
+          "tag": "date",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Date",
+          "hint":"dd MMM yyyy"
+        },
+        {
+          "tag": "bleeding_prompting_return_visit_to_clinic",
+          "widgetType": "Concept",
+          "conceptId": 165300,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Bleeding prompting return visit to clinic",
+          "textSize": 18
+        },
+        {
+          "tag": "infection",
+          "widgetType": "Concept",
+          "conceptId": 165301,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Infection",
+          "textSize": 18
+        },
+        {
+          "tag": "bleeding_requiring_hospitalization ",
+          "widgetType": "Concept",
+          "conceptId": 165302,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Bleeding requiring hospitalisation",
+          "textSize": 18
+        },
+        {
+          "tag": "cervical_stenosis",
+          "widgetType": "Concept",
+          "conceptId": 165146,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Cervical stenosis ",
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 5622,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Reason For Other",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Resolution",
+      "widgets": [
+        {
+          "tag": "monsel_solution",
+          "widgetType": "Concept",
+          "conceptId": 165292,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Monsel's Solution",
+          "textSize": 18
+        },
+        {
+          "tag": "cautery",
+          "widgetType": "Concept",
+          "conceptId": 165291,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Cautery",
+          "textSize": 18
+        },
+        {
+          "tag": "vaginal_packing",
+          "widgetType": "Concept",
+          "conceptId": 165293,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Vaginal Packing",
+          "textSize": 18
+        },
+        {
+          "tag": "antibiotics",
+          "widgetType": "Concept",
+          "conceptId": 165304,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Antibiotics (if yes, list)",
+          "textSize": 18
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 1",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 2",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 3",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 165170,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "TextView",
+          "label": "Reason For Other",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "TextView",
+          "label": "Comments",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "	c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "TextView",
+          "label": "Clinician Signature",
+          "weight": 1
+        },
+        {
+          "tag": "clinician signature",
+          "widgetType": "EditText",
+          "weight": 1
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Clinician ID",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "clinician id",
+          "widgetType": "EditText",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+
+
+
+

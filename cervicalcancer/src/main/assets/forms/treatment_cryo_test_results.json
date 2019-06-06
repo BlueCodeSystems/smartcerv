@@ -1,88 +1,131 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
+    "panelType": "form",
+    "formType": "encounter",
     "encounterId": 12,
-    "submitLabel":"Submit"
+    "submitLabel": "Submit"
   },
   "widgetGroup": [
     {
-      "title":"Visual Inspection with Acetic Acid(VIA)",
-      "widgets":[
+      "title": "Visual Inspection with Acetic Acid(VIA)",
+      "widgets": [
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"via inspection done",
-              "widgetType":"Concept",
-              "conceptId":165155,
-              "dataType":"Boolean",
-              "style":"radio",
-              "textSize":18,
-              "label":"Was inspection done?"
+              "tag": "via inspection done",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "textSize": 18,
+              "label": "Was inspection done?",
+              "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "via reason"
+                      ]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
         {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "tag":"via reason",
-              "widgetType":"Concept",
-              "conceptId":165216,
-              "dataType":"Text",
-              "hint":"Reason",
-              "textSize":18
+              "tag": "via reason",
+              "widgetType": "Concept",
+              "conceptId": 165216,
+              "dataType": "Text",
+              "style": "multiline",
+              "hint": "Reason why VIA inspection not done",
+              "textSize": 18
             }
           ]
         }
       ]
     },
     {
-      "title":"Enhanced Digital Imaging(EDI)",
-      "widgets":[
+      "title": "Enhanced Digital Imaging(EDI)",
+      "widgets": [
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
+          "tag": "edi inspection done",
+          "widgetType": "Concept",
+          "conceptId": 165156,
+          "dataType": "Boolean",
+          "style": "radio",
+          "textSize": 18,
+          "logic": [
             {
-              "tag": "edi inspection done",
-              "widgetType": "Concept",
-              "conceptId": 165156,
-              "dataType": "Boolean",
-              "style": "radio",
-              "textSize": 18
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "edi reason"
+                  ]
+                }
+              }
             }
           ]
         },
-            {
-              "tag": "image view button",
-              "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
-              "widgetType": "ImageViewButton",
-              "label": "Image Load",
-              "textSize": 18,
-              "weight": 1
-
-            },
-            {
-              "widgetType": "CameraButton",
-              "label": "Take Photo",
-              "textSize": 18,
-              "weight": 1
-            },
-
-
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "edi reason",
-              "widgetType": "Concept",
-              "conceptId": 165217,
-              "dataType": "Text",
-              "hint": "Reason",
-              "textSize": 18
-            }
-          ]
+          "tag": "edi reason",
+          "widgetType": "Concept",
+          "conceptId": 165217,
+          "dataType": "Text",
+          "hint": "Reason for no EDI",
+          "textSize": 18
+        },
+        {
+          "tag": "image view button",
+          "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "ImageViewButton",
+          "label": "Image Load",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "CameraButton",
+          "label": "Take Photo",
+          "textSize": 18,
+          "weight": 1
         }
       ]
     },
@@ -101,6 +144,19 @@
               "label": "Transformation zone completely seen",
               "textSize": 18,
               "logic": [
+                {
+                  "condition": {
+                    "value": 1
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [ "screening results"
+
+                      ]
+                    }
+                  }
+                },
                 {
                   "condition": {
                     "value": 2
@@ -199,20 +255,7 @@
             }
           ]
         },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "covers less than 75% of cervix",
-              "widgetType": "Concept",
-              "conceptId": 165169,
-              "dataType": "Boolean",
-              "style": "radio",
-              "label": "Covers < 75% of cervix",
-              "textSize": 18
-            }
-          ]
-        },
+
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
@@ -245,12 +288,12 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "covers greater than 75% of cervix",
+              "tag": "percentage of cervix covered",
               "widgetType": "Concept",
-              "conceptId": 165172,
-              "dataType": "Boolean",
+              "conceptId": 165268,
+              "dataType": "Coded",
               "style": "radio",
-              "label": "Covers > 75% of cervix",
+              "label": "Percentage(%) of cervix covered",
               "textSize": 18
             }
           ]

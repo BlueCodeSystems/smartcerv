@@ -107,8 +107,8 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
 
 
                 Visit visit = visitIterator.next();
-                String date = visit.date_started.format(DateTimeFormatter.ISO_LOCAL_DATE);
-                long visitTypeId = visit.getVisit_type_id();
+                String date = visit.getDateStarted().format(DateTimeFormatter.ISO_LOCAL_DATE);
+                long visitTypeId = visit.getVisitTypeId();
 
                 visitCompleted.put(visitTypeId,true);
 

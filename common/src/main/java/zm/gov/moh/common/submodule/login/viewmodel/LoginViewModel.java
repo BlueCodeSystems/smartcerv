@@ -81,7 +81,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         getRepository().getDefaultSharePrefrences().edit().putLong(
                 application.getResources().getString(zm.gov.moh.core.R.string.session_location_key),
-                location.location_id)
+                location.getLocationId())
                 .apply();
     }
 

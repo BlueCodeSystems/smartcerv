@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".module.dashboard.patient.view.PatientDashboardVisitViewPagerFragment">
+    tools:context="zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/sliding_tabs"
@@ -19,13 +19,10 @@
         android:layout_height="match_parent"
         android:background="@android:color/white" />
 
-    <Button
-        android:id="@+id/load_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Load Image"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/light_green"
-        android:textColor="@color/white" />
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/load_imag"
+        android:layout_width="85dp"
+        android:layout_height="54dp"
+        android:src="@drawable/ic_gallery" />
 
 </LinearLayout>

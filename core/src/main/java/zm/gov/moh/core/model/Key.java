@@ -15,6 +15,8 @@ public class Key {
     public static final String PERSON_DOB = "PERSON_DOB";
     public static final String PERSON_GENDER = "PERSON_GENDER";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
+    //Add key for person age
+    public static final String PERSON_AGE = "PERSON_AGE";
     public static final String PERSON_PHONE = "PERSON_PHONE";
     public static final String PERSON_DISTRICT_LOCATION_ID = "PERSON_DISTRICT_LOCATION_ID";
     public static final String PERSON_PROVINCE_LOCATION_ID = "PERSON_PROVINCE_LOCATION_ID";

@@ -23,13 +23,10 @@ public class InjectorUtils {
 
         Moshi moshi = new Moshi.Builder().add(new JsonAdapter()).build();
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
-
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://34.240.241.171:8087/middleware/rest/")
+                .baseUrl("https://openmrs.bluecodeltd.com/middleware/rest/")
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                //.client(okHttpClient)
                 .build();
 
         return  retrofit.create(RestApi.class);
