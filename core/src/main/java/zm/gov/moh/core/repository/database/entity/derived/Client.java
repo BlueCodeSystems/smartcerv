@@ -6,6 +6,9 @@ import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+
 @Entity
 public class Client {
 
@@ -80,4 +83,5 @@ public class Client {
     public void setBirthDate(LocalDateTime birthDate) {
         this.birthDate = birthDate;
     }
+
 }

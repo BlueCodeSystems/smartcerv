@@ -14,6 +14,7 @@
           "widgetType": "Concept",
           "conceptId": 165096,
           "dataType": "Numeric",
+          "uuid":"5b5e9d10-788a-4653-a405-d7fdd5be0da7",
           "label": "Parity",
           "textSize": 18,
           "hint": "Number"
@@ -23,10 +24,27 @@
           "widgetType": "Concept",
           "conceptId": 165245,
           "dataType": "Boolean",
-          "label": "Does patient menstruate ",
+          "label": "Does patient menstruate",
           "style": "radio",
           "textSize": 18,
           "logic": [
+            {
+              "condition": {
+                "value": "PERSON_DOB",
+                "dataType": "date",
+                "expression": {
+                  "$lt": 40
+                }
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Amenorrhea or Menopause"
+                  ]
+                }
+              }
+            },
             {
               "condition": {
                 "value": 1
@@ -60,7 +78,7 @@
           "conceptId": 165202,
           "widgetType": "DatePicker",
           "weight": 1,
-          "label":"Date of Last Menstrual Period",
+          "label": "Date of Last Menstrual Period",
           "hint": "dd MMM yyyy",
           "textSize": 18
         },
@@ -106,19 +124,115 @@
           "widgetType": "Concept",
           "conceptId": 165249,
           "dataType": "Text",
-          "style": "multiline",
-          "hint": "Reasons for Amenorrhea",
+          "label": "Reason for patient having amenorrhea:",
+          "hint": "Reason",
           "textSize": 18
         },
         {
-          "tag": "fp methods",
+          "tag": "grey_out",
+          "conceptId": 165336,
+          "widgetType": "TextView",
+          "label": "Family Planning methods",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "None",
           "widgetType": "Concept",
-          "conceptId": 165104,
-          "dataType": "Coded",
+          "conceptId": 165097,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Is patient on family planing?",
+          "textSize": 16,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Condom/Barrier Methods",
+                    "Natural Method",
+                    "Injectable/Implants",
+                    "Tubal Ligation",
+                    "IUD",
+                    "Oral Contraceptives"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Natural Method",
+          "widgetType": "Concept",
+          "conceptId": 165098,
+          "dataType": "Boolean",
           "style": "check",
-          "label": "Family Planning methods:",
+          "label": "Natural Method",
           "textSize": 18
         },
+        {
+          "tag": "Condom/Barrier Methods",
+          "widgetType": "Concept",
+          "conceptId": 165103,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Condom/Barrier Method",
+          "textSize": 18
+        },
+        {
+          "tag": "Injectable/Implants",
+          "widgetType": "Concept",
+          "conceptId": 165101,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Injectable/Implants",
+          "textSize": 18
+        },
+        {
+          "tag": "Tubal Ligation",
+          "widgetType": "Concept",
+          "conceptId": 165099,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Tubal Ligation",
+          "textSize": 18
+        },
+        {
+          "tag": "IUD",
+          "widgetType": "Concept",
+          "conceptId": 165102,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "IUD",
+          "textSize": 18
+        },
+        {
+          "tag": "Oral Contraceptives",
+          "widgetType": "Concept",
+          "conceptId": 165100,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Oral Contraceptives",
+          "textSize": 18
+        },
+
         {
           "tag": "vaginal bleeding",
           "widgetType": "Concept",
@@ -336,7 +450,7 @@
               "tag": "leep_date",
               "conceptId": 165110,
               "widgetType": "DatePicker",
-              "hint":"dd MMM yyyy",
+              "hint": "dd MMM yyyy",
               "textSize": 18
             }
           ]
@@ -393,7 +507,6 @@
           "widgetType": "Concept",
           "conceptId": 165116,
           "dataType": "Text",
-          "style": "multiline",
           "textSize": 18,
           "hint": "Other Surgical History"
         }

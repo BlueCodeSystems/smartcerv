@@ -6,14 +6,13 @@ import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatSpinner;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSpinner;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
@@ -72,20 +71,20 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     public void onCreateView(){
 
         layoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,
-            TableLayout.LayoutParams.WRAP_CONTENT);
+                TableLayout.LayoutParams.WRAP_CONTENT);
 
         tableLayout = new TableLayout(mContext);
         tableLayout.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
         tableLayout.setLayoutParams(layoutParams);
 
         rowLayoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
-            TableRow.LayoutParams.WRAP_CONTENT);
+                TableRow.LayoutParams.WRAP_CONTENT);
 
         //frequency list
         mRepository.getDatabase()
-            .conceptAnswerNameDao()
-            .getByConceptId(165225L)
-            .observe((AppCompatActivity)mContext, this::onFrequencyAnswersNamesReceived);
+                .conceptAnswerNameDao()
+                .getByConceptId(165225L)
+                .observe((AppCompatActivity)mContext, this::onFrequencyAnswersNamesReceived);
 
         addView(tableLayout);
     }
@@ -93,19 +92,19 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     public void onFrequencyAnswersNamesReceived(List<ConceptAnswerName> frequencyAnswerNames) {
 
         for(ConceptAnswerName conceptAnswerName: frequencyAnswerNames)
-            frequencyIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+            frequencyIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
 
         //duration lists
         mRepository.getDatabase()
-            .conceptAnswerNameDao()
-            .getByConceptId(165224L)
-            .observe((AppCompatActivity)mContext, this::onDurationAnswersNamesReceived);
+                .conceptAnswerNameDao()
+                .getByConceptId(165224L)
+                .observe((AppCompatActivity)mContext, this::onDurationAnswersNamesReceived);
     }
 
     public void onDurationAnswersNamesReceived(List<ConceptAnswerName> durationAnswerNames) {
 
         for(ConceptAnswerName conceptAnswerName: durationAnswerNames)
-            durationIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+            durationIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
 
         mRepository.getDatabase()
                 .drugDao()
@@ -127,9 +126,9 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
 
         frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
-            WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
+                WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
         durationSpinner = WidgetUtils.createSpinner(mContext, durationIdMap, this::onSelectedDurationValue,
-            WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
+                WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
 
         checkBoxGroup.setLayoutParams(rowLayoutParams);
         frequencySpinner.setLayoutParams(rowLayoutParams);

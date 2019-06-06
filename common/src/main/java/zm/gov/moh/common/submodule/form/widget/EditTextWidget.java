@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatEditText;

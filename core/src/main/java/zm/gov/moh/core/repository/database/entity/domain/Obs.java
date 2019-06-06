@@ -2,6 +2,7 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 import org.threeten.bp.LocalDateTime;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -10,8 +11,9 @@ import androidx.room.*;
 
 import com.squareup.moshi.Json;
 
+// implement Serializable to translate  object state into a format that can be stored
 @Entity
-public class Obs {
+public class Obs implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "obs_id")
