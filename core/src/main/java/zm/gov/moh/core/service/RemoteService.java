@@ -23,7 +23,6 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
     protected final int TIMEOUT = 300000;
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
-    protected Bundle mBundle;
     protected Database db;
     protected RestApi restApi;
 
@@ -33,17 +32,12 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-
+        super.onHandleIntent(intent);
         AndroidThreeTen.init(this);
         InjectorUtils.provideRepository(this,getApplication());
         db = repository.getDatabase();
         restApi = repository.getRestApi();
-        mBundle = intent.getExtras();
 
-        if(mBundle == null)
-            mBundle = new Bundle();
-
-        mBundle.putSerializable(Key.SERVICE_NAME, mService);
 
         ConcurrencyUtils.asyncRunnable(this::executeAsync,this::onError);
     }

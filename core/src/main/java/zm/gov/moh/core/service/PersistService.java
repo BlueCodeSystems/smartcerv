@@ -23,7 +23,7 @@ public abstract class PersistService extends BaseIntentService implements Inject
     }
 
     protected void onHandleIntent(@Nullable Intent intent) {
-
+        super.onHandleIntent(intent);
         InjectorUtils.provideRepository(this, getApplication());
         Bundle bundle = intent.getExtras();
          if(bundle == null)

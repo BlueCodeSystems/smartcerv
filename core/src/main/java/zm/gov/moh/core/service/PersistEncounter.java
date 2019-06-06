@@ -1,5 +1,6 @@
 package zm.gov.moh.core.service;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import org.threeten.bp.LocalDateTime;
@@ -10,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
@@ -18,11 +21,17 @@ import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.utils.Utils;
 
 public class PersistEncounter extends PersistService {
 
     public PersistEncounter(){
         super(ServiceManager.Service.PERSIST_ENCOUNTERS);
+    }
+
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        super.onHandleIntent(intent);
     }
 
     @Override
@@ -99,12 +108,10 @@ public class PersistEncounter extends PersistService {
                     case ConceptDataType.NUMERIC:
                         String numericValue = obsValue.getValue().toString();
 
-                          if(android.text.TextUtils.isDigitsOnly(numericValue)){
+                          if(Utils.isNumber(numericValue)){
                               obsList.add(obs.setObsConceptId(obsValue.getConceptId())
                                       .setValue(Double.valueOf(obsValue.getValue().toString())));
-                          }
-
-
+                         }
                         break;
 
                     case ConceptDataType.TEXT:
@@ -137,6 +144,10 @@ public class PersistEncounter extends PersistService {
                 bundle.remove(key);
             }
         }
+
+        Intent intent = new Intent(ServiceManager.IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
         return null;
     }
