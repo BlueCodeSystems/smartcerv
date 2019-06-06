@@ -19,6 +19,9 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
@@ -44,7 +47,47 @@ public class WidgetModelJsonAdapter {
                 editText.setWeight(widgetModelJson.getWeight());
                 editText.setLabel(widgetModelJson.getLabel());
 
+
                 return editText;
+
+            case "ReadonlyText":
+
+                final ReadonlyTextModel readonlyText = new ReadonlyTextModel();
+
+                readonlyText.setWidgetType(widgetModelJson.getWidgetType());
+                readonlyText.setTag(widgetModelJson.getTag());
+                readonlyText.setHint(widgetModelJson.getHint());
+                readonlyText.setText(widgetModelJson.getText());
+                readonlyText.setWeight(widgetModelJson.getWeight());
+                readonlyText.setLabel(widgetModelJson.getLabel());
+
+                return readonlyText;
+
+            case "TextBoxOne":
+
+                final TextBoxModel textBoxone = new TextBoxModel();
+
+                textBoxone.setWidgetType(widgetModelJson.getWidgetType());
+                textBoxone.setTag(widgetModelJson.getTag());
+                textBoxone.setHint(widgetModelJson.getHint());
+                textBoxone.setText(widgetModelJson.getText());
+                textBoxone.setWeight(widgetModelJson.getWeight());
+                textBoxone.setLabel(widgetModelJson.getLabel());
+
+                return textBoxone;
+
+            case "TextBoxTwo":
+
+                final TextBoxTwoModel textBoxtwo = new TextBoxTwoModel();
+
+                textBoxtwo.setWidgetType(widgetModelJson.getWidgetType());
+                textBoxtwo.setTag(widgetModelJson.getTag());
+                textBoxtwo.setHint(widgetModelJson.getHint());
+                textBoxtwo.setText(widgetModelJson.getText());
+                textBoxtwo.setWeight(widgetModelJson.getWeight());
+                textBoxtwo.setLabel(widgetModelJson.getLabel());
+
+                return textBoxtwo;
 
             case "DatePickerButton":
 
@@ -166,6 +209,8 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
                 basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+                //Added to put uuid in bundle
+                basicConceptWidgetModel.setUuid(widgetModelJson.getUuid());
 
                 return basicConceptWidgetModel;
 
@@ -241,6 +286,16 @@ public class WidgetModelJsonAdapter {
             json.setHint(basicFormEditText.getHint());
             json.setTag(basicFormEditText.getTag());
             json.setText(basicFormEditText.getText());
+
+        } else if (widgetModel instanceof TextBoxModel) {
+
+            TextBoxModel basicFormTextBox = (TextBoxModel) widgetModel;
+
+            json.setWidgetType(basicFormTextBox.getWidgetType());
+            json.setHint(basicFormTextBox.getHint());
+            json.setTag(basicFormTextBox.getTag());
+            json.setText(basicFormTextBox.getText());
+
         } else if (widgetModel instanceof DatePickerButtonModel) {
 
             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;

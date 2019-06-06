@@ -252,4 +252,7 @@ public class WidgetUtils {
                 }
             }
     }
+
+    public static void setLayoutParams(LinearLayoutCompat.LayoutParams layoutParams) {
+    }
 }

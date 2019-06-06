@@ -14,6 +14,7 @@ import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
+import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
@@ -94,6 +95,9 @@ public interface RestApi {
 
     @GET("visit/type/")
     Maybe<VisitType[]> getVisitTypes(@Header("x-access-token") String accesstoken);
+
+    @GET("drug/")
+    Maybe<Drug[]> getDrugs(@Header("x-access-token") String accesstoken);
 
     //PUT
     @Headers("Content-Type: application/json")

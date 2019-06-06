@@ -12,13 +12,14 @@ import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.database.Database;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
 public abstract class RemoteService extends BaseIntentService implements InjectableViewModel {
 
     protected Repository repository;
-    protected String accesstoken = "";
+    protected String accessToken = "";
     protected final int TIMEOUT = 300000;
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
@@ -44,7 +45,7 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
 
         mBundle.putSerializable(Key.SERVICE_NAME, mService);
 
-        repository.asyncRunnable(this::executeAsync,this::onError);
+        ConcurrencyUtils.asyncRunnable(this::executeAsync,this::onError);
     }
 
     abstract protected void executeAsync();
@@ -60,6 +61,7 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
     }
 
     public void onError(Throwable throwable){
+
         Exception e = new Exception(throwable);
     }
 

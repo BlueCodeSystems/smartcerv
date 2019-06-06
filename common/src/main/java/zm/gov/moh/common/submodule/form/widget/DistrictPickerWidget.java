@@ -85,15 +85,15 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
 
     public void onProvinceRetrieved(Location province){
 
-        mProvinceId = province.location_id;
-        mProvinceName.setText(province.name);
+        mProvinceId = province.getLocationId();
+        mProvinceName.setText(province.getName());
         setValue(new AbstractMap.SimpleEntry<>(mDistrictId,mProvinceId));
     }
 
     public void onDistrictListRetrieved(List<Location> districts){
 
         for(Location district : districts)
-            mDistrictData.put(district.name, district.location_id);
+            mDistrictData.put(district.getName(), district.getLocationId());
 
         AppCompatSpinner districtSelector = WidgetUtils.createSpinner(mContext, mDistrictData,this::onDistrictSelected,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
         AppCompatTextView districtTextView = new AppCompatTextView(mContext);

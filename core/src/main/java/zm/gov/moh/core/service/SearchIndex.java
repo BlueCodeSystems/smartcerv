@@ -14,6 +14,7 @@ import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
@@ -33,17 +34,17 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
         AndroidThreeTen.init(this);
         InjectorUtils.provideRepository(this, getApplication());
 
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 clients -> {
 
                     for(Client client: clients) {
 
-                        String age = String.valueOf(LocalDate.now().getYear() - client.birthdate.getYear());
-                        String gender = (client.gender.equals("F"))? "Female":"Male";
-                        String searchTerm = DatabaseUtils.buildSearchTerm(age,client.identifier,client.given_name,client.family_name,gender);
+                        String age = String.valueOf(LocalDate.now().getYear() - client.getBirthDate().getYear());
+                        String gender = (client.getGender().equals("F"))? "Female":"Male";
+                        String searchTerm = DatabaseUtils.buildSearchTerm(age,client.getIdentifier(),client.getGivenName(),client.getFamilyName(),gender);
 
                         repository.getDatabase().clientFtsDao().
-                                insert(new ClientNameFts(client.patient_id, searchTerm, client.patient_id));
+                                insert(new ClientNameFts(client.getPatientId(), searchTerm, client.getPatientId()));
 
                        // List<Long> list = repository.getDatabase().clientFtsDao().findClientByTerms("zita");
                        // list.get(0);

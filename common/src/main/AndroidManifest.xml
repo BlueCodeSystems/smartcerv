@@ -15,8 +15,10 @@
     <uses-feature android:name="android.hardware.camera2"
         android:required="true"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths" />!-->
+        android:name="android.support.v4.media.MediaBrowserCompat"
+        android:resource="@xml/file_paths" />
+
 
 </manifest>

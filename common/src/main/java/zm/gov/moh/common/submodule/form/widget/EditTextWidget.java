@@ -1,10 +1,12 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
+import zm.gov.moh.common.R;
 
 public class EditTextWidget extends TextViewWidget implements Submittable<CharSequence> {
 
@@ -13,6 +15,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     protected String mHint;
     protected Bundle mBundle;
     protected AppCompatEditText mEditText;
+    private Context context;
 
     public EditTextWidget(Context context){
         super(context);
