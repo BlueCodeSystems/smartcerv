@@ -174,27 +174,28 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             case ConceptDataType.TEXT:
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
-                if (mStyle.equals("TextBoxOne")) {
-                    mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
-                    ShapeDrawable border = new ShapeDrawable(new RectShape());
-                    border.getPaint().setStyle(Paint.Style.STROKE);
-                    border.getPaint().setColor(Color.BLACK);
-                    mEditText.setBackground(border);
-                    mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-                    mEditText.setGravity(Gravity.LEFT);
-                    WidgetUtils.setLayoutParams(mEditText, 800, 200, mWeight);
-                    this.addView(view);
-                } else if (mStyle.equals("TextBoxTwo")) {
-                    mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
-                    ShapeDrawable border = new ShapeDrawable(new RectShape());
-                    border.getPaint().setStyle(Paint.Style.STROKE);
-                    border.getPaint().setColor(Color.BLACK);
-                    mEditText.setBackground(border);
-                    mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-                    mEditText.setGravity(Gravity.CENTER);
-                    WidgetUtils.setLayoutParams(mEditText, 300, 70, mWeight);
-                    addView(mEditText);
-                }
+                if(mStyle != null)
+                    if (mStyle.equals("TextBoxOne")) {
+                        mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                        ShapeDrawable border = new ShapeDrawable(new RectShape());
+                        border.getPaint().setStyle(Paint.Style.STROKE);
+                        border.getPaint().setColor(Color.BLACK);
+                        mEditText.setBackground(border);
+                        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+                        mEditText.setGravity(Gravity.LEFT);
+                        WidgetUtils.setLayoutParams(mEditText, 800, 200, mWeight);
+                        this.addView(view);
+                    } else if (mStyle.equals("TextBoxTwo")) {
+                        mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                        ShapeDrawable border = new ShapeDrawable(new RectShape());
+                        border.getPaint().setStyle(Paint.Style.STROKE);
+                        border.getPaint().setColor(Color.BLACK);
+                        mEditText.setBackground(border);
+                        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+                        mEditText.setGravity(Gravity.CENTER);
+                        WidgetUtils.setLayoutParams(mEditText, 300, 70, mWeight);
+                        addView(mEditText);
+                    }
 
 
                 break;

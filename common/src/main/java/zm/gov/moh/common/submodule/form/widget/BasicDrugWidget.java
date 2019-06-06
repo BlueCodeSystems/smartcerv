@@ -93,7 +93,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     public void onFrequencyAnswersNamesReceived(List<ConceptAnswerName> frequencyAnswerNames) {
 
         for(ConceptAnswerName conceptAnswerName: frequencyAnswerNames)
-            frequencyIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+            frequencyIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
 
         //duration lists
         mRepository.getDatabase()
@@ -105,7 +105,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     public void onDurationAnswersNamesReceived(List<ConceptAnswerName> durationAnswerNames) {
 
         for(ConceptAnswerName conceptAnswerName: durationAnswerNames)
-            durationIdMap.put(conceptAnswerName.name, conceptAnswerName.answer_concept);
+            durationIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
 
         mRepository.getDatabase()
                 .drugDao()
