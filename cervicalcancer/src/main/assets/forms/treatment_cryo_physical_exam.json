@@ -111,7 +111,7 @@
         },
         {
           "tag": "Other Clinical Findings",
-          "widgetType": "EditText",
+          "widgetType": "Concept",
           "conceptId": 165154,
           "dataType": "Text",
           "hint": " Enter Other Clinical Findings",

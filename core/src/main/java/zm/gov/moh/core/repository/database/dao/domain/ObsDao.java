@@ -1,11 +1,12 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.*;
-
-import java.util.LinkedList;
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 
 @Dao
@@ -36,6 +37,11 @@ public interface ObsDao {
 
     @Query("SELECT * FROM obs WHERE concept_id = :id")
     Obs findByConceptId(long id);
+
+
+    //query to pick patient by conceptuuid
+    @Query("SELECT * FROM obs WHERE concept_id=(SELECT concept_id FROM concept WHERE uuid = :conceptUuid) AND person_id = :patientId ORDER BY date_created DESC" )
+    LiveData<Obs>findPatientObsByConceptUuid(long patientId, String conceptUuid);
 
     @Query("SELECT * FROM obs WHERE encounter_id = :id")
     List<Obs> getObsByEncountId(long id);

@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
-
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,7 +19,6 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
@@ -37,10 +35,10 @@ import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
-import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
-import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
-import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
@@ -257,6 +255,8 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(model.getHint())
                     .setTextSize(model.getTextSize())
                     .setLogic(model.getLogic())
+                    //pass Uuid to basic widget
+                    .setUuid(model.getUuid())
                     .setWeight(model.getWeight())
                     .build();
         }

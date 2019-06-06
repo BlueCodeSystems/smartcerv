@@ -47,6 +47,7 @@ public class WidgetModelJsonAdapter {
                 editText.setWeight(widgetModelJson.getWeight());
                 editText.setLabel(widgetModelJson.getLabel());
 
+
                 return editText;
 
             case "ReadonlyText":
@@ -208,6 +209,8 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
                 basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+                //Added to put uuid in bundle
+                basicConceptWidgetModel.setUuid(widgetModelJson.getUuid());
 
                 return basicConceptWidgetModel;
 

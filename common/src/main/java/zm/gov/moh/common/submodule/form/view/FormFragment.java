@@ -30,12 +30,14 @@ import zm.gov.moh.common.submodule.form.model.FormType;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
+import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
+import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.service.DemographicsPersist;
 import zm.gov.moh.core.service.EncounterPersist;
 import zm.gov.moh.core.utils.BaseFragment;
@@ -56,8 +58,8 @@ public class FormFragment extends BaseFragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         context = (FormActivity) getContext();
         renderWidgets = new AtomicBoolean();
@@ -67,9 +69,9 @@ public class FormFragment extends BaseFragment {
 
         bundle = getArguments();
 
-        context.activityResultEmitter.observe(context,this::onUriRetrieved);
+        context.activityResultEmitter.observe(context, this::onUriRetrieved);
 
-        FragmentFormBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_form,container,false);
+        FragmentFormBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_form, container, false);
 
         rootView = binding.getRoot();
         this.form.setRootView(rootView.findViewById(R.id.form_container));
@@ -80,15 +82,16 @@ public class FormFragment extends BaseFragment {
 
         try {
 
-            this.formJson =(FormJson) bundle.getSerializable(Key.JSON_FORM);
+            this.formJson = (FormJson) bundle.getSerializable(Key.JSON_FORM);
             formModel = FormAdapter.getAdapter().fromJson(this.formJson.getJson());
 
             toolBarEventHandler.setTitle(formJson.getName());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Exception ex = e;
         }
 
+        /*
         //Criteria,Action
         if( formModel.getAttributes().getLogic() != null)
             for(Logic logic : formModel.getAttributes().getLogic()){
@@ -101,28 +104,66 @@ public class FormFragment extends BaseFragment {
                             String value = bundle.getString(tag);
                             if(!value.equals(logic.getCondition().getValue())){
                                 context.onBackPressed();
+<<<<<<< HEAD
                                 //Toast.makeText(context, context.getString(R.string.male_patient_block),Toast.LENGTH_LONG).show();
+=======
+                                Toast.makeText(context, context.getString(R.string.male_patient_block), Toast.LENGTH_LONG).show();
+>>>>>>> 2702c2e868f304bc64939e6f7da9bd6955367447
                             }
+
+
+
+
+                        }
+                }
+
+            }
+            */
+
+
+        if (formModel.getAttributes().getLogic() != null)
+            for (Logic logic : formModel.getAttributes().getLogic()) {
+
+                if (logic.getAction().getType().equals(Action.ACTION_TYPE_CRITERIA)) {
+
+                    for (String tag : logic.getAction().getMetadata().getTags())
+                        if (bundle.containsKey(tag)) {
+
+                            String value = bundle.getString(tag);
+                            if (!value.equals(logic.getCondition().getValue())) {
+                                context.onBackPressed();
+                                Toast.makeText(context, context.getString(R.string.male_patient_block), Toast.LENGTH_LONG).show();
+                            }
+
+                               /*
+                            String value = bundle.getString(tag);
+                            if (value.matches("\\d+"))
+                                if (Integer.parseInt(value) < Integer.parseInt(logic.getCondition().getValue().toString())) {
+                                    context.onBackPressed();
+                                    Toast.makeText(context, context.getString(R.string.menopause_block), Toast.LENGTH_LONG).show();
+                                }  */
                         }
                 }
 
             }
 
+
         initFormData(bundle);
 
-        if(renderWidgets.get()) {
+        if (renderWidgets.get()) {
 
-            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(),context.getViewModel().getRepository(),bundle,form);
+            WidgetModelToWidgetAdapter WidgetModelToWidgetAdapter = new WidgetModelToWidgetAdapter(getContext(), context.getViewModel().getRepository(), bundle, form);
 
-            for(WidgetSectionModel section : formModel.getWidgetGroup()){
+            for (WidgetSectionModel section : formModel.getWidgetGroup()) {
 
                 FormSectionWidget formSection = new FormSectionWidget(context);
                 formSection.setHeading(section.getTitle());
 
-                for(WidgetModel widgetModel : section.getChildren()){
+                for (WidgetModel widgetModel : section.getChildren()) {
 
                     View view = WidgetModelToWidgetAdapter.getWidget(widgetModel);
                     formSection.addView(view);
+                    getLatestValue(view, this.bundle, context.getViewModel().getRepository());
                 }
 
                 this.form.getRootView().addView(formSection);
@@ -140,24 +181,22 @@ public class FormFragment extends BaseFragment {
                 Bundle contextbundle = context.getIntent().getExtras();
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 this.bundle.putAll(contextbundle);
-                Intent intent = new Intent(context,EncounterPersist.class);
+                Intent intent = new Intent(context, EncounterPersist.class);
 
-               ArrayList<String> tags = form.getFormContext().getTags();
+                ArrayList<String> tags = form.getFormContext().getTags();
 
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 
-                ObsValue<String> obsValue1 = ( ObsValue<String>)bundle.getSerializable("image view button");
+                ObsValue<String> obsValue1 = (ObsValue<String>) bundle.getSerializable("image view button");
 
-                if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
+                if (formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
                     intent = new Intent(context, EncounterPersist.class);
-                }
-                else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
+                } else if (formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)) {
                     intent = new Intent(context, DemographicsPersist.class);
-                }
-                else{
+                } else {
 
                     String moduleName = this.bundle.getString(Key.START_MODULE_ON_RESULT);
-                    context.startModule(moduleName,this.bundle);
+                    context.startModule(moduleName, this.bundle);
                     context.onBackPressed();
                     return;
                 }
@@ -180,7 +219,7 @@ public class FormFragment extends BaseFragment {
         return rootView;
     }
 
-    public void initFormData(Bundle bundle){
+    public void initFormData(Bundle bundle) {
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
@@ -189,7 +228,7 @@ public class FormFragment extends BaseFragment {
 
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
-        if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER))
+        if (formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER))
             this.bundle.putLong(Key.ENCOUNTER_TYPE_ID, formModel.getAttributes().getEncounterId());
 
         context.getViewModel()
@@ -204,12 +243,39 @@ public class FormFragment extends BaseFragment {
                 });
         //bundle.put(Key.PERSON_ID,)
     }
+
     public void onUriRetrieved(Map.Entry<Integer, Uri> data) {
-       String tag = bundle.getString(Key.VIEW_TAG);
-       View view = rootView.findViewWithTag(tag);
-        ((FormImageViewButtonWidget)view).onUriRetrieved(data.getValue());
+        String tag = bundle.getString(Key.VIEW_TAG);
+        View view = rootView.findViewWithTag(tag);
+        ((FormImageViewButtonWidget) view).onUriRetrieved(data.getValue());
+    }
+    // Method to get the value form the bundle
+    // fetch data from Dao using the name of the query
+    public void getLatestValue(View widget, Bundle bundle, Repository repository) {
+
+
+        if (widget instanceof BasicConceptWidget) {
+
+            BasicConceptWidget conceptWidget = (BasicConceptWidget) widget;
+
+            //get UUid and patientId
+            String uuid = conceptWidget.getUuid();
+            long patientid = bundle.getLong(Key.PERSON_ID);
+
+            //fetch value from database
+            repository.getDatabase().obsDao().findPatientObsByConceptUuid(patientid, uuid).observe(context, obs -> {
+
+                if (obs != null) {
+                    //Pasing obs to widget
+                    conceptWidget.onLastObsRetrieved(obs);
+                }
+            });
+
+
+        }
 
     }
+
 
     @Override
     public void onStart() {
