@@ -62,6 +62,7 @@ public class PatientDashboardVisitFragment extends Fragment {
         filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HIV_STATUS);
 
 
+
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.fragment_patient_dashboard_visit, container, false);
         View rootView = binding.getRoot();

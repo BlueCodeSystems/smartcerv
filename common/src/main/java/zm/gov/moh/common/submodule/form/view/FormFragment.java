@@ -104,7 +104,11 @@ public class FormFragment extends BaseFragment {
                             String value = bundle.getString(tag);
                             if(!value.equals(logic.getCondition().getValue())){
                                 context.onBackPressed();
+<<<<<<< HEAD
+                                //Toast.makeText(context, context.getString(R.string.male_patient_block),Toast.LENGTH_LONG).show();
+=======
                                 Toast.makeText(context, context.getString(R.string.male_patient_block), Toast.LENGTH_LONG).show();
+>>>>>>> 2702c2e868f304bc64939e6f7da9bd6955367447
                             }
 
 
@@ -240,13 +244,11 @@ public class FormFragment extends BaseFragment {
         //bundle.put(Key.PERSON_ID,)
     }
 
-    public void onUriRetrieved(Map.Entry<String, Uri> data) {
+    public void onUriRetrieved(Map.Entry<Integer, Uri> data) {
         String tag = bundle.getString(Key.VIEW_TAG);
         View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget) view).onUriRetrieved(data.getValue());
-
     }
-
     // Method to get the value form the bundle
     // fetch data from Dao using the name of the query
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
@@ -271,7 +273,6 @@ public class FormFragment extends BaseFragment {
 
 
         }
-
 
     }
 

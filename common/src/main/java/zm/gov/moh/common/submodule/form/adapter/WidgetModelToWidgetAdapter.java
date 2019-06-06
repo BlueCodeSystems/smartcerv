@@ -20,6 +20,9 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
@@ -37,6 +40,9 @@ import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
+import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
+import zm.gov.moh.common.submodule.form.widget.TextBoxWidgetTwo;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
 import zm.gov.moh.common.submodule.form.widget.WidgetUtils;
 import zm.gov.moh.core.repository.api.Repository;
@@ -61,11 +67,60 @@ public class WidgetModelToWidgetAdapter {
 
 
         form.getFormContext().getTags().add(widgetModel.getTag());
-        if(widgetModel instanceof EditTextModel){
+        if(widgetModel instanceof EditTextModel) {
 
             EditTextModel model = (EditTextModel) widgetModel;
 
             BaseWidget widget = new EditTextWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+        else if(widgetModel instanceof ReadonlyTextModel){
+
+            ReadonlyTextModel model = (ReadonlyTextModel) widgetModel;
+
+            BaseWidget widget = new ReadonlyTextWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+
+        else if(widgetModel instanceof TextBoxModel){
+
+            TextBoxModel model = (TextBoxModel) widgetModel;
+
+            BaseWidget widget = new TextBoxWidget.Builder(this.context)
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+
+        else if(widgetModel instanceof TextBoxTwoModel) {
+
+            TextBoxTwoModel model = (TextBoxTwoModel) widgetModel;
+
+            BaseWidget widget = new TextBoxWidgetTwo.Builder(this.context)
                     .setBundle(this.bundle)
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())

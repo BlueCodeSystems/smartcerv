@@ -1,6 +1,12 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.text.InputFilter;
 
@@ -8,7 +14,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 import zm.gov.moh.common.R;
 
-public class EditTextWidget extends TextViewWidget implements Submittable<CharSequence> {
+public class ReadonlyTextWidget extends TextViewWidget implements Submittable<CharSequence> {
 
 
     protected String mValue;
@@ -17,7 +23,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     protected AppCompatEditText mEditText;
     private Context context;
 
-    public EditTextWidget(Context context){
+    public ReadonlyTextWidget(Context context){
         super(context);
     }
 
@@ -55,6 +61,9 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         String value = mBundle.getString((String) getTag());
         if(value != null)
             mEditText.setText(value);
+        //mEditText.setEnabled(false);
+        mEditText.setKeyListener(null);
+
     }
 
     @Override
@@ -91,7 +100,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         @Override
         public BaseWidget build() {
 
-           // super.build();
+            // super.build();
             EditTextWidget widget = new EditTextWidget(mContext);
 
             if(mHint != null)
