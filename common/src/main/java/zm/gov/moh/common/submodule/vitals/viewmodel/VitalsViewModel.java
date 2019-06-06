@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.vitals.viewmodel;
 
 import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.LongSparseArray;
 
@@ -14,8 +13,9 @@ import zm.gov.moh.common.submodule.vitals.model.Vitals;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
-import zm.gov.moh.core.service.EncounterPersist;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class VitalsViewModel extends BaseAndroidViewModel implements InjectableViewModel {
@@ -97,16 +97,13 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
 
     public void onVitalsDataReceived(Bundle bundle){
 
-        Intent encounterSubmission = new Intent(getApplication(),EncounterPersist.class);
-        encounterSubmission.putExtras(bundle);
-
-        getApplication().startService(encounterSubmission);
+        ServiceManager.getInstance(getApplication()).setService(ServiceManager.Service.PERSIST_ENCOUNTERS).putExtras(bundle).start();
     }
 
     public void onSubmit(Bundle bundle){
 
         if(vitals != null)
-            getRepository().asyncFunction(extractVitalsData(bundle)::apply,this::onVitalsDataReceived, vitals,this::onError);
+            ConcurrencyUtils.asyncFunction(extractVitalsData(bundle)::apply,this::onVitalsDataReceived, vitals,this::onError);
     }
 
     public void onError(Throwable throwable){

@@ -2,15 +2,15 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalDateTime;
 
 @Entity
-public class Person {
+public class Person extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "person_id")
@@ -81,11 +81,12 @@ public class Person {
     @Json(name = "birthtime")
     private LocalDateTime birthTime;
 
-    public Person(long personId, LocalDateTime birthDate,String gender){
+    public Person(long personId, LocalDateTime birthDate,String gender, LocalDateTime dateCreated){
 
         this.personId = personId;
         this.birthDate = birthDate;
         this.gender = gender;
+        this.dateCreated = dateCreated;
     }
 
     public long getPersonId() {
@@ -102,6 +103,11 @@ public class Person {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public long getId() {
+        return personId;
     }
 
     public LocalDateTime getBirthDate() {

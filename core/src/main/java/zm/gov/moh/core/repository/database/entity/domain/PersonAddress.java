@@ -1,6 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
@@ -8,7 +9,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "person_address")
-public class PersonAddress {
+public class PersonAddress extends SynchronizableEntity {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "person_address_id")
@@ -121,7 +122,7 @@ public class PersonAddress {
     }
 
     @Ignore
-    public PersonAddress(long personAddressId,long personId, String address1, String cityVillage, String stateProvince, short preferred ){
+    public PersonAddress(long personAddressId,long personId, String address1, String cityVillage, String stateProvince, short preferred, LocalDateTime dateCreated){
 
         this.personAddressId = personAddressId;
         this.personId = personId;
@@ -129,6 +130,12 @@ public class PersonAddress {
         this.cityVillage = cityVillage;
         this.stateProvince = stateProvince;
         this.preferred = preferred;
+        this.dateCreated = dateCreated;
+    }
+
+    @Override
+    public long getId() {
+        return personId;
     }
 
     public long getPersonAddressId() {

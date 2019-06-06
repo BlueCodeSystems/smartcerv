@@ -19,10 +19,10 @@ import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 
-public class EncounterPersist extends PersistService {
+public class PersistEncounter extends PersistService {
 
-    public EncounterPersist() {
-        super("");
+    public PersistEncounter(){
+        super(ServiceManager.Service.PERSIST_ENCOUNTERS);
     }
 
     @Override

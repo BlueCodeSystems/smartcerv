@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
     </data>
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
