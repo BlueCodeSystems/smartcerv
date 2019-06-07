@@ -11,9 +11,6 @@
             android:label="MOH mCare - SmartCerv"
             android:theme="@style/Smartcerv" />
         <activity
-            android:name="zm.gov.moh.common.submodule.registration.view.RegistrationActivity"
-            android:label="SmartCerv" />
-        <activity
             android:name=".submodule.enrollment.view.CervicalCancerEnrollmentActivity"
             android:label="MOH mCare - SmartCerv"
             android:theme="@style/Smartcerv" />

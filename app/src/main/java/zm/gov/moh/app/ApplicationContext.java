@@ -11,7 +11,6 @@ import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollm
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.form.view.FormActivity;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
-import zm.gov.moh.common.submodule.registration.view.RegistrationActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.common.submodule.vitals.view.VitalsActivity;
 import zm.gov.moh.core.model.Criteria;
@@ -29,7 +28,6 @@ public class ApplicationContext extends BaseApplication {
         //Load common modules
         registerModule(CoreModule.CLIENT_DASHOARD, new BasicModule("Client Dashboard",ClientDashboardActivity.class));
         registerModule(CoreModule.REGISTER, new BasicModule("Register",RegisterActivity.class));
-        registerModule(CoreModule.REGISTRATION, new BasicModule("Register Patient",RegistrationActivity.class));
         registerModule(CoreModule.HOME, new BasicModule("home",HomeActivity.class));
         registerModule(CoreModule.LOGIN, new BasicModule("Login",LoginActivity.class));
         registerModule(CoreModule.VITALS, new BasicModule("Vitals",VitalsActivity.class));

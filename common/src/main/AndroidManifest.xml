@@ -3,7 +3,6 @@
     package="zm.gov.moh.common">
 
     <application>
-        <activity android:name=".submodule.registration.view.RegistrationActivity" />
         <activity android:name=".submodule.login.view.LoginActivity" />
         <activity android:name=".submodule.register.view.RegisterActivity" />
         <activity android:name=".submodule.dashboard.client.view.ClientDashboardActivity" />

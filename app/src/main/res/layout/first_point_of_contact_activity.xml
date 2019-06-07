@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
         <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
         <import name="baseapp" type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>

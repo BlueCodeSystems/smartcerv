@@ -10,6 +10,7 @@ import zm.gov.moh.common.databinding.ActivityVitalsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.vitals.viewmodel.VitalsViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.ui.ToolBarEventHandler;
 
 public class VitalsActivity extends BaseActivity {
 
@@ -35,7 +36,7 @@ public class VitalsActivity extends BaseActivity {
         binding.setBundle(bundle);
         binding.setContext(this);
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Capture Vitals");
         binding.setToolbarhandler(toolBarEventHandler);
     }

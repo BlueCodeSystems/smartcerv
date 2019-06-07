@@ -1,6 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
@@ -8,7 +9,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 
 @Entity
-public class Patient {
+public class Patient extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "patient_id")
@@ -135,5 +136,9 @@ public class Patient {
 
     public void setAllergyStatus(String allergyStatus) {
         this.allergyStatus = allergyStatus;
+    }
+
+    public long getId(){
+        return patientId;
     }
 }
