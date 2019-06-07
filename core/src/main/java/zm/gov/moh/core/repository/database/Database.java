@@ -102,7 +102,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 Concept.class,
                 EntityMetadata.class,
                 Drug.class
-        }, version = 1, exportSchema = false)
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
