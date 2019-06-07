@@ -46,12 +46,12 @@ public class ServiceManager {
             instance.registerIntent(IntentAction.PULL_META_DATA_REMOTE_COMPLETE);
             instance.registerIntent(IntentAction.PULL_ENTITY_REMOTE_COMPLETE);
             instance.registerIntent(IntentAction.PUSH_ENTITY_REMOTE_COMPLETE);
-            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_REMOTE_COMPLETE);
+            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
 
             instance.registerIntent(IntentAction.PULL_META_DATA_REMOTE_INTERRUPT);
             instance.registerIntent(IntentAction.PULL_ENTITY_REMOTE_INTERRUPT);
             instance.registerIntent(IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT);
-            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_REMOTE_INTERRUPT);
+            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_INTERRUPT);
         }
         return instance;
     }
@@ -147,13 +147,13 @@ public class ServiceManager {
          public static final String PULL_META_DATA_REMOTE_COMPLETE = "zm.gov.moh.common.PULL_META_DATA_REMOTE_COMPLETE";
          public static final String PULL_ENTITY_REMOTE_COMPLETE = "zm.gov.moh.common.PULL_ENTITY_REMOTE_COMPLETE";
          public static final String PUSH_ENTITY_REMOTE_COMPLETE = "zm.gov.moh.common.PUSH_ENTITY_REMOTE_COMPLETE";
-         public static final String PERSIST_ENCOUNTERS_REMOTE_COMPLETE = "zm.gov.moh.common.PERSIST_ENCOUNTERS_REMOTE_COMPLETE";
+         public static final String PERSIST_ENCOUNTERS_COMPLETE = "zm.gov.moh.common.PERSIST_ENCOUNTERS_COMPLETE";
 
          //Interrupt
         public static final String PULL_META_DATA_REMOTE_INTERRUPT = "zm.gov.moh.common.PULL_META_DATA_REMOTE_INTERRUPT";
         public static final String PULL_ENTITY_REMOTE_INTERRUPT = "zm.gov.moh.common.PULL_ENTITY_REMOTE_INTERRUPT";
         public static final String PUSH_ENTITY_REMOTE_INTERRUPT = "zm.gov.moh.common.PUSH_ENTITY_REMOTE_INTERRUPT";
-        public static final String PERSIST_ENCOUNTERS_REMOTE_INTERRUPT = "zm.gov.moh.common.PERSIST_ENCOUNTERS_REMOTE_INTERRUPT";
+        public static final String PERSIST_ENCOUNTERS_INTERRUPT = "zm.gov.moh.common.PERSIST_ENCOUNTERS_INTERRUPT";
     }
 
     public class ServiceBroadcastReceiver extends BroadcastReceiver{
@@ -189,8 +189,8 @@ public class ServiceManager {
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
 
-                case IntentAction.PERSIST_ENCOUNTERS_REMOTE_COMPLETE:
-                    Toast.makeText(context,"Encounters saved",Toast.LENGTH_LONG).show();
+                case IntentAction.PERSIST_ENCOUNTERS_COMPLETE:
+                    Toast.makeText(context,"Encounter saved",Toast.LENGTH_LONG).show();
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
 
@@ -210,8 +210,8 @@ public class ServiceManager {
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
 
-                case IntentAction.PERSIST_ENCOUNTERS_REMOTE_INTERRUPT:
-                    Toast.makeText(context,"Encounters saving Interrupted",Toast.LENGTH_LONG).show();
+                case IntentAction.PERSIST_ENCOUNTERS_INTERRUPT:
+                    Toast.makeText(context,"Encounter saving interrupted",Toast.LENGTH_LONG).show();
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
             }
