@@ -2,6 +2,8 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
 
+import com.squareup.moshi.Json;
+
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
@@ -9,107 +11,154 @@ import org.threeten.bp.LocalDateTime;
 public class Visit {
 
     @PrimaryKey
-    public long visit_id;
-    public long patient_id;
-    public long visit_type_id;
-    public LocalDateTime date_started;
-    public LocalDateTime date_stopped;
-    public Long indication_concept_id;
-    public Long location_id;
-    public Long creator;
-    public LocalDateTime date_created;
-    public Long changed_by;
-    public LocalDateTime date_changed;
-    public short voided;
-    public Long voided_by;
-    public LocalDateTime date_voided;
-    public String void_reason;
-    public String uuid;
+    @ColumnInfo(name = "visit_id")
+    @Json(name = "visit_id")
+    private long visitId;
+
+    @ColumnInfo(name = "patient_id")
+    @Json(name = "patient_id")
+    private long patientId;
+
+    @ColumnInfo(name = "visit_type_id")
+    @Json(name = "visit_type_id")
+    private long visitTypeId;
+
+    @ColumnInfo(name = "date_started")
+    @Json(name = "date_started")
+    private LocalDateTime dateStarted;
+
+    @ColumnInfo(name = "date_stopped")
+    @Json(name = "date_stopped")
+    private LocalDateTime dateStopped;
+
+    @ColumnInfo(name = "indication_concept_id")
+    @Json(name = "indication_concept_id")
+    private Long indicationConceptId;
+
+    @ColumnInfo(name = "location_id")
+    @Json(name = "location_id")
+    private Long locationId;
+
+    @ColumnInfo(name = "creator")
+    @Json(name = "creator")
+    private Long creator;
+
+    @ColumnInfo(name = "date_created")
+    @Json(name = "date_created")
+    private LocalDateTime dateCreated;
+
+    @ColumnInfo(name = "changed_by")
+    @Json(name = "changed_by")
+    private Long changedBy;
+
+    @ColumnInfo(name = "date_changed")
+    @Json(name = "date_changed")
+    private LocalDateTime dateChanged;
+
+    @ColumnInfo(name = "voided")
+    @Json(name = "voided")
+    private short voided;
+
+    @ColumnInfo(name = "voided_by")
+    @Json(name = "voided_by")
+    private Long voidedBy;
+
+    @ColumnInfo(name = "date_voided")
+    @Json(name = "date_voided")
+    private LocalDateTime dateVoided;
+
+    @ColumnInfo(name = "void_reason")
+    @Json(name = "void_reason")
+    private String voidReason;
+
+    @ColumnInfo(name = "uuid")
+    @Json(name = "uuid")
+    private String uuid;
 
     public Visit(){
 
     }
 
     @Ignore
-    public Visit(long visit_id, long visit_type_id, long patient_id, Long location_id, Long creator,LocalDateTime date_started){
+    public Visit(long visitId, long visitTypeId, long patientId, Long locationId, Long creator,LocalDateTime dateStarted){
 
-        this.visit_id = visit_id;
-        this.visit_type_id = visit_type_id;
-        this.patient_id = patient_id;
-        this.location_id = location_id;
+        this.visitId = visitId;
+        this.visitTypeId = visitTypeId;
+        this.patientId = patientId;
+        this.locationId = locationId;
         this.creator = creator;
-        this.date_started = date_started;
-        this.date_created = date_started;
+        this.dateStarted = dateStarted;
+        this.dateCreated = dateStarted;
     }
 
     @Ignore
-    public Visit(long visit_id, long visit_type_id, long patient_id, Long location_id, Long creator,LocalDateTime date_started,LocalDateTime date_stopped){
+    public Visit(long visitId, long visitTypeId, long patientId, Long locationId, Long creator,LocalDateTime dateStarted,LocalDateTime dateStopped){
 
-        this.visit_id = visit_id;
-        this.visit_type_id = visit_type_id;
-        this.patient_id = patient_id;
-        this.location_id = location_id;
+        this.visitId = visitId;
+        this.visitTypeId = visitTypeId;
+        this.patientId = patientId;
+        this.locationId = locationId;
         this.creator = creator;
-        this.date_started = date_started;
-        this.date_created = date_started;
-        this.date_stopped = date_stopped;
+        this.dateStarted = dateStarted;
+        this.dateCreated = dateStarted;
+        this.dateStopped = dateStopped;
     }
 
     //Setters and Getters
-    public long getVisit_id() {
-        return visit_id;
+    public long getVisitId() {
+        return visitId;
     }
 
-    public void setVisit_id(long visit_id) {
-        this.visit_id = visit_id;
+    public void setVisitId(long visitId) {
+        this.visitId = visitId;
     }
 
-    public long getPatient_id() {
-        return patient_id;
+    public long getPatientId() {
+        return patientId;
     }
 
-    public void setPatient_id(long patient_id) {
-        this.patient_id = patient_id;
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
     }
 
-    public long getVisit_type_id() {
-        return visit_type_id;
+    public long getVisitTypeId() {
+        return visitTypeId;
     }
 
-    public void setVisit_type_id(long visit_type_id) {
-        this.visit_type_id = visit_type_id;
+    public void setVisitTypeId(long visitTypeId) {
+        this.visitTypeId = visitTypeId;
     }
 
-    public LocalDateTime getDate_started() {
-        return date_started;
+    public LocalDateTime getDateStarted() {
+        return dateStarted;
     }
 
-    public void setDate_started(LocalDateTime date_started) {
-        this.date_started = date_started;
+    public void setDateStarted(LocalDateTime dateStarted) {
+        this.dateStarted = dateStarted;
     }
 
-    public LocalDateTime getDate_stopped() {
-        return date_stopped;
+    public LocalDateTime getDateStopped() {
+        return dateStopped;
     }
 
-    public void setDate_stopped(LocalDateTime date_stopped) {
-        this.date_stopped = date_stopped;
+    public void setDateStopped(LocalDateTime dateStopped) {
+        this.dateStopped = dateStopped;
     }
 
-    public Long getIndication_concept_id() {
-        return indication_concept_id;
+    public Long getIndicationConceptId() {
+        return indicationConceptId;
     }
 
-    public void setIndication_concept_id(Long indication_concept_id) {
-        this.indication_concept_id = indication_concept_id;
+    public void setIndicationConceptId(Long indicationConceptId) {
+        this.indicationConceptId = indicationConceptId;
     }
 
-    public Long getLocation_id() {
-        return location_id;
+    public Long getLocationId() {
+        return locationId;
     }
 
-    public void setLocation_id(Long location_id) {
-        this.location_id = location_id;
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
     }
 
     public Long getCreator() {
@@ -120,28 +169,28 @@ public class Visit {
         this.creator = creator;
     }
 
-    public LocalDateTime getDate_created() {
-        return date_created;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    public void setDate_created(LocalDateTime date_created) {
-        this.date_created = date_created;
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    public Long getChanged_by() {
-        return changed_by;
+    public Long getChangedBy() {
+        return changedBy;
     }
 
-    public void setChanged_by(Long changed_by) {
-        this.changed_by = changed_by;
+    public void setChangedBy(Long changedBy) {
+        this.changedBy = changedBy;
     }
 
-    public LocalDateTime getDate_changed() {
-        return date_changed;
+    public LocalDateTime getDateChanged() {
+        return dateChanged;
     }
 
-    public void setDate_changed(LocalDateTime date_changed) {
-        this.date_changed = date_changed;
+    public void setDateChanged(LocalDateTime dateChanged) {
+        this.dateChanged = dateChanged;
     }
 
     public short getVoided() {
@@ -152,28 +201,28 @@ public class Visit {
         this.voided = voided;
     }
 
-    public Long getVoided_by() {
-        return voided_by;
+    public Long getVoidedBy() {
+        return voidedBy;
     }
 
-    public void setVoided_by(Long voided_by) {
-        this.voided_by = voided_by;
+    public void setVoidedBy(Long voidedBy) {
+        this.voidedBy = voidedBy;
     }
 
-    public LocalDateTime getDate_voided() {
-        return date_voided;
+    public LocalDateTime getDateVoided() {
+        return dateVoided;
     }
 
-    public void setDate_voided(LocalDateTime date_voided) {
-        this.date_voided = date_voided;
+    public void setDateVoided(LocalDateTime dateVoided) {
+        this.dateVoided = dateVoided;
     }
 
-    public String getVoid_reason() {
-        return void_reason;
+    public String getVoidReason() {
+        return voidReason;
     }
 
-    public void setVoid_reason(String void_reason) {
-        this.void_reason = void_reason;
+    public void setVoidReason(String voidReason) {
+        this.voidReason = voidReason;
     }
 
     public String getUuid() {

@@ -120,7 +120,6 @@
           "conceptId": 165253,
           "dataType": "Text",
           "textSize": 18,
-          "style": "multiline",
           "hint": "Reason PICT was not offered"
         },
         {
@@ -172,9 +171,8 @@
           "widgetType": "Concept",
           "conceptId": 165208,
           "dataType": "Text",
-          "style": "multiline",
           "textSize": 18,
-          "hint": "Enter Reason for Unknown HIV Satus "
+          "hint": "Reason for Unknown HIV Satus "
         },
         {
           "tag": "pict offered",
@@ -316,9 +314,8 @@
           "widgetType": "Concept",
           "conceptId": 165259,
           "dataType": "Text",
-          "style": "multiline",
           "textSize": 18,
-          "hint": "Reason why patient was not reffred to ART Clinic"
+          "hint": "Reason not referred to ART clinic"
         }
       ]
     }

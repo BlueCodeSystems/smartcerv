@@ -1,12 +1,12 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
 import android.content.Context;
-
 import android.os.Bundle;
 import android.view.View;
 
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
@@ -19,7 +19,6 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
@@ -28,6 +27,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
@@ -35,10 +35,10 @@ import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
-import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
-import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
-import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
@@ -255,16 +255,22 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(model.getHint())
                     .setTextSize(model.getTextSize())
                     .setLogic(model.getLogic())
+                    //pass Uuid to basic widget
+                    .setUuid(model.getUuid())
                     .setWeight(model.getWeight())
                     .build();
         }
-        /*else if(widgetModel instanceof BasicDrugWidgetModel) {
+        else if(widgetModel instanceof BasicDrugWidgetModel) {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
+            BaseWidget widget = new BasicDrugWidget.Builder(this.context)
+                    .setUuid(model.getUuid())
+                    .setRepository(repository)
+                    .setBundle(bundle)
+                    .build();
 
-            return new BasicDrugWidget(context)
-                    .setUuid(model.getUuid()).build();
-        }*/
+            return widget;
+        }
         else if(widgetModel instanceof GenderPickerModel){
 
             GenderPickerModel model = (GenderPickerModel) widgetModel;
