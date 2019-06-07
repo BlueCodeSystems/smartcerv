@@ -181,7 +181,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     border.getPaint().setColor(Color.BLACK);
                     mEditText.setBackground(border);
                     mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-                    mEditText.setGravity(Gravity.LEFT);
+                    mEditText.setGravity(Gravity.TOP);
                     WidgetUtils.setLayoutParams(mEditText, 800, 200, mWeight);
                     this.addView(view);
                 } else if (mStyle.equals("TextBoxTwo")) {
@@ -191,7 +191,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     border.getPaint().setColor(Color.BLACK);
                     mEditText.setBackground(border);
                     mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-                    mEditText.setGravity(Gravity.CENTER);
+                    mEditText.setGravity(Gravity.TOP);
                     WidgetUtils.setLayoutParams(mEditText, 300, 70, mWeight);
                     addView(mEditText);
                 }
