@@ -220,7 +220,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
                         mEditText.setGravity(Gravity.LEFT);
-                        WidgetUtils.setLayoutParams(mEditText, 800, 200, mWeight);
+                        WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
+                        mEditText.setSingleLine(false);
+                        mEditText.setMinLines(5);
                         this.addView(view);
                     } else if (mStyle.equals("TextBoxTwo")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
@@ -230,7 +232,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
                         mEditText.setGravity(Gravity.CENTER);
-                        WidgetUtils.setLayoutParams(mEditText, 300, 70, mWeight);
+                        WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
                     break;
