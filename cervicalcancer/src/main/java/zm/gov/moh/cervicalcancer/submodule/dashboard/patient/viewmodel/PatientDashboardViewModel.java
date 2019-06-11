@@ -54,7 +54,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> treatmentDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerDataEmitter;
-    private MutableLiveData<LinkedHashMultimap<Long, String>>  ediDataEmitter;
+    private MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>>  ediDataEmitter;
     private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem, VisitEncounterItem>>> visitDataEmitter;
 
     public PatientDashboardViewModel(Application application) {
@@ -121,7 +121,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return providerDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMultimap<Long, String>> getEDIDataEmitter() {
+    public MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>> getEDIDataEmitter() {
 
         if (ediDataEmitter == null)
             ediDataEmitter = new MutableLiveData<>();
@@ -219,26 +219,32 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
-    public LinkedHashMultimap<Long, String> extractEDIData(List<Visit> visits){
+    public Map<String,LinkedHashMultimap<Long, String>> extractEDIData(List<Visit> visits){
 
+        Map<String,LinkedHashMultimap<Long, String>> ediVisitData;
         if(visits.size() > 0) {
-
+            ediVisitData = new LinkedHashMap<>();
             LinkedHashMultimap<Long, String> ediData = LinkedHashMultimap.create();
             Long ediConceptId = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_EDI_IMAGE);
 
             Obs eiObs = db.obsDao().findByConceptId(ediConceptId);
 
             for(Visit visit: visits) {
+                String visitName = db.visitTypeDao().getVisitTypeById(visit.getVisitTypeId());
                 long visitDatetime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 List<Obs> ediObs = db.obsDao().getObsByVisitIdConceptId(visit.getVisitId(),ediConceptId);
 
                 for(Obs obs: ediObs){
                     ediData.put(visitDatetime, obs.getValueText());
                 }
+
+
+
+                ediVisitData.put(visitName,ediData);
             }
-            return ediData;
-        }
-        return null;
+        }else return  null;
+
+        return ediVisitData;
     }
 
     public LinkedHashMap<Long, Collection<Boolean>> extractReferralData(List<Visit> visits){
