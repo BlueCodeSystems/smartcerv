@@ -81,7 +81,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         rowLayoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
             TableRow.LayoutParams.WRAP_CONTENT);
-        //rowLayoutParams.gravity = Gravity.END;
+
         //frequency list
         mRepository.getDatabase()
                 .conceptAnswerNameDao()
@@ -142,8 +142,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         durationSpinner.setLayoutParams(rowLayoutParams);
 
         tableRow.addView(checkBoxGroup);
-        //tableRow.addView(frequencySpinner);
-        //tableRow.addView(durationSpinner);
 
         tableLayout.addView(tableRow);
     }
@@ -163,10 +161,12 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
             frequencySpinner.setVisibility(GONE);
             tableRow.removeView(durationSpinner);
             durationSpinner.setVisibility(GONE);
+        } else {
+            tableRow.addView(frequencySpinner);
+            frequencySpinner.setVisibility(VISIBLE);
+            tableRow.addView(durationSpinner);
+            durationSpinner.setVisibility(VISIBLE);
         }
-
-        tableRow.addView(frequencySpinner);
-        tableRow.addView(durationSpinner);
 
         if(canSetValue.get()) {
             drugConceptId = obsValue;
