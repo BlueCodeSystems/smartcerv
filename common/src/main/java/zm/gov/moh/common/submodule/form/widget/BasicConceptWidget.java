@@ -275,7 +275,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, spinner));
                 else
                     this.addView(spinner);
-                break;
+                
         }
 
         render();
@@ -420,6 +420,13 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 else
                     mEditText.setText(value);
                 break;
+
+
+                // Behaviour when text based data is retrieved
+
+
+
+
         }
     }
 }

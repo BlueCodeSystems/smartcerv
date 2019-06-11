@@ -38,7 +38,6 @@ public interface ObsDao {
     @Query("SELECT * FROM obs WHERE concept_id = :id")
     Obs findByConceptId(long id);
 
-
     //query to pick patient by conceptuuid
     @Query("SELECT * FROM obs WHERE concept_id=(SELECT concept_id FROM concept WHERE uuid = :conceptUuid) AND person_id = :patientId ORDER BY date_created DESC" )
     LiveData<Obs>findPatientObsByConceptUuid(long patientId, String conceptUuid);

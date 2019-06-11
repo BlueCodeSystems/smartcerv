@@ -14,7 +14,7 @@
           "widgetType": "Concept",
           "conceptId": 165096,
           "dataType": "Numeric",
-          "uuid":"5b5e9d10-788a-4653-a405-d7fdd5be0da7",
+          "uuid": "5b5e9d10-788a-4653-a405-d7fdd5be0da7",
           "label": "Parity",
           "textSize": 18,
           "hint": "Number"
@@ -232,7 +232,6 @@
           "label": "Oral Contraceptives",
           "textSize": 18
         },
-
         {
           "tag": "vaginal bleeding",
           "widgetType": "Concept",
@@ -368,6 +367,19 @@
                     "metadata": {
                       "tags": [
                         "cryotherapy_date"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 2
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        ""
                       ]
                     }
                   }
