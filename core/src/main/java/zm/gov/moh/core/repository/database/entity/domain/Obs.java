@@ -7,13 +7,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import androidx.room.*;
 
 import com.squareup.moshi.Json;
 
 // implement Serializable to translate  object state into a format that can be stored
 @Entity
-public class Obs implements Serializable {
+public class Obs extends SynchronizableEntity {
+
 
     @PrimaryKey
     @ColumnInfo(name = "obs_id")
@@ -468,5 +473,10 @@ public class Obs implements Serializable {
 
     public void setVoidReason(String voidReason) {
         this.voidReason = voidReason;
+    }
+
+    @Override
+    public long getId() {
+        return obsId;
     }
 }

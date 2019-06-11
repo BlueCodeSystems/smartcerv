@@ -1,14 +1,14 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "person_name")
-public class PersonName {
+public class PersonName extends SynchronizableEntity {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "person_name_id")
@@ -101,13 +101,14 @@ public class PersonName {
     }
 
     @Ignore
-    public PersonName(long personNameId, long personId, String givenName, String familyName, short preferred){
+    public PersonName(long personNameId, long personId, String givenName, String familyName, short preferred,LocalDateTime dateCreated){
 
         this.personNameId = personNameId;
         this.personId = personId;
         this.givenName = givenName;
         this.familyName = familyName;
         this.preferred = preferred;
+        this.dateCreated = dateCreated;
 
     }
 
@@ -125,6 +126,11 @@ public class PersonName {
 
     public void setPreferred(short preferred) {
         this.preferred = preferred;
+    }
+
+    @Override
+    public long getId() {
+        return personNameId;
     }
 
     public long getPersonId() {

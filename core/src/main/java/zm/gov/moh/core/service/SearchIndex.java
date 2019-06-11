@@ -14,6 +14,7 @@ import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
 
@@ -33,7 +34,7 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
         AndroidThreeTen.init(this);
         InjectorUtils.provideRepository(this, getApplication());
 
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 clients -> {
 
                     for(Client client: clients) {

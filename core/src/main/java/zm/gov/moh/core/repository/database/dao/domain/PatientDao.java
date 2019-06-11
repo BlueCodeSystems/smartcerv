@@ -4,11 +4,12 @@ import androidx.room.*;
 
 import java.util.List;
 
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 
 @Dao
-public interface PatientDao {
+public interface PatientDao extends Synchronizable<Patient> {
 
     //gets all persons attribute type
     @Query("SELECT * FROM patient")
@@ -29,4 +30,8 @@ public interface PatientDao {
     //get persons name by getPersons id
     @Query("SELECT MAX(patient_id) FROM patient")
     Long getMaxId();
+
+    @Override
+    @Query("SELECT * FROM (SELECT * FROM patient WHERE patient_id NOT IN (:id)) WHERE patient_id >= :offsetId")
+    Patient[] findEntityNotWithId(long offsetId,long... id);
 }

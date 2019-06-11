@@ -27,6 +27,8 @@ import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
+import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
@@ -34,12 +36,11 @@ import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
+import zm.gov.moh.core.service.PersistDemographics;
+import zm.gov.moh.core.service.PersistEncounter;
+
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.service.DemographicsPersist;
-import zm.gov.moh.core.service.EncounterPersist;
 import zm.gov.moh.core.utils.BaseFragment;
 
 public class FormFragment extends BaseFragment {
@@ -77,7 +78,7 @@ public class FormFragment extends BaseFragment {
         this.form.setRootView(rootView.findViewById(R.id.form_container));
         this.form.setFormContext(new FormContext());
 
-        BaseActivity.ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler();
+        ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler(context);
         binding.setToolbarhandler(toolBarEventHandler);
 
         try {
@@ -90,32 +91,6 @@ public class FormFragment extends BaseFragment {
         } catch (Exception e) {
             Exception ex = e;
         }
-
-        /*
-        //Criteria,Action
-        if( formModel.getAttributes().getLogic() != null)
-            for(Logic logic : formModel.getAttributes().getLogic()){
-
-                if(logic.getAction().getType().equals(Action.ACTION_TYPE_CRITERIA)){
-
-                    for(String tag : logic.getAction().getMetadata().getTags())
-                        if(bundle.containsKey(tag)) {
-
-                            String value = bundle.getString(tag);
-                            if(!value.equals(logic.getCondition().getValue())){
-                                context.onBackPressed();
-                                Toast.makeText(context, context.getString(R.string.male_patient_block), Toast.LENGTH_LONG).show();
-                            }
-
-
-
-
-                        }
-                }
-
-            }
-            */
-
 
         if (formModel.getAttributes().getLogic() != null)
             for (Logic logic : formModel.getAttributes().getLogic()) {
@@ -130,14 +105,6 @@ public class FormFragment extends BaseFragment {
                                 context.onBackPressed();
                                 Toast.makeText(context, context.getString(R.string.male_patient_block), Toast.LENGTH_LONG).show();
                             }
-
-                               /*
-                            String value = bundle.getString(tag);
-                            if (value.matches("\\d+"))
-                                if (Integer.parseInt(value) < Integer.parseInt(logic.getCondition().getValue().toString())) {
-                                    context.onBackPressed();
-                                    Toast.makeText(context, context.getString(R.string.menopause_block), Toast.LENGTH_LONG).show();
-                                }  */
                         }
                 }
 
@@ -164,20 +131,17 @@ public class FormFragment extends BaseFragment {
 
                 this.form.getRootView().addView(formSection);
             }
-            //FormImageViewButtonWidget formImageViewButtonWidget = new FormImageViewButtonWidget(getContext());
-            //formImageViewButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
+
             FormSubmitButtonWidget formSubmitButtonWidget = new FormSubmitButtonWidget(getContext());
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
-            //formSubmitButtonWidget.setBundle(this.bundle);
-
-            //formImageViewButtonWidget.setOnClick(bundle1 ->
 
             formSubmitButtonWidget.setOnSubmit(bundle -> {
                 bundle = this.bundle;
                 Bundle contextbundle = context.getIntent().getExtras();
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 this.bundle.putAll(contextbundle);
-                Intent intent = new Intent(context, EncounterPersist.class);
+
+                Intent intent = new Intent(context,PersistEncounter.class);
 
                 ArrayList<String> tags = form.getFormContext().getTags();
 
@@ -185,11 +149,13 @@ public class FormFragment extends BaseFragment {
 
                 ObsValue<String> obsValue1 = (ObsValue<String>) bundle.getSerializable("image view button");
 
-                if (formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
-                    intent = new Intent(context, EncounterPersist.class);
-                } else if (formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)) {
-                    intent = new Intent(context, DemographicsPersist.class);
-                } else {
+                if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
+                    intent = new Intent(context, PersistEncounter.class);
+                }
+                else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
+                    intent = new Intent(context, PersistDemographics.class);
+                }
+                else{
 
                     String moduleName = this.bundle.getString(Key.START_MODULE_ON_RESULT);
                     context.startModule(moduleName, this.bundle);
@@ -200,11 +166,8 @@ public class FormFragment extends BaseFragment {
                 intent.putExtras(this.bundle);
                 context.startService(intent);
                 context.onBackPressed();
-                // Module submodule = (Module) bundle.getSerializable(BaseActivity.START_SUBMODULE_ON_FORM_RESULT_KEY);
-                //context.startModule(submodule, bundle);
             });
 
-            //this.form.getRootView().addView(formImageViewButtonWidget);
             this.form.getRootView().addView(formSubmitButtonWidget);
         }
 
@@ -240,13 +203,11 @@ public class FormFragment extends BaseFragment {
         //bundle.put(Key.PERSON_ID,)
     }
 
-    public void onUriRetrieved(Map.Entry<String, Uri> data) {
+    public void onUriRetrieved(Map.Entry<Integer, Uri> data) {
         String tag = bundle.getString(Key.VIEW_TAG);
         View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget) view).onUriRetrieved(data.getValue());
-
     }
-
     // Method to get the value form the bundle
     // fetch data from Dao using the name of the query
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
@@ -268,10 +229,7 @@ public class FormFragment extends BaseFragment {
                     conceptWidget.onLastObsRetrieved(obs);
                 }
             });
-
-
         }
-
 
     }
 

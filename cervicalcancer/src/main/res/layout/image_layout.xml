@@ -4,25 +4,10 @@
     android:layout_height="180dp"
     android:orientation="vertical">
 
-    <!--GridView
-        android:id="@+id/iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        android:src="@drawable/sc_1"
-        android:src="@drawable/sc_2"
-    </GridView!-->
-
-    <GridView
-        android:id="@+id/iv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/sc_1" />
-
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:layout_margin="2dp"
-        android:adjustViewBounds="true"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:scaleType="fitCenter"
+        android:id="@+id/iv"/>
 
 </LinearLayout>

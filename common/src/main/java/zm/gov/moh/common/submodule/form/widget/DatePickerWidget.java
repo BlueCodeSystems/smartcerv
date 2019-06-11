@@ -16,7 +16,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.utils.Utils;
 
-public class DatePickerWidget extends EditTextWidget {
+public class DatePickerWidget extends ReadonlyTextWidget {
 
     public DatePickerWidget(Context context){
         super(context);

@@ -1,13 +1,14 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "encounter")
-public class Encounter {
+public class Encounter extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "encounter_id")
@@ -217,5 +218,10 @@ public class Encounter {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    @Override
+    public long getId() {
+        return encounterId;
     }
 }

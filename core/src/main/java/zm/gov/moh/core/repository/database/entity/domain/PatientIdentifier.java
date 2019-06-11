@@ -1,6 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
@@ -8,7 +9,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "patient_identifier")
-public class PatientIdentifier {
+public class PatientIdentifier extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "patient_identifier_id")
@@ -128,6 +129,11 @@ public class PatientIdentifier {
 
     public void setPreferred(short preferred) {
         this.preferred = preferred;
+    }
+
+    @Override
+    public long getId() {
+        return patientIdentifierId;
     }
 
     public long getLocationId() {
