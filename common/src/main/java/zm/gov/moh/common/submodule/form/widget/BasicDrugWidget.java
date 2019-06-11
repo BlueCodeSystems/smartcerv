@@ -116,6 +116,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
     public void onDrugReceived(Drug drug) {
 
+        tableLayout.removeAllViews();
         String strength = "";
         if(drug.strength != null)
             strength = drug.strength;
@@ -125,17 +126,15 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, checkboxNameIdMap,
             this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,1);
-        //checkBoxGroup.setBackground(mContext.getResources().getDrawable(R.drawable.border_right));
+
         tableRow = new TableRow(mContext);
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
-        //tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_top_bottom));
 
         frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
             WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
-        //frequencySpinner.setBackground(mContext.getResources().getDrawable(R.drawable.border_right));
+
         durationSpinner = WidgetUtils.createSpinner(mContext, durationIdMap, this::onSelectedDurationValue,
             WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
-        //durationSpinner.setBackground(mContext.getResources().getDrawable(R.drawable.border_right));
 
         checkBoxGroup.setLayoutParams(rowLayoutParams);
         frequencySpinner.setLayoutParams(rowLayoutParams);
