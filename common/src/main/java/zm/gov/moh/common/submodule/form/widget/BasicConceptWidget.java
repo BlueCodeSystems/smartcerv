@@ -123,17 +123,19 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                             if (condition.getExpression().getLessThan() != null) {
                                 String dob = bundle.getString((String) logic.getCondition().getValue());
 
-                                LocalDate ld = LocalDate.parse(dob);
-                                int clientAge = LocalDateTime.now().getYear() - ld.getYear();
-                                int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
+                                if(dob != null) {
+                                    LocalDate ld = LocalDate.parse(dob);
+                                    int clientAge = LocalDateTime.now().getYear() - ld.getYear();
+                                    int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
 
-                                if (clientAge < conditionAge) {
+                                    if (clientAge < conditionAge) {
 
-                                    Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
-                                    Set<String> tags = new HashSet<>();
-                                    WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
-                                    form.getFormContext().getVisibleWidgetTags().addAll(tags);
+                                        Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
+                                        Set<String> tags = new HashSet<>();
+                                        WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
+                                        form.getFormContext().getVisibleWidgetTags().addAll(tags);
 
+                                    }
                                 }
 
                             }
