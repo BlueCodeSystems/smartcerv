@@ -1,67 +1,70 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
-import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.LabeledIntent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
 
 import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
-import java.io.IOException;
+import java.time.ZoneId;
+import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.Map;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import zm.gov.moh.cervicalcancer.BuildConfig;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.IRecyclerViewClickListener;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.common.submodule.form.utils.MediaStorageUtil;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.Key;
 
-public class PatientDashboardEDIGalleryFragment extends Fragment {
+import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+
+public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
 
-
+    private final Object PatientDashboardEDIGalleryFragment = this;
     private BaseActivity context;
     RecyclerView recyclerView;
-    private TextView visitDate;
     //private TextView visitType;
     private View rootView;
     private FormCameraButtonWidget mContext;
     private SharedPreferences.Editor mBundle;
     private Uri uri;
     private String type;
+    private File filename;
+    private Locale mediaFile;
+    private File mImsgeFileName;
 
 
     public PatientDashboardEDIGalleryFragment() {
@@ -82,8 +85,6 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
         //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
         // View view = binding.getRoot();
-
-        visitDate = rootView.findViewById(R.id.visit_date);
         //visitType = rootView.findViewWById(R.id.visit_type);
 
         ((PatientDashboardViewModel) context.getViewModel()).getEDIDataEmitter().observe(context, this::populateEDIRole);
@@ -92,36 +93,32 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
 
 
-    private void populateEDIRole(LinkedHashMultimap<Long, String> ediData) {
-        for (long visitEpochSeconds : ediData.keySet()) {
+    private void populateEDIRole(Map<String,LinkedHashMultimap<Long, String>> ediData) {
 
-            Instant dateTime = Instant.ofEpochSecond(visitEpochSeconds);
-            visitDate.setText(dateTime.toString());
-            ArrayList<String> uris = new ArrayList<>(ediData.get(visitEpochSeconds));
-            //visitType.setText(visitType.toString());
-
-            ImageDataAdapter adapter = new ImageDataAdapter(context,uris);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+            ImageDataAdapter adapter = new ImageDataAdapter(context,ediData);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
 
             recyclerView = rootView.findViewById(R.id.recyclerview1);
             recyclerView.setLayoutManager(gridLayoutManager);
             recyclerView.setAdapter(adapter);
 
-
-
-
         }
     }
 
-    public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
-        private ArrayList<String> samples;
+     class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
+        private  LinkedList<Map.Entry<String,LinkedHashMultimap<Long, String>>> ediVisitDataList;
         private Context context;
         private FormCameraButtonWidget ediPrint;
 
 
-        public ImageDataAdapter(Context context, ArrayList<String> imageUris) {
+        public ImageDataAdapter(Context context, Map<String,LinkedHashMultimap<Long, String>> ediVisitData) {
+            ediVisitDataList = new LinkedList<>();
             this.context = context;
-            this.samples = imageUris;
+
+
+            for(Map.Entry<String,LinkedHashMultimap<Long, String>> ediData : ediVisitData.entrySet())
+                ediVisitDataList.push(ediData);
+
         }
 
         @Override
@@ -129,7 +126,7 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
             return new ViewHolder(view);
 
-            
+
 
 
 
@@ -138,11 +135,20 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
-            AppCompatImageView imageView = viewHolder.img;
-            String res = samples.get(i);
+            AppCompatImageView imageView = viewHolder.img,  imageView2 = viewHolder.img2;
+            TextView caption = viewHolder.caption;
+            Map.Entry<String,LinkedHashMultimap<Long, String>> data = ediVisitDataList.get(i);
+
             File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+            long dateTimeEpoch = data.getValue().keySet().iterator().next();
 
+            Iterator<String> images = data.getValue().get(dateTimeEpoch).iterator();
 
+            Instant dateTime = Instant.ofEpochSecond(dateTimeEpoch);
+            LocalDateTime visitDateTime = LocalDateTime.ofInstant(dateTime, ZoneOffset.UTC);
+            String visitDateTimeFormatted =  visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+
+            caption.setText(data.getKey()+" on "+visitDateTimeFormatted);
             /*imageView.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
@@ -152,7 +158,6 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
                                                  } catch (IOException e) {
                                                      e.printStackTrace();
                                                  }
-
                                              }
                                          });**/
 
@@ -161,88 +166,36 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setType("image, JPG");
-                    intent.putExtra(Intent.EXTRA_PACKAGE_NAME, "some data");
-                    /*PackageManager packageManager = mContext.getPackageManager();
-                    List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
-                    boolean isIntentSafe = activities.size() > 0;
-                    if (isIntentSafe)*/
-                    startActivity(Intent.createChooser(intent, "Open with"));
-                    /*PackageManager pm  = ediPrint.getPackageManager();
-                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-                    Intent editIntent = new Intent(Intent.ACTION_EDIT);
-                    viewIntent.setType("image, jpeg");
-                    editIntent.setType("image, jpeg");
-                    Intent openInChooser = Intent.createChooser(viewIntent, "Open in...");
-                    startActivity(openInChooser);
-                    Spannable forViewing = new SpannableString("(for editing)");
-                    forViewing.setSpan(new ForegroundColorSpan(Color.CYAN), 0, forViewing.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    List<ResolveInfo> resInfo = pm.queryIntentActivities(viewIntent, 0);
-                    Intent[] extraIntents = new Intent[resInfo.size()];
-                    for (int i = 0; i < resInfo.size(); i++) {
-                        // Extract the label, append it, and repackage it in a LabeledIntent
-                        ResolveInfo ri = resInfo.get(i);
-                        String packageName = ri.activityInfo.packageName;
-                        Intent intent = new Intent();
-                        intent.setComponent(new ComponentName(packageName, ri.activityInfo.name));
-                        intent.setAction(Intent.ACTION_VIEW);
-                        viewIntent.setType("image, jpeg");
-                        //intent.setDataAndType(uri, type);
-                        CharSequence label = TextUtils.concat(ri.loadLabel(pm), forViewing);
-                        extraIntents[i] = new LabeledIntent(intent, packageName, label, ri.icon);
-                    }*/
-
-                    //openInChooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, extraIntents);
-                    //startActivity(openInChooser);
-
-                    //chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { viewIntent });
-                    //
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                    //if (url.toString().contains(".jpg") ||
-                            //url.toString().contains(".jpeg") || url.toString().contains(".png")) {
-                        // JPG file
-                        //intent.setDataAndType(uri, "image/jpeg");
-                    //intent.setDataAndType(Uri.parse("file://" + "/sdcard/test.jpg"), "image/*");
-
-                    //mBundle.putString(Key.VIEW_TAG, (String)getTag());
-                    //((AppCompatActivity)mContext).startActivity(galleryIntent);
-
-
-
-
-
-                    //if(isImageFitToScreen) {
-                        //isImageFitToScreen=false;
-                        //imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        //imageView.setAdjustViewBounds(true);
-                    //}else{
-                        //isImageFitToScreen=true;
-                        //imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                        //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    }
-                //}
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_VIEW);
+                    ((AppCompatActivity)context).startActivityForResult(Intent.createChooser(intent,
+                            "Select Picture"), 1);
+                    /*Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()+"")), "image/*");
+                    context.startActivity(intent);*/
+                }
             });
 
-
             try {
+                if(images.hasNext()){
+                    RequestBuilder builder = Glide
+                            .with(context)
+                            .asBitmap();
+                               builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
+                                .into(imageView);
 
-
-                Glide
-                        .with(context)
-                        .asBitmap()
-                        .load(image.getCanonicalPath()+"/"+res+".png")
-
-                        //.override(1600, 1300)
-                        //.fitCenter()
-                        .into(imageView);
+                    if(images.hasNext()){
+                        builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
+                                .into(imageView2);
+                    }
+                }
             }catch (Exception e){
                 Exception ex = e;
-
-
-                
             }
+
+
 
 
 
@@ -282,18 +235,19 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
         @Override
         public int getItemCount() {
 
-            return samples.size();
+            return ediVisitDataList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            AppCompatImageView img;
-            ProgressBar progressBar;
+            AppCompatImageView img,img2;
+            TextView caption;
 
             public ViewHolder(View view) {
                 super(view);
                 img = view.findViewById(R.id.iv);
-
+                img2 = view.findViewById(R.id.img2);
+                caption = view.findViewById(R.id.caption);
 
 
 
@@ -311,9 +265,4 @@ public class PatientDashboardEDIGalleryFragment extends Fragment {
             @Override
             public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
             }*/
-    }
-
-    public PackageManager getPackageManager() {
-        return mContext.getPackageManager();
-    }
 }

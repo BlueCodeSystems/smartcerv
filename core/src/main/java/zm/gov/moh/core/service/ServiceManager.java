@@ -139,7 +139,8 @@ public class ServiceManager {
         PULL_ENTITY_REMOTE,
         PUSH_ENTITY_REMOTE,
         PERSIST_DEMOGRAPHICS,
-        PERSIST_ENCOUNTERS
+        PERSIST_ENCOUNTERS,
+        PULL_PATIENT_ID_REMOTE
     }
 
     public class IntentAction{
