@@ -135,6 +135,15 @@
           "weight": 1
         },
         {
+          "tag": "atypical vessel",
+          "widgetType": "Concept",
+          "conceptId":165242,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Atypical vessel",
+          "textSize": 18
+        },
+        {
           "widgetType": "TextView",
           "label": "Most recent CD4",
           "textSize": 18,

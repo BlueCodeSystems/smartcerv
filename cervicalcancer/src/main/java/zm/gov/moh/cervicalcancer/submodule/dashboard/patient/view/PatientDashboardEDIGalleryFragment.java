@@ -15,15 +15,26 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
 
 import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
+import java.time.ZoneId;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Map;
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
@@ -45,7 +56,6 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
     private final Object PatientDashboardEDIGalleryFragment = this;
     private BaseActivity context;
     RecyclerView recyclerView;
-    private TextView visitDate;
     //private TextView visitType;
     private View rootView;
     private FormCameraButtonWidget mContext;
@@ -75,8 +85,6 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
         //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
         // View view = binding.getRoot();
-
-        visitDate = rootView.findViewById(R.id.visit_date);
         //visitType = rootView.findViewWById(R.id.visit_type);
 
         ((PatientDashboardViewModel) context.getViewModel()).getEDIDataEmitter().observe(context, this::populateEDIRole);
@@ -85,36 +93,32 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
 
 
-    private void populateEDIRole(LinkedHashMultimap<Long, String> ediData) {
-        for (long visitEpochSeconds : ediData.keySet()) {
+    private void populateEDIRole(Map<String,LinkedHashMultimap<Long, String>> ediData) {
 
-            Instant dateTime = Instant.ofEpochSecond(visitEpochSeconds);
-            visitDate.setText(dateTime.toString());
-            ArrayList<String> uris = new ArrayList<>(ediData.get(visitEpochSeconds));
-            //visitType.setText(visitType.toString());
-
-            ImageDataAdapter adapter = new ImageDataAdapter(context,uris);
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+            ImageDataAdapter adapter = new ImageDataAdapter(context,ediData);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
 
             recyclerView = rootView.findViewById(R.id.recyclerview1);
             recyclerView.setLayoutManager(gridLayoutManager);
             recyclerView.setAdapter(adapter);
 
-
-
-
         }
     }
 
-    public class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
-        private ArrayList<String> samples;
+     class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
+        private  LinkedList<Map.Entry<String,LinkedHashMultimap<Long, String>>> ediVisitDataList;
         private Context context;
         private FormCameraButtonWidget ediPrint;
 
 
-        public ImageDataAdapter(Context context, ArrayList<String> imageUris) {
+        public ImageDataAdapter(Context context, Map<String,LinkedHashMultimap<Long, String>> ediVisitData) {
+            ediVisitDataList = new LinkedList<>();
             this.context = context;
-            this.samples = imageUris;
+
+
+            for(Map.Entry<String,LinkedHashMultimap<Long, String>> ediData : ediVisitData.entrySet())
+                ediVisitDataList.push(ediData);
+
         }
 
         @Override
@@ -122,7 +126,7 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
             return new ViewHolder(view);
 
-            
+
 
 
 
@@ -131,11 +135,20 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
-            AppCompatImageView imageView = viewHolder.img;
-            String res = samples.get(i);
+            AppCompatImageView imageView = viewHolder.img,  imageView2 = viewHolder.img2;
+            TextView caption = viewHolder.caption;
+            Map.Entry<String,LinkedHashMultimap<Long, String>> data = ediVisitDataList.get(i);
+
             File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+            long dateTimeEpoch = data.getValue().keySet().iterator().next();
 
+            Iterator<String> images = data.getValue().get(dateTimeEpoch).iterator();
 
+            Instant dateTime = Instant.ofEpochSecond(dateTimeEpoch);
+            LocalDateTime visitDateTime = LocalDateTime.ofInstant(dateTime, ZoneOffset.UTC);
+            String visitDateTimeFormatted =  visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+
+            caption.setText(data.getKey()+" on "+visitDateTimeFormatted);
             /*imageView.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
@@ -145,7 +158,6 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
                                                  } catch (IOException e) {
                                                      e.printStackTrace();
                                                  }
-
                                              }
                                          });**/
 
@@ -157,7 +169,7 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_VIEW);
-                    startActivityForResult(Intent.createChooser(intent,
+                    ((AppCompatActivity)context).startActivityForResult(Intent.createChooser(intent,
                             "Select Picture"), 1);
                     /*Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
@@ -166,24 +178,24 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
                 }
             });
 
-
             try {
+                if(images.hasNext()){
+                    RequestBuilder builder = Glide
+                            .with(context)
+                            .asBitmap();
+                               builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
+                                .into(imageView);
 
-
-                Glide
-                        .with(context)
-                        .asBitmap()
-                        .load(image.getCanonicalPath()+"/"+res+".png")
-
-                        //.override(1600, 1300)
-                        //.fitCenter()
-                        .into(imageView);
+                    if(images.hasNext()){
+                        builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
+                                .into(imageView2);
+                    }
+                }
             }catch (Exception e){
                 Exception ex = e;
-
-
-                
             }
+
+
 
 
 
@@ -223,18 +235,19 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
         @Override
         public int getItemCount() {
 
-            return samples.size();
+            return ediVisitDataList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            AppCompatImageView img;
-            ProgressBar progressBar;
+            AppCompatImageView img,img2;
+            TextView caption;
 
             public ViewHolder(View view) {
                 super(view);
                 img = view.findViewById(R.id.iv);
-
+                img2 = view.findViewById(R.id.img2);
+                caption = view.findViewById(R.id.caption);
 
 
 
@@ -252,13 +265,4 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
             @Override
             public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
             }*/
-    }
-
-    private PackageManager getPackageName() {
-        return mContext.getPackageManager();
-    }
-
-    public PackageManager getPackageManager() {
-        return mContext.getPackageManager();
-    }
 }

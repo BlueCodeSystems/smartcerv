@@ -222,6 +222,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
                         mEditText.setGravity(Gravity.LEFT);
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                         WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
                         mEditText.setSingleLine(false);
                         mEditText.setMinLines(5);
@@ -234,6 +235,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
                         mEditText.setGravity(Gravity.CENTER);
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
