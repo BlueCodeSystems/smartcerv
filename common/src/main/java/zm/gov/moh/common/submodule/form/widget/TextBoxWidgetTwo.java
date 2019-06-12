@@ -56,10 +56,10 @@ public class TextBoxWidgetTwo extends TextViewWidget implements Submittable<Char
         border.getPaint().setColor(Color.BLACK);
         mTextBox.setBackground(border);
         mTextBox.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        mTextBox.setGravity(Gravity.CENTER);
+        mTextBox.setGravity(Gravity.TOP);
         //mTextBox.setTextAlignment(TEXT_ALIGNMENT_GRAVITY);
         //mTextBox.setGravity(Gravity.CENTER_HORIZONTAL);
-        WidgetUtils.setLayoutParams(mTextBox,300,70, mWeight);
+        WidgetUtils.setLayoutParams(mTextBox,300,WidgetUtils.WRAP_CONTENT, mWeight);
             //.setGravity(Gravity.CENTER_VERTICAL);
         addView(mTextBox);
 

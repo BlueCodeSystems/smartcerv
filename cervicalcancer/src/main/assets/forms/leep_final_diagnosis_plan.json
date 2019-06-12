@@ -1,7 +1,7 @@
 {
   "attributes": {
     "panelType": "form",
-    "formType": "basic",
+    "formType": "encounter",
     "submitLabel": "Submit"
   },
   "widgetGroup": [
@@ -68,15 +68,6 @@
           "textSize": 18
         },
         {
-          "tag": "electronic_copy_saved",
-          "widgetType": "Concept",
-          "conceptId": 165313,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Electronic copy saved?",
-          "textSize": 18
-        },
-        {
           "tag": "reason",
           "widgetType": "TextView",
           "label": "Reason",
@@ -86,17 +77,10 @@
         {
           "tag": "reason",
           "widgetType": "EditText",
-          "weight": 1,
-          "textSize": 18
-        },
-        {
-          "tag": "date",
-          "widgetType": "DatePicker",
-          "label": "Date saved",
-          "textSize": 18,
-          "weight": 1,
-          "hint":"dd MMM yyyy"
+          "hint": "                                                                                                                                          ",
+          "weight": 1
         }
+
       ]
     },
     {
@@ -363,30 +347,25 @@
         {
           "tag": "other",
           "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
           "weight": 1
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "TextView",
-          "label": "Clinician Signature",
-          "weight": 1,
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "EditText",
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
           "weight": 1
         },
         {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
-          "textSize": 18
-        },
-        {
-          "tag": "clinician id",
+          "tag": "phone",
           "widgetType": "EditText",
+          "hint": "Example +260967546754",
           "weight": 1
         }
       ]
@@ -516,10 +495,9 @@
           "textSize": 18
         },
         {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
@@ -530,31 +508,24 @@
           "dataType": "Text",
           "textSize": 18,
           "style": "TextBoxOne",
-          "hint": "                                                                                                                                          ",
           "weight": 1
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "TextView",
-          "label": "Clinician Signature",
-          "weight": 1,
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "EditText",
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
           "weight": 1
         },
         {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
-          "textSize": 18
-        },
-        {
-          "tag": "clinician id",
+          "tag": "phone",
           "widgetType": "EditText",
+          "hint": "Example +260967546754",
           "weight": 1
         }
       ]

@@ -1,7 +1,7 @@
 {
   "attributes": {
     "panelType": "form",
-    "formType": "basic",
+    "formType": "encounter",
     "submitLabel": "Submit"
   },
   "widgetGroup": [
@@ -18,77 +18,78 @@
           "textSize": 18
         },
         {
+          "tag": "other",
+          "widgetType": "Concept",
+          "conceptId": 5622,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18
+        },
+        {
           "widgetType": "TextView",
-          "label": "Drug",
+          "label": "Reason For Other",
           "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
           "weight": 1
         },
         {
           "tag": "drug",
-          "widgetType": "EditText",
+          "widgetType": "TextView",
+          "label": "Drug 1",
           "weight": 1
         },
         {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
           "widgetType": "TextView",
-          "label": "Dosage",
+          "label": "Drug 2",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextView",
+          "label": "Drug 3",
+          "weight": 1
+        },
+        {
+          "tag": "drug",
+          "widgetType": "TextBoxTwo",
+          "hint": "Drug name x mg x days",
+          "weight": 1
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
           "textSize": 18,
           "weight": 1
         },
         {
-          "tag": "dosage",
+          "tag": "phone",
           "widgetType": "EditText",
-          "hint": "mg",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Frequency",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "frequency",
-          "widgetType": "Concept",
-          "conceptId": 165225,
-          "dataType": "Coded",
-          "style": "dropdown",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Duration",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "duration",
-          "widgetType": "Concept",
-          "conceptId": 165224,
-          "dataType": "Coded",
-          "style": "dropdown",
-          "textSize": 18
-        },
-        {
-          "tag": "clinician signature",
-          "widgetType": "TextView",
-          "label": "Clinician Signature",
-          "weight": 1
-        },
-        {
-          "tag": "clinician signature",
-          "widgetType": "EditText",
-          "weight": 1
-        },
-        {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
-          "textSize": 18
-        },
-        {
-          "tag": "clinician id",
-          "widgetType": "EditText",
+          "hint": "Example +260967546754",
           "weight": 1
         }
       ]
@@ -171,33 +172,28 @@
           "weight": 1
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "TextView",
-          "label": "Clinician Signature",
-          "weight": 1
-        },
-        {
-          "tag": "clinician signature",
-          "widgetType": "EditText",
-          "weight": 1
-        },
-        {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
-          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
           "widgetType": "EditText",
+          "hint": "Example +260967546754",
           "weight": 1
         }
 
       ]
     },
     {
-      "title": "Resolution",
+      "title": "Intra-op Resolution",
       "widgets": [
         {
           "tag": "cautery",
@@ -268,26 +264,21 @@
           "textSize": 18
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "TextView",
-          "label": "Clinician Signature",
-          "weight": 1
-        },
-        {
-          "tag": "clinician signature",
-          "widgetType": "EditText",
-          "weight": 1
-        },
-        {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
-          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
           "widgetType": "EditText",
+          "hint": "Example +260967546754",
           "weight": 1
         }
       ]
@@ -362,7 +353,7 @@
       ]
     },
     {
-      "title": "Resolution",
+      "title": "Post-op Resolution",
       "widgets": [
         {
           "tag": "monsel_solution",
@@ -439,22 +430,22 @@
         {
           "tag": "other",
           "widgetType": "Concept",
-          "conceptId": 165170,
+          "conceptId": 5622,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
           "textSize": 18
         },
         {
-          "tag": "other",
           "widgetType": "TextView",
           "label": "Reason For Other",
-          "weight": 1,
-          "textSize": 18
+          "textSize": 18,
+          "weight": 1
         },
         {
           "tag": "other",
           "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
           "weight": 1
         },
         {
@@ -476,26 +467,21 @@
           "weight": 1
         },
         {
-          "tag": "clinician signature",
-          "widgetType": "TextView",
-          "label": "Clinician Signature",
-          "weight": 1
-        },
-        {
-          "tag": "clinician signature",
-          "widgetType": "EditText",
-          "weight": 1
-        },
-        {
-          "tag": "clinician id",
-          "widgetType": "TextView",
-          "label": "Clinician ID",
-          "weight": 1,
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
           "textSize": 18
         },
         {
-          "tag": "clinician id",
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
           "widgetType": "EditText",
+          "hint": "Example +260967546754",
           "weight": 1
         }
       ]

@@ -123,17 +123,19 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                             if (condition.getExpression().getLessThan() != null) {
                                 String dob = bundle.getString((String) logic.getCondition().getValue());
 
-                                LocalDate ld = LocalDate.parse(dob);
-                                int clientAge = LocalDateTime.now().getYear() - ld.getYear();
-                                int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
+                                if(dob != null) {
+                                    LocalDate ld = LocalDate.parse(dob);
+                                    int clientAge = LocalDateTime.now().getYear() - ld.getYear();
+                                    int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
 
-                                if (clientAge < conditionAge) {
+                                    if (clientAge < conditionAge) {
 
-                                    Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
-                                    Set<String> tags = new HashSet<>();
-                                    WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
-                                    form.getFormContext().getVisibleWidgetTags().addAll(tags);
+                                        Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
+                                        Set<String> tags = new HashSet<>();
+                                        WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
+                                        form.getFormContext().getVisibleWidgetTags().addAll(tags);
 
+                                    }
                                 }
 
                             }
@@ -210,6 +212,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             case ConceptDataType.TEXT:
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
+
                 if(mStyle != null)
                     if (mStyle.equals("TextBoxOne")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
@@ -219,7 +222,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
                         mEditText.setGravity(Gravity.LEFT);
-                        WidgetUtils.setLayoutParams(mEditText, 800, 200, mWeight);
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                        WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
+                        mEditText.setSingleLine(false);
+                        mEditText.setMinLines(5);
                         this.addView(view);
                     } else if (mStyle.equals("TextBoxTwo")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
@@ -229,12 +235,11 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
                         mEditText.setGravity(Gravity.CENTER);
-                        WidgetUtils.setLayoutParams(mEditText, 300, 70, mWeight);
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                        WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
-
-
-                break;
+                    break;
 
             case ConceptDataType.NUMERIC:
                 mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
