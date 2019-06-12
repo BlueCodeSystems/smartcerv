@@ -2,11 +2,13 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 
-public class DataSync extends SyncService  {
+public class PullEntityRemote extends RemoteService {
 
-    public DataSync(){
-        super(ServiceName.DATA_SYNC);
+    public PullEntityRemote(){
+        super(ServiceManager.Service.PULL_ENTITY_REMOTE);
     }
 
     @Override
@@ -14,70 +16,91 @@ public class DataSync extends SyncService  {
         super.onHandleIntent(intent);
 
         //Person Names
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 personNames -> {
                     repository.getDatabase().personNameDao().insert(personNames);
                     this.onTaskCompleted();
                 },//consumer
                 this::onError,
-                repository.getRestApiAdapter().getPersonNames(accesstoken), //producer
+                repository.getRestApi().getPersonNames(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Person Address
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 personAddresses -> {
                     repository.getDatabase().personAddressDao().insert(personAddresses);
                     this.onTaskCompleted();
                 }
                 , //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPersonAddresses(accesstoken), //producer
+                repository.getRestApi().getPersonAddresses(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Person
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 person -> {
                     repository.getDatabase().personDao().insert(person);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPersons(accesstoken), //producer
+                repository.getRestApi().getPersons(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Patients
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 patient -> {
                     repository.getDatabase().patientDao().insert(patient);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPatients(accesstoken), //producer
+                repository.getRestApi().getPatients(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Patient identifier
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 patientIdentifiers -> {
                     repository.getDatabase().patientIdentifierDao().insert(patientIdentifiers);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getPatientIdentifiers(accesstoken), //producer
+                repository.getRestApi().getPatientIdentifiers(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
 
         //Observations
-        repository.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 obs -> {
                     repository.getDatabase().obsDao().insert(obs);
                     this.onTaskCompleted();
                 }, //consumer
                 this::onError,
-                repository.getRestApiAdapter().getObs(accesstoken), //producer
+                repository.getRestApi().getObs(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
+    }
+
+    @Override
+    protected void notifySyncCompleted() {
+        Intent intent = new Intent(ServiceManager.IntentAction.PULL_ENTITY_REMOTE_COMPLETE);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        super.onError(throwable);
+
+        Intent intent = new Intent(ServiceManager.IntentAction.PULL_ENTITY_REMOTE_INTERRUPT);
+        intent.putExtras(mBundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    @Override
+    protected void executeAsync() {
+
     }
 }

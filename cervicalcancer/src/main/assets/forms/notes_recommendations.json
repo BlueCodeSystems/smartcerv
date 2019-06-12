@@ -7,7 +7,7 @@
   },
   "widgetGroup":[
     {
-      "title":"Notes And Recommendations",
+      "title":"Notes & Recommendations",
       "widgets":[
         {
           "widgetType":"TextView",
@@ -17,22 +17,15 @@
         },
         {
           "tag": "notes",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
-          "tag": "notes",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        },
-        {
-          "tag": "notes",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
+          "widgetType": "Concept",
+          "uuid": "	c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
           "weight": 1
         }
+
       ]
     },
     {
@@ -48,20 +41,14 @@
           "tag": "follow up dates",
           "widgetType": "DatePicker",
           "weight": 1,
+          "label": "Select Date",
           "hint": "dd MMM yyyy"
         },
-
         {
-          "widgetType": "TextView",
-          "label": "Provider name",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "Provider_name",
-          "widgetType": "EditText",
-          "hint": "First and Last Name",
-          "weight": 1
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
         }
       ]
     }]

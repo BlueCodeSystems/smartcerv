@@ -1,36 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
     tools:context="zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardEDIGalleryFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/visit_date"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/sc_1"/>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
         android:scrollbars="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        ></androidx.recyclerview.widget.RecyclerView>
+       />
 
-</RelativeLayout>
+</LinearLayout>

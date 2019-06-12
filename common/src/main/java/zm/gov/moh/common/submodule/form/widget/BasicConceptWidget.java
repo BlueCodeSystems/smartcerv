@@ -1,9 +1,15 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -39,12 +45,14 @@ import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.utils.Utils;
 
+@SuppressWarnings("deprecation")
 public class BasicConceptWidget extends LinearLayoutCompat {
 
     String mLabel;
     String mHint;
     AppCompatEditText mEditText;
     AppCompatTextView mTextView;
+    AppCompatActivity mTextBox;
     long mConceptId;
     int mWeight = 0;
     int mTextSize;
@@ -115,17 +123,19 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                             if (condition.getExpression().getLessThan() != null) {
                                 String dob = bundle.getString((String) logic.getCondition().getValue());
 
-                                LocalDate ld = LocalDate.parse(dob);
-                                int clientAge = LocalDateTime.now().getYear() - ld.getYear();
-                                int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
+                                if(dob != null) {
+                                    LocalDate ld = LocalDate.parse(dob);
+                                    int clientAge = LocalDateTime.now().getYear() - ld.getYear();
+                                    int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
 
-                                if (clientAge < conditionAge) {
+                                    if (clientAge < conditionAge) {
 
-                                    Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
-                                    Set<String> tags = new HashSet<>();
-                                    WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
-                                    form.getFormContext().getVisibleWidgetTags().addAll(tags);
+                                        Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
+                                        Set<String> tags = new HashSet<>();
+                                        WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
+                                        form.getFormContext().getVisibleWidgetTags().addAll(tags);
 
+                                    }
                                 }
 
                             }
@@ -182,9 +192,12 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 .setOrientation(WidgetUtils.HORIZONTAL);
 
         //Create and intialize widgets
+
+
         mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mTextView.setText(mLabel);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
+
         mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         //Auto capitalize first letter
         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
@@ -199,8 +212,34 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             case ConceptDataType.TEXT:
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
-                this.addView(view);
-                break;
+
+                if(mStyle != null)
+                    if (mStyle.equals("TextBoxOne")) {
+                        mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                        ShapeDrawable border = new ShapeDrawable(new RectShape());
+                        border.getPaint().setStyle(Paint.Style.STROKE);
+                        border.getPaint().setColor(Color.BLACK);
+                        mEditText.setBackground(border);
+                        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+                        mEditText.setGravity(Gravity.LEFT);
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                        WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
+                        mEditText.setSingleLine(false);
+                        mEditText.setMinLines(5);
+                        this.addView(view);
+                    } else if (mStyle.equals("TextBoxTwo")) {
+                        mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
+                        ShapeDrawable border = new ShapeDrawable(new RectShape());
+                        border.getPaint().setStyle(Paint.Style.STROKE);
+                        border.getPaint().setColor(Color.BLACK);
+                        mEditText.setBackground(border);
+                        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+                        mEditText.setGravity(Gravity.CENTER);
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+                        WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
+                        addView(mEditText);
+                    }
+                    break;
 
             case ConceptDataType.NUMERIC:
                 mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -214,6 +253,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 Utils.dateDialog(mContext, mEditText, this::onDateValueChangeListener);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText));
                 break;
+
+
 
             case ConceptDataType.BOOLEAN:
 
@@ -275,7 +316,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, spinner));
                 else
                     this.addView(spinner);
-                
+
+                break;
+
         }
 
         render();

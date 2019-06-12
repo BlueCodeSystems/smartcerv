@@ -2,24 +2,28 @@
     package="zm.gov.moh.core">
     <application>
         <service
-            android:name=".service.MetaDataSync"
+            android:name=".service.PullMetaDataRemote"
             android:exported="false"/>
         <service
-            android:name=".service.DataSync"
+            android:name=".service.PullEntityRemote"
             android:exported="false"/>
         <service
             android:name=".service.SearchIndex"
             android:exported="false"/>
         <service
-            android:name=".service.EncounterPersist"
+            android:name=".service.PersistEncounter"
             android:exported="false"/>
         <service
-            android:name=".service.DemographicsPersist"
+            android:name=".service.PersistDemographics"
+            android:exported="false"/>
+        <service
+            android:name=".service.PushEntityRemote"
             android:exported="false"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--meta-data
         //android:name="android.support.FILE_PROVIDER_PATHS"
         //android:resource="@xml/file_paths" /!-->

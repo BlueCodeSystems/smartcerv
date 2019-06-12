@@ -12,6 +12,7 @@ import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
@@ -39,7 +40,7 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
     public void enrollPatient(Bundle bundle){
 
-        getRepository().consumeAsync(this::enrollClient, this::onError, bundle);
+        ConcurrencyUtils.consumeAsync(this::enrollClient, this::onError, bundle);
     }
 
     public void enrollClient(Bundle bundle){
@@ -59,7 +60,7 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
                 (long)bundle.get(FACILITY_TAG),LocalDateTime.now());
 
         //persist database entity instances asynchronously into the database
-        getRepository().consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, ccpiz);
+        ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, ccpiz);
     }
 
 

@@ -37,6 +37,7 @@ import zm.gov.moh.core.repository.database.entity.domain.Encounter;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class PatientDashboardViewModel extends BaseAndroidViewModel implements InjectableViewModel {
@@ -53,11 +54,8 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> treatmentDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerDataEmitter;
-    private MutableLiveData<LinkedHashMultimap<Long, String>>  ediDataEmitter;
+    private MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>>  ediDataEmitter;
     private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem, VisitEncounterItem>>> visitDataEmitter;
-    private Intent data;
-    private Object requestCode;
-    private HashMap uris;
 
     public PatientDashboardViewModel(Application application) {
         super(application);
@@ -123,7 +121,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return providerDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMultimap<Long, String>> getEDIDataEmitter() {
+    public MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>> getEDIDataEmitter() {
 
         if (ediDataEmitter == null)
             ediDataEmitter = new MutableLiveData<>();
@@ -158,11 +156,12 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             visit = new Visit();
 
         if(visitState == VisitState.STARTED)
-            getRepository().consumeAsync(this::createVisit, this::onError, bundle);
+
+            ConcurrencyUtils.consumeAsync(this::createVisit, this::onError, bundle);
         else if(visit.getDateStarted() != null) {
 
             visit.setDateStopped(LocalDateTime.now());
-            getRepository().consumeAsync( visit-> visitDao.updateVisit(visit),this::onError,visit);
+            ConcurrencyUtils.consumeAsync( visit-> visitDao.updateVisit(visit),this::onError,visit);
         }
     }
 
@@ -220,26 +219,32 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
-    public LinkedHashMultimap<Long, String> extractEDIData(List<Visit> visits){
+    public Map<String,LinkedHashMultimap<Long, String>> extractEDIData(List<Visit> visits){
 
+        Map<String,LinkedHashMultimap<Long, String>> ediVisitData;
         if(visits.size() > 0) {
-
+            ediVisitData = new LinkedHashMap<>();
             LinkedHashMultimap<Long, String> ediData = LinkedHashMultimap.create();
             Long ediConceptId = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_EDI_IMAGE);
 
             Obs eiObs = db.obsDao().findByConceptId(ediConceptId);
 
             for(Visit visit: visits) {
+                String visitName = db.visitTypeDao().getVisitTypeById(visit.getVisitTypeId());
                 long visitDatetime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 List<Obs> ediObs = db.obsDao().getObsByVisitIdConceptId(visit.getVisitId(),ediConceptId);
 
                 for(Obs obs: ediObs){
                     ediData.put(visitDatetime, obs.getValueText());
                 }
+
+
+
+                ediVisitData.put(visitName,ediData);
             }
-            return ediData;
-        }
-        return null;
+        }else return  null;
+
+        return ediVisitData;
     }
 
     public LinkedHashMap<Long, Collection<Boolean>> extractReferralData(List<Visit> visits){
@@ -314,12 +319,12 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
     public void onVisitsRetrieved(List<Visit> visits){
 
-        getRepository().asyncFunction(this::extractScreeningData, getScreeningDataEmitter()::setValue, visits, this::onError);
-        getRepository().asyncFunction(this::extractEDIData, getEDIDataEmitter()::setValue, visits, this::onError);
-        getRepository().asyncFunction(this::extractReferralData, getReferralDataEmitter()::setValue, visits, this::onError);
-        getRepository().asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
-        getRepository().asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);
-        getRepository().asyncFunction(this::extractVisitData,getVisitDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractScreeningData, getScreeningDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractEDIData, getEDIDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractReferralData, getReferralDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractVisitData,getVisitDataEmitter()::setValue, visits, this::onError);
     }
 
     public void onError(Throwable throwable){

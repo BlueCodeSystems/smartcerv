@@ -103,6 +103,13 @@ public class Utils {
         return reversed;
     }
 
+    public static Boolean isNumber(String string){
+
+        if(string != null)
+            return string.matches("\\d+(?:\\.\\d+)?");
+        return null;
+    }
+
 
 
 
