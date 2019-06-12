@@ -402,30 +402,30 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         canSetValue.compareAndSet(false, true);
     }
 
-
     // Retrieves previously entered value and displays it in widget
     public void onLastObsRetrieved(Obs obs) {
 
         switch (mDataType) {
 
-            // Behaviour when numeric value are retrieved
+            // Behaviour when numeric text values are retrieved
             case ConceptDataType.NUMERIC:
-                String value = String.valueOf(obs.getValueNumeric());
+                String valuenum = String.valueOf(obs.getValueNumeric());
 
                 //print value as int by trimming it into a sub string and pass the value to an EditText Object
-                String sub = value.substring(value.length() - 2);
+                String sub = valuenum.substring(valuenum.length() - 2);
 
                 if (sub.equals(".0"))
-                    mEditText.setText(value.substring(0, value.length() - 2));
+                    mEditText.setText(valuenum.substring(0, valuenum.length() - 2));
                 else
-                    mEditText.setText(value);
+                    mEditText.setText(valuenum);
                 break;
 
-
                 // Behaviour when text based data is retrieved
+            case ConceptDataType.TEXT:
+                String valuetxt = String.valueOf(obs.getValueText());
 
-
-
+                String txt = valuetxt;
+                mEditText.setText(txt);
 
         }
     }
