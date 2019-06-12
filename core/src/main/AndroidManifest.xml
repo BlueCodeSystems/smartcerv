@@ -19,6 +19,9 @@
         <service
             android:name=".service.PushEntityRemote"
             android:exported="false"/>
+        <service
+            android:name=".service.PullPatientIDRemote"
+            android:exported="false"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

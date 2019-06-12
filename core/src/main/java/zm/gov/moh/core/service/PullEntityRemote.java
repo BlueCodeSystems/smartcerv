@@ -14,6 +14,10 @@ public class PullEntityRemote extends RemoteService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         super.onHandleIntent(intent);
+    }
+
+    @Override
+    protected void executeAsync() {
 
         //Person Names
         ConcurrencyUtils.consumeAsync(
@@ -81,26 +85,5 @@ public class PullEntityRemote extends RemoteService {
                 repository.getRestApi().getObs(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
-    }
-
-    @Override
-    protected void notifySyncCompleted() {
-        Intent intent = new Intent(ServiceManager.IntentAction.PULL_ENTITY_REMOTE_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-        super.onError(throwable);
-
-        Intent intent = new Intent(ServiceManager.IntentAction.PULL_ENTITY_REMOTE_INTERRUPT);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
-
-    @Override
-    protected void executeAsync() {
-
     }
 }

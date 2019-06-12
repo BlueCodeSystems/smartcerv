@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import zm.gov.moh.core.repository.database.dao.custom.IdentifierDao;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
 import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
@@ -38,6 +39,7 @@ import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitTypeDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
 import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
+import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
@@ -101,8 +103,9 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 ConceptAnswer.class,
                 Concept.class,
                 EntityMetadata.class,
-                Drug.class
-        }, version = 1, exportSchema = false)
+                Drug.class,
+                Identifier.class
+        }, version = 2, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -140,6 +143,7 @@ public abstract class Database extends RoomDatabase {
     public abstract ConceptDao conceptDao();
     public abstract ConceptAnswerNameDao conceptAnswerNameDao();
     public abstract DrugDao drugDao();
+    public abstract IdentifierDao identifierDao();
 
 
     //Derived
