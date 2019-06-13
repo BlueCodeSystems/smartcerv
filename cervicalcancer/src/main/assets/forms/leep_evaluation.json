@@ -224,7 +224,6 @@
         {
           "tag": "image view button",
           "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
-          "widgetType": "ImageViewButton",
           "label": "Image Load",
           "textSize": 18,
           "weight": 1
