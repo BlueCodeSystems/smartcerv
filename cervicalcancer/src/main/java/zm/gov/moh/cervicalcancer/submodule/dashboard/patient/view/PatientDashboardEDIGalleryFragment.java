@@ -171,6 +171,10 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
                     intent.setAction(Intent.ACTION_VIEW);
                     ((AppCompatActivity)context).startActivityForResult(Intent.createChooser(intent,
                             "Select Picture"), 1);
+                    File sdcard = Environment.getExternalStorageDirectory();
+                    File from = new File(sdcard,"from.txt");
+                    File to = new File(sdcard,"to.txt");
+                    from.renameTo(to);
                     /*Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()+"")), "image/*");

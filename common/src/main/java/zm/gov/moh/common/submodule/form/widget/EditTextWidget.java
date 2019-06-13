@@ -49,7 +49,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        mEditText.setGravity(Gravity.TOP);
+        mEditText.setGravity(Gravity.START);
         WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
         addView(mEditText);
 

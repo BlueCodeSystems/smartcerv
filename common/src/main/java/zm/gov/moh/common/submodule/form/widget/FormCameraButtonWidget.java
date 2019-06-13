@@ -48,13 +48,13 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         button.setText(this.mLabel);
         this.addView(button);
         //{super.onCreateView();
-            //AppCompatButton button = new AppCompatButton(this.mContext)
-            //mageView = new AppCompatImageView(mContext);
-            //WidgetUtils.setLayoutParams(cam,100,100);
-            //button.setOnClickListener(this);
-            //button.setText(this.mLabel);
-            //this.addView(button);
-            //this.addView(imageView);}
+        //AppCompatButton button = new AppCompatButton(this.mContext)
+        //mageView = new AppCompatImageView(mContext);
+        //WidgetUtils.setLayoutParams(cam,100,100);
+        //button.setOnClickListener(this);
+        //button.setText(this.mLabel);
+        //this.addView(button);
+        //this.addView(imageView);}
     }
 
     @Override
@@ -99,23 +99,23 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
-                //".jpg",         /* suffix */
-                //storageDir      /* directory */
-        //);
+    //".jpg",         /* suffix */
+    //storageDir      /* directory */
+    //);
 
-        // Save a file: path for use with ACTION_VIEW intents
+    // Save a file: path for use with ACTION_VIEW intents
         /*currentPhotoPath = image.getAbsolutePath();
         return image;
     }*/
 
     //private File getExternalFilesDir(String directoryPictures) {
-        //return image;
+    //return image;
     //}
 
     @Override
     public void onClick(View v) {
         Intent cameraIntent = mContext.getPackageManager().getLaunchIntentForPackage("jp.co.canon.ic.cameraconnect");
-        ((AppCompatActivity)mContext).startActivity(cameraIntent);  
+        ((AppCompatActivity)mContext).startActivity(cameraIntent);
     }
 
     public PackageManager getPackageManager() {

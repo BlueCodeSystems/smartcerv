@@ -43,7 +43,26 @@
                 android:text="@{facility.getName}"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
-            <androidx.appcompat.widget.AppCompatImageButton
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="EDI Gallery"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border_bottom"/>
+
+            <Spinner
+                android:id="@+id/visit_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
+
+
+
+            --androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/load_image"
                 android:layout_width="85dp"
                 android:layout_height="54dp"

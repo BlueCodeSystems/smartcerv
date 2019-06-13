@@ -42,10 +42,10 @@ import zm.gov.moh.common.ui.BaseActivity;
 
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
-import static zm.gov.moh.cervicalcancer.R.id.load_image;
+
 
 public class ImageButtonActivity extends Fragment {
 
 
-   
+
 }

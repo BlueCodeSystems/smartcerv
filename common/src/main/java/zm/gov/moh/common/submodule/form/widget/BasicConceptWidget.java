@@ -14,8 +14,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.threeten.bp.LocalDate;
@@ -35,6 +37,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.model.Condition;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
@@ -70,6 +73,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     LinkedHashSet<Long> answerConcepts;
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
+    private int gravity;
 
 
     public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -219,7 +223,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         border.getPaint().setColor(Color.BLACK);
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-                        mEditText.setGravity(Gravity.LEFT);
+                        mEditText.setGravity(Gravity.TOP);
+                        MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
+                         params.leftMargin = 1000; params.topMargin = 2000;
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                         WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
                         mEditText.setSingleLine(false);
@@ -232,7 +238,12 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         border.getPaint().setColor(Color.BLACK);
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
-                        mEditText.setGravity(Gravity.CENTER);
+                        mEditText.setGravity(Gravity.TOP);
+                        MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
+                        params.width = 200; params.leftMargin = 1000; params.topMargin = 2000;
+                        TextView textRegion = (mEditText);
+                        textRegion.setGravity(gravity);
+                        //LayoutParams.setMargins(50,50,50,50);
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);

@@ -15,11 +15,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -40,6 +43,9 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
     protected AppCompatImageView imageView;
     protected final String pictureFolder = "EDI";
     private SharedPreferences.Editor params;
+    private File dir;
+    private Object Gallery;
+    FormEditTextWidget uploadImageName, downloadImageName;
 
     //Function<String,Long> encounterTypeUuidToId = getRepository().getDatabase().encounterTypeDao()::getIdByUuid;
 
@@ -65,6 +71,8 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         this.addView(imageView);
     }
 
+
+
     @Override
     public void setValue(ObsValue<String> value) {
 
@@ -84,11 +92,16 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         mBundle.putString(Key.VIEW_TAG, (String)getTag());
         //Toast.makeText(FormImageViewButtonWidget.this, "You clicked on ImageView", Toast.LENGTH_LONG).show();
         ((AppCompatActivity)mContext).startActivityForResult(Intent.createChooser(intent, "Select Picture"), RESULT_LOAD_IMAGE1);
+        File from = new File(dir, String.valueOf(Gallery));
+        File to = new File(dir,"filerename.txt");
+        if(from.exists())
+            from.renameTo(to);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
     }
 
     public void onUriRetrieved(Uri uri){
+
 
         String sampleName = UUID.randomUUID().toString();
         ObsValue<String> obsValue = new ObsValue<>(mConceptId,ConceptDataType.TEXT, sampleName);
