@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
@@ -19,6 +21,7 @@ import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.core.model.DrugObsValue;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
+import zm.gov.moh.core.utils.Utils;
 
 public class BasicDrugWidget extends RepositoryWidget<String> {
 
@@ -74,11 +77,10 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
                 TableLayout.LayoutParams.WRAP_CONTENT);
 
         tableLayout = new TableLayout(mContext);
-        tableLayout.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
         tableLayout.setLayoutParams(layoutParams);
 
         rowLayoutParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.WRAP_CONTENT);
+            TableRow.LayoutParams.WRAP_CONTENT);
 
         //frequency list
         mRepository.getDatabase()
@@ -114,6 +116,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
     public void onDrugReceived(Drug drug) {
 
+        tableLayout.removeAllViews();
         String strength = "";
         if(drug.strength != null)
             strength = drug.strength;
@@ -121,22 +124,23 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         int orientation = (checkboxNameIdMap.size() > 2)? WidgetUtils.VERTICAL: WidgetUtils.HORIZONTAL;
 
-        RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, checkboxNameIdMap,this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,1);
+        RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, checkboxNameIdMap,
+            this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,1);
+
         tableRow = new TableRow(mContext);
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
 
         frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
-                WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
+            WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
+
         durationSpinner = WidgetUtils.createSpinner(mContext, durationIdMap, this::onSelectedDurationValue,
-                WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
+            WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
 
         checkBoxGroup.setLayoutParams(rowLayoutParams);
         frequencySpinner.setLayoutParams(rowLayoutParams);
         durationSpinner.setLayoutParams(rowLayoutParams);
 
         tableRow.addView(checkBoxGroup);
-        tableRow.addView(frequencySpinner);
-        tableRow.addView(durationSpinner);
 
         tableLayout.addView(tableRow);
     }
@@ -150,6 +154,18 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     }
 
     public void setDrugObsValue(Long obsValue, Long obsFrequencyValue, Long obsDurationValue) {
+
+        if( (frequencySpinner.getParent() != null) && (frequencySpinner.getParent() != null) ) {
+            tableRow.removeView(frequencySpinner);
+            frequencySpinner.setVisibility(GONE);
+            tableRow.removeView(durationSpinner);
+            durationSpinner.setVisibility(GONE);
+        } else {
+            tableRow.addView(frequencySpinner);
+            frequencySpinner.setVisibility(VISIBLE);
+            tableRow.addView(durationSpinner);
+            durationSpinner.setVisibility(VISIBLE);
+        }
 
         if(canSetValue.get()) {
             drugConceptId = obsValue;

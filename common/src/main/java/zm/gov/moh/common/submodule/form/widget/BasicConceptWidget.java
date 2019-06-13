@@ -213,7 +213,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case ConceptDataType.TEXT:
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
 
-                if(mStyle != null)
+                if(mStyle != null) {
                     if (mStyle.equals("TextBoxOne")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
                         ShapeDrawable border = new ShapeDrawable(new RectShape());
@@ -239,7 +239,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
-                    break;
+                }else {
+                    addView(view);
+                }
+                break;
 
             case ConceptDataType.NUMERIC:
                 mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);

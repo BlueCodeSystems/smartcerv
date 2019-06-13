@@ -199,7 +199,6 @@ public class ServiceManager {
 
                 if(serviceManager.remoteServices.contains(service))
                     Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
-
             }
         }
     }
