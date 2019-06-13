@@ -222,7 +222,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
             widget.onCreateView();
 
-            return  widget;
+            return widget;
         }
     }
 

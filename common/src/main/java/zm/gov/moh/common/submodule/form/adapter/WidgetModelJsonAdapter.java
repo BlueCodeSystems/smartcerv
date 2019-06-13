@@ -326,7 +326,6 @@ public class WidgetModelJsonAdapter {
 
                 basicFormAttribute.setPanelType(formAttributeJson.getPanelType());
                 basicFormAttribute.setFormType(formAttributeJson.getFormType());
-                basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
                 basicFormAttribute.setType(formAttributeJson.getType());
                 basicFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
                 basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
