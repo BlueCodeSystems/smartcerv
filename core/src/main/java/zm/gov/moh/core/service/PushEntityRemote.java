@@ -34,6 +34,8 @@ public class PushEntityRemote extends RemoteService {
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         for (EntityType entitiyId:EntityType.values())
             ConcurrencyUtils.consumeAsync(this::pushEntityRemote, this::onError, entitiyId, batchVersion);
+
+        notifyCompleted();
     }
 
     protected void pushEntityRemote(EntityType entityType, long batchVersion){
@@ -131,22 +133,5 @@ public class PushEntityRemote extends RemoteService {
             }
             onTaskCompleted();
         };
-    }
-
-    protected void notifySyncCompleted() {
-        Intent intent = new Intent(ServiceManager.IntentAction.PUSH_ENTITY_REMOTE_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-
-
-    }
-
-    @Override
-    public void onError(Throwable throwable) {
-        super.onError(throwable);
-
-        Intent intent = new Intent(ServiceManager.IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
