@@ -1,0 +1,64 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "encounter",
+    "encounterId": 18,
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Date Group",
+      "widgets": [
+        {
+          "tag": "hello test",
+          "widgetType": "TextView",
+          "weight": 1,
+          "label": "Family Planning methods",
+          "textSize":18
+        }
+      ]
+    },
+    {
+      "title": "Client ID Group",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "ART Number Group",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Patient Detail Group",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "\"Reason for referral\" Title Group",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Above Details Group",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "More Above Details Group",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Comments and Picture Group",
+      "widgets": [
+
+      ]
+    }
+  ]
+}
