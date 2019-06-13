@@ -10,11 +10,7 @@
       "title":"Referral",
       "widgets":[
         {
-          "widgetType": "DistrictLabel",
-          "textSize":18,
-          "weight":1
-        },
-        {
+          "tag":"Health facility referred",
           "widgetType":"Concept",
           "label":"Health facility referred to",
           "conceptId": 165181,
@@ -32,10 +28,9 @@
           "style": "check",
           "textSize": 18
         },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+
             {
+              "tag":"Other Gyn Referal",
               "widgetType":"Concept",
               "label":"Other Gyn. Referal",
               "conceptId": 165186,
@@ -44,8 +39,7 @@
               "textSize":18,
               "weight":1
             }
-          ]
-        }
+
       ]
     }
   ]
