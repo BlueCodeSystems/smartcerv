@@ -54,12 +54,12 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
 
     public void onError(Throwable throwable){
 
-        Exception e = new Exception(throwable);
+        notifyInterrupted();
     }
 
 
 
-    protected void notifySyncCompleted(){
+    protected void onServiceCompleted(){
         Intent intent = new Intent(IntentAction.REMOTE_SERVICE_COMPLETE);
         intent.putExtras(mBundle);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
@@ -74,7 +74,7 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
         tasksCompleted++;
 
         if(tasksCompleted == tasksStarted)
-            notifySyncCompleted();
+            notifyCompleted();
     }
 
     public enum Status{
