@@ -223,6 +223,7 @@ public class FormFragment extends BaseFragment {
             long patientid = bundle.getLong(Key.PERSON_ID);
 
 
+
             //fetch value from database
             repository.getDatabase().obsDao().findPatientObsByConceptUuid(patientid, uuid).observe(context, obs -> {
 

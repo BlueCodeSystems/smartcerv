@@ -469,9 +469,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 // Behaviour when text based data is retrieved
             case ConceptDataType.TEXT:
                 String valuetxt = String.valueOf(obs.getValueText());
-
-                String txt = valuetxt;
-                mEditText.setText(txt);
+                mEditText.setText(valuetxt);
+                break;
 
         }
     }

@@ -123,11 +123,11 @@ public class PersistEncounter extends PersistService {
 
                         break;
 
-
                     case ConceptDataType.TEXT:
+                       // String textValue = obsValue.toString();//  { }
+                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(obsValue.getValue().toString()));
 
-                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(obsValue.getValue().toString()));
                         break;
 
                     case ConceptDataType.DATE:
