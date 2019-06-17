@@ -15,7 +15,12 @@ public class ToolBarEventHandler{
         }
 
         public void syncMetaData(){
-            ServiceManager.getInstance(context).setService(ServiceManager.Service.PULL_META_DATA_REMOTE).start();
+            ServiceManager.getInstance(context)
+                    .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PULL_ENTITY_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PULL_ENTITY_REMOTE, ServiceManager.Service.PUSH_ENTITY_REMOTE)
+                    .start();
         }
 
         public void setTitle(String title) {
