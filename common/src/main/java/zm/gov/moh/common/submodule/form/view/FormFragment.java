@@ -208,6 +208,7 @@ public class FormFragment extends BaseFragment {
         View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget) view).onUriRetrieved(data.getValue());
     }
+
     // Method to get the value form the bundle
     // fetch data from Dao using the name of the query
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
