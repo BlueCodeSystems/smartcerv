@@ -8,7 +8,7 @@ import com.squareup.moshi.Json;
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "encounter")
-public class Encounter extends SynchronizableEntity {
+public class EncounterEntity extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "encounter_id")
@@ -75,12 +75,12 @@ public class Encounter extends SynchronizableEntity {
     @Json(name = "uuid")
     private String uuid;
 
-    public Encounter(){
+    public EncounterEntity(){
 
     }
 
     @Ignore
-    public Encounter(long encounterId,long encounterType, long patientId, long locationId,long visitId, long creator, LocalDateTime zonedDatetimeNow){
+    public EncounterEntity(long encounterId, long encounterType, long patientId, long locationId, long visitId, long creator, LocalDateTime zonedDatetimeNow){
 
         this.encounterId = encounterId;
         this.encounterType = encounterType;

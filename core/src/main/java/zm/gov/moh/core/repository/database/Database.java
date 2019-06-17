@@ -44,7 +44,7 @@ import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
-import zm.gov.moh.core.repository.database.entity.domain.Encounter;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterRole;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
@@ -53,18 +53,18 @@ import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.LocationTag;
 import zm.gov.moh.core.repository.database.entity.domain.LocationTagMap;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
-import zm.gov.moh.core.repository.database.entity.domain.Patient;
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-import zm.gov.moh.core.repository.database.entity.domain.PersonAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
 import zm.gov.moh.core.repository.database.entity.domain.User;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
@@ -76,11 +76,11 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
                 Person.class,
                 PersonAddress.class,
-                PersonAttribute.class,
+                PersonAttributeEntity.class,
                 PersonAttributeType.class,
                 PersonName.class,
-                Patient.class,
-                PatientIdentifier.class,
+                PatientEntity.class,
+                PatientIdentifierEntity.class,
                 PatientIdentifierType.class,
                 Location.class,
                 LocationTag.class,
@@ -89,12 +89,12 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 LocationAttributeType.class,
                 Provider.class,
                 User.class,
-                Obs.class,
-                Encounter.class,
+                ObsEntity.class,
+                EncounterEntity.class,
                 EncounterProvider.class,
                 EncounterRole.class,
                 EncounterType.class,
-                Visit.class,
+                VisitEntity.class,
                 VisitType.class,
                 VisitAttribute.class,
                 VisitAttributeType.class,
@@ -105,7 +105,8 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 EntityMetadata.class,
                 Drug.class,
                 Identifier.class
-        }, version = 2, exportSchema = false)
+        }, version = 2
+        , exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 

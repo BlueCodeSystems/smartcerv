@@ -5,9 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
-public class PullEntityRemote extends RemoteService {
+public class PullDataRemote extends RemoteService {
 
-    public PullEntityRemote(){
+    public PullDataRemote(){
         super(ServiceManager.Service.PULL_ENTITY_REMOTE);
     }
 

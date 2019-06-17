@@ -1,11 +1,7 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel;
 
 import android.app.Application;
-import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
-import android.system.Os;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.LinkedHashMultimap;
@@ -13,9 +9,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
-import java.util.AbstractMap;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,9 +27,9 @@ import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
-import zm.gov.moh.core.repository.database.entity.domain.Encounter;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
@@ -45,7 +39,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     private MutableLiveData<Integer> emitVisitState;
     private Bundle bundle;
     private VisitState visitState;
-    private Visit visit;
+    private VisitEntity visit;
     VisitDao visitDao = getRepository().getDatabase().visitDao();
     Database db = getRepository().getDatabase();
     long person_id;
@@ -153,7 +147,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
 
         if(visit == null)
-            visit = new Visit();
+            visit = new VisitEntity();
 
         if(visitState == VisitState.STARTED)
 
@@ -166,7 +160,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     }
 
 
-    public LinkedHashMap<Long, Collection<Boolean>> extractScreeningData(List<Visit> visits){
+    public LinkedHashMap<Long, Collection<Boolean>> extractScreeningData(List<VisitEntity> visits){
 
         final long CONCEPT_ID_VIA_INSPECTION_DONE = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_INSPECTION_DONE);
 
@@ -176,19 +170,19 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             GenericDao genericDao = getRepository().getDatabase().genericDao();
             LinkedHashMap<Long, Collection<Boolean>> screeningResults = new LinkedHashMap<>();
 
-            for(Visit visit: visits) {
+            for(VisitEntity visit: visits) {
 
                 LinkedHashMap<Long, Boolean> screeningData = new LinkedHashMap<>();
 
-                List<Obs> obsIterator = getRepository()
+                List<ObsEntity> obsIterator = getRepository()
                         .getDatabase()
                         .genericDao()
                         .getPatientObsByEncounterTypeAndVisitId(person_id,visit.getVisitId(), OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
-                List<Obs> obsList = db.genericDao().getPatientObsByConceptIdVisitId(34L,db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_SCREENING_RESULT),9223372036854725890L);
+                List<ObsEntity> obsList = db.genericDao().getPatientObsByConceptIdVisitId(34L,db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_SCREENING_RESULT),9223372036854725890L);
 
 
-                for (Obs obs:obsIterator) {
+                for (ObsEntity obs:obsIterator) {
 
                     //Obs obs = obsIterator.next();
 
@@ -219,7 +213,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
-    public Map<String,LinkedHashMultimap<Long, String>> extractEDIData(List<Visit> visits){
+    public Map<String,LinkedHashMultimap<Long, String>> extractEDIData(List<VisitEntity> visits){
 
         Map<String,LinkedHashMultimap<Long, String>> ediVisitData;
         if(visits.size() > 0) {
@@ -227,14 +221,14 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             LinkedHashMultimap<Long, String> ediData = LinkedHashMultimap.create();
             Long ediConceptId = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_EDI_IMAGE);
 
-            Obs eiObs = db.obsDao().findByConceptId(ediConceptId);
+            ObsEntity eiObs = db.obsDao().findByConceptId(ediConceptId);
 
-            for(Visit visit: visits) {
+            for(VisitEntity visit: visits) {
                 String visitName = db.visitTypeDao().getVisitTypeById(visit.getVisitTypeId());
                 long visitDatetime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
-                List<Obs> ediObs = db.obsDao().getObsByVisitIdConceptId(visit.getVisitId(),ediConceptId);
+                List<ObsEntity> ediObs = db.obsDao().getObsByVisitIdConceptId(visit.getVisitId(),ediConceptId);
 
-                for(Obs obs: ediObs){
+                for(ObsEntity obs: ediObs){
                     ediData.put(visitDatetime, obs.getValueText());
                 }
 
@@ -247,14 +241,14 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return ediVisitData;
     }
 
-    public LinkedHashMap<Long, Collection<Boolean>> extractReferralData(List<Visit> visits){
+    public LinkedHashMap<Long, Collection<Boolean>> extractReferralData(List<VisitEntity> visits){
 
         if(visits.size() > 0) {
 
             LinkedHashMap<Long, Collection<Boolean>> referralResults = new LinkedHashMap<>();
             final long CONCEPT_ID_REASON_FOR_REFERRAL = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_REASON_FOR_REFERRAL);
 
-            for(Visit visit: visits) {
+            for(VisitEntity visit: visits) {
 
                 long datatime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 LinkedHashMap<Long, Boolean> referralData = new LinkedHashMap<>();
@@ -276,7 +270,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
-    public LinkedHashMap<Long, Collection<Boolean>> extractTreatmentData(List<Visit> visits){
+    public LinkedHashMap<Long, Collection<Boolean>> extractTreatmentData(List<VisitEntity> visits){
 
         final Long cryoThermolDoneToday = 165174165175L;
         final Long cryoThermolDoneDelayed = 165334176165177L;
@@ -287,7 +281,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             LinkedHashMap<Long, Collection<Boolean>> treatResults = new LinkedHashMap<>();
             final long CONCEPT_ID_VIA_TREATMENT_TYPE_DONE = db.conceptDao().getConceptIdByUuid(OpenmrsConfig.CONCEPT_UUID_VIA_TREATMENT_TYPE_DONE);
 
-            for(Visit visit: visits) {
+            for(VisitEntity visit: visits) {
 
                 long datatime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 LinkedHashMap<Long, Boolean> treatmentData = new LinkedHashMap<>();
@@ -317,7 +311,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
-    public void onVisitsRetrieved(List<Visit> visits){
+    public void onVisitsRetrieved(List<VisitEntity> visits){
 
         ConcurrencyUtils.asyncFunction(this::extractScreeningData, getScreeningDataEmitter()::setValue, visits, this::onError);
         ConcurrencyUtils.asyncFunction(this::extractEDIData, getEDIDataEmitter()::setValue, visits, this::onError);
@@ -339,12 +333,12 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         long creator = (Long) bundle.get(Key.USER_ID);
         LocalDateTime start_time = LocalDateTime.now();
 
-        visit = new Visit(visit_id,visit_type_id,person_id,location_id,creator,start_time);
+        visit = new VisitEntity(visit_id,visit_type_id,person_id,location_id,creator,start_time);
         visitDao.insert(visit);
         bundle.putLong(Key.VISIT_ID, visit_id);
     }
 
-    public LinkedHashMap<Long, Collection<String>> extractProviderData(List<Visit> visits){
+    public LinkedHashMap<Long, Collection<String>> extractProviderData(List<VisitEntity> visits){
 
 
         LinkedHashMap<Long, String> providerData = new LinkedHashMap<>();
@@ -353,7 +347,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
             LinkedHashMap<Long, Collection<String>> providerResults = new LinkedHashMap<>();
 
-            for(Visit visit: visits) {
+            for(VisitEntity visit: visits) {
                 long datatime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
                 Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
@@ -380,12 +374,12 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return null;
     }
 
-    public LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> extractVisitData(List<Visit> visits){
+    public LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> extractVisitData(List<VisitEntity> visits){
 
         LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> visitListItems = new LinkedList<>();
-        for(Visit visit: visits){
+        for(VisitEntity visit: visits){
 
-            List<Obs> obsList = db.genericDao().getPatientObsByVisitId(person_id,visit.getVisitId());
+            List<ObsEntity> obsList = db.genericDao().getPatientObsByVisitId(person_id,visit.getVisitId());
 
             LinkedHashMultimap<VisitListItem,VisitEncounterItem> itemLinkedHashMultimap = LinkedHashMultimap.create();
 
@@ -396,17 +390,17 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             visitListItem.setDateCreated(visit.getDateCreated());
             visitListItem.setVisitType(db.visitTypeDao().getVisitTypeById(visit.getVisitTypeId()));
 
-            List<Encounter> visitEncounters = db.encounterDao().getByEncounterByVisitId(visit.getVisitId());
+            List<EncounterEntity> visitEncounters = db.encounterDao().getByEncounterByVisitId(visit.getVisitId());
 
             if(visitEncounters != null && visitEncounters.size() > 0)
-                for (Encounter encounter : visitEncounters) {
+                for (EncounterEntity encounter : visitEncounters) {
 
                     VisitEncounterItem visitEncounterItem = new VisitEncounterItem();
                     visitEncounterItem.setId(encounter.getEncounterId());
                     visitEncounterItem.setEncounterType(db.encounterTypeDao().getEncounterTypeNameById(encounter.getEncounterType()));
 
-                    List<Obs> encounterObs = db.obsDao().getObsByEncountId(encounter.getEncounterId());
-                    for (Obs obs:encounterObs) {
+                    List<ObsEntity> encounterObs = db.obsDao().getObsByEncountId(encounter.getEncounterId());
+                    for (ObsEntity obs:encounterObs) {
                         ObsListItem obsListItem = new ObsListItem();
                         obsListItem.setId(obs.getObsId());
                         obsListItem.setConceptId(obs.getConceptId());

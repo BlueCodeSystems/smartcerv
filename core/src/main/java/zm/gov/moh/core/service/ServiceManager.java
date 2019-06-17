@@ -97,11 +97,11 @@ public class ServiceManager {
                 break;
 
             case PULL_ENTITY_REMOTE:
-               mIntent = new Intent(context, PullEntityRemote.class);
+               mIntent = new Intent(context, PullDataRemote.class);
                break;
 
             case PUSH_ENTITY_REMOTE:
-                mIntent = new Intent(context, PushEntityRemote.class);
+                mIntent = new Intent(context, PushDataRemote.class);
                 break;
 
             case PERSIST_DEMOGRAPHICS:

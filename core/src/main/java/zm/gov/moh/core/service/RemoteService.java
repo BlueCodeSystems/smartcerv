@@ -57,14 +57,6 @@ public abstract class RemoteService extends BaseIntentService implements Injecta
         notifyInterrupted();
     }
 
-
-
-    protected void onServiceCompleted(){
-        Intent intent = new Intent(IntentAction.REMOTE_SERVICE_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
-
     public void onTaskStarted(){
         tasksStarted++;
     }

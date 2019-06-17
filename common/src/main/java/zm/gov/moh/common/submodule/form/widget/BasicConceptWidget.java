@@ -42,7 +42,7 @@ import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.utils.Utils;
 
 @SuppressWarnings("deprecation")
@@ -450,7 +450,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
 
     // Retrieves previously entered value and displays it in widget
-    public void onLastObsRetrieved(Obs obs) {
+    public void onLastObsRetrieved(ObsEntity obs) {
 
         switch (mDataType) {
 

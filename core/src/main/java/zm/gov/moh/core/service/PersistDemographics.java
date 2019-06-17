@@ -2,7 +2,6 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -11,8 +10,8 @@ import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
-import zm.gov.moh.core.repository.database.entity.domain.Patient;
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -58,11 +57,11 @@ public class PersistDemographics extends PersistService {
 
 
             //Create database entity instances
-            PatientIdentifier patientId = new PatientIdentifier(patientIdentifierId, personId, identifier.getIdentifier(), 3, PREFERRED, locationId, now);
+            PatientIdentifierEntity patientId = new PatientIdentifierEntity(patientIdentifierId, personId, identifier.getIdentifier(), 3, PREFERRED, locationId, now);
             PersonName personName = new PersonName(personNameId,personId, givenName, familyName, PREFERRED, now);
             Person person = new Person(personId, dateOfBirth, gender,now);
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);
-            Patient patient = new Patient(personId, now);
+            PatientEntity patient = new PatientEntity(personId, now);
 
             identifier.markAsAssigned();
             db.identifierDao().insert(identifier);
