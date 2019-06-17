@@ -1,14 +1,12 @@
 package zm.gov.moh.core.service;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.IntentAction;
-import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.database.Database;
@@ -19,7 +17,7 @@ import zm.gov.moh.core.utils.InjectorUtils;
 public abstract class RemoteService extends BaseIntentService implements InjectableViewModel {
 
     protected Repository repository;
-    protected String accessToken = "";
+    protected String accessToken;
     protected final int TIMEOUT = 300000;
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
