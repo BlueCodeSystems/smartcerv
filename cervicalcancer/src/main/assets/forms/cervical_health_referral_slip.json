@@ -10,54 +10,378 @@
       "title": "Date Group",
       "widgets": [
         {
-          "tag": "hello test",
-          "widgetType": "TextView",
+          "tag": "date of referal",
+          "widgetType": "DatePicker",
           "weight": 1,
-          "label": "Family Planning methods",
-          "textSize":18
+          "hint": "DD/MM/YYYY"
         }
       ]
     },
     {
       "title": "Client ID Group",
       "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "province",
+              "widgetType": "Concept",
+              "conceptId": 165354,
+              "dataType": "Text",
+              "hint": "Province",
+              "textSize": 18
+            },
+            {
+              "tag": "district",
+              "widgetType": "Concept",
+              "conceptId": 165355,
+              "dataType": "Text",
+              "hint": "District",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "facility",
+              "widgetType": "Concept",
+              "conceptId": 165356,
+              "dataType": "Text",
+              "hint": "Facility",
+              "textSize": 18
+            },
+            {
+              "tag": "serial number",
+              "widgetType": "Concept",
+              "conceptId": 165357,
+              "dataType": "Text",
+              "hint": "Serial Number",
+              "textSize": 18
+            }
+          ]
+        }
       ]
     },
     {
       "title": "ART Number Group",
       "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "province",
+              "widgetType": "Concept",
+              "conceptId": 165358,
+              "dataType": "Text",
+              "hint": "Province",
+              "textSize": 18
+            },
+            {
+              "tag": "district",
+              "widgetType": "Concept",
+              "conceptId": 165359,
+              "dataType": "Text",
+              "hint": "District",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "facility",
+              "widgetType": "Concept",
+              "conceptId": 165360,
+              "dataType": "Text",
+              "hint": "Facility",
+              "textSize": 18
+            },
+            {
+              "tag": "serial number",
+              "widgetType": "Concept",
+              "conceptId": 165361,
+              "dataType": "Text",
+              "hint": "Serial Number",
+              "textSize": 18
+            }
+          ]
+        }
       ]
     },
     {
       "title": "Patient Detail Group",
       "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "patient last number",
+              "widgetType": "Concept",
+              "conceptId": 165362,
+              "dataType": "Text",
+              "hint": "Patient Last Name",
+              "textSize": 18
+            },
+            {
+              "tag": "patient first number",
+              "widgetType": "Concept",
+              "conceptId": 165363,
+              "dataType": "Text",
+              "hint": "Patient First Name",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "referral clinic",
+              "widgetType": "Concept",
+              "conceptId": 165364,
+              "dataType": "Text",
+              "hint": "Referral Clinic",
+              "textSize": 18
+            },
+            {
+              "tag": "age",
+              "widgetType": "Concept",
+              "conceptId": 165365,
+              "dataType": "Text",
+              "hint": "Age",
+              "textSize": 18
+            }
+          ]
+        }
       ]
     },
     {
       "title": "\"Reason for referral\" Title Group",
       "widgets": [
-
-      ]
-    },
-    {
-      "title": "Above Details Group",
-      "widgets": [
-
-      ]
-    },
-    {
-      "title": "More Above Details Group",
-      "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "polyp",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Polyp",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "percentage of cervix covered",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Percentage(%) of cervix covered",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "lesion extends into cervical os",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Lesion extends into cervical os",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "lesion too thick for cyrotherapy",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Lesion too thick for Cyrotherapy",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "contact/post coital bleeding",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Contact/Post coital bleeding",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "query icc",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Query ICC",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "atypical vessels",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Atypical Vessels",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "punctations",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Punctuations",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "mosaicism",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Mosaicism",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "post-cryo lesion",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Post-cryo lesion",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "post-leep lesion",
+              "widgetType": "Concept",
+              "conceptId": 165155,
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Post-LEEP lesion",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType":"TextView",
+              "label":"Other",
+              "textSize":18,
+              "weight":1
+            },
+            {
+              "tag": "other reason for referral",
+              "widgetType": "Concept",
+              "conceptId": 165216,
+              "dataType": "Text",
+              "hint": "blah blah blah blah blah blah"
+            }
+          ]
+        }
       ]
     },
     {
       "title": "Comments and Picture Group",
       "widgets": [
-
+        {
+          "widgetType":"TextView",
+          "label":"Comments",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "comments",
+              "widgetType": "Concept",
+              "conceptId": 165345,
+              "dataType": "Text",
+              "textSize": 18,
+              "style": "TextBoxOne",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "tag": "clinician name",
+          "widgetType": "Concept",
+          "conceptId": 165365,
+          "dataType": "Text",
+          "hint": "Clinician Name",
+          "textSize": 18
+        },
+        {
+          "tag": "sign",
+          "widgetType": "Concept",
+          "conceptId": 165365,
+          "dataType": "Text",
+          "hint": "Sign",
+          "textSize": 18
+        },
+        {
+          "tag": "hospital phone number",
+          "widgetType": "Concept",
+          "conceptId": 165365,
+          "dataType": "Text",
+          "hint": "Hospital Phone Number",
+          "textSize": 18
+        }
       ]
     }
   ]
