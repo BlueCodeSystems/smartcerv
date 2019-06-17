@@ -191,7 +191,7 @@ public class ServiceManager {
                     break;
 
                 case IntentAction.PERSIST_ENCOUNTERS_COMPLETE:
-                    Toast.makeText(context,"Encounter saved",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Encounters saved",Toast.LENGTH_LONG).show();
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
 
@@ -212,7 +212,7 @@ public class ServiceManager {
                     break;
 
                 case IntentAction.PERSIST_ENCOUNTERS_INTERRUPT:
-                    Toast.makeText(context,"Encounter saving interrupted",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"Encounters saving Interrupted",Toast.LENGTH_LONG).show();
                     serviceManager.getServiceExecutionPool().remove(serviceName);
                     break;
             }
