@@ -51,8 +51,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     String mLabel;
     String mHint;
     AppCompatEditText mEditText;
+    RadioGroup radioGroup;
     AppCompatTextView mTextView;
-    AppCompatActivity mTextBox;
     long mConceptId;
     int mWeight = 0;
     int mTextSize;
@@ -193,7 +193,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         //Create and intialize widgets
 
-
         mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mTextView.setText(mLabel);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
@@ -266,7 +265,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
                     conceptNameIdMap.put("Yes", 1L);
                     conceptNameIdMap.put("No", 2L);
-                    RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
+                    radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
                 } else if (mStyle.equals("check")) {
 
@@ -382,6 +381,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mObsValue.setValue(value);
     }
 
+
+
     public BasicConceptWidget setForm(Form form) {
 
         this.form = form;
@@ -448,7 +449,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         canSetValue.compareAndSet(false, true);
     }
 
-    // Retrieves previously entered value and displays it in widget
+    // Retrieves previously entered observations value and displays it in widget
     public void onLastObsRetrieved(Obs obs) {
 
         switch (mDataType) {
@@ -471,6 +472,20 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 String valuetxt = String.valueOf(obs.getValueText());
                 mEditText.setText(valuetxt);
                 break;
+
+            case ConceptDataType.BOOLEAN:
+                 Long valbool = obs.getValueCoded();
+
+                 if(valbool == 1) {
+                     RadioButton button = (RadioButton) radioGroup.getChildAt(0);
+                     button.setChecked(true);
+                 }else if(valbool == 2){
+                     RadioButton button = (RadioButton) radioGroup.getChildAt(1);
+                     button.setChecked(true);
+                 }
+                //radioGroup.getB
+
+
 
         }
     }
