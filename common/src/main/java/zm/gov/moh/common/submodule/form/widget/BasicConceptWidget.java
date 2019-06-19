@@ -123,7 +123,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                             if (condition.getExpression().getLessThan() != null) {
                                 String dob = bundle.getString((String) logic.getCondition().getValue());
 
-                                if(dob != null) {
+                                if (dob != null) {
                                     LocalDate ld = LocalDate.parse(dob);
                                     int clientAge = LocalDateTime.now().getYear() - ld.getYear();
                                     int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
@@ -212,7 +212,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case ConceptDataType.TEXT:
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
 
-                if(mStyle != null) {
+                if (mStyle != null) {
                     if (mStyle.equals("TextBoxOne")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
                         ShapeDrawable border = new ShapeDrawable(new RectShape());
@@ -238,7 +238,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
-                }else {
+                } else {
                     addView(view);
                 }
                 break;
@@ -255,7 +255,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 Utils.dateDialog(mContext, mEditText, this::onDateValueChangeListener);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText));
                 break;
-
 
 
             case ConceptDataType.BOOLEAN:
@@ -294,8 +293,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         conceptNameIdMap = new LinkedHashMap<>();
         answerConcepts = new LinkedHashSet<>();
 
-        for(ConceptAnswerName conceptAnswerName: conceptAnswerNames)
-             conceptNameIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
+        for (ConceptAnswerName conceptAnswerName : conceptAnswerNames)
+            conceptNameIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
 
         int orientation = (conceptNameIdMap.size() > 2) ? WidgetUtils.VERTICAL : WidgetUtils.HORIZONTAL;
 
@@ -382,7 +381,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     }
 
 
-
     public BasicConceptWidget setForm(Form form) {
 
         this.form = form;
@@ -467,24 +465,34 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     mEditText.setText(valuenum);
                 break;
 
-                // Behaviour when text based data is retrieved
+            // Behaviour when text based data is retrieved
             case ConceptDataType.TEXT:
                 String valuetxt = String.valueOf(obs.getValueText());
                 mEditText.setText(valuetxt);
                 break;
 
             case ConceptDataType.BOOLEAN:
-                 Long valbool = obs.getValueCoded();
+                Long valboolrad = obs.getValueCoded();
 
-                 if(valbool == 1) {
+                if (valboolrad == 1) {
                      RadioButton button = (RadioButton) radioGroup.getChildAt(0);
-                     button.setChecked(true);
-                 }else if(valbool == 2){
-                     RadioButton button = (RadioButton) radioGroup.getChildAt(1);
-                     button.setChecked(true);
-                 }
-                //radioGroup.getB
+                    button.setChecked(true);
+                } else if (valboolrad == 2) {
+                    RadioButton button = (RadioButton) radioGroup.getChildAt(1);
+                    button.setChecked(true);
+                }
 
+
+                break;
+            case ConceptDataType.CODED:
+               // Long valboolcheck = obs.getValueCoded();
+
+              //  if (valboolcheck == 1) {
+                //    CheckBox checkBox = (CheckBox) radioGroup.getChildAt(0);
+                  //  checkBox.setChecked(true);
+                //}
+
+              //  break;
 
 
         }

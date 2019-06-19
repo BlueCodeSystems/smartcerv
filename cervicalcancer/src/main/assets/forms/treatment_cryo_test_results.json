@@ -16,6 +16,7 @@
               "tag": "via inspection done",
               "widgetType": "Concept",
               "conceptId": 165155,
+              "uuid":"a1dc1c20-074d-4cba-86e6-42a41b14f9f1",
               "dataType": "Boolean",
               "style": "radio",
               "textSize": 18,
@@ -57,8 +58,8 @@
               "tag": "via reason",
               "widgetType": "Concept",
               "conceptId": 165216,
+              "uuid" :"678e3bff-318d-478a-b720-893b9751e6f7",
               "dataType": "Text",
-              "style": "multiline",
               "hint": "Reason why VIA inspection not done",
               "textSize": 18
             }
@@ -72,6 +73,7 @@
         {
           "tag": "edi inspection done",
           "widgetType": "Concept",
+          "uuid" : "0ddf399e-dd1b-4e9f-ab15-c2020865b0fa",
           "conceptId": 165156,
           "dataType": "Boolean",
           "style": "radio",
@@ -109,6 +111,7 @@
           "tag": "edi reason",
           "widgetType": "Concept",
           "conceptId": 165217,
+          "uuid":"c023311a-1fbc-43b9-9c65-d988601e578b",
           "dataType": "Text",
           "hint": "Reason for no EDI",
           "textSize": 18
@@ -181,6 +184,7 @@
               "tag": "reason for no",
               "widgetType": "Concept",
               "conceptId": 165158,
+              "uuid":"4a3f2e1f-e6d4-4bd4-875d-6d17d01b7377",
               "dataType": "Text",
               "hint": "Reason(e.g severe cervicitis)",
               "textSize": 18
@@ -263,6 +267,7 @@
               "tag": "atypical vessel",
               "widgetType": "Concept",
               "conceptId": 165170,
+              "uuid":"4322eb57-e248-4592-bba2-b33e222da9bb",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Atypical vessel",
@@ -277,6 +282,7 @@
               "tag": "extends into cervical os",
               "widgetType": "Concept",
               "conceptId": 165171,
+              "uuid":"	4f3f3a82-67cc-4cc5-a24b-b0d17b901456",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Extends into cervical os",
@@ -305,6 +311,7 @@
               "tag": "mosaicism or punctuation",
               "widgetType": "Concept",
               "conceptId": 165173,
+              "uuid":"2347f64d-380d-4ef3-ae10-845fffeb4fd1",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Mosaicism/ Punctuation",

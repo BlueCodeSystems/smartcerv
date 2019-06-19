@@ -124,7 +124,7 @@ public class PersistEncounter extends PersistService {
                         break;
 
                     case ConceptDataType.TEXT:
-                       // String textValue = obsValue.toString();//  { }
+                       // String textValue = obsValue.toString();// if (Utils.getStringFromInputStream(textValue instanceof  String = True)) {
                             obsList.add(obs.setObsConceptId(obsValue.getConceptId())
                                     .setValue(obsValue.getValue().toString()));
 
@@ -147,6 +147,8 @@ public class PersistEncounter extends PersistService {
                         obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
                                 .setValue(answerConcepts));
                         break;
+
+
                 }
 
                 if (!obsList.isEmpty())

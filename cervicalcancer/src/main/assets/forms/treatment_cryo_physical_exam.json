@@ -13,6 +13,7 @@
           "tag": "Pelvic exam",
           "widgetType": "Concept",
           "conceptId": 165137,
+          "uuid":"a783f689-b3cd-4728-97a6-3bcaaf0f4e1e",
           "dataType": "Boolean",
           "label": "Pelvic exam done",
           "style": "radio",
@@ -113,6 +114,7 @@
           "tag": "Other Clinical Findings",
           "widgetType": "Concept",
           "conceptId": 165154,
+          "uuid":"72201bf3-f507-4909-b7d8-4c3668a42c62",
           "dataType": "Text",
           "hint": " Enter Other Clinical Findings",
           "textSize": 18

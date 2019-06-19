@@ -141,6 +141,7 @@
           "tag": "None",
           "widgetType": "Concept",
           "conceptId": 165097,
+          "uuid":"009dd295-5c08-4f0e-9556-3683e8c3101a",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Is patient on family planing?",
@@ -237,6 +238,7 @@
           "tag": "vaginal bleeding",
           "widgetType": "Concept",
           "conceptId": 165105,
+          "uuid":"f8299472-070a-407d-b174-0e91b9d115bc",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Any abnormal vaginal bleeding/contact bleeding:",
@@ -521,6 +523,7 @@
           "widgetType": "Concept",
           "conceptId": 165116,
           "dataType": "Text",
+          "uuid":"469b97ca-31b2-491f-a168-dea9447fdfc7",
           "textSize": 18,
           "hint": "Other Surgical History"
         }
