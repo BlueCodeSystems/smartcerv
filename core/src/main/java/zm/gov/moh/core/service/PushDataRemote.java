@@ -10,6 +10,7 @@ import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Patient;
+import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -45,6 +46,8 @@ public class PushDataRemote extends RemoteService {
                 int index = 0;
 
                 Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset,pushedEntityId);
+
+                List<PatientEntity> patients1 = db.patientDao().getAll();
                 if(unpushedPatientEntityId.length != 0) {
 
                     patients = new Patient[unpushedPatientEntityId.length];
