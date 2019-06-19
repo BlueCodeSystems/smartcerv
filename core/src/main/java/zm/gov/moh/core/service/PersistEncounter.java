@@ -29,24 +29,19 @@ public class PersistEncounter extends PersistService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        super.onHandleIntent(intent);
-    }
+    protected void executeAsync() {
 
-    @Override
-    public void persistAsync(Bundle bundle) {
-
-        long provider_id = (long) bundle.get(Key.PROVIDER_ID);
-        long user_id = (long) bundle.get(Key.USER_ID);
-        long location_id = (long) bundle.get(Key.LOCATION_ID);
-        long person_id = (long) bundle.get(Key.PERSON_ID);
-        long encounter_type_id = (long) bundle.get(Key.ENCOUNTER_TYPE_ID);
-        Long visit_id = (Long) bundle.get(Key.VISIT_ID);
+        long provider_id = (long) mBundle.get(Key.PROVIDER_ID);
+        long user_id = (long) mBundle.get(Key.USER_ID);
+        long location_id = (long) mBundle.get(Key.LOCATION_ID);
+        long person_id = (long) mBundle.get(Key.PERSON_ID);
+        long encounter_type_id = (long) mBundle.get(Key.ENCOUNTER_TYPE_ID);
+        Long visit_id = (Long) mBundle.get(Key.VISIT_ID);
 
         if (visit_id == null) {
 
             visit_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
-            long visit_type_id = (Long) bundle.get(Key.VISIT_TYPE_ID);
+            long visit_type_id = (Long) mBundle.get(Key.VISIT_TYPE_ID);
             LocalDateTime start_time = LocalDateTime.now();
 
             VisitEntity visit = new VisitEntity(visit_id, visit_type_id, person_id, location_id, user_id, start_time, start_time);
@@ -57,7 +52,7 @@ public class PersistEncounter extends PersistService {
 
         long encounter_id = submitEncounter(encounter_type_id, person_id, location_id, visit_id, user_id, zonedDatetimeNow);
 
-        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, bundle);
+        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, mBundle);
 
         submitEncounterProvider(encounter_id, provider_id, null, user_id);
     }
@@ -80,13 +75,13 @@ public class PersistEncounter extends PersistService {
         return encounter_provider_id;
     }
 
-    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, LocalDateTime zonedDatetimeNow, Bundle bundle) {
+    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, LocalDateTime zonedDatetimeNow, Bundle mBundle) {
 
-        ArrayList<String> keys = bundle.getStringArrayList(Key.FORM_TAGS);
+        ArrayList<String> keys = mBundle.getStringArrayList(Key.FORM_TAGS);
 
         for (String key : keys) {
 
-            Object value = bundle.get(key);
+            Object value = mBundle.get(key);
 
             if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
 
@@ -107,10 +102,10 @@ public class PersistEncounter extends PersistService {
                     case ConceptDataType.NUMERIC:
                         String numericValue = obsValue.getValue().toString();
 
-                          if(Utils.isNumber(numericValue)){
-                              obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                      .setValue(Double.valueOf(obsValue.getValue().toString())));
-                         }
+                        if(Utils.isNumber(numericValue)){
+                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(Double.valueOf(obsValue.getValue().toString())));
+                        }
                         break;
 
                     case ConceptDataType.TEXT:
@@ -140,13 +135,9 @@ public class PersistEncounter extends PersistService {
 
                 if (!obsList.isEmpty())
                     getRepository().getDatabase().obsDao().insert(obsList);
-                bundle.remove(key);
+                mBundle.remove(key);
             }
         }
-
-        /*Intent intent = new Intent(ServiceManager.IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);*/
 
         notifyCompleted();
 
