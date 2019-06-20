@@ -191,20 +191,21 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         WidgetUtils.setLayoutParams(this, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
                 .setOrientation(WidgetUtils.HORIZONTAL);
 
-        //Create and intialize widgets
+        //Create and initialize widgets
 
         mTextView = WidgetUtils.setLayoutParams(new AppCompatTextView(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         mTextView.setText(mLabel);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, mTextSize);
 
         mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
+
         //Auto capitalize first letter
         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
         //Set Cursor to Leftmost
         mEditText.setSelection(0);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
         mEditText.setHint(mHint);
-
 
         //Return view according to concept data type
         switch (mDataType) {
@@ -474,10 +475,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case ConceptDataType.BOOLEAN:
                 Long valboolrad = obs.getValueCoded();
 
-                if (valboolrad == 1) {
-                     RadioButton button = (RadioButton) radioGroup.getChildAt(0);
+                if (valboolrad == 1L) {
+                    RadioButton button = (RadioButton) radioGroup.getChildAt(0);
                     button.setChecked(true);
-                } else if (valboolrad == 2) {
+                } else if (valboolrad == 2L) {
                     RadioButton button = (RadioButton) radioGroup.getChildAt(1);
                     button.setChecked(true);
                 }
@@ -485,14 +486,14 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
                 break;
             case ConceptDataType.CODED:
-               // Long valboolcheck = obs.getValueCoded();
+                Long valueCoded = obs.getValueCoded();
 
-              //  if (valboolcheck == 1) {
-                //    CheckBox checkBox = (CheckBox) radioGroup.getChildAt(0);
-                  //  checkBox.setChecked(true);
-                //}
 
-              //  break;
+                if (valueCoded == 1L) {
+                    CheckBox checkBox = (CheckBox) radioGroup.getChildAt(0);
+                    checkBox.setChecked(true);
+                }
+                break;
 
 
         }

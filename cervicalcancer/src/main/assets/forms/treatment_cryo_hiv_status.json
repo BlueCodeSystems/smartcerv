@@ -61,14 +61,6 @@
           ]
         },
         {
-          "tag": "Date tested negative",
-          "conceptId": 165251,
-          "dataType": "Date",
-          "widgetType": "DatePicker",
-          "label": "Select Date tested negative",
-          "hint": "dd MM yyyy"
-        },
-        {
           "tag": "art status",
           "widgetType": "Concept",
           "conceptId": 165223,
@@ -118,15 +110,6 @@
           "hint": "Number"
         },
         {
-          "tag": "PICT was not offered",
-          "widgetType": "Concept",
-          "conceptId": 165253,
-          "dataType": "Text",
-          "uuid": "6762f9da-451e-4b7a-abe6-d32889f56e73",
-          "textSize": 18,
-          "hint": "Reason PICT was not offered"
-        },
-        {
           "widgetType": "WidgetGroupRow",
           "tag": "cd4",
           "widgets": [
@@ -134,8 +117,8 @@
               "tag": "cd4 count",
               "widgetType": "Concept",
               "conceptId": 165241,
-              "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
               "dataType": "Text",
+              "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
               "hint": "Number",
               "label": "CD4 Count",
               "textSize": 18
@@ -171,15 +154,6 @@
               "hint": "dd MM yyyy"
             }
           ]
-        },
-        {
-          "tag": "reason for unknown status",
-          "widgetType": "Concept",
-          "conceptId": 165208,
-          "uuid":"becd704c-e0e6-4b8d-ad91-1e837547d9bc",
-          "dataType": "Text",
-          "textSize": 18,
-          "hint": "Reason for Unknown HIV Status "
         },
         {
           "tag": "pict offered",
@@ -327,6 +301,32 @@
           "dataType": "Text",
           "textSize": 18,
           "hint": "Reason not referred to ART clinic"
+        },
+        {
+          "tag": "Date tested negative",
+          "conceptId": 165251,
+          "dataType": "Date",
+          "widgetType": "DatePicker",
+          "label": "Select date tested negative",
+          "hint": "dd MM yyyy"
+        },
+        {
+          "tag": "PICT was not offered",
+          "widgetType": "Concept",
+          "conceptId": 165253,
+          "dataType": "Text",
+          "uuid": "6762f9da-451e-4b7a-abe6-d32889f56e73",
+          "textSize": 18,
+          "hint": "Reason PICT was not offered"
+        },
+        {
+          "tag": "reason for unknown status",
+          "widgetType": "Concept",
+          "conceptId": 165208,
+          "uuid":"becd704c-e0e6-4b8d-ad91-1e837547d9bc",
+          "dataType": "Text",
+          "textSize": 18,
+          "hint": "Reason for Unknown HIV Status "
         }
       ]
     }
