@@ -79,12 +79,10 @@
               "textSize": 18
             },
             {
-              "tag": "age",
-              "widgetType": "Concept",
-              "conceptId": 165365,
-              "dataType": "Text",
-              "hint": "Age",
-              "textSize": 18
+              "tag": "PERSON_AGE",
+              "widgetType": "EditText",
+              "weight": 1,
+              "hint": "Age"
             }
           ]
         }
