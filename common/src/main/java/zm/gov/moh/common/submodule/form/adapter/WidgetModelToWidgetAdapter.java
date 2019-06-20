@@ -20,6 +20,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
@@ -40,6 +41,7 @@ import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
+import zm.gov.moh.common.submodule.form.widget.ProviderNumberWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidgetTwo;
@@ -206,6 +208,17 @@ public class WidgetModelToWidgetAdapter {
             widget.setLabelTextSize(model.getTextSize());
             widget.setValueTextSize(model.getTextSize());
             widget.setTag(model.getTag());
+            return widget;
+        }
+        else if (widgetModel instanceof ProviderNumberModel) {
+            ProviderNumberModel model = (ProviderNumberModel) widgetModel;
+
+            ProviderNumberWidget widget = new ProviderNumberWidget(this.context, this.repository, this.bundle)
+                    //.setNumber(model.getText())
+                    .setLabel(model.getLabel())
+                    .setTextSize(model.getTextSize())
+                    .build();
+
             return widget;
         }
         else if(widgetModel instanceof DistrictLabelModel){

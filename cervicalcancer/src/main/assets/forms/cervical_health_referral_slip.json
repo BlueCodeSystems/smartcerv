@@ -7,7 +7,6 @@
   },
   "widgetGroup": [
     {
-      "title": "Date Group",
       "widgets": [
         {
           "tag": "date of referal",
@@ -18,46 +17,16 @@
       ]
     },
     {
-      "title": "Client ID Group",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "province",
-              "widgetType": "Concept",
-              "conceptId": 165354,
-              "dataType": "Text",
-              "hint": "Province",
-              "textSize": 18
-            },
-            {
-              "tag": "district",
-              "widgetType": "Concept",
-              "conceptId": 165355,
-              "dataType": "Text",
-              "hint": "District",
-              "textSize": 18
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "facility",
-              "widgetType": "Concept",
-              "conceptId": 165356,
-              "dataType": "Text",
-              "hint": "Facility",
-              "textSize": 18
-            },
-            {
-              "tag": "serial number",
+              "tag": "client id number",
               "widgetType": "Concept",
               "conceptId": 165357,
               "dataType": "Text",
-              "hint": "Serial Number",
+              "hint": "Client ID Number",
               "textSize": 18
             }
           ]
@@ -65,46 +34,16 @@
       ]
     },
     {
-      "title": "ART Number Group",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "province",
-              "widgetType": "Concept",
-              "conceptId": 165358,
-              "dataType": "Text",
-              "hint": "Province",
-              "textSize": 18
-            },
-            {
-              "tag": "district",
-              "widgetType": "Concept",
-              "conceptId": 165359,
-              "dataType": "Text",
-              "hint": "District",
-              "textSize": 18
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "facility",
-              "widgetType": "Concept",
-              "conceptId": 165360,
-              "dataType": "Text",
-              "hint": "Facility",
-              "textSize": 18
-            },
-            {
-              "tag": "serial number",
+              "tag": "art number",
               "widgetType": "Concept",
               "conceptId": 165361,
               "dataType": "Text",
-              "hint": "Serial Number",
+              "hint": "ART Number",
               "textSize": 18
             }
           ]
@@ -112,26 +51,21 @@
       ]
     },
     {
-      "title": "Patient Detail Group",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "patient last number",
-              "widgetType": "Concept",
-              "conceptId": 165362,
-              "dataType": "Text",
+              "tag": "PERSON_FAMILY_NAME",
+              "widgetType": "EditText",
               "hint": "Patient Last Name",
-              "textSize": 18
+              "weight": 1
             },
             {
-              "tag": "patient first number",
-              "widgetType": "Concept",
-              "conceptId": 165363,
-              "dataType": "Text",
+              "tag": "PERSON_GIVEN_NAME",
+              "widgetType": "EditText",
               "hint": "Patient First Name",
-              "textSize": 18
+              "weight": 1
             }
           ]
         },
@@ -140,9 +74,7 @@
           "widgets": [
             {
               "tag": "referral clinic",
-              "widgetType": "Concept",
-              "conceptId": 165364,
-              "dataType": "Text",
+              "widgetType": "FacilityLabel",
               "hint": "Referral Clinic",
               "textSize": 18
             },
@@ -159,7 +91,6 @@
       ]
     },
     {
-      "title": "\"Reason for referral\" Title Group",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
@@ -336,7 +267,6 @@
       ]
     },
     {
-      "title": "Comments and Picture Group",
       "widgets": [
         {
           "widgetType":"TextView",
@@ -359,27 +289,15 @@
           ]
         },
         {
-          "tag": "clinician name",
-          "widgetType": "Concept",
-          "conceptId": 165365,
-          "dataType": "Text",
-          "hint": "Clinician Name",
-          "textSize": 18
-        },
-        {
-          "tag": "sign",
-          "widgetType": "Concept",
-          "conceptId": 165365,
-          "dataType": "Text",
-          "hint": "Sign",
+          "tag": "providers name",
+          "widgetType": "ProviderLabel",
+          "label": "Providers Name",
           "textSize": 18
         },
         {
           "tag": "hospital phone number",
-          "widgetType": "Concept",
-          "conceptId": 165365,
-          "dataType": "Text",
-          "hint": "Hospital Phone Number",
+          "widgetType": "ProviderNumber",
+          "label": "Providers Phone Number",
           "textSize": 18
         }
       ]

@@ -19,6 +19,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
@@ -172,6 +173,16 @@ public class WidgetModelJsonAdapter {
                 providerLabelModel.setTextSize(widgetModelJson.getTextSize());
 
                 return providerLabelModel;
+            case "ProviderNumber":
+
+                final ProviderNumberModel providerNumberModel = new ProviderNumberModel();
+
+                providerNumberModel.setWidgetType(widgetModelJson.getWidgetType());
+                providerNumberModel.setTag(widgetModelJson.getTag());
+                providerNumberModel.setLabel(widgetModelJson.getLabel());
+                providerNumberModel.setTextSize(widgetModelJson.getTextSize());
+
+                return providerNumberModel;
 
             case "FacilityLabel":
 
