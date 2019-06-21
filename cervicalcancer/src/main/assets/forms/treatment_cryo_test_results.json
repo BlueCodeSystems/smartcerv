@@ -87,7 +87,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    ""
+                    "image view button","camera button"
                   ]
                 }
               }
@@ -107,6 +107,23 @@
             }
           ]
         },
+
+        {
+          "tag": "image view button",
+          "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "ImageViewButton",
+
+          "label": "Image Load",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag":"camera button",
+          "widgetType": "CameraButton",
+          "label": "Take Photo",
+          "textSize": 18,
+          "weight": 1
+        },
         {
           "tag": "edi reason",
           "widgetType": "Concept",
@@ -115,20 +132,6 @@
           "dataType": "Text",
           "hint": "Reason for no EDI",
           "textSize": 18
-        },
-        {
-          "tag": "image view button",
-          "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
-          "widgetType": "ImageViewButton",
-          "label": "Image Load",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "CameraButton",
-          "label": "Take Photo",
-          "textSize": 18,
-          "weight": 1
         }
       ]
     },
