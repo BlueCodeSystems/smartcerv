@@ -53,20 +53,26 @@
                 android:text="EDI Gallery"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:background="@drawable/border_bottom"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                android:orientation="horizontal"
 
-            <Spinner
-                android:id="@+id/visit_type"
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/load_imag"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"/>
+                android:src="@drawable/ic_gallery"></androidx.appcompat.widget.AppCompatImageButton>
 
-
-
-            --androidx.appcompat.widget.AppCompatImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/load_image"
-                android:layout_width="85dp"
-                android:layout_height="54dp"
-                android:src="@drawable/ic_gallery" />
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_gallery"></androidx.appcompat.widget.AppCompatImageButton>
+            </LinearLayout>
+
 
 
             <TextView

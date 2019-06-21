@@ -2,6 +2,7 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,17 +12,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
@@ -50,9 +57,12 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     private PatientDashboardViewModel viewModel;
     private VisitState mVisitState;
     private Button startButton;
+    private ImageButton imageButton1;
+    private ImageButton imageButton2;
     private ExpandableListView mFormGroupExpandableListView;
     private ImageView formInfoIcon;
     private TextView textView;
+    private File image;
 
     public PatientDashboardVisitSessionFragment() {
         // Required empty public constructor
@@ -109,8 +119,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
             FormJson evaluation = new FormJson("Evaluation",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
-            FormJson treatment_results_pathology = new FormJson("Treatment/Results/Pathology",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_treatment_results_pathology.json")));
+            FormJson outcomes = new FormJson("Outcomes",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_outcomes.json")));
             FormJson final_diagnosis = new FormJson("Final Diagnosis & Plan",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_final_diagnosis_plan.json")));
 
@@ -124,7 +134,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
             leepFormGroup.addForm(evaluation);
-            leepFormGroup.addForm(treatment_results_pathology);
+            leepFormGroup.addForm(outcomes);
             leepFormGroup.addForm(final_diagnosis);
         }catch (Exception e){
 
@@ -195,6 +205,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     public void init(){
 
         startButton = rootView.findViewById(R.id.start_visit);
+        imageButton1 = rootView.findViewById(R.id.load_imag);
+        imageButton2 = rootView.findViewById(R.id.load_image);
         formInfoIcon = rootView.findViewById(R.id.form_info_ic);
         textView = rootView.findViewById(R.id.no_forms_placeholder);
         startButton.setOnClickListener(this);
@@ -223,6 +235,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
 
             Toast.makeText(context, "Some forms are only available after starting a visit session", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void updatedButtonStyle(Button button, int visitState){

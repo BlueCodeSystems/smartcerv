@@ -29,6 +29,7 @@ import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
+import zm.gov.moh.common.submodule.form.widget.Retainable;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
@@ -45,6 +46,8 @@ import zm.gov.moh.core.service.PersistEncounter;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.BaseFragment;
 
+import static zm.gov.moh.common.R2.id.message;
+
 public class FormFragment extends BaseFragment {
 
     private Form form;
@@ -56,6 +59,7 @@ public class FormFragment extends BaseFragment {
     private FormActivity context;
     private Bundle bundle;
     private Object EditTextWidget;
+    private Intent intent;
 
     public FormFragment() {
         // Required empty public constructor
@@ -209,7 +213,6 @@ public class FormFragment extends BaseFragment {
     }
 
     public void onUriRetrieved(Map.Entry<Integer, Uri> data) {
-        EditTextWidget = (mEditText);
         String tag = bundle.getString(Key.VIEW_TAG);
         View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget) view).onUriRetrieved(data.getValue());
@@ -219,9 +222,10 @@ public class FormFragment extends BaseFragment {
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
 
 
-        if (widget instanceof BasicConceptWidget) {
 
-            BasicConceptWidget conceptWidget = (BasicConceptWidget) widget;
+        if (widget instanceof Retainable) {
+
+           Retainable conceptWidget = (Retainable) widget;
 
             //get UUid and patientId
             String uuid = conceptWidget.getUuid();

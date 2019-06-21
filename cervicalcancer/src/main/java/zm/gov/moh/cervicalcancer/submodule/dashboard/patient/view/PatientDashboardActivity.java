@@ -1,12 +1,17 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -30,6 +35,10 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     private Fragment fragment;
     private FragmentManager fragmentManager;
     Bundle mBundle;
+    private View ImageButton1;
+    private View ImageButton2;
+    private MenuItem item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +70,12 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
                 observe(this, binding::setClientAddress);
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
                 observe(this, binding::setFacility);
+        
+        //Set EDI Image View Listener
+        ImageButton1 = findViewById(R.id.load_imag);
+        ImageButton2 = findViewById(R.id.load_image);
+        
+        
         // Set Bottom Navigation View Listener
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.inflateMenu(R.menu.bottom_menu);
@@ -73,6 +88,19 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
         //database.personAttributeTypeDao().findById(11)
     }
+    
+
+    public void onClick(View v) {
+        int id = item.getItemId();
+        if(id == R.id.load_imag)
+            fragment = new PatientDashboardEDIGalleryFragment();
+        else if(id == R.id.load_image)
+            fragment = new PatientDashboardEDIGalleryFragment();
+        fragment.setArguments(mBundle);
+        replaceFragment(fragment);
+        return;
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();

@@ -49,7 +49,7 @@ import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.utils.Utils;
 
 @SuppressWarnings("deprecation")
-public class BasicConceptWidget extends LinearLayoutCompat {
+public class BasicConceptWidget extends LinearLayoutCompat implements Retainable {
 
     String mLabel;
     String mHint;
@@ -230,9 +230,11 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                          params.leftMargin = 1000; params.topMargin = 2000;
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
                         WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
+                        mEditText.setPadding(10,10,10,10);
                         mEditText.setSingleLine(false);
                         mEditText.setMinLines(5);
                         this.addView(view);
+
                     } else if (mStyle.equals("TextBoxTwo")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
                         ShapeDrawable border = new ShapeDrawable(new RectShape());
