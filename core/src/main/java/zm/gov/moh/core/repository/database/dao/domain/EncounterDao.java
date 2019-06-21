@@ -17,6 +17,9 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     @Query("SELECT * FROM encounter WHERE patient_id = :id AND encounter_type = :encounterTypeId")
     LiveData<EncounterEntity> getByPatientId(long id, long encounterTypeId);
 
+    @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId)")
+    EncounterEntity [] getByVisitId(Long[] visitId);
+
     //gets all locations
     @Query("SELECT * FROM encounter WHERE patient_id = :id")
     LiveData<EncounterEntity> getByPatientId(long id);

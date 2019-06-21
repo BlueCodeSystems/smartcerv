@@ -9,13 +9,19 @@ import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 
 @Dao
-public interface VisitDao extends Synchronizable<VisitEntity> {
+public interface VisitDao extends Synchronizable<Long> {
 
     @Query("SELECT MAX(visit_id) FROM Visit")
     Long getMaxId();
     //gets all locations
     @Query("SELECT * FROM Visit WHERE patient_id = :id")
-    LiveData<List<VisitEntity>> getByPatientId(long id);
+    LiveData<List<VisitEntity>> getByPatientIdLive(long id);
+
+    @Query("SELECT * FROM Visit WHERE patient_id = :id")
+    VisitEntity[] getByPatientId(long id);
+
+    @Query("SELECT * FROM Visit WHERE visit_id IN (:id)")
+    VisitEntity[] getById(Long[] id);
 
     @Query("SELECT * FROM Visit WHERE visit_type_id IN (:visitTypes) AND patient_id = :id")
     LiveData<List<VisitEntity>> getByPatientIdVisitTypeId(long id, long... visitTypes);
@@ -27,6 +33,6 @@ public interface VisitDao extends Synchronizable<VisitEntity> {
     void updateVisit(VisitEntity visit);
 
     @Override
-    @Query("SELECT * FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
-    VisitEntity[] findEntityNotWithId(long offsetId, long... id);
+    @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
+    Long[] findEntityNotWithId(long offsetId, long... id);
 }

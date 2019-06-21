@@ -4,16 +4,22 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
+import zm.gov.moh.core.model.Encounter;
+import zm.gov.moh.core.model.Obs;
 import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Patient;
-import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
+import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
@@ -38,16 +44,15 @@ public class PushDataRemote extends RemoteService {
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(entityType.getId(), Status.PUSHED.getCode());
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
 
+
         switch (entityType){
 
             case PATIENT:
+
                 onTaskStarted();
                 Patient[] patients;
                 int index = 0;
-
                 Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset,pushedEntityId);
-
-                List<PatientEntity> patients1 = db.patientDao().getAll();
                 if(unpushedPatientEntityId.length != 0) {
 
                     patients = new Patient[unpushedPatientEntityId.length];
@@ -62,12 +67,29 @@ public class PushDataRemote extends RemoteService {
                     restApi.putPatients(accessToken, batchVersion, patients)
                             .subscribe(onComplete(unpushedPatientEntityId, entityType.getId()), this::onError);
 
-
+                    onTaskCompleted();
                 }else
                     onTaskCompleted();
                 break;
 
             case VISIT:
+
+                onTaskStarted();
+                Visit[] visits;
+                int visitIndex = 0;
+                Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
+                int cool;
+                if(unpushedVisitEntityId.length > 0) {
+
+                        Visit[] patientVisits = createVisits(unpushedVisitEntityId);
+                        if (patientVisits != null && patientVisits.length != 0)
+                            cool = patientVisits.length;
+
+
+                    restApi.putVisit(accessToken, batchVersion, patientVisits)
+                            .subscribe(onComplete(unpushedVisitEntityId, entityType.getId()), this::onError);
+                }else
+                    onTaskCompleted();
         }
     }
 
@@ -100,5 +122,121 @@ public class PushDataRemote extends RemoteService {
                .setAttributes(personAttributes)
                .setIdentifiers(patientIdentifiers)
                .build();
+    }
+
+    public Visit[] createVisits(Long ...visitEntityId){
+
+        int visitIndex = 0;
+        VisitEntity[] visitEntities = db.visitDao().getById(visitEntityId);
+
+        int numberOfvisitEntities = visitEntities.length;
+        Visit[] visits = new Visit[visitEntities.length];
+
+        if(numberOfvisitEntities > 0) {
+
+            Long visitIds[] = Observable.fromArray(visitEntities).map(visitEntity -> visitEntity.getVisitId())
+                    .toList().blockingGet().toArray(new Long[numberOfvisitEntities]);
+
+            EncounterEntity[] encounterEntities = db.encounterDao().getByVisitId(visitIds);
+
+            Long encounterIds[] = Observable.fromArray(encounterEntities)
+                    .map(encounterEntity -> encounterEntity.getEncounterId())
+                    .toList()
+                    .blockingGet()
+                    .toArray(new Long[encounterEntities.length]);
+
+            ObsEntity[] obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+
+            for (VisitEntity visitEntity : visitEntities) {
+
+                Visit.Builder visit = normalizeVisit(visitEntity);
+
+                EncounterEntity[] visitEncounter = Observable.fromArray(encounterEntities)
+                        .filter(encounterEntity -> (encounterEntity.getVisitId() == visitEntity.getVisitId()))
+                        .toList()
+                        .blockingGet()
+                        .toArray(new EncounterEntity[encounterEntities.length]);
+
+                Encounter[] encounters = new Encounter[visitEncounter.length];
+                int index = 0;
+
+                for (EncounterEntity encounterEntity : visitEncounter) {
+
+                    if(encounterEntity == null)
+                        continue;
+                    Encounter encounter = normalizeEncounter(encounterEntity);
+
+                    Obs[] encounterObs = Observable.fromArray(obsEntities)
+                            .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
+                            .map(this::normalizeObs)
+                            .toList()
+                            .blockingGet()
+                            .toArray(new Obs[obsEntities.length]);
+
+                    encounter.setObs(encounterObs);
+
+                    encounters[index++] = encounter;
+                }
+
+                visits[visitIndex++] = visit.setEncounters(encounters).build();
+
+            }
+
+            return visits;
+        }
+        return null;
+    }
+
+    public Obs normalizeObs(ObsEntity obsEntity){
+
+        Obs obs = new Obs();
+        String concept = db.conceptDao().getConceptUuidById(obsEntity.getConceptId());
+        String person = db.personDao().findByPatientId(obsEntity.getPersonId());
+
+
+        obs.setConcept(concept);
+        obs.setObsDatetime(obsEntity.getObsDateTime());
+        obs.setPerson(person);
+
+        if(obsEntity.getValueCoded() != null )
+            obs.setValue(db.conceptDao().getConceptUuidById(obsEntity.getValueCoded()));
+        else if (obsEntity.getValueDateTime() != null )
+            obs.setValue(obsEntity.getValueDateTime().toString());
+        else if (obsEntity.getValueNumeric() != null)
+            obs.setValue(obsEntity.getValueNumeric().toString());
+        else if (obsEntity.getValueText() != null)
+            obs.setValue(obsEntity.getValueText());
+
+        return obs;
+    }
+
+    public Visit.Builder normalizeVisit(VisitEntity visitEntity){
+
+        Visit.Builder visit = new  Visit.Builder();
+        String visitType = db.visitTypeDao().getUuidVisitTypeById(visitEntity.getVisitTypeId());
+        String patient = db.personDao().findByPatientId(visitEntity.getPatientId());
+        String location = db.locationDao().getUuidById(visitEntity.getLocationId());
+
+        visit.setVisitType(visitType)
+                .setPatient(patient)
+                .setLocation(location)
+                .setStartDatetime(visitEntity.getDateStarted())
+                .setStopDatetime(visitEntity.getDateStopped());
+
+        return visit;
+    }
+
+    public Encounter normalizeEncounter(EncounterEntity encounterEntity){
+
+        Encounter encounter = new Encounter();
+
+        String location = db.locationDao().getUuidById(encounterEntity.getLocationId());
+        String encounterType = db.encounterTypeDao().getUuidById(encounterEntity.getEncounterType());
+
+        encounter.setLocation(location);
+        encounter.setEncounterType(encounterType);
+        encounter.setEncounterDatetime(encounterEntity.getEncounterDatetime());
+
+        return encounter;
     }
 }

@@ -399,7 +399,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                     visitEncounterItem.setId(encounter.getEncounterId());
                     visitEncounterItem.setEncounterType(db.encounterTypeDao().getEncounterTypeNameById(encounter.getEncounterType()));
 
-                    List<ObsEntity> encounterObs = db.obsDao().getObsByEncountId(encounter.getEncounterId());
+                    List<ObsEntity> encounterObs = db.obsDao().getObsByEncounterId(encounter.getEncounterId());
                     for (ObsEntity obs:encounterObs) {
                         ObsListItem obsListItem = new ObsListItem();
                         obsListItem.setId(obs.getObsId());

@@ -14,6 +14,10 @@ public interface PatientDao extends Synchronizable<Long> {
     @Query("SELECT * FROM patient")
     List<PatientEntity> getAll();
 
+    //gets all persons attribute type
+    @Query("SELECT patient_id FROM patient")
+    Long[] getAllP();
+
     // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PatientEntity patient);

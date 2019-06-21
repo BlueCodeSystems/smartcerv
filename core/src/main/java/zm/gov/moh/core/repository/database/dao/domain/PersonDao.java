@@ -29,6 +29,9 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM person WHERE person_id = :id")
     Person findById(long id);
 
+    @Query("SELECT uuid FROM person WHERE person_id = :patientId")
+    String findByPatientId(long patientId);
+
     @Query("DELETE FROM person WHERE person_id IN (:id)")
     void deleteById(long ...id);
 

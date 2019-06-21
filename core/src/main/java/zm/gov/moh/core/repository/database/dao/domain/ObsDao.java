@@ -45,7 +45,10 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     LiveData<ObsEntity>findPatientObsByConceptUuid(long patientId, String conceptUuid);
 
     @Query("SELECT * FROM obs WHERE encounter_id = :id")
-    List<ObsEntity> getObsByEncountId(long id);
+    List<ObsEntity> getObsByEncounterId(long id);
+
+    @Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds)")
+    ObsEntity[] getObsByEncounterId(Long[] encounterIds);
 
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId) AND concept_id = :conceptId")
     List<ObsEntity> getObsByVisitIdConceptId(Long visitId, Long conceptId);

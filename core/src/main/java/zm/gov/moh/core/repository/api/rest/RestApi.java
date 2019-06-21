@@ -11,6 +11,7 @@ import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.model.IdentifiersResponseBody;
 import zm.gov.moh.core.model.Patient;
 import zm.gov.moh.core.model.Response;
+import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
@@ -109,7 +110,7 @@ public interface RestApi {
 
     @Headers("Content-Type: application/json")
     @PUT("visit/{batchVersion}")
-    Maybe<Response[]> putVisit(@Header("x-access-token") String accessToken, @Path("batchVersion") long batchVersion, @Body VisitEntity... visits);
+    Maybe<Response[]> putVisit(@Header("x-access-token") String accessToken, @Path("batchVersion") long batchVersion, @Body Visit... visits);
 
     @Headers("Content-Type: application/json")
     @PUT("encounter/{batchVersion}")
