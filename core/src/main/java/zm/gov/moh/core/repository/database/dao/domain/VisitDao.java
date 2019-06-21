@@ -21,7 +21,7 @@ public interface VisitDao extends Synchronizable<Long> {
     VisitEntity[] getByPatientId(long id);
 
     @Query("SELECT * FROM Visit WHERE visit_id IN (:id)")
-    VisitEntity[] getById(Long[] id);
+    List<VisitEntity> getById(Long[] id);
 
     @Query("SELECT * FROM Visit WHERE visit_type_id IN (:visitTypes) AND patient_id = :id")
     LiveData<List<VisitEntity>> getByPatientIdVisitTypeId(long id, long... visitTypes);

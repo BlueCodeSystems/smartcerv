@@ -85,5 +85,27 @@ public class PullDataRemote extends RemoteService {
                 repository.getRestApi().getObs(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
+
+        //Visit
+        ConcurrencyUtils.consumeAsync(
+                visits -> {
+                    repository.getDatabase().visitDao().insert(visits);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getVisit(accessToken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Encounter
+        ConcurrencyUtils.consumeAsync(
+                encounterEntities -> {
+                    repository.getDatabase().encounterDao().insert(encounterEntities);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getEncounters(accessToken), //producer
+                TIMEOUT);
+        onTaskStarted();
     }
 }

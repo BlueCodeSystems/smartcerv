@@ -14,7 +14,7 @@ public class VisitEntity extends SynchronizableEntity {
     @PrimaryKey
     @ColumnInfo(name = "visit_id")
     @Json(name = "visit_id")
-    private long visitId;
+    private Long visitId;
 
     @ColumnInfo(name = "patient_id")
     @Json(name = "patient_id")
@@ -106,11 +106,11 @@ public class VisitEntity extends SynchronizableEntity {
     }
 
     //Setters and Getters
-    public long getVisitId() {
+    public Long getVisitId() {
         return visitId;
     }
 
-    public void setVisitId(long visitId) {
+    public void setVisitId(Long visitId) {
         this.visitId = visitId;
     }
 

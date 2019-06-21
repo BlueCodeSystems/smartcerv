@@ -2,8 +2,11 @@ package zm.gov.moh.core.service;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.arch.core.util.Function;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
@@ -126,38 +129,36 @@ public class PushDataRemote extends RemoteService {
 
     public Visit[] createVisits(Long ...visitEntityId){
 
-        int visitIndex = 0;
-        VisitEntity[] visitEntities = db.visitDao().getById(visitEntityId);
+        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
 
-        int numberOfvisitEntities = visitEntities.length;
-        Visit[] visits = new Visit[visitEntities.length];
+        if(visitEntities.size() > 0) {
 
-        if(numberOfvisitEntities > 0) {
+            int visitIndex = 0;
+            Visit[] visits = new Visit[visitEntities.size()];
 
-            Long visitIds[] = Observable.fromArray(visitEntities).map(visitEntity -> visitEntity.getVisitId())
-                    .toList().blockingGet().toArray(new Long[numberOfvisitEntities]);
+            List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
+                    .toList().blockingGet();
 
-            EncounterEntity[] encounterEntities = db.encounterDao().getByVisitId(visitIds);
+            List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
 
-            Long encounterIds[] = Observable.fromArray(encounterEntities)
+            List<Long> encounterIds = Observable.fromIterable(encounterEntities)
                     .map(encounterEntity -> encounterEntity.getEncounterId())
                     .toList()
-                    .blockingGet()
-                    .toArray(new Long[encounterEntities.length]);
+                    .blockingGet();
 
-            ObsEntity[] obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+            List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+
+
 
             for (VisitEntity visitEntity : visitEntities) {
 
                 Visit.Builder visit = normalizeVisit(visitEntity);
 
-                EncounterEntity[] visitEncounter = Observable.fromArray(encounterEntities)
-                        .filter(encounterEntity -> (encounterEntity.getVisitId() == visitEntity.getVisitId()))
-                        .toList()
-                        .blockingGet()
-                        .toArray(new EncounterEntity[encounterEntities.length]);
+                List<EncounterEntity> visitEncounter = Observable.fromIterable(encounterEntities)
+                        .filter( encounterEntity -> (encounterEntity.getVisitId().longValue() == visitEntity.getVisitId().longValue())).toList().blockingGet();
 
-                Encounter[] encounters = new Encounter[visitEncounter.length];
+
+                Encounter[] encounters = new Encounter[visitEncounter.size()];
                 int index = 0;
 
                 for (EncounterEntity encounterEntity : visitEncounter) {
@@ -166,14 +167,20 @@ public class PushDataRemote extends RemoteService {
                         continue;
                     Encounter encounter = normalizeEncounter(encounterEntity);
 
-                    Obs[] encounterObs = Observable.fromArray(obsEntities)
+
+                    List<ObsEntity> encounterObs = Observable.fromIterable(obsEntities)
                             .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
-                            .map(this::normalizeObs)
+                            .toList()
+                            .blockingGet();
+
+                     Obs[] obs = Observable.fromIterable(encounterObs)
+                            .map((this::normalizeObs))
                             .toList()
                             .blockingGet()
-                            .toArray(new Obs[obsEntities.length]);
+                            .toArray(new Obs[encounterObs.size()]);
 
-                    encounter.setObs(encounterObs);
+
+                    encounter.setObs(obs);
 
                     encounters[index++] = encounter;
                 }

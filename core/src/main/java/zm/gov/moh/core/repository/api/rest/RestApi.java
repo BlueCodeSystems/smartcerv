@@ -97,8 +97,14 @@ public interface RestApi {
     @GET("encounter/type/")
     Maybe<EncounterType[]> getEncounterTypes(@Header("x-access-token") String accessToken);
 
+    @GET("encounter/")
+    Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken);
+
     @GET("visit/type/")
     Maybe<VisitType[]> getVisitTypes(@Header("x-access-token") String accessToken);
+
+    @GET("visit/")
+    Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken);
 
     @GET("drug/")
     Maybe<Drug[]> getDrugs(@Header("x-access-token") String accessToken);
