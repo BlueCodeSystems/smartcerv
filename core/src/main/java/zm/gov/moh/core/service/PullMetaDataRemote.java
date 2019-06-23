@@ -169,6 +169,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
         onTaskStarted();
 
+        // Drugs
         ConcurrencyUtils.consumeAsync(
                 drugs ->{
                     repository.getDatabase().drugDao().insert(drugs);
@@ -176,6 +177,30 @@ public class PullMetaDataRemote extends RemoteService {
                 },//consumer
                 this::onError,
                 repository.getRestApi().getDrugs(accessToken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        // Provider Attributes
+        ConcurrencyUtils.consumeAsync(
+                attributes ->{
+                    repository.getDatabase().providerAttributeDao().insert(attributes);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getProviderAttribute(accessToken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        // Provider Attribute Types
+        ConcurrencyUtils.consumeAsync(
+                attributes ->{
+                    repository.getDatabase().providerAttributeTypeDao().insert(attributes);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getProviderAttributeType(accessToken),
                 //producer
                 TIMEOUT);
         onTaskStarted();
