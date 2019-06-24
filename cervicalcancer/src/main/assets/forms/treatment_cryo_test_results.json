@@ -16,7 +16,7 @@
               "tag": "via inspection done",
               "widgetType": "Concept",
               "conceptId": 165155,
-              "uuid":"a1dc1c20-074d-4cba-86e6-42a41b14f9f1",
+              "uuid": "a1dc1c20-074d-4cba-86e6-42a41b14f9f1",
               "dataType": "Boolean",
               "style": "radio",
               "textSize": 18,
@@ -58,7 +58,7 @@
               "tag": "via reason",
               "widgetType": "Concept",
               "conceptId": 165216,
-              "uuid" :"678e3bff-318d-478a-b720-893b9751e6f7",
+              "uuid": "678e3bff-318d-478a-b720-893b9751e6f7",
               "dataType": "Text",
               "hint": "Reason why VIA inspection not done",
               "textSize": 18
@@ -73,7 +73,7 @@
         {
           "tag": "edi inspection done",
           "widgetType": "Concept",
-          "uuid" : "0ddf399e-dd1b-4e9f-ab15-c2020865b0fa",
+          "uuid": "0ddf399e-dd1b-4e9f-ab15-c2020865b0fa",
           "conceptId": 165156,
           "dataType": "Boolean",
           "style": "radio",
@@ -87,7 +87,8 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "image view button","camera button"
+                    "image view button",
+                    "camera button"
                   ]
                 }
               }
@@ -107,18 +108,16 @@
             }
           ]
         },
-
         {
           "tag": "image view button",
-          "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
-
           "label": "Image Load",
           "textSize": 18,
           "weight": 1
         },
         {
-          "tag":"camera button",
+          "tag": "camera button",
           "widgetType": "CameraButton",
           "label": "Take Photo",
           "textSize": 18,
@@ -128,7 +127,7 @@
           "tag": "edi reason",
           "widgetType": "Concept",
           "conceptId": 165217,
-          "uuid":"c023311a-1fbc-43b9-9c65-d988601e578b",
+          "uuid": "c023311a-1fbc-43b9-9c65-d988601e578b",
           "dataType": "Text",
           "hint": "Reason for no EDI",
           "textSize": 18
@@ -145,6 +144,7 @@
               "tag": "transformation zone completely seen",
               "widgetType": "Concept",
               "conceptId": 165157,
+              "uuid": "c008df22-6a04-45b7-898a-f91f865c8789",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Transformation zone completely seen",
@@ -157,8 +157,8 @@
                   "action": {
                     "type": "skipLogic",
                     "metadata": {
-                      "tags": [ "screening results"
-
+                      "tags": [
+                        "screening results"
                       ]
                     }
                   }
@@ -187,7 +187,7 @@
               "tag": "reason for no",
               "widgetType": "Concept",
               "conceptId": 165158,
-              "uuid":"4a3f2e1f-e6d4-4bd4-875d-6d17d01b7377",
+              "uuid": "4a3f2e1f-e6d4-4bd4-875d-6d17d01b7377",
               "dataType": "Text",
               "hint": "Reason(e.g severe cervicitis)",
               "textSize": 18
@@ -212,6 +212,7 @@
               "tag": "screening results",
               "widgetType": "Concept",
               "conceptId": 165160,
+              "uuid": "9cb76924-6d8c-4017-a0ed-27e9a5a1bc45",
               "dataType": "Coded",
               "style": "radio",
               "label": "Screening Results",
@@ -255,6 +256,7 @@
               "tag": "entire lesion seen",
               "widgetType": "Concept",
               "conceptId": 165168,
+              "uuid":"4dc498d3-f668-4e83-8dbb-c555dd84b883",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Entire lesion seen",
@@ -262,7 +264,6 @@
             }
           ]
         },
-
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
@@ -270,7 +271,7 @@
               "tag": "atypical vessel",
               "widgetType": "Concept",
               "conceptId": 165170,
-              "uuid":"4322eb57-e248-4592-bba2-b33e222da9bb",
+              "uuid": "4322eb57-e248-4592-bba2-b33e222da9bb",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Atypical vessel",
@@ -285,7 +286,7 @@
               "tag": "extends into cervical os",
               "widgetType": "Concept",
               "conceptId": 165171,
-              "uuid":"	4f3f3a82-67cc-4cc5-a24b-b0d17b901456",
+              "uuid": "4f3f3a82-67cc-4cc5-a24b-b0d17b901456",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Extends into cervical os",
@@ -300,6 +301,7 @@
               "tag": "percentage of cervix covered",
               "widgetType": "Concept",
               "conceptId": 165268,
+              "uuid": "0f72a78f-c461-4626-9027-42565082b158",
               "dataType": "Coded",
               "style": "radio",
               "label": "Percentage(%) of cervix covered",
@@ -314,7 +316,7 @@
               "tag": "mosaicism or punctuation",
               "widgetType": "Concept",
               "conceptId": 165173,
-              "uuid":"2347f64d-380d-4ef3-ae10-845fffeb4fd1",
+              "uuid": "2347f64d-380d-4ef3-ae10-845fffeb4fd1",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Mosaicism/ Punctuation",

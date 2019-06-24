@@ -13,6 +13,7 @@
           "tag": "hiv status",
           "widgetType": "Concept",
           "conceptId": 165203,
+          "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
           "dataType": "Coded",
           "style": "radio",
           "label": "HIV Status",
@@ -64,6 +65,7 @@
           "tag": "art status",
           "widgetType": "Concept",
           "conceptId": 165223,
+          "uuid": "2c8a7696-a57a-44ce-b406-b0511cd629cd",
           "dataType": "Coded",
           "style": "radio",
           "textSize": 18,
@@ -103,7 +105,7 @@
           "tag": "art number",
           "widgetType": "Concept",
           "conceptId": 165128,
-          "dataType": "Text",
+          "dataType": "Numeric",
           "uuid": "8d2d8797-22f1-4c00-8644-3d342a9e880f",
           "textSize": 18,
           "label": "ART No.",
@@ -114,10 +116,10 @@
           "tag": "cd4",
           "widgets": [
             {
-              "tag": "cd4 count",
+              "tag": "CD4 Count",
               "widgetType": "Concept",
               "conceptId": 165241,
-              "dataType": "Text",
+              "dataType": "Numeric",
               "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
               "hint": "Number",
               "label": "CD4 Count",
@@ -140,8 +142,8 @@
               "tag": "viral load count",
               "widgetType": "Concept",
               "conceptId": 165242,
-              "uuid":"d25e9649-336c-409a-8e4f-a167b2b1ec85",
-              "dataType": "Text",
+              "uuid": "d25e9649-336c-409a-8e4f-a167b2b1ec85",
+              "dataType": "Numeric",
               "hint": "Number",
               "label": "Last Viral Load",
               "textSize": 18
@@ -154,6 +156,15 @@
               "hint": "dd MM yyyy"
             }
           ]
+        },
+        {
+          "tag": "reason for unknown status",
+          "widgetType": "Concept",
+          "conceptId": 165208,
+          "uuid": "becd704c-e0e6-4b8d-ad91-1e837547d9bc",
+          "dataType": "Text",
+          "textSize": 18,
+          "hint": "Reason for Unknown HIV Status "
         },
         {
           "tag": "pict offered",
@@ -198,7 +209,7 @@
           "widgetType": "Concept",
           "conceptId": 165134,
           "dataType": "Boolean",
-          "uuid":"e6c33024-55e6-4d59-af28-f9df869b35f3",
+          "uuid": "e6c33024-55e6-4d59-af28-f9df869b35f3",
           "style": "radio",
           "label": "PICT Accepted",
           "textSize": 18,
@@ -318,16 +329,8 @@
           "uuid": "6762f9da-451e-4b7a-abe6-d32889f56e73",
           "textSize": 18,
           "hint": "Reason PICT was not offered"
-        },
-        {
-          "tag": "reason for unknown status",
-          "widgetType": "Concept",
-          "conceptId": 165208,
-          "uuid":"becd704c-e0e6-4b8d-ad91-1e837547d9bc",
-          "dataType": "Text",
-          "textSize": 18,
-          "hint": "Reason for Unknown HIV Status "
         }
+
       ]
     }
   ]

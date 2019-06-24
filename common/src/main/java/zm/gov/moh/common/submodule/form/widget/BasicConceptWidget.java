@@ -21,6 +21,7 @@ import android.widget.Toast;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -52,6 +53,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     String mHint;
     AppCompatEditText mEditText;
     RadioGroup radioGroup;
+    RadioGroup checkBoxGroup;
     AppCompatTextView mTextView;
     long mConceptId;
     int mWeight = 0;
@@ -70,6 +72,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     LinkedHashSet<Long> answerConcepts;
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
+    ArrayList<Long> selectedConcepts = new ArrayList<>();
 
 
     public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -139,6 +142,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                                 }
 
                             }
+                            // Section where skip logic is implemented
                         } else {
 
                             if ((mValue != null) && (((Set<Long>) mValue).contains(Math.round((Double) logic.getCondition().getValue())))) {
@@ -302,14 +306,26 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         switch (mStyle) {
 
             case "check":
-                RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
+                checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, checkBoxGroup));
                 mObsValue.setValue(answerConcepts);
+
+                if(!selectedConcepts.isEmpty())
+                    for (Long conceptId: selectedConcepts){
+                        CheckBox button = checkBoxGroup.findViewWithTag(String.valueOf(conceptId));
+                        button.setChecked(true);
+                    }
                 break;
 
             case "radio":
                 RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
+
+                if(!selectedConcepts.isEmpty())
+                for (Long conceptId: selectedConcepts){
+                    RadioButton button = radioGroup.findViewWithTag(String.valueOf(conceptId));
+                    button.setChecked(true);
+                }
                 break;
 
             case "dropdown":
@@ -448,16 +464,15 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         canSetValue.compareAndSet(false, true);
     }
 
-    // Retrieves previously entered observations value and displays it in widget
+    // Method retrieves entered observations and displays the values in widgets
     public void onLastObsRetrieved(Obs obs) {
-
         switch (mDataType) {
 
-            // Behaviour when numeric text values are retrieved
+            // Numeric values retained
             case ConceptDataType.NUMERIC:
                 String valuenum = String.valueOf(obs.getValueNumeric());
 
-                //print value as int by trimming it into a sub string and pass the value to an EditText Object
+                //Numeric values are returned as Double, thus need to trim string to remove trailing decimal point
                 String sub = valuenum.substring(valuenum.length() - 2);
 
                 if (sub.equals(".0"))
@@ -466,7 +481,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     mEditText.setText(valuenum);
                 break;
 
-            // Behaviour when text based data is retrieved
+            //Retrieving Text Values
             case ConceptDataType.TEXT:
                 String valuetxt = String.valueOf(obs.getValueText());
                 mEditText.setText(valuetxt);
@@ -475,24 +490,23 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case ConceptDataType.BOOLEAN:
                 Long valboolrad = obs.getValueCoded();
 
-                if (valboolrad == 1L) {
+                if (valboolrad == 1) {
                     RadioButton button = (RadioButton) radioGroup.getChildAt(0);
                     button.setChecked(true);
-                } else if (valboolrad == 2L) {
+                } else if (valboolrad == 2) {
                     RadioButton button = (RadioButton) radioGroup.getChildAt(1);
                     button.setChecked(true);
                 }
-
-
                 break;
+
             case ConceptDataType.CODED:
-                Long valueCoded = obs.getValueCoded();
+                Long conceptId = obs.getValueCoded();
 
-
-                if (valueCoded == 1L) {
-                    CheckBox checkBox = (CheckBox) radioGroup.getChildAt(0);
+                 selectedConcepts.add(conceptId);
+              /*  if (valueCoded == 1) {
+                    CheckB;
                     checkBox.setChecked(true);
-                }
+                }*/
                 break;
 
 
