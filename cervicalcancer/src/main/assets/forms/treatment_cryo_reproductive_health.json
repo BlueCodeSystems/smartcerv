@@ -24,6 +24,7 @@
           "widgetType": "Concept",
           "conceptId": 165245,
           "dataType": "Boolean",
+          "uuid": "a7d07ed6-ee87-473a-9bf6-8d483b7748dd",
           "label": "Does patient menstruate",
           "style": "radio",
           "textSize": 18,
@@ -86,6 +87,7 @@
           "tag": "Amenorrhea or Menopause",
           "widgetType": "Concept",
           "conceptId": 165246,
+          "uuid":"22801ebb-bcc9-4c81-84a9-38d86814863a",
           "dataType": "Coded",
           "style": "radio",
           "label": "Select Amenorrhea or Menopause",
@@ -141,7 +143,7 @@
           "tag": "None",
           "widgetType": "Concept",
           "conceptId": 165097,
-          "uuid":"009dd295-5c08-4f0e-9556-3683e8c3101a",
+          "uuid": "009dd295-5c08-4f0e-9556-3683e8c3101a",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Is patient on family planing?",
@@ -155,12 +157,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "Condom/Barrier Methods",
-                    "Natural Method",
-                    "Injectable/Implants",
-                    "Tubal Ligation",
-                    "IUD",
-                    "Oral Contraceptives"
+                    "fp methods"
                   ]
                 }
               }
@@ -181,64 +178,20 @@
           ]
         },
         {
-          "tag": "Natural Method",
+          "tag": "fp methods",
           "widgetType": "Concept",
-          "conceptId": 165098,
-          "dataType": "Boolean",
+          "conceptId": 165104,
+          "uuid": "8118f8e4-3d6d-469a-90ea-4c08560ee047",
+          "dataType": "Coded",
           "style": "check",
-          "label": "Natural Method",
-          "textSize": 18
-        },
-        {
-          "tag": "Condom/Barrier Methods",
-          "widgetType": "Concept",
-          "conceptId": 165103,
-          "dataType": "Boolean",
-          "style": "check",
-          "label": "Condom/Barrier Method",
-          "textSize": 18
-        },
-        {
-          "tag": "Injectable/Implants",
-          "widgetType": "Concept",
-          "conceptId": 165101,
-          "dataType": "Boolean",
-          "style": "check",
-          "label": "Injectable/Implants",
-          "textSize": 18
-        },
-        {
-          "tag": "Tubal Ligation",
-          "widgetType": "Concept",
-          "conceptId": 165099,
-          "dataType": "Boolean",
-          "style": "check",
-          "label": "Tubal Ligation",
-          "textSize": 18
-        },
-        {
-          "tag": "IUD",
-          "widgetType": "Concept",
-          "conceptId": 165102,
-          "dataType": "Boolean",
-          "style": "check",
-          "label": "IUD",
-          "textSize": 18
-        },
-        {
-          "tag": "Oral Contraceptives",
-          "widgetType": "Concept",
-          "conceptId": 165100,
-          "dataType": "Boolean",
-          "style": "check",
-          "label": "Oral Contraceptives",
+          "label": "Methods",
           "textSize": 18
         },
         {
           "tag": "vaginal bleeding",
           "widgetType": "Concept",
           "conceptId": 165105,
-          "uuid":"f8299472-070a-407d-b174-0e91b9d115bc",
+          "uuid": "f8299472-070a-407d-b174-0e91b9d115bc",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Any abnormal vaginal bleeding/contact bleeding:",
@@ -256,6 +209,7 @@
               "tag": "VIA_check",
               "widgetType": "Concept",
               "conceptId": 165254,
+              "uuid": "141c635f-0655-476c-b538-fde07f1ac694",
               "dataType": "Boolean",
               "style": "check",
               "label": "VIA",
@@ -474,7 +428,7 @@
           "tag": "history of stis",
           "widgetType": "Concept",
           "conceptId": 165111,
-          "uuid":"4320cd55-c128-4952-8761-28a284f7821b",
+          "uuid": "4320cd55-c128-4952-8761-28a284f7821b",
           "dataType": "Boolean",
           "style": "radio",
           "label": "History of STIs:",
@@ -497,7 +451,6 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "Hysterectomy",
                     "other surgical history"
                   ]
                 }
@@ -523,7 +476,7 @@
           "widgetType": "Concept",
           "conceptId": 165116,
           "dataType": "Text",
-          "uuid":"469b97ca-31b2-491f-a168-dea9447fdfc7",
+          "uuid": "469b97ca-31b2-491f-a168-dea9447fdfc7",
           "textSize": 18,
           "hint": "Other Surgical History"
         }
