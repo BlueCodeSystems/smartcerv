@@ -214,7 +214,6 @@ public class WidgetModelToWidgetAdapter {
             ProviderNumberModel model = (ProviderNumberModel) widgetModel;
 
             ProviderNumberWidget widget = new ProviderNumberWidget(this.context, this.repository, this.bundle)
-                    //.setNumber(model.getText())
                     .setLabel(model.getLabel())
                     .setTextSize(model.getTextSize())
                     .build();

@@ -12,7 +12,6 @@ import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
 import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.derived.MetricsDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
-import zm.gov.moh.core.repository.database.dao.derived.ProviderUserNumberDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
@@ -158,7 +157,6 @@ public abstract class Database extends RoomDatabase {
     public abstract ClientDao clientDao();
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
-    public abstract ProviderUserNumberDao providerUserNumberDao();
 
     //System
     public abstract EntityMetadataDao entityMetadataDao();

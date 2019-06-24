@@ -10,9 +10,9 @@ import org.threeten.bp.LocalDateTime;
 public class ProviderAttribute {
 
     @PrimaryKey
-    @ColumnInfo(name = "provider_attribute")
-    @Json(name = "provider_attribute")
-    private Long providerAttribute;
+    @ColumnInfo(name = "provider_attribute_id")
+    @Json(name = "provider_attribute_id")
+    private long providerAttributeId;
 
     @ColumnInfo(name = "provider_id")
     @Json(name = "provider_id")
@@ -62,12 +62,12 @@ public class ProviderAttribute {
     @Json(name = "void_reason")
     private String voidReason;
 
-    public Long getProviderAttribute() {
-        return providerAttribute;
+    public long getProviderAttributeId() {
+        return providerAttributeId;
     }
 
-    public void setProviderAttribute(Long providerAttribute) {
-        this.providerAttribute = providerAttribute;
+    public void setProviderAttributeId(long providerAttributeId) {
+        this.providerAttributeId = providerAttributeId;
     }
 
     public long getProviderId() {

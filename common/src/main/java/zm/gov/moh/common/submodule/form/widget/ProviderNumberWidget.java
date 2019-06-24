@@ -9,9 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.repository.database.entity.derived.ProviderUserNumber;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
 
 public class ProviderNumberWidget extends LinearLayoutCompat {
 
@@ -19,8 +20,6 @@ public class ProviderNumberWidget extends LinearLayoutCompat {
     private String number;  // the phone number, equivalent of value on ProviderLabelWidget
     private Integer textSize;
     private Context context;
-    private Bundle bundle;
-    private Integer age;
 
     private AppCompatTextView labelView;
     private AppCompatTextView phoneNumberView;
@@ -28,7 +27,6 @@ public class ProviderNumberWidget extends LinearLayoutCompat {
     public ProviderNumberWidget(Context context, Repository repository, Bundle bundle) {
         super(context);
 
-        this.bundle = bundle;
         this.context = context;
 
         // Set the layout for the label - value
@@ -36,11 +34,9 @@ public class ProviderNumberWidget extends LinearLayoutCompat {
             .LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT);
         this.setLayoutParams(layoutParams);
 
-        Long personId = bundle.getLong(Key.PERSON_ID);
-        String userUuid = repository.getDefaultSharePrefrences()
-                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key),"Not Found");
+        Long providerId = bundle.getLong(Key.PROVIDER_ID);
 
-        repository.getDatabase().providerUserNumberDao().getAllNumbersByUser(userUuid).observe((AppCompatActivity)context,this::setNumberOfProvider);
+        repository.getDatabase().providerAttributeDao().getAttributeByType(OpenmrsConfig.PROVIDER_ATTRIBUTE_TYPE_PHONE, providerId).observe((AppCompatActivity)context,this::setNumberOfProvider);
 
     }
 
@@ -48,13 +44,18 @@ public class ProviderNumberWidget extends LinearLayoutCompat {
         return number;
     }
 
-    public ProviderNumberWidget setNumber(String number) {
+    public void setNumber(String number) {
         this.number = number;
-        return this;
+
+        phoneNumberView.setText(" " + number);
     }
 
-    private void setNumberOfProvider(ProviderUserNumber providerUserNumber) {
-        number = providerUserNumber.getPhoneNumber();
+    private void setNumberOfProvider(ProviderAttribute providerAttribute) {
+
+        if(providerAttribute != null)
+            setNumber(providerAttribute.getValueReference());
+        else
+            setNumber(" N/A");
     }
 
     public String getLabel() {
@@ -84,7 +85,7 @@ public class ProviderNumberWidget extends LinearLayoutCompat {
         phoneNumberView = new AppCompatTextView(context);
         phoneNumberView.setTextColor(Color.BLACK);
         phoneNumberView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        phoneNumberView.setText(" " + number);
+
 
         WidgetUtils.setLayoutParams(this, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
 
