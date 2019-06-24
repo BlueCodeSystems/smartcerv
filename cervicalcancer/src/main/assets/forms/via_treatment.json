@@ -10,7 +10,7 @@
       "title":"Treatment",
       "widgets":[
         {
-          "tag":"via treatment done",
+          "tag":"VIA Treatment Done",
           "widgetType":"Concept",
           "label":"VIA treatment done",
           "conceptId": 165219,
@@ -36,7 +36,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["r"]
+                  "tags": [""]
                 }
               }
             },
@@ -47,7 +47,7 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["reason for delayed treatment"]
+                  "tags": ["reason for delayed treatment2"]
                 }
               }
             },
@@ -66,6 +66,15 @@
         },
         {
           "tag":"reason for delayed treatment",
+          "widgetType":"Concept",
+          "label":"Reason for delayed treatment",
+          "conceptId": 165240,
+          "dataType":"Coded",
+          "style":"check",
+          "textSize": 18
+        },
+        {
+          "tag":"reason for delayed treatment2",
           "widgetType":"Concept",
           "label":"Reason for delayed treatment",
           "conceptId": 165240,
