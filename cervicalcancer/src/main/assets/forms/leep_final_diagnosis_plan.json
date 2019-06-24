@@ -6,7 +6,7 @@
   },
   "widgetGroup": [
     {
-      "title": "Results",
+      "title": "Specimen Dimensions",
       "widgets": [
         {
           "widgetType": "TextBoxTwo",

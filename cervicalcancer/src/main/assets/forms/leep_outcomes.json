@@ -180,7 +180,7 @@
       ]
     },
     {
-      "title": "Intra-op Resolution",
+      "title": "Intra-op Interventions",
       "widgets": [
         {
           "tag": "cautery",
@@ -216,6 +216,15 @@
           "dataType": "Boolean",
           "style": "radio",
           "label": "Suturing",
+          "textSize": 18
+        },
+        {
+          "tag": "hysterectomy",
+          "widgetType": "Concept",
+          "conceptId": 165114,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Hysterectomy",
           "textSize": 18
         },
         {
@@ -340,7 +349,7 @@
       ]
     },
     {
-      "title": "Post-op Resolution",
+      "title": "Post-op Interventions",
       "widgets": [
         {
           "tag": "monsel_solution",
@@ -367,6 +376,24 @@
           "dataType": "Boolean",
           "style": "radio",
           "label": "Vaginal Packing",
+          "textSize": 18
+        },
+        {
+          "tag": "suturing",
+          "widgetType": "Concept",
+          "conceptId": 165294,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Suturing",
+          "textSize": 18
+        },
+        {
+          "tag": "hysterectomy",
+          "widgetType": "Concept",
+          "conceptId": 165114,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Hysterectomy",
           "textSize": 18
         },
         {

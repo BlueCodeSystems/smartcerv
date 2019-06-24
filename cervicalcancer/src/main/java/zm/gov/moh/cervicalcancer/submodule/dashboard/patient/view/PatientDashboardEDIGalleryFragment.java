@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -109,9 +110,11 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
         private  LinkedList<Map.Entry<String,LinkedHashMultimap<Long, String>>> ediVisitDataList;
         private Context context;
         private FormCameraButtonWidget ediPrint;
+         private MenuItem item;
+         private Object v;
 
 
-        public ImageDataAdapter(Context context, Map<String,LinkedHashMultimap<Long, String>> ediVisitData) {
+         public ImageDataAdapter(Context context, Map<String,LinkedHashMultimap<Long, String>> ediVisitData) {
             ediVisitDataList = new LinkedList<>();
             this.context = context;
 
@@ -167,6 +170,7 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
                 @Override
                 public void onClick(View v) {
+
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_VIEW);

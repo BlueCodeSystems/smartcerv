@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".module.dashboard.patient.view.PatientDashboardImageFragment">
+            tools:context=".module.dashboard.patient.view.PatientDashboardEDIGalleryFragment">
 
 
             <include
@@ -59,18 +59,15 @@
                 android:orientation="horizontal"
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/load_imag"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_gallery"></androidx.appcompat.widget.AppCompatImageButton>
-
-            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/load_image"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_gallery"></androidx.appcompat.widget.AppCompatImageButton>
+                android:onClick="EDIonClick"
+                android:src="@drawable/ic_gallery">
+            </androidx.appcompat.widget.AppCompatImageButton>
+
+
             </LinearLayout>
 
 

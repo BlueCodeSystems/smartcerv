@@ -205,7 +205,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     public void init(){
 
         startButton = rootView.findViewById(R.id.start_visit);
-        imageButton1 = rootView.findViewById(R.id.load_imag);
+        //imageButton1 = rootView.findViewById(R.id.load_imag);
         imageButton2 = rootView.findViewById(R.id.load_image);
         formInfoIcon = rootView.findViewById(R.id.form_info_ic);
         textView = rootView.findViewById(R.id.no_forms_placeholder);
