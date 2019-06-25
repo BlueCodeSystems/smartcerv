@@ -44,18 +44,6 @@
                     </fragment>
                 </FrameLayout>
 
-                <FrameLayout
-                    android:id="@+id/home_fragmdent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <fragment
-                        android:name="zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    </fragment>
-                </FrameLayout>
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

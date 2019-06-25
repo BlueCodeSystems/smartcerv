@@ -5,6 +5,7 @@ import org.threeten.bp.ZoneOffset;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.arch.core.util.Function;
 import io.reactivex.Observable;
@@ -38,7 +39,7 @@ public class PushDataRemote extends RemoteService {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         for (EntityType entitiyId:EntityType.values())
-            ConcurrencyUtils.consumeAsync(this::pushInfoRemote, this::onError, entitiyId, batchVersion);
+            ConcurrencyUtils.consumeAsync(this::pushInfoRemote, this::onError, entitiyId, batchVersion,TIMEOUT);
 
     }
 
@@ -68,6 +69,7 @@ public class PushDataRemote extends RemoteService {
                     }
 
                     restApi.putPatients(accessToken, batchVersion, patients)
+                            .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                             .subscribe(onComplete(unpushedPatientEntityId, entityType.getId()), this::onError);
 
                     onTaskCompleted();
@@ -90,6 +92,7 @@ public class PushDataRemote extends RemoteService {
 
 
                     restApi.putVisit(accessToken, batchVersion, patientVisits)
+                            .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                             .subscribe(onComplete(unpushedVisitEntityId, entityType.getId()), this::onError);
                 }else
                     onTaskCompleted();

@@ -24,7 +24,7 @@ public class InjectorUtils {
         Moshi moshi = new Moshi.Builder().add(new JsonAdapter()).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://openmrs.bluecodeltd.com/middleware/rest/")
+                .baseUrl("https://smartcerv.bluecodeltd.com/middleware/rest/")
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
