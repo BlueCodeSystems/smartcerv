@@ -227,7 +227,7 @@ public class FormFragment extends BaseFragment {
             //fetch value from database
             repository.getDatabase().obsDao().findPatientObsByConceptUuid(patientid, uuid).observe(context, obs -> {
 
-                if (obs != null) {
+                if (obs != null && obs.length != 0) {
                     //Passing obs to widget
                     conceptWidget.onLastObsRetrieved(obs);
                 }

@@ -40,8 +40,8 @@ public interface ObsDao extends Synchronizable<Obs> {
     Obs findByConceptId(long id);
 
     //query to pick patient by conceptuuid
-    @Query("SELECT * FROM obs WHERE concept_id=(SELECT concept_id FROM concept WHERE uuid = :conceptUuid) AND person_id = :patientId ORDER BY date_created DESC" )
-    LiveData<Obs>findPatientObsByConceptUuid(long patientId, String conceptUuid);
+    @Query("SELECT DISTINCT * FROM obs WHERE concept_id=(SELECT concept_id FROM concept WHERE uuid = :conceptUuid) AND encounter_id = (SELECT encounter_id FROM encounter WHERE patient_id = :patientId ORDER BY date_created DESC LIMIT 1) AND person_id = :patientId ORDER BY date_created DESC" )
+    LiveData<Obs[]>findPatientObsByConceptUuid(long patientId, String conceptUuid);
 
     @Query("SELECT * FROM obs WHERE encounter_id = :id")
     List<Obs> getObsByEncountId(long id);
