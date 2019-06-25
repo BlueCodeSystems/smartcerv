@@ -9,6 +9,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class BootstrapActivity extends BaseActivity {
@@ -32,6 +33,14 @@ public class BootstrapActivity extends BaseActivity {
         bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactModule);
 
         startModule(loginModule, bundle);
+
+        ServiceManager.getInstance(this)
+                .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
+                .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
+                .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PULL_ENTITY_REMOTE)
+                .startOnComplete(ServiceManager.Service.PULL_ENTITY_REMOTE, ServiceManager.Service.PUSH_ENTITY_REMOTE)
+                .startOnComplete(ServiceManager.Service.PUSH_ENTITY_REMOTE, ServiceManager.Service.SUBSTITUTE_LOCAL_ENTITY)
+                .start();
 
         finish();
     }
