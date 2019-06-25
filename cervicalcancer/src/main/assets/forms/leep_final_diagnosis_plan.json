@@ -43,12 +43,31 @@
           "style": "radio",
           "label": "Other options for size(dimensions) of specimen given",
           "textSize": 18
+        },
+        {
+        "tag": "number of sections taken",
+          "widgetType": "Concept",
+          "conceptId": 165368,
+          "dataType": "Numeric",
+          "uuid":"515846d2-c494-476a-bf97-b921b10f93a2",
+          "label": "Number of Sections taken",
+          "textSize": 18,
+          "hint": "Number"
         }
       ]
     },
     {
       "title": "Margins",
       "widgets": [
+        {
+          "tag": "ectocervical",
+          "widgetType": "Concept",
+          "conceptId": 165371,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Ectocervical",
+          "textSize": 18
+        },
         {
           "tag": "exocervical",
           "widgetType": "Concept",
@@ -87,75 +106,21 @@
       "title": "Pathology Description",
       "widgets": [
         {
-          "tag": "cervicitis_inflammation",
+          "tag": "normal",
           "widgetType": "Concept",
-          "conceptId": 165314,
+          "conceptId": 165222,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Cervicitis/Inflammation",
+          "label": "Normal",
           "textSize": 18
         },
         {
-          "tag": "squamous_hyperplasia",
+          "tag": "benign",
           "widgetType": "Concept",
-          "conceptId": 165317,
+          "conceptId": 165372,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Squamous hyperplasia",
-          "textSize": 18
-        },
-        {
-          "tag": "glandular_hyperplasia",
-          "widgetType": "Concept",
-          "conceptId": 165318,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Glandular hyperplasia",
-          "textSize": 18
-        },
-        {
-          "tag": "squamous_metaplasia",
-          "widgetType": "Concept",
-          "conceptId": 165317,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Squamous metaplasia",
-          "textSize": 18
-        },
-        {
-          "tag": "hyperkeratosis",
-          "widgetType": "Concept",
-          "conceptId": 165318,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Hyperkeratosis",
-          "textSize": 18
-        },
-        {
-          "tag": "acanthosis",
-          "widgetType": "Concept",
-          "conceptId": 165319,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Acanthosis",
-          "textSize": 18
-        },
-        {
-          "tag": "ulcer",
-          "widgetType": "Concept",
-          "conceptId": 165320,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Ulcer",
-          "textSize": 18
-        },
-        {
-          "tag": "schistosomiasis",
-          "widgetType": "Concept",
-          "conceptId": 165321,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Schistosomiasis",
+          "label": "Benign",
           "textSize": 18
         },
         {
@@ -186,21 +151,76 @@
           "textSize": 18
         },
         {
-          "tag": "superficial_invasion",
+          "tag": "adenocarcinoma-in-situ",
           "widgetType": "Concept",
-          "conceptId": 165325,
+          "conceptId": 165373,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Superficial invasion",
+          "label": "Adenocarcinoma-in-situ",
           "textSize": 18
         },
         {
-          "tag": "invasive",
+          "tag": "malignant",
           "widgetType": "Concept",
-          "conceptId": 165326,
+          "conceptId": 1653738,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Invasive",
+          "label": "Malignant",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["r"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "insufficient for processing",
+          "widgetType": "Concept",
+          "conceptId": 165332,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Insufficient for processing",
           "textSize": 18
         },
         {

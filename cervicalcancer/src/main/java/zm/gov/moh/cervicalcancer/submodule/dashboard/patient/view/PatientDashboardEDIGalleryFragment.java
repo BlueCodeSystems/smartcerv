@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.Key;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.BaseRequestOptions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
 
@@ -26,6 +29,7 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
+import java.security.MessageDigest;
 import java.time.ZoneId;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ import java.util.Locale;
 import java.util.Map;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.FileProvider;
@@ -186,8 +191,9 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
                     RequestBuilder builder = Glide
                             .with(context)
                             .asBitmap();
+                                signature(new StringSignature(String.valueOf(System.currentTimeMillis())));
                                builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
-                                .into(imageView);
+                                       .into(imageView);
 
                     if(images.hasNext()){
                         builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
@@ -235,7 +241,14 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
         }
 
-        @Override
+         private void signature(StringSignature stringSignature) {
+         }
+
+         private void skipMemoryCache(boolean b) {
+         }
+
+
+         @Override
         public int getItemCount() {
 
             return ediVisitDataList.size();
@@ -256,6 +269,16 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
             }
         }
+
+         private class StringSignature implements Key {
+             public StringSignature(String s) {
+             }
+
+             @Override
+             public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+
+             }
+         }
 
 
 

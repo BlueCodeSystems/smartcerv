@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
+import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
@@ -38,6 +40,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     Client client;
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
+    private Activity activity;
     private FragmentManager fragmentManager;
     Bundle mBundle;
     private View ImageButton1;
@@ -106,28 +109,16 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         System.out.println("clicked");
 
     }
-    /*public void EDIonClick(View v) {
-        //if (v.getId()==R.id.load_image)
-            //int id = item.getItemId();
-        //if (id == R.id.load_image)
-            fragment = new PatientDashboardEDIGalleryFragment();
-        //else if(id == R.id.load_image)
-        //fragment = new PatientDashboardEDIGalleryFragment();
-        fragment.setArguments(mBundle);
-    }*/
-
-
-
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.recents_menu_item_id)
-        //if(id == R.id.load_image)
             fragment = new PatientDashboardRecentsViewPagerFragment();
         else if(id == R.id.insights_menu_item_id)
             fragment = new PatientDashboardInsightsViewPagerFragment();
+        else if(id == R.id.logout_menu_item_id)
+            activity = new LoginActivity();
         fragment.setArguments(mBundle);
         replaceFragment(fragment);
         return true;
