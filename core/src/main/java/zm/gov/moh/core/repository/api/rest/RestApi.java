@@ -33,6 +33,8 @@ import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.User;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
@@ -104,6 +106,12 @@ public interface RestApi {
 
     @GET("drug/")
     Maybe<Drug[]> getDrugs(@Header("x-access-token") String accessToken);
+
+    @GET("provider/attribute")
+    Maybe<ProviderAttribute[]> getProviderAttribute(@Header("x-access-token") String accessToken);
+
+    @GET("provider/attribute/type")
+    Maybe<ProviderAttributeType[]> getProviderAttributeType(@Header("x-access-token") String accessToken);
 
     //PUT
     @Headers("Content-Type: application/json")
