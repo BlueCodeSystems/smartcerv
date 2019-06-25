@@ -73,6 +73,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
     ArrayList<Long> selectedConcepts = new ArrayList<>();
+    boolean isCodedAnswersRetrieved = false;
+    List<ConceptAnswerName> mConceptAnswerNames;
 
 
     public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -295,6 +297,14 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     public void onConceptIdAnswersRetrieved(List<ConceptAnswerName> conceptAnswerNames) {
 
+        if(isCodedAnswersRetrieved){
+            WidgetUtils.removeViewGroupChildren(this);
+        }
+        else
+            isCodedAnswersRetrieved = true;
+
+        mConceptAnswerNames = conceptAnswerNames;
+
         conceptNameIdMap = new LinkedHashMap<>();
         answerConcepts = new LinkedHashSet<>();
 
@@ -312,8 +322,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
                 if(!selectedConcepts.isEmpty())
                     for (Long conceptId: selectedConcepts){
-                        CheckBox button = checkBoxGroup.findViewWithTag(String.valueOf(conceptId));
-                        button.setChecked(true);
+                        CheckBox button = checkBoxGroup.findViewWithTag(conceptId.intValue());
+
+                        if(button != null)
+                            button.setChecked(true);
                     }
                 break;
 
@@ -323,7 +335,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
                 if(!selectedConcepts.isEmpty())
                 for (Long conceptId: selectedConcepts){
-                    RadioButton button = radioGroup.findViewWithTag(String.valueOf(conceptId));
+                    RadioButton button = radioGroup.findViewWithTag(conceptId.intValue());
                     button.setChecked(true);
                 }
                 break;
@@ -465,12 +477,14 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     }
 
     // Method retrieves entered observations and displays the values in widgets
-    public void onLastObsRetrieved(Obs obs) {
+    public void onLastObsRetrieved(Obs... obs) {
+        int firstIndex = 0;
+
         switch (mDataType) {
 
             // Numeric values retained
             case ConceptDataType.NUMERIC:
-                String valuenum = String.valueOf(obs.getValueNumeric());
+                String valuenum = String.valueOf(obs[firstIndex].getValueNumeric());
 
                 //Numeric values are returned as Double, thus need to trim string to remove trailing decimal point
                 String sub = valuenum.substring(valuenum.length() - 2);
@@ -483,12 +497,12 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             //Retrieving Text Values
             case ConceptDataType.TEXT:
-                String valuetxt = String.valueOf(obs.getValueText());
+                String valuetxt = String.valueOf(obs[firstIndex].getValueText());
                 mEditText.setText(valuetxt);
                 break;
 
             case ConceptDataType.BOOLEAN:
-                Long valboolrad = obs.getValueCoded();
+                Long valboolrad = obs[firstIndex].getValueCoded();
 
                 if (valboolrad == 1) {
                     RadioButton button = (RadioButton) radioGroup.getChildAt(0);
@@ -500,13 +514,12 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 break;
 
             case ConceptDataType.CODED:
-                Long conceptId = obs.getValueCoded();
 
-                 selectedConcepts.add(conceptId);
-              /*  if (valueCoded == 1) {
-                    CheckB;
-                    checkBox.setChecked(true);
-                }*/
+                for(Obs codedObs :obs)
+                 selectedConcepts.add(codedObs.getValueCoded());
+
+                 if(isCodedAnswersRetrieved)
+                     onConceptIdAnswersRetrieved(mConceptAnswerNames);
                 break;
 
 
