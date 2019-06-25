@@ -77,7 +77,8 @@
         {
           "tag": "last_menstrual_period",
           "conceptId": 165202,
-          "widgetType": "DatePicker",
+          "widgetType": "Concept",
+          "dataType": "Date",
           "weight": 1,
           "label": "Date of Last Menstrual Period",
           "hint": "dd MMM yyyy",
@@ -452,19 +453,6 @@
                 "metadata": {
                   "tags": [
                     "other surgical history"
-                  ]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value": 2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [
-                    ""
                   ]
                 }
               }

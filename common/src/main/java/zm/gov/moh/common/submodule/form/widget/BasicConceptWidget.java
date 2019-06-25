@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,6 +76,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     ArrayList<Long> selectedConcepts = new ArrayList<>();
     boolean isCodedAnswersRetrieved = false;
     List<ConceptAnswerName> mConceptAnswerNames;
+    final String STYLE_CHECK = "check";
+    final String STYLE_RADIO = "radio";
 
 
     public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -267,16 +270,16 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case ConceptDataType.BOOLEAN:
 
                 HashMap<String, Long> conceptNameIdMap = new HashMap<>();
-                if (mStyle.equals("radio")) {
+                if (mStyle.equals(STYLE_RADIO)) {
 
                     conceptNameIdMap.put("Yes", 1L);
                     conceptNameIdMap.put("No", 2L);
                     radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
-                } else if (mStyle.equals("check")) {
+                } else if (mStyle.equals(STYLE_CHECK)) {
 
                     conceptNameIdMap.put(mLabel, 1L);
-                    RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
+                    checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(checkBoxGroup);
                     mObsValue.setValue(answerConcepts);
                 }
@@ -315,7 +318,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         switch (mStyle) {
 
-            case "check":
+            case STYLE_CHECK:
                 checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, checkBoxGroup));
                 mObsValue.setValue(answerConcepts);
@@ -329,7 +332,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     }
                 break;
 
-            case "radio":
+            case STYLE_RADIO:
                 RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
 
@@ -458,14 +461,14 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         if (mStyle != null)
             switch (mStyle) {
 
-                case "check":
+                case STYLE_CHECK:
                     WidgetUtils.applyOnViewGroupChildren(this, view -> {
                         if (view instanceof CheckBox)
                             ((CheckBox) view).setChecked(false);
                     });
                     break;
 
-                case "radio":
+                case STYLE_RADIO:
                     WidgetUtils.applyOnViewGroupChildren(this, view -> {
                         if (view instanceof RadioButton)
                             ((RadioButton) view).setChecked(false);
@@ -502,14 +505,21 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 break;
 
             case ConceptDataType.BOOLEAN:
-                Long valboolrad = obs[firstIndex].getValueCoded();
+                Long conceptId = obs[firstIndex].getValueCoded();
 
-                if (valboolrad == 1) {
-                    RadioButton button = (RadioButton) radioGroup.getChildAt(0);
-                    button.setChecked(true);
-                } else if (valboolrad == 2) {
-                    RadioButton button = (RadioButton) radioGroup.getChildAt(1);
-                    button.setChecked(true);
+                if(mStyle.equals(STYLE_RADIO)){
+
+                    if (conceptId == 1) {
+                        RadioButton button = (RadioButton) radioGroup.getChildAt(0);
+                        button.setChecked(true);
+                    } else if (conceptId == 2) {
+                        RadioButton button = (RadioButton) radioGroup.getChildAt(1);
+                        button.setChecked(true);
+                    }
+                }else if(mStyle.equals(STYLE_CHECK)){
+                   CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);
+                   if(checkBox != null && conceptId == 1)
+                       checkBox.setChecked(true);
                 }
                 break;
 
@@ -520,6 +530,14 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
                  if(isCodedAnswersRetrieved)
                      onConceptIdAnswersRetrieved(mConceptAnswerNames);
+                break;
+
+            case ConceptDataType.DATE:
+
+                LocalDateTime date = obs[firstIndex].getValueDateTime();
+
+                mEditText.setText(date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+
                 break;
 
 
