@@ -34,7 +34,7 @@ public class BootstrapActivity extends BaseActivity {
 
         bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactModule);
 
-        startModule(loginModule, bundle);
+        startModule(BaseApplication.CoreModule.LOGIN, bundle);
 
         finish();
 

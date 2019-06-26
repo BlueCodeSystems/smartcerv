@@ -78,6 +78,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     List<ConceptAnswerName> mConceptAnswerNames;
     final String STYLE_CHECK = "check";
     final String STYLE_RADIO = "radio";
+    BaseWidget datePicker;
 
 
     public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -261,9 +262,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
 
             case ConceptDataType.DATE:
-                mEditText.setHint(DATE_PICKER_LABEL);
-                Utils.dateDialog(mContext, mEditText, this::onDateValueChangeListener);
-                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText));
+                 datePicker =  new DatePickerWidget.Builder(mContext)
+                                        .setOnValueChangeListener(this::onTextValueChangeListener)
+                        .setHint(mHint).build();
+                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView,datePicker));
                 break;
 
 
@@ -534,9 +536,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             case ConceptDataType.DATE:
 
-                LocalDateTime date = obs[firstIndex].getValueDateTime();
+                String date = obs[firstIndex].getValueDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                mEditText.setText(date.format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
+                ((DatePickerWidget) datePicker).setValue(date);
+
 
                 break;
 
