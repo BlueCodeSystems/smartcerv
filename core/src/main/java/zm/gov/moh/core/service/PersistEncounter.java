@@ -164,9 +164,11 @@ public class PersistEncounter extends PersistService {
             Exception e1 =e;
         }
 
-        Intent intent = new Intent(ServiceManager.IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
+        /*Intent intent = new Intent(ServiceManager.IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
         intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);*/
+
+        notifyCompleted();
 
         return null;
     }

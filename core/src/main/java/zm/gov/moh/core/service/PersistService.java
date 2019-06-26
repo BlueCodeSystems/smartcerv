@@ -7,6 +7,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.Nullable;
 import zm.gov.moh.core.repository.api.Repository;
+import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.InjectorUtils;
@@ -16,6 +17,7 @@ public abstract class PersistService extends BaseIntentService implements Inject
     private Repository repository;
     protected final short PREFERRED = 1;
     protected final String MID_DAY_TIME = "T12:00:00Z";
+    protected Database db;
 
     public PersistService(ServiceManager.Service service){
         super(service);
@@ -29,6 +31,8 @@ public abstract class PersistService extends BaseIntentService implements Inject
          if(bundle == null)
              bundle = new Bundle();
         AndroidThreeTen.init(this);
+
+        db = repository.getDatabase();
 
 
         ConcurrencyUtils.consumeAsync(this::persistAsync,this::onError,bundle);
