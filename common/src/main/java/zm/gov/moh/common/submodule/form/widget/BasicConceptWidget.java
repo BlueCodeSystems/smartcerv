@@ -47,7 +47,6 @@ import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.utils.Utils;
 
-@SuppressWarnings("deprecation")
 public class BasicConceptWidget extends LinearLayoutCompat {
 
     String mLabel;
@@ -62,7 +61,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     Context mContext;
     String mDataType;
     ObsValue<Object> mObsValue;
-    final String DATE_PICKER_LABEL = "Select Date";
     Bundle bundle;
     Repository repository;
     List<Logic> logic;
@@ -80,16 +78,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     final String STYLE_RADIO = "radio";
     BaseWidget datePicker;
 
-
-    public void onDateValueChangeListener(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-        // set day of month , month and year value in the edit text
-        String date = (year + "-" + ((monthOfYear + 1 < 10) ? "0" + (monthOfYear + 1) : (monthOfYear + 1)) + "-" + ((dayOfMonth < 10) ? "0" + dayOfMonth : dayOfMonth));
-        mObsValue.setValue(date);
-        mEditText.setText(date);
-    }
-
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+
+        if(answerConcepts == null)
+            answerConcepts = new LinkedHashSet<>();
 
         long id = (long) compoundButton.getId();
 
@@ -102,6 +94,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     }
 
     public void onSelectedValue(long i) {
+
+        if(answerConcepts == null)
+            answerConcepts = new LinkedHashSet<>();
 
         if (!answerConcepts.isEmpty())
             answerConcepts.clear();
@@ -118,6 +113,14 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     public void setObsValue(Object obsValue) {
 
         if (canSetValue.get()) {
+
+            if(mObsValue == null) {
+                mObsValue = new ObsValue<>();
+                mObsValue.setConceptDataType(mDataType);
+                mObsValue.setConceptId(mConceptId);
+                bundle.putSerializable((String) this.getTag(), mObsValue);
+            }
+
             mValue = obsValue;
             mObsValue.setValue(obsValue);
 
@@ -185,11 +188,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     public BasicConceptWidget build() {
 
-        mObsValue = new ObsValue<>();
-        mObsValue.setConceptDataType(mDataType);
-        answerConcepts = new LinkedHashSet<>();
-        mObsValue.setConceptId(mConceptId);
-        bundle.putSerializable((String) this.getTag(), mObsValue);
         canSetValue = new AtomicBoolean();
         canSetValue.set(true);
 
@@ -283,7 +281,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                     conceptNameIdMap.put(mLabel, 1L);
                     checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(checkBoxGroup);
-                    mObsValue.setValue(answerConcepts);
                 }
                 break;
 
@@ -311,7 +308,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         mConceptAnswerNames = conceptAnswerNames;
 
         conceptNameIdMap = new LinkedHashMap<>();
-        answerConcepts = new LinkedHashSet<>();
 
         for (ConceptAnswerName conceptAnswerName : conceptAnswerNames)
             conceptNameIdMap.put(conceptAnswerName.getName(), conceptAnswerName.getAnswerConcept());
@@ -323,7 +319,6 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case STYLE_CHECK:
                 checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, checkBoxGroup));
-                mObsValue.setValue(answerConcepts);
 
                 if(!selectedConcepts.isEmpty())
                     for (Long conceptId: selectedConcepts){
@@ -411,7 +406,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     //Add listener for a text change event
     public void onTextValueChangeListener(CharSequence value) {
 
-        mObsValue.setValue(value);
+        if(value != null && !value.equals(""))
+            setObsValue(value);
     }
 
 

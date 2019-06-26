@@ -85,9 +85,7 @@ public class PersistEncounter extends PersistService {
 
         ArrayList<String> keys = bundle.getStringArrayList(Key.FORM_TAGS);
 
-        ObsValue obsValue1 = (ObsValue) bundle.getSerializable("fp methods");
         try {
-            ObsValue obsValue2 = (ObsValue) bundle.getSerializable("hiv status");
 
             for (String key : keys) {
 
