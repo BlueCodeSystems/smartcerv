@@ -44,7 +44,7 @@ public class HomeViewModel extends BaseAndroidViewModel {
 
         re.getDatabase().genericDao().countPatientsByLocationId(locationId)
                 .observe(this,value -> {
-                    metrics.put("total",value);
+                    metrics.put("count",value);
 
 
     }

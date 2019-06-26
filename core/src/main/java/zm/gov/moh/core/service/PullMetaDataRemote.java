@@ -169,6 +169,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
         onTaskStarted();
 
+        // Drugs
         ConcurrencyUtils.consumeAsync(
                 drugs ->{
                     repository.getDatabase().drugDao().insert(drugs);
@@ -179,20 +180,29 @@ public class PullMetaDataRemote extends RemoteService {
                 //producer
                 TIMEOUT);
         onTaskStarted();
-    }
 
-    protected void notifySyncCompleted() {
-        Intent intent = new Intent(ServiceManager.IntentAction.PULL_META_DATA_REMOTE_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
+        // Provider Attributes
+        ConcurrencyUtils.consumeAsync(
+                attributes ->{
+                    repository.getDatabase().providerAttributeDao().insert(attributes);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getProviderAttribute(accessToken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
 
-    @Override
-    public void onError(Throwable throwable) {
-        super.onError(throwable);
-
-        Intent intent = new Intent(ServiceManager.IntentAction.PULL_META_DATA_REMOTE_INTERRUPT);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        // Provider Attribute Types
+        ConcurrencyUtils.consumeAsync(
+                attributes ->{
+                    repository.getDatabase().providerAttributeTypeDao().insert(attributes);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getProviderAttributeType(accessToken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
     }
 }

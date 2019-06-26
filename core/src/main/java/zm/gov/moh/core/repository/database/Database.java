@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import zm.gov.moh.core.repository.database.dao.custom.IdentifierDao;
 import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
 import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
@@ -32,12 +33,15 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
+import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeDao;
+import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitTypeDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
 import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
+import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
@@ -61,6 +65,8 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.User;
 import zm.gov.moh.core.repository.database.entity.domain.Visit;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
@@ -86,6 +92,8 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 LocationAttribute.class,
                 LocationAttributeType.class,
                 Provider.class,
+                ProviderAttribute.class,
+                ProviderAttributeType.class,
                 User.class,
                 Obs.class,
                 Encounter.class,
@@ -101,7 +109,8 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 ConceptAnswer.class,
                 Concept.class,
                 EntityMetadata.class,
-                Drug.class
+                Drug.class,
+                Identifier.class
         }, version = 1, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
@@ -124,6 +133,8 @@ public abstract class Database extends RoomDatabase {
     public abstract ProviderUserDao providerUserDao();
     public abstract UserDao userDao();
     public abstract ProviderDao providerDao();
+    public abstract ProviderAttributeDao providerAttributeDao();
+    public abstract ProviderAttributeTypeDao providerAttributeTypeDao();
     public abstract PatientDao patientDao();
     public abstract PatientIdentifierDao patientIdentifierDao();
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
@@ -140,11 +151,10 @@ public abstract class Database extends RoomDatabase {
     public abstract ConceptDao conceptDao();
     public abstract ConceptAnswerNameDao conceptAnswerNameDao();
     public abstract DrugDao drugDao();
-
+    public abstract IdentifierDao identifierDao();
 
     //Derived
     public abstract ClientDao clientDao();
-
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
 
