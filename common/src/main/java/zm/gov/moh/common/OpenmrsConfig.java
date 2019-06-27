@@ -24,4 +24,7 @@ public class OpenmrsConfig {
 
     //Person Attribute types
     public static final String PERSON_ATTRIBUTE_TYPE = "0dc3daad-1ff2-4e6e-934f-e675a092a3ed";
+
+    // Provider Attributes
+    public static final String PROVIDER_ATTRIBUTE_TYPE_PHONE = "0ec123b7-2826-41d6-a21e-b019350f78d7";
 }

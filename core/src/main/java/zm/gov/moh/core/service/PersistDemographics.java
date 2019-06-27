@@ -1,12 +1,16 @@
 package zm.gov.moh.core.service;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
+import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.repository.database.entity.domain.Patient;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
@@ -44,13 +48,24 @@ public class PersistDemographics extends PersistService {
 
             String districtName = getRepository().getDatabase().locationDao().getNameById(districtId);
             String provinceName = getRepository().getDatabase().locationDao().getNameById(provinceId);
+            Identifier identifier = db.identifierDao().getIdentifierNotAssigned();
+
+            if(identifier == null){
+
+                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION));
+                return;
+            }
+
 
             //Create database entity instances
-            PatientIdentifier patientId = new PatientIdentifier(patientIdentifierId, personId, String.valueOf(personId).substring(14), 3, PREFERRED, locationId, now);
+            PatientIdentifier patientId = new PatientIdentifier(patientIdentifierId, personId, identifier.getIdentifier(), 3, PREFERRED, locationId, now);
             PersonName personName = new PersonName(personNameId,personId, givenName, familyName, PREFERRED, now);
             Person person = new Person(personId, dateOfBirth, gender,now);
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);
             Patient patient = new Patient(personId, now);
+
+            identifier.markAsAssigned();
+            db.identifierDao().insert(identifier);
 
             //Persist database entity instances asynchronously into the database
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, patientId);
