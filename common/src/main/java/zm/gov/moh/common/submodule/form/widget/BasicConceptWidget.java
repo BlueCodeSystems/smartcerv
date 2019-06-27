@@ -44,7 +44,7 @@ import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.utils.Utils;
 
 public class BasicConceptWidget extends LinearLayoutCompat {
@@ -477,8 +477,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
         canSetValue.compareAndSet(false, true);
     }
 
+
+    // Retrieves previously entered value and displays it in widget
+    public void onLastObsRetrieved(ObsEntity... obs) {
     // Method retrieves entered observations and displays the values in widgets
-    public void onLastObsRetrieved(Obs... obs) {
         int firstIndex = 0;
 
         switch (mDataType) {
@@ -523,7 +525,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
             case ConceptDataType.CODED:
 
-                for(Obs codedObs :obs)
+                for(ObsEntity codedObs :obs)
                  selectedConcepts.add(codedObs.getValueCoded());
 
                  if(isCodedAnswersRetrieved)

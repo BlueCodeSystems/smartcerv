@@ -5,9 +5,7 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
-import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.repository.database.entity.derived.StringIntEntry;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
 
 @Dao
 public interface MetricsDao {

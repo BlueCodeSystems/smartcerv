@@ -12,15 +12,14 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
-import zm.gov.moh.core.repository.database.entity.domain.Encounter;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.utils.Utils;
 
 public class PersistEncounter extends PersistService {
@@ -30,27 +29,22 @@ public class PersistEncounter extends PersistService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        super.onHandleIntent(intent);
-    }
+    protected void executeAsync() {
 
-    @Override
-    public void persistAsync(Bundle bundle) {
-
-        long provider_id = (long) bundle.get(Key.PROVIDER_ID);
-        long user_id = (long) bundle.get(Key.USER_ID);
-        long location_id = (long) bundle.get(Key.LOCATION_ID);
-        long person_id = (long) bundle.get(Key.PERSON_ID);
-        long encounter_type_id = (long) bundle.get(Key.ENCOUNTER_TYPE_ID);
-        Long visit_id = (Long) bundle.get(Key.VISIT_ID);
+        long provider_id = (long) mBundle.get(Key.PROVIDER_ID);
+        long user_id = (long) mBundle.get(Key.USER_ID);
+        long location_id = (long) mBundle.get(Key.LOCATION_ID);
+        long person_id = (long) mBundle.get(Key.PERSON_ID);
+        long encounter_type_id = (long) mBundle.get(Key.ENCOUNTER_TYPE_ID);
+        Long visit_id = (Long) mBundle.get(Key.VISIT_ID);
 
         if (visit_id == null) {
 
             visit_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
-            long visit_type_id = (Long) bundle.get(Key.VISIT_TYPE_ID);
+            long visit_type_id = (Long) mBundle.get(Key.VISIT_TYPE_ID);
             LocalDateTime start_time = LocalDateTime.now();
 
-            Visit visit = new Visit(visit_id, visit_type_id, person_id, location_id, user_id, start_time, start_time);
+            VisitEntity visit = new VisitEntity(visit_id, visit_type_id, person_id, location_id, user_id, start_time, start_time);
             getRepository().getDatabase().visitDao().insert(visit);
         }
 
@@ -58,7 +52,7 @@ public class PersistEncounter extends PersistService {
 
         long encounter_id = submitEncounter(encounter_type_id, person_id, location_id, visit_id, user_id, zonedDatetimeNow);
 
-        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, bundle);
+        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, mBundle);
 
         submitEncounterProvider(encounter_id, provider_id, null, user_id);
     }
@@ -66,7 +60,7 @@ public class PersistEncounter extends PersistService {
     public Long submitEncounter(long encounter_type_id, long patient_id, long location_id, long visit_id, long creator, LocalDateTime zonedDatetimeNow) {
 
         long encounter_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().encounterDao()::getMaxId);
-        Encounter encounter = new Encounter(encounter_id, encounter_type_id, patient_id, location_id, visit_id, creator, zonedDatetimeNow);
+        EncounterEntity encounter = new EncounterEntity(encounter_id, encounter_type_id, patient_id, location_id, visit_id, creator, zonedDatetimeNow);
         getRepository().getDatabase().encounterDao().insert(encounter);
 
         return encounter_id;
@@ -81,31 +75,33 @@ public class PersistEncounter extends PersistService {
         return encounter_provider_id;
     }
 
-    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, LocalDateTime zonedDatetimeNow, Bundle bundle) {
+    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, LocalDateTime zonedDatetimeNow, Bundle mBundle) {
 
-        ArrayList<String> keys = bundle.getStringArrayList(Key.FORM_TAGS);
+        ArrayList<String> keys = mBundle.getStringArrayList(Key.FORM_TAGS);
 
         try {
 
             for (String key : keys) {
 
-                Object value = bundle.get(key);
+                Object value = mBundle.get(key);
 
                 if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
 
                     long obs_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().obsDao()::getMaxId);
 
-                    Obs obs = new Obs(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
+                    ObsEntity obs = new ObsEntity(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
+
 
                     ObsValue<Object> obsValue = (ObsValue<Object>) value;
 
-                    List<Obs> obsList = new LinkedList<>();
+                    List<ObsEntity> obsList = new LinkedList<>();
 
                     String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN)) ?
                             ConceptDataType.CODED
                             : obsValue.getConceptDataType();
 
                     switch (conceptDataType) {
+
 
                         case ConceptDataType.NUMERIC:
                             String numericValue = obsValue.getValue().toString();
@@ -155,16 +151,12 @@ public class PersistEncounter extends PersistService {
 
                     if (!obsList.isEmpty())
                         getRepository().getDatabase().obsDao().insert(obsList);
-                    bundle.remove(key);
+                    mBundle.remove(key);
                 }
             }
         }catch (Exception e){
             Exception e1 =e;
         }
-
-        /*Intent intent = new Intent(ServiceManager.IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);*/
 
         notifyCompleted();
 
