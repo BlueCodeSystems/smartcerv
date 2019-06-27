@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
+import zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
@@ -52,6 +54,8 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     private View v;
     private Object Tag;
     private Object mContext;
+    private Object Application;
+    private android.app.Application application;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +113,6 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         System.out.println("clicked");
 
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -117,12 +120,11 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
             fragment = new PatientDashboardRecentsViewPagerFragment();
         else if(id == R.id.insights_menu_item_id)
             fragment = new PatientDashboardInsightsViewPagerFragment();
-        else if(id == R.id.logout_menu_item_id)
-            activity = new LoginActivity();
         fragment.setArguments(mBundle);
         replaceFragment(fragment);
         return true;
     }
+
     public void replaceFragment(Fragment fragment){
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.bottom_navigation_view_container,fragment).commit();

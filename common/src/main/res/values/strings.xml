@@ -6,4 +6,5 @@
     <string name="chooser_title">appchoser</string>
     <string name="male_patient_block">Male patients cannot register for this service</string>
     <string name="insufficient_identifiers">Registration unsuccessful, please sync and try again</string>
+    <string name="Logout">logout</string>
 </resources>

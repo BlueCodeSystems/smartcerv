@@ -17,11 +17,4 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_timeline_24px">
     </item>
-    <item
-        android:id="@+id/logout_menu_item_id"
-        android:title="Logout"
-        app:showAsAction="ifRoom"
-        android:enabled="true"
-        android:icon="@drawable/ic_arrow_back_24dp"
-        ></item>
 </menu>
