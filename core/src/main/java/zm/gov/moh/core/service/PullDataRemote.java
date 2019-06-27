@@ -3,6 +3,8 @@ package zm.gov.moh.core.service;
 import android.content.Intent;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullDataRemote extends RemoteService {
@@ -107,5 +109,21 @@ public class PullDataRemote extends RemoteService {
                 repository.getRestApi().getEncounters(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
+    }
+
+    @Override
+    public void onTaskCompleted(){
+
+        tasksCompleted++;
+
+        if(tasksCompleted == tasksStarted) {
+            notifyCompleted();
+
+
+                ServiceManager.getInstance(getApplicationContext())
+                        .setService(ServiceManager.Service.SUBSTITUTE_LOCAL_ENTITY)
+                        .putExtras(mBundle)
+                        .start();
+        }
     }
 }

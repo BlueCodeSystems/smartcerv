@@ -37,9 +37,7 @@ public class BootstrapActivity extends BaseActivity {
         ServiceManager.getInstance(this)
                 .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
                 .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
-                .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PULL_ENTITY_REMOTE)
-                .startOnComplete(ServiceManager.Service.PULL_ENTITY_REMOTE, ServiceManager.Service.PUSH_ENTITY_REMOTE)
-                .startOnComplete(ServiceManager.Service.PUSH_ENTITY_REMOTE, ServiceManager.Service.SUBSTITUTE_LOCAL_ENTITY)
+                .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PUSH_ENTITY_REMOTE)
                 .start();
 
         finish();

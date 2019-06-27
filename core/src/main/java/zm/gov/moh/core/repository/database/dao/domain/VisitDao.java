@@ -20,6 +20,9 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT * FROM Visit WHERE patient_id = :id")
     VisitEntity[] getByPatientId(long id);
 
+    @Query("DELETE FROM Visit WHERE visit_id IN (:visitId)")
+    void deleteById(long[] visitId);
+
     @Query("SELECT * FROM Visit WHERE visit_id IN (:id)")
     List<VisitEntity> getById(Long[] id);
 
@@ -35,4 +38,8 @@ public interface VisitDao extends Synchronizable<Long> {
     @Override
     @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
+
+    @Query("UPDATE visit SET patient_id = :remotePatientId WHERE visit_id IN (SELECT visit_id FROM visit WHERE patient_id = :localPatientId)")
+    void replaceLocalPatientId(long localPatientId, long remotePatientId);
+
 }

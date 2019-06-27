@@ -3,6 +3,7 @@ package zm.gov.moh.core.repository.database.dao.domain;
 import androidx.room.*;
 import java.util.List;
 
+import zm.gov.moh.core.model.EntityId;
 import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
@@ -38,6 +39,9 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
 
     @Query("SELECT local.patient_identifier_id FROM (SELECT patient_identifier_id, identifier FROM patient_identifier WHERE patient_identifier_id < :localOffset) AS remote JOIN (SELECT patient_identifier_id, identifier FROM patient_identifier WHERE patient_identifier_id >= :localOffset) AS local ON local.identifier = remote.identifier")
     long[] getSynced(long localOffset);
+
+    @Query("SELECT local.patient_id AS local, remote.patient_id AS remote FROM (SELECT patient_id, identifier FROM patient_identifier WHERE patient_identifier_id < :localOffset AND identifier_type = :identifierType) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_identifier_id >= :localOffset  AND identifier_type = :identifierType) AS local ON local.identifier = remote.identifier")
+    EntityId[] getSyncedEntityId(long localOffset, long identifierType);
 
     @Override
     @Query("SELECT * FROM (SELECT * FROM patient_identifier WHERE patient_identifier_id NOT IN (:id)) WHERE patient_identifier_id >= :offsetId")

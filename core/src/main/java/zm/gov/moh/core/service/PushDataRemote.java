@@ -3,15 +3,14 @@ package zm.gov.moh.core.service;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.arch.core.util.Function;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Encounter;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Obs;
 import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.model.PersonAttribute;
@@ -38,12 +37,46 @@ public class PushDataRemote extends RemoteService {
     protected void executeAsync() {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        for (EntityType entitiyId:EntityType.values())
-            ConcurrencyUtils.consumeAsync(this::pushInfoRemote, this::onError, entitiyId, batchVersion,TIMEOUT);
+
+        EntityType entityType = (EntityType) mBundle.getSerializable(Key.ENTITY_TYPE);
+
+        if(entityType == null)
+            entityType = EntityType.PATIENT;
+
+        ConcurrencyUtils.consumeAsync(this::pushDataRemote, this::onError, entityType, batchVersion,TIMEOUT);
 
     }
 
-   protected void pushInfoRemote(EntityType entityType, long batchVersion){
+    public void onTaskCompleted(){
+
+        tasksCompleted++;
+
+       /* if(tasksCompleted == tasksStarted){
+            notifyCompleted();
+
+            if(entityTypeId == EntityType.PATIENT.getId()){
+
+                mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
+                ServiceManager.getInstance(getApplicationContext())
+                        .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
+                        .putExtras(mBundle)
+                        .start();
+            }
+
+            else if(entityTypeId == EntityType.VISIT.getId()){
+
+                mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.VISIT);
+                ServiceManager.getInstance(getApplicationContext())
+                        .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
+                        .putExtras(mBundle)
+                        .start();
+            }
+        }*/
+
+    }
+
+
+    protected void pushDataRemote(EntityType entityType, long batchVersion){
 
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(entityType.getId(), Status.PUSHED.getCode());
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
@@ -80,16 +113,10 @@ public class PushDataRemote extends RemoteService {
             case VISIT:
 
                 onTaskStarted();
-                Visit[] visits;
-                int visitIndex = 0;
                 Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
-                int cool;
                 if(unpushedVisitEntityId.length > 0) {
 
-                        Visit[] patientVisits = createVisits(unpushedVisitEntityId);
-                        if (patientVisits != null && patientVisits.length != 0)
-                            cool = patientVisits.length;
-
+                    Visit[] patientVisits = createVisits(unpushedVisitEntityId);
 
                     restApi.putVisit(accessToken, batchVersion, patientVisits)
                             .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -101,7 +128,6 @@ public class PushDataRemote extends RemoteService {
 
     public Consumer<Response[]> onComplete(Long[] entityIds, int entityTypeId){
 
-
         return param -> {
 
             for(Long entityId:entityIds) {
@@ -109,6 +135,10 @@ public class PushDataRemote extends RemoteService {
                 EntityMetadata entityMetadata = new EntityMetadata(entityId,entityTypeId, Status.PUSHED.getCode());
                 db.entityMetadataDao().insert(entityMetadata);
             }
+
+
+
+
             onTaskCompleted();
         };
     }
@@ -249,4 +279,5 @@ public class PushDataRemote extends RemoteService {
 
         return encounter;
     }
+
 }
