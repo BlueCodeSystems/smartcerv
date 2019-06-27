@@ -32,7 +32,7 @@ public class BootstrapActivity extends BaseActivity {
 
         bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactModule);
 
-        startModule(loginModule, bundle);
+        startModule(BaseApplication.CoreModule.LOGIN, bundle);
 
         ServiceManager.getInstance(this)
                 .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)

@@ -24,7 +24,7 @@ import zm.gov.moh.core.utils.Utils;
 
 public class PersistEncounter extends PersistService {
 
-    public PersistEncounter(){
+    public PersistEncounter() {
         super(ServiceManager.Service.PERSIST_ENCOUNTERS);
     }
 
@@ -79,64 +79,83 @@ public class PersistEncounter extends PersistService {
 
         ArrayList<String> keys = mBundle.getStringArrayList(Key.FORM_TAGS);
 
-        for (String key : keys) {
+        try {
 
-            Object value = mBundle.get(key);
+            for (String key : keys) {
 
-            if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
+                Object value = mBundle.get(key);
 
-                long obs_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().obsDao()::getMaxId);
+                if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
 
-                ObsEntity obs = new ObsEntity(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
+                    long obs_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().obsDao()::getMaxId);
 
-                ObsValue<Object> obsValue = (ObsValue<Object>) value;
+                    ObsEntity obs = new ObsEntity(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
 
-                List<ObsEntity> obsList = new LinkedList<>();
 
-                String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN)) ?
-                        ConceptDataType.CODED
-                        : obsValue.getConceptDataType();
+                    ObsValue<Object> obsValue = (ObsValue<Object>) value;
 
-                switch (conceptDataType) {
+                    List<ObsEntity> obsList = new LinkedList<>();
 
-                    case ConceptDataType.NUMERIC:
-                        String numericValue = obsValue.getValue().toString();
+                    String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN)) ?
+                            ConceptDataType.CODED
+                            : obsValue.getConceptDataType();
 
-                        if(Utils.isNumber(numericValue)){
-                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                    .setValue(Double.valueOf(obsValue.getValue().toString())));
-                        }
-                        break;
+                    switch (conceptDataType) {
 
-                    case ConceptDataType.TEXT:
 
-                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(obsValue.getValue().toString()));
-                        break;
+                        case ConceptDataType.NUMERIC:
+                            String numericValue = obsValue.getValue().toString();
 
-                    case ConceptDataType.DATE:
 
-                        String date = obsValue.getValue().toString() + MID_DAY_TIME;
+                            //Persist numeric value
+                            if (android.text.TextUtils.isDigitsOnly(numericValue)) {
+                                obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                        .setValue(Double.valueOf(obsValue.getValue().toString())));
+                            }
 
-                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(LocalDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME)));
-                        break;
 
-                    case ConceptDataType.CODED:
+                            if (Utils.isNumber(numericValue)) {
+                                obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                        .setValue(Double.valueOf(obsValue.getValue().toString())));
+                            }
 
-                        Set<Long> answerConcepts = (Set<Long>) obsValue.getValue();
-
-                        if (answerConcepts.isEmpty())
                             break;
-                        obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(answerConcepts));
-                        break;
-                }
 
-                if (!obsList.isEmpty())
-                    getRepository().getDatabase().obsDao().insert(obsList);
-                mBundle.remove(key);
+                        case ConceptDataType.TEXT:
+                            // String textValue = obsValue.toString();// if (Utils.getStringFromInputStream(textValue instanceof  String = True)) {
+                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(obsValue.getValue().toString()));
+
+                            break;
+
+                        case ConceptDataType.DATE:
+
+                            String date = obsValue.getValue().toString() + MID_DAY_TIME;
+
+                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(LocalDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME)));
+                            break;
+
+                        case ConceptDataType.CODED:
+
+                            Set<Long> answerConcepts = (Set<Long>) obsValue.getValue();
+
+                            if (answerConcepts.isEmpty())
+                                break;
+                            obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(answerConcepts));
+                            break;
+
+
+                    }
+
+                    if (!obsList.isEmpty())
+                        getRepository().getDatabase().obsDao().insert(obsList);
+                    mBundle.remove(key);
+                }
             }
+        }catch (Exception e){
+            Exception e1 =e;
         }
 
         notifyCompleted();

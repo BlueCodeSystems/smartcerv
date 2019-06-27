@@ -33,6 +33,8 @@ import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
 import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
+import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeDao;
+import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeTypeDao;
 import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
 import zm.gov.moh.core.repository.database.dao.domain.UserDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
@@ -63,6 +65,8 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.Provider;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.User;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.domain.VisitAttribute;
@@ -88,6 +92,8 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 LocationAttribute.class,
                 LocationAttributeType.class,
                 Provider.class,
+                ProviderAttribute.class,
+                ProviderAttributeType.class,
                 User.class,
                 ObsEntity.class,
                 EncounterEntity.class,
@@ -105,7 +111,8 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 EntityMetadata.class,
                 Drug.class,
                 Identifier.class
-        }, version = 2
+
+        }, version = 1
         , exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
@@ -128,6 +135,8 @@ public abstract class Database extends RoomDatabase {
     public abstract ProviderUserDao providerUserDao();
     public abstract UserDao userDao();
     public abstract ProviderDao providerDao();
+    public abstract ProviderAttributeDao providerAttributeDao();
+    public abstract ProviderAttributeTypeDao providerAttributeTypeDao();
     public abstract PatientDao patientDao();
     public abstract PatientIdentifierDao patientIdentifierDao();
     public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
@@ -146,10 +155,8 @@ public abstract class Database extends RoomDatabase {
     public abstract DrugDao drugDao();
     public abstract IdentifierDao identifierDao();
 
-
     //Derived
     public abstract ClientDao clientDao();
-
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
 
