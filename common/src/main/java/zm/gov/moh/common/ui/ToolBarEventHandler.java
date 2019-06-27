@@ -40,10 +40,18 @@ public class ToolBarEventHandler {
     private void finish() {
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
+        public void syncMetaData(){
+            ServiceManager.getInstance(context)
+                    .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PULL_ENTITY_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PULL_ENTITY_REMOTE, ServiceManager.Service.PUSH_ENTITY_REMOTE)
+                    .startOnComplete(ServiceManager.Service.PUSH_ENTITY_REMOTE, ServiceManager.Service.SUBSTITUTE_LOCAL_ENTITY)
+                    .start();
+        }
 
     public String getTitle() {
         return title;

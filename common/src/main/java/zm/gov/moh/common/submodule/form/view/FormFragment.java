@@ -159,7 +159,21 @@ public class FormFragment extends BaseFragment {
                 ObsValue<String> obsValue1 = (ObsValue<String>) bundle.getSerializable("image view button");
 
                 if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
-                    intent = new Intent(context, PersistEncounter.class);
+
+                    boolean hasObs = false;
+                    for(String key : bundle.keySet()){
+
+                        if(bundle.get(key) instanceof ObsValue)
+                            hasObs = true;
+                    }
+
+                    if(hasObs)
+                        intent = new Intent(context, PersistEncounter.class);
+                    else {
+                        Toast.makeText(context, context.getResources().getText(R.string.no_observations), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
                 }
                 else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
                     intent = new Intent(context, PersistDemographics.class);
@@ -217,6 +231,7 @@ public class FormFragment extends BaseFragment {
         View view = rootView.findViewWithTag(tag);
         ((FormImageViewButtonWidget) view).onUriRetrieved(data.getValue());
     }
+
     // Method to get the value form the bundle
     // fetch data from Dao using the name of the query
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
@@ -231,11 +246,13 @@ public class FormFragment extends BaseFragment {
             String uuid = conceptWidget.getUuid();
             long patientid = bundle.getLong(Key.PERSON_ID);
 
+
+
             //fetch value from database
             repository.getDatabase().obsDao().findPatientObsByConceptUuid(patientid, uuid).observe(context, obs -> {
 
-                if (obs != null) {
-                    //Pasing obs to widget
+                if (obs != null && obs.length != 0) {
+                    //Passing obs to widget
                     conceptWidget.onLastObsRetrieved(obs);
                 }
             });

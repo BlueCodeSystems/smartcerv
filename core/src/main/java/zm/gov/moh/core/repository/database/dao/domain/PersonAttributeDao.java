@@ -4,20 +4,21 @@ import androidx.room.*;
 
 import java.util.List;
 
-import zm.gov.moh.core.repository.database.entity.domain.PersonAttribute;
+import zm.gov.moh.core.model.PersonAttribute;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 
 @Dao
 public interface PersonAttributeDao {
 
     //gets all person_attributes
     @Query("SELECT * FROM person_attribute")
-    List<PersonAttribute> getAll();
+    List<PersonAttributeEntity> getAll();
 
     // Inserts single person_attribute
     @Insert
-    void insert(PersonAttribute personAttribute);
+    void insert(PersonAttributeEntity personAttribute);
 
     //get persons attribute by getPersons id
-    @Query("SELECT * FROM person_attribute WHERE person_id = :id")
-    PersonAttribute findByPersonId(long id);
+    @Query("SELECT value, person_attribute_type.uuid AS attributeType FROM person_attribute JOIN person_attribute_type WHERE person_id = :id")
+    List<PersonAttribute> findByPersonId(long id);
 }

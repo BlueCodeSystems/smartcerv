@@ -1,35 +1,24 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZonedDateTime;
 
-@Entity(tableName = "person_attribute")
-public class PersonAttribute {
+@Entity(tableName = "patient")
+public class PatientEntity extends SynchronizableEntity {
 
     @PrimaryKey
-    @ColumnInfo(name = "person_attribute_id")
-    @Json(name = "person_attribute_id")
-    private long personAttributeId;
-
-    @ColumnInfo(name = "person_id")
-    @Json(name = "person_id")
-    private long personId;
-
-    @ColumnInfo(name = "value")
-    @Json(name = "value")
-    private String value;
-
-    @ColumnInfo(name = "person_attribute_type_id")
-    @Json(name = "person_attribute_type_id")
-    private long personAttributeTypeId;
+    @ColumnInfo(name = "patient_id")
+    @Json(name = "patient_id")
+    private long patientId;
 
     @ColumnInfo(name = "creator")
     @Json(name = "creator")
-    private long creator;
+    private Long creator;
 
     @ColumnInfo(name = "date_created")
     @Json(name = "date_created")
@@ -37,7 +26,7 @@ public class PersonAttribute {
 
     @ColumnInfo(name = "changed_by")
     @Json(name = "changed_by")
-    private long changedBy;
+    private Long changedBy;
 
     @ColumnInfo(name = "date_changed")
     @Json(name = "date_changed")
@@ -49,7 +38,7 @@ public class PersonAttribute {
 
     @ColumnInfo(name = "voided_by")
     @Json(name = "voided_by")
-    private long voidedBy;
+    private Long voidedBy;
 
     @ColumnInfo(name = "date_voided")
     @Json(name = "date_voided")
@@ -59,47 +48,29 @@ public class PersonAttribute {
     @Json(name = "void_reason")
     private String voidReason;
 
-    @ColumnInfo(name = "uuid")
-    @Json(name = "uuid")
-    private String uuid;
+    @ColumnInfo(name = "allergy_status")
+    @Json(name = "allergy_status")
+    private String allergyStatus;
 
-    public long getPersonAttributeId() {
-        return personAttributeId;
+    public PatientEntity(long patientId, LocalDateTime dateCreated){
+
+        this.patientId = patientId;
+        this.dateCreated = dateCreated;
     }
 
-    public void setPersonAttributeId(long personAttributeId) {
-        this.personAttributeId = personAttributeId;
+    public long getPatientId() {
+        return patientId;
     }
 
-    public long getPersonId() {
-        return personId;
+    public void setPatientId(long patientId) {
+        this.patientId = patientId;
     }
 
-    public void setPersonId(long personId) {
-        this.personId = personId;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public long getPersonAttributeTypeId() {
-        return personAttributeTypeId;
-    }
-
-    public void setPersonAttributeTypeId(long personAttributeTypeId) {
-        this.personAttributeTypeId = personAttributeTypeId;
-    }
-
-    public long getCreator() {
+    public Long getCreator() {
         return creator;
     }
 
-    public void setCreator(long creator) {
+    public void setCreator(Long creator) {
         this.creator = creator;
     }
 
@@ -111,11 +82,11 @@ public class PersonAttribute {
         this.dateCreated = dateCreated;
     }
 
-    public long getChangedBy() {
+    public Long getChangedBy() {
         return changedBy;
     }
 
-    public void setChangedBy(long changedBy) {
+    public void setChangedBy(Long changedBy) {
         this.changedBy = changedBy;
     }
 
@@ -135,11 +106,11 @@ public class PersonAttribute {
         this.voided = voided;
     }
 
-    public long getVoidedBy() {
+    public Long getVoidedBy() {
         return voidedBy;
     }
 
-    public void setVoidedBy(long voidedBy) {
+    public void setVoidedBy(Long voidedBy) {
         this.voidedBy = voidedBy;
     }
 
@@ -159,11 +130,15 @@ public class PersonAttribute {
         this.voidReason = voidReason;
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getAllergyStatus() {
+        return allergyStatus;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setAllergyStatus(String allergyStatus) {
+        this.allergyStatus = allergyStatus;
+    }
+
+    public long getId(){
+        return patientId;
     }
 }

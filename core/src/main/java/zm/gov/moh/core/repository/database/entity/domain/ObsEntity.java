@@ -2,7 +2,6 @@ package zm.gov.moh.core.repository.database.entity.domain;
 
 import org.threeten.bp.LocalDateTime;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -16,8 +15,8 @@ import androidx.room.*;
 import com.squareup.moshi.Json;
 
 // implement Serializable to translate  object state into a format that can be stored
-@Entity
-public class Obs extends SynchronizableEntity {
+@Entity(tableName = "obs")
+public class ObsEntity extends SynchronizableEntity {
 
 
     @PrimaryKey
@@ -141,12 +140,12 @@ public class Obs extends SynchronizableEntity {
     @Json(name = "interpretation")
     private String interpretation;
 
-    public Obs(){
+    public ObsEntity(){
 
     }
 
     @Ignore
-    public Obs(long obsId,long personId,long encounterId,LocalDateTime obsDateTime,long locationId,long creator){
+    public ObsEntity(long obsId, long personId, long encounterId, LocalDateTime obsDateTime, long locationId, long creator){
 
         this.obsId = obsId;
         this.personId = personId;
@@ -157,46 +156,46 @@ public class Obs extends SynchronizableEntity {
         this.creator = creator;
     }
 
-    public Obs setObsConceptId(long conceptId){
+    public ObsEntity setObsConceptId(long conceptId){
 
         this.conceptId = conceptId;
         return this;
     }
 
-    public Obs setObsGroupId(long obsGroupId){
+    public ObsEntity setObsGroupId(long obsGroupId){
 
         this.obsGroupId = obsGroupId;
         return this;
     }
 
-    public Obs setValue(Double valueNumeric){
+    public ObsEntity setValue(Double valueNumeric){
 
         this.valueNumeric = valueNumeric;
         return this;
     }
 
-    public Obs setValue(LocalDateTime valueDateTime){
+    public ObsEntity setValue(LocalDateTime valueDateTime){
 
         this.valueDateTime = valueDateTime;
         return this;
     }
 
 
-    public Obs setValue(String valueText){
+    public ObsEntity setValue(String valueText){
 
         this.valueText = valueText;
         return this;
     }
 
-    public Obs setValue(long valueCoded){
+    public ObsEntity setValue(long valueCoded){
 
         this.valueCoded = valueCoded;
         return this;
     }
 
-    public List<Obs> setValue(Set<Long> answerConcepts){
+    public List<ObsEntity> setValue(Set<Long> answerConcepts){
 
-        List<Obs> obsList = new LinkedList<>();
+        List<ObsEntity> obsList = new LinkedList<>();
 
         if(answerConcepts.size() == 1) {
 
@@ -205,7 +204,7 @@ public class Obs extends SynchronizableEntity {
         }
         else if(answerConcepts.size() > 1)
             for(Long conceptId : answerConcepts) {
-                Obs obs = new Obs(obsId++, personId, encounterId, obsDateTime, locationId, creator)
+                ObsEntity obs = new ObsEntity(obsId++, personId, encounterId, obsDateTime, locationId, creator)
                         .setObsConceptId(this.conceptId)
                         .setValue(conceptId);
                 obsList.add(obs);

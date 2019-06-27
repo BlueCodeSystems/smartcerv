@@ -6,10 +6,9 @@ import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "patient_identifier")
-public class PatientIdentifier extends SynchronizableEntity {
+public class PatientIdentifierEntity extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "patient_identifier_id")
@@ -73,7 +72,7 @@ public class PatientIdentifier extends SynchronizableEntity {
     private String uuid;
 
 
-    public PatientIdentifier(long patientIdentifierId, long patientId,String identifier,long identifierType , long locationId, LocalDateTime dateCreated){
+    public PatientIdentifierEntity(long patientIdentifierId, long patientId, String identifier, long identifierType , long locationId, LocalDateTime dateCreated){
 
         this.patientIdentifierId = patientIdentifierId;
         this.patientId = patientId;
@@ -85,7 +84,7 @@ public class PatientIdentifier extends SynchronizableEntity {
     }
 
     @Ignore
-    public PatientIdentifier(long patientIdentifierId, long patientId,String identifier,long identifierType ,short preferred, long locationId, LocalDateTime dateCreated){
+    public PatientIdentifierEntity(long patientIdentifierId, long patientId, String identifier, long identifierType , short preferred, long locationId, LocalDateTime dateCreated){
 
         this(patientIdentifierId,patientId,identifier,identifierType,locationId,dateCreated);
         this.preferred = preferred;

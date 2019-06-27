@@ -5,7 +5,7 @@
             android:name=".service.PullMetaDataRemote"
             android:exported="false"/>
         <service
-            android:name=".service.PullEntityRemote"
+            android:name=".service.PullDataRemote"
             android:exported="false"/>
         <service
             android:name=".service.SearchIndex"
@@ -17,10 +17,13 @@
             android:name=".service.PersistDemographics"
             android:exported="false"/>
         <service
-            android:name=".service.PushEntityRemote"
+            android:name=".service.PushDataRemote"
             android:exported="false"/>
         <service
             android:name=".service.PullPatientIDRemote"
+            android:exported="false"/>
+        <service
+            android:name=".service.SubstituteLocalEntity"
             android:exported="false"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

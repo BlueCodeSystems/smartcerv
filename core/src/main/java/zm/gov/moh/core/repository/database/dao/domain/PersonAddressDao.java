@@ -24,7 +24,14 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
 
     //get persons address by getPersons id
     @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1")
-    LiveData<PersonAddress> findByPersonId(long id);
+    LiveData<PersonAddress> findByPersonIdObservable(long id);
+
+
+    @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1")
+    PersonAddress findByPersonId(long id);
+
+    @Query("DELETE FROM person_address WHERE person_id IN (:id)")
+    void deleteByPersonId(long ...id);
 
     @Query("SELECT MAX(person_address_id) FROM person_address")
     Long getMaxId();

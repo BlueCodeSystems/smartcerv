@@ -3,18 +3,13 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Key;
@@ -22,12 +17,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.BaseRequestOptions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
-
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
-
 import java.io.File;
 import java.security.MessageDigest;
 import java.time.ZoneId;
@@ -37,24 +30,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import zm.gov.moh.cervicalcancer.BuildConfig;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.common.submodule.form.utils.MediaStorageUtil;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.ui.BaseActivity;
-
-import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
-import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
@@ -104,9 +90,11 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
             ImageDataAdapter adapter = new ImageDataAdapter(context,ediData);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
 
-            recyclerView = rootView.findViewById(R.id.recyclerview1);
-            recyclerView.setLayoutManager(gridLayoutManager);
-            recyclerView.setAdapter(adapter);
+            if(ediData.isEmpty()) {
+                recyclerView = rootView.findViewById(R.id.recyclerview1);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(adapter);
+            }
 
         }
     }
