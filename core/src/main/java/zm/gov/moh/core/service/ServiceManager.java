@@ -97,11 +97,11 @@ public class ServiceManager {
                 break;
 
             case PULL_ENTITY_REMOTE:
-               mIntent = new Intent(context, PullEntityRemote.class);
+               mIntent = new Intent(context, PullDataRemote.class);
                break;
 
             case PUSH_ENTITY_REMOTE:
-                mIntent = new Intent(context, PushEntityRemote.class);
+                mIntent = new Intent(context, PushDataRemote.class);
                 break;
 
             case PERSIST_DEMOGRAPHICS:
@@ -110,6 +110,10 @@ public class ServiceManager {
 
             case PERSIST_ENCOUNTERS:
                 mIntent = new Intent(context, PersistEncounter.class);
+                break;
+
+            case SUBSTITUTE_LOCAL_ENTITY:
+                mIntent = new Intent(context, SubstituteLocalEntity.class);
                 break;
         }
 
@@ -153,7 +157,8 @@ public class ServiceManager {
         PUSH_ENTITY_REMOTE,
         PERSIST_DEMOGRAPHICS,
         PERSIST_ENCOUNTERS,
-        PULL_PATIENT_ID_REMOTE
+        PULL_PATIENT_ID_REMOTE,
+        SUBSTITUTE_LOCAL_ENTITY
     }
 
     public class IntentAction{

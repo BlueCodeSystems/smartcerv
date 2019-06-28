@@ -16,7 +16,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.utils.Utils;
 
-public class DatePickerWidget extends ReadonlyTextWidget {
+public class DatePickerWidget extends EditTextWidget {
 
     public DatePickerWidget(Context context){
         super(context);
@@ -60,8 +60,10 @@ public class DatePickerWidget extends ReadonlyTextWidget {
 
             LocalDate localDate = LocalDate.parse(date);
             String formattedDate = localDate.format(DateTimeFormatter.ofPattern(mHint));
-            mBundle.putString((String) getTag(), date);
+            if(mBundle != null)
+                mBundle.putString((String) getTag(), date);
             getEditTextView().setText(formattedDate);
+            mValueChangeListener.accept(date);
         }catch (Exception e){
 
         }
@@ -91,6 +93,8 @@ public class DatePickerWidget extends ReadonlyTextWidget {
                 widget.setHint(mHint);
             if(mLabel != null)
                 widget.setLabel(mLabel);
+            if(mValueChangeListener != null)
+                widget.setOnValueChangeListener(mValueChangeListener);
 
             widget.onCreateView();
 

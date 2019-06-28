@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -187,7 +186,7 @@ public class BaseActivity extends AppCompatActivity {
                     .getRepository()
                     .getDatabase()
                     .personAddressDao()
-                    .findByPersonId(personId)
+                    .findByPersonIdObservable(personId)
                     .observe(this, personAddress -> {
 
 

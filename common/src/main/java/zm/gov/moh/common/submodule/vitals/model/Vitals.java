@@ -1,11 +1,8 @@
 package zm.gov.moh.common.submodule.vitals.model;
 
-import java.util.List;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import zm.gov.moh.common.BR;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
 
 public class Vitals extends BaseObservable {
 

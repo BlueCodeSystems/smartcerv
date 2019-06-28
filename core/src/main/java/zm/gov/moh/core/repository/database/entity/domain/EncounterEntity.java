@@ -8,7 +8,7 @@ import com.squareup.moshi.Json;
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "encounter")
-public class Encounter extends SynchronizableEntity {
+public class EncounterEntity extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "encounter_id")
@@ -29,7 +29,7 @@ public class Encounter extends SynchronizableEntity {
 
     @ColumnInfo(name = "form_id")
     @Json(name = "form_id")
-    private long formId;
+    private Long formId;
 
     @ColumnInfo(name = "encounter_datetime")
     @Json(name = "encounter_datetime")
@@ -69,18 +69,18 @@ public class Encounter extends SynchronizableEntity {
 
     @ColumnInfo(name = "visit_id")
     @Json(name = "visit_id")
-    private long visitId;
+    private Long visitId;
 
     @ColumnInfo(name = "uuid")
     @Json(name = "uuid")
     private String uuid;
 
-    public Encounter(){
+    public EncounterEntity(){
 
     }
 
     @Ignore
-    public Encounter(long encounterId,long encounterType, long patientId, long locationId,long visitId, long creator, LocalDateTime zonedDatetimeNow){
+    public EncounterEntity(long encounterId, long encounterType, long patientId, long locationId, long visitId, long creator, LocalDateTime zonedDatetimeNow){
 
         this.encounterId = encounterId;
         this.encounterType = encounterType;
@@ -124,11 +124,11 @@ public class Encounter extends SynchronizableEntity {
         this.locationId = locationId;
     }
 
-    public long getFormId() {
+    public Long getFormId() {
         return formId;
     }
 
-    public void setFormId(long formId) {
+    public void setFormId(Long formId) {
         this.formId = formId;
     }
 
@@ -204,11 +204,11 @@ public class Encounter extends SynchronizableEntity {
         this.dateChanged = dateChanged;
     }
 
-    public long getVisitId() {
+    public Long getVisitId() {
         return visitId;
     }
 
-    public void setVisitId(long visitId) {
+    public void setVisitId(Long visitId) {
         this.visitId = visitId;
     }
 

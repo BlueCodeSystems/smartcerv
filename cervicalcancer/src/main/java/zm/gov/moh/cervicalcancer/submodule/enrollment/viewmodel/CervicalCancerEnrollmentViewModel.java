@@ -4,13 +4,10 @@ import android.app.Application;
 import android.os.Bundle;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalTime;
-import org.threeten.bp.ZonedDateTime;
 
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
-import zm.gov.moh.core.repository.database.entity.domain.Patient;
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
@@ -54,7 +51,7 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         //Create database entity instances
 
         //patient id CCPIZ
-        PatientIdentifier ccpiz = new PatientIdentifier(patientIdentifierIdccpiz, personId,
+        PatientIdentifierEntity ccpiz = new PatientIdentifierEntity(patientIdentifierIdccpiz, personId,
                 (String)bundle.get(CLIENT_ID_TAG),
                 CERVICAL_CANCER_ID_TYPE, preffered(),
                 (long)bundle.get(FACILITY_TAG),LocalDateTime.now());

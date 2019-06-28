@@ -5,12 +5,12 @@
     <application
         android:name=".ApplicationContext"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/smartcerv_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/smartcerv_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BootstrapActivity">
+        <activity android:name=".BootstrapActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

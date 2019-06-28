@@ -14,7 +14,7 @@ SmartCerv enables providers to;
  2. Access records in the hospital register
  3. Capture or update vitals
  4. Enrol client to the cervical cancer service 
- 6. View patient dashboard 
+ 6. View patient dashboard
  7. Record reproductive health history
  8. Record client's HIV status
  9. Record findings from physical examination
