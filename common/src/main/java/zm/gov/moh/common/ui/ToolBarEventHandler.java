@@ -2,11 +2,13 @@ package zm.gov.moh.common.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.core.service.ServiceManager;
 
@@ -14,6 +16,7 @@ public class ToolBarEventHandler {
 
     Context context;
     String title;
+    private ToolBarEventHandler mContext;
 
     public ToolBarEventHandler(Context context) {
         this.context = context;
@@ -29,17 +32,14 @@ public class ToolBarEventHandler {
     }
 
     public void onClicklogOut() {
-        Intent i = new Intent(context,LoginActivity.class);
-        i.putExtra("finish", true);
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        context.startActivity(i);
-        System.out.print("Clicked");
-        finish();
+        Intent AppIntent = context.getPackageManager().getLaunchIntentForPackage("zm.gov.moh.app");
+        ((AppCompatActivity)context).startActivity(AppIntent);
+        System.out.print("clicked");
     }
 
-    private void finish() {
+    public PackageManager getPackageManager() {
+        return context.getPackageManager();
     }
-
 
     public void setTitle(String title) {
         this.title = title;

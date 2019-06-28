@@ -48,7 +48,7 @@ import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.Obs;
 import zm.gov.moh.core.utils.Utils;
 
-@SuppressWarnings("deprecation")
+
 public class BasicConceptWidget extends LinearLayoutCompat implements Retainable {
 
     String mLabel;
