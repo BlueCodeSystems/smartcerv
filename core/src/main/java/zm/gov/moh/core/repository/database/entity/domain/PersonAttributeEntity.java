@@ -1,24 +1,35 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
-import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.LocalDateTime;
 
-@Entity
-public class Patient extends SynchronizableEntity {
+@Entity(tableName = "person_attribute")
+public class PersonAttributeEntity {
 
     @PrimaryKey
-    @ColumnInfo(name = "patient_id")
-    @Json(name = "patient_id")
-    private long patientId;
+    @ColumnInfo(name = "person_attribute_id")
+    @Json(name = "person_attribute_id")
+    private long personAttributeId;
+
+    @ColumnInfo(name = "person_id")
+    @Json(name = "person_id")
+    private long personId;
+
+    @ColumnInfo(name = "value")
+    @Json(name = "value")
+    private String value;
+
+    @ColumnInfo(name = "person_attribute_type_id")
+    @Json(name = "person_attribute_type_id")
+    private long personAttributeTypeId;
 
     @ColumnInfo(name = "creator")
     @Json(name = "creator")
-    private Long creator;
+    private long creator;
 
     @ColumnInfo(name = "date_created")
     @Json(name = "date_created")
@@ -26,7 +37,7 @@ public class Patient extends SynchronizableEntity {
 
     @ColumnInfo(name = "changed_by")
     @Json(name = "changed_by")
-    private Long changedBy;
+    private long changedBy;
 
     @ColumnInfo(name = "date_changed")
     @Json(name = "date_changed")
@@ -38,7 +49,7 @@ public class Patient extends SynchronizableEntity {
 
     @ColumnInfo(name = "voided_by")
     @Json(name = "voided_by")
-    private Long voidedBy;
+    private long voidedBy;
 
     @ColumnInfo(name = "date_voided")
     @Json(name = "date_voided")
@@ -48,29 +59,47 @@ public class Patient extends SynchronizableEntity {
     @Json(name = "void_reason")
     private String voidReason;
 
-    @ColumnInfo(name = "allergy_status")
-    @Json(name = "allergy_status")
-    private String allergyStatus;
+    @ColumnInfo(name = "uuid")
+    @Json(name = "uuid")
+    private String uuid;
 
-    public Patient(long patientId, LocalDateTime dateCreated){
-
-        this.patientId = patientId;
-        this.dateCreated = dateCreated;
+    public long getPersonAttributeId() {
+        return personAttributeId;
     }
 
-    public long getPatientId() {
-        return patientId;
+    public void setPersonAttributeId(long personAttributeId) {
+        this.personAttributeId = personAttributeId;
     }
 
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
+    public long getPersonId() {
+        return personId;
     }
 
-    public Long getCreator() {
+    public void setPersonId(long personId) {
+        this.personId = personId;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public long getPersonAttributeTypeId() {
+        return personAttributeTypeId;
+    }
+
+    public void setPersonAttributeTypeId(long personAttributeTypeId) {
+        this.personAttributeTypeId = personAttributeTypeId;
+    }
+
+    public long getCreator() {
         return creator;
     }
 
-    public void setCreator(Long creator) {
+    public void setCreator(long creator) {
         this.creator = creator;
     }
 
@@ -82,11 +111,11 @@ public class Patient extends SynchronizableEntity {
         this.dateCreated = dateCreated;
     }
 
-    public Long getChangedBy() {
+    public long getChangedBy() {
         return changedBy;
     }
 
-    public void setChangedBy(Long changedBy) {
+    public void setChangedBy(long changedBy) {
         this.changedBy = changedBy;
     }
 
@@ -106,11 +135,11 @@ public class Patient extends SynchronizableEntity {
         this.voided = voided;
     }
 
-    public Long getVoidedBy() {
+    public long getVoidedBy() {
         return voidedBy;
     }
 
-    public void setVoidedBy(Long voidedBy) {
+    public void setVoidedBy(long voidedBy) {
         this.voidedBy = voidedBy;
     }
 
@@ -130,15 +159,11 @@ public class Patient extends SynchronizableEntity {
         this.voidReason = voidReason;
     }
 
-    public String getAllergyStatus() {
-        return allergyStatus;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setAllergyStatus(String allergyStatus) {
-        this.allergyStatus = allergyStatus;
-    }
-
-    public long getId(){
-        return patientId;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

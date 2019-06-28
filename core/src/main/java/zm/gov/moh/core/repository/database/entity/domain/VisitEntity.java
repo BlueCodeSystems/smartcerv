@@ -8,13 +8,13 @@ import com.squareup.moshi.Json;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
-@Entity
-public class Visit extends SynchronizableEntity {
+@Entity(tableName = "visit")
+public class VisitEntity extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "visit_id")
     @Json(name = "visit_id")
-    private long visitId;
+    private Long visitId;
 
     @ColumnInfo(name = "patient_id")
     @Json(name = "patient_id")
@@ -76,12 +76,12 @@ public class Visit extends SynchronizableEntity {
     @Json(name = "uuid")
     private String uuid;
 
-    public Visit(){
+    public VisitEntity(){
 
     }
 
     @Ignore
-    public Visit(long visitId, long visitTypeId, long patientId, Long locationId, Long creator,LocalDateTime dateStarted){
+    public VisitEntity(long visitId, long visitTypeId, long patientId, Long locationId, Long creator, LocalDateTime dateStarted){
 
         this.visitId = visitId;
         this.visitTypeId = visitTypeId;
@@ -93,7 +93,7 @@ public class Visit extends SynchronizableEntity {
     }
 
     @Ignore
-    public Visit(long visitId, long visitTypeId, long patientId, Long locationId, Long creator,LocalDateTime dateStarted,LocalDateTime dateStopped){
+    public VisitEntity(long visitId, long visitTypeId, long patientId, Long locationId, Long creator, LocalDateTime dateStarted, LocalDateTime dateStopped){
 
         this.visitId = visitId;
         this.visitTypeId = visitTypeId;
@@ -106,11 +106,11 @@ public class Visit extends SynchronizableEntity {
     }
 
     //Setters and Getters
-    public long getVisitId() {
+    public Long getVisitId() {
         return visitId;
     }
 
-    public void setVisitId(long visitId) {
+    public void setVisitId(Long visitId) {
         this.visitId = visitId;
     }
 

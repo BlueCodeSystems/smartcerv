@@ -24,6 +24,10 @@ public interface LocationDao {
     @Query("SELECT * FROM location WHERE location_id = (SELECT parent_location FROM location WHERE location_id = :id)")
     LiveData<Location> getParentByChildId(Long id);
 
+    //gets all locations
+    @Query("SELECT uuid FROM location WHERE location_id = :id")
+    String getUuidById(Long id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Location... locations);
 

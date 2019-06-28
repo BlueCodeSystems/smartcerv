@@ -29,10 +29,18 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM person WHERE person_id = :id")
     Person findById(long id);
 
+    @Query("SELECT uuid FROM person WHERE person_id = :patientId")
+    String findByPatientId(long patientId);
+
+    @Query("DELETE FROM person WHERE person_id IN (:id)")
+    void deleteById(long ...id);
+
     @Query("SELECT MAX(person_id) FROM person")
     Long getMaxId();
 
     @Override
     @Query("SELECT * FROM (SELECT * FROM person WHERE person_id NOT IN (:id)) WHERE person_id >= :offsetId")
     Person[] findEntityNotWithId(long offsetId,long[] id);
+
+
 }

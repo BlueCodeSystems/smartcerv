@@ -7,6 +7,7 @@ import android.view.Gravity;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
+import androidx.core.util.Consumer;
 import zm.gov.moh.common.R;
 
 public class EditTextWidget extends TextViewWidget implements Submittable<CharSequence> {
@@ -17,6 +18,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     protected Bundle mBundle;
     protected AppCompatEditText mEditText;
     private Context context;
+    protected Consumer<CharSequence> mValueChangeListener;
 
     public EditTextWidget(Context context){
         super(context);
@@ -27,14 +29,21 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         return mValue;
     }
 
+    public void setHint(String hint){
+        mHint = hint;
+    }
+
     @Override
     public void setValue(CharSequence value) {
 
         mBundle.putString((String) this.getTag(),value.toString());
+
+        if(mValueChangeListener != null)
+            mValueChangeListener.accept(value);
     }
 
-    public void setHint(String hint){
-        mHint = hint;
+    public void setOnValueChangeListener(Consumer<CharSequence> valueChangeListener){
+        mValueChangeListener = valueChangeListener;
     }
 
     @Override
@@ -54,9 +63,11 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         addView(mEditText);
 
         //auto populate
-        String value = mBundle.getString((String) getTag());
-        if(value != null)
-            mEditText.setText(value);
+        if(mBundle != null) {
+            String value = mBundle.getString((String) getTag());
+            if (value != null)
+                mEditText.setText(value);
+        }
     }
 
     @Override
@@ -73,6 +84,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
         protected String mHint;
         protected Bundle mBundle;
+        protected Consumer<CharSequence> mValueChangeListener;
 
         public Builder(Context context){
             super(context);
@@ -90,6 +102,11 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             return this;
         }
 
+        public Builder setOnValueChangeListener(Consumer<CharSequence> valueChangeListener){
+            mValueChangeListener = valueChangeListener;
+            return this;
+        }
+
         @Override
         public BaseWidget build() {
 
@@ -104,6 +121,9 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setLabel(mLabel);
             if(mTag != null)
                 widget.setTag(mTag);
+            if(mValueChangeListener != null)
+                widget.setOnValueChangeListener(mValueChangeListener);
+
             widget.setTextSize(mTextSize);
 
             widget.onCreateView();

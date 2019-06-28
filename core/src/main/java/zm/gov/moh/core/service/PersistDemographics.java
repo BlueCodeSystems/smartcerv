@@ -2,7 +2,6 @@ package zm.gov.moh.core.service;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -11,8 +10,8 @@ import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
-import zm.gov.moh.core.repository.database.entity.domain.Patient;
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -25,20 +24,20 @@ public class PersistDemographics extends PersistService {
     }
 
     @Override
-    public void persistAsync(Bundle bundle) {
+    protected void executeAsync() {
 
         final long personId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personDao()::getMaxId);
         final long patientIdentifierId = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
         final long  personNameId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personNameDao()::getMaxId);
         final long  personAddressId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personAddressDao()::getMaxId);
-        final String givenName = bundle.getString(Key.PERSON_GIVEN_NAME);
-        final String familyName = bundle.getString(Key.PERSON_FAMILY_NAME);
-        final String dob = bundle.getString(Key.PERSON_DOB);
-        final String gender = bundle.getString(Key.PERSON_GENDER);
-        final String address = bundle.getString(Key.PERSON_ADDRESS);
-        final Long districtId = bundle.getLong(Key.PERSON_DISTRICT_LOCATION_ID);
-        final Long provinceId = bundle.getLong(Key.PERSON_PROVINCE_LOCATION_ID);
-        final long locationId = bundle.getLong(Key.LOCATION_ID);
+        final String givenName = mBundle.getString(Key.PERSON_GIVEN_NAME);
+        final String familyName = mBundle.getString(Key.PERSON_FAMILY_NAME);
+        final String dob = mBundle.getString(Key.PERSON_DOB);
+        final String gender = mBundle.getString(Key.PERSON_GENDER);
+        final String address = mBundle.getString(Key.PERSON_ADDRESS);
+        final Long districtId = mBundle.getLong(Key.PERSON_DISTRICT_LOCATION_ID);
+        final Long provinceId = mBundle.getLong(Key.PERSON_PROVINCE_LOCATION_ID);
+        final long locationId = mBundle.getLong(Key.LOCATION_ID);
 
 
         if (givenName != null && familyName != null && gender != null && address != null && districtId != null && provinceId != null && dob != null) {
@@ -58,11 +57,11 @@ public class PersistDemographics extends PersistService {
 
 
             //Create database entity instances
-            PatientIdentifier patientId = new PatientIdentifier(patientIdentifierId, personId, identifier.getIdentifier(), 3, PREFERRED, locationId, now);
+            PatientIdentifierEntity patientId = new PatientIdentifierEntity(patientIdentifierId, personId, identifier.getIdentifier(), 3, PREFERRED, locationId, now);
             PersonName personName = new PersonName(personNameId,personId, givenName, familyName, PREFERRED, now);
             Person person = new Person(personId, dateOfBirth, gender,now);
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);
-            Patient patient = new Patient(personId, now);
+            PatientEntity patient = new PatientEntity(personId, now);
 
             identifier.markAsAssigned();
             db.identifierDao().insert(identifier);
@@ -75,10 +74,4 @@ public class PersistDemographics extends PersistService {
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientDao()::insert,this::onError, patient);
         }
     }
-
-    @Override
-    public void onError(Throwable throwable) {
-        Exception e = new Exception(throwable);
-    }
-
 }

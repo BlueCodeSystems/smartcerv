@@ -45,7 +45,7 @@
 
                     </fragment>
                 </FrameLayout>
-
+              
                 <FrameLayout
                     android:id="@+id/home_fragmdent"
                     android:layout_width="match_parent"
@@ -60,10 +60,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                     </LinearLayout>
-
-
-                </FrameLayout>
-
+              </FrameLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

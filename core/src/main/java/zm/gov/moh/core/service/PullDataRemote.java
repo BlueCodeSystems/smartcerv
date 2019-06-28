@@ -5,9 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
-public class PullEntityRemote extends RemoteService {
+public class PullDataRemote extends RemoteService {
 
-    public PullEntityRemote(){
+    public PullDataRemote(){
         super(ServiceManager.Service.PULL_ENTITY_REMOTE);
     }
 
@@ -83,6 +83,28 @@ public class PullEntityRemote extends RemoteService {
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getObs(accessToken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Visit
+        ConcurrencyUtils.consumeAsync(
+                visits -> {
+                    repository.getDatabase().visitDao().insert(visits);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getVisit(accessToken), //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        //Encounter
+        ConcurrencyUtils.consumeAsync(
+                encounterEntities -> {
+                    repository.getDatabase().encounterDao().insert(encounterEntities);
+                    this.onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getEncounters(accessToken), //producer
                 TIMEOUT);
         onTaskStarted();
     }
