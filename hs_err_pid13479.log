@@ -1,0 +1,1155 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 144703488 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2640), pid=13479, tid=0x00007f68e2821700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_152-b06) (build 1.8.0_152-release-1136-b06)
+# Java VM: OpenJDK 64-Bit Server VM (25.152-b06 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f68fc079000):  VMThread [stack: 0x00007f68e2722000,0x00007f68e2822000] [id=13488]
+
+Stack: [0x00007f68e2722000,0x00007f68e2822000],  sp=0x00007f68e28204f0,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xa70d3f]  VMError::report_and_die()+0x2af
+V  [libjvm.so+0x4c7207]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x67
+V  [libjvm.so+0x8b5b70]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0x100
+V  [libjvm.so+0x8b078f]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x1f
+V  [libjvm.so+0x92e446]  PSVirtualSpace::expand_by(unsigned long)+0x56
+V  [libjvm.so+0x91d7eb]  PSOldGen::expand_by(unsigned long) [clone .part.28]+0x1b
+V  [libjvm.so+0x91d9a8]  PSOldGen::expand(unsigned long) [clone .part.29]+0xa8
+V  [libjvm.so+0x91e551]  PSOldGen::resize(unsigned long)+0xe1
+V  [libjvm.so+0x924606]  PSParallelCompact::invoke_no_policy(bool) [clone .part.118]+0x9e6
+V  [libjvm.so+0x92c3d5]  PSScavenge::invoke()+0x215
+V  [libjvm.so+0x8dbda8]  ParallelScavengeHeap::failed_mem_allocate(unsigned long)+0x68
+V  [libjvm.so+0xa72873]  VM_ParallelGCFailedAllocation::doit()+0x93
+V  [libjvm.so+0xa778a6]  VM_Operation::evaluate()+0x46
+V  [libjvm.so+0xa75102]  VMThread::evaluate_operation(VM_Operation*) [clone .constprop.31]+0xa2
+V  [libjvm.so+0xa7652b]  VMThread::loop()+0x37b
+V  [libjvm.so+0xa768d8]  VMThread::run()+0x78
+V  [libjvm.so+0x8b3332]  java_start(Thread*)+0x102
+
+VM_Operation (0x00007f688076ff30): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x00007f689c00d000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f68a801c000 JavaThread "Cache worker for Java compile cache (/home/zita/BlueCode/SmartCerv/.gradle/4.10.1/javaCompile)" [_thread_blocked, id=1370, stack(0x00007f6880878000,0x00007f6880979000)]
+  0x00007f68a8016800 JavaThread "Cache worker for Java compile cache (/home/zita/.gradle/caches/4.10.1/javaCompile)" [_thread_blocked, id=1369, stack(0x00007f68635e7000,0x00007f68636e8000)]
+  0x00007f68a403b800 JavaThread "Cache worker for Build Output Cleanup Cache (/home/zita/BlueCode/SmartCerv/.gradle/buildOutputCleanup)" [_thread_blocked, id=1363, stack(0x00007f688013a000,0x00007f688023b000)]
+  0x00007f68a4015800 JavaThread "Cache worker for task history cache (/home/zita/BlueCode/SmartCerv/.gradle/4.10.1/taskHistory)" [_thread_blocked, id=1362, stack(0x00007f6882a50000,0x00007f6882b51000)]
+  0x00007f6894a85800 JavaThread "Task worker for ':' Thread 3" [_thread_blocked, id=1360, stack(0x00007f6880375000,0x00007f6880476000)]
+  0x00007f689402b800 JavaThread "Task worker for ':' Thread 2" [_thread_blocked, id=1359, stack(0x00007f6883054000,0x00007f6883155000)]
+  0x00007f689402a800 JavaThread "Task worker for ':'" [_thread_blocked, id=1354, stack(0x00007f68d85f7000,0x00007f68d86f8000)]
+  0x00007f68941ee000 JavaThread "Cache worker for file content cache (/home/zita/BlueCode/SmartCerv/.gradle/4.10.1/fileContent)" [_thread_blocked, id=1353, stack(0x00007f6880777000,0x00007f6880878000)]
+  0x00007f6894032800 JavaThread "Build operations Thread 4" [_thread_blocked, id=1345, stack(0x00007f68d89fb000,0x00007f68d8afc000)]
+  0x00007f6894223800 JavaThread "Build operations Thread 3" [_thread_blocked, id=1344, stack(0x00007f6882c52000,0x00007f6882d53000)]
+  0x00007f6894027800 JavaThread "Build operations Thread 2" [_thread_blocked, id=1343, stack(0x00007f688294f000,0x00007f6882a50000)]
+  0x00007f689400e800 JavaThread "Build operations" [_thread_blocked, id=1342, stack(0x00007f68d88fa000,0x00007f68d89fb000)]
+  0x00007f6894009000 JavaThread "Cache worker for cache directory md-rule (/home/zita/.gradle/caches/4.10.1/md-rule)" [_thread_blocked, id=1341, stack(0x00007f68d87f9000,0x00007f68d88fa000)]
+  0x00007f68940fc000 JavaThread "Cache worker for cache directory md-supplier (/home/zita/.gradle/caches/4.10.1/md-supplier)" [_thread_blocked, id=1340, stack(0x00007f68630e6000,0x00007f68631e7000)]
+  0x00007f6894033800 JavaThread "Cache worker for file hash cache (/home/zita/BlueCode/SmartCerv/.gradle/4.10.1/fileHashes)" [_thread_blocked, id=1339, stack(0x00007f6882b51000,0x00007f6882c52000)]
+  0x00007f689400d800 JavaThread "Stdin handler" [_thread_blocked, id=1337, stack(0x00007f6880a7a000,0x00007f6880b7b000)]
+  0x00007f6894224800 JavaThread "Asynchronous log dispatcher for DefaultDaemonConnection: socket connection from /127.0.0.1:40865 to /127.0.0.1:59100" [_thread_blocked, id=1336, stack(0x00007f6880979000,0x00007f6880a7a000)]
+  0x00007f689c00d000 JavaThread "Daemon worker Thread 8" [_thread_blocked, id=1334, stack(0x00007f6880676000,0x00007f6880777000)]
+  0x00007f689c00b800 JavaThread "Cancel handler" [_thread_blocked, id=1333, stack(0x00007f68d86f8000,0x00007f68d87f9000)]
+  0x00007f689c00a800 JavaThread "Handler for socket connection from /127.0.0.1:40865 to /127.0.0.1:59100" [_thread_in_native, id=1332, stack(0x00007f68d80f4000,0x00007f68d81f5000)]
+  0x00007f68a403d800 JavaThread "Daemon Thread 8" [_thread_blocked, id=1331, stack(0x00007f68d8afc000,0x00007f68d8bfd000)]
+  0x00007f6898241000 JavaThread "Cache worker for file content cache (/home/zita/.gradle/caches/4.10.1/fileContent)" [_thread_blocked, id=13595, stack(0x00007f6883155000,0x00007f6883256000)]
+  0x00007f6898db6000 JavaThread "Memory manager" [_thread_blocked, id=13531, stack(0x00007f688117b000,0x00007f688127c000)]
+  0x00007f689975b000 JavaThread "pool-1-thread-1" [_thread_blocked, id=13530, stack(0x00007f6882091000,0x00007f6882192000)]
+  0x00007f6899095000 JavaThread "Cache worker for Artifact transforms cache (/home/zita/.gradle/caches/transforms-1)" [_thread_blocked, id=13525, stack(0x00007f6882f53000,0x00007f6883054000)]
+  0x00007f68983cf000 JavaThread "Cache worker for journal cache (/home/zita/.gradle/caches/journal-1)" [_thread_blocked, id=13521, stack(0x00007f6883cff000,0x00007f6883e00000)]
+  0x00007f6898274800 JavaThread "File lock request listener" [_thread_in_native, id=13519, stack(0x00007f68d81f5000,0x00007f68d82f6000)]
+  0x00007f689827a000 JavaThread "Cache worker for file hash cache (/home/zita/.gradle/caches/4.10.1/fileHashes)" [_thread_blocked, id=13518, stack(0x00007f68d82f6000,0x00007f68d83f7000)]
+  0x00007f68fcf2c000 JavaThread "Daemon periodic checks" [_thread_blocked, id=13509, stack(0x00007f68d8bfd000,0x00007f68d8cfe000)]
+  0x00007f68fc212000 JavaThread "Incoming local TCP Connector on port 40865" [_thread_in_native, id=13508, stack(0x00007f68d8cfe000,0x00007f68d8dff000)]
+  0x00007f68fc0c1000 JavaThread "Service Thread" daemon [_thread_blocked, id=13497, stack(0x00007f68e164b000,0x00007f68e174c000)]
+  0x00007f68fc0be000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=13496, stack(0x00007f68e174d000,0x00007f68e184d000)]
+  0x00007f68fc0bc000 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=13495, stack(0x00007f68e184e000,0x00007f68e194e000)]
+  0x00007f68fc0b9800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=13494, stack(0x00007f68e194f000,0x00007f68e1a4f000)]
+  0x00007f68fc0b8000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=13493, stack(0x00007f68e1a4f000,0x00007f68e1b50000)]
+  0x00007f68fc085000 JavaThread "Finalizer" daemon [_thread_blocked, id=13490, stack(0x00007f68e251f000,0x00007f68e2620000)]
+  0x00007f68fc080800 JavaThread "Reference Handler" daemon [_thread_blocked, id=13489, stack(0x00007f68e2620000,0x00007f68e2721000)]
+  0x00007f68fc00b000 JavaThread "main" [_thread_blocked, id=13483, stack(0x00007f690212e000,0x00007f690222e000)]
+
+Other Threads:
+=>0x00007f68fc079000 VMThread [stack: 0x00007f68e2722000,0x00007f68e2822000] [id=13488]
+  0x00007f68fc0c3800 WatcherThread [stack: 0x00007f68e154b000,0x00007f68e164b000] [id=13498]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f68fc007550] ExpandHeap_lock - owner thread: 0x00007f68fc079000
+[0x00007f68fc007bd0] Threads_lock - owner thread: 0x00007f68fc079000
+[0x00007f68fc0080d0] Heap_lock - owner thread: 0x00007f689c00d000
+
+Heap:
+ PSYoungGen      total 318976K, used 0K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 218112K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000ed500000)
+  from space 100864K, 0% used [0x00000000f9d80000,0x00000000f9d80000,0x0000000100000000)
+  to   space 153088K, 0% used [0x00000000ed500000,0x00000000ed500000,0x00000000f6a80000)
+ ParOldGen       total 215552K, used 172327K [0x00000000a0000000, 0x00000000ad280000, 0x00000000e0000000)
+  object space 215552K, 79% used [0x00000000a0000000,0x00000000aa849eb8,0x00000000ad280000)
+ Metaspace       used 126728K, capacity 132354K, committed 132904K, reserved 1165312K
+  class space    used 15696K, capacity 16849K, committed 16944K, reserved 1048576K
+
+Card table byte_map: [0x00007f68ebaa0000,0x00007f68ebda1000] byte_map_base: 0x00007f68eb5a0000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f69015df160
+ Begin Bits: [0x00007f68e849c000, 0x00007f68e9c9c000)
+ End Bits:   [0x00007f68e9c9c000, 0x00007f68eb49c000)
+
+Polling page: 0x00007f690224e000
+
+CodeCache: size=245760Kb used=59531Kb max_used=62068Kb free=186228Kb
+ bounds [0x00007f68ec161000, 0x00007f68efe61000, 0x00007f68fb161000]
+ total_blobs=19328 nmethods=18415 adapters=825
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 9962.833 Thread 0x00007f68fc0b9800 nmethod 23718 0x00007f68ef779790 code [0x00007f68ef779900, 0x00007f68ef779c18]
+Event: 9962.834 Thread 0x00007f68fc0b9800 23748 %     4       org.objectweb.asm.ClassReader::accept @ 1211 (1273 bytes)
+Event: 9962.835 Thread 0x00007f68fc0be000 23749       2       com.android.tools.lint.client.api.LintDriver::findMethod (106 bytes)
+Event: 9962.836 Thread 0x00007f68fc0be000 nmethod 23749 0x00007f68ef4fcc10 code [0x00007f68ef4fcde0, 0x00007f68ef4fd238]
+Event: 9962.839 Thread 0x00007f68fc0b9800 nmethod 23748% 0x00007f68eecf06d0 code [0x00007f68eecf0860, 0x00007f68eecf0b58]
+Event: 9962.839 Thread 0x00007f68fc0b9800 23742       4       org.objectweb.asm.tree.ClassNode::visitMethod (31 bytes)
+Event: 9962.851 Thread 0x00007f68fc0be000 23752       2       org.objectweb.asm.tree.MethodNode::visitAnnotationDefault (17 bytes)
+Event: 9962.852 Thread 0x00007f68fc0be000 nmethod 23752 0x00007f68ef5fc090 code [0x00007f68ef5fc200, 0x00007f68ef5fc4b8]
+Event: 9962.852 Thread 0x00007f68fc0be000 23753       2       org.objectweb.asm.tree.MethodNode$1::<init> (11 bytes)
+Event: 9962.852 Thread 0x00007f68fc0be000 nmethod 23753 0x00007f68ef717c50 code [0x00007f68ef717dc0, 0x00007f68ef717f48]
+
+GC Heap History (10 events):
+Event: 9806.189 GC heap after
+Heap after GC invocations=40 (full 4):
+ PSYoungGen      total 440320K, used 36170K [0x00000000e0000000, 0x00000000ff700000, 0x0000000100000000)
+  eden space 373760K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f6d00000)
+  from space 66560K, 54% used [0x00000000fb600000,0x00000000fd952b58,0x00000000ff700000)
+  to   space 70656K, 0% used [0x00000000f6d00000,0x00000000f6d00000,0x00000000fb200000)
+ ParOldGen       total 205824K, used 72664K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 35% used [0x00000000a0000000,0x00000000a46f6048,0x00000000ac900000)
+ Metaspace       used 99366K, capacity 104746K, committed 104872K, reserved 1140736K
+  class space    used 12542K, capacity 13647K, committed 13744K, reserved 1048576K
+}
+Event: 9953.399 GC heap before
+{Heap before GC invocations=41 (full 4):
+ PSYoungGen      total 440320K, used 409930K [0x00000000e0000000, 0x00000000ff700000, 0x0000000100000000)
+  eden space 373760K, 100% used [0x00000000e0000000,0x00000000f6d00000,0x00000000f6d00000)
+  from space 66560K, 54% used [0x00000000fb600000,0x00000000fd952b58,0x00000000ff700000)
+  to   space 70656K, 0% used [0x00000000f6d00000,0x00000000f6d00000,0x00000000fb200000)
+ ParOldGen       total 205824K, used 72664K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 35% used [0x00000000a0000000,0x00000000a46f6048,0x00000000ac900000)
+ Metaspace       used 99746K, capacity 105186K, committed 105384K, reserved 1140736K
+  class space    used 12563K, capacity 13703K, committed 13744K, reserved 1048576K
+Event: 9953.431 GC heap after
+Heap after GC invocations=41 (full 4):
+ PSYoungGen      total 444416K, used 35743K [0x00000000e0000000, 0x00000000ffe00000, 0x0000000100000000)
+  eden space 373760K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f6d00000)
+  from space 70656K, 50% used [0x00000000f6d00000,0x00000000f8fe7f08,0x00000000fb200000)
+  to   space 67584K, 0% used [0x00000000fbc00000,0x00000000fbc00000,0x00000000ffe00000)
+ ParOldGen       total 205824K, used 72664K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 35% used [0x00000000a0000000,0x00000000a46f6048,0x00000000ac900000)
+ Metaspace       used 99746K, capacity 105186K, committed 105384K, reserved 1140736K
+  class space    used 12563K, capacity 13703K, committed 13744K, reserved 1048576K
+}
+Event: 9957.383 GC heap before
+{Heap before GC invocations=42 (full 4):
+ PSYoungGen      total 444416K, used 409503K [0x00000000e0000000, 0x00000000ffe00000, 0x0000000100000000)
+  eden space 373760K, 100% used [0x00000000e0000000,0x00000000f6d00000,0x00000000f6d00000)
+  from space 70656K, 50% used [0x00000000f6d00000,0x00000000f8fe7f08,0x00000000fb200000)
+  to   space 67584K, 0% used [0x00000000fbc00000,0x00000000fbc00000,0x00000000ffe00000)
+ ParOldGen       total 205824K, used 72664K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 35% used [0x00000000a0000000,0x00000000a46f6048,0x00000000ac900000)
+ Metaspace       used 109110K, capacity 114720K, committed 114984K, reserved 1148928K
+  class space    used 13667K, capacity 14840K, committed 14896K, reserved 1048576K
+Event: 9957.528 GC heap after
+Heap after GC invocations=42 (full 4):
+ PSYoungGen      total 390144K, used 67567K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 322560K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f3b00000)
+  from space 67584K, 99% used [0x00000000fbc00000,0x00000000ffdfbee8,0x00000000ffe00000)
+  to   space 100864K, 0% used [0x00000000f3b00000,0x00000000f3b00000,0x00000000f9d80000)
+ ParOldGen       total 205824K, used 141131K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 68% used [0x00000000a0000000,0x00000000a89d2e28,0x00000000ac900000)
+ Metaspace       used 109110K, capacity 114720K, committed 114984K, reserved 1148928K
+  class space    used 13667K, capacity 14840K, committed 14896K, reserved 1048576K
+}
+Event: 9960.012 GC heap before
+{Heap before GC invocations=43 (full 4):
+ PSYoungGen      total 390144K, used 390127K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 322560K, 100% used [0x00000000e0000000,0x00000000f3b00000,0x00000000f3b00000)
+  from space 67584K, 99% used [0x00000000fbc00000,0x00000000ffdfbee8,0x00000000ffe00000)
+  to   space 100864K, 0% used [0x00000000f3b00000,0x00000000f3b00000,0x00000000f9d80000)
+ ParOldGen       total 205824K, used 141131K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 68% used [0x00000000a0000000,0x00000000a89d2e28,0x00000000ac900000)
+ Metaspace       used 115951K, capacity 121628K, committed 121896K, reserved 1155072K
+  class space    used 14395K, capacity 15556K, committed 15664K, reserved 1048576K
+Event: 9960.119 GC heap after
+Heap after GC invocations=43 (full 4):
+ PSYoungGen      total 423424K, used 100839K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 322560K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000f3b00000)
+  from space 100864K, 99% used [0x00000000f3b00000,0x00000000f9d79de8,0x00000000f9d80000)
+  to   space 100864K, 0% used [0x00000000f9d80000,0x00000000f9d80000,0x0000000100000000)
+ ParOldGen       total 205824K, used 163114K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 79% used [0x00000000a0000000,0x00000000a9f4ab78,0x00000000ac900000)
+ Metaspace       used 115951K, capacity 121628K, committed 121896K, reserved 1155072K
+  class space    used 14395K, capacity 15556K, committed 15664K, reserved 1048576K
+}
+Event: 9962.854 GC heap before
+{Heap before GC invocations=44 (full 4):
+ PSYoungGen      total 423424K, used 423399K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 322560K, 100% used [0x00000000e0000000,0x00000000f3b00000,0x00000000f3b00000)
+  from space 100864K, 99% used [0x00000000f3b00000,0x00000000f9d79de8,0x00000000f9d80000)
+  to   space 100864K, 0% used [0x00000000f9d80000,0x00000000f9d80000,0x0000000100000000)
+ ParOldGen       total 205824K, used 163114K [0x00000000a0000000, 0x00000000ac900000, 0x00000000e0000000)
+  object space 205824K, 79% used [0x00000000a0000000,0x00000000a9f4ab78,0x00000000ac900000)
+ Metaspace       used 126762K, capacity 132474K, committed 132904K, reserved 1165312K
+  class space    used 15705K, capacity 16889K, committed 16944K, reserved 1048576K
+Event: 9963.005 GC heap after
+Heap after GC invocations=44 (full 4):
+ PSYoungGen      total 318976K, used 100863K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 218112K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000ed500000)
+  from space 100864K, 99% used [0x00000000f9d80000,0x00000000ffffff50,0x0000000100000000)
+  to   space 153088K, 0% used [0x00000000ed500000,0x00000000ed500000,0x00000000f6a80000)
+ ParOldGen       total 215552K, used 215204K [0x00000000a0000000, 0x00000000ad280000, 0x00000000e0000000)
+  object space 215552K, 99% used [0x00000000a0000000,0x00000000ad2292b8,0x00000000ad280000)
+ Metaspace       used 126762K, capacity 132474K, committed 132904K, reserved 1165312K
+  class space    used 15705K, capacity 16889K, committed 16944K, reserved 1048576K
+}
+Event: 9963.006 GC heap before
+{Heap before GC invocations=45 (full 5):
+ PSYoungGen      total 318976K, used 100863K [0x00000000e0000000, 0x0000000100000000, 0x0000000100000000)
+  eden space 218112K, 0% used [0x00000000e0000000,0x00000000e0000000,0x00000000ed500000)
+  from space 100864K, 99% used [0x00000000f9d80000,0x00000000ffffff50,0x0000000100000000)
+  to   space 153088K, 0% used [0x00000000ed500000,0x00000000ed500000,0x00000000f6a80000)
+ ParOldGen       total 215552K, used 215204K [0x00000000a0000000, 0x00000000ad280000, 0x00000000e0000000)
+  object space 215552K, 99% used [0x00000000a0000000,0x00000000ad2292b8,0x00000000ad280000)
+ Metaspace       used 126762K, capacity 132474K, committed 132904K, reserved 1165312K
+  class space    used 15705K, capacity 16889K, committed 16944K, reserved 1048576K
+
+Deoptimization events (10 events):
+Event: 9959.941 Thread 0x00007f689402a800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f68efb5e148 method=com.sun.tools.javac.code.Types$13.visitClassType(Lcom/sun/tools/javac/code/Type$ClassType;Lcom/sun/tools/javac/code/Symbol;)Lcom/sun/tools/javac/code/Type; @ 94
+Event: 9959.947 Thread 0x00007f689402a800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f68efcb5430 method=com.sun.tools.javac.comp.Annotate.flush()V @ 25
+Event: 9959.949 Thread 0x00007f689402a800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f68edb99d18 method=com.sun.tools.javac.comp.Check.checkType(Lcom/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition;Lcom/sun/tools/javac/code/Type;Lcom/sun/tools/javac/code/Type;Lcom/sun
+Event: 9959.949 Thread 0x00007f689402a800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f68edb99d18 method=com.sun.tools.javac.comp.Check.checkType(Lcom/sun/tools/javac/util/JCDiagnostic$DiagnosticPosition;Lcom/sun/tools/javac/code/Type;Lcom/sun/tools/javac/code/Type;Lcom/sun
+Event: 9959.952 Thread 0x00007f689402a800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f68efc40d0c method=com.sun.tools.javac.tree.TreeInfo.getStartPos(Lcom/sun/tools/javac/tree/JCTree;)I @ 350
+Event: 9960.897 Thread 0x00007f689c00d000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f68ed575794 method=com.sun.org.apache.xerces.internal.dom.NamedNodeMapImpl.findNamePoint(Ljava/lang/String;Ljava/lang/String;)I @ 52
+Event: 9960.898 Thread 0x00007f689c00d000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f68ed575794 method=com.sun.org.apache.xerces.internal.dom.NamedNodeMapImpl.findNamePoint(Ljava/lang/String;Ljava/lang/String;)I @ 52
+Event: 9960.901 Thread 0x00007f689c00d000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f68ed575794 method=com.sun.org.apache.xerces.internal.dom.NamedNodeMapImpl.findNamePoint(Ljava/lang/String;Ljava/lang/String;)I @ 52
+Event: 9960.902 Thread 0x00007f689c00d000 Uncommon trap: reason=bimorphic action=maybe_recompile pc=0x00007f68ed575794 method=com.sun.org.apache.xerces.internal.dom.NamedNodeMapImpl.findNamePoint(Ljava/lang/String;Ljava/lang/String;)I @ 52
+Event: 9962.733 Thread 0x00007f689c00d000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f68ee1fb0ac method=org.objectweb.asm.tree.MethodNode.visitAnnotation(Ljava/lang/String;Z)Lorg/objectweb/asm/AnnotationVisitor; @ 17
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 9957.147 Thread 0x00007f689402a800 Implicit null exception at 0x00007f68ef732b2f to 0x00007f68ef732d8d
+Event: 9957.641 Thread 0x00007f689402a800 Exception <a 'java/lang/NoSuchMethodError': <clinit>> (0x00000000e1332818) thrown at [/usr/local/google/home/ralucas/source/AOSP-openjdk-git/jdk8u/hotspot/src/share/vm/prims/jni.cpp, line 1613]
+Event: 9957.717 Thread 0x00007f689402a800 Exception <a 'java/lang/ClassNotFoundException': com/sun/org/glassfish/hk2/osgiresourcelocator/ServiceLoader> (0x00000000e17c44c8) thrown at [/usr/local/google/home/ralucas/source/AOSP-openjdk-git/jdk8u/hotspot/src/share/vm/classfile/systemDictionary.cpp,
+Event: 9957.731 Thread 0x00007f689402a800 Exception <a 'java/lang/NullPointerException'> (0x00000000e17e26c8) thrown at [/usr/local/google/home/ralucas/source/AOSP-openjdk-git/jdk8u/hotspot/src/share/vm/interpreter/linkResolver.cpp, line 1301]
+Event: 9957.981 Thread 0x00007f689402a800 Implicit null exception at 0x00007f68ef537c5a to 0x00007f68ef538365
+Event: 9958.473 Thread 0x00007f689402a800 Implicit null exception at 0x00007f68ef7d6519 to 0x00007f68ef7d80aa
+Event: 9958.530 Thread 0x00007f689402a800 Implicit null exception at 0x00007f68ef7e2232 to 0x00007f68ef7e23c9
+Event: 9961.859 Thread 0x00007f689c00d000 Exception <a 'java/lang/NoSuchMethodError': java.lang.Object.lambda$static$0(I)[Lcom/intellij/openapi/editor/event/DocumentListener;> (0x00000000e969a5a8) thrown at [/usr/local/google/home/ralucas/source/AOSP-openjdk-git/jdk8u/hotspot/src/share/vm/interpr
+Event: 9961.879 Thread 0x00007f689c00d000 Exception <a 'java/lang/NoSuchMethodError': java.lang.Object.lambda$static$0(I)[Lcom/intellij/psi/PsiAnnotation;> (0x00000000e9806af0) thrown at [/usr/local/google/home/ralucas/source/AOSP-openjdk-git/jdk8u/hotspot/src/share/vm/interpreter/linkResolver.cp
+Event: 9962.049 Thread 0x00007f6898db6000 Exception <a 'java/io/IOException'> (0x00000000e9f22608) thrown at [/usr/local/google/home/ralucas/source/AOSP-openjdk-git/jdk8u/hotspot/src/share/vm/prims/jni.cpp, line 709]
+
+Events (10 events):
+Event: 9962.818 Thread 0x00007f689c00d000 DEOPT UNPACKING pc=0x00007f68ec1a84c4 sp=0x00007f688076fee8 mode 0
+Event: 9962.825 Thread 0x00007f689c00d000 DEOPT PACKING pc=0x00007f68eed45179 sp=0x00007f688076ff00
+Event: 9962.825 Thread 0x00007f689c00d000 DEOPT UNPACKING pc=0x00007f68ec1a84c4 sp=0x00007f688076fee8 mode 0
+Event: 9962.828 Thread 0x00007f689c00d000 DEOPT PACKING pc=0x00007f68eed45179 sp=0x00007f688076ff00
+Event: 9962.828 Thread 0x00007f689c00d000 DEOPT UNPACKING pc=0x00007f68ec1a84c4 sp=0x00007f688076fee8 mode 0
+Event: 9962.840 Thread 0x00007f689c00d000 DEOPT PACKING pc=0x00007f68eed864c2 sp=0x00007f68807704a0
+Event: 9962.840 Thread 0x00007f689c00d000 DEOPT UNPACKING pc=0x00007f68ec1a84c4 sp=0x00007f6880770220 mode 0
+Event: 9962.840 Thread 0x00007f689c00d000 DEOPT PACKING pc=0x00007f68eed45179 sp=0x00007f688076ff00
+Event: 9962.840 Thread 0x00007f689c00d000 DEOPT UNPACKING pc=0x00007f68ec1a84c4 sp=0x00007f688076fee8 mode 0
+Event: 9962.854 Executing VM operation: ParallelGCFailedAllocation
+
+
+Dynamic libraries:
+a0000000-ad280000 rw-p 00000000 00:00 0 
+b5c80000-e0000000 ---p 00000000 00:00 0 
+e0000000-100000000 rw-p 00000000 00:00 0 
+100000000-10108c000 rw-p 00000000 00:00 0 
+10108c000-140000000 ---p 00000000 00:00 0 
+55c84e38f000-55c84e390000 r-xp 00000000 08:05 786845                     /usr/share/android-studio/jre/bin/java
+55c84e58f000-55c84e590000 r--p 00000000 08:05 786845                     /usr/share/android-studio/jre/bin/java
+55c84e590000-55c84e591000 rw-p 00001000 08:05 786845                     /usr/share/android-studio/jre/bin/java
+55c84faf3000-55c84fb5a000 rw-p 00000000 00:00 0                          [heap]
+7f685ee50000-7f685ef71000 r--s 02b7d000 08:05 1971136                    /home/zita/Android/Sdk/platforms/android-28/android.jar
+7f685ef71000-7f685ef89000 r-xp 00000000 08:05 4497100                    /home/zita/.AndroidStudio3.2/system/tmp/jna7811605559990348194.tmp (deleted)
+7f685ef89000-7f685f189000 ---p 00018000 08:05 4497100                    /home/zita/.AndroidStudio3.2/system/tmp/jna7811605559990348194.tmp (deleted)
+7f685f189000-7f685f18a000 rw-p 00018000 08:05 4497100                    /home/zita/.AndroidStudio3.2/system/tmp/jna7811605559990348194.tmp (deleted)
+7f685f18a000-7f685f2ca000 rw-p 00000000 00:00 0 
+7f685f2ca000-7f685f38a000 ---p 00000000 00:00 0 
+7f685f38a000-7f685f58a000 rw-p 00000000 00:00 0 
+7f685f58a000-7f685f78a000 rw-p 00000000 00:00 0 
+7f685f78a000-7f685f98a000 rw-p 00000000 00:00 0 
+7f685f98a000-7f685fb8a000 rw-p 00000000 00:00 0 
+7f685fb8a000-7f685fd8a000 rw-p 00000000 00:00 0 
+7f685fd8a000-7f685ff8a000 rw-p 00000000 00:00 0 
+7f685ff8a000-7f686018a000 rw-p 00000000 00:00 0 
+7f686018a000-7f686038a000 rw-p 00000000 00:00 0 
+7f68603b5000-7f68605b5000 rw-p 00000000 00:00 0 
+7f68605b5000-7f68607b5000 rw-p 00000000 00:00 0 
+7f68607b5000-7f68609b5000 rw-p 00000000 00:00 0 
+7f68609b5000-7f6860bb5000 rw-p 00000000 00:00 0 
+7f6860bb5000-7f6860db5000 rw-p 00000000 00:00 0 
+7f6860db5000-7f6860fb5000 rw-p 00000000 00:00 0 
+7f6860fb5000-7f68611dd000 r--s 01cc9000 08:05 4600432                    /home/zita/.gradle/caches/jars-3/fef3a1cfb303f707aa4af0e484a4ff65/kotlin-plugin.jar
+7f68611dd000-7f68613dd000 rw-p 00000000 00:00 0 
+7f68613dd000-7f68615dd000 rw-p 00000000 00:00 0 
+7f68615dd000-7f68617dd000 rw-p 00000000 00:00 0 
+7f6861860000-7f6861866000 r--s 00057000 08:05 131808                     /home/zita/.gradle/caches/transforms-1/files-1.1/recyclerview-1.0.0.aar/7d88ac614f3cc039b8e9820202deace6/jars/classes.jar
+7f6861866000-7f6861868000 r--s 00008000 08:05 4755581                    /home/zita/.gradle/caches/transforms-1/files-1.1/jetified-dexter-4.2.0.aar/7b33fe771632cfb0e0a4f38852d90ff3/jars/classes.jar
+7f6861868000-7f6861869000 r--s 00003000 08:05 5008098                    /home/zita/.gradle/caches/transforms-1/files-1.1/print-1.0.0.aar/06d0aca8f623046b9c909e849640095c/jars/classes.jar
+7f6861869000-7f686186b000 r--s 00009000 08:05 131782                     /home/zita/.gradle/caches/transforms-1/files-1.1/coordinatorlayout-1.0.0.aar/63631ccfc38379ebb4bc538c8817f0bd/jars/classes.jar
+7f686186b000-7f686186c000 r--s 00000000 08:05 4755641                    /home/zita/.gradle/caches/transforms-1/files-1.1/legacy-support-v4-1.0.0-alpha1.aar/1c030a7a49ef86e0fcca0b8a736efe3a/jars/classes.jar
+7f686186c000-7f686186e000 r--s 00007000 08:05 131816                     /home/zita/.gradle/caches/transforms-1/files-1.1/vectordrawable-animated-1.0.0.aar/6ec158c971046d31c4d38a23e18bc4a7/jars/classes.jar
+7f6861871000-7f6861872000 r--s 00002000 08:05 5243307                    /home/zita/.gradle/caches/transforms-1/files-1.1/jetified-dagger-android-support-2.15.aar/5015f938584e2e82644084c10cdc4cd0/jars/classes.jar
+7f6861872000-7f6861873000 r--s 00000000 08:05 5008140                    /home/zita/.gradle/caches/transforms-1/files-1.1/legacy-support-core-utils-1.0.0.aar/7e018a252d8fdfd02a5ff7928ad9cdd5/jars/classes.jar
+7f6861873000-7f6861874000 r--s 00001000 08:05 131789                     /home/zita/.gradle/caches/transforms-1/files-1.1/activity-1.0.0-alpha02.aar/df17ff477dac5991be8a8fb2a44ef087/jars/classes.jar
+7f6861874000-7f6861875000 rwxp 00000000 00:00 0 
+7f6861875000-7f68618e5000 r--s 00646000 08:05 4600439                    /home/zita/.gradle/caches/jars-3/ef4cce337f8480ffa8bb084789868305/groovy-all-2.4.12.jar
+7f68618e5000-7f68618ea000 r--s 00034000 08:05 4600438                    /home/zita/.gradle/caches/jars-3/fe5b5ed05a9997817f29c5d560c66d65/gson-2.8.2.jar
+7f68618ea000-7f68618ef000 r--s 0006e000 08:05 4600437                    /home/zita/.gradle/caches/jars-3/359765d3a8c0757f678f60b291db2651/gradle-tooling-extension-impl.jar
+7f68618ef000-7f68618f0000 r--s 00003000 08:05 4600436                    /home/zita/.gradle/caches/jars-3/f9e04f7e21ea7b5ac9b7a20696f1283d/sam-with-receiver-ide-plugin.jar
+7f68618f0000-7f68618f2000 r--s 00003000 08:05 4600435                    /home/zita/.gradle/caches/jars-3/4e13ba14350bec418f43c1339bced755/noarg-ide-plugin.jar
+7f68618f2000-7f6861902000 r--s 000d7000 08:05 4600434                    /home/zita/.gradle/caches/jars-3/a50e73d95e79354e91d2457fdf6c30f0/kotlin-runtime.jar
+7f6861902000-7f6861912000 r--s 000db000 08:05 4600433                    /home/zita/.gradle/caches/jars-3/4b42692cfa9ad54191fe4e46a7af4f55/kotlin-stdlib.jar
+7f6861912000-7f6861913000 r--s 00003000 08:05 4600431                    /home/zita/.gradle/caches/jars-3/28d96654aac5a3cc3627f3d42bb239a3/allopen-ide-plugin.jar
+7f6861913000-7f6861915000 r--s 00004000 08:05 4600430                    /home/zita/.gradle/caches/jars-3/8d32333b51c12580327682fc50f54480/kapt3-idea.jar
+7f6861915000-7f6861919000 r--s 00020000 08:05 4600429                    /home/zita/.gradle/caches/jars-3/21b643641a3c61a6ec1742b3e55a77b7/android-extensions-ide.jar
+7f6861919000-7f686191a000 r--s 00000000 08:05 4600428                    /home/zita/.gradle/caches/jars-3/141cfe160e971e5498fbbbcd4fe2fb29/gradle-appengine-builder-model-0.1.0.jar
+7f686191a000-7f686191c000 r--s 0000b000 08:05 4600426                    /home/zita/.gradle/caches/jars-3/3ab4e9db8156233bb4fa76f1103e6c82/kotlin-gradle-tooling.jar
+7f686191c000-7f686191f000 r--s 0000d000 08:05 4594523                    /home/zita/.gradle/caches/jars-3/af1a5bcbec99240fe5b53c44c44d0632/gradle-tooling-extension-api.jar
+7f686191f000-7f6861937000 r-xp 00000000 08:05 4473787                    /home/zita/.AndroidStudio3.2/system/tmp/jna2138019091618034516.tmp (deleted)
+7f6861937000-7f6861b37000 ---p 00018000 08:05 4473787                    /home/zita/.AndroidStudio3.2/system/tmp/jna2138019091618034516.tmp (deleted)
+7f6861b37000-7f6861b38000 rw-p 00018000 08:05 4473787                    /home/zita/.AndroidStudio3.2/system/tmp/jna2138019091618034516.tmp (deleted)
+7f6861b38000-7f6861d38000 rw-p 00000000 00:00 0 
+7f6861d38000-7f6861f38000 rw-p 00000000 00:00 0 
+7f6861f38000-7f6862138000 rw-p 00000000 00:00 0 
+7f6862138000-7f6862338000 rw-p 00000000 00:00 0 
+7f6862338000-7f6862538000 rw-p 00000000 00:00 0 
+7f6862538000-7f6862543000 r--s 00081000 08:05 1059055                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains.trove4j/trove4j/20160824/33c3e174a9c8368d93761d3d12712db18e903959/trove4j-20160824.jar
+7f6862543000-7f68625b3000 r--s 00646000 08:05 1059053                    /home/zita/.gradle/caches/modules-2/files-2.1/org.codehaus.groovy/groovy-all/2.4.12/760afc568cbd94c09d78f801ce51aed1326710af/groovy-all-2.4.12.jar
+7f68625b3000-7f68625ce000 r--s 0018a000 08:05 1059052                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.external.org-jetbrains/uast/26.2.1/22dc9372155229b722419fff0661c01b72a2e8d0/uast-26.2.1.jar
+7f68625ce000-7f68625d6000 r--s 00093000 08:05 1059058                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-api/26.2.1/96dc0b53364f07670876d730fa1e7262327d52a4/lint-api-26.2.1.jar
+7f68625d6000-7f686271f000 r--s 0125d000 08:05 1059056                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.external.com-intellij/kotlin-compiler/26.2.1/ccc983c79f58584df16b7a0df7c20a57754cceaa/kotlin-compiler-26.2.1.jar
+7f686271f000-7f68627e5000 r--s 00cc9000 08:05 1059051                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.external.com-intellij/intellij-core/26.2.1/284e294ec4e98f820acc5d32caf6b69d69398363/intellij-core-26.2.1.jar
+7f68627e5000-7f68629e5000 rw-p 00000000 00:00 0 
+7f68629e5000-7f6862be5000 rw-p 00000000 00:00 0 
+7f6862be5000-7f6862de5000 rw-p 00000000 00:00 0 
+7f6862de5000-7f6862de8000 ---p 00000000 00:00 0 
+7f6862de8000-7f68630e6000 rw-p 00000000 00:00 0 
+7f68630e6000-7f68630e9000 ---p 00000000 00:00 0 
+7f68630e9000-7f68633e7000 rw-p 00000000 00:00 0 
+7f68633e7000-7f68635e7000 rw-p 00000000 00:00 0 
+7f68635e7000-7f68635ea000 ---p 00000000 00:00 0 
+7f68635ea000-7f68636e8000 rw-p 00000000 00:00 0 
+7f68636e8000-7f68636eb000 ---p 00000000 00:00 0 
+7f68636eb000-7f68637e9000 rw-p 00000000 00:00 0 
+7f68637e9000-7f6863818000 r--s 00239000 08:05 1967346                    /home/zita/.gradle/caches/jars-3/e78d086d43fe590d24040393ce6cb069/guava-21.0.jar
+7f6863818000-7f686383c000 r--s 00624000 08:05 263489                     /home/zita/.gradle/caches/jars-3/fa43a1ceb5e9e03a84a5092e6ebfd151/sdk-tools.jar
+7f686383c000-7f68639b2000 r--s 02dfc000 08:05 399789                     /home/zita/.gradle/caches/jars-3/69d11b19f5098d9a08f9958a046b88a8/android.jar
+7f68639b2000-7f6863c00000 r--s 017dd000 08:05 4495823                    /home/zita/.gradle/caches/jars-3/b34b8bb6133697c9d422ea5fae479315/gradle-api-impldep-4.4.jar
+7f6863c00000-7f6863e00000 rw-p 00000000 00:00 0 
+7f6863e00000-7f6864000000 rw-p 00000000 00:00 0 
+7f6864000000-7f6864129000 rw-p 00000000 00:00 0 
+7f6864129000-7f6868000000 ---p 00000000 00:00 0 
+7f6868000000-7f686804e000 rw-p 00000000 00:00 0 
+7f686804e000-7f686c000000 ---p 00000000 00:00 0 
+7f686c000000-7f686c08d000 rw-p 00000000 00:00 0 
+7f686c08d000-7f6870000000 ---p 00000000 00:00 0 
+7f6870000000-7f6870043000 rw-p 00000000 00:00 0 
+7f6870043000-7f6874000000 ---p 00000000 00:00 0 
+7f6874000000-7f6874045000 rw-p 00000000 00:00 0 
+7f6874045000-7f6878000000 ---p 00000000 00:00 0 
+7f6878000000-7f6878081000 rw-p 00000000 00:00 0 
+7f6878081000-7f687c000000 ---p 00000000 00:00 0 
+7f687c000000-7f687c288000 rw-p 00000000 00:00 0 
+7f687c288000-7f6880000000 ---p 00000000 00:00 0 
+7f6880000000-7f6880001000 r--s 00002000 08:05 4600425                    /home/zita/.gradle/caches/jars-3/126c4a6f26553c1a5ae89be4b2a2fb65/external-system-rt.jar
+7f6880001000-7f6880002000 rwxp 00000000 00:00 0 
+7f6880002000-7f6880003000 r--p 00000000 00:00 0 
+7f6880003000-7f6880005000 r--s 0001a000 08:05 1059047                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-gradle/26.2.1/4e87889b8a765c804bed51ad817e9a53ed50966f/lint-gradle-26.2.1.jar
+7f6880005000-7f6880006000 r--s 00001000 08:05 1059046                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-kotlin/26.2.1/14bda89dd851563372956731beebdfbbf3e0cf7d/lint-kotlin-26.2.1.jar
+7f6880006000-7f6880008000 r--s 0002f000 08:05 1059048                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint/26.2.1/48562f79d01023de8746390e894fee47163fead4/lint-26.2.1.jar
+7f6880008000-7f6880013000 r--s 00136000 08:05 1059050                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-checks/26.2.1/fdbb11b3f41db5bec11800b7431f1539c68f9563/lint-checks-26.2.1.jar
+7f6880013000-7f688013a000 r--s 009f7000 08:05 4495821                    /home/zita/.gradle/caches/jars-3/54ee404ddd6e27b77a64a351535042f0/gradle-api-4.4.jar
+7f688013a000-7f688013d000 ---p 00000000 00:00 0 
+7f688013d000-7f688023b000 rw-p 00000000 00:00 0 
+7f688023b000-7f688023e000 ---p 00000000 00:00 0 
+7f688023e000-7f688033c000 rw-p 00000000 00:00 0 
+7f688033c000-7f688033f000 ---p 00000000 00:00 0 
+7f688033f000-7f6880375000 rw-p 00000000 00:00 0 
+7f6880375000-7f6880378000 ---p 00000000 00:00 0 
+7f6880378000-7f6880676000 rw-p 00000000 00:00 0 
+7f6880676000-7f6880679000 ---p 00000000 00:00 0 
+7f6880679000-7f6880777000 rw-p 00000000 00:00 0 
+7f6880777000-7f688077a000 ---p 00000000 00:00 0 
+7f688077a000-7f6880878000 rw-p 00000000 00:00 0 
+7f6880878000-7f688087b000 ---p 00000000 00:00 0 
+7f688087b000-7f6880979000 rw-p 00000000 00:00 0 
+7f6880979000-7f688097c000 ---p 00000000 00:00 0 
+7f688097c000-7f6880a7a000 rw-p 00000000 00:00 0 
+7f6880a7a000-7f6880a7d000 ---p 00000000 00:00 0 
+7f6880a7d000-7f6880d7b000 rw-p 00000000 00:00 0 
+7f6880d7b000-7f6880f7b000 rw-p 00000000 00:00 0 
+7f6880f7b000-7f688117b000 rw-p 00000000 00:00 0 
+7f688117b000-7f688117e000 ---p 00000000 00:00 0 
+7f688117e000-7f688147c000 rw-p 00000000 00:00 0 
+7f688147c000-7f688167c000 rw-p 00000000 00:00 0 
+7f688167c000-7f688187c000 rw-p 00000000 00:00 0 
+7f688187c000-7f688188e000 r--s 00345000 08:05 920163                     /usr/share/android-studio/jre/jre/lib/resources.jar
+7f688188e000-7f6881a8e000 rw-p 00000000 00:00 0 
+7f6881a8e000-7f6881c8e000 rw-p 00000000 00:00 0 
+7f6881c8e000-7f6881c91000 r--s 00015000 08:05 920164                     /usr/share/android-studio/jre/jre/lib/jce.jar
+7f6881c91000-7f6881e91000 rw-p 00000000 00:00 0 
+7f6881e91000-7f6882091000 rw-p 00000000 00:00 0 
+7f6882091000-7f6882094000 ---p 00000000 00:00 0 
+7f6882094000-7f6882390000 rw-p 00000000 00:00 0 
+7f6882390000-7f6882392000 ---p 00000000 00:00 0 
+7f6882392000-7f6882592000 rw-p 00000000 00:00 0 
+7f6882592000-7f6882593000 r--s 00005000 08:05 1062922                    /home/zita/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/2.21/c969d8f15c467f0ef7d7b04889afbe7b5d48e22f/istack-commons-runtime-2.21.jar
+7f6882593000-7f6882595000 r--s 0000f000 08:05 1062921                    /home/zita/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.2.11/2df047d8c187a62f2177bf6013f1f9786cdfc8a2/txw2-2.2.11.jar
+7f6882595000-7f6882598000 r--s 00016000 08:05 1062920                    /home/zita/.gradle/caches/modules-2/files-2.1/javax.xml.bind/jaxb-api/2.2.12-b140109.1041/7ed0e0d01198614194d56dfb03d9d95aa311824c/jaxb-api-2.2.12-b140109.1041.jar
+7f6882598000-7f688259d000 r--s 00044000 08:05 1062919                    /home/zita/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.13/98f56b9354e27bd2941cc5d461344e240ae51ae/FastInfoset-1.2.13.jar
+7f688259d000-7f688259f000 r--s 00007000 08:05 1062918                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.7.7/18bed5a0da27a6b43efe01282f2dc911b1cb3a72/stax-ex-1.7.7.jar
+7f688259f000-7f68825a4000 r--s 00021000 08:05 1062917                    /home/zita/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-core/2.2.11/f5745049f5fb9cb9d9b5f513c207727f475983e9/jaxb-core-2.2.11.jar
+7f68825a4000-7f68825b5000 r--s 000eb000 08:05 1062913                    /home/zita/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.2.11/65510afc78679e347b0d774617a97fedac94f8/jaxb-runtime-2.2.11.jar
+7f68825b5000-7f68825b8000 r--s 00011000 08:05 1062912                    /home/zita/.gradle/caches/modules-2/files-2.1/com.sun.activation/javax.activation/1.2.0/bf744c1e2776ed1de3c55c8dac1057ec331ef744/javax.activation-1.2.0.jar
+7f68825b8000-7f68825ba000 r--s 00003000 08:05 1062911                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar
+7f68825ba000-7f68825c0000 r--s 00016000 08:05 1053300                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.71/ba18ca1aa0e40eb6f1865b324af2f4cbb691c1ec/kotlin-stdlib-common-1.2.71.jar
+7f68825c0000-7f68825c7000 r--s 0003a000 08:05 1062710                    /home/zita/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.9/9ce04e34240f674bc72680f8b843b1457383161a/commons-codec-1.9.jar
+7f68825c7000-7f68825c9000 r--s 0000e000 08:05 1067724                    /home/zita/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar
+7f68825c9000-7f68825ca000 r--s 00000000 08:05 1062906                    /home/zita/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.14/775b7e22fb10026eed3f86e8dc556dfafe35f2d5/animal-sniffer-annotations-1.14.jar
+7f68825ca000-7f68825cc000 r--s 00001000 08:05 1062905                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.1/976d8d30bebc251db406f2bdb3eb01962b5685b3/j2objc-annotations-1.1.jar
+7f68825cc000-7f68825cf000 r--s 00006000 08:05 1062904                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar
+7f68825cf000-7f68825d8000 r--s 00064000 08:05 1062907                    /home/zita/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-compress/1.12/84caa68576e345eb5e7ae61a0e5a9229eb100d7b/commons-compress-1.12.jar
+7f68825d8000-7f68825e7000 r--s 00143000 08:05 1062884                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java/3.4.0/b32aba0cbe737a4ca953f71688725972e3ee927c/protobuf-java-3.4.0.jar
+7f68825e7000-7f6882606000 r--s 0016b000 08:05 1062877                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value/1.5.2/1b94ab7ec707e2220a0d1a7517488d1843236345/auto-value-1.5.2.jar
+7f6882606000-7f688261b000 r--s 00123000 08:05 1062706                    /home/zita/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-base/6.0.3/7135739d2d3834964c543ed21e2936ce34747aca/proguard-base-6.0.3.jar
+7f688261b000-7f688264f000 r--s 00239000 08:05 1062893                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.0/4bbda3b5425aa38a9f6960468a29c5ef3e8a28c9/kotlin-reflect-1.2.0.jar
+7f688264f000-7f6882774000 r--s 00f5d000 08:05 1062891                    /home/zita/.gradle/caches/modules-2/files-2.1/it.unimi.dsi/fastutil/7.2.0/5ad3a2bb04143f70aa0765fc29fc29571a7d6b34/fastutil-7.2.0.jar
+7f6882774000-7f688294f000 r--s 01923000 08:05 1055243                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder/3.2.1/1303a2feb969ac0896e7c83c1f5a0fd2496b71bc/builder-3.2.1.jar
+7f688294f000-7f6882952000 ---p 00000000 00:00 0 
+7f6882952000-7f6882a50000 rw-p 00000000 00:00 0 
+7f6882a50000-7f6882a53000 ---p 00000000 00:00 0 
+7f6882a53000-7f6882b51000 rw-p 00000000 00:00 0 
+7f6882b51000-7f6882b54000 ---p 00000000 00:00 0 
+7f6882b54000-7f6882c52000 rw-p 00000000 00:00 0 
+7f6882c52000-7f6882c55000 ---p 00000000 00:00 0 
+7f6882c55000-7f6882f53000 rw-p 00000000 00:00 0 
+7f6882f53000-7f6882f56000 ---p 00000000 00:00 0 
+7f6882f56000-7f6883054000 rw-p 00000000 00:00 0 
+7f6883054000-7f6883057000 ---p 00000000 00:00 0 
+7f6883057000-7f6883155000 rw-p 00000000 00:00 0 
+7f6883155000-7f6883158000 ---p 00000000 00:00 0 
+7f6883158000-7f6883456000 rw-p 00000000 00:00 0 
+7f6883456000-7f6883656000 rw-p 00000000 00:00 0 
+7f6883656000-7f6883856000 rw-p 00000000 00:00 0 
+7f6883856000-7f6883857000 r--s 0000a000 08:05 1062910                    /home/zita/.gradle/caches/modules-2/files-2.1/net.sf.kxml/kxml2/2.3.0/ccbc77a5fd907ef863c29f3596c6f54ffa4e9442/kxml2-2.3.0.jar
+7f6883857000-7f688385d000 r--s 00045000 08:05 1062709                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jdom/jdom2/2.0.6/6f14738ec2e9dd0011e343717fa624a10f8aab64/jdom2-2.0.6.jar
+7f688385d000-7f688386d000 r--s 000db000 08:05 1053301                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.71/d9717625bb3c731561251f8dd2c67a1011d6764c/kotlin-stdlib-1.2.71.jar
+7f688386d000-7f6883884000 r--s 00154000 08:05 1062895                    /home/zita/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.5.3/f35db7e4b2446e4174ba6a73db7bd6b3e6bb5da1/antlr4-4.5.3.jar
+7f6883884000-7f68838b4000 r--s 0024f000 08:05 1065943                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/23.0/c947004bb13d18182be60077ade044099e4f26f1/guava-23.0.jar
+7f68838b4000-7f68838ff000 r--s 002ff000 08:05 1062890                    /home/zita/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcprov-jdk15on/1.56/a153c6f9744a3e9dd6feab5e210e1c9861362ec7/bcprov-jdk15on-1.56.jar
+7f68838ff000-7f6883aff000 rw-p 00000000 00:00 0 
+7f6883aff000-7f6883cff000 rw-p 00000000 00:00 0 
+7f6883cff000-7f6883d02000 ---p 00000000 00:00 0 
+7f6883d02000-7f6884000000 rw-p 00000000 00:00 0 
+7f6884000000-7f688406e000 rw-p 00000000 00:00 0 
+7f688406e000-7f6888000000 ---p 00000000 00:00 0 
+7f6888000000-7f6888050000 rw-p 00000000 00:00 0 
+7f6888050000-7f688c000000 ---p 00000000 00:00 0 
+7f688c000000-7f688cebf000 rw-p 00000000 00:00 0 
+7f688cebf000-7f6890000000 ---p 00000000 00:00 0 
+7f6890000000-7f6890053000 rw-p 00000000 00:00 0 
+7f6890053000-7f6894000000 ---p 00000000 00:00 0 
+7f6894000000-7f6895006000 rw-p 00000000 00:00 0 
+7f6895006000-7f6898000000 ---p 00000000 00:00 0 
+7f6898000000-7f689a3c1000 rw-p 00000000 00:00 0 
+7f689a3c1000-7f689c000000 ---p 00000000 00:00 0 
+7f689c000000-7f689c0b7000 rw-p 00000000 00:00 0 
+7f689c0b7000-7f68a0000000 ---p 00000000 00:00 0 
+7f68a0000000-7f68a006f000 rw-p 00000000 00:00 0 
+7f68a006f000-7f68a4000000 ---p 00000000 00:00 0 
+7f68a4000000-7f68a50bd000 rw-p 00000000 00:00 0 
+7f68a50bd000-7f68a8000000 ---p 00000000 00:00 0 
+7f68a8000000-7f68a8671000 rw-p 00000000 00:00 0 
+7f68a8671000-7f68ac000000 ---p 00000000 00:00 0 
+7f68ac000000-7f68ac04f000 rw-p 00000000 00:00 0 
+7f68ac04f000-7f68b0000000 ---p 00000000 00:00 0 
+7f68b0000000-7f68b0f68000 rw-p 00000000 00:00 0 
+7f68b0f68000-7f68b4000000 ---p 00000000 00:00 0 
+7f68b4000000-7f68b6331000 rw-p 00000000 00:00 0 
+7f68b6331000-7f68b8000000 ---p 00000000 00:00 0 
+7f68b8000000-7f68b976d000 rw-p 00000000 00:00 0 
+7f68b976d000-7f68bc000000 ---p 00000000 00:00 0 
+7f68bc000000-7f68bc07e000 rw-p 00000000 00:00 0 
+7f68bc07e000-7f68c0000000 ---p 00000000 00:00 0 
+7f68c0000000-7f68c229c000 rw-p 00000000 00:00 0 
+7f68c229c000-7f68c4000000 ---p 00000000 00:00 0 
+7f68c4000000-7f68c4041000 rw-p 00000000 00:00 0 
+7f68c4041000-7f68c8000000 ---p 00000000 00:00 0 
+7f68c8000000-7f68c803a000 rw-p 00000000 00:00 0 
+7f68c803a000-7f68cc000000 ---p 00000000 00:00 0 
+7f68cc000000-7f68cc0fb000 rw-p 00000000 00:00 0 
+7f68cc0fb000-7f68d0000000 ---p 00000000 00:00 0 
+7f68d0000000-7f68d0561000 rw-p 00000000 00:00 0 
+7f68d0561000-7f68d4000000 ---p 00000000 00:00 0 
+7f68d4000000-7f68d49e3000 rw-p 00000000 00:00 0 
+7f68d49e3000-7f68d8000000 ---p 00000000 00:00 0 
+7f68d8000000-7f68d8001000 r--s 00000000 08:05 1063295                    /home/zita/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar
+7f68d8001000-7f68d8003000 r--s 00002000 08:05 1062708                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.errorprone/error_prone_annotations/2.2.0/88e3c593e9b3586e1c6177f89267da6fc6986f0c/error_prone_annotations-2.2.0.jar
+7f68d8003000-7f68d8009000 r--s 0008b000 08:05 1062707                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/aapt2-proto/0.3.1/8311800abb3dcd84426a0de834a6b884a173d864/aapt2-proto-0.3.1.jar
+7f68d8009000-7f68d800a000 r--s 00000000 08:05 1049856                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.2.71/4ce93f539e2133f172f1167291a911f83400a5d0/kotlin-stdlib-jdk7-1.2.71.jar
+7f68d800a000-7f68d800d000 r--s 00033000 08:05 1062897                    /home/zita/.gradle/caches/modules-2/files-2.1/com.googlecode.juniversalchardet/juniversalchardet/1.0.3/cd49678784c46aa8789c060538e0154013bb421b/juniversalchardet-1.0.3.jar
+7f68d800d000-7f68d8011000 r--s 0002a000 08:05 1062896                    /home/zita/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.4/b1b6ea3b7e4aa4f492509a4952029cd8e48019ad/commons-io-2.4.jar
+7f68d8011000-7f68d8012000 r--s 00003000 08:05 1055731                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.databinding/baseLibrary/3.2.1/62174ecf31e2e3e4dd7a21cbd05399e11d0a9699/baseLibrary-3.2.1.jar
+7f68d8012000-7f68d8013000 r--s 00003000 08:05 1055730                    /home/zita/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-common/3.2.1/91c10c7ce255ab29ec4aea8a469d6c8ffa60bd53/databinding-common-3.2.1.jar
+7f68d8013000-7f68d801a000 r--s 00049000 08:05 1062702                    /home/zita/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.4.5/e7501a1b34325abb00d17dde96150604a0658b54/httpcore-4.4.5.jar
+7f68d801a000-7f68d8027000 r--s 000a7000 08:05 1062701                    /home/zita/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.5.2/733db77aa8d9b2d68015189df76ab06304406e50/httpclient-4.5.2.jar
+7f68d8027000-7f68d8029000 r--s 00009000 08:05 1062700                    /home/zita/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpmime/4.5.2/22b4c53dd9b6761024258de8f9240c3dce6ea368/httpmime-4.5.2.jar
+7f68d8029000-7f68d802e000 r--s 00034000 08:05 1066288                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.0/c4ba5371a29ac9b2ad6129b1d39ea38750043eff/gson-2.8.0.jar
+7f68d802e000-7f68d8032000 r--s 0002f000 08:05 1062880                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.jimfs/jimfs/1.1/8fbd0579dc68aba6186935cc1bee21d2f3e7ec1c/jimfs-1.1.jar
+7f68d8032000-7f68d8034000 r--s 0000f000 08:05 1062871                    /home/zita/.gradle/caches/modules-2/files-2.1/com.google.protobuf/protobuf-java-util/3.4.0/96aba8ab71c16018c6adf66771ce15c6491bc0fe/protobuf-java-util-3.4.0.jar
+7f68d8034000-7f68d8035000 r--s 00001000 08:05 1055728                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools/annotations/26.2.1/5f9b112634e53890e16cc2947989bc2bc048734e/annotations-26.2.1.jar
+7f68d8035000-7f68d8036000 r--s 00003000 08:05 1062892                    /home/zita/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1/5e303a03d04e6788dddfa3655272580ae0fc13bb/json-simple-1.1.jar
+7f68d8036000-7f68d8047000 r--s 00097000 08:05 1062889                    /home/zita/.gradle/caches/modules-2/files-2.1/org.bouncycastle/bcpkix-jdk15on/1.56/4648af70268b6fdb24674fb1fd7c1fcc73db1231/bcpkix-jdk15on-1.56.jar
+7f68d8047000-7f68d8049000 r--s 00002000 08:05 1062888                    /home/zita/.gradle/caches/modules-2/files-2.1/com.squareup/javawriter/2.5.0/81241ff7078ef14f42ea2a8995fa09c096256e6b/javawriter-2.5.0.jar
+7f68d8049000-7f68d804e000 r--s 0003f000 08:05 1055729                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apksig/3.2.1/ad6d930fceb350753d645f4bf66b3eb4d2ad566/apksig-3.2.1.jar
+7f68d804e000-7f68d8052000 r--s 00026000 08:05 1055727                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/apkzlib/3.2.1/fd288c2a8a84c8acb4e43cbbd9dc34fd442b8bfb/apkzlib-3.2.1.jar
+7f68d8052000-7f68d806d000 r--s 00259000 08:05 1055256                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/protos/26.2.1/db637f20d2c56d74a1b504d4e39a0bc8817fcaf4/protos-26.2.1.jar
+7f68d806d000-7f68d806f000 r--s 00008000 08:05 1055257                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-model/3.2.1/3984b3e65c34b5d278e434270b63802451ec3e9d/builder-model-3.2.1.jar
+7f68d806f000-7f68d8071000 r--s 00016000 08:05 1049857                    /home/zita/.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.10.0/712c178d35185d8261295913c9f2a7d6867a6007/javapoet-1.10.0.jar
+7f68d8071000-7f68d8081000 r--s 000fd000 08:05 1053302                    /home/zita/.gradle/caches/modules-2/files-2.1/com.github.javaparser/javaparser-core/3.5.14/8938e2a09c4c04e920bdb3c3362b0cba44b4aff3/javaparser-core-3.5.14.jar
+7f68d8081000-7f68d8084000 r--s 0001c000 08:05 1062693                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-core/1.0.0-alpha10/9eb7027c383061de12f93aae7a22cbeb97832d2a/jetifier-core-1.0.0-alpha10.jar
+7f68d8084000-7f68d80c9000 r--s 00405000 08:05 1062692                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/bundletool/0.5.0/ffd6077d13937213b860c0022174ece60000eabc/bundletool-0.5.0.jar
+7f68d80c9000-7f68d80ca000 r--s 00003000 08:05 1062691                    /home/zita/.gradle/caches/modules-2/files-2.1/net.sf.proguard/proguard-gradle/6.0.3/e5becf2356695a396b788110e386c38bad523bfc/proguard-gradle-6.0.3.jar
+7f68d80ca000-7f68d80cc000 r--s 0000f000 08:05 1062869                    /home/zita/.gradle/caches/modules-2/files-2.1/net.sf.jopt-simple/jopt-simple/4.9/ee9e9eaa0a35360dcfeac129ff4923215fd65904/jopt-simple-4.9.jar
+7f68d80cc000-7f68d80ce000 r--s 00016000 08:05 1062690                    /home/zita/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/6.0/bc6fa6b19424bb9592fe43bbc20178f92d403105/asm-6.0.jar
+7f68d80ce000-7f68d80d0000 r--s 0000a000 08:05 1062689                    /home/zita/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/6.0/a624f1a6e4e428dcd680a01bab2d4c56b35b18f0/asm-tree-6.0.jar
+7f68d80d0000-7f68d80d2000 r--s 00010000 08:05 1062166                    /home/zita/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/6.0/430b2fc839b5de1f3643b528853d5cf26096c1de/asm-util-6.0.jar
+7f68d80d2000-7f68d80d3000 r--s 00012000 08:05 1062186                    /home/zita/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/6.0/f256fd215d8dd5a4fa2ab3201bf653de266ed4ec/asm-commons-6.0.jar
+7f68d80d3000-7f68d80d4000 r--s 00007000 08:05 1062086                    /home/zita/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/6.0/dd1cc1381a970800268160203aae2d3784da779b/asm-analysis-6.0.jar
+7f68d80d4000-7f68d80d8000 r--s 0001c000 08:05 1062076                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build.jetifier/jetifier-processor/1.0.0-alpha10/6d494a04e0af27ecd4ec7a35c93759dd9c7443bc/jetifier-processor-1.0.0-alpha10.jar
+7f68d80d8000-7f68d80da000 r--s 00002000 08:05 1049854                    /home/zita/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.2.71/5470d1f752cd342edb77e1062bac07e838d2cea4/kotlin-stdlib-jdk8-1.2.71.jar
+7f68d80da000-7f68d80de000 r--s 00031000 08:05 1055258                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools/common/26.2.1/b1b9e1a6efa7b64cba484e9f6562b5f63bf23e22/common-26.2.1.jar
+7f68d80de000-7f68d80e3000 r--s 00031000 08:05 1055255                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools/repository/26.2.1/7a72673cd6b44aeafab3ccf831fc0b95cb61f3b5/repository-26.2.1.jar
+7f68d80e3000-7f68d80e5000 r--s 00006000 08:05 1055254                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools/dvlib/26.2.1/fa3cc125cd311f65dcae6310e381b20d4b2ec0fe/dvlib-26.2.1.jar
+7f68d80e5000-7f68d80e9000 r--s 00018000 08:05 1055253                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.layoutlib/layoutlib-api/26.2.1/164c58ac8cf4b2bb08ad03acc5f963f4f70cfcaa/layoutlib-api-26.2.1.jar
+7f68d80e9000-7f68d80f4000 r--s 0009c000 08:05 1055251                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools/sdklib/26.2.1/6bedd85cbf10816816e71846600ffda8d5037c8b/sdklib-26.2.1.jar
+7f68d80f4000-7f68d80f7000 ---p 00000000 00:00 0 
+7f68d80f7000-7f68d81f5000 rw-p 00000000 00:00 0 
+7f68d81f5000-7f68d81f8000 ---p 00000000 00:00 0 
+7f68d81f8000-7f68d82f6000 rw-p 00000000 00:00 0 
+7f68d82f6000-7f68d82f9000 ---p 00000000 00:00 0 
+7f68d82f9000-7f68d85f7000 rw-p 00000000 00:00 0 
+7f68d85f7000-7f68d85fa000 ---p 00000000 00:00 0 
+7f68d85fa000-7f68d86f8000 rw-p 00000000 00:00 0 
+7f68d86f8000-7f68d86fb000 ---p 00000000 00:00 0 
+7f68d86fb000-7f68d87f9000 rw-p 00000000 00:00 0 
+7f68d87f9000-7f68d87fc000 ---p 00000000 00:00 0 
+7f68d87fc000-7f68d88fa000 rw-p 00000000 00:00 0 
+7f68d88fa000-7f68d88fd000 ---p 00000000 00:00 0 
+7f68d88fd000-7f68d89fb000 rw-p 00000000 00:00 0 
+7f68d89fb000-7f68d89fe000 ---p 00000000 00:00 0 
+7f68d89fe000-7f68d8afc000 rw-p 00000000 00:00 0 
+7f68d8afc000-7f68d8aff000 ---p 00000000 00:00 0 
+7f68d8aff000-7f68d8bfd000 rw-p 00000000 00:00 0 
+7f68d8bfd000-7f68d8c00000 ---p 00000000 00:00 0 
+7f68d8c00000-7f68d8cfe000 rw-p 00000000 00:00 0 
+7f68d8cfe000-7f68d8d01000 ---p 00000000 00:00 0 
+7f68d8d01000-7f68d8fff000 rw-p 00000000 00:00 0 
+7f68d8fff000-7f68dc000000 rw-p 00000000 00:00 0 
+7f68dc000000-7f68dc0fb000 rw-p 00000000 00:00 0 
+7f68dc0fb000-7f68e0000000 ---p 00000000 00:00 0 
+7f68e0000000-7f68e0001000 r--s 00000000 08:05 1062863                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/transform-api/2.0.0-deprecated-use-gradle-api/47f6c56527c42425742fa9b56ffd3fd80763fe03/transform-api-2.0.0-deprecated-use-gradle-api.jar
+7f68e0001000-7f68e0007000 r--s 0004f000 08:05 1055252                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.ddms/ddmlib/26.2.1/88fbd27836d660bbbc3823bda8da3085cef41f6/ddmlib-26.2.1.jar
+7f68e0007000-7f68e0008000 r--s 00003000 08:05 1055250                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/builder-test-api/3.2.1/9c0b9848b34d79d71f911ebfaf6e0d606e7a3e6/builder-test-api-3.2.1.jar
+7f68e0008000-7f68e001e000 r--s 0011e000 08:05 1055249                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools/sdk-common/26.2.1/bcc236baac9d05aee927370ccaf5785d92ed5e2b/sdk-common-26.2.1.jar
+7f68e001e000-7f68e0022000 r--s 0002b000 08:05 1055248                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/manifest-merger/26.2.1/6a6542caf30fbc4091dffea76c602e97bc9d8949/manifest-merger-26.2.1.jar
+7f68e0022000-7f68e0029000 r--s 00052000 08:05 1055247                    /home/zita/.gradle/caches/modules-2/files-2.1/androidx.databinding/databinding-compiler-common/3.2.1/dee402009966fb2d3bb03e3186f3f16b9c503c86/databinding-compiler-common-3.2.1.jar
+7f68e0029000-7f68e002c000 r--s 00013000 08:05 1055246                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle-api/3.2.1/825438df08a0c323b7d315071d402ff8fe700a42/gradle-api-3.2.1.jar
+7f68e002c000-7f68e002d000 r--s 00004000 08:05 1055245                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.lint/lint-gradle-api/26.2.1/62f8362369c570266bcd4f030908ec1d237df331/lint-gradle-api-26.2.1.jar
+7f68e002d000-7f68e002e000 r--s 00003000 08:05 1055244                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/crash/26.2.1/ca7e89eebc7c27af8f7aea2ec070873fcd90602a/crash-26.2.1.jar
+7f68e002e000-7f68e002f000 r--s 00005000 08:05 1055241                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/shared/26.2.1/2e79154b4a5d2e6c1816811db6ab00cf41886737/shared-26.2.1.jar
+7f68e002f000-7f68e0031000 r--s 00004000 08:05 1055732                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.analytics-library/tracker/26.2.1/6b9eca42be508a8d87c287ad280a27f802f0e40a/tracker-26.2.1.jar
+7f68e0031000-7f68e0065000 r--s 00311000 08:05 1055242                    /home/zita/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/3.2.1/1ce0d907aa7805e19f553807b9bbdc9bb9841dbf/gradle-3.2.1.jar
+7f68e0065000-7f68e0066000 r--s 00003000 08:05 1049853                    /home/zita/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-gradle-plugin/9.0.0-rc1/1e41801e94b1583219aad17f7d1d2f4a67a63348/butterknife-gradle-plugin-9.0.0-rc1.jar
+7f68e0066000-7f68e00df000 r--s 010fd000 08:05 660311                     /usr/share/android-studio/jre/lib/tools.jar
+7f68e00df000-7f68e00e6000 r--s 00000000 08:05 5640537                    /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+7f68e00e6000-7f68e00eb000 r--s 0009a000 08:05 920167                     /usr/share/android-studio/jre/jre/lib/jsse.jar
+7f68e00eb000-7f68e00f4000 r-xp 00000000 08:05 1314644                    /usr/share/android-studio/jre/jre/lib/amd64/libmanagement.so
+7f68e00f4000-7f68e02f3000 ---p 00009000 08:05 1314644                    /usr/share/android-studio/jre/jre/lib/amd64/libmanagement.so
+7f68e02f3000-7f68e02f4000 r--p 00008000 08:05 1314644                    /usr/share/android-studio/jre/jre/lib/amd64/libmanagement.so
+7f68e02f4000-7f68e02f5000 rw-p 00009000 08:05 1314644                    /usr/share/android-studio/jre/jre/lib/amd64/libmanagement.so
+7f68e02f5000-7f68e02f7000 r--s 00009000 08:05 4509172                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-tooling-api-builders-4.10.1.jar
+7f68e02f7000-7f68e02f9000 r--s 00003000 08:05 4509142                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-tooling-native-4.10.1.jar
+7f68e02f9000-7f68e02fd000 r--s 00019000 08:05 4509144                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-testing-native-4.10.1.jar
+7f68e02fd000-7f68e02ff000 r--s 0000d000 08:05 4509275                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jcommander-1.47.jar
+7f68e02ff000-7f68e0308000 r--s 00089000 08:05 4509237                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/testng-6.3.1.jar
+7f68e0308000-7f68e030d000 r--s 0005a000 08:05 4509241                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/bsh-2.0b6.jar
+7f68e030d000-7f68e0311000 r--s 0001c000 08:05 4509178                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-testing-jvm-4.10.1.jar
+7f68e0311000-7f68e0313000 r--s 0000e000 08:05 4509273                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/junit-platform-commons-1.0.3.jar
+7f68e0313000-7f68e0314000 r--s 00001000 08:05 4509278                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/opentest4j-1.0.0.jar
+7f68e0314000-7f68e0317000 r--s 00013000 08:05 4509272                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/junit-platform-engine-1.0.3.jar
+7f68e0317000-7f68e0318000 r--s 00000000 08:05 4509274                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/apiguardian-api-1.0.0.jar
+7f68e0318000-7f68e031a000 r--s 0000c000 08:05 4509242                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/junit-platform-launcher-1.0.3.jar
+7f68e031a000-7f68e031b000 r--s 00003000 08:05 4509177                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-testing-junit-platform-4.10.1.jar
+7f68e031b000-7f68e0323000 r--s 00034000 08:05 4509185                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-testing-base-4.10.1.jar
+7f68e0323000-7f68e032a000 r--s 00043000 08:05 4509232                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/bcpg-jdk15on-1.58.jar
+7f68e032a000-7f68e032d000 r--s 00010000 08:05 4509141                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-signing-4.10.1.jar
+7f68e032d000-7f68e032f000 r--s 00008000 08:05 4509151                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-scala-4.10.1.jar
+7f68e032f000-7f68e0330000 r--s 00004000 08:05 4509199                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-resources-sftp-4.10.1.jar
+7f68e0330000-7f68e0339000 r--s 0005a000 08:05 4509202                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aws-java-sdk-kms-1.11.267.jar
+7f68e0339000-7f68e033b000 r--s 00005000 08:05 4509247                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jmespath-java-1.11.267.jar
+7f68e033b000-7f68e034d000 r--s 000bb000 08:05 4509201                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aws-java-sdk-s3-1.11.267.jar
+7f68e034d000-7f68e0357000 r--s 00081000 08:05 4509269                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/ion-java-1.0.2.jar
+7f68e0357000-7f68e036c000 r--s 000bd000 08:05 4509203                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aws-java-sdk-core-1.11.267.jar
+7f68e036c000-7f68e036e000 r--s 00004000 08:05 4509194                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-resources-s3-4.10.1.jar
+7f68e036e000-7f68e037e000 r--s 00088000 08:05 4509251                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/joda-time-2.8.2.jar
+7f68e037e000-7f68e0391000 r--s 00136000 08:05 4509248                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jackson-databind-2.9.4.jar
+7f68e0391000-7f68e0394000 r--s 0000e000 08:05 4509250                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jackson-annotations-2.9.4.jar
+7f68e0394000-7f68e0398000 r--s 0004b000 08:05 4509249                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jackson-core-2.9.4.jar
+7f68e0398000-7f68e0399000 r--s 00001000 08:05 4509213                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/google-http-client-jackson2-1.23.0.jar
+7f68e0399000-7f68e03a2000 r--s 0004f000 08:05 4509214                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/google-http-client-1.23.0.jar
+7f68e03a2000-7f68e03a5000 r--s 0000d000 08:05 4509212                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/google-oauth-client-1.23.0.jar
+7f68e03a5000-7f68e03aa000 r--s 0002c000 08:05 4509211                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/google-api-client-1.23.0.jar
+7f68e03aa000-7f68e03ae000 r--s 0001c000 08:05 4509210                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/google-api-services-storage-v1-rev116-1.23.0.jar
+7f68e03ae000-7f68e03b0000 r--s 00003000 08:05 4509195                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-resources-gcs-4.10.1.jar
+7f68e03b0000-7f68e03b3000 r--s 0000f000 08:05 4509193                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-reporting-4.10.1.jar
+7f68e03b3000-7f68e03b5000 r--s 00007000 08:05 4509184                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-publish-4.10.1.jar
+7f68e03b5000-7f68e03b7000 r--s 00009000 08:05 4509223                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/commons-cli-1.2.jar
+7f68e03b7000-7f68e03bd000 r--s 0003e000 08:05 4509165                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-plugins-4.10.1.jar
+7f68e03bd000-7f68e03bf000 r--s 0000b000 08:05 4509147                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-plugin-development-4.10.1.jar
+7f68e03bf000-7f68e03c5000 r--s 00030000 08:05 4509157                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-platform-play-4.10.1.jar
+7f68e03c5000-7f68e03cb000 r--s 00033000 08:05 4509238                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/snakeyaml-1.6.jar
+7f68e03cb000-7f68e03dc000 r--s 00075000 08:05 4509182                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-platform-native-4.10.1.jar
+7f68e03dc000-7f68e03e0000 r--s 0001b000 08:05 4509181                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-platform-jvm-4.10.1.jar
+7f68e03e0000-7f68e03e7000 r--s 00029000 08:05 4509186                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-platform-base-4.10.1.jar
+7f68e03e7000-7f68e0412000 r--s 00247000 08:05 4509224                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/biz.aQute.bndlib-3.4.0.jar
+7f68e0412000-7f68e0413000 r--s 00004000 08:05 4509140                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-osgi-4.10.1.jar
+7f68e0413000-7f68e0416000 r--s 0000c000 08:05 4509229                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/pmaven-groovy-0.8-20100325.jar
+7f68e0416000-7f68e0417000 r--s 00004000 08:05 4509228                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/pmaven-common-0.8-20100325.jar
+7f68e0417000-7f68e0418000 r--s 00007000 08:05 4509209                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/wagon-http-shared4-2.4.jar
+7f68e0418000-7f68e0419000 r--s 00002000 08:05 4509207                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/wagon-http-2.4.jar
+7f68e0419000-7f68e041a000 r--s 00002000 08:05 4509230                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/wagon-file-2.4.jar
+7f68e041a000-7f68e041c000 r--s 00006000 08:05 4509231                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aether-connector-wagon-1.13.1.jar
+7f68e041c000-7f68e0423000 r--s 0002d000 08:05 4509148                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-maven-4.10.1.jar
+7f68e0423000-7f68e0426000 r--s 0000b000 08:05 4509175                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-language-scala-4.10.1.jar
+7f68e0426000-7f68e0432000 r--s 0005d000 08:05 4509146                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-language-native-4.10.1.jar
+7f68e0432000-7f68e0434000 r--s 00005000 08:05 4509180                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-language-jvm-4.10.1.jar
+7f68e0434000-7f68e043c000 r--s 0003e000 08:05 4509179                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-language-java-4.10.1.jar
+7f68e043c000-7f68e043e000 r--s 0000b000 08:05 4509174                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-language-groovy-4.10.1.jar
+7f68e043e000-7f68e0445000 r--s 00035000 08:05 4509235                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/simple-4.1.21.jar
+7f68e0445000-7f68e0451000 r--s 00100000 08:05 4509233                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/rhino-1.7R3.jar
+7f68e0451000-7f68e0455000 r--s 00012000 08:05 4509158                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-javascript-4.10.1.jar
+7f68e0455000-7f68e0459000 r--s 00010000 08:05 4509160                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-jacoco-4.10.1.jar
+7f68e0459000-7f68e045c000 r--s 00013000 08:05 4509159                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-ivy-4.10.1.jar
+7f68e045c000-7f68e045d000 r--s 00002000 08:05 4509149                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-ide-play-4.10.1.jar
+7f68e045d000-7f68e045e000 r--s 00011000 08:05 4509239                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/dd-plist-1.20.jar
+7f68e045e000-7f68e0465000 r--s 00032000 08:05 4509143                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-ide-native-4.10.1.jar
+7f68e0465000-7f68e046f000 r--s 0005c000 08:05 4509150                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-ide-4.10.1.jar
+7f68e046f000-7f68e0471000 r--s 00008000 08:05 4509155                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-ear-4.10.1.jar
+7f68e0471000-7f68e0473000 r--s 00005000 08:05 4509222                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jatl-0.2.2.jar
+7f68e0473000-7f68e047a000 r--s 0003d000 08:05 4509183                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-diagnostics-4.10.1.jar
+7f68e047a000-7f68e047f000 r--s 00028000 08:05 4509139                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-code-quality-4.10.1.jar
+7f68e047f000-7f68e0481000 r--s 0000b000 08:05 4509236                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-plugin-api-3.0.4.jar
+7f68e0481000-7f68e0483000 r--s 0000b000 08:05 4509258                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/wagon-provider-api-2.4.jar
+7f68e0483000-7f68e0489000 r--s 0003f000 08:05 4509226                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-compat-3.0.4.jar
+7f68e0489000-7f68e048d000 r--s 0001d000 08:05 4509220                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/xbean-reflect-3.4.jar
+7f68e048d000-7f68e048f000 r--s 00009000 08:05 4509271                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/hamcrest-core-1.3.jar
+7f68e048f000-7f68e0497000 r--s 00045000 08:05 4509240                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/junit-4.12.jar
+7f68e0497000-7f68e0499000 r--s 0000a000 08:05 4509259                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-classworlds-2.4.jar
+7f68e0499000-7f68e04a0000 r--s 0002e000 08:05 4509219                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-container-default-1.5.5.jar
+7f68e04a0000-7f68e04a6000 r--s 00026000 08:05 4509164                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-build-init-4.10.1.jar
+7f68e04a6000-7f68e04ad000 r--s 0002d000 08:05 4509152                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-build-comparison-4.10.1.jar
+7f68e04ad000-7f68e04ae000 r--s 00002000 08:05 4509197                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-build-cache-http-4.10.1.jar
+7f68e04ae000-7f68e04b0000 r--s 00009000 08:05 4509137                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-antlr-4.10.1.jar
+7f68e04b0000-7f68e04b2000 r--s 00004000 08:05 4509136                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-announce-4.10.1.jar
+7f68e04b2000-7f68e04b4000 r--s 00011000 08:05 4509027                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-kotlin-dsl-tooling-builders-1.0-rc-6.jar
+7f68e04b4000-7f68e04b6000 r--s 00005000 08:05 4509026                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-kotlin-dsl-provider-plugins-1.0-rc-6.jar
+7f68e04b6000-7f68e04b8000 r--s 0000c000 08:05 4509187                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-plugin-use-4.10.1.jar
+7f68e04b8000-7f68e04b9000 r--s 00000000 08:05 4509039                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-runtime-api-info-4.10.1.jar
+7f68e04b9000-7f68e04d2000 r--s 0013a000 08:05 4509245                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/xercesImpl-2.12.0.jar
+7f68e04d2000-7f68e04d5000 r--s 0001c000 08:05 4509244                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/nekohtml-1.9.20.jar
+7f68e04d5000-7f68e04db000 r--s 0005b000 08:05 4509243                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jcifs-1.3.17.jar
+7f68e04db000-7f68e04de000 r--s 0000d000 08:05 4509198                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-resources-http-4.10.1.jar
+7f68e04de000-7f68e04e3000 r--s 00040000 08:05 4509246                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/jsch-0.1.54.jar
+7f68e04e3000-7f68e0506000 r--s 00223000 08:05 4509204                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/org.eclipse.jgit-4.5.3.201708160445-r.jar
+7f68e0506000-7f68e050d000 r--s 00049000 08:05 4509270                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/httpcore-4.4.9.jar
+7f68e050d000-7f68e0514000 r--s 0003f000 08:05 4509218                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/commons-codec-1.10.jar
+7f68e0514000-7f68e0522000 r--s 000ae000 08:05 4509215                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/httpclient-4.5.5.jar
+7f68e0522000-7f68e0524000 r--s 0000c000 08:05 4509188                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-version-control-4.10.1.jar
+7f68e0524000-7f68e0526000 r--s 0000d000 08:05 4509190                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-composite-builds-4.10.1.jar
+7f68e0526000-7f68e0527000 r--s 00000000 08:05 4509045                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-installation-beacon-4.10.1.jar
+7f68e0527000-7f68e0529000 r--s 00006000 08:05 4509267                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-repository-metadata-3.0.4.jar
+7f68e0529000-7f68e052b000 r--s 0000c000 08:05 4509253                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-aether-provider-3.0.4.jar
+7f68e052b000-7f68e052f000 r--s 00021000 08:05 4509260                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-model-builder-3.0.4.jar
+7f68e052f000-7f68e0531000 r--s 00026000 08:05 4509262                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-model-3.0.4.jar
+7f68e0531000-7f68e0533000 r--s 0000a000 08:05 4509265                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-settings-3.0.4.jar
+7f68e0533000-7f68e0535000 r--s 00002000 08:05 4509279                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-cipher-1.7.jar
+7f68e0535000-7f68e0537000 r--s 0000d000 08:05 4509276                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-interpolation-1.14.jar
+7f68e0537000-7f68e0539000 r--s 00000000 08:05 4509277                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-component-annotations-1.5.5.jar
+7f68e0539000-7f68e053c000 r--s 00008000 08:05 4509263                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-settings-builder-3.0.4.jar
+7f68e053c000-7f68e0540000 r--s 00035000 08:05 4509268                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-utils-3.0.8.jar
+7f68e0540000-7f68e0542000 r--s 0000b000 08:05 4509264                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-artifact-3.0.4.jar
+7f68e0542000-7f68e0545000 r--s 0001d000 08:05 4509254                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aether-impl-1.13.1.jar
+7f68e0545000-7f68e0549000 r--s 0001c000 08:05 4509256                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aether-util-1.13.1.jar
+7f68e0549000-7f68e0555000 r--s 0007d000 08:05 4509227                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/maven-core-3.0.4.jar
+7f68e0555000-7f68e05a8000 r--s 00373000 08:05 4509252                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/bcprov-jdk15on-1.58.jar
+7f68e05a8000-7f68e05d8000 r--s 0018f000 08:05 4509189                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-dependency-management-4.10.1.jar
+7f68e05d8000-7f68e05ef000 r-xp 00000000 08:05 5112787                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f68e05ef000-7f68e07ee000 ---p 00017000 08:05 5112787                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f68e07ee000-7f68e07ef000 r--p 00016000 08:05 5112787                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f68e07ef000-7f68e07f0000 rw-p 00017000 08:05 5112787                    /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f68e07f0000-7f68e0969000 r-xp 00000000 08:05 5374320                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f68e0969000-7f68e0b69000 ---p 00179000 08:05 5374320                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f68e0b69000-7f68e0b73000 r--p 00179000 08:05 5374320                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f68e0b73000-7f68e0b75000 rw-p 00183000 08:05 5374320                    /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f68e0b75000-7f68e0b79000 rw-p 00000000 00:00 0 
+7f68e0b79000-7f68e0b7a000 r--s 00006000 08:05 4509266                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/plexus-sec-dispatcher-1.3.jar
+7f68e0b7a000-7f68e0b7b000 r--s 00003000 08:05 4509255                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aether-spi-1.13.1.jar
+7f68e0b7b000-7f68e0b7e000 r--s 00013000 08:05 4509257                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/aether-api-1.13.1.jar
+7f68e0b7e000-7f68e0b8d000 r--s 000d9000 08:05 4509225                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/ivy-2.2.0.jar
+7f68e0b8d000-7f68e0b92000 r--s 00034000 08:05 4509234                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gson-2.7.jar
+7f68e0b92000-7f68e0b94000 r--s 00012000 08:05 4509221                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/asm-util-6.2.jar
+7f68e0b94000-7f68e0b96000 r--s 0000e000 08:05 4509200                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/plugins/gradle-workers-4.10.1.jar
+7f68e0b96000-7f68e0b9b000 r-xp 00000000 08:05 4478490                    /home/zita/.gradle/native/25/linux-amd64/libnative-platform.so
+7f68e0b9b000-7f68e0d9a000 ---p 00005000 08:05 4478490                    /home/zita/.gradle/native/25/linux-amd64/libnative-platform.so
+7f68e0d9a000-7f68e0d9b000 rw-p 00004000 08:05 4478490                    /home/zita/.gradle/native/25/linux-amd64/libnative-platform.so
+7f68e0d9b000-7f68e0dac000 r-xp 00000000 08:05 1314665                    /usr/share/android-studio/jre/jre/lib/amd64/libnio.so
+7f68e0dac000-7f68e0fab000 ---p 00011000 08:05 1314665                    /usr/share/android-studio/jre/jre/lib/amd64/libnio.so
+7f68e0fab000-7f68e0fac000 r--p 00010000 08:05 1314665                    /usr/share/android-studio/jre/jre/lib/amd64/libnio.so
+7f68e0fac000-7f68e0fad000 rw-p 00011000 08:05 1314665                    /usr/share/android-studio/jre/jre/lib/amd64/libnio.so
+7f68e0fad000-7f68e0fc3000 r-xp 00000000 08:05 1314647                    /usr/share/android-studio/jre/jre/lib/amd64/libnet.so
+7f68e0fc3000-7f68e11c2000 ---p 00016000 08:05 1314647                    /usr/share/android-studio/jre/jre/lib/amd64/libnet.so
+7f68e11c2000-7f68e11c3000 r--p 00015000 08:05 1314647                    /usr/share/android-studio/jre/jre/lib/amd64/libnet.so
+7f68e11c3000-7f68e11c4000 rw-p 00016000 08:05 1314647                    /usr/share/android-studio/jre/jre/lib/amd64/libnet.so
+7f68e11c4000-7f68e11c6000 r--s 00006000 08:05 4509044                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-wrapper-4.10.1.jar
+7f68e11c6000-7f68e11d5000 r--s 0004b000 08:05 4509040                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-tooling-api-4.10.1.jar
+7f68e11d5000-7f68e11d7000 r--s 00002000 08:05 4509037                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-stdlib-jdk8-1.2.61.jar
+7f68e11d7000-7f68e11d8000 r--s 00000000 08:05 4509036                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-stdlib-jdk7-1.2.61.jar
+7f68e11d8000-7f68e11de000 r--s 00015000 08:05 4509035                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-stdlib-common-1.2.61.jar
+7f68e11de000-7f68e11ee000 r--s 000db000 08:05 4509034                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-stdlib-1.2.61.jar
+7f68e11ee000-7f68e11f0000 r--s 00009000 08:05 4509033                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-script-runtime-1.2.61.jar
+7f68e11f0000-7f68e11f1000 r--s 00002000 08:05 4509031                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-sam-with-receiver-compiler-plugin-1.2.61.jar
+7f68e11f1000-7f68e1226000 r--s 00241000 08:05 4509030                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-reflect-1.2.61.jar
+7f68e1226000-7f68e13f1000 r--s 019b7000 08:05 4509029                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kotlin-compiler-embeddable-1.2.61.jar
+7f68e13f1000-7f68e13f3000 r--s 00000000 08:05 4509028                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-kotlin-dsl-tooling-models-1.0-rc-6.jar
+7f68e13f3000-7f68e13f5000 r--s 00003000 08:05 4509024                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/annotations-13.0.jar
+7f68e13f5000-7f68e1409000 r--s 00109000 08:05 4509025                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-kotlin-dsl-1.0-rc-6.jar
+7f68e1409000-7f68e140d000 r--s 00013000 08:05 4509051                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-build-cache-4.10.1.jar
+7f68e140d000-7f68e1413000 r--s 00034000 08:05 4509052                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-persistent-cache-4.10.1.jar
+7f68e1413000-7f68e1418000 r--s 00015000 08:05 4509055                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-resources-4.10.1.jar
+7f68e1418000-7f68e1419000 r--s 00003000 08:05 4509063                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-build-option-4.10.1.jar
+7f68e1419000-7f68e141a000 r--s 00006000 08:05 4509064                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-cli-4.10.1.jar
+7f68e141a000-7f68e141c000 r--s 00004000 08:05 4509097                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/log4j-over-slf4j-1.7.16.jar
+7f68e141c000-7f68e141e000 r--s 00000000 08:05 4509096                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/jul-to-slf4j-1.7.16.jar
+7f68e141e000-7f68e1420000 r--s 00003000 08:05 4509092                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/jcl-over-slf4j-1.7.16.jar
+7f68e1420000-7f68e1428000 r--s 00035000 08:05 4509053                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-logging-4.10.1.jar
+7f68e1428000-7f68e1437000 r--s 00085000 08:05 4509058                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-model-core-4.10.1.jar
+7f68e1437000-7f68e1439000 r--s 00006000 08:05 4509059                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-base-services-groovy-4.10.1.jar
+7f68e1439000-7f68e143b000 r--s 00007000 08:05 4509057                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-model-groovy-4.10.1.jar
+7f68e143b000-7f68e143c000 r--s 00006000 08:05 4509065                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-docs-4.10.1.jar
+7f68e143c000-7f68e1445000 r--s 0002d000 08:05 4509112                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/xml-apis-1.4.01.jar
+7f68e1445000-7f68e1446000 r--s 00000000 08:05 4509108                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/javax.inject-1.jar
+7f68e1446000-7f68e14b7000 r--s 00665000 08:05 4509104                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/groovy-all-2.4.15.jar
+7f68e14b7000-7f68e14c1000 r--s 00078000 08:05 4509111                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/commons-compress-1.14.jar
+7f68e14c1000-7f68e14ce000 r--s 00083000 08:05 4509109                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/commons-collections-3.2.2.jar
+7f68e14ce000-7f68e14cf000 r--s 00007000 08:05 4509067                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/asm-analysis-6.2.jar
+7f68e14cf000-7f68e14d1000 r--s 0000b000 08:05 4509068                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/asm-tree-6.2.jar
+7f68e14d1000-7f68e14d3000 r--s 00012000 08:05 4509066                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/asm-commons-6.2.jar
+7f68e14d3000-7f68e14d4000 r--s 00004000 08:05 4509115                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-freebsd-amd64-libcpp-0.14.jar
+7f68e14d4000-7f68e14d5000 r--s 00004000 08:05 4509116                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-freebsd-amd64-libstdcpp-0.14.jar
+7f68e14d5000-7f68e14d6000 r--s 00004000 08:05 4509117                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-freebsd-i386-libcpp-0.14.jar
+7f68e14d6000-7f68e14d7000 r--s 00003000 08:05 4509118                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-freebsd-i386-libstdcpp-0.14.jar
+7f68e14d7000-7f68e14d8000 r--s 00002000 08:05 4509119                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-linux-amd64-0.14.jar
+7f68e14d8000-7f68e14d9000 r--s 00002000 08:05 4509120                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-linux-i386-0.14.jar
+7f68e14d9000-7f68e14db000 r--s 00002000 08:05 4509121                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-osx-amd64-0.14.jar
+7f68e14db000-7f68e14dc000 r--s 00003000 08:05 4509122                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-osx-i386-0.14.jar
+7f68e14dc000-7f68e1504000 r--s 001cf000 08:05 4509099                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/guava-jdk5-17.0.jar
+7f68e1504000-7f68e154a000 r--s 00265000 08:05 4509047                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-core-4.10.1.jar
+7f68e154a000-7f68e154b000 ---p 00000000 00:00 0 
+7f68e154b000-7f68e164b000 rw-p 00000000 00:00 0 
+7f68e164b000-7f68e164e000 ---p 00000000 00:00 0 
+7f68e164e000-7f68e174c000 rw-p 00000000 00:00 0 
+7f68e174c000-7f68e174d000 ---p 00000000 00:00 0 
+7f68e174d000-7f68e1750000 ---p 00000000 00:00 0 
+7f68e1750000-7f68e184d000 rw-p 00000000 00:00 0 
+7f68e184d000-7f68e184e000 ---p 00000000 00:00 0 
+7f68e184e000-7f68e1851000 ---p 00000000 00:00 0 
+7f68e1851000-7f68e194e000 rw-p 00000000 00:00 0 
+7f68e194e000-7f68e194f000 ---p 00000000 00:00 0 
+7f68e194f000-7f68e1952000 ---p 00000000 00:00 0 
+7f68e1952000-7f68e1a4f000 rw-p 00000000 00:00 0 
+7f68e1a4f000-7f68e1a52000 ---p 00000000 00:00 0 
+7f68e1a52000-7f68e1b50000 rw-p 00000000 00:00 0 
+7f68e1b50000-7f68e251f000 r--p 00000000 08:05 5379487                    /usr/lib/locale/locale-archive
+7f68e251f000-7f68e2522000 ---p 00000000 00:00 0 
+7f68e2522000-7f68e2620000 rw-p 00000000 00:00 0 
+7f68e2620000-7f68e2623000 ---p 00000000 00:00 0 
+7f68e2623000-7f68e2721000 rw-p 00000000 00:00 0 
+7f68e2721000-7f68e2722000 ---p 00000000 00:00 0 
+7f68e2722000-7f68e3630000 rw-p 00000000 00:00 0 
+7f68e3630000-7f68e3800000 r--s 03c54000 08:05 920166                     /usr/share/android-studio/jre/jre/lib/rt.jar
+7f68e3800000-7f68e4000000 rw-p 00000000 00:00 0 
+7f68e4000000-7f68e405b000 rw-p 00000000 00:00 0 
+7f68e405b000-7f68e8000000 ---p 00000000 00:00 0 
+7f68e8000000-7f68e8002000 r--s 0000b000 08:05 4509124                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-windows-amd64-0.14.jar
+7f68e8002000-7f68e8003000 r--s 0000b000 08:05 4509125                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-windows-i386-0.14.jar
+7f68e8003000-7f68e8004000 r--s 00001000 08:05 4509127                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-linux-amd64-ncurses5-0.14.jar
+7f68e8004000-7f68e8005000 r--s 00001000 08:05 4509128                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-linux-amd64-ncurses6-0.14.jar
+7f68e8005000-7f68e8006000 r--s 00001000 08:05 4509130                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-linux-i386-ncurses5-0.14.jar
+7f68e8006000-7f68e800a000 r--s 00012000 08:05 4509110                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-0.14.jar
+7f68e800a000-7f68e800d000 r--s 00023000 08:05 4509113                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/jansi-1.14.jar
+7f68e800d000-7f68e8011000 r--s 0000c000 08:05 4509056                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-native-4.10.1.jar
+7f68e8011000-7f68e8013000 r--s 0000f000 08:05 4509077                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/reflectasm-1.07-shaded.jar
+7f68e8013000-7f68e8015000 r--s 00000000 08:05 4509133                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/minlog-1.2.jar
+7f68e8015000-7f68e8019000 r--s 00026000 08:05 4509076                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/kryo-2.20.jar
+7f68e8019000-7f68e8038000 r--s 001d9000 08:05 4509105                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/ant-1.9.11.jar
+7f68e8038000-7f68eb49c000 rw-p 00000000 00:00 0 
+7f68eb49c000-7f68eb49d000 ---p 00000000 00:00 0 
+7f68eb49d000-7f68eb59d000 rw-p 00000000 00:00 0 
+7f68eb59d000-7f68eb59e000 ---p 00000000 00:00 0 
+7f68eb59e000-7f68eb69e000 rw-p 00000000 00:00 0 
+7f68eb69e000-7f68eb69f000 ---p 00000000 00:00 0 
+7f68eb69f000-7f68eb79f000 rw-p 00000000 00:00 0 
+7f68eb79f000-7f68eb7a0000 ---p 00000000 00:00 0 
+7f68eb7a0000-7f68eb90a000 rw-p 00000000 00:00 0 
+7f68eb90a000-7f68ebaa0000 ---p 00000000 00:00 0 
+7f68ebaa0000-7f68ebb0a000 rw-p 00000000 00:00 0 
+7f68ebb0a000-7f68ebca0000 ---p 00000000 00:00 0 
+7f68ebca0000-7f68ebda0000 rw-p 00000000 00:00 0 
+7f68ebda0000-7f68ebe95000 rw-p 00000000 00:00 0 
+7f68ebe95000-7f68ec161000 ---p 00000000 00:00 0 
+7f68ec161000-7f68efe61000 rwxp 00000000 00:00 0 
+7f68efe61000-7f68fb161000 ---p 00000000 00:00 0 
+7f68fb161000-7f68fb17b000 r-xp 00000000 08:05 1314643                    /usr/share/android-studio/jre/jre/lib/amd64/libzip.so
+7f68fb17b000-7f68fb37a000 ---p 0001a000 08:05 1314643                    /usr/share/android-studio/jre/jre/lib/amd64/libzip.so
+7f68fb37a000-7f68fb37b000 r--p 00019000 08:05 1314643                    /usr/share/android-studio/jre/jre/lib/amd64/libzip.so
+7f68fb37b000-7f68fb37c000 rw-p 0001a000 08:05 1314643                    /usr/share/android-studio/jre/jre/lib/amd64/libzip.so
+7f68fb37c000-7f68fb387000 r-xp 00000000 08:05 5116758                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f68fb387000-7f68fb586000 ---p 0000b000 08:05 5116758                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f68fb586000-7f68fb587000 r--p 0000a000 08:05 5116758                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f68fb587000-7f68fb588000 rw-p 0000b000 08:05 5116758                    /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f68fb588000-7f68fb58e000 rw-p 00000000 00:00 0 
+7f68fb58e000-7f68fb5a5000 r-xp 00000000 08:05 5116752                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f68fb5a5000-7f68fb7a4000 ---p 00017000 08:05 5116752                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f68fb7a4000-7f68fb7a5000 r--p 00016000 08:05 5116752                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f68fb7a5000-7f68fb7a6000 rw-p 00017000 08:05 5116752                    /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f68fb7a6000-7f68fb7a8000 rw-p 00000000 00:00 0 
+7f68fb7a8000-7f68fb7b3000 r-xp 00000000 08:05 5116769                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f68fb7b3000-7f68fb9b2000 ---p 0000b000 08:05 5116769                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f68fb9b2000-7f68fb9b3000 r--p 0000a000 08:05 5116769                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f68fb9b3000-7f68fb9b4000 rw-p 0000b000 08:05 5116769                    /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f68fb9b4000-7f68fb9bc000 r-xp 00000000 08:05 5116754                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f68fb9bc000-7f68fbbbc000 ---p 00008000 08:05 5116754                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f68fbbbc000-7f68fbbbd000 r--p 00008000 08:05 5116754                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f68fbbbd000-7f68fbbbe000 rw-p 00009000 08:05 5116754                    /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f68fbbbe000-7f68fbbeb000 r-xp 00000000 08:05 1314653                    /usr/share/android-studio/jre/jre/lib/amd64/libjava.so
+7f68fbbeb000-7f68fbdea000 ---p 0002d000 08:05 1314653                    /usr/share/android-studio/jre/jre/lib/amd64/libjava.so
+7f68fbdea000-7f68fbdeb000 r--p 0002c000 08:05 1314653                    /usr/share/android-studio/jre/jre/lib/amd64/libjava.so
+7f68fbdeb000-7f68fbded000 rw-p 0002d000 08:05 1314653                    /usr/share/android-studio/jre/jre/lib/amd64/libjava.so
+7f68fbded000-7f68fbdfe000 r-xp 00000000 08:05 1314639                    /usr/share/android-studio/jre/jre/lib/amd64/libverify.so
+7f68fbdfe000-7f68fbffd000 ---p 00011000 08:05 1314639                    /usr/share/android-studio/jre/jre/lib/amd64/libverify.so
+7f68fbffd000-7f68fbfff000 r--p 00010000 08:05 1314639                    /usr/share/android-studio/jre/jre/lib/amd64/libverify.so
+7f68fbfff000-7f68fc000000 rw-p 00012000 08:05 1314639                    /usr/share/android-studio/jre/jre/lib/amd64/libverify.so
+7f68fc000000-7f68fcf32000 rw-p 00000000 00:00 0 
+7f68fcf32000-7f6900000000 ---p 00000000 00:00 0 
+7f6900000000-7f6900001000 r--s 00001000 08:05 4509131                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/native-platform-linux-i386-ncurses6-0.14.jar
+7f6900001000-7f6900003000 r--s 00007000 08:05 4509134                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/objenesis-1.2.jar
+7f6900003000-7f690000a000 r--s 0002d000 08:05 4509061                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-messaging-4.10.1.jar
+7f690000a000-7f690000c000 r--s 00006000 08:05 4509054                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-process-services-4.10.1.jar
+7f690000c000-7f690000e000 r--s 00000000 08:05 4509048                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-jvm-services-4.10.1.jar
+7f690000e000-7f6900010000 r--s 00006000 08:05 4509100                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/jsr305-2.0.1.jar
+7f6900010000-7f6900011000 r--s 00000000 08:05 4509102                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/jcip-annotations-1.0.jar
+7f6900011000-7f6900014000 r--s 0001a000 08:05 4509101                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/fastutil-7.2.1-min.jar
+7f6900014000-7f6900018000 r--s 0002a000 08:05 4509080                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/commons-io-2.4.jar
+7f6900018000-7f69000fd000 rw-p 00000000 00:00 0 
+7f69000fd000-7f6900104000 r-xp 00000000 08:05 5116809                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f6900104000-7f6900303000 ---p 00007000 08:05 5116809                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f6900303000-7f6900304000 r--p 00006000 08:05 5116809                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f6900304000-7f6900305000 rw-p 00007000 08:05 5116809                    /lib/x86_64-linux-gnu/librt-2.27.so
+7f6900305000-7f69004a2000 r-xp 00000000 08:05 5116731                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f69004a2000-7f69006a1000 ---p 0019d000 08:05 5116731                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f69006a1000-7f69006a2000 r--p 0019c000 08:05 5116731                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f69006a2000-7f69006a3000 rw-p 0019d000 08:05 5116731                    /lib/x86_64-linux-gnu/libm-2.27.so
+7f69006a3000-7f690130f000 r-xp 00000000 08:05 1578702                    /usr/share/android-studio/jre/jre/lib/amd64/server/libjvm.so
+7f690130f000-7f690150f000 ---p 00c6c000 08:05 1578702                    /usr/share/android-studio/jre/jre/lib/amd64/server/libjvm.so
+7f690150f000-7f69015a3000 r--p 00c6c000 08:05 1578702                    /usr/share/android-studio/jre/jre/lib/amd64/server/libjvm.so
+7f69015a3000-7f69015cb000 rw-p 00d00000 08:05 1578702                    /usr/share/android-studio/jre/jre/lib/amd64/server/libjvm.so
+7f69015cb000-7f69015fc000 rw-p 00000000 00:00 0 
+7f69015fc000-7f69017e3000 r-xp 00000000 08:05 5116668                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f69017e3000-7f69019e3000 ---p 001e7000 08:05 5116668                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f69019e3000-7f69019e7000 r--p 001e7000 08:05 5116668                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f69019e7000-7f69019e9000 rw-p 001eb000 08:05 5116668                    /lib/x86_64-linux-gnu/libc-2.27.so
+7f69019e9000-7f69019ed000 rw-p 00000000 00:00 0 
+7f69019ed000-7f69019f0000 r-xp 00000000 08:05 5116691                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f69019f0000-7f6901bef000 ---p 00003000 08:05 5116691                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f6901bef000-7f6901bf0000 r--p 00002000 08:05 5116691                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f6901bf0000-7f6901bf1000 rw-p 00003000 08:05 5116691                    /lib/x86_64-linux-gnu/libdl-2.27.so
+7f6901bf1000-7f6901c07000 r-xp 00000000 08:05 786844                     /usr/share/android-studio/jre/lib/amd64/jli/libjli.so
+7f6901c07000-7f6901e07000 ---p 00016000 08:05 786844                     /usr/share/android-studio/jre/lib/amd64/jli/libjli.so
+7f6901e07000-7f6901e08000 r--p 00016000 08:05 786844                     /usr/share/android-studio/jre/lib/amd64/jli/libjli.so
+7f6901e08000-7f6901e09000 rw-p 00017000 08:05 786844                     /usr/share/android-studio/jre/lib/amd64/jli/libjli.so
+7f6901e09000-7f6901e23000 r-xp 00000000 08:05 5116801                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f6901e23000-7f6902022000 ---p 0001a000 08:05 5116801                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f6902022000-7f6902023000 r--p 00019000 08:05 5116801                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f6902023000-7f6902024000 rw-p 0001a000 08:05 5116801                    /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f6902024000-7f6902028000 rw-p 00000000 00:00 0 
+7f6902028000-7f690204f000 r-xp 00000000 08:05 5116640                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f690204f000-7f6902051000 r--s 0001a000 08:05 4509078                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/asm-6.2.jar
+7f6902051000-7f6902052000 r--s 00009000 08:05 4509098                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/slf4j-api-1.7.16.jar
+7f6902052000-7f690205f000 r--s 00037000 08:05 4509050                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-core-api-4.10.1.jar
+7f690205f000-7f690206b000 r--s 00064000 08:05 4509062                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-base-services-4.10.1.jar
+7f690206b000-7f690212d000 rw-p 00000000 00:00 0 
+7f690212d000-7f690212e000 ---p 00000000 00:00 0 
+7f690212e000-7f6902131000 ---p 00000000 00:00 0 
+7f6902131000-7f6902232000 rw-p 00000000 00:00 0 
+7f6902232000-7f6902237000 r--s 00041000 08:05 4509091                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/commons-lang-2.6.jar
+7f6902237000-7f6902238000 r--s 00004000 08:05 4509114                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/ant-launcher-1.9.11.jar
+7f6902238000-7f6902245000 r--s 00068000 08:05 4509038                    /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-launcher-4.10.1.jar
+7f6902245000-7f690224d000 rw-s 00000000 08:05 1049309                    /tmp/hsperfdata_zita/13479
+7f690224d000-7f690224e000 rw-p 00000000 00:00 0 
+7f690224e000-7f690224f000 ---p 00000000 00:00 0 
+7f690224f000-7f6902250000 r--p 00027000 08:05 5116640                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f6902250000-7f6902251000 rw-p 00028000 08:05 5116640                    /lib/x86_64-linux-gnu/ld-2.27.so
+7f6902251000-7f6902252000 rw-p 00000000 00:00 0 
+7fff31a2e000-7fff31a4f000 rw-p 00000000 00:00 0                          [stack]
+7fff31a51000-7fff31a54000 r--p 00000000 00:00 0                          [vvar]
+7fff31a54000-7fff31a56000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Xmx1536m -Dfile.encoding=UTF-8 -Duser.country=ZM -Duser.language=en -Duser.variant 
+java_command: org.gradle.launcher.daemon.bootstrap.GradleDaemon 4.10.1
+java_class_path (initial): /home/zita/.gradle/wrapper/dists/gradle-4.10.1-all/455itskqi2qtf0v2sja68alqd/gradle-4.10.1/lib/gradle-launcher-4.10.1.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-8-oracle
+PATH=/home/zita/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+USERNAME=zita
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xa71670], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xa71670], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x8b1780], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x8b1780], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x8b1780], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x8b1780], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x8b1650], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x8b1ab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x8b1ab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x8b1ab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x8b1ab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.2 LTS"
+
+uname:Linux 4.15.0-52-generic #56-Ubuntu SMP Tue Jun 4 22:49:08 UTC 2019 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE 0k, NPROC 30195, NOFILE 1048576, AS infinity
+load average:1.93 1.65 1.51
+
+/proc/meminfo:
+MemTotal:        7776280 kB
+MemFree:          118724 kB
+MemAvailable:      34416 kB
+Buffers:             532 kB
+Cached:           598748 kB
+SwapCached:         9780 kB
+Active:          6260456 kB
+Inactive:         912892 kB
+Active(anon):    6243224 kB
+Inactive(anon):   891908 kB
+Active(file):      17232 kB
+Inactive(file):    20984 kB
+Unevictable:          80 kB
+Mlocked:              80 kB
+SwapTotal:       2097148 kB
+SwapFree:             12 kB
+Dirty:                32 kB
+Writeback:             0 kB
+AnonPages:       6566420 kB
+Mapped:           196776 kB
+Shmem:            560272 kB
+Slab:             179644 kB
+SReclaimable:      74928 kB
+SUnreclaim:       104716 kB
+KernelStack:       21568 kB
+PageTables:       127700 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     5985288 kB
+Committed_AS:   21618044 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      936976 kB
+DirectMap2M:     7055360 kB
+DirectMap1G:           0 kB
+
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 142 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+stepping	: 9
+microcode	: 0xb4
+cpu MHz		: 3100.002
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds
+bogomips	: 5424.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+stepping	: 9
+microcode	: 0xb4
+cpu MHz		: 3100.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds
+bogomips	: 5424.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+stepping	: 9
+microcode	: 0xb4
+cpu MHz		: 3099.940
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds
+bogomips	: 5424.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz
+stepping	: 9
+microcode	: 0xb4
+cpu MHz		: 3100.042
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds
+bogomips	: 5424.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 7776280k(123920k free), swap 2097148k(12k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.152-b06) for linux-amd64 JRE (1.8.0_152-release-1136-b06), built by "builder" with gcc 7.3.0
+
+time: Fri Jun 28 22:02:59 2019
+elapsed time: 9963 seconds (0d 2h 46m 3s)
+
