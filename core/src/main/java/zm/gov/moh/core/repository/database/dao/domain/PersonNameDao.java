@@ -26,8 +26,8 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     @Query("SELECT * FROM person_name WHERE person_id = :id")
     PersonName findPersonNameById(long id);
 
-    @Query("DELETE FROM person_name WHERE person_id IN (:id)")
-    void deleteByPersonId(long ...id);
+    @Query("UPDATE person_name SET person_id = :remote WHERE person_id = :local")
+    void replacePerson(long local, long remote);
 
     //get persons name by getPersons id
     @Override

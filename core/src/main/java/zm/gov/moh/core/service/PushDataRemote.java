@@ -29,6 +29,8 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PushDataRemote extends RemoteService {
 
+    EntityType entityType;
+
     public PushDataRemote(){
         super(ServiceManager.Service.PUSH_ENTITY_REMOTE);
     }
@@ -38,7 +40,7 @@ public class PushDataRemote extends RemoteService {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
 
-        EntityType entityType = (EntityType) mBundle.getSerializable(Key.ENTITY_TYPE);
+         entityType = (EntityType) mBundle.getSerializable(Key.ENTITY_TYPE);
 
         if(entityType == null)
             entityType = EntityType.PATIENT;
@@ -51,27 +53,25 @@ public class PushDataRemote extends RemoteService {
 
         tasksCompleted++;
 
-       /* if(tasksCompleted == tasksStarted){
+       if(tasksCompleted == tasksStarted){
             notifyCompleted();
 
-            if(entityTypeId == EntityType.PATIENT.getId()){
+            if(entityType.getId() == EntityType.PATIENT.getId()){
 
                 mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
                 ServiceManager.getInstance(getApplicationContext())
                         .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
                         .putExtras(mBundle)
                         .start();
-            }
+            }else if(entityType.getId() == EntityType.VISIT.getId()){
 
-            else if(entityTypeId == EntityType.VISIT.getId()){
-
-                mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.VISIT);
-                ServiceManager.getInstance(getApplicationContext())
-                        .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
-                        .putExtras(mBundle)
-                        .start();
-            }
-        }*/
+               mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.VISIT);
+               ServiceManager.getInstance(getApplicationContext())
+                       .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
+                       .putExtras(mBundle)
+                       .start();
+           }
+        }
 
     }
 
@@ -104,8 +104,6 @@ public class PushDataRemote extends RemoteService {
                     restApi.putPatients(accessToken, batchVersion, patients)
                             .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                             .subscribe(onComplete(unpushedPatientEntityId, entityType.getId()), this::onError);
-
-                    onTaskCompleted();
                 }else
                     onTaskCompleted();
                 break;

@@ -32,8 +32,8 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT * FROM obs WHERE person_id = :id")
     ObsEntity[] findByPatientId(long id);
 
-    @Query("DELETE FROM obs WHERE obs_id = :obsId")
-    void deleteById(long[] obsId);
+    @Query("DELETE FROM obs WHERE obs_id IN (:obsId) AND obs_id >= :offset")
+    void deleteById(long[] obsId, long offset);
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")

@@ -202,9 +202,6 @@ public class ServiceManager {
                     serviceSchedule.remove(service);
                 }
 
-                if((service == Service.SUBSTITUTE_LOCAL_ENTITY && entityType != null) && entityType == EntityType.VISIT )
-                    Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
-
             }else if (action != null && action.equals(intentActionServiceInterrupted)){
                 serviceManager.getServiceExecutionPool().remove(service);
 

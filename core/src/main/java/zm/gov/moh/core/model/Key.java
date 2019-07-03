@@ -31,5 +31,7 @@ public class Key {
 
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String ACCESS_TOKEN_ENCRYPTED = "ACCESS_TOKEN_ENCRYPTED";
+    public static final String LAST_SYNC_DATE = "LAST_SYNC_DATE";
+
 
 }

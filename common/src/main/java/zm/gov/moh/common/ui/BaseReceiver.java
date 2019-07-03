@@ -19,5 +19,8 @@ public class BaseReceiver extends BroadcastReceiver {
                 if(action.equals(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION))
                     Toast.makeText(context,context.getString(R.string.insufficient_identifiers),Toast.LENGTH_LONG).show();
 
+                if(action.equals(IntentAction.REMOTE_SYNC_COMPLETE))
+                        Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
+
         }
 }

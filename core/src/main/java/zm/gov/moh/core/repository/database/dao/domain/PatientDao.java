@@ -30,8 +30,8 @@ public interface PatientDao extends Synchronizable<Long> {
     @Query("SELECT * FROM patient WHERE patient_id = :id")
     PatientEntity findById(long id);
 
-    @Query("DELETE FROM patient WHERE patient_id IN (:id)")
-    void deleteById(long ...id);
+    @Query("UPDATE patient SET patient_id = :remote  WHERE patient_id = :local")
+    void replacePatient(long local, long remote);
 
     @Query("SELECT patient_id FROM patient")
     List <Long> findByAllPatientId();

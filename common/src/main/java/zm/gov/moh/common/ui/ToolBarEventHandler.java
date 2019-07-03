@@ -22,13 +22,10 @@ public class ToolBarEventHandler{
         }
 
         public void syncMetaData(){
-            bundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
-
 
             ServiceManager.getInstance(context)
                     .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
                     .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
-                    .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PUSH_ENTITY_REMOTE)
                     .start();
         }
 

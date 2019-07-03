@@ -32,8 +32,8 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT uuid FROM person WHERE person_id = :patientId")
     String findByPatientId(long patientId);
 
-    @Query("DELETE FROM person WHERE person_id IN (:id)")
-    void deleteById(long ...id);
+    @Query("UPDATE person SET person_id = :remote WHERE person_id = :local ")
+    void replacePerson(long local, long remote );
 
     @Query("SELECT MAX(person_id) FROM person")
     Long getMaxId();

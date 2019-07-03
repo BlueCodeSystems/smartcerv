@@ -47,6 +47,9 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         pending.set(true);
 
+        credentials.setUsername("anthony");
+        credentials.setPassword("Openmrs3");
+
         if(credentials.getUsername() != "" && credentials.getPassword() != "") {
 
             credentialsToBase64 = Utils.credentialsToBase64(credentials.getUsername(), credentials.getPassword());

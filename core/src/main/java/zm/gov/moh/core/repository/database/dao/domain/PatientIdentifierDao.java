@@ -24,8 +24,8 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     void insert(PatientIdentifierEntity... patientIdentifiers);
 
     //get persons name by getPersons id
-    @Query("DELETE FROM patient_identifier WHERE patient_identifier_id IN (:id)")
-     void deleteByPatientId(long ...id);
+    @Query("UPDATE patient_identifier SET patient_id = :remote WHERE patient_id = :local ")
+     void replacePatient(long local, long remote);
 
     @Query("SELECT identifier,patient_identifier_type.uuid AS identifierType, location.uuid AS location, preferred FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.voided = 0")
     List<PatientIdentifier> findAllByPatientId(long id);

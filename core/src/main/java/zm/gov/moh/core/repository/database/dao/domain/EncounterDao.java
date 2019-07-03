@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -17,8 +19,8 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     @Query("SELECT * FROM encounter WHERE patient_id = :id AND encounter_type = :encounterTypeId")
     LiveData<EncounterEntity> getByPatientId(long id, long encounterTypeId);
 
-    @Query("DELETE FROM encounter WHERE encounter_id IN (:encounterId)")
-    void deleteById(long[] encounterId);
+    @Query("DELETE FROM encounter WHERE encounter_id IN (:encounterId) AND encounter_id >= :offset")
+    void deleteById(long[] encounterId, long offset);
 
     @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId)")
     List<EncounterEntity> getByVisitId(List<Long> visitId);
@@ -39,6 +41,9 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     //gets all locations
     @Query("SELECT * FROM encounter WHERE visit_id = :visitId ORDER BY encounter_type")
     List<EncounterEntity> getByEncounterByVisitId(long visitId);
+
+    @Query("UPDATE encounter SET encounter_id= :id, patient_id = :patientId WHERE encounter_datetime = :dateTime ")
+    void updateEncounter(long id, long patientId, LocalDateTime dateTime);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EncounterEntity... encounters);

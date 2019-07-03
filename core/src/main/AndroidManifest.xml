@@ -30,7 +30,6 @@
     <!--Permissions-->
     <uses-permission android:name="android.permission.INTERNET" android:required="false"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" android:required="false"/>
-    <uses-permission android:name="android.permission.CAMERA" android:required="false" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="false" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:required="false"/>
 </manifest>
