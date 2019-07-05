@@ -5,13 +5,17 @@ import android.content.Intent;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.List;
+
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import zm.gov.moh.core.Constant;
+import io.reactivex.Observable;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.model.Visit;
-import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
-import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
+import zm.gov.moh.core.repository.database.entity.domain.Person;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
@@ -20,6 +24,8 @@ public class PullDataRemote extends RemoteService {
     public PullDataRemote(){
         super(ServiceManager.Service.PULL_ENTITY_REMOTE);
     }
+
+    List<Long> localPatientIds;
 
     final String MIN_DATETIME = "1970-01-01T00:00:00";
 
@@ -31,67 +37,106 @@ public class PullDataRemote extends RemoteService {
     @Override
     protected void executeAsync() {
 
+        onTaskStarted();
+
         String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
 
         if(lastSyncDate == null){
             lastSyncDate = MIN_DATETIME;
         }
 
+        //Patient identifier
+        ConcurrencyUtils.consumeBlocking(
+                patientIdentifierEntities -> {
+
+                    List<String> localIdentifiers = db.patientIdentifierDao().getLocal();
+
+
+                    localPatientIds = Observable.fromArray(patientIdentifierEntities).filter(
+                            patientIdentifierEntity -> localIdentifiers.contains(patientIdentifierEntity.getIdentifier()))
+                            .map(patientIdentifierEntity -> patientIdentifierEntity.getPatientId())
+                            .toList()
+                            .blockingGet();
+
+                    repository.getDatabase().patientIdentifierDao().insert(patientIdentifierEntities);
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPatientIdentifiers(accessToken), //producer
+                TIMEOUT);
+
+
+
+        //Patients
+        ConcurrencyUtils.consumeBlocking(
+
+
+                patient -> {
+                    List<Long> indexIds = db.patientDao().getIds();
+                    List<PatientEntity> patientEntities = Observable.fromArray(patient)
+                            .filter((patientEntity -> (!localPatientIds.contains(patientEntity.getPatientId()) && !indexIds.contains(patientEntity.getPatientId()))))
+                            .toList()
+                            .blockingGet();
+
+                    repository.getDatabase().patientDao().insert(patientEntities);
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPatients(accessToken), //producer
+                TIMEOUT);
+
         //Person Names
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 personNames -> {
-                    repository.getDatabase().personNameDao().insert(personNames);
-                    this.onTaskCompleted();
+
+                    List<Long> indexIds = db.personNameDao().getIds();
+
+                    List<PersonName> personNameList = Observable.fromArray(personNames)
+                            .filter((personName -> (!localPatientIds.contains(personName.getPersonId()) && !indexIds.contains(personName.getPersonId()))))
+                            .toList()
+                            .blockingGet();
+
+                    repository.getDatabase().personNameDao().insert(personNameList);
                 },//consumer
                 this::onError,
-                repository.getRestApi().getPersonNames(accessToken, lastSyncDate), //producer
+                repository.getRestApi().getPersonNames(accessToken), //producer
                 TIMEOUT);
-        onTaskStarted();
 
         //Person Address
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 personAddresses -> {
-                    repository.getDatabase().personAddressDao().insert(personAddresses);
-                    this.onTaskCompleted();
+
+                    List<Long> indexIds = db.personAddressDao().getIds();
+                    List<PersonAddress> personAddressList = Observable.fromArray(personAddresses)
+                            .filter((personAddress ->(!localPatientIds.contains(personAddress.getPersonId()) && !indexIds.contains(personAddress.getPersonId()))))
+                            .toList()
+                            .blockingGet();
+
+                    repository.getDatabase().personAddressDao().insert(personAddressList);
                 }
                 , //consumer
                 this::onError,
-                repository.getRestApi().getPersonAddresses(accessToken, lastSyncDate), //producer
+                repository.getRestApi().getPersonAddresses(accessToken), //producer
                 TIMEOUT);
-        onTaskStarted();
 
         //Person
-        ConcurrencyUtils.consumeAsync(
-                person -> {
-                    repository.getDatabase().personDao().insert(person);
-                    this.onTaskCompleted();
-                }, //consumer
-                this::onError,
-                repository.getRestApi().getPersons(accessToken, lastSyncDate), //producer
-                TIMEOUT);
-        onTaskStarted();
+        ConcurrencyUtils.consumeBlocking(
+                persons -> {
+                    List<Long> indexIds = db.personDao().getIds();
+                    List<Person> personList = Observable.fromArray(persons)
+                            .map(person -> {
 
-        //Patients
-        ConcurrencyUtils.consumeAsync(
-                patient -> {
-                    repository.getDatabase().patientDao().insert(patient);
-                    this.onTaskCompleted();
-                }, //consumer
-                this::onError,
-                repository.getRestApi().getPatients(accessToken, lastSyncDate), //producer
-                TIMEOUT);
-        onTaskStarted();
+                                db.personIdentifierDao().insert(new PersonIdentifier(person));
+                                return person;
+                            })
+                            .filter((person -> (!localPatientIds.contains(person.getPersonId()) && !indexIds.contains(person.getPersonId()))))
+                            .toList()
+                            .blockingGet();
 
-        //Patient identifier
-        ConcurrencyUtils.consumeAsync(
-                patientIdentifiers -> {
-                    repository.getDatabase().patientIdentifierDao().insert(patientIdentifiers);
-                    this.onTaskCompleted();
+                    repository.getDatabase().personDao().insert(personList);
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getPatientIdentifiers(accessToken, lastSyncDate), //producer
+                repository.getRestApi().getPersons(accessToken), //producer
                 TIMEOUT);
-        onTaskStarted();
+
 
 
         if(lastSyncDate.equals(MIN_DATETIME)) {
@@ -129,6 +174,8 @@ public class PullDataRemote extends RemoteService {
                     TIMEOUT);
             onTaskStarted();
         }
+
+        onTaskCompleted();
     }
 
     @Override
@@ -139,10 +186,17 @@ public class PullDataRemote extends RemoteService {
         if(tasksCompleted == tasksStarted) {
             notifyCompleted();
             repository.getDefaultSharePrefrences().edit().putString(Key.LAST_SYNC_DATE,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
+            mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.VISIT);
                 ServiceManager.getInstance(getApplicationContext())
-                        .setService(ServiceManager.Service.SUBSTITUTE_LOCAL_ENTITY)
+                        .setService(ServiceManager.Service.PUSH_ENTITY_REMOTE)
                         .putExtras(mBundle)
                         .start();
         }
+    }
+
+
+    public void persistPatientIdentifier(PatientIdentifierEntity... patientIdentifiers){
+
+
     }
 }

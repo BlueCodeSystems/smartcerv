@@ -1,7 +1,10 @@
 package zm.gov.moh.core.service;
 
+import android.content.Intent;
+
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +13,7 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Encounter;
+import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Obs;
 import zm.gov.moh.core.model.PatientIdentifier;
@@ -46,6 +50,7 @@ public class PushDataRemote extends RemoteService {
             entityType = EntityType.PATIENT;
 
         ConcurrencyUtils.consumeAsync(this::pushDataRemote, this::onError, entityType, batchVersion,TIMEOUT);
+       notifyCompleted();
 
     }
 
@@ -63,16 +68,13 @@ public class PushDataRemote extends RemoteService {
                         .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
                         .putExtras(mBundle)
                         .start();
+
             }else if(entityType.getId() == EntityType.VISIT.getId()){
 
-               mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.VISIT);
-               ServiceManager.getInstance(getApplicationContext())
-                       .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
-                       .putExtras(mBundle)
-                       .start();
+                repository.getDefaultSharePrefrences().edit().putString(Key.LAST_SYNC_DATE,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
+                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
            }
         }
-
     }
 
 
@@ -229,7 +231,10 @@ public class PushDataRemote extends RemoteService {
 
         Obs obs = new Obs();
         String concept = db.conceptDao().getConceptUuidById(obsEntity.getConceptId());
-        String person = db.personDao().findByPatientId(obsEntity.getPersonId());
+        String person = db.personIdentifierDao().getUuidByPersonId(obsEntity.getPersonId());
+
+        if(person == null)
+            person = db.patientIdentifierDao().getRemotePatientUuid(obsEntity.getPersonId());//db.patientIdentifierDao().getRemotePatientUuid(obsEntity.getPersonId(), 3);
 
 
         obs.setConcept(concept);
@@ -252,8 +257,11 @@ public class PushDataRemote extends RemoteService {
 
         Visit.Builder visit = new  Visit.Builder();
         String visitType = db.visitTypeDao().getUuidVisitTypeById(visitEntity.getVisitTypeId());
-        String patient = db.personDao().findByPatientId(visitEntity.getPatientId());
+        String patient = db.personIdentifierDao().getUuidByPersonId(visitEntity.getPatientId());//db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId(),3);
         String location = db.locationDao().getUuidById(visitEntity.getLocationId());
+
+        if(patient == null)
+            patient = db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId());
 
         visit.setVisitType(visitType)
                 .setPatient(patient)

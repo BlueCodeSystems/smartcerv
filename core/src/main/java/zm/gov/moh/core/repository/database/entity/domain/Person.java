@@ -12,9 +12,7 @@ import org.threeten.bp.LocalDateTime;
 @Entity
 public class Person {
 
-    @PrimaryKey(autoGenerate = true)
-    private long _id;
-
+    @PrimaryKey
     @ColumnInfo(name = "person_id")
     @Json(name = "person_id")
     public long personId;
@@ -225,13 +223,5 @@ public class Person {
 
     public void setBirthTime(LocalDateTime birthTime) {
         this.birthTime = birthTime;
-    }
-
-    public long get_id() {
-        return _id;
-    }
-
-    public void set_id(long _id) {
-        this._id = _id;
     }
 }

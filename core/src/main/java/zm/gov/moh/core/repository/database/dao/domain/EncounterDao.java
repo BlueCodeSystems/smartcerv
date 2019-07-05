@@ -13,6 +13,9 @@ import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 @Dao
 public interface EncounterDao extends Synchronizable<EncounterEntity> {
 
+    @Query("SELECT encounter_id FROM encounter")
+    List<Long> getIds();
+
     @Query("SELECT MAX(encounter_id) FROM encounter")
     Long getMaxId();
     //get by patient and encouter type

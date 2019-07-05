@@ -15,6 +15,10 @@ public interface VisitDao extends Synchronizable<Long> {
 
     @Query("SELECT MAX(visit_id) FROM Visit")
     Long getMaxId();
+
+    @Query("SELECT visit_id FROM Visit")
+    List<Long> getIds();
+
     //gets all locations
     @Query("SELECT * FROM Visit WHERE patient_id = :id")
     LiveData<List<VisitEntity>> getByPatientIdLive(long id);

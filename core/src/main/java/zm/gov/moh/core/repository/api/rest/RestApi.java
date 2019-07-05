@@ -69,7 +69,7 @@ public interface RestApi {
     @GET("person/name/")
     Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken);
 
-    @GET("person/name/{datetime}")
+    @GET("person/name/{datetime}/")
     Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
 
     @GET("person/address/")
@@ -81,11 +81,20 @@ public interface RestApi {
     @GET("person/{datetime}")
     Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
 
+    @GET("person/")
+    Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken);
+
     @GET("patient/{datetime}")
     Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
 
+    @GET("patient/")
+    Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken);
+
     @GET("patient/identifier/{datetime}")
     Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+
+    @GET("patient/identifier/")
+    Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken);
 
     @GET("patient/identifier/type")
     Maybe<PatientIdentifierType[]> getPatientIdentifierTypes(@Header("x-access-token") String accessToken);

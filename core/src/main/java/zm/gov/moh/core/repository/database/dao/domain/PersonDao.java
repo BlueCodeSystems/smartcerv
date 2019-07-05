@@ -17,9 +17,15 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM person")
     LiveData<List<Person>> getAll();
 
+    @Query("SELECT person_id FROM person")
+    List<Long> getIds();
+
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Person person);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<Person> person);
 
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)

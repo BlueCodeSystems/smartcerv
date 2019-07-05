@@ -16,6 +16,9 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT MAX(obs_id) FROM obs")
     Long getMaxId();
 
+    @Query("SELECT obs_id FROM obs")
+    List<Long> getIds();
+
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ObsEntity obs);
