@@ -27,5 +27,11 @@ public class Key {
     public static final String JSON_FORM = "JSON_FORM";
     public static final String EDI_IMAGE = "EDI IMAGE";
     public static final String VIEW_TAG = "VIEW_TAG";
+    public static final String ENTITY_TYPE = "ENTITY_TYPE";
+
+    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    public static final String ACCESS_TOKEN_ENCRYPTED = "ACCESS_TOKEN_ENCRYPTED";
+    public static final String LAST_SYNC_DATE = "LAST_SYNC_DATE";
+
 
 }

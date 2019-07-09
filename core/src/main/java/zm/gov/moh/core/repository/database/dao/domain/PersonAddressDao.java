@@ -15,12 +15,19 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
     @Query("SELECT * FROM person_address WHERE preferred = 1")
     List<PersonAddress> getAll();
 
+    @Query("SELECT person_address_id FROM person_address")
+    List<Long> getIds();
+
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonAddress personAddress);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonAddress... personAddresses);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<PersonAddress> personAddresses);
+
 
     //get persons address by getPersons id
     @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1")
@@ -30,8 +37,8 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
     @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1")
     PersonAddress findByPersonId(long id);
 
-    @Query("DELETE FROM person_address WHERE person_id IN (:id)")
-    void deleteByPersonId(long ...id);
+    @Query("UPDATE person_address SET person_id = :remote WHERE person_id = :local")
+    void replacePerson(long local, long remote);
 
     @Query("SELECT MAX(person_address_id) FROM person_address")
     Long getMaxId();

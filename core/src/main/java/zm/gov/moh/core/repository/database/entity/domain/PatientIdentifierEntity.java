@@ -8,7 +8,7 @@ import com.squareup.moshi.Json;
 import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "patient_identifier")
-public class PatientIdentifierEntity extends SynchronizableEntity {
+public class PatientIdentifierEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "patient_identifier_id")
@@ -128,11 +128,6 @@ public class PatientIdentifierEntity extends SynchronizableEntity {
 
     public void setPreferred(short preferred) {
         this.preferred = preferred;
-    }
-
-    @Override
-    public long getId() {
-        return patientIdentifierId;
     }
 
     public long getLocationId() {

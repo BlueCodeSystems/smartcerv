@@ -1,17 +1,20 @@
 package zm.gov.moh.core.service;
 
+import android.content.Intent;
+
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.format.DateTimeFormatter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import androidx.arch.core.util.Function;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Encounter;
+import zm.gov.moh.core.model.IntentAction;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Obs;
 import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.model.PersonAttribute;
@@ -30,6 +33,8 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PushDataRemote extends RemoteService {
 
+    EntityType entityType;
+
     public PushDataRemote(){
         super(ServiceManager.Service.PUSH_ENTITY_REMOTE);
     }
@@ -38,12 +43,42 @@ public class PushDataRemote extends RemoteService {
     protected void executeAsync() {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        for (EntityType entitiyId:EntityType.values())
-            ConcurrencyUtils.consumeAsync(this::pushInfoRemote, this::onError, entitiyId, batchVersion,TIMEOUT);
+
+         entityType = (EntityType) mBundle.getSerializable(Key.ENTITY_TYPE);
+
+        if(entityType == null)
+            entityType = EntityType.PATIENT;
+
+        ConcurrencyUtils.consumeAsync(this::pushDataRemote, this::onError, entityType, batchVersion,TIMEOUT);
+       notifyCompleted();
 
     }
 
-   protected void pushInfoRemote(EntityType entityType, long batchVersion){
+    public void onTaskCompleted(){
+
+        tasksCompleted++;
+
+       if(tasksCompleted == tasksStarted){
+            notifyCompleted();
+
+            if(entityType.getId() == EntityType.PATIENT.getId()){
+
+                mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
+                ServiceManager.getInstance(getApplicationContext())
+                        .setService(ServiceManager.Service.PULL_ENTITY_REMOTE)
+                        .putExtras(mBundle)
+                        .start();
+
+            }else if(entityType.getId() == EntityType.VISIT.getId()){
+
+                repository.getDefaultSharePrefrences().edit().putString(Key.LAST_SYNC_DATE,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
+                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
+           }
+        }
+    }
+
+
+    protected void pushDataRemote(EntityType entityType, long batchVersion){
 
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(entityType.getId(), Status.PUSHED.getCode());
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
@@ -71,8 +106,6 @@ public class PushDataRemote extends RemoteService {
                     restApi.putPatients(accessToken, batchVersion, patients)
                             .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                             .subscribe(onComplete(unpushedPatientEntityId, entityType.getId()), this::onError);
-
-                    onTaskCompleted();
                 }else
                     onTaskCompleted();
                 break;
@@ -80,16 +113,10 @@ public class PushDataRemote extends RemoteService {
             case VISIT:
 
                 onTaskStarted();
-                Visit[] visits;
-                int visitIndex = 0;
                 Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
-                int cool;
                 if(unpushedVisitEntityId.length > 0) {
 
-                        Visit[] patientVisits = createVisits(unpushedVisitEntityId);
-                        if (patientVisits != null && patientVisits.length != 0)
-                            cool = patientVisits.length;
-
+                    Visit[] patientVisits = createVisits(unpushedVisitEntityId);
 
                     restApi.putVisit(accessToken, batchVersion, patientVisits)
                             .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -101,7 +128,6 @@ public class PushDataRemote extends RemoteService {
 
     public Consumer<Response[]> onComplete(Long[] entityIds, int entityTypeId){
 
-
         return param -> {
 
             for(Long entityId:entityIds) {
@@ -109,6 +135,10 @@ public class PushDataRemote extends RemoteService {
                 EntityMetadata entityMetadata = new EntityMetadata(entityId,entityTypeId, Status.PUSHED.getCode());
                 db.entityMetadataDao().insert(entityMetadata);
             }
+
+
+
+
             onTaskCompleted();
         };
     }
@@ -201,7 +231,10 @@ public class PushDataRemote extends RemoteService {
 
         Obs obs = new Obs();
         String concept = db.conceptDao().getConceptUuidById(obsEntity.getConceptId());
-        String person = db.personDao().findByPatientId(obsEntity.getPersonId());
+        String person = db.personIdentifierDao().getUuidByPersonId(obsEntity.getPersonId());
+
+        if(person == null)
+            person = db.patientIdentifierDao().getRemotePatientUuid(obsEntity.getPersonId());//db.patientIdentifierDao().getRemotePatientUuid(obsEntity.getPersonId(), 3);
 
 
         obs.setConcept(concept);
@@ -224,8 +257,11 @@ public class PushDataRemote extends RemoteService {
 
         Visit.Builder visit = new  Visit.Builder();
         String visitType = db.visitTypeDao().getUuidVisitTypeById(visitEntity.getVisitTypeId());
-        String patient = db.personDao().findByPatientId(visitEntity.getPatientId());
+        String patient = db.personIdentifierDao().getUuidByPersonId(visitEntity.getPatientId());//db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId(),3);
         String location = db.locationDao().getUuidById(visitEntity.getLocationId());
+
+        if(patient == null)
+            patient = db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId());
 
         visit.setVisitType(visitType)
                 .setPatient(patient)
@@ -249,4 +285,5 @@ public class PushDataRemote extends RemoteService {
 
         return encounter;
     }
+
 }

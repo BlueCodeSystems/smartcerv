@@ -69,14 +69,29 @@ public interface RestApi {
     @GET("person/name/")
     Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken);
 
+    @GET("person/name/{datetime}/")
+    Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+
     @GET("person/address/")
     Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken);
+
+    @GET("person/address/{datetime}")
+    Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+
+    @GET("person/{datetime}")
+    Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
 
     @GET("person/")
     Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken);
 
+    @GET("patient/{datetime}")
+    Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+
     @GET("patient/")
     Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken);
+
+    @GET("patient/identifier/{datetime}")
+    Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
 
     @GET("patient/identifier/")
     Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken);
@@ -86,6 +101,9 @@ public interface RestApi {
 
     @GET("obs/")
     Maybe<ObsEntity[]> getObs(@Header("x-access-token") String accessToken);
+
+    @GET("obs/{datetime}")
+    Maybe<ObsEntity[]> getObs(@Header("x-access-token") String accessToken,  @Path("datetime") String datetime);
 
     @GET("concept/name/")
     Maybe<ConceptName[]> getConceptNames(@Header("x-access-token") String accessToken);
@@ -102,11 +120,17 @@ public interface RestApi {
     @GET("encounter/")
     Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken);
 
+    @GET("encounter/{datetime}")
+    Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+
     @GET("visit/type/")
     Maybe<VisitType[]> getVisitTypes(@Header("x-access-token") String accessToken);
 
     @GET("visit/")
     Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken);
+
+    @GET("visit/{datetime}")
+    Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken,  @Path("datetime") String datetime);
 
     @GET("drug/")
     Maybe<Drug[]> getDrugs(@Header("x-access-token") String accessToken);

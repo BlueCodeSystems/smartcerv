@@ -77,4 +77,10 @@ public class ConcurrencyUtils {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer, failure);
     }
+
+    public static  <T>Disposable consumeBlocking(Consumer<T> consumer, Consumer<Throwable> failure, Maybe<T> observable, final int timeout) {
+
+        return observable.timeout(timeout, TimeUnit.MILLISECONDS)
+                .subscribe(consumer, failure);
+    }
 }

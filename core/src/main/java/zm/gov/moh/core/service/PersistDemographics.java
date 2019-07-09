@@ -57,7 +57,7 @@ public class PersistDemographics extends PersistService {
 
 
             //Create database entity instances
-            PatientIdentifierEntity patientId = new PatientIdentifierEntity(patientIdentifierId, personId, identifier.getIdentifier(), 3, PREFERRED, locationId, now);
+            PatientIdentifierEntity patientId = new PatientIdentifierEntity(patientIdentifierId, personId, identifier.getIdentifier(), 3, NOT_PREFERRED, locationId, now);
             PersonName personName = new PersonName(personNameId,personId, givenName, familyName, PREFERRED, now);
             Person person = new Person(personId, dateOfBirth, gender,now);
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);

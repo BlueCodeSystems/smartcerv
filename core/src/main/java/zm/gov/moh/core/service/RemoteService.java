@@ -5,12 +5,13 @@ import android.content.Intent;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.Nullable;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 
 
 public abstract class RemoteService extends BaseIntentService {
 
-    protected String accessToken = "";
+    protected String accessToken ="";
     protected final int TIMEOUT = 300000;
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
@@ -24,6 +25,15 @@ public abstract class RemoteService extends BaseIntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         super.onHandleIntent(intent);
         AndroidThreeTen.init(this);
+
+        //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
+
+        if(accessToken == null){
+
+            notifyInterrupted();
+            return;
+        }
+
         restApi = repository.getRestApi();
     }
 
