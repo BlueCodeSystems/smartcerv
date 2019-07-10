@@ -127,7 +127,7 @@ public class MediaStorageUtils {
         int[] version = new int[2];
         egl.eglInitialize(display, version);
 
-        // Query total number of configurations
+        // Query count number of configurations
         int[] totalConfigurations = new int[1];
         egl.eglGetConfigs(display, null, 0, totalConfigurations);
 

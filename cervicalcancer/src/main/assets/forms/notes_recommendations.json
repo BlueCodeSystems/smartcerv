@@ -39,7 +39,10 @@
         },
         {
           "tag": "follow up dates",
-          "widgetType": "DatePicker",
+          "widgetType": "Concept",
+          "uuid": "e9d8ae54-0efe-4442-bd9c-c5152ae11c9f",
+          "dataType":"Date",
+          "conceptId": 165380,
           "weight": 1,
           "label": "Select Date",
           "hint": "dd MMM yyyy"

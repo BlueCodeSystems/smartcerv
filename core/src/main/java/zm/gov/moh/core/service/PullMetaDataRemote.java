@@ -5,6 +5,8 @@ import android.content.Intent;
 import java.util.List;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullMetaDataRemote extends RemoteService {
@@ -169,6 +171,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
         onTaskStarted();
 
+        // Drugs
         ConcurrencyUtils.consumeAsync(
                 drugs ->{
                     repository.getDatabase().drugDao().insert(drugs);
@@ -179,20 +182,45 @@ public class PullMetaDataRemote extends RemoteService {
                 //producer
                 TIMEOUT);
         onTaskStarted();
+
+        // Provider Attributes
+        ConcurrencyUtils.consumeAsync(
+                attributes ->{
+                    repository.getDatabase().providerAttributeDao().insert(attributes);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getProviderAttribute(accessToken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
+
+        // Provider Attribute Types
+        ConcurrencyUtils.consumeAsync(
+                attributes ->{
+                    repository.getDatabase().providerAttributeTypeDao().insert(attributes);
+                    this.onTaskCompleted();
+                },//consumer
+                this::onError,
+                repository.getRestApi().getProviderAttributeType(accessToken),
+                //producer
+                TIMEOUT);
+        onTaskStarted();
     }
 
-    protected void notifySyncCompleted() {
-        Intent intent = new Intent(ServiceManager.IntentAction.PULL_META_DATA_REMOTE_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-    }
+    public void onTaskCompleted(){
 
-    @Override
-    public void onError(Throwable throwable) {
-        super.onError(throwable);
+        tasksCompleted++;
 
-        Intent intent = new Intent(ServiceManager.IntentAction.PULL_META_DATA_REMOTE_INTERRUPT);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        if(tasksCompleted == tasksStarted){
+            notifyCompleted();
+
+            mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
+            ServiceManager.getInstance(getApplicationContext())
+                    .setService(ServiceManager.Service.PUSH_ENTITY_REMOTE)
+                    .putExtras(mBundle)
+                    .start();
+        }
+
     }
 }

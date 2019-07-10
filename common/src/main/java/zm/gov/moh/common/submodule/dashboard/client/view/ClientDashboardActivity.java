@@ -60,7 +60,7 @@ public class ClientDashboardActivity extends BaseActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this, binding::setClient);
-        viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
+        viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });

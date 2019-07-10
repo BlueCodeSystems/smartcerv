@@ -10,6 +10,9 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 @Dao
 public interface PersonNameDao extends Synchronizable<PersonName> {
 
+    @Query("SELECT person_name_id FROM person_name")
+    List<Long> getIds();
+
     //gets all persons attribute type
     @Query("SELECT * FROM person_name")
     List<PersonName> getAll();
@@ -22,9 +25,15 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonName... personNames);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<PersonName> personNames);
+
     //get persons name by getPersons id
     @Query("SELECT * FROM person_name WHERE person_id = :id")
     PersonName findPersonNameById(long id);
+
+    @Query("UPDATE person_name SET person_id = :remote WHERE person_id = :local")
+    void replacePerson(long local, long remote);
 
     //get persons name by getPersons id
     @Override

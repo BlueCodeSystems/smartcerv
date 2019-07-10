@@ -36,4 +36,8 @@ public class Authentication {
     public String getUserUuid() {
         return user.getUuid();
     }
+
+    public String getToken() {
+        return token;
+    }
 }

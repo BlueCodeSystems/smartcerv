@@ -7,21 +7,26 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.LinkedList;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
 
 public class ServiceManager {
 
-    protected static Context context;
+    protected  Context context;
     protected Service mService;
     protected Intent mIntent;
     protected Bundle mBundle;
     protected static ServiceManager instance;
-    protected static ServiceBroadcastReceiver broadcastReceiver;
-    private  static LinkedList<Service> serviceExecutionPool;
+    protected ServiceBroadcastReceiver broadcastReceiver;
+    private  LinkedList<Service> serviceExecutionPool;
     private LocalBroadcastManager mLocalBroadcastManager;
+    private EnumMap<Service,Service> serviceSchedule;
+    private  ArrayList<Service> remoteServices;
 
 
 
@@ -29,29 +34,30 @@ public class ServiceManager {
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
-    public static LinkedList<Service> getServiceExecutionPool() {
+    public LinkedList<Service> getServiceExecutionPool() {
         return serviceExecutionPool;
     }
 
     public static ServiceManager getInstance(Context context) {
-        ServiceManager.context = context;
+
 
         if(instance == null) {
 
             instance = new ServiceManager();
-            broadcastReceiver = instance.getBroadcastReceiver(instance);
-            serviceExecutionPool = new LinkedList<>();
+            instance.context = context;
+            instance.broadcastReceiver = instance.getBroadcastReceiver(instance);
+            instance.serviceExecutionPool = new LinkedList<>();
+            instance.remoteServices = new ArrayList<>();
 
+            instance.remoteServices.add(Service.PULL_ENTITY_REMOTE);
+            instance.remoteServices.add(Service.PULL_META_DATA_REMOTE);
+            instance.remoteServices.add(Service.PULL_PATIENT_ID_REMOTE);
+            instance.remoteServices.add(Service.PUSH_ENTITY_REMOTE);
 
-            instance.registerIntent(IntentAction.PULL_META_DATA_REMOTE_COMPLETE);
-            instance.registerIntent(IntentAction.PULL_ENTITY_REMOTE_COMPLETE);
-            instance.registerIntent(IntentAction.PUSH_ENTITY_REMOTE_COMPLETE);
-            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
-
-            instance.registerIntent(IntentAction.PULL_META_DATA_REMOTE_INTERRUPT);
-            instance.registerIntent(IntentAction.PULL_ENTITY_REMOTE_INTERRUPT);
-            instance.registerIntent(IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT);
-            instance.registerIntent(IntentAction.PERSIST_ENCOUNTERS_INTERRUPT);
+            for(Service service :Service.values()){
+                instance.registerIntent(IntentAction.COMPLETED + service);
+                instance.registerIntent(IntentAction.INTERRUPTED + service);
+            }
         }
         return instance;
     }
@@ -62,8 +68,12 @@ public class ServiceManager {
         return broadcastReceiver;
     }
 
-    public void toastSyncInterrupted(){
-        Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
+    public ServiceManager startOnComplete(Service complete, Service start){
+        if(serviceSchedule == null)
+            serviceSchedule = new EnumMap<>(Service.class);
+
+        serviceSchedule.put(complete, start);
+        return this;
     }
 
     private void registerIntent(String intentAction){
@@ -78,17 +88,21 @@ public class ServiceManager {
 
         switch (mService){
 
+            case PULL_PATIENT_ID_REMOTE:
+                Toast.makeText(context,"Syncing",Toast.LENGTH_LONG).show();
+                mIntent = new Intent(context, PullPatientIDRemote.class);
+                break;
+
             case PULL_META_DATA_REMOTE:
                 mIntent = new Intent(context, PullMetaDataRemote.class);
-                Toast.makeText(context,"Syncing",Toast.LENGTH_LONG).show();
                 break;
 
             case PULL_ENTITY_REMOTE:
-               mIntent = new Intent(context, PullEntityRemote.class);
+               mIntent = new Intent(context, PullDataRemote.class);
                break;
 
             case PUSH_ENTITY_REMOTE:
-                mIntent = new Intent(context, PushEntityRemote.class);
+                mIntent = new Intent(context, PushDataRemote.class);
                 break;
 
             case PERSIST_DEMOGRAPHICS:
@@ -144,17 +158,9 @@ public class ServiceManager {
     }
 
     public class IntentAction{
-        //Complete
-         public static final String PULL_META_DATA_REMOTE_COMPLETE = "zm.gov.moh.common.PULL_META_DATA_REMOTE_COMPLETE";
-         public static final String PULL_ENTITY_REMOTE_COMPLETE = "zm.gov.moh.common.PULL_ENTITY_REMOTE_COMPLETE";
-         public static final String PUSH_ENTITY_REMOTE_COMPLETE = "zm.gov.moh.common.PUSH_ENTITY_REMOTE_COMPLETE";
-         public static final String PERSIST_ENCOUNTERS_COMPLETE = "zm.gov.moh.common.PERSIST_ENCOUNTERS_COMPLETE";
 
-         //Interrupt
-        public static final String PULL_META_DATA_REMOTE_INTERRUPT = "zm.gov.moh.common.PULL_META_DATA_REMOTE_INTERRUPT";
-        public static final String PULL_ENTITY_REMOTE_INTERRUPT = "zm.gov.moh.common.PULL_ENTITY_REMOTE_INTERRUPT";
-        public static final String PUSH_ENTITY_REMOTE_INTERRUPT = "zm.gov.moh.common.PUSH_ENTITY_REMOTE_INTERRUPT";
-        public static final String PERSIST_ENCOUNTERS_INTERRUPT = "zm.gov.moh.common.PERSIST_ENCOUNTERS_INTERRUPT";
+        public static final String INTERRUPTED = "zm.gov.moh.common.INTERRUPTED_";
+        public static final String COMPLETED = "zm.gov.moh.common.COMPLETED_";
     }
 
     public class ServiceBroadcastReceiver extends BroadcastReceiver{
@@ -171,50 +177,28 @@ public class ServiceManager {
             Bundle bundle;
 
             bundle = intent.getExtras();
-            ServiceManager.Service serviceName = (ServiceManager.Service) bundle.getSerializable(Key.SERVICE_NAME);
+            ServiceManager.Service service = (ServiceManager.Service) bundle.getSerializable(Key.SERVICE);
 
-            switch (action){
-                //Complete
-                case IntentAction.PULL_META_DATA_REMOTE_COMPLETE:
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    serviceManager.setService(Service.PULL_ENTITY_REMOTE).start();
 
-                    break;
-                case IntentAction.PULL_ENTITY_REMOTE_COMPLETE:
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    serviceManager.setService(Service.PUSH_ENTITY_REMOTE).start();
+            final String intentActionServiceCompleted = IntentAction.COMPLETED + service;
+            final String intentActionServiceInterrupted = IntentAction.INTERRUPTED + service;
 
-                    break;
-                case IntentAction.PUSH_ENTITY_REMOTE_COMPLETE:
-                    Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    break;
+            if(action != null && action.equals(intentActionServiceCompleted)){
 
-                case IntentAction.PERSIST_ENCOUNTERS_COMPLETE:
-                    Toast.makeText(context,"Encounter saved",Toast.LENGTH_LONG).show();
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    break;
+                serviceManager.getServiceExecutionPool().remove(service);
 
-                //Interrupt
-                case IntentAction.PULL_META_DATA_REMOTE_INTERRUPT:
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    serviceManager.toastSyncInterrupted();
 
-                    break;
-                case IntentAction.PULL_ENTITY_REMOTE_INTERRUPT:
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    serviceManager.toastSyncInterrupted();
-                    break;
+                EntityType entityType = (EntityType) bundle.getSerializable(Key.ENTITY_TYPE);
 
-                case IntentAction.PUSH_ENTITY_REMOTE_INTERRUPT:
-                    serviceManager.toastSyncInterrupted();
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    break;
+                if(serviceSchedule.containsKey(service)) {
+                    serviceManager.setService(serviceSchedule.get(service)).start();
+                    serviceSchedule.remove(service);
+                }
 
-                case IntentAction.PERSIST_ENCOUNTERS_INTERRUPT:
-                    Toast.makeText(context,"Encounter saving interrupted",Toast.LENGTH_LONG).show();
-                    serviceManager.getServiceExecutionPool().remove(serviceName);
-                    break;
+            }else if (action != null && action.equals(intentActionServiceInterrupted)){
+                serviceManager.getServiceExecutionPool().remove(service);
+                if(serviceManager.remoteServices.contains(service))
+                    Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
             }
         }
     }

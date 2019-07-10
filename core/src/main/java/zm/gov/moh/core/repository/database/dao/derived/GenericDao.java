@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
 @Dao
 public  interface GenericDao {
@@ -25,7 +25,7 @@ public  interface GenericDao {
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId AND encounter_type = (SELECT encounter_type_id  FROM encounter_type WHERE uuid = :encounterTypeUuid) AND patient_id = :patientId)")
-    List<Obs> getPatientObsByEncounterTypeAndVisitId(long patientId, long visitId, String encounterTypeUuid);
+    List<ObsEntity> getPatientObsByEncounterTypeAndVisitId(long patientId, long visitId, String encounterTypeUuid);
 
     //get getPersons by id
     @Query("SELECT value_coded FROM obs WHERE encounter_id = :encounterId AND person_id = :patientId AND concept_id = :conceptId")
@@ -33,7 +33,7 @@ public  interface GenericDao {
 
     //get getPersons by id =9223372036854725812
     @Query("SELECT * FROM obs Where encounter_id in (select encounter_id from encounter where encounter_type = 12)")
-    List<Obs> testQ();
+    List<ObsEntity> testQ();
 
     //get getPersons by id
     @Query("SELECT value_coded FROM obs JOIN encounter ON obs.encounter_id = encounter.encounter_id JOIN visit ON encounter.visit_id = visit.visit_id WHERE person_id = :patientId AND concept_id = :conceptId AND visit.visit_id = :visitId")
@@ -44,21 +44,21 @@ public  interface GenericDao {
     Long getPatientEncounterIdByVisitIdEncounterTypeId(long patientId, long visitId, String encounterTypeUuid);
 
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId AND patient_id = :patientId)")
-    List<Obs> getPatientObsByVisitId(long patientId, long visitId);
+    List<ObsEntity> getPatientObsByVisitId(long patientId, long visitId);
 
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId AND patient_id = :patientId) AND concept_id = :conceptId")
-    List<Obs> getPatientObsByConceptIdVisitId(long patientId,long conceptId, long visitId);
+    List<ObsEntity> getPatientObsByConceptIdVisitId(long patientId, long conceptId, long visitId);
 
     //get getPersons by id
     //refactored Vitals DAO into Generic DAO
     @Query("SELECT * FROM obs WHERE encounter_id = :encounterId AND person_id = :patientId")
-    List<Obs> getPatientObsByEncounterId(long patientId, long encounterId);
+    List<ObsEntity> getPatientObsByEncounterId(long patientId, long encounterId);
 
 
 
     // Refactored Vitals Data Access Object
     //@Query("SELECT * FROM obs  WHERE  person_id = :patientId  AND concept_id = (select concept_id from openmrs.concept where uuid= :conceptUuid ) AND obs_datetime  ")
     @Query("SELECT * FROM obs LAST_INSERT_ID WHERE concept_id = (select concept_id from concept where uuid= :conceptUuid ) AND person_id = :patientId AND obs_datetime = (SELECT MAX(obs_datetime) FROM obs WHERE  concept_id = (select concept_id from concept where uuid= :conceptUuid )) AND person_id = :patientId")
-    LiveData<Obs>getPatientObsValueByConceptId(long patientId, String conceptUuid);
+    LiveData<ObsEntity>getPatientObsValueByConceptId(long patientId, String conceptUuid);
     
 }
