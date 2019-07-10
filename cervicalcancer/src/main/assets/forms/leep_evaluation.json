@@ -1,8 +1,8 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
-    "submitLabel":"Submit"
+    "panelType": "form",
+    "formType": "encounter",
+    "submitLabel": "Submit"
   },
   "widgetGroup": [
     {
@@ -19,7 +19,7 @@
           "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date",
-          "hint":"dd MMM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "tag": "facility",
@@ -48,7 +48,7 @@
         {
           "tag": "PERSON_FAMILY_NAME",
           "widgetType": "EditText",
-          "label":"Last Name:",
+          "label": "Last Name:",
           "hint": "Last Name",
           "weight": 1
         },
@@ -63,7 +63,7 @@
           "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date",
-          "hint":"dd MMM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "tag": "provider",
@@ -128,7 +128,7 @@
           "widgetType": "DatePicker",
           "textSize": 18,
           "text": "Select Date",
-          "hint":"dd MMM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "tag": "PLACE_OF_HIV_TEST",
@@ -156,7 +156,7 @@
         {
           "tag": "atypical vessel",
           "widgetType": "Concept",
-          "conceptId":165242,
+          "conceptId": 165242,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Atypical vessel",
@@ -188,6 +188,28 @@
           "hint": "dd MM yyyy"
         },
         {
+          "tag": "cd4 count",
+          "widgetType": "Concept",
+          "conceptId": 165241,
+          "dataType": "Text",
+          "hint": "Number",
+          "label": "Most Recent CD4",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": " Date for CD4 Count",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "cd4 date",
+          "conceptId": 165210,
+          "dataType": "Date",
+          "widgetType": "DatePicker",
+          "hint": "dd MM yyyy"
+        },
+        {
           "widgetType": "TextView",
           "label": "Date on which the client started ARVs if on ARVs",
           "textSize": 18,
@@ -198,7 +220,7 @@
           "widgetType": "DatePicker",
           "weight": 1,
           "text": "Select Date",
-          "hint":"dd MMM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -212,7 +234,7 @@
           "hint": "Can be obtained from the referral slip",
           "weight": 1,
           "text": "Select Date",
-          "hint":"dd MMM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
@@ -231,7 +253,7 @@
           "widgetType": "Concept",
           "conceptId": 165117,
           "dataType": "Coded",
-          "style":"dropdown",
+          "style": "dropdown",
           "label": "Type of visit",
           "textSize": 18
         }
@@ -242,7 +264,7 @@
       "widgets": [
         {
           "tag": "image view button",
-          "uuid":"4da37d55-3754-4648-8549-35abf708dee9",
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
           "label": "Image Load",
           "textSize": 18,
@@ -312,25 +334,49 @@
           "textSize": 18
         },
         {
-          "tag": "other",
+          "tag": "Other_leep_evaluation",
           "widgetType": "Concept",
-          "conceptId": 5622,
+          "conceptId": 165381,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Reason For Other",
           "textSize": 18,
-          "weight": 1
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
+          "tag": "Reason For Other",
+          "widgetType": "Concept",
+          "conceptId": 165154,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
         },
         {
           "widgetType": "TextView",

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.request.BaseRequestOptions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
@@ -29,6 +32,7 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.security.MessageDigest;
 import java.time.ZoneId;
 import java.util.AbstractMap;
@@ -112,51 +116,50 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
     }
 
      class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder> {
-        private  LinkedList<Map.Entry<String,LinkedHashMultimap<Long, String>>> ediVisitDataList;
-        private Context context;
-        private FormCameraButtonWidget ediPrint;
+         private LinkedList<Map.Entry<String, LinkedHashMultimap<Long, String>>> ediVisitDataList;
+         private Context context;
+         private FormCameraButtonWidget ediPrint;
          private MenuItem item;
          private Object v;
+         private Context mContext;
+         private Uri uri;
+         private String sampleName;
 
 
-         public ImageDataAdapter(Context context, Map<String,LinkedHashMultimap<Long, String>> ediVisitData) {
-            ediVisitDataList = new LinkedList<>();
-            this.context = context;
+         public ImageDataAdapter(Context context, Map<String, LinkedHashMultimap<Long, String>> ediVisitData) {
+             ediVisitDataList = new LinkedList<>();
+             this.context = context;
 
 
-            for(Map.Entry<String,LinkedHashMultimap<Long, String>> ediData : ediVisitData.entrySet())
-                ediVisitDataList.push(ediData);
+             for (Map.Entry<String, LinkedHashMultimap<Long, String>> ediData : ediVisitData.entrySet())
+                 ediVisitDataList.push(ediData);
 
-        }
+         }
 
-        @Override
-        public ImageDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
-            return new ViewHolder(view);
-
-
+         @Override
+         public ImageDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
+             return new ViewHolder(view);
 
 
+         }
 
+         @Override
+         public void onBindViewHolder(ViewHolder viewHolder, int i) {
+             AppCompatImageView imageView = viewHolder.img, imageView2 = viewHolder.img2;
+             TextView caption = viewHolder.caption;
+             Map.Entry<String, LinkedHashMultimap<Long, String>> data = ediVisitDataList.get(i);
 
-        }
+             File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+             long dateTimeEpoch = data.getValue().keySet().iterator().next();
 
-        @Override
-        public void onBindViewHolder(ViewHolder viewHolder, int i) {
-            AppCompatImageView imageView = viewHolder.img,  imageView2 = viewHolder.img2;
-            TextView caption = viewHolder.caption;
-            Map.Entry<String,LinkedHashMultimap<Long, String>> data = ediVisitDataList.get(i);
+             Iterator<String> images = data.getValue().get(dateTimeEpoch).iterator();
 
-            File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
-            long dateTimeEpoch = data.getValue().keySet().iterator().next();
+             Instant dateTime = Instant.ofEpochSecond(dateTimeEpoch);
+             LocalDateTime visitDateTime = LocalDateTime.ofInstant(dateTime, ZoneOffset.UTC);
+             String visitDateTimeFormatted = visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
 
-            Iterator<String> images = data.getValue().get(dateTimeEpoch).iterator();
-
-            Instant dateTime = Instant.ofEpochSecond(dateTimeEpoch);
-            LocalDateTime visitDateTime = LocalDateTime.ofInstant(dateTime, ZoneOffset.UTC);
-            String visitDateTimeFormatted =  visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-
-            caption.setText(data.getKey()+" on "+visitDateTimeFormatted);
+             caption.setText(data.getKey() + " on " + visitDateTimeFormatted);
             /*imageView.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
@@ -170,76 +173,78 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
                                          });**/
 
 
-            imageView.setOnClickListener(new View.OnClickListener() {
-                //private boolean isImageFitToScreen;
+             imageView.setOnClickListener(new View.OnClickListener() {
+                 //private boolean isImageFitToScreen;
 
-                @Override
-                public void onClick(View v) {
+                 @Override
+                 public void onClick(View v) {
 
-                    Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_VIEW);
-                    imageView.setOnClickListener(this);
-                    imageView2.setOnClickListener(this);
-                    ((AppCompatActivity)context).startActivityForResult(Intent.createChooser(intent,
-                            "Select Picture"), 1);
-                }
-            });
-
-            try {
-                if(images.hasNext()){
-                    RequestBuilder builder = Glide
-                            .with(context)
-                            .asBitmap();
-                                signature(new StringSignature(String.valueOf(System.currentTimeMillis())));
-                               builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
-                                       .into(imageView);
-
-                    if(images.hasNext()){
-                        builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
-                                .into(imageView2);
-                    }
-                }
-            }catch (Exception e){
-                Exception ex = e;
-            }
+                     Intent intent = new Intent();
+                     intent.setType("image/*");
+                     intent.setAction(Intent.ACTION_VIEW);
+                     imageView.setOnClickListener(this);
+                     imageView2.setOnClickListener(this);
+                     ((AppCompatActivity) context).startActivityForResult(Intent.createChooser(intent,
+                             "Select Picture"), 1);
+                 }
+             });
 
 
+             try {
+                 /*File ediSamples = MediaStorageUtil.getPrivateAlbumStorageDir(mContext, MediaStorageUtil.EDI_DIRECTORY);
+                 mContext.getContentResolver().openInputStream(uri);
+                 FileOutputStream fileOutputStream = new FileOutputStream(new File(ediSamples.getAbsolutePath()+"/"+sampleName+".png"));
+                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);*/
+                 
+                 if (images.hasNext()) {
+                     RequestBuilder builder = Glide
+                             .with(context)
+                             .asBitmap();
+                     signature(new StringSignature(String.valueOf(System.currentTimeMillis())));
+                     builder.load(image.getCanonicalPath() + "/" + images.next() + ".png")
+                             //.diskCacheStrategy(DiskCacheStrategy.NONE)
+                             //.skipMemoryCache(true)
+                             .into(imageView);
+                     if (images.hasNext()) {
+                         builder.load(image.getCanonicalPath() + "/" + images.next() + ".png")
+                                 //.diskCacheStrategy(DiskCacheStrategy.NONE)
+                                 //.skipMemoryCache(true)
+                                 .into(imageView2);
+                     }
+                 }
+             } catch (Exception e) {
+                 Exception ex = e;
+             }
 
 
+             //String fileName = "IMG_20190429_154929.jpg";
+             //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/" + fileName;
+             //File file = new File(completePath);
+             //Uri imageUri = Uri.fromFile(file);
+
+             //Glide.with(context).load(file).transform(new Transform()).into(imageView);
+             //Uri.fromFile(new File(completePath));
+
+             //Glide.with(context)
+             //.load(Uri.fromFile(new File(completePath)))
+             //.apply(new RequestOptions().override(100, 100))
+             //.into(imageView);
+
+             //Glide.with(context)
+             //.load(fileName)
+             //.into(imageView);
+             //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/Camera";
+             //String uri = samples.get(i);
+             //String path = Uri.decode(uri.substring(uri.lastIndexOf('/')));
+             //File file = new File(completePath);
+             // Uri imageUris = Uri.fromFile(file);
 
 
+             //.load(new File(completePath+path))
 
 
-            //String fileName = "IMG_20190429_154929.jpg";
-            //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/" + fileName;
-            //File file = new File(completePath);
-            //Uri imageUri = Uri.fromFile(file);
-
-            //Glide.with(context).load(file).transform(new Transform()).into(imageView);
-            //Uri.fromFile(new File(completePath));
-
-            //Glide.with(context)
-            //.load(Uri.fromFile(new File(completePath)))
-            //.apply(new RequestOptions().override(100, 100))
-            //.into(imageView);
-
-            //Glide.with(context)
-            //.load(fileName)
-            //.into(imageView);
-            //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/Camera";
-            //String uri = samples.get(i);
-            //String path = Uri.decode(uri.substring(uri.lastIndexOf('/')));
-            //File file = new File(completePath);
-            // Uri imageUris = Uri.fromFile(file);
-
-
-
-
-            //.load(new File(completePath+path))
-
-
-        }
+         }
 
          private void signature(StringSignature stringSignature) {
          }
@@ -249,26 +254,25 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
 
          @Override
-        public int getItemCount() {
+         public int getItemCount() {
 
-            return ediVisitDataList.size();
-        }
+             return ediVisitDataList.size();
+         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            AppCompatImageView img,img2;
-            TextView caption;
+             AppCompatImageView img, img2;
+             TextView caption;
 
-            public ViewHolder(View view) {
-                super(view);
-                img = view.findViewById(R.id.iv);
-                img2 = view.findViewById(R.id.img2);
-                caption = view.findViewById(R.id.caption);
+             public ViewHolder(View view) {
+                 super(view);
+                 img = view.findViewById(R.id.iv);
+                 img2 = view.findViewById(R.id.img2);
+                 caption = view.findViewById(R.id.caption);
 
 
-
-            }
-        }
+             }
+         }
 
          private class StringSignature implements Key {
              public StringSignature(String s) {
@@ -281,14 +285,15 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
          }
 
 
+         private class Transform implements com.bumptech.glide.load.Transformation<Bitmap> {
+             @NonNull
+             @Override
+             public Resource<Bitmap> transform(@NonNull Context context, @NonNull Resource<Bitmap> resource, int outWidth, int outHeight) {
+                 return null;
+             }
 
-        /*private class Transform implements com.bumptech.glide.load.Transformation<Bitmap> {
-            @NonNull
-            @Override
-            public Resource<Bitmap> transform(@NonNull Context context, @NonNull Resource<Bitmap> resource, int outWidth, int outHeight) {
-                return null;
-            }
-            @Override
-            public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-            }*/
-}
+             @Override
+             public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+             }
+         }
+     }

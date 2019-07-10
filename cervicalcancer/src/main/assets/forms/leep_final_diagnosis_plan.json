@@ -162,8 +162,8 @@
         {
           "tag": "malignant",
           "widgetType": "Concept",
-          "conceptId": 1653738,
-          "dataType": "Boolean",
+          "conceptId": 165377,
+          "dataType": "Coded",
           "style": "radio",
           "label": "Malignant",
           "textSize": 18,
@@ -243,28 +243,46 @@
           "widgetType": "EditText",
           "hint": "                                                                                                                                          ",
           "weight": 1
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "weight": 1
         }
       ]
     },
     {
-      "title": "Final Diagnosis & Plan",
-      "widgets": [
+    "title": "Final Diagnosis & Plan",
+    "widgets": [
+      {
+        "tag": "normal",
+        "widgetType": "Concept",
+        "conceptId": 165222,
+        "dataType": "Boolean",
+        "style": "radio",
+        "label": "Normal",
+        "textSize": 18
+      },
         {
-          "tag": "normal",
+          "tag": "benign",
           "widgetType": "Concept",
-          "conceptId": 165327,
+          "conceptId": 165372,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Normal",
-          "textSize": 18
-        },
-        {
-          "tag": "cervicitis_inflammation",
-          "widgetType": "Concept",
-          "conceptId": 165314,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Cervicitis/inflammation",
+          "label": "Benign",
           "textSize": 18
         },
         {
@@ -295,43 +313,71 @@
           "textSize": 18
         },
         {
-          "tag": "microinvasive_cancer",
+          "tag": "adenocarcinoma-in-situ",
           "widgetType": "Concept",
-          "conceptId": 165328,
+          "conceptId": 165373,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Microinvasive cancer",
+          "label": "Adenocarcinoma-in-situ",
           "textSize": 18
         },
         {
-          "tag": "invasive_adenocarcinoma",
+          "tag": "malignant",
           "widgetType": "Concept",
-          "conceptId": 165329,
-          "dataType": "Boolean",
+          "conceptId": 165377,
+          "dataType": "Coded",
           "style": "radio",
-          "label": "Invasive adenocarcinoma",
-          "textSize": 18
+          "label": "Malignant",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["r"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "invasive_squamous_cell_carcinoma",
-          "widgetType": "Concept",
-          "conceptId": 165330,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Invasive squamous cell carcinoma",
-          "textSize": 18
-        },
-        {
-          "tag": "invasive_adenosquamous_cell_carcinoma",
-          "widgetType": "Concept",
-          "conceptId": 165331,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Invasive adenosquamous cell carcinoma",
-          "textSize": 18
-        },
-        {
-          "tag": "insufficient_for_processing",
+          "tag": "insufficient for processing",
           "widgetType": "Concept",
           "conceptId": 165332,
           "dataType": "Boolean",
@@ -340,29 +386,19 @@
           "textSize": 18
         },
         {
-          "tag": "no_cervical_epithelial_cells",
-          "widgetType": "Concept",
-          "conceptId": 165333,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "No cervical epithelial cells",
-          "textSize": 18
-        },
-        {
           "tag": "other",
           "widgetType": "Concept",
-          "conceptId": 165170,
+          "conceptId": 5622,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
           "textSize": 18
         },
         {
-          "tag": "other",
           "widgetType": "TextView",
           "label": "Reason For Other",
-          "weight": 1,
-          "textSize": 18
+          "textSize": 18,
+          "weight": 1
         },
         {
           "tag": "other",
@@ -370,64 +406,88 @@
           "hint": "                                                                                                                                          ",
           "weight": 1
         },
-        {
-          "tag": "provider",
-          "widgetType": "ProviderLabel",
-          "label": "Provider Name",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Phone",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "phone",
-          "widgetType": "EditText",
-          "hint": "Example +260967546754",
-          "weight": 1
-        }
+      {
+        "tag": "provider",
+        "widgetType": "ProviderLabel",
+        "label": "Provider Name",
+        "textSize": 18
+      },
+      {
+        "widgetType": "TextView",
+        "label": "Phone",
+        "textSize": 18,
+        "weight": 1
+      },
+      {
+        "tag": "phone",
+        "widgetType": "EditText",
+        "hint": "Example +260967546754",
+        "weight": 1
+      }
       ]
     },
     {
       "title": "Plan",
       "widgets": [
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 1",
-          "weight": 1
+          "tag":"ceftriaxone",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 2",
-          "weight": 1
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 3",
-          "weight": 1
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
+        },
+        {
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
+        },
+        {
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+        },
+        {
+          "tag":"Metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+        },
+        {
+          "tag":"Metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
         },
         {
           "tag": "date_discussed",
