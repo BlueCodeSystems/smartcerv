@@ -7,20 +7,34 @@
   },
   "widgetGroup": [
     {
-      "widgets": [
-        {
-          "tag": "date of referral",
-          "widgetType": "DatePicker",
-          "weight": 1,
-          "hint": "DD/MM/YYYY"
-        }
-      ]
-    },
-    {
+      "title": "Main",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Date of referral",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "date of referral",
+              "widgetType": "DatePicker",
+              "weight": 1,
+              "hint": "DD/MM/YYYY"
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Client ID",
+              "textSize": 18,
+              "weight": 1
+            },
             {
               "tag": "client id number",
               "widgetType": "Concept",
@@ -30,14 +44,16 @@
               "textSize": 18
             }
           ]
-        }
-      ]
-    },
-    {
-      "widgets": [
+        },
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "ART Number",
+              "textSize": 18,
+              "weight": 1
+            },
             {
               "tag": "art number",
               "widgetType": "Concept",
@@ -47,11 +63,7 @@
               "textSize": 18
             }
           ]
-        }
-      ]
-    },
-    {
-      "widgets": [
+        },
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
@@ -73,10 +85,10 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "referral clinic",
-              "widgetType": "FacilityLabel",
-              "hint": "Referral Clinic",
-              "textSize": 18
+              "widgetType": "TextView",
+              "label": "Age",
+              "textSize": 18,
+              "weight": 1
             },
             {
               "tag": "PERSON_AGE",
@@ -85,10 +97,28 @@
               "hint": "Age"
             }
           ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Referring Clinic",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "referral clinic",
+              "widgetType": "FacilityLabel",
+              "hint": "Referral Clinic",
+              "textSize": 18
+            }
+          ]
         }
       ]
     },
     {
+      "title": "Reason for referral",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
@@ -261,11 +291,7 @@
               "hint": "blah blah blah blah blah blah"
             }
           ]
-        }
-      ]
-    },
-    {
-      "widgets": [
+        },
         {
           "widgetType":"TextView",
           "label":"Comments",
