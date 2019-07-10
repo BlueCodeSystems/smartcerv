@@ -17,9 +17,15 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM person")
     LiveData<List<Person>> getAll();
 
+    @Query("SELECT person_id FROM person")
+    List<Long> getIds();
+
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Person person);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<Person> person);
 
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -32,8 +38,8 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT uuid FROM person WHERE person_id = :patientId")
     String findByPatientId(long patientId);
 
-    @Query("DELETE FROM person WHERE person_id IN (:id)")
-    void deleteById(long ...id);
+    @Query("UPDATE person SET person_id = :remote WHERE person_id = :local ")
+    void replacePerson(long local, long remote );
 
     @Query("SELECT MAX(person_id) FROM person")
     Long getMaxId();

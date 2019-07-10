@@ -16,6 +16,9 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT MAX(obs_id) FROM obs")
     Long getMaxId();
 
+    @Query("SELECT obs_id FROM obs")
+    List<Long> getIds();
+
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ObsEntity obs);
@@ -30,7 +33,10 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")
-    List<ObsEntity> findByPatientId(long id);
+    ObsEntity[] findByPatientId(long id);
+
+    @Query("DELETE FROM obs WHERE obs_id IN (:obsId) AND obs_id >= :offset")
+    void deleteById(long[] obsId, long offset);
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")
@@ -46,6 +52,9 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT * FROM obs WHERE encounter_id = :id")
     List<ObsEntity> getObsByEncounterId(long id);
 
+    @Query("SELECT obs_id FROM obs WHERE encounter_id IN (:encounterId)")
+    long[] getObsByEncounterId(long[] encounterId );
+
     @Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds)")
     List<ObsEntity> getObsByEncounterId(List<Long> encounterIds);
 
@@ -58,4 +67,7 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Override
     @Query("SELECT * FROM (SELECT * FROM obs WHERE obs_id NOT IN (:id)) WHERE obs_id >= :offsetId")
     ObsEntity[] findEntityNotWithId(long offsetId, long... id);
+
+    @Query("UPDATE obs SET person_id = :remotePersonId WHERE person_id = :localPersonId")
+    void replaceLocalPersonId(long localPersonId, long remotePersonId);
 }

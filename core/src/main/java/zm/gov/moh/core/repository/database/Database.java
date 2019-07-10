@@ -11,6 +11,7 @@ import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
 import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
 import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.derived.MetricsDao;
+import zm.gov.moh.core.repository.database.dao.derived.PersonIdentifierDao;
 import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
@@ -42,6 +43,7 @@ import zm.gov.moh.core.repository.database.dao.domain.VisitTypeDao;
 import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
 import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
+import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
@@ -110,7 +112,8 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 Concept.class,
                 EntityMetadata.class,
                 Drug.class,
-                Identifier.class
+                Identifier.class,
+                PersonIdentifier.class
 
         }, version = 1
         , exportSchema = false)
@@ -159,6 +162,7 @@ public abstract class Database extends RoomDatabase {
     public abstract ClientDao clientDao();
     public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
     public abstract GenericDao genericDao();
+    public abstract PersonIdentifierDao personIdentifierDao();
 
     //System
     public abstract EntityMetadataDao entityMetadataDao();

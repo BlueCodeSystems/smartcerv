@@ -75,8 +75,10 @@ public class BaseActivity extends AppCompatActivity {
             broadcastManager = LocalBroadcastManager.getInstance(this);
 
             IntentFilter intentFilter = new IntentFilter(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION);
+            IntentFilter syncIntentFilter = new IntentFilter(IntentAction.REMOTE_SYNC_COMPLETE);
 
             broadcastManager.registerReceiver(baseReceiver, intentFilter);
+            broadcastManager.registerReceiver(baseReceiver, syncIntentFilter);
         }
     }
 

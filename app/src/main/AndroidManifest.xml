@@ -19,4 +19,8 @@
         </activity>
         <activity android:name=".view.HomeActivity" />
     </application>
+    <supports-screens android:smallScreens="false"
+        android:normalScreens="false"
+        android:largeScreens="true"
+        android:xlargeScreens="true"/>
 </manifest>

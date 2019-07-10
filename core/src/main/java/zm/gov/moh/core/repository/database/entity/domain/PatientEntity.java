@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
 
 @Entity(tableName = "patient")
-public class PatientEntity extends SynchronizableEntity {
+public class PatientEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "patient_id")
@@ -138,7 +138,4 @@ public class PatientEntity extends SynchronizableEntity {
         this.allergyStatus = allergyStatus;
     }
 
-    public long getId(){
-        return patientId;
-    }
 }
