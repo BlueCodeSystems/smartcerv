@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
 
 public class ServiceManager {
 
@@ -97,11 +98,11 @@ public class ServiceManager {
                 break;
 
             case PULL_ENTITY_REMOTE:
-               mIntent = new Intent(context, PullEntityRemote.class);
+               mIntent = new Intent(context, PullDataRemote.class);
                break;
 
             case PUSH_ENTITY_REMOTE:
-                mIntent = new Intent(context, PushEntityRemote.class);
+                mIntent = new Intent(context, PushDataRemote.class);
                 break;
 
             case PERSIST_DEMOGRAPHICS:
@@ -186,17 +187,16 @@ public class ServiceManager {
 
                 serviceManager.getServiceExecutionPool().remove(service);
 
+
+                EntityType entityType = (EntityType) bundle.getSerializable(Key.ENTITY_TYPE);
+
                 if(serviceSchedule.containsKey(service)) {
                     serviceManager.setService(serviceSchedule.get(service)).start();
                     serviceSchedule.remove(service);
                 }
 
-                if(service == Service.PUSH_ENTITY_REMOTE)
-                    Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
-
             }else if (action != null && action.equals(intentActionServiceInterrupted)){
                 serviceManager.getServiceExecutionPool().remove(service);
-
                 if(serviceManager.remoteServices.contains(service))
                     Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
             }
