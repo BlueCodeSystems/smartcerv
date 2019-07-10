@@ -129,7 +129,7 @@
               "tag": "cd4 date",
               "conceptId": 165210,
               "dataType": "Date",
-              "widgetType": "DatePicker",
+              "widgetType": "Concept",
               "hint": "dd MM yyyy"
             }
           ]
@@ -152,7 +152,7 @@
               "tag": "viral load date",
               "conceptId": 165212,
               "dataType": "Date",
-              "widgetType": "DatePicker",
+              "widgetType": "Concept",
               "hint": "dd MM yyyy"
             }
           ]
@@ -317,7 +317,7 @@
           "tag": "Date tested negative",
           "conceptId": 165251,
           "dataType": "Date",
-          "widgetType": "DatePicker",
+          "widgetType": "Concept",
           "label": "Select date tested negative",
           "hint": "dd MM yyyy"
         },

@@ -70,6 +70,7 @@
           "widgetType":"Concept",
           "label":"Reason for delayed treatment",
           "conceptId": 165240,
+          "uuid":"79933bfe-f5fa-41aa-b24b-a47564946d7c",
           "dataType":"Coded",
           "style":"check",
           "textSize": 18

@@ -5,7 +5,7 @@
             android:name=".service.PullMetaDataRemote"
             android:exported="false"/>
         <service
-            android:name=".service.PullEntityRemote"
+            android:name=".service.PullDataRemote"
             android:exported="false"/>
         <service
             android:name=".service.SearchIndex"
@@ -17,17 +17,19 @@
             android:name=".service.PersistDemographics"
             android:exported="false"/>
         <service
-            android:name=".service.PushEntityRemote"
+            android:name=".service.PushDataRemote"
             android:exported="false"/>
         <service
             android:name=".service.PullPatientIDRemote"
             android:exported="false"/>
+        <service
+            android:name=".service.SubstituteLocalEntity"
+            android:exported="false"/>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--meta-data
-        //android:name="android.support.FILE_PROVIDER_PATHS"
-        //android:resource="@xml/file_paths" /!-->
+
+    <!--Permissions-->
+    <uses-permission android:name="android.permission.INTERNET" android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" android:required="false"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:required="false" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:required="false"/>
 </manifest>

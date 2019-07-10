@@ -77,7 +77,9 @@
         {
           "tag": "last_menstrual_period",
           "conceptId": 165202,
-          "widgetType": "DatePicker",
+          "uuid":"5e0feaa8-822c-408c-b559-4fbb26d32c1d",
+          "widgetType": "Concept",
+          "dataType": "Date",
           "weight": 1,
           "label": "Date of Last Menstrual Period",
           "hint": "dd MMM yyyy",
@@ -203,228 +205,57 @@
       "title": "Previous Cervical Cancer Screening & Treatment",
       "widgets": [
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "VIA_check",
-              "widgetType": "Concept",
-              "conceptId": 165254,
-              "uuid": "141c635f-0655-476c-b538-fde07f1ac694",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "VIA",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "via_date"
-                      ]
-                    }
-                  }
-                },
-                {
-                  "condition": {
-                    "value": 2
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        ""
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "tag": "via_date",
-              "conceptId": 165269,
-              "widgetType": "DatePicker",
-              "weight": 1,
-              "hint": "dd MMM yyyy",
-              "textSize": 18
-            }
-          ]
+          "tag": "via_date",
+          "conceptId": 165269,
+          "uuid":"d2d58d18-bac2-49ef-8f24-6f340704be42",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "weight": 1,
+          "label":"Via",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "PAP_Smear_Check",
-              "widgetType": "Concept",
-              "conceptId": 165255,
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "PAP Smear",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "pap smear_date"
-                      ]
-                    }
-                  }
-                },
-                {
-                  "condition": {
-                    "value": 2
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        ""
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "tag": "pap smear_date",
-              "conceptId": 165107,
-              "widgetType": "DatePicker",
-              "dataType": "Date",
-              "hint": "dd MMM yyyy",
-              "textSize": 18
-            }
-          ]
+          "tag": "pap smear_date",
+          "conceptId": 165107,
+          "uuid":"a2504b0d-f46f-40ef-8e85-7cfb4acd1a4a",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "label":"Pap smear",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "Cryotherapy_Check",
-              "widgetType": "Concept",
-              "conceptId": 165256,
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Cryotherapy",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "cryotherapy_date"
-                      ]
-                    }
-                  }
-                },
-                {
-                  "condition": {
-                    "value": 2
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        ""
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "tag": "cryotherapy_date",
-              "conceptId": 165108,
-              "widgetType": "DatePicker",
-              "hint": "dd MMM yyyy",
-              "textSize": 18
-            }
-          ]
+          "tag": "cryotherapy_date",
+          "conceptId": 165108,
+          "uuid":"a1f8ca72-fb0b-426b-8d94-1ed1db174cc9",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "label":"Cryotherapy",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "Thermal Coagulation_check",
-              "widgetType": "Concept",
-              "conceptId": 165257,
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Thermal Coagulation",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "thermal coagulation_date"
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "tag": "thermal coagulation_date",
-              "conceptId": 165109,
-              "widgetType": "DatePicker",
-              "hint": "dd MMM yyyy",
-              "textSize": 18
-            }
-          ]
+          "tag": "thermal coagulation_date",
+          "conceptId": 165109,
+          "uuid":"815b6c8d-1a83-41dd-9fec-fd18477d7293",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "label":"Thermal coagulation",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "Leep_Check",
-              "widgetType": "Concept",
-              "conceptId": 165258,
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "LEEP",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 1
-                  },
-                  "action": {
-                    "type": "skipLogic",
-                    "metadata": {
-                      "tags": [
-                        "leep_date"
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "tag": "leep_date",
-              "conceptId": 165110,
-              "widgetType": "DatePicker",
-              "hint": "dd MMM yyyy",
-              "textSize": 18
-            }
-          ]
-        },
-        {
+          "tag": "leep_date",
+          "conceptId": 165110,
+          "uuid":"97345f49-735d-4b0e-acca-be6b969cb812",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "label":"LEEP",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        }
+        ,{
           "tag": "history of stis",
           "widgetType": "Concept",
           "conceptId": 165111,
@@ -452,19 +283,6 @@
                 "metadata": {
                   "tags": [
                     "other surgical history"
-                  ]
-                }
-              }
-            },
-            {
-              "condition": {
-                "value": 2
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [
-                    ""
                   ]
                 }
               }

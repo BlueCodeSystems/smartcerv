@@ -15,6 +15,9 @@ public interface VisitTypeDao {
     @Query("SELECT visit_type_id FROM visit_type WHERE uuid = :uuid")
     Long getIdByUuid(String uuid);
 
+    @Query("SELECT uuid FROM visit_type WHERE visit_type_id = :id")
+    String getUuidVisitTypeById(long id);
+
     @Query("SELECT name FROM visit_type WHERE visit_type_id = :visitTypeId")
     String getVisitTypeById(long visitTypeId);
 

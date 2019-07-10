@@ -84,9 +84,11 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
             ImageDataAdapter adapter = new ImageDataAdapter(context,ediData);
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
 
-            recyclerView = rootView.findViewById(R.id.recyclerview1);
-            recyclerView.setLayoutManager(gridLayoutManager);
-            recyclerView.setAdapter(adapter);
+            if(ediData.isEmpty()) {
+                recyclerView = rootView.findViewById(R.id.recyclerview1);
+                recyclerView.setLayoutManager(gridLayoutManager);
+                recyclerView.setAdapter(adapter);
+            }
 
         }
     }

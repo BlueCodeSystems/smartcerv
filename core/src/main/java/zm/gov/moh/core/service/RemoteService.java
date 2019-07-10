@@ -17,7 +17,7 @@ import zm.gov.moh.core.utils.InjectorUtils;
 public abstract class RemoteService extends BaseIntentService implements InjectableViewModel {
 
     protected Repository repository;
-    protected String accessToken;
+    protected String accessToken = "";
     protected final int TIMEOUT = 300000;
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
