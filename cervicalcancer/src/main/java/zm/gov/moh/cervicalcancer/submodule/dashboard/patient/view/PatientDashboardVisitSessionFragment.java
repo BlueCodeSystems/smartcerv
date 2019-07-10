@@ -28,7 +28,7 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.FormJsonGroupExpandableListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
-import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.FormJsonGroup;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.Key;
@@ -87,31 +87,31 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         try {
 
             //initialize via forms
-            FormJson reproductiveHealth = new FormJson("Reproductive Health History",
+            JsonForm reproductiveHealth = new JsonForm("Reproductive Health History",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_reproductive_health.json")));
 
-            FormJson hivStatus = new FormJson("HIV Status",
+            JsonForm hivStatus = new JsonForm("HIV Status",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_hiv_status.json")));
 
-            FormJson physicalExam = new FormJson("Physical Exam",
+            JsonForm physicalExam = new JsonForm("Physical Exam",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_physical_exam.json")));
-            FormJson testResults = new FormJson("Test Results",
+            JsonForm testResults = new JsonForm("Test Results",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_test_results.json")));
 
-            FormJson treatment = new FormJson("Referral",
+            JsonForm treatment = new JsonForm("Referral",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_referral.json")));
-            FormJson referral = new FormJson("Treatment",
+            JsonForm referral = new JsonForm("Treatment",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
-            FormJson prescriptions = new FormJson("Prescription(s)",
+            JsonForm prescriptions = new JsonForm("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
 
-            FormJson notes = new FormJson("Notes & Recommendations",
+            JsonForm notes = new JsonForm("Notes & Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
-            FormJson evaluation = new FormJson("Evaluation",
+            JsonForm evaluation = new JsonForm("Evaluation",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
-            FormJson treatment_results_pathology = new FormJson("Treatment/Results/Pathology",
+            JsonForm treatment_results_pathology = new JsonForm("Treatment/Results/Pathology",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_treatment_results_pathology.json")));
-            FormJson final_diagnosis = new FormJson("Final Diagnosis & Plan",
+            JsonForm final_diagnosis = new JsonForm("Final Diagnosis & Plan",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_final_diagnosis_plan.json")));
 
             //Add via and leep forms to a form group

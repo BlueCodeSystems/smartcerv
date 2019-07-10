@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/visit_select"
-        android:title="Show more"
+        android:id="@+id/visit_edit"
+        android:title="Edit"
         app:showAsAction="ifRoom"
         android:enabled="true"
         android:icon="@android:drawable/ic_menu_today">

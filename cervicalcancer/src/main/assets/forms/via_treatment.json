@@ -2,6 +2,7 @@
   "attributes": {
     "panelType":"form",
     "formType":"encounter",
+    "name":"Treatment",
     "encounterId": 13,
     "submitLabel":"Submit"
   },

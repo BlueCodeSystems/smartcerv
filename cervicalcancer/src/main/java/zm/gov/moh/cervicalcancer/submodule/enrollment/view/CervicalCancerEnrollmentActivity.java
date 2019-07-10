@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.viewmodel.CervicalCancerEnrollmentViewModel;
-import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
@@ -61,8 +61,8 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                             Module formModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.FORM);
 
                             try{
-                                FormJson formJson = new FormJson("Facility Information",
-                                        Utils.getStringFromInputStream(this.getAssets().open("forms/cervical_cancer_enrollment.json")));
+                                JsonForm formJson = new JsonForm("Facility Information",
+                                        Utils.getStringFromInputStream(this.getAssets().open("forms/via_cervical_cancer_enrollment.json")));
 
                                 bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
                                 bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);

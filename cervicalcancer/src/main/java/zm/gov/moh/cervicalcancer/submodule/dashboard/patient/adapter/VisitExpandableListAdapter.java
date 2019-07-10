@@ -3,6 +3,7 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -25,9 +26,12 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.ObsListItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitEncounterItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem;
 import zm.gov.moh.cervicalcancer.R;
+import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 
 public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -131,14 +135,11 @@ public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
 
         ImageView overFlowMenu = view.findViewById(R.id.visit_overflow_icon);
 
-        PopupMenu popupMenu = new PopupMenu(context,overFlowMenu){
-            @Override
-            public void setOnMenuItemClickListener(OnMenuItemClickListener listener) {
-                super.setOnMenuItemClickListener(listener);
-            }
-        };
+        PopupMenu popupMenu = new PopupMenu(context,overFlowMenu);
 
         popupMenu.inflate(R.menu.visit_menu);
+
+        popupMenu.setOnMenuItemClickListener(this.assignListener(visitListItem.getId()));
 
         overFlowMenu.setOnClickListener(view1 -> {popupMenu.show();});
 
@@ -170,4 +171,29 @@ public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
 
         return filterConcepts;
     }
+
+    public PopupMenu.OnMenuItemClickListener assignListener (final long visitId){
+
+
+        return new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.visit_edit){
+
+                    try {
+                        VisitMetadata visitMetadata = new VisitMetadata(context, Utils.getStringFromInputStream(context.getAssets().open("visits/via.json")));
+
+                        bundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                        bundle.putLong(Key.VISIT_ID, visitId);
+                        ((BaseActivity)context).startModule(BaseApplication.CoreModule.VISIT, bundle);
+                    }catch (Exception e){
+
+                    }
+                }
+                return false;
+            }
+        };
+    }
+
 }
