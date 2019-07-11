@@ -80,9 +80,9 @@ public class RegisterActivity extends BaseActivity {
         clientRecyclerView.setAdapter(clientListAdapter);
 
 
-        //registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
+        long locationId = registerViewModel.getRepository().getDefaultSharePrefrences().getLong(this.getResources().getString(zm.gov.moh.core.R.string.session_location_key),0L);
 
-        registerViewModel.getRepository().getDatabase().clientDao().findAllClients().observe(this, clients -> {
+        registerViewModel.getRepository().getDatabase().clientDao().findClientsByLocation(locationId).observe(this, clients -> {
             clientListAdapter.setClientList(clients);
             this.allClients = clients;
         });

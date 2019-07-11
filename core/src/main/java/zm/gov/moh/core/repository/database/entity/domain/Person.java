@@ -10,7 +10,7 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 @Entity
-public class Person extends SynchronizableEntity {
+public class Person {
 
     @PrimaryKey
     @ColumnInfo(name = "person_id")
@@ -103,11 +103,6 @@ public class Person extends SynchronizableEntity {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    @Override
-    public long getId() {
-        return personId;
     }
 
     public LocalDateTime getBirthDate() {

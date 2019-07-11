@@ -19,7 +19,7 @@ public class Converter {
             return LocalDateTime.parse(datetime, DateTimeFormatter.ISO_DATE_TIME);
         }
         catch (Exception e){
-            return LocalDateTime.MIN;
+            return null;
         }
     }
 
@@ -52,13 +52,11 @@ public class Converter {
         return null;
     }
 
-    @TypeConverter
-    public ZonedDateTime fromTimeStampISO(String zonedDateTime){
+    /*@TypeConverter
+    public LocalDateTime fromTimeStampISO(String localDatetime){
 
-        if(zonedDateTime != null)
-            return ZonedDateTime.parse(zonedDateTime);
-        return ZonedDateTime.of(LocalDateTime.MIN,ZoneId.systemDefault());
-    }
+        return (localDatetime != null)? LocalDateTime.parse(localDatetime) : null;
+    }*/
 
     @TypeConverter
     public String charToString(char character){

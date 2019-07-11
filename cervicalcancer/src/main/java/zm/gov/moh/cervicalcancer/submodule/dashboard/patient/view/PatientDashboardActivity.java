@@ -84,7 +84,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         binding.setToolbarhandler(toolBarEventHandler);
         viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
                 observe(this, binding::setClient);
-        viewModel.getRepository().getDatabase().personAddressDao().findByPersonId(clientId).
+        viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).
                 observe(this, binding::setClientAddress);
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
                 observe(this, binding::setFacility);
@@ -100,10 +100,9 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.recents_menu_item_id);
         database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
-        database.personAddressDao().findByPersonId(clientId).observe(this, binding::setClientAddress);
-        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
-        database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
-        //database.personAttributeTypeDao().findById(11)
+        database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
+        database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
+        database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
     }
 
     public void EDIonClick(final View v) {

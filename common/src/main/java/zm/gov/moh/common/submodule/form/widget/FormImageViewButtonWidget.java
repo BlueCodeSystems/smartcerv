@@ -11,7 +11,7 @@ import zm.gov.moh.common.submodule.form.utils.MediaStorageUtil;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -132,10 +132,10 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         }
     }
 
-    public void onLastObsRetrieved(Obs obs) {
+    public void onLastObsRetrieved(ObsEntity... obs) {
 
         try {
-            String sample = obs.getValueText();
+            String sample = obs[0].getValueText();
 
             File image = MediaStorageUtil.getPrivateAlbumStorageDir(mContext, MediaStorageUtil.EDI_DIRECTORY);
             Glide.with(mContext)

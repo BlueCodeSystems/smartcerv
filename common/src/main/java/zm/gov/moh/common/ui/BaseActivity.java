@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -76,8 +75,10 @@ public class BaseActivity extends AppCompatActivity {
             broadcastManager = LocalBroadcastManager.getInstance(this);
 
             IntentFilter intentFilter = new IntentFilter(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION);
+            IntentFilter syncIntentFilter = new IntentFilter(IntentAction.REMOTE_SYNC_COMPLETE);
 
             broadcastManager.registerReceiver(baseReceiver, intentFilter);
+            broadcastManager.registerReceiver(baseReceiver, syncIntentFilter);
         }
     }
 
@@ -187,7 +188,7 @@ public class BaseActivity extends AppCompatActivity {
                     .getRepository()
                     .getDatabase()
                     .personAddressDao()
-                    .findByPersonId(personId)
+                    .findByPersonIdObservable(personId)
                     .observe(this, personAddress -> {
 
 

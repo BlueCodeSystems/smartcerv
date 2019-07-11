@@ -3,13 +3,11 @@ package zm.gov.moh.common.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.view.View;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import zm.gov.moh.common.submodule.login.view.LoginActivity;
+import android.os.Bundle;
+
 import zm.gov.moh.core.service.ServiceManager;
 
 public class ToolBarEventHandler {
@@ -44,6 +42,10 @@ public class ToolBarEventHandler {
     public void setTitle(String title) {
         this.title = title;
     }
+
+        Bundle bundle = new Bundle();
+
+
 
     public String getTitle() {
         return title;

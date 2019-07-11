@@ -12,45 +12,39 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
-import zm.gov.moh.core.repository.database.entity.domain.Encounter;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.utils.Utils;
 
 public class PersistEncounter extends PersistService {
 
-    public PersistEncounter(){
+    public PersistEncounter() {
         super(ServiceManager.Service.PERSIST_ENCOUNTERS);
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        super.onHandleIntent(intent);
-    }
+    protected void executeAsync() {
 
-    @Override
-    public void persistAsync(Bundle bundle) {
-
-        long provider_id = (long) bundle.get(Key.PROVIDER_ID);
-        long user_id = (long) bundle.get(Key.USER_ID);
-        long location_id = (long) bundle.get(Key.LOCATION_ID);
-        long person_id = (long) bundle.get(Key.PERSON_ID);
-        long encounter_type_id = (long) bundle.get(Key.ENCOUNTER_TYPE_ID);
-        Long visit_id = (Long) bundle.get(Key.VISIT_ID);
+        long provider_id = (long) mBundle.get(Key.PROVIDER_ID);
+        long user_id = (long) mBundle.get(Key.USER_ID);
+        long location_id = (long) mBundle.get(Key.LOCATION_ID);
+        long person_id = (long) mBundle.get(Key.PERSON_ID);
+        long encounter_type_id = (long) mBundle.get(Key.ENCOUNTER_TYPE_ID);
+        Long visit_id = (Long) mBundle.get(Key.VISIT_ID);
 
         if (visit_id == null) {
 
             visit_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
-            long visit_type_id = (Long) bundle.get(Key.VISIT_TYPE_ID);
+            long visit_type_id = (Long) mBundle.get(Key.VISIT_TYPE_ID);
             LocalDateTime start_time = LocalDateTime.now();
 
-            Visit visit = new Visit(visit_id, visit_type_id, person_id, location_id, user_id, start_time, start_time);
+            VisitEntity visit = new VisitEntity(visit_id, visit_type_id, person_id, location_id, user_id, start_time, start_time);
             getRepository().getDatabase().visitDao().insert(visit);
         }
 
@@ -58,7 +52,7 @@ public class PersistEncounter extends PersistService {
 
         long encounter_id = submitEncounter(encounter_type_id, person_id, location_id, visit_id, user_id, zonedDatetimeNow);
 
-        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, bundle);
+        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, mBundle);
 
         submitEncounterProvider(encounter_id, provider_id, null, user_id);
     }
@@ -66,7 +60,7 @@ public class PersistEncounter extends PersistService {
     public Long submitEncounter(long encounter_type_id, long patient_id, long location_id, long visit_id, long creator, LocalDateTime zonedDatetimeNow) {
 
         long encounter_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().encounterDao()::getMaxId);
-        Encounter encounter = new Encounter(encounter_id, encounter_type_id, patient_id, location_id, visit_id, creator, zonedDatetimeNow);
+        EncounterEntity encounter = new EncounterEntity(encounter_id, encounter_type_id, patient_id, location_id, visit_id, creator, zonedDatetimeNow);
         getRepository().getDatabase().encounterDao().insert(encounter);
 
         return encounter_id;
@@ -81,73 +75,88 @@ public class PersistEncounter extends PersistService {
         return encounter_provider_id;
     }
 
-    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, LocalDateTime zonedDatetimeNow, Bundle bundle) {
+    public List<Long> submitObs(long person_id, long encounter_id, long location_id, long user_id, LocalDateTime zonedDatetimeNow, Bundle mBundle) {
 
-        ArrayList<String> keys = bundle.getStringArrayList(Key.FORM_TAGS);
+        ArrayList<String> keys = mBundle.getStringArrayList(Key.FORM_TAGS);
 
-        for (String key : keys) {
+        try {
 
-            Object value = bundle.get(key);
+            for (String key : keys) {
 
-            if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
+                Object value = mBundle.get(key);
 
-                long obs_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().obsDao()::getMaxId);
+                if (value instanceof ObsValue && ((ObsValue) value).getValue() != null) {
 
-                Obs obs = new Obs(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
+                    long obs_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().obsDao()::getMaxId);
 
-                ObsValue<Object> obsValue = (ObsValue<Object>) value;
+                    ObsEntity obs = new ObsEntity(obs_id, person_id, encounter_id, zonedDatetimeNow, location_id, user_id);
 
-                List<Obs> obsList = new LinkedList<>();
 
-                String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN)) ?
-                        ConceptDataType.CODED
-                        : obsValue.getConceptDataType();
+                    ObsValue<Object> obsValue = (ObsValue<Object>) value;
 
-                switch (conceptDataType) {
+                    List<ObsEntity> obsList = new LinkedList<>();
 
-                    case ConceptDataType.NUMERIC:
-                        String numericValue = obsValue.getValue().toString();
+                    String conceptDataType = (obsValue.getConceptDataType().equals(ConceptDataType.BOOLEAN)) ?
+                            ConceptDataType.CODED
+                            : obsValue.getConceptDataType();
 
-                          if(Utils.isNumber(numericValue)){
-                              obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                      .setValue(Double.valueOf(obsValue.getValue().toString())));
-                         }
-                        break;
+                    switch (conceptDataType) {
 
-                    case ConceptDataType.TEXT:
 
-                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(obsValue.getValue().toString()));
-                        break;
+                        case ConceptDataType.NUMERIC:
+                            String numericValue = obsValue.getValue().toString();
 
-                    case ConceptDataType.DATE:
 
-                        String date = obsValue.getValue().toString() + MID_DAY_TIME;
+                            //Persist numeric value
+                            if (android.text.TextUtils.isDigitsOnly(numericValue)) {
+                                obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                        .setValue(Double.valueOf(obsValue.getValue().toString())));
+                            }
 
-                        obsList.add(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(LocalDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME)));
-                        break;
 
-                    case ConceptDataType.CODED:
+                            if (Utils.isNumber(numericValue)) {
+                                obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                        .setValue(Double.valueOf(obsValue.getValue().toString())));
+                            }
 
-                        Set<Long> answerConcepts = (Set<Long>) obsValue.getValue();
-
-                        if (answerConcepts.isEmpty())
                             break;
-                        obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
-                                .setValue(answerConcepts));
-                        break;
+
+                        case ConceptDataType.TEXT:
+                            // String textValue = obsValue.toString();// if (Utils.getStringFromInputStream(textValue instanceof  String = True)) {
+                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(obsValue.getValue().toString()));
+
+                            break;
+
+                        case ConceptDataType.DATE:
+
+                            String date = obsValue.getValue().toString() + MID_DAY_TIME;
+
+                            obsList.add(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(LocalDateTime.parse(date, DateTimeFormatter.ISO_ZONED_DATE_TIME)));
+                            break;
+
+                        case ConceptDataType.CODED:
+
+                            Set<Long> answerConcepts = (Set<Long>) obsValue.getValue();
+
+                            if (answerConcepts.isEmpty())
+                                break;
+                            obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
+                                    .setValue(answerConcepts));
+                            break;
+
+
+                    }
+
+                    if (!obsList.isEmpty())
+                        getRepository().getDatabase().obsDao().insert(obsList);
+                    mBundle.remove(key);
                 }
-
-                if (!obsList.isEmpty())
-                    getRepository().getDatabase().obsDao().insert(obsList);
-                bundle.remove(key);
             }
+        }catch (Exception e){
+            Exception e1 =e;
         }
-
-        /*Intent intent = new Intent(ServiceManager.IntentAction.PERSIST_ENCOUNTERS_COMPLETE);
-        intent.putExtras(mBundle);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);*/
 
         notifyCompleted();
 

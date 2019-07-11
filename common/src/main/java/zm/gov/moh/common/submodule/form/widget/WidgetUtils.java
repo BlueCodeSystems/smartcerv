@@ -81,6 +81,7 @@ public class WidgetUtils {
             RadioButton radioButton = new RadioButton(context);
             radioButton.setText(hash.getKey());
             radioButton.setId(hash.getValue().intValue());
+            radioButton.setTag(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
             radioGroup.addView(radioButton);
         }
@@ -104,6 +105,7 @@ public class WidgetUtils {
             CheckBox radioButton = new CheckBox(context);
             radioButton.setText(hash.getKey());
             radioButton.setId(hash.getValue().intValue());
+            radioButton.setTag(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
             radioButton.setGravity(Gravity.CENTER_VERTICAL);
             radioButton.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -226,6 +228,22 @@ public class WidgetUtils {
             else{
                 callback.accept(view);
             }
+    }
+
+    public static void removeViewGroupChildren(View view){
+
+        if((view instanceof LinearLayoutCompat) || (view instanceof  RadioGroup) || (view instanceof ViewGroup)){
+
+            ViewGroup viewGroup = (ViewGroup) view;
+
+            for(int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                removeViewGroupChildren(child);
+            }
+        }
+        else{
+            ((ViewGroup)view.getParent()).removeAllViews();
+        }
     }
 
 
