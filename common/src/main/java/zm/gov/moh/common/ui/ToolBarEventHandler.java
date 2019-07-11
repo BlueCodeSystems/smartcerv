@@ -30,6 +30,7 @@ public class ToolBarEventHandler {
     }
 
     public void onClicklogOut() {
+        ((BaseActivity)context).finish();
         Intent AppIntent = context.getPackageManager().getLaunchIntentForPackage("zm.gov.moh.app");
         ((AppCompatActivity)context).startActivity(AppIntent);
         System.out.print("clicked");
