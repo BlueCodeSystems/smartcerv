@@ -10,31 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Key;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.BaseRequestOptions;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.LinkedHashMultimap;
-
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
-
 import java.io.File;
 import java.security.MessageDigest;
-import java.time.ZoneId;
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
-
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -76,13 +65,6 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
         context = (BaseActivity) getContext();
         rootView = inflater.inflate(R.layout.fragment_patient_dashoard_edi, container, false);
 
-        //context = (PatientDashboardActivity) getContext();
-        //context.getClientId();
-        // Inflate the layout for this fragment
-
-        //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
-        // View view = binding.getRoot();
-        //visitType = rootView.findViewWById(R.id.visit_type);
 
         ((PatientDashboardViewModel) context.getViewModel()).getEDIDataEmitter().observe(context, this::populateEDIRole);
         return rootView;
@@ -95,7 +77,7 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
         ImageDataAdapter adapter = new ImageDataAdapter(context,ediData);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 1);
 
-        if(ediData.isEmpty()) {
+        if(ediData.size() > 0) {
             recyclerView = rootView.findViewById(R.id.recyclerview1);
             recyclerView.setLayoutManager(gridLayoutManager);
             recyclerView.setAdapter(adapter);
@@ -127,11 +109,6 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_layout, parent, false);
         return new ViewHolder(view);
 
-
-
-
-
-
     }
 
     @Override
@@ -150,18 +127,6 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
         String visitDateTimeFormatted =  visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
 
         caption.setText(data.getKey()+" on "+visitDateTimeFormatted);
-            /*imageView.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-                                                 try {
-                                                     startActivity(new Intent(Intent.ACTION_VIEW,
-                                                             Uri.parse(image.getCanonicalPath()+"/"+res+".png")));
-                                                 } catch (IOException e) {
-                                                     e.printStackTrace();
-                                                 }
-                                             }
-                                         });**/
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             //private boolean isImageFitToScreen;
@@ -196,41 +161,6 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
         }catch (Exception e){
             Exception ex = e;
         }
-
-
-
-
-
-
-
-
-        //String fileName = "IMG_20190429_154929.jpg";
-        //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/" + fileName;
-        //File file = new File(completePath);
-        //Uri imageUri = Uri.fromFile(file);
-
-        //Glide.with(context).load(file).transform(new Transform()).into(imageView);
-        //Uri.fromFile(new File(completePath));
-
-        //Glide.with(context)
-        //.load(Uri.fromFile(new File(completePath)))
-        //.apply(new RequestOptions().override(100, 100))
-        //.into(imageView);
-
-        //Glide.with(context)
-        //.load(fileName)
-        //.into(imageView);
-        //String completePath = Environment.getExternalStorageDirectory() + "/storage/emulated/0/DCIM/Camera";
-        //String uri = samples.get(i);
-        //String path = Uri.decode(uri.substring(uri.lastIndexOf('/')));
-        //File file = new File(completePath);
-        // Uri imageUris = Uri.fromFile(file);
-
-
-
-
-        //.load(new File(completePath+path))
-
 
     }
 
@@ -272,16 +202,4 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
 
         }
     }
-
-
-
-        /*private class Transform implements com.bumptech.glide.load.Transformation<Bitmap> {
-            @NonNull
-            @Override
-            public Resource<Bitmap> transform(@NonNull Context context, @NonNull Resource<Bitmap> resource, int outWidth, int outHeight) {
-                return null;
-            }
-            @Override
-            public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-            }*/
 }
