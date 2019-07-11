@@ -14,6 +14,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "int", "REMOTE_ID_BATCH_SIZE", '50'
+            buildConfigField "int", "REMOTE_ID_RESERVE", '20'
+            buildConfigField "int", "REMOTE_ID_SOURCE", '1'
+        }
+
+        debug{
+            buildConfigField "int", "REMOTE_ID_BATCH_SIZE", '10'
+            buildConfigField "int", "REMOTE_ID_RESERVE", '5'
+            buildConfigField "int", "REMOTE_ID_SOURCE", '1'
         }
     }
     buildToolsVersion '28.0.3'
