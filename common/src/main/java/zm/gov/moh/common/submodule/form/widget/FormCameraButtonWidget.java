@@ -62,11 +62,10 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         return null;
     }
 
-
     @Override
     public void onClick(View v) {
-        Intent cameraIntent = mContext.getPackageManager().getLaunchIntentForPackage("jp.co.canon.ic.cameraconnect");
 
+        Intent cameraIntent = mContext.getPackageManager().getLaunchIntentForPackage("jp.co.canon.ic.cameraconnect");
         if(cameraIntent == null) {
             Toast.makeText(mContext, "Canon Camera connect not installed", Toast.LENGTH_LONG).show();
             return;
