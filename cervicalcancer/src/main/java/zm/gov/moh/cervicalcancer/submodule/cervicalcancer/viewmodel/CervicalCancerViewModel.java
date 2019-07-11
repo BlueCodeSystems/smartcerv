@@ -45,10 +45,14 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
         return startSubmodule;
     }
 
+
+
     public void startSubmodule(Module module){
         startSubmodule.setValue(module);
     }
 }
+
+
 
 /*
 *   private Repository mRepository;

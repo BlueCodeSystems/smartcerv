@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
+import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
+import zm.gov.moh.common.submodule.form.widget.Retainable;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
@@ -43,15 +46,20 @@ import zm.gov.moh.core.service.PersistEncounter;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.BaseFragment;
 
+import static zm.gov.moh.common.R2.id.message;
+
 public class FormFragment extends BaseFragment {
 
     private Form form;
     private View rootView;
+    private EditText mEditText;
     private AtomicBoolean renderWidgets;
     private FormModel formModel;
     private FormJson formJson;
     private FormActivity context;
     private Bundle bundle;
+    private Object EditTextWidget;
+    private Intent intent;
 
     public FormFragment() {
         // Required empty public constructor
@@ -77,6 +85,7 @@ public class FormFragment extends BaseFragment {
         rootView = binding.getRoot();
         this.form.setRootView(rootView.findViewById(R.id.form_container));
         this.form.setFormContext(new FormContext());
+        
 
         ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler(context);
         binding.setToolbarhandler(toolBarEventHandler);
@@ -228,9 +237,10 @@ public class FormFragment extends BaseFragment {
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
 
 
-        if (widget instanceof BasicConceptWidget) {
 
-            BasicConceptWidget conceptWidget = (BasicConceptWidget) widget;
+        if (widget instanceof Retainable) {
+
+           Retainable conceptWidget = (Retainable) widget;
 
             //get UUid and patientId
             String uuid = conceptWidget.getUuid();
