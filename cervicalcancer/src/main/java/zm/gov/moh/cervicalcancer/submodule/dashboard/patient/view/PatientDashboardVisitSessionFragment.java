@@ -136,7 +136,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
-            viaFormGroup.addForm(referral_slip);
+            //viaFormGroup.addForm(referral_slip);
             leepFormGroup.addForm(evaluation);
             leepFormGroup.addForm(outcomes);
             leepFormGroup.addForm(final_diagnosis);
