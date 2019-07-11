@@ -89,6 +89,15 @@
           ]
         },
         {
+          "tag": "edi reason",
+          "widgetType": "Concept",
+          "conceptId": 165217,
+          "uuid": "c023311a-1fbc-43b9-9c65-d988601e578b",
+          "dataType": "Text",
+          "hint": "Reason foraq22 no EDI",
+          "textSize": 18
+        },
+        {
           "tag": "image view button",
           "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
@@ -97,20 +106,16 @@
           "weight": 1
         },
         {
-          "tag": "camera button",
-          "widgetType": "CameraButton",
+          "widgetType": "DefaultCameraButton",
           "label": "Take Photo",
           "textSize": 18,
           "weight": 1
         },
         {
-          "tag": "edi reason",
-          "widgetType": "Concept",
-          "conceptId": 165217,
-          "uuid": "c023311a-1fbc-43b9-9c65-d988601e578b",
-          "dataType": "Text",
-          "hint": "Reason for no EDI",
-          "textSize": 18
+          "widgetType": "CameraButton",
+          "label": "Camera Connect",
+          "textSize": 18,
+          "weight": 1
         }
       ]
     },

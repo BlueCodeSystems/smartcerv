@@ -6,7 +6,7 @@
   },
   "widgetGroup": [
     {
-      "title": "Treatment/Results/Pathology",
+      "title": "Procedures",
       "widgets": [
         {
           "tag": "treatment",
@@ -14,7 +14,6 @@
           "conceptId": 165286,
           "dataType": "Coded",
           "style": "radio",
-          "label": "Treatment",
           "textSize": 18
         },
         {
@@ -27,52 +26,64 @@
           "textSize": 18
         },
         {
-          "widgetType": "TextView",
-          "label": "Reason For Other",
-          "textSize": 18,
-          "weight": 1
+          "tag":"ceftriaxone",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
         },
         {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 1",
-          "weight": 1
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 2",
-          "weight": 1
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 3",
-          "weight": 1
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+        },
+        {
+          "tag":"Metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+        },
+        {
+          "tag":"Metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
         },
         {
           "tag": "provider",
@@ -189,11 +200,10 @@
           "hint": "Example +260967546754",
           "weight": 1
         }
-
       ]
     },
     {
-      "title": "Intra-op Resolution",
+      "title": "Intra-op Interventions",
       "widgets": [
         {
           "tag": "cautery",
@@ -232,6 +242,15 @@
           "textSize": 18
         },
         {
+          "tag": "hysterectomy",
+          "widgetType": "Concept",
+          "conceptId": 165114,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Hysterectomy",
+          "textSize": 18
+        },
+        {
           "tag": "self_resolved_no_intervention_needed",
           "widgetType": "Concept",
           "conceptId": 165295,
@@ -259,7 +278,7 @@
           "widgetType": "Concept",
           "conceptId": 165117,
           "dataType": "Coded",
-          "style":"dropdown",
+          "style": "dropdown",
           "label": "Scheduled visit type",
           "textSize": 18
         },
@@ -291,7 +310,7 @@
           "widgetType": "DatePicker",
           "weight": 1,
           "text": "Date",
-          "hint":"dd MMM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "tag": "bleeding_prompting_return_visit_to_clinic",
@@ -353,7 +372,7 @@
       ]
     },
     {
-      "title": "Post-op Resolution",
+      "title": "Post-op Interventions",
       "widgets": [
         {
           "tag": "monsel_solution",
@@ -383,6 +402,24 @@
           "textSize": 18
         },
         {
+          "tag": "suturing",
+          "widgetType": "Concept",
+          "conceptId": 165294,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Suturing",
+          "textSize": 18
+        },
+        {
+          "tag": "hysterectomy",
+          "widgetType": "Concept",
+          "conceptId": 165114,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Hysterectomy",
+          "textSize": 18
+        },
+        {
           "tag": "antibiotics",
           "widgetType": "Concept",
           "conceptId": 165304,
@@ -392,61 +429,109 @@
           "textSize": 18
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 1",
-          "weight": 1
+          "tag":"ceftriaxone",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 2",
-          "weight": 1
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 3",
-          "weight": 1
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
         },
         {
-          "tag": "other",
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
+        },
+        {
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+        },
+        {
+          "tag":"Metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+        },
+        {
+          "tag":"Metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
+        },
+        {
+          "tag": "Other_procedures",
           "widgetType": "Concept",
-          "conceptId": 5622,
+          "conceptId": 165383,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Reason For Other",
           "textSize": 18,
-          "weight": 1
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
+          "tag": "Reason For Other",
+          "widgetType": "Concept",
+          "conceptId": 165154,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
         },
         {
           "tag": "comments",
@@ -488,6 +573,8 @@
     }
   ]
 }
+
+
 
 
 

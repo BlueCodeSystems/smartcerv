@@ -8,6 +8,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
@@ -129,6 +130,15 @@ public class WidgetModelJsonAdapter {
                 CameraButtonModel.setLabel(widgetModelJson.getLabel());
 
                 return CameraButtonModel;
+
+            case "DefaultCameraButton":
+
+                final DefaultCameraButtonModel DefaultCameraButtonModel = new DefaultCameraButtonModel();
+
+                DefaultCameraButtonModel.setWidgetType(widgetModelJson.getTag());
+                DefaultCameraButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return DefaultCameraButtonModel;
 
             case "WidgetGroupRow":
 
