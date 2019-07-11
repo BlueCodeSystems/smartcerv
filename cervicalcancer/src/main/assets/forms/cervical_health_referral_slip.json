@@ -36,12 +36,9 @@
               "weight": 1
             },
             {
-              "tag": "client id number",
-              "widgetType": "Concept",
-              "conceptId": 165357,
-              "dataType": "Text",
-              "hint": "Client ID Number",
-              "textSize": 18
+              "tag": "client ID",
+              "widgetType": "CCPIZEditText",
+              "weight": 1
             }
           ]
         },
@@ -67,6 +64,12 @@
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Client name",
+              "textSize": 18,
+              "weight": 1
+            },
             {
               "tag": "PERSON_FAMILY_NAME",
               "widgetType": "EditText",
@@ -311,6 +314,14 @@
               "weight": 1
             }
           ]
+        },
+        {
+          "tag": "image view button",
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "ImageViewButton",
+          "label": "Image Load",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "tag": "providers name",
