@@ -1,14 +1,15 @@
 package zm.gov.moh.core.service;
 
+import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullPatientIDRemote extends RemoteService {
 
 
-    final int SOURCE = 1;
-    final int BATCH_SIZE = 10;
-    final int RESERVED = 5;
+    final int SOURCE = BuildConfig.REMOTE_ID_SOURCE;
+    final int BATCH_SIZE = BuildConfig.REMOTE_ID_BATCH_SIZE;
+    final int RESERVED = BuildConfig.REMOTE_ID_RESERVE;
     final short NOT_ASSIGNED = 0;
 
 

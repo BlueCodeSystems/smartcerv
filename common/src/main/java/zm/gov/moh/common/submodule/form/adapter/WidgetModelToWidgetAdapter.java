@@ -11,6 +11,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
@@ -38,6 +39,7 @@ import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
+import zm.gov.moh.common.submodule.form.widget.FormDefaultCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
@@ -152,6 +154,18 @@ public class WidgetModelToWidgetAdapter {
                     .build();
             return widget;
         }
+
+        else if(widgetModel instanceof DefaultCameraButtonModel) {
+
+            DefaultCameraButtonModel model = (DefaultCameraButtonModel) widgetModel;
+
+            BaseWidget widget = new FormDefaultCameraButtonWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
+                    .setBundle(bundle)
+                    .build();
+            return widget;
+        }
+
         else if(widgetModel instanceof ImageViewButtonModel) {
 
             ImageViewButtonModel model = (ImageViewButtonModel) widgetModel;
