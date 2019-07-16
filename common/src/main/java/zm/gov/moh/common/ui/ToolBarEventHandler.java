@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import zm.gov.moh.core.service.ServiceManager;
+import zm.gov.moh.core.utils.BaseApplication;
+
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 
 public class ToolBarEventHandler {
 
@@ -30,12 +35,8 @@ public class ToolBarEventHandler {
     }
 
     public void onClicklogOut() {
-        ((BaseActivity)context).finish();
-        Intent AppIntent = context.getPackageManager().getLaunchIntentForPackage("zm.gov.moh.app");
-        ((AppCompatActivity)context).startActivity(AppIntent);
-        System.out.print("clicked");
+        ((BaseActivity)context).startModule(BaseApplication.CoreModule.BOOTSTRAP);
     }
-
     public PackageManager getPackageManager() {
         return context.getPackageManager();
     }
@@ -53,3 +54,5 @@ public class ToolBarEventHandler {
     }
 
 }
+
+

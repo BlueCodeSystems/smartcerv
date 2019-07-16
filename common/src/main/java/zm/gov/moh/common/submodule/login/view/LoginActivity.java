@@ -9,10 +9,13 @@ import android.content.res.Resources;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
+
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +48,6 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         context = this;
         resources = context.getResources();
 
@@ -132,6 +134,19 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         locationArrayAdapter.notifyDataSetChanged();
     }
 
+    boolean doubleBackToExitPressedOnce = false;
+    private Toast exitToast;
+    @Override
+    public void onBackPressed() {
+        if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
+            exitToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_LONG);
+            exitToast.show();
+        } else {
+            exitToast.cancel();
+            this.finishAffinity();
+
+        }
+    }
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
