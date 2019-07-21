@@ -69,6 +69,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         binding.setCredentials(viewModel.getCredentials());
         binding.setVariable(BR.viewmodel, viewModel);
         binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
+        binding.setContext(this);
 
         final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
 
@@ -142,5 +143,10 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
     }
 }

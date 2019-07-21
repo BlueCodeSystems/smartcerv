@@ -49,6 +49,8 @@ public class BaseApplication extends Application {
         public static final String VITALS = "VITALS";
         public static final String CLIENT_DASHOARD = "CLIENT_DASHOARD";
         public static final String FORM = "FORM";
+        public static final String SETTINGS = "SETTINGS";
+        public static final String BOOTSTRAP = "BOOTSTRAP";
     }
 
     public class Module {
