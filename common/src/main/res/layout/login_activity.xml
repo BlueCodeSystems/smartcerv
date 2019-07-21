@@ -6,124 +6,160 @@
     <data>
         <variable name="credentials" type="zm.gov.moh.common.submodule.login.model.Credentials"/>
         <variable name="viewmodel" type="zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel"/>
+        <import type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
+        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="20dp"
-        tools:backgroundTint="@color/white"
-        tools:context="zm.gov.moh.cervicalcancer.module.login.view.LoginFragment">
-
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-condensed"
-            android:text="SmartCerv"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/dark_purple"/>
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="251dp"
-            android:layout_height="129dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/cervical_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.504"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/username_edittext"
+        <LinearLayout
+            android:id="@+id/login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="username"
-            android:inputType="textPersonName"
-            android:text="@={credentials.username}"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="20dp"
+            tools:backgroundTint="@color/white"
+            tools:context="zm.gov.moh.cervicalcancer.module.login.view.LoginFragment">
 
-        <EditText
-            android:id="@+id/password_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:text="@={credentials.password}"
-            app:layout_constraintTop_toBottomOf="@+id/username_edittext"
-            tools:layout_editor_absoluteX="20dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:text="Select session location"
-            android:textColor="@color/light_red"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/locations"
+                <TextView
+                    android:id="@+id/message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="SmartCerv"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/dark_purple"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:onClick="@{() -> context.startModule(CoreModule.SETTINGS)}"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_settings_20px"
+                    android:tint="@color/darker_grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="251dp"
+                    android:layout_height="129dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/cervical_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.505"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/message" />
 
 
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/light_green"
-            android:onClick="@{()-> viewmodel.submitCredentials(credentials)}"
-            android:text="Login"
-            android:textColor="@color/white"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+
+
+
+            <EditText
+                android:id="@+id/username_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="username"
+                android:inputType="textPersonName"
+                android:text="@={credentials.username}"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                tools:layout_editor_absoluteX="20dp" />
+
+            <EditText
+                android:id="@+id/password_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:text="@={credentials.password}"
+                app:layout_constraintTop_toBottomOf="@+id/username_edittext"
+                tools:layout_editor_absoluteX="20dp" />
+
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Compatible with " />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="OpenMRS"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:text="Select session location"
+                android:textColor="@color/light_red"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <Spinner
+                android:id="@+id/locations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/light_green"
+                android:onClick="@{()-> viewmodel.submitCredentials(credentials)}"
+                android:text="Login"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Compatible with " />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OpenMRS"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="69dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_openmrs" />
+
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="69dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_openmrs" />
-
-    </LinearLayout>
     </ScrollView>
 </layout>
