@@ -17,7 +17,7 @@ public interface LocationDao {
     @Query("SELECT location.* FROM location JOIN location_tag_map ON location.location_id = location_tag_map.location_id WHERE location_tag_id = :id ORDER BY name ASC")
     LiveData<List<Location>> getByTagId(long id);
 
-    @Query("SELECT location.* FROM location JOIN location_tag_map ON location.location_id = location_tag_map.location_id WHERE location_tag_id = (SELECT location_tag_id FROM location_tag WHERE uuid = :uuid) ORDER BY name ASC")
+    @Query("SELECT location.* FROM location JOIN location_tag_map ON location.location_id = location_tag_map.location_id WHERE location_tag_id = (SELECT location_tag_id FROM location_tag WHERE uuid = :uuid) AND location.retired = 0 ORDER BY name ASC")
     LiveData<List<Location>> getByTagUuid(String uuid);
 
     //gets all locations
