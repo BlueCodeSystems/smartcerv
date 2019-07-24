@@ -2,7 +2,6 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,17 +18,14 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.FormJsonGroupExpandableListAdapter;
@@ -167,7 +163,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         vistTypeIdMap.put("Delayed Cryotheraphy/Thermal Coagulation", OpenmrsConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION);
         vistTypeIdMap.put("Post-Treatment Complication", OpenmrsConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION);
         vistTypeIdMap.put("One-Year Follow Up", OpenmrsConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP);
-        vistTypeIdMap.put("Routing Screening",OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
+        vistTypeIdMap.put("Routine Screening",OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
         vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation", OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
 
         LinkedList<String> visitType = new LinkedList<>(vistTypeIdMap.keySet());
