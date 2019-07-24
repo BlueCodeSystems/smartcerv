@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,9 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
+import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.DrugObsValue;
+import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.utils.Utils;
@@ -28,6 +31,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     protected String mUuid;
     protected AppCompatSpinner frequencySpinner;
     protected AppCompatSpinner durationSpinner;
+    protected  String mTag;
 
     protected TableLayout tableLayout;
     protected TableRow tableRow;
@@ -42,8 +46,9 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     Long answerDurationConcept;
 
     AtomicBoolean canSetValue;
-    Long drugConceptId, mFrequency, mDuration;
-    DrugObsValue mDrugObsValue;
+    //Long drugConceptId, mFrequency, mDuration;
+    //DrugObsValue mDrugObsValue;
+    ObsValue<ArrayList<Long>> mObsValue; // temporarily use to Array contain value of frequency and Duration
     List<Logic> logic;
     Form form;
 
@@ -59,6 +64,12 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     public BasicDrugWidget setUuid(String uuid) {
         this.mUuid = uuid;
         return this;
+    }
+
+    @Override
+    public void setTag(Object tag) {
+        super.setTag(tag);
+        mTag = (String)tag;
     }
 
     @Override
@@ -150,10 +161,23 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         answerConcept = id;
 
-        setDrugObsValue(answerConcept, answerFrequencyConcept, answerDurationConcept);
+        if( (frequencySpinner.getParent() != null) && (frequencySpinner.getParent() != null) ) {
+            tableRow.removeView(frequencySpinner);
+            frequencySpinner.setVisibility(GONE);
+            tableRow.removeView(durationSpinner);
+            durationSpinner.setVisibility(GONE);
+        } else {
+            tableRow.addView(frequencySpinner);
+            frequencySpinner.setVisibility(VISIBLE);
+            tableRow.addView(durationSpinner);
+            durationSpinner.setVisibility(VISIBLE);
+        }
+
+        //setDrugObsValue(answerConcept, answerFrequencyConcept, answerDurationConcept);
+        setObsValue();
     }
 
-    public void setDrugObsValue(Long obsValue, Long obsFrequencyValue, Long obsDurationValue) {
+    /*public void setDrugObsValue(Long obsValue, Long obsFrequencyValue, Long obsDurationValue) {
 
         if( (frequencySpinner.getParent() != null) && (frequencySpinner.getParent() != null) ) {
             tableRow.removeView(frequencySpinner);
@@ -178,14 +202,28 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
             mBundle.putSerializable((String)this.getTag(), mDrugObsValue);
         }
+    }*/
+
+    public void setObsValue() {
+
+
+            mObsValue.setConceptId(answerConcept);
+            mObsValue.getValue().clear();
+            mObsValue.getValue().add(answerDurationConcept);
+            mObsValue.getValue().add(answerFrequencyConcept);
+
+            mBundle.putSerializable(mTag, mObsValue);
+
     }
 
     private void onSelectedFrequencyValue(Long value) {
         answerFrequencyConcept = value;
+        setObsValue();
     }
 
     private void onSelectedDurationValue(Long value) {
         answerDurationConcept = value;
+        setObsValue();
     }
 
     public static class Builder extends RepositoryWidget.Builder {
@@ -209,7 +247,10 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         public BasicDrugWidget build() {
             BasicDrugWidget widget = new BasicDrugWidget(mContext);
-            widget.mDrugObsValue = new DrugObsValue();
+            //widget.mDrugObsValue = new DrugObsValue();
+            widget.mObsValue = new ObsValue<>();
+            widget.mObsValue.setValue(new ArrayList<>());
+            widget.mObsValue.setConceptDataType(ConceptDataType.CODED);
             widget.canSetValue = new AtomicBoolean();
             widget.canSetValue.set(true);
 
@@ -219,6 +260,8 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
                 widget.setRepository(mRepository);
             if(mBundle != null)
                 widget.setBundle(mBundle);
+            if(mTag != null)
+                widget.setTag(mTag);
 
             widget.onCreateView();
 

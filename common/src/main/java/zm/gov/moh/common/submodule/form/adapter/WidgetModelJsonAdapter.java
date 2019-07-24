@@ -272,6 +272,7 @@ public class WidgetModelJsonAdapter {
                 final BasicDrugWidgetModel basicDrugWidgetModel = new BasicDrugWidgetModel();
 
                 basicDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicDrugWidgetModel.setTag(widgetModelJson.getTag());
 
                 return basicDrugWidgetModel;
 
