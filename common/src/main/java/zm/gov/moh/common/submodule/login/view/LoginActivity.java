@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     private ProgressDialog progressDialog;
     private Resources resources;
     private ArrayAdapter<Location> locationArrayAdapter;
+    private Toast exitToast;
 
     //TODO:Must read value from global context
     private final long FACILITY_LOCATION_TAG_ID = 5;
@@ -147,6 +149,14 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
     @Override
     public void onBackPressed() {
-        this.finishAffinity();
+
+        if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
+            exitToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_LONG);
+            exitToast.show();
+        } else {
+            exitToast.cancel();
+            this.finishAffinity();
+
+        }
     }
 }
