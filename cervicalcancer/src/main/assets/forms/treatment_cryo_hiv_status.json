@@ -270,7 +270,7 @@
           "tag": "art clinic",
           "widgetType": "Concept",
           "conceptId": 165136,
-          "uuid": "	758a1b06-09fc-4448-9edf-58ecda27365e",
+          "uuid": "758a1b06-09fc-4448-9edf-58ecda27365e",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Referred to ART Clinic",
@@ -315,6 +315,7 @@
         },
         {
           "tag": "Date tested negative",
+          "uuid": "10c18b01-0fe3-46ba-94f8-9e896b3879a4",
           "conceptId": 165251,
           "dataType": "Date",
           "widgetType": "Concept",
