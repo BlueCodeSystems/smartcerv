@@ -14,10 +14,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
@@ -56,9 +59,9 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
                 authenticationStatus.setValue(AuthenticationStatus.PENDING);
 
-                ConcurrencyUtils.consume(
+                ConcurrencyUtils.consumeAsync(
                         this::onSuccess,
-                        this::onError,
+                        throwable-> ConcurrencyUtils.consumeOnMainThread(this::onError, throwable),
                         getRepository().getRestApi().session(credentialsToBase64),
                         TIMEOUT);
             }
@@ -88,8 +91,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
     public void saveSessionLocation(Location location){
 
-        getRepository().getDefaultSharePrefrences().edit().putLong(
-                application.getResources().getString(zm.gov.moh.core.R.string.session_location_key),
+        getRepository().getDefaultSharePrefrences().edit().putLong(Key.LOCATION_ID,
                 location.getLocationId())
                 .apply();
     }
@@ -99,7 +101,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
         String accessToken = authentication.getToken();
         getRepository().getDefaultSharePrefrences()
                 .edit()
-                .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUserUuid())
+                .putString(Key.AUTHORIZED_USER_UUID, authentication.getUserUuid())
                 .apply();
 
         getRepository().getDefaultSharePrefrences()
@@ -125,7 +127,18 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
         }
 
         pending.set(true);
-        authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+
+        ConcurrencyUtils.consumeOnMainThread(this::onProviderAuthorizedStatus,
+                authoriseLocationLogin(authentication.getUserUuid()));
+    }
+
+    public void onProviderAuthorizedStatus(boolean isAuthorized){
+
+        if(isAuthorized)
+            authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+        else
+            authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED_LOCATION);
+
     }
 
     private void onError(Throwable throwable){
@@ -192,6 +205,35 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
             return null;
         }
+
+    }
+
+    public boolean authoriseLocationLogin(String userUuid){
+
+        ProviderUser providerUser =  getRepository().getDatabase().providerUserDao().getByUserUuid(userUuid);
+
+        if(providerUser != null) {
+
+            ProviderAttribute providerAttribute = getRepository()
+                    .getDatabase()
+                    .providerAttributeDao()
+                    .getAttributeByTypeBlocking(OpenmrsConfig.PROVIDER_ATTRIBUTE_TYPE_HOME_FACILITY, providerUser.getProviderId());
+
+            String locationUuid = providerAttribute.getValueReference();
+
+            Long locationId = getRepository().getDatabase().locationDao().getIdByUuid(locationUuid);
+
+            if (locationId != null) {
+                getRepository().getDefaultSharePrefrences()
+                        .edit()
+                        .putLong(Key.LOCATION_ID, locationId)
+                        .apply();
+
+                return true;
+            } else
+                return false;
+        }
+        return false;
 
     }
 

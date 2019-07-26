@@ -28,6 +28,10 @@ public interface LocationDao {
     @Query("SELECT uuid FROM location WHERE location_id = :id")
     String getUuidById(Long id);
 
+    //gets all locations
+    @Query("SELECT location_id FROM location WHERE uuid = :uuid")
+    Long getIdByUuid(String uuid);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Location... locations);
 

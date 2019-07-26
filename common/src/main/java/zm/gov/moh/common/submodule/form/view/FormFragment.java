@@ -28,14 +28,12 @@ import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
-import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.Retainable;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetSectionModel;
-import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSectionWidget;
 import zm.gov.moh.common.submodule.form.widget.FormSubmitButtonWidget;
@@ -45,8 +43,6 @@ import zm.gov.moh.core.service.PersistEncounter;
 
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.utils.BaseFragment;
-
-import static zm.gov.moh.common.R2.id.message;
 
 public class FormFragment extends BaseFragment {
 
@@ -204,9 +200,9 @@ public class FormFragment extends BaseFragment {
     public void initFormData(Bundle bundle) {
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
+                .getString(Key.AUTHORIZED_USER_UUID, "null");
 
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 

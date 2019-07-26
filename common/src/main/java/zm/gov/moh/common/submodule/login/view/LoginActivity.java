@@ -1,10 +1,12 @@
 package zm.gov.moh.common.submodule.login.view;
 
 import android.app.ProgressDialog;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,6 @@ import java.util.List;
 import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
 import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
-import zm.gov.moh.core.service.PullMetaDataRemote;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.service.ServiceManager;
@@ -33,7 +33,7 @@ import zm.gov.moh.common.databinding.LoginActivityBinding;
 
 public class LoginActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
-    private LoginViewModel viewModel;
+    private LoginViewModel loginViewModel;
     private Context context;
     private ProgressDialog progressDialog;
     private Resources resources;
@@ -51,8 +51,12 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         locationArrayAdapter = new LocationArrayAdapter(this, new ArrayList<Location>());
 
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-        progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.core.R.string.please_wait));
+        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+
+        this.viewModel = loginViewModel;
+
+
+        progressDialog = Utils.showProgressDialog(context, context.getResources().getString(zm.gov.moh.common.R.string.please_wait));
 
         Bundle bundle = getIntent().getExtras();
 
@@ -60,20 +64,26 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         bundle.remove(START_SUBMODULE_KEY);
 
+        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
+
+        Fragment fragment = new CredentialFragment();
+
+        fragmentManager.replace(R.id.segment, fragment).commit();
+
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
-        Spinner locationsSpinner = findViewById(R.id.locations);
+        /*Spinner locationsSpinner = findViewById(R.id.locations);
         locationsSpinner.setAdapter(locationArrayAdapter);
-        locationsSpinner.setOnItemSelectedListener(this);
+        locationsSpinner.setOnItemSelectedListener(this);*/
 
-        binding.setCredentials(viewModel.getCredentials());
-        binding.setVariable(BR.viewmodel, viewModel);
+        binding.setCredentials(loginViewModel.getCredentials());
+        binding.setVariable(BR.viewmodel, loginViewModel);
         binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
         binding.setContext(this);
 
         final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
 
-            if(viewModel.getPending().compareAndSet(true, false) && status != null) {
+            if(loginViewModel.getPending().compareAndSet(true, false) && status != null) {
 
                 switch (status){
 
@@ -90,30 +100,35 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                         break;
 
                     case UNAUTHORIZED:
-                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.authentication_failed), resources.getString(zm.gov.moh.core.R.string.incorrect_credentials)).show();
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.common.R.string.authentication_failed), resources.getString(zm.gov.moh.common.R.string.incorrect_credentials)).show();
+                        progressDialog.dismiss();
+                        break;
+
+                    case UNAUTHORIZED_LOCATION:
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.common.R.string.authentication_failed), resources.getString(zm.gov.moh.common.R.string.unauthorized_location)).show();
                         progressDialog.dismiss();
                         break;
 
                     case PENDING:
                         progressDialog.show();
-                        viewModel.getCredentials().clear();
+                        loginViewModel.getCredentials().clear();
                         break;
 
                     case NO_INTERNET:
-                        Utils.showSnackBar(context, resources.getString(zm.gov.moh.core.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
+                        Utils.showSnackBar(context, resources.getString(zm.gov.moh.common.R.string.no_internet), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
                         break;
 
                     case NO_CREDENTIALS:
-                        Utils.showSnackBar(context, resources.getString(zm.gov.moh.core.R.string.no_credentials), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
+                        Utils.showSnackBar(context, resources.getString(zm.gov.moh.common.R.string.no_credentials), android.R.color.holo_orange_light, Snackbar.LENGTH_LONG);
                         break;
 
                     case TIMEOUT:
-                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.request_timeout), resources.getString(zm.gov.moh.core.R.string.server_request_timeout)).show();
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.common.R.string.request_timeout), resources.getString(zm.gov.moh.common.R.string.server_request_timeout)).show();
                         progressDialog.dismiss();
                         break;
 
                     case UNREACHABLE_SERVER:
-                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.core.R.string.connection_problem), resources.getString(zm.gov.moh.core.R.string.problem_connecting_server)).show();
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.common.R.string.connection_problem), resources.getString(zm.gov.moh.common.R.string.problem_connecting_server)).show();
                         progressDialog.dismiss();
                         break;
 
@@ -122,8 +137,8 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
             }
         };
 
-        viewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
-        viewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
+        loginViewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
+        loginViewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
     }
 
     public void setLocation(List<Location> locations){
@@ -137,7 +152,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         Location location = locationArrayAdapter.getItem(i);
-        viewModel.saveSessionLocation(location);
+        loginViewModel.saveSessionLocation(location);
     }
 
     @Override
