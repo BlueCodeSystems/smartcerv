@@ -10,8 +10,10 @@ import android.widget.TableRow;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +50,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     AtomicBoolean canSetValue;
     //Long drugConceptId, mFrequency, mDuration;
     //DrugObsValue mDrugObsValue;
-    ObsValue<ArrayList<Long>> mObsValue; // temporarily use to Array contain value of frequency and Duration
+    ObsValue<Set<Long>> mObsValue; // temporarily use to Array contain value of frequency and Duration
     List<Logic> logic;
     Form form;
 
@@ -249,7 +251,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
             BasicDrugWidget widget = new BasicDrugWidget(mContext);
             //widget.mDrugObsValue = new DrugObsValue();
             widget.mObsValue = new ObsValue<>();
-            widget.mObsValue.setValue(new ArrayList<>());
+            widget.mObsValue.setValue(new HashSet<>());
             widget.mObsValue.setConceptDataType(ConceptDataType.CODED);
             widget.canSetValue = new AtomicBoolean();
             widget.canSetValue.set(true);
