@@ -17,12 +17,48 @@
           "textSize": 18
         },
         {
-          "tag": "other",
+          "tag": "Other_leep_evaluation",
           "widgetType": "Concept",
-          "conceptId": 5622,
+          "conceptId": 165381,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other procedures"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reason For Other procedures",
+          "widgetType": "Concept",
+          "conceptId": 165388,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
           "textSize": 18
         },
         {
@@ -109,12 +145,12 @@
       "title": "Intraoperative Complications (Please describe comments) ",
       "widgets": [
         {
-          "tag": "cervical_arterial_bleed",
+          "tag": "cervical_bleeding",
           "widgetType": "Concept",
           "conceptId": 165287,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "cervical_arterial_bleed",
+          "label": "Cervical bleeding",
           "textSize": 18
         },
         {
@@ -123,7 +159,7 @@
           "conceptId": 165288,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "vaginal_laceration",
+          "label": "Vaginal laceration",
           "textSize": 18
         },
         {
@@ -132,29 +168,53 @@
           "conceptId": 165289,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "anesthesia_reaction",
+          "label": "Anesthesia reaction",
           "textSize": 18
         },
         {
-          "tag": "other",
+          "tag": "Other_Intraoperative Complications",
           "widgetType": "Concept",
-          "conceptId": 5622,
+          "conceptId": 165389,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Reason For Other",
           "textSize": 18,
-          "weight": 1
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other intraoperative complications"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
+          "tag": "Reason For Other intraoperative complications",
+          "widgetType": "Concept",
+          "conceptId": 	165390,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
         },
         {
           "tag": "none",
@@ -349,25 +409,49 @@
           "textSize": 18
         },
         {
-          "tag": "other",
+          "tag": "Other_Post-operative complications",
           "widgetType": "Concept",
-          "conceptId": 5622,
+          "conceptId": 165391,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Reason For Other",
           "textSize": 18,
-          "weight": 1
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other Post-operative complications"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
+          "tag": "Reason For Other Post-operative complications",
+          "widgetType": "Concept",
+          "conceptId": 165392,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
         }
       ]
     },
@@ -489,9 +573,9 @@
           "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
         },
         {
-          "tag": "Other_procedures",
+          "tag": "Other_Post-op Interventions",
           "widgetType": "Concept",
-          "conceptId": 165383,
+          "conceptId": 165393,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
@@ -505,7 +589,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "Reason For Other"
+                    "Reason For Other Post-op Interventions"
                   ]
                 }
               }
@@ -526,9 +610,9 @@
           ]
         },
         {
-          "tag": "Reason For Other",
+          "tag": "Reason For Other Post-op Interventions",
           "widgetType": "Concept",
-          "conceptId": 165154,
+          "conceptId": 165394,
           "dataType": "Text",
           "hint": "Enter Reason For Other",
           "textSize": 18

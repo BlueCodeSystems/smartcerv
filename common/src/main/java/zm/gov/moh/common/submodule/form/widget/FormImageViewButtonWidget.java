@@ -106,8 +106,6 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         mBundle.putString(Key.VIEW_TAG, (String)getTag());
         //Toast.makeText(FormImageViewButtonWidget.this, "You clicked on ImageView", Toast.LENGTH_LONG).show();
         ((AppCompatActivity)mContext).startActivityForResult(Intent.createChooser(intent, "Select Picture"), RESULT_LOAD_IMAGE1);
-
-
     }
 
     public void onUriRetrieved(Uri uri){

@@ -139,7 +139,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     @Override
     public void onBackPressed() {
         if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
-            exitToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_LONG);
+            exitToast = Toast.makeText(this, "Press back button again to exit", Toast.LENGTH_LONG);
             exitToast.show();
         } else {
             exitToast.cancel();
