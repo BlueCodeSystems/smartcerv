@@ -13,10 +13,11 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
     private final short PREFERED = 1;
     private final String LOCALE_EN = "en";
     private Bundle bundle;
+    protected Application application;
 
     public BaseAndroidViewModel(Application application){
         super(application);
-
+        this.application = application;
         InjectorUtils.provideRepository(this, application);
     }
 

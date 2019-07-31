@@ -41,6 +41,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     private ProgressDialog progressDialog;
     private Resources resources;
     private ArrayAdapter<Location> locationArrayAdapter;
+    private Toast exitToast;
 
     //TODO:Must read value from global context
     private final long FACILITY_LOCATION_TAG_ID = 5;
@@ -71,6 +72,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         binding.setCredentials(viewModel.getCredentials());
         binding.setVariable(BR.viewmodel, viewModel);
         binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
+        binding.setContext(this);
 
         final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
 
@@ -135,7 +137,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     }
 
     boolean doubleBackToExitPressedOnce = false;
-    private Toast exitToast;
+   /* private Toast exitToast;
     @Override
     public void onBackPressed() {
         if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
@@ -146,7 +148,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
             this.finishAffinity();
 
         }
-    }
+    }*/
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -157,5 +159,18 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
+            exitToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_LONG);
+            exitToast.show();
+        } else {
+            exitToast.cancel();
+            this.finishAffinity();
+
+        }
     }
 }
