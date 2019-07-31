@@ -1,14 +1,23 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.webkit.WebView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -19,6 +28,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.security.MessageDigest;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -117,49 +127,58 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
         TextView caption = viewHolder.caption;
         Map.Entry<String,LinkedHashMultimap<Long, String>> data = ediVisitDataList.get(i);
 
-        File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
-        long dateTimeEpoch = data.getValue().keySet().iterator().next();
+        if(data != null && data.getValue().size() > 0) {
 
-        Iterator<String> images = data.getValue().get(dateTimeEpoch).iterator();
+            File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+            long dateTimeEpoch = data.getValue().keySet().iterator().next();
 
-        Instant dateTime = Instant.ofEpochSecond(dateTimeEpoch);
-        LocalDateTime visitDateTime = LocalDateTime.ofInstant(dateTime, ZoneOffset.UTC);
-        String visitDateTimeFormatted =  visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+            Iterator<String> images = data.getValue().get(dateTimeEpoch).iterator();
 
-        caption.setText(data.getKey()+" on "+visitDateTimeFormatted);
+            Instant dateTime = Instant.ofEpochSecond(dateTimeEpoch);
+            LocalDateTime visitDateTime = LocalDateTime.ofInstant(dateTime, ZoneOffset.UTC);
+            String visitDateTimeFormatted = visitDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            //private boolean isImageFitToScreen;
+            caption.setText(data.getKey() + " on " + visitDateTimeFormatted);
 
-            @Override
-            public void onClick(View v) {
+            imageView.setOnClickListener(new View.OnClickListener() {
 
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_VIEW);
-                imageView.setOnClickListener(this);
-                imageView2.setOnClickListener(this);
-                ((AppCompatActivity)context).startActivityForResult(Intent.createChooser(intent,
-                        "Select Picture"), 1);
-            }
-        });
+                private WebView touch;
+                private Dialog currentAnimator;
+                private boolean isImageFitToScreen;
+                private File file;
 
-        try {
-            if(images.hasNext()){
-                RequestBuilder builder = Glide
-                        .with(context)
-                        .asBitmap();
-                signature(new StringSignature(String.valueOf(System.currentTimeMillis())));
-                builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
-                        .into(imageView);
+                @Override
+                public void onClick(View v) {
 
-                if(images.hasNext()){
-                    builder .load(image.getCanonicalPath()+"/"+images.next()+".png")
-                            .into(imageView2);
+                    if (isImageFitToScreen) {
+                        isImageFitToScreen = false;
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                        imageView.setAdjustViewBounds(true);
+                    } else {
+                        isImageFitToScreen = true;
+                        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    }
                 }
+            });
+
+            try {
+                if (images.hasNext()) {
+                    RequestBuilder builder = Glide
+                            .with(context)
+                            .asBitmap();
+                    signature(new StringSignature(String.valueOf(System.currentTimeMillis())));
+                    builder.load(image.getCanonicalPath() + "/" + images.next() + ".png")
+                            .into(imageView);
+
+                    if (images.hasNext()) {
+                        builder.load(image.getCanonicalPath() + "/" + images.next() + ".png")
+                                .into(imageView2);
+                    }
+                }
+            } catch (Exception e) {
+                Exception ex = e;
             }
-        }catch (Exception e){
-            Exception ex = e;
         }
 
     }
