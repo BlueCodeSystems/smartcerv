@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
-import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
+import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
@@ -64,11 +64,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         bundle.remove(START_SUBMODULE_KEY);
 
-        FragmentTransaction fragmentManager = getSupportFragmentManager().beginTransaction();
-
-        Fragment fragment = new CredentialFragment();
-
-        fragmentManager.replace(R.id.segment, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.segment, new CredentialFragment()).commit();
 
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
@@ -81,11 +77,11 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
         binding.setContext(this);
 
-        final Observer<AuthenticationStatus> authenticationStatusObserver = status -> {
+        final Observer<ViewState> viewStateObserver = state -> {
 
-            if(loginViewModel.getPending().compareAndSet(true, false) && status != null) {
+            if(loginViewModel.getPending().compareAndSet(true, false) && state != null) {
 
-                switch (status){
+                switch (state){
 
                     case AUTHORIZED:
                         startModule(nextModule);
@@ -106,6 +102,11 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
                     case UNAUTHORIZED_LOCATION:
                         Utils.showModelDialog(context, resources.getString(zm.gov.moh.common.R.string.authentication_failed), resources.getString(zm.gov.moh.common.R.string.unauthorized_location)).show();
+                        progressDialog.dismiss();
+                        break;
+
+                    case USER_NOT_PROVIDER:
+                        Utils.showModelDialog(context, resources.getString(zm.gov.moh.common.R.string.authentication_failed), resources.getString(R.string.user_not_provider)).show();
                         progressDialog.dismiss();
                         break;
 
@@ -132,12 +133,16 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
                         progressDialog.dismiss();
                         break;
 
+                    case MULTIPLE_LOCATION_SELECTION:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.segment, new LocationFragment()).commit();
+                        progressDialog.dismiss();
+
                     default: break;
                 }
             }
         };
 
-        loginViewModel.getAuthenticationStatus().observe(this, authenticationStatusObserver);
+        loginViewModel.getViewState().observe(this, viewStateObserver);
         loginViewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
     }
 
