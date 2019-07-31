@@ -293,6 +293,7 @@ public class WidgetModelToWidgetAdapter {
                     .setUuid(model.getUuid())
                     .setRepository(repository)
                     .setBundle(bundle)
+                    .setTag(model.getTag())
                     .build();
 
             return widget;
