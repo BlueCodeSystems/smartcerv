@@ -27,7 +27,7 @@ public class DatePickerWidget extends EditTextWidget {
         super.onCreateView();
         AppCompatImageButton button = new AppCompatImageButton(mContext);
         super.setGravity(Gravity.CENTER_HORIZONTAL);
-        //mEdittext.setEnabled(false);
+        /** TODO mEdittext.setEnabled(false); **/
 
         button.setBackgroundResource(R.drawable.calendar);
 
