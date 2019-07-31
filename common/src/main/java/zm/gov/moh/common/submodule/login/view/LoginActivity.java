@@ -1,9 +1,6 @@
 package zm.gov.moh.common.submodule.login.view;
 
 import android.app.ProgressDialog;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -14,10 +11,9 @@ import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-
 import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
 import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
@@ -38,6 +34,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
     private ProgressDialog progressDialog;
     private Resources resources;
     private ArrayAdapter<Location> locationArrayAdapter;
+    private Toast exitToast;
 
     //TODO:Must read value from global context
     private final long FACILITY_LOCATION_TAG_ID = 5;
@@ -167,6 +164,14 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
     @Override
     public void onBackPressed() {
-        this.finishAffinity();
+
+        if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
+            exitToast = Toast.makeText(this, "Press again to exit", Toast.LENGTH_LONG);
+            exitToast.show();
+        } else {
+            exitToast.cancel();
+            this.finishAffinity();
+
+        }
     }
 }
