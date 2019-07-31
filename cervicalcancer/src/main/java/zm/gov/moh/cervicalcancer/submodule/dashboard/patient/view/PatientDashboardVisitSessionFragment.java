@@ -283,9 +283,9 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     public void initFormState(Bundle bundle){
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(Key.LOCATION_ID, 1);
+                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(Key.AUTHORIZED_USER_UUID, "null");
+                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
 

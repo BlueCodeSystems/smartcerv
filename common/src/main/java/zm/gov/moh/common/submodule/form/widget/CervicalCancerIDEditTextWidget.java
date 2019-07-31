@@ -3,7 +3,6 @@ package zm.gov.moh.common.submodule.form.widget;
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 
-import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.FacilityDistrictCode;
 
@@ -23,7 +22,7 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
         this.context = context;
 
         facilityLocationId = repository.getDefaultSharePrefrences()
-                .getLong(Key.LOCATION_ID, 1);
+                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
 
         repository.getDatabase().facilityDistrictCodeDao().getFacilitydistrictCodeByLocationId(facilityLocationId).observe((AppCompatActivity)context,this::setFacilityDistrictCode);
     }

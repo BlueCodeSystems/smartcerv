@@ -9,7 +9,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import android.os.Bundle;
 import android.util.TypedValue;
 
-import zm.gov.moh.core.model.Key;
+import java.util.HashMap;
+
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
 
@@ -36,7 +37,7 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
         this.addView(value);
 
         String userUuid = repository.getDefaultSharePrefrences()
-                .getString(Key.AUTHORIZED_USER_UUID,"Not Found");
+                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key),"Not Found");
 
         repository.getDatabase().providerUserDao().getAllByUserUuid(userUuid).observe((AppCompatActivity)context,this::setProvider);
     }

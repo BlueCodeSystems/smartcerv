@@ -74,19 +74,62 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+
+
+
+            <EditText
+                android:id="@+id/username_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:ems="10"
+                android:hint="username"
+                android:inputType="textPersonName"
+                android:text="@={credentials.username}"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                tools:layout_editor_absoluteX="20dp" />
 
-                <FrameLayout
-                    android:id="@+id/segment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+            <EditText
+                android:id="@+id/password_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:text="@={credentials.password}"
+                app:layout_constraintTop_toBottomOf="@+id/username_edittext"
+                tools:layout_editor_absoluteX="20dp" />
 
-                </FrameLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:text="Select session location"
+                android:textColor="@color/light_red"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/locations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/light_green"
+                android:onClick="@{()-> viewmodel.submitCredentials(credentials)}"
+                android:text="Login"
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
