@@ -150,28 +150,15 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
 
-                    /*Intent intent = new Intent();
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_VIEW);
-                    ((AppCompatActivity)context).startActivity(intent);*/
-
-
-                    /*Intent intent = new Intent();
-                    intent.setAction(android.content.Intent.ACTION_VIEW); intent.setDataAndType
-                            (Uri.parse(file.getAbsolutePath()),"image/*");
-                    imageView.setOnClickListener(this);
-                    imageView2.setOnClickListener(this);
-                    ((AppCompatActivity)context).startActivity(intent);*/
-
-             /*if (isImageFitToScreen) {
+                    if (isImageFitToScreen) {
                         isImageFitToScreen = false;
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                         imageView.setAdjustViewBounds(true);
                     } else {
                         isImageFitToScreen = true;
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);*/
-
+                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    }
                 }
             });
 

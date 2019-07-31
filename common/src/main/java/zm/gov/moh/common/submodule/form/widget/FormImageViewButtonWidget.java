@@ -104,7 +104,7 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
         mBundle.putString(Key.VIEW_TAG, (String)getTag());
-        //Toast.makeText(FormImageViewButtonWidget.this, "You clicked on ImageView", Toast.LENGTH_LONG).show();
+        /** TODO: Toast.makeText(FormImageViewButtonWidget.this, "You clicked on ImageView", Toast.LENGTH_LONG).show();**/
         ((AppCompatActivity)mContext).startActivityForResult(Intent.createChooser(intent, "Select Picture"), RESULT_LOAD_IMAGE1);
     }
 
