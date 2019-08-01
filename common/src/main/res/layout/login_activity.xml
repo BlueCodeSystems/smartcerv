@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="credentials" type="zm.gov.moh.common.submodule.login.model.Credentials"/>
         <variable name="viewmodel" type="zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel"/>
         <import type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
         <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
