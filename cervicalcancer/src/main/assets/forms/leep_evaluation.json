@@ -334,9 +334,9 @@
           "textSize": 18
         },
         {
-          "tag": "Other_leep_evaluation",
+          "tag": "Other_reason_for_referral",
           "widgetType": "Concept",
-          "conceptId": 165381,
+          "conceptId": 165395,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
@@ -350,7 +350,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "Reason For Other"
+                    "Reason_For_Other_reason_for_referral"
                   ]
                 }
               }
@@ -371,9 +371,9 @@
           ]
         },
         {
-          "tag": "Reason For Other",
+          "tag": "Reason_For_Other_reason_for_referral",
           "widgetType": "Concept",
-          "conceptId": 165154,
+          "conceptId": 165396,
           "dataType": "Text",
           "hint": "Enter Reason For Other",
           "textSize": 18
@@ -482,12 +482,48 @@
           "textSize": 18
         },
         {
-          "tag": "other",
+          "tag": "Other_leep_evaluation",
           "widgetType": "Concept",
-          "conceptId": 5622,
+          "conceptId": 165381,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reason For Other",
+          "widgetType": "Concept",
+          "conceptId": 165154,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
           "textSize": 18
         },
         {
