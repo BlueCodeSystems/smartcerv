@@ -22,6 +22,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
@@ -56,6 +57,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     private Object mContext;
     private Object Application;
     private android.app.Application application;
+    private Object VisitState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,9 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     }
 
     public void EDIonClick(final View v) {
+        /*if (VisitState == null) {
+            Toast.makeText(this, "No Images Loaded", Toast.LENGTH_LONG);
+        } else */
         fragment = new PatientDashboardEDIGalleryFragment();
         fragment.setArguments(mBundle);
         replaceFragment(fragment);

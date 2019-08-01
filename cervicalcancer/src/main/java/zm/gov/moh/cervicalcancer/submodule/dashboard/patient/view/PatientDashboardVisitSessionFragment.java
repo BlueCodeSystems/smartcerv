@@ -110,9 +110,12 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
-
             FormJson notes = new FormJson("Notes & Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
+            FormJson referral_slip = new FormJson("Cervical Health Referral Slip",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/cervical_health_referral_slip.json")));
+
+            // initialize LEEP forms
             FormJson evaluation = new FormJson("Evaluation",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
             FormJson outcomes = new FormJson("Outcomes",
@@ -129,6 +132,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
+            //viaFormGroup.addForm(referral_slip);
             leepFormGroup.addForm(evaluation);
             leepFormGroup.addForm(outcomes);
             leepFormGroup.addForm(final_diagnosis);
