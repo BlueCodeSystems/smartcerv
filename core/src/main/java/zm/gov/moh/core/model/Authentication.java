@@ -1,28 +1,8 @@
 package zm.gov.moh.core.model;
 
-class User {
+import zm.gov.moh.core.repository.database.entity.domain.Location;
 
-    private String uuid;
-    private String display;
-    private String username;
-    private String systemId;
 
-    public String getDisplay() {
-        return display;
-    }
-
-    public String getSystemId() {
-        return systemId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-}
 
 public class Authentication {
 

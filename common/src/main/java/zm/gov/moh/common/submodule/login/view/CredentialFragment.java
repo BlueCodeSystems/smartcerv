@@ -8,14 +8,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentLoginCredentialsBinding;
-import zm.gov.moh.common.submodule.login.model.Credentials;
+import zm.gov.moh.common.submodule.login.model.ViewBindings;
 import zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,7 +76,7 @@ public class CredentialFragment extends Fragment {
         LoginActivity loginActivity =((LoginActivity)context);
         viewModel = (LoginViewModel) loginActivity.getViewModel();
         binding.setViewmodel(viewModel);
-        binding.setCredentials(new Credentials());
+        binding.setCredentials(new ViewBindings());
         return binding.getRoot();
     }
 
