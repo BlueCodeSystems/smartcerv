@@ -1,18 +1,15 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
+
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.LinearLayoutCompat;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.utils.Utils;
 
@@ -38,10 +35,6 @@ public class DatePickerWidget extends EditTextWidget {
 
             // set day of month , month and year value in the edit text
             String dob = (year+"-" + ((monthOfYear + 1 < 10)? "0"+(monthOfYear + 1 ):(monthOfYear + 1 ))+"-"+((dayOfMonth < 10)? "0"+dayOfMonth:dayOfMonth));
-
-
-
-
 
             this.setValue(dob);
 
