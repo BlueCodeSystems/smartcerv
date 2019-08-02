@@ -8,6 +8,7 @@ import android.util.TypedValue;
 
 
 import zm.gov.moh.common.R;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 
@@ -35,7 +36,7 @@ public class DistrictFacilityPickerWidget extends LinearLayoutCompat {
         this.facilityText = facilityText;
         this.repository = repository;
         facilityLocationId = repository.getDefaultSharePrefrences()
-                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
 
         LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         LinearLayoutCompat.LayoutParams layoutParams1 = new LinearLayoutCompat.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

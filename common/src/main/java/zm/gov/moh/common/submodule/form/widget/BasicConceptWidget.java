@@ -15,6 +15,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +47,7 @@ import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
-public class BasicConceptWidget extends LinearLayoutCompat {
+public class BasicConceptWidget extends LinearLayoutCompat implements Retainable {
 
     String mLabel;
     String mHint;
@@ -70,6 +71,8 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     LinkedHashSet<Long> answerConcepts;
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
+    private int gravity;
+
     ArrayList<Long> selectedConcepts = new ArrayList<>();
     boolean isCodedAnswersRetrieved = false;
     List<ConceptAnswerName> mConceptAnswerNames;
@@ -79,7 +82,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 
-        if(answerConcepts == null)
+        if (answerConcepts == null)
             answerConcepts = new LinkedHashSet<>();
 
         long id = (long) compoundButton.getId();
@@ -94,7 +97,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     public void onSelectedValue(long i) {
 
-        if(answerConcepts == null)
+        if (answerConcepts == null)
             answerConcepts = new LinkedHashSet<>();
 
         if (!answerConcepts.isEmpty())
@@ -113,7 +116,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
         if (canSetValue.get()) {
 
-            if(mObsValue == null) {
+            if (mObsValue == null) {
                 mObsValue = new ObsValue<>();
                 mObsValue.setConceptDataType(mDataType);
                 mObsValue.setConceptId(mConceptId);
@@ -228,13 +231,24 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         border.getPaint().setColor(Color.BLACK);
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+
                         mEditText.setGravity(Gravity.LEFT);
                         //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+
+                        mEditText.setGravity(Gravity.TOP);
+                        MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
+                        params.leftMargin = 1000;
+                        params.topMargin = 2000;
+
                         WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
+                        mEditText.setPadding(10, 10, 10, 10);
                         mEditText.setSingleLine(false);
                         mEditText.setMinLines(5);
                         this.addView(view);
+
                     } else if (mStyle.equals("TextBoxTwo")) {
                         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(500)});
                         ShapeDrawable border = new ShapeDrawable(new RectShape());
@@ -242,8 +256,19 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         border.getPaint().setColor(Color.BLACK);
                         mEditText.setBackground(border);
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
+
                         mEditText.setGravity(Gravity.CENTER);
                         //Auto capitalize first letter of every sentence
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+                        mEditText.setGravity(Gravity.TOP);
+                        MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
+                        params.width = 200;
+                        params.leftMargin = 1000;
+                        params.topMargin = 2000;
+                        TextView textRegion = (mEditText);
+                        textRegion.setGravity(gravity);
+                        //LayoutParams.setMargins(50,50,50,50);
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
@@ -261,10 +286,10 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
 
             case ConceptDataType.DATE:
-                 datePicker =  new DatePickerWidget.Builder(mContext)
-                                        .setOnValueChangeListener(this::onTextValueChangeListener)
+                datePicker = new DatePickerWidget.Builder(mContext)
+                        .setOnValueChangeListener(this::onTextValueChangeListener)
                         .setHint(mHint).build();
-                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView,datePicker));
+                this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, datePicker));
                 break;
 
 
@@ -300,10 +325,9 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     public void onConceptIdAnswersRetrieved(List<ConceptAnswerName> conceptAnswerNames) {
 
-        if(isCodedAnswersRetrieved){
+        if (isCodedAnswersRetrieved) {
             WidgetUtils.removeViewGroupChildren(this);
-        }
-        else
+        } else
             isCodedAnswersRetrieved = true;
 
         mConceptAnswerNames = conceptAnswerNames;
@@ -321,11 +345,11 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, checkBoxGroup));
 
-                if(!selectedConcepts.isEmpty())
-                    for (Long conceptId: selectedConcepts){
+                if (!selectedConcepts.isEmpty())
+                    for (Long conceptId : selectedConcepts) {
                         CheckBox button = checkBoxGroup.findViewWithTag(conceptId.intValue());
 
-                        if(button != null)
+                        if (button != null)
                             button.setChecked(true);
                     }
                 break;
@@ -334,11 +358,11 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                 RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
 
-                if(!selectedConcepts.isEmpty())
-                for (Long conceptId: selectedConcepts){
-                    RadioButton button = radioGroup.findViewWithTag(conceptId.intValue());
-                    button.setChecked(true);
-                }
+                if (!selectedConcepts.isEmpty())
+                    for (Long conceptId : selectedConcepts) {
+                        RadioButton button = radioGroup.findViewWithTag(conceptId.intValue());
+                        button.setChecked(true);
+                    }
                 break;
 
             case "dropdown":
@@ -407,7 +431,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
     //Add listener for a text change event
     public void onTextValueChangeListener(CharSequence value) {
 
-        if(value != null && !value.equals(""))
+        if (value != null && !value.equals(""))
             setObsValue(value);
     }
 
@@ -481,7 +505,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
 
     // Retrieves previously entered value and displays it in widget
     public void onLastObsRetrieved(ObsEntity... obs) {
-    // Method retrieves entered observations and displays the values in widgets
+        // Method retrieves entered observations and displays the values in widgets
         int firstIndex = 0;
 
         switch (mDataType) {
@@ -508,7 +532,7 @@ public class BasicConceptWidget extends LinearLayoutCompat {
             case ConceptDataType.BOOLEAN:
                 Long conceptId = obs[firstIndex].getValueCoded();
 
-                if(mStyle.equals(STYLE_RADIO)){
+                if (mStyle.equals(STYLE_RADIO)) {
 
                     if (conceptId == 1) {
                         RadioButton button = (RadioButton) radioGroup.getChildAt(0);
@@ -517,20 +541,20 @@ public class BasicConceptWidget extends LinearLayoutCompat {
                         RadioButton button = (RadioButton) radioGroup.getChildAt(1);
                         button.setChecked(true);
                     }
-                }else if(mStyle.equals(STYLE_CHECK)){
-                   CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);
-                   if(checkBox != null && conceptId == 1)
-                       checkBox.setChecked(true);
+                } else if (mStyle.equals(STYLE_CHECK)) {
+                    CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);
+                    if (checkBox != null && conceptId == 1)
+                        checkBox.setChecked(true);
                 }
                 break;
 
             case ConceptDataType.CODED:
 
-                for(ObsEntity codedObs :obs)
-                 selectedConcepts.add(codedObs.getValueCoded());
+                for (ObsEntity codedObs : obs)
+                    selectedConcepts.add(codedObs.getValueCoded());
 
-                 if(isCodedAnswersRetrieved)
-                     onConceptIdAnswersRetrieved(mConceptAnswerNames);
+                if (isCodedAnswersRetrieved)
+                    onConceptIdAnswersRetrieved(mConceptAnswerNames);
                 break;
 
             case ConceptDataType.DATE:

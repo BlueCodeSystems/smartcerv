@@ -56,10 +56,15 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
+<<<<<<< HEAD
         mEditText.setGravity(Gravity.TOP);
         //auto capitalize first word in sentence
         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
         WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
+=======
+        mEditText.setGravity(Gravity.START);
+        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
+>>>>>>> develop
         addView(mEditText);
 
         //auto populate

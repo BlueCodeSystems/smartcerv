@@ -19,6 +19,7 @@ import zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.common.view.CommonHomeFragment;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 
 
@@ -36,7 +37,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
         setViewModel(homeViewModel);
 
         final long SESSION_LOCATION_ID = this.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(this.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
 
 
 

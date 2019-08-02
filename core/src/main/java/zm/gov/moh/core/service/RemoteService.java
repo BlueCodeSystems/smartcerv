@@ -25,7 +25,7 @@ public abstract class RemoteService extends BaseIntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         super.onHandleIntent(intent);
         AndroidThreeTen.init(this);
-
+        //TODO: replace hard coded token with dynamically assigned tokens
         //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
 
         if(accessToken == null){
