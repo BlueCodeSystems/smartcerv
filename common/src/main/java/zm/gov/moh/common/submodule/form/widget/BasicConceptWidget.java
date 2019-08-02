@@ -236,8 +236,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
-
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
                         params.leftMargin = 1000;
@@ -269,7 +267,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         TextView textRegion = (mEditText);
                         textRegion.setGravity(gravity);
                         //LayoutParams.setMargins(50,50,50,50);
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
