@@ -7,6 +7,14 @@ import android.widget.DatePicker;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
+import android.widget.RemoteViews;
+
+
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -17,6 +25,7 @@ public class DatePickerWidget extends EditTextWidget {
 
     public DatePickerWidget(Context context){
         super(context);
+
     }
 
     @Override
@@ -25,7 +34,8 @@ public class DatePickerWidget extends EditTextWidget {
         AppCompatImageButton button = new AppCompatImageButton(mContext);
         super.setGravity(Gravity.CENTER_HORIZONTAL);
         mEditText.setEnabled(false);
-        mEditText.setAlpha(.5f);
+        mEditText.setTextColor(Color.BLACK);
+
 
         button.setBackgroundResource(R.drawable.calendar);
 

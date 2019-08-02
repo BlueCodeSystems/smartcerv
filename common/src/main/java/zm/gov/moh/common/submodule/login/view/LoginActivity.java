@@ -8,17 +8,8 @@ import android.content.res.Resources;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
-
-import android.os.Handler;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import java.util.ArrayList;
-import java.util.List;
-import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
 import zm.gov.moh.common.submodule.login.model.ViewState;
-import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.service.ServiceManager;
@@ -29,25 +20,19 @@ import zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel;
 import zm.gov.moh.common.databinding.LoginActivityBinding;
 
 
-public class LoginActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+public class LoginActivity extends BaseActivity {
 
     private LoginViewModel loginViewModel;
     private Context context;
     private ProgressDialog progressDialog;
     private Resources resources;
-    private ArrayAdapter<Location> locationArrayAdapter;
     private Toast exitToast;
-
-    //TODO:Must read value from global context
-    private final long FACILITY_LOCATION_TAG_ID = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
         resources = context.getResources();
-
-        locationArrayAdapter = new LocationArrayAdapter(this, new ArrayList<Location>());
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
@@ -66,11 +51,6 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
-        /*Spinner locationsSpinner = findViewById(R.id.locations);
-        locationsSpinner.setAdapter(locationArrayAdapter);
-        locationsSpinner.setOnItemSelectedListener(this);*/
-
-        binding.setCredentials(loginViewModel.getCredentials());
         binding.setVariable(BR.viewmodel, loginViewModel);
         binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
         binding.setContext(this);
@@ -110,7 +90,7 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
 
                     case PENDING:
                         progressDialog.show();
-                        loginViewModel.getCredentials().clear();
+                        loginViewModel.getViewBindings().clearCredentials();
                         break;
 
                     case NO_INTERNET:
@@ -141,39 +121,6 @@ public class LoginActivity extends BaseActivity implements AdapterView.OnItemSel
         };
 
         loginViewModel.getViewState().observe(this, viewStateObserver);
-        loginViewModel.getRepository().getDatabase().locationDao().getByTagId(FACILITY_LOCATION_TAG_ID).observe(this, this::setLocation);
-    }
-
-    public void setLocation(List<Location> locations){
-
-        locationArrayAdapter.clear();
-        locationArrayAdapter.addAll(locations);
-        locationArrayAdapter.notifyDataSetChanged();
-    }
-
-    boolean doubleBackToExitPressedOnce = false;
-   /* private Toast exitToast;
-    @Override
-    public void onBackPressed() {
-        if (exitToast == null || exitToast.getView() == null || exitToast.getView().getWindowToken() == null) {
-            exitToast = Toast.makeText(this, "Press back button again to exit", Toast.LENGTH_LONG);
-            exitToast.show();
-        } else {
-            exitToast.cancel();
-            this.finishAffinity();
-
-        }
-    }*/
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-        Location location = locationArrayAdapter.getItem(i);
-        loginViewModel.saveSessionLocation(location);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
     @Override
