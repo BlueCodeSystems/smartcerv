@@ -10,7 +10,7 @@ import zm.gov.moh.core.repository.database.Database;
 
 public class BaseAndroidViewModel extends AndroidViewModel implements InjectableViewModel {
 
-    private Repository mRepository;
+    protected Repository mRepository;
     private final short PREFERED = 1;
     private final String LOCALE_EN = "en";
     private Bundle bundle;
@@ -47,5 +47,9 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
 
     public String getLOCALE_EN() {
         return LOCALE_EN;
+    }
+
+    public void onError(Throwable throwable){
+
     }
 }
