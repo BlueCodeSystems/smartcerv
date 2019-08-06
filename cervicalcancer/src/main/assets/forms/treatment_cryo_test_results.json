@@ -9,7 +9,6 @@
     {
       "title": "Visual Inspection with Acetic Acid(VIA)",
       "widgets": [
-
         {
           "tag": "via inspection done",
           "widgetType": "Concept",
@@ -20,7 +19,6 @@
           "textSize": 18,
           "label": "Was inspection done?",
           "logic": [
-
             {
               "condition": {
                 "value": 2
@@ -68,6 +66,7 @@
                 "metadata": {
                   "tags": [
                     "image view button",
+                    "default camera",
                     "camera button"
                   ]
                 }
@@ -89,6 +88,15 @@
           ]
         },
         {
+          "tag": "edi reason",
+          "widgetType": "Concept",
+          "conceptId": 165217,
+          "uuid": "c023311a-1fbc-43b9-9c65-d988601e578b",
+          "dataType": "Text",
+          "hint": "Reason",
+          "textSize": 18
+        },
+        {
           "tag": "image view button",
           "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
@@ -97,20 +105,18 @@
           "weight": 1
         },
         {
-          "tag": "camera button",
-          "widgetType": "CameraButton",
+          "tag": "default camera",
+          "widgetType": "DefaultCameraButton",
           "label": "Take Photo",
           "textSize": 18,
           "weight": 1
         },
         {
-          "tag": "edi reason",
-          "widgetType": "Concept",
-          "conceptId": 165217,
-          "uuid": "c023311a-1fbc-43b9-9c65-d988601e578b",
-          "dataType": "Text",
-          "hint": "Reason for no EDI",
-          "textSize": 18
+          "tag": "camera button",
+          "widgetType": "CameraButton",
+          "label": "Camera Connect",
+          "textSize": 18,
+          "weight": 1
         }
       ]
     },
@@ -198,7 +204,7 @@
         {
           "tag": "eligible for cryotherapy",
           "widgetType": "Concept",
-          "uuid":"f27863f3-b3ec-44db-bc48-0863903e5e51",
+          "uuid": "f27863f3-b3ec-44db-bc48-0863903e5e51",
           "conceptId": 165164,
           "dataType": "Boolean",
           "style": "check",
@@ -209,7 +215,7 @@
           "tag": "entire lesion seen",
           "widgetType": "Concept",
           "conceptId": 165168,
-          "uuid":"4dc498d3-f668-4e83-8dbb-c555dd84b883",
+          "uuid": "4dc498d3-f668-4e83-8dbb-c555dd84b883",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Entire lesion seen",

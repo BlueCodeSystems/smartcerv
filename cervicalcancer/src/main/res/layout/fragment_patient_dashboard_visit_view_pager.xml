@@ -18,11 +18,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/load_imag"
-        android:layout_width="85dp"
-        android:layout_height="54dp"
-        android:src="@drawable/ic_gallery" />
-
 </LinearLayout>

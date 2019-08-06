@@ -11,18 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.FormJsonGroupExpandableListAdapter;
@@ -50,9 +53,12 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     private PatientDashboardViewModel viewModel;
     private VisitState mVisitState;
     private Button startButton;
+    private ImageButton imageButton1;
+    private ImageButton imageButton2;
     private ExpandableListView mFormGroupExpandableListView;
     private ImageView formInfoIcon;
     private TextView textView;
+    private File image;
 
     public PatientDashboardVisitSessionFragment() {
         // Required empty public constructor
@@ -104,13 +110,16 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
                     Utils.getStringFromInputStream(context.getAssets().open("forms/via_treatment.json")));
             FormJson prescriptions = new FormJson("Prescription(s)",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/treatment_cryo_prescriptions.json")));
-
             FormJson notes = new FormJson("Notes & Recommendations",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/notes_recommendations.json")));
+            FormJson referral_slip = new FormJson("Cervical Health Referral Slip",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/cervical_health_referral_slip.json")));
+
+            // initialize LEEP forms
             FormJson evaluation = new FormJson("Evaluation",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_evaluation.json")));
-            FormJson treatment_results_pathology = new FormJson("Treatment/Results/Pathology",
-                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_treatment_results_pathology.json")));
+            FormJson outcomes = new FormJson("Outcomes",
+                    Utils.getStringFromInputStream(context.getAssets().open("forms/leep_outcomes.json")));
             FormJson final_diagnosis = new FormJson("Final Diagnosis & Plan",
                     Utils.getStringFromInputStream(context.getAssets().open("forms/leep_final_diagnosis_plan.json")));
 
@@ -123,8 +132,9 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
             viaFormGroup.addForm(treatment);
             viaFormGroup.addForm(prescriptions);
             viaFormGroup.addForm(notes);
+            //viaFormGroup.addForm(referral_slip);
             leepFormGroup.addForm(evaluation);
-            leepFormGroup.addForm(treatment_results_pathology);
+            leepFormGroup.addForm(outcomes);
             leepFormGroup.addForm(final_diagnosis);
         }catch (Exception e){
 
@@ -153,7 +163,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
         vistTypeIdMap.put("Delayed Cryotheraphy/Thermal Coagulation", OpenmrsConfig.VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION);
         vistTypeIdMap.put("Post-Treatment Complication", OpenmrsConfig.VISIT_TYPE_ID_POST_TREATMENT_COMPILATION);
         vistTypeIdMap.put("One-Year Follow Up", OpenmrsConfig.VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP);
-        vistTypeIdMap.put("Routing Screening",OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
+        vistTypeIdMap.put("Routine Screening",OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING);
         vistTypeIdMap.put("Referral for Cryotherapy/Thermal Coagulation", OpenmrsConfig.VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION);
 
         LinkedList<String> visitType = new LinkedList<>(vistTypeIdMap.keySet());
@@ -195,6 +205,8 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     public void init(){
 
         startButton = rootView.findViewById(R.id.start_visit);
+        //imageButton1 = rootView.findViewById(R.id.load_imag);
+        imageButton2 = rootView.findViewById(R.id.load_image);
         formInfoIcon = rootView.findViewById(R.id.form_info_ic);
         textView = rootView.findViewById(R.id.no_forms_placeholder);
         startButton.setOnClickListener(this);
@@ -223,6 +235,7 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
 
             Toast.makeText(context, "Some forms are only available after starting a visit session", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void updatedButtonStyle(Button button, int visitState){
@@ -274,9 +287,9 @@ public class PatientDashboardVisitSessionFragment extends Fragment implements Vi
     public void initFormState(Bundle bundle){
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(context.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
+                .getString(Key.AUTHORIZED_USER_UUID, "null");
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
 
