@@ -173,7 +173,7 @@ public abstract class Database extends RoomDatabase {
         if (dbInstance == null)
               synchronized (Database.class){
                   if (dbInstance == null)
-                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
+                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME).build();
               }
 
          return dbInstance;

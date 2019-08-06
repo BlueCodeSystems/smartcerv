@@ -191,8 +191,7 @@ public class BaseActivity extends AppCompatActivity {
                     .findByPersonIdObservable(personId)
                     .observe(this, personAddress -> {
 
-
-                        bundle.putString(PERSON_ADDRESS,personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince());
+                        bundle.putString(PERSON_ADDRESS,(personAddress != null)?personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince():this.getResources().getString(R.string.unknown));
 
                     });
         }

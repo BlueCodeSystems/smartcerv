@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@{facility.getName}"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/primary"
             android:textStyle="bold"/>
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="end"
-            android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
+            android:text="@{(clientAddress != null)?clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince : `unknown`}"
             android:textColor="@color/darker_grey"/>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sliding_tabs"
