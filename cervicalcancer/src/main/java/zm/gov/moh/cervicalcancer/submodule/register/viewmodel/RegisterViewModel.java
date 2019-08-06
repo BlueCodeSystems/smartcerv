@@ -14,23 +14,15 @@ import zm.gov.moh.core.utils.BaseAndroidViewModel;
 public class RegisterViewModel extends BaseAndroidViewModel{
 
     private LiveData<List<Client>> allClients;
-    private LiveData<List<Client>> searchClients;
-    private Repository repository;
 
     public RegisterViewModel(Application application){
         super(application);
 
 
-        long facilityLocationId = repository.getDefaultSharePrefrences()
+        long facilityLocationId = mRepository.getDefaultSharePrefrences()
                 .getLong(Key.LOCATION_ID, 1);
 
-        allClients = repository.getDatabase().genericDao().getAllPatientsByLocation(facilityLocationId);
-    }
-
-    @Override
-    public void setRepository(Repository repository) {
-
-        this.repository = repository;
+        allClients = db.genericDao().getAllPatientsByLocation(facilityLocationId);
     }
 
     public LiveData<List<Client>> getAllClients() {

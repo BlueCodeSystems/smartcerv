@@ -34,7 +34,7 @@ public class BootstrapActivity extends BaseActivity {
 
         startModule(BaseApplication.CoreModule.LOGIN, bundle);
 
-        ServiceManager.getInstance(this)
+       ServiceManager.getInstance(this)
                 .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
                 .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
                 .start();
