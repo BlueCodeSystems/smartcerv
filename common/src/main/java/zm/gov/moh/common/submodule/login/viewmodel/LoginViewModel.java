@@ -135,7 +135,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
                 authoriseLocationLogin(authentication));
     }
 
-    private void onError(Throwable throwable){
+    public void onError(Throwable throwable){
 
         pending.set(true);
         if (throwable instanceof HttpException) {
