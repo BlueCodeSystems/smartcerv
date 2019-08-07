@@ -58,6 +58,12 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
 
         mEditText.setGravity(Gravity.TOP);
+        //auto populate
+        if (mBundle != null) {
+            String value = mBundle.getString((String) getTag());
+            if (value != null)
+                mEditText.setText(value);
+        }
         //auto capitalize first word in sentence
         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
         WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
@@ -66,13 +72,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
 
         addView(mEditText);
-
-        //auto populate
-        if (mBundle != null) {
-            String value = mBundle.getString((String) getTag());
-            if (value != null)
-                mEditText.setText(value);
-        }
     }
 
     @Override
