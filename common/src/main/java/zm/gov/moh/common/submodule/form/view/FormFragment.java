@@ -146,13 +146,9 @@ public class FormFragment extends BaseFragment {
                 //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 this.bundle.putAll(contextbundle);
 
-                Intent intent = new Intent(context,PersistEncounter.class);
-
                 ArrayList<String> tags = form.getFormContext().getTags();
 
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
-
-                ObsValue<String> obsValue1 = (ObsValue<String>) bundle.getSerializable("image view button");
 
                 if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
 
