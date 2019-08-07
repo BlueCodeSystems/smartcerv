@@ -57,6 +57,14 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
 
+        //auto populate
+        if (mBundle != null) {
+            String tag = (String) getTag();
+            String value = mBundle.getString(tag);
+            if (value != null)
+                mEditText.setText(value);
+        }
+
         mEditText.setGravity(Gravity.TOP);
         //auto populate
         if (mBundle != null) {
