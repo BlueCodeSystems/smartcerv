@@ -142,9 +142,9 @@ public class BaseActivity extends AppCompatActivity {
     public void initBundle(Bundle bundle) {
 
         final long SESSION_LOCATION_ID = getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(this.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
         final String USER_UUID = getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(this.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), "null");
+                .getString(Key.AUTHORIZED_USER_UUID, "null");
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         Long personId = bundle.getLong(Key.PERSON_ID);
@@ -191,8 +191,7 @@ public class BaseActivity extends AppCompatActivity {
                     .findByPersonIdObservable(personId)
                     .observe(this, personAddress -> {
 
-
-                        bundle.putString(PERSON_ADDRESS,personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince());
+                        bundle.putString(PERSON_ADDRESS,(personAddress != null)?personAddress.getAddress1()+" "+personAddress.getCityVillage()+" "+personAddress.getStateProvince():this.getResources().getString(R.string.unknown));
 
                     });
         }

@@ -28,6 +28,7 @@ public class Settings extends BaseActivity {
     }
 
     public void onPreferencesSaved(){
+        finish();
         startModule(BaseApplication.CoreModule.BOOTSTRAP);
     }
 }

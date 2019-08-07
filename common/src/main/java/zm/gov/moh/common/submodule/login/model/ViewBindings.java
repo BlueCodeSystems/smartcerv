@@ -5,10 +5,11 @@ import androidx.databinding.Bindable;
 
 import zm.gov.moh.common.BR;
 
-public class Credentials extends BaseObservable {
+public class ViewBindings extends BaseObservable {
 
     private CharSequence username = "";
     private CharSequence password = "";
+    private Long selectedLocationId;
 
     @Bindable
     public CharSequence getUsername() {
@@ -18,6 +19,11 @@ public class Credentials extends BaseObservable {
     @Bindable
     public CharSequence getPassword() {
         return password;
+    }
+
+    @Bindable
+    public Long getSelectedLocationId() {
+        return selectedLocationId;
     }
 
     public void setPassword(final CharSequence password) {
@@ -39,13 +45,23 @@ public class Credentials extends BaseObservable {
         }
     }
 
-    public void clear(){
+    public void setSelectedLocationId(Long selectedLocationId) {
+
+        if(this.selectedLocationId != selectedLocationId){
+
+            this.selectedLocationId = selectedLocationId;
+            notifyPropertyChanged(BR.selectedLocationId);
+        }
+
+    }
+
+    public void clearCredentials(){
         this.setPassword("");
         this.setUsername("");
     }
 
 
-    public Credentials(){
+    public ViewBindings(){
 
     }
 }

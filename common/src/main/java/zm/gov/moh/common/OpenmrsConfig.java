@@ -27,4 +27,6 @@ public class OpenmrsConfig {
 
     // Provider Attributes
     public static final String PROVIDER_ATTRIBUTE_TYPE_PHONE = "0ec123b7-2826-41d6-a21e-b019350f78d7";
+
+    public static final String PROVIDER_ATTRIBUTE_TYPE_HOME_FACILITY = "c34fac13-9c48-4f29-beb1-04c8d0a86754";
 }

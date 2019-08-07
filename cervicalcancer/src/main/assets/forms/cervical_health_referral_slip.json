@@ -7,37 +7,50 @@
   },
   "widgetGroup": [
     {
-      "widgets": [
-        {
-          "tag": "date of referral",
-          "widgetType": "DatePicker",
-          "weight": 1,
-          "hint": "DD/MM/YYYY"
-        }
-      ]
-    },
-    {
+      "title": "Main",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "client id number",
-              "widgetType": "Concept",
-              "conceptId": 165357,
-              "dataType": "Text",
-              "hint": "Client ID Number",
-              "textSize": 18
+              "widgetType": "TextView",
+              "label": "Date of referral",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "date of referral",
+              "widgetType": "DatePicker",
+              "weight": 1,
+              "hint": "DD/MM/YYYY"
             }
           ]
-        }
-      ]
-    },
-    {
-      "widgets": [
+        },
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Client ID",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "client ID",
+              "widgetType": "CCPIZEditText",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "ART Number",
+              "textSize": 18,
+              "weight": 1
+            },
             {
               "tag": "art number",
               "widgetType": "Concept",
@@ -47,14 +60,16 @@
               "textSize": 18
             }
           ]
-        }
-      ]
-    },
-    {
-      "widgets": [
+        },
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Client name",
+              "textSize": 18,
+              "weight": 1
+            },
             {
               "tag": "PERSON_FAMILY_NAME",
               "widgetType": "EditText",
@@ -73,10 +88,10 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "referral clinic",
-              "widgetType": "FacilityLabel",
-              "hint": "Referral Clinic",
-              "textSize": 18
+              "widgetType": "TextView",
+              "label": "Age",
+              "textSize": 18,
+              "weight": 1
             },
             {
               "tag": "PERSON_AGE",
@@ -85,10 +100,28 @@
               "hint": "Age"
             }
           ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Referring Clinic",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "referral clinic",
+              "widgetType": "FacilityLabel",
+              "hint": "Referral Clinic",
+              "textSize": 18
+            }
+          ]
         }
       ]
     },
     {
+      "title": "Reason for referral",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
@@ -261,11 +294,7 @@
               "hint": "blah blah blah blah blah blah"
             }
           ]
-        }
-      ]
-    },
-    {
-      "widgets": [
+        },
         {
           "widgetType":"TextView",
           "label":"Comments",
@@ -285,6 +314,14 @@
               "weight": 1
             }
           ]
+        },
+        {
+          "tag": "image view button",
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "ImageViewButton",
+          "label": "Image Load",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "tag": "providers name",

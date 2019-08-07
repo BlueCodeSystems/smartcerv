@@ -8,4 +8,23 @@
     <string name="no_observations">"No observations recorded"</string>
     <string name="insufficient_identifiers">Registration unsuccessful, please sync and try again</string>
     <string name="Logout">logout</string>
+
+    <string name="logged_in_user_uuid_key">zm.gov.moh.core.logged_in_user_uuid_key</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="connection_problem">Connectivity problem</string>
+    <string name="request_timeout">Request Timeout</string>
+    <string name="no_credentials">No credentials provided</string>
+    <string name="problem_connecting_server">There was a problem trying to connect to the server. Try again later</string>
+    <string name="server_request_timeout">The request to the server has timeout. Please try again later</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="incorrect_credentials">Please check if credentials were entered correctly</string>
+    <string name="unauthorized_location">There was a problem authorizing this user. This provider has not been assigned a session location. Please contact the system administrator for help</string>
+    <string name="user_not_provider">There was a problem authorizing this user. The user might not be a provider, contact the system administrator for help</string>
+    <string name="regex_alphabet_atleast3">([aA-zZ]){3,}</string>
+    <string name="regex_alphanumeric_words">(.*[^ ].*)([a-zA-Z0-9 ]){2,}</string>
+    <string name="atleast_3_characters_long">Should be at least 3 alphabet characters long </string>
+    <string name="only_aphanumeric_characters">Should only contain alphanumeric characters</string>
+    <string name="zoned_time_mid_day">T12:00:00Z</string>
+    <string name="unknown">Unknown</string>
 </resources>
