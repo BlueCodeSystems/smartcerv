@@ -14,36 +14,38 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
+import zm.gov.moh.common.submodule.login.model.ViewBindings;
+import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.core.model.Authentication;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.User;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.Utils;
-import zm.gov.moh.common.submodule.login.model.Credentials;
 
 
 public class LoginViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
-    private Credentials credentials;
+    private ViewBindings viewBindings;
     private final String AES = "AES";
-    private MutableLiveData<AuthenticationStatus> authenticationStatus;
+    private MutableLiveData<ViewState> viewState;
     private AtomicBoolean pending  = new  AtomicBoolean(true);
     private Application application;
     private final int TIMEOUT = 30000;
     private String credentialsToBase64;
+    private Location[] providerLocations;
 
     public LoginViewModel(Application application){
         super(application);
 
         this.application = application;
-        credentials = new Credentials();
+        viewBindings = new ViewBindings();
     }
 
 
-    public void submitCredentials(Credentials credentials){
+    public void submitCredentials(ViewBindings credentials){
 
         pending.set(true);
 
@@ -54,11 +56,11 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
             //Online authentication
             if (Utils.checkInternetConnectivity(application)) {
 
-                authenticationStatus.setValue(AuthenticationStatus.PENDING);
+                viewState.setValue(ViewState.PENDING);
 
-                ConcurrencyUtils.consume(
+                ConcurrencyUtils.consumeAsync(
                         this::onSuccess,
-                        this::onError,
+                        throwable-> ConcurrencyUtils.consumeOnMainThread(this::onError, throwable),
                         getRepository().getRestApi().session(credentialsToBase64),
                         TIMEOUT);
             }
@@ -67,31 +69,34 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
             }
         }
         else
-            authenticationStatus.setValue(AuthenticationStatus.NO_CREDENTIALS);
+            viewState.setValue(ViewState.NO_CREDENTIALS);
     }
 
-    public Credentials getCredentials() {
-        return credentials;
+    public ViewBindings getViewBindings() {
+        return viewBindings;
     }
 
+    public Location[] getProviderLocations() {
+        return providerLocations;
+    }
 
-    public MutableLiveData<AuthenticationStatus> getAuthenticationStatus() {
+    public MutableLiveData<ViewState> getViewState() {
 
-        if(authenticationStatus == null)
-            authenticationStatus = new MutableLiveData<>();
-        return authenticationStatus;
+        if(viewState == null)
+            viewState = new MutableLiveData<>();
+        return viewState;
     }
 
     public AtomicBoolean getPending() {
         return pending;
     }
 
-    public void saveSessionLocation(Location location){
-
-        getRepository().getDefaultSharePrefrences().edit().putLong(
-                application.getResources().getString(zm.gov.moh.core.R.string.session_location_key),
-                location.getLocationId())
+    public void saveSessionLocation(Long locationId){
+        locationId.toString();
+        getRepository().getDefaultSharePrefrences().edit().putLong(Key.LOCATION_ID, locationId)
                 .apply();
+        pending.set(true);
+        viewState.setValue(ViewState.AUTHORIZED);
     }
 
     private void onSuccess(Authentication authentication){
@@ -99,7 +104,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
         String accessToken = authentication.getToken();
         getRepository().getDefaultSharePrefrences()
                 .edit()
-                .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUserUuid())
+                .putString(Key.AUTHORIZED_USER_UUID, authentication.getUserUuid())
                 .apply();
 
         getRepository().getDefaultSharePrefrences()
@@ -125,10 +130,12 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
         }
 
         pending.set(true);
-        authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+
+        ConcurrencyUtils.consumeOnMainThread(state -> viewState.setValue(state),
+                authoriseLocationLogin(authentication));
     }
 
-    private void onError(Throwable throwable){
+    public void onError(Throwable throwable){
 
         pending.set(true);
         if (throwable instanceof HttpException) {
@@ -136,12 +143,12 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
             HttpException httpException = (HttpException) throwable;
 
             if (httpException.code() == 401)
-                authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+                viewState.setValue(ViewState.UNAUTHORIZED);
         }
         else if (throwable instanceof TimeoutException)
-            authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
+            viewState.setValue(ViewState.TIMEOUT);
         else
-            authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
+            viewState.setValue(ViewState.UNREACHABLE_SERVER);
     }
 
     public void loginOffline(String key){
@@ -150,7 +157,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
         String accessTokenEncrypted = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN_ENCRYPTED,null);
 
         if(accessToken == null) {
-            authenticationStatus.setValue(AuthenticationStatus.NO_INTERNET);
+            viewState.setValue(ViewState.NO_INTERNET);
             return;
         }
 
@@ -163,13 +170,13 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
             byte[] decrypted = cipher.doFinal(Base64.decode(accessTokenEncrypted,Base64.DEFAULT));
 
             if(accessToken.equals(new String(decrypted)))
-                authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+                viewState.setValue(ViewState.AUTHORIZED);
             else
-                authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+                viewState.setValue(ViewState.UNAUTHORIZED);
 
 
         }catch (Exception e){
-            authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+            viewState.setValue(ViewState.UNAUTHORIZED);
         }
     }
 
@@ -192,6 +199,47 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
             return null;
         }
+
+    }
+
+    public ViewState authoriseLocationLogin(Authentication auth){
+
+        User user = auth.getUser();
+
+            if(user.getProviderId() != null) {
+
+                getRepository().getDefaultSharePrefrences()
+                        .edit()
+                        .putLong(Key.PROVIDER_ID, user.getProviderId())
+                        .apply();
+
+                if(user.getLocation().length > 0){
+
+                    db.locationDao().insert(user.getLocation());
+
+                    if (user.getLocation().length > 1) {
+
+                        ConcurrencyUtils.consumeOnMainThread(locations -> {
+
+                            this.providerLocations = locations;
+                            viewState.setValue(ViewState.MULTIPLE_LOCATION_SELECTION);
+                        }, user.getLocation());
+
+                    } else if (user.getLocation().length == 1) {
+
+                        Long locationId = user.getLocation()[0].getLocationId();
+                        getRepository().getDefaultSharePrefrences()
+                                .edit()
+                                .putLong(Key.LOCATION_ID, locationId)
+                                .apply();
+
+                        return ViewState.AUTHORIZED;
+                    }
+                }
+                else
+                    return ViewState.UNAUTHORIZED_LOCATION;
+        }
+        return ViewState.USER_NOT_PROVIDER;
 
     }
 

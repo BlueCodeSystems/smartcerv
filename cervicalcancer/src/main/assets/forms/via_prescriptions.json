@@ -6,69 +6,69 @@
   "encounterId":15,
   "submitLabel":"Submit"
   },
-  "widgetGroup": [
+  "widgetGroup":[
     {
-      "title": "Prescription(s)",
-      "widgets": [
+      "title":"Prescription(s)",
+      "widgets":[
         {
           "tag":"ceftriaxone",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
+          "uuid": "98477b0b-e78f-4241-ba1e-05a44d31f82a"
         },
         {
           "tag":"cefixime",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
+          "uuid": "52d22975-1cc4-488b-9bcf-3aa72cc821a1"
         },
         {
           "tag":"ciprofloxacin",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
+          "uuid": "c1ef8f78-5702-4666-92a5-9e16459282b8"
         },
         {
           "tag":"clotrimazole",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
+          "uuid": "f6a31934-9688-474e-864f-805f5bd25691"
         },
         {
           "tag":"clotrimazole_miconazole",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
+          "uuid": "f3c9682b-31bd-4ace-9e93-82b6bdc2d9cb"
         },
         {
           "tag":"doxycycline",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
+          "uuid": "09914e37-da7d-4799-8217-ea50e384fa14"
         },
         {
           "tag":"erythromycin",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
+          "uuid": "96a13c4b-2b4c-4cb7-a79c-525490a1f504"
         },
         {
           "tag":"fluconazole",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+          "uuid": "22de3193-76dd-449b-af64-9c7413849ac7"
         },
         {
           "tag":"Metronidazole_400g",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+          "uuid": "71350006-dd16-438c-b81f-b6eb78d0c2d8"
         },
         {
           "tag":"Metronidazole_200g",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
+          "uuid": "dc0f1aa3-2def-4322-a9c6-5dce5b195d14"
         }
       ]
     }

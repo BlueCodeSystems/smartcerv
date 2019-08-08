@@ -16,7 +16,9 @@ import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.R;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.utils.InjectorUtils;
@@ -32,7 +34,8 @@ public class RepositoryImp implements Repository{
 
         this.application = application;
         this.database = Database.getDatabase(application);
-        this.restApi = InjectorUtils.provideRestAPIAdapter();
+
+        this.restApi = InjectorUtils.provideRestAPIAdapter(application);
     }
 
 

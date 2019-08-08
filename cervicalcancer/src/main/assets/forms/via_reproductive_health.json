@@ -269,26 +269,11 @@
         {
           "tag": "Other Pertinent Surgical History",
           "widgetType": "Concept",
-          "conceptId": 165205,
-          "dataType": "Boolean",
+          "conceptId": 165112,
+          "dataType": "Coded",
           "style": "check",
           "label": "Any Pertinent Surgical History",
-          "textSize": 18,
-          "logic": [
-            {
-              "condition": {
-                "value": 1
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [
-                    "other surgical history"
-                  ]
-                }
-              }
-            }
-          ]
+          "textSize": 18
         },
         {
           "tag": "other surgical history",

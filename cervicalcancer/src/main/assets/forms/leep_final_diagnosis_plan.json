@@ -6,7 +6,7 @@
   },
   "widgetGroup": [
     {
-      "title": "Results",
+      "title": "Specimen Dimensions",
       "widgets": [
         {
           "widgetType": "TextBoxTwo",
@@ -43,12 +43,31 @@
           "style": "radio",
           "label": "Other options for size(dimensions) of specimen given",
           "textSize": 18
+        },
+        {
+        "tag": "number of sections taken",
+          "widgetType": "Concept",
+          "conceptId": 165368,
+          "dataType": "Numeric",
+          "uuid":"515846d2-c494-476a-bf97-b921b10f93a2",
+          "label": "Number of Sections taken",
+          "textSize": 18,
+          "hint": "Number"
         }
       ]
     },
     {
       "title": "Margins",
       "widgets": [
+        {
+          "tag": "ectocervical",
+          "widgetType": "Concept",
+          "conceptId": 165371,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Ectocervical",
+          "textSize": 18
+        },
         {
           "tag": "exocervical",
           "widgetType": "Concept",
@@ -87,164 +106,21 @@
       "title": "Pathology Description",
       "widgets": [
         {
-          "tag": "cervicitis_inflammation",
-          "widgetType": "Concept",
-          "conceptId": 165314,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Cervicitis/Inflammation",
-          "textSize": 18
-        },
-        {
-          "tag": "squamous_hyperplasia",
-          "widgetType": "Concept",
-          "conceptId": 165317,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Squamous hyperplasia",
-          "textSize": 18
-        },
-        {
-          "tag": "glandular_hyperplasia",
-          "widgetType": "Concept",
-          "conceptId": 165318,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Glandular hyperplasia",
-          "textSize": 18
-        },
-        {
-          "tag": "squamous_metaplasia",
-          "widgetType": "Concept",
-          "conceptId": 165317,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Squamous metaplasia",
-          "textSize": 18
-        },
-        {
-          "tag": "hyperkeratosis",
-          "widgetType": "Concept",
-          "conceptId": 165318,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Hyperkeratosis",
-          "textSize": 18
-        },
-        {
-          "tag": "acanthosis",
-          "widgetType": "Concept",
-          "conceptId": 165319,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Acanthosis",
-          "textSize": 18
-        },
-        {
-          "tag": "ulcer",
-          "widgetType": "Concept",
-          "conceptId": 165320,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Ulcer",
-          "textSize": 18
-        },
-        {
-          "tag": "schistosomiasis",
-          "widgetType": "Concept",
-          "conceptId": 165321,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Schistosomiasis",
-          "textSize": 18
-        },
-        {
-          "tag": "cin1_hpv",
-          "widgetType": "Concept",
-          "conceptId": 165322,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "CIN1/HPV",
-          "textSize": 18
-        },
-        {
-          "tag": "cin2",
-          "widgetType": "Concept",
-          "conceptId": 165323,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "CIN2",
-          "textSize": 18
-        },
-        {
-          "tag": "cin3",
-          "widgetType": "Concept",
-          "conceptId": 165324,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "CIN3",
-          "textSize": 18
-        },
-        {
-          "tag": "superficial_invasion",
-          "widgetType": "Concept",
-          "conceptId": 165325,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Superficial invasion",
-          "textSize": 18
-        },
-        {
-          "tag": "invasive",
-          "widgetType": "Concept",
-          "conceptId": 165326,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Invasive",
-          "textSize": 18
-        },
-        {
-          "tag": "other",
-          "widgetType": "Concept",
-          "conceptId": 5622,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Other",
-          "textSize": 18
-        },
-        {
-          "widgetType": "TextView",
-          "label": "Reason For Other",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "title": "Final Diagnosis & Plan",
-      "widgets": [
-        {
           "tag": "normal",
           "widgetType": "Concept",
-          "conceptId": 165327,
+          "conceptId": 165222,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Normal",
           "textSize": 18
         },
         {
-          "tag": "cervicitis_inflammation",
+          "tag": "benign",
           "widgetType": "Concept",
-          "conceptId": 165314,
+          "conceptId": 165372,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Cervicitis/inflammation",
+          "label": "Benign",
           "textSize": 18
         },
         {
@@ -275,43 +151,71 @@
           "textSize": 18
         },
         {
-          "tag": "microinvasive_cancer",
+          "tag": "adenocarcinoma-in-situ",
           "widgetType": "Concept",
-          "conceptId": 165328,
+          "conceptId": 165373,
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Microinvasive cancer",
+          "label": "Adenocarcinoma-in-situ",
           "textSize": 18
         },
         {
-          "tag": "invasive_adenocarcinoma",
+          "tag": "malignant",
           "widgetType": "Concept",
-          "conceptId": 165329,
-          "dataType": "Boolean",
+          "conceptId": 165377,
+          "dataType": "Coded",
           "style": "radio",
-          "label": "Invasive adenocarcinoma",
-          "textSize": 18
+          "label": "Malignant",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["r"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "invasive_squamous_cell_carcinoma",
-          "widgetType": "Concept",
-          "conceptId": 165330,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Invasive squamous cell carcinoma",
-          "textSize": 18
-        },
-        {
-          "tag": "invasive_adenosquamous_cell_carcinoma",
-          "widgetType": "Concept",
-          "conceptId": 165331,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "Invasive adenosquamous cell carcinoma",
-          "textSize": 18
-        },
-        {
-          "tag": "insufficient_for_processing",
+          "tag": "insufficient for processing",
           "widgetType": "Concept",
           "conceptId": 165332,
           "dataType": "Boolean",
@@ -320,35 +224,49 @@
           "textSize": 18
         },
         {
-          "tag": "no_cervical_epithelial_cells",
+          "tag": "Other_pathology_description",
           "widgetType": "Concept",
-          "conceptId": 165333,
-          "dataType": "Boolean",
-          "style": "radio",
-          "label": "No cervical epithelial cells",
-          "textSize": 18
-        },
-        {
-          "tag": "other",
-          "widgetType": "Concept",
-          "conceptId": 165170,
+          "conceptId": 165386,
           "dataType": "Boolean",
           "style": "radio",
           "label": "Other",
-          "textSize": 18
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other pathology description"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
         },
         {
-          "tag": "other",
-          "widgetType": "TextView",
-          "label": "Reason For Other",
-          "weight": 1,
+          "tag": "Reason For Other pathology description",
+          "widgetType": "Concept",
+          "conceptId": 165387,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
           "textSize": 18
-        },
-        {
-          "tag": "other",
-          "widgetType": "EditText",
-          "hint": "                                                                                                                                          ",
-          "weight": 1
         },
         {
           "tag": "provider",
@@ -371,43 +289,253 @@
       ]
     },
     {
+    "title": "Final Diagnosis & Plan",
+    "widgets": [
+      {
+        "tag": "normal",
+        "widgetType": "Concept",
+        "conceptId": 165222,
+        "dataType": "Boolean",
+        "style": "radio",
+        "label": "Normal",
+        "textSize": 18
+      },
+        {
+          "tag": "benign",
+          "widgetType": "Concept",
+          "conceptId": 165372,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Benign",
+          "textSize": 18
+        },
+        {
+          "tag": "cin1_hpv",
+          "widgetType": "Concept",
+          "conceptId": 165322,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN1/HPV",
+          "textSize": 18
+        },
+        {
+          "tag": "cin2",
+          "widgetType": "Concept",
+          "conceptId": 165323,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN2",
+          "textSize": 18
+        },
+        {
+          "tag": "cin3",
+          "widgetType": "Concept",
+          "conceptId": 165324,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN3",
+          "textSize": 18
+        },
+        {
+          "tag": "adenocarcinoma-in-situ",
+          "widgetType": "Concept",
+          "conceptId": 165373,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Adenocarcinoma-in-situ",
+          "textSize": 18
+        },
+        {
+          "tag": "malignant",
+          "widgetType": "Concept",
+          "conceptId": 165377,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Malignant",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["r"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "insufficient for processing",
+          "widgetType": "Concept",
+          "conceptId": 165332,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Insufficient for processing",
+          "textSize": 18
+        },
+      {
+        "tag": "Other_final_diagnosis_&_plan",
+        "widgetType": "Concept",
+        "conceptId": 165384,
+        "dataType": "Boolean",
+        "style": "radio",
+        "label": "Other",
+        "textSize": 18,
+        "logic": [
+          {
+            "condition": {
+              "value": 1
+            },
+            "action": {
+              "type": "skipLogic",
+              "metadata": {
+                "tags": [
+                  "Reason For Other final_diagnosis_&_plan"
+                ]
+              }
+            }
+          },
+          {
+            "condition": {
+              "value": 2
+            },
+            "action": {
+              "type": "skipLogic",
+              "metadata": {
+                "tags": [
+                  ""
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "tag": "Reason For Other final_diagnosis_&_plan",
+        "widgetType": "Concept",
+        "conceptId": 165385,
+        "dataType": "Text",
+        "hint": "Enter Reason For Other",
+        "textSize": 18
+      },
+      {
+        "tag": "provider",
+        "widgetType": "ProviderLabel",
+        "label": "Provider Name",
+        "textSize": 18
+      },
+      {
+        "widgetType": "TextView",
+        "label": "Phone",
+        "textSize": 18,
+        "weight": 1
+      },
+      {
+        "tag": "phone",
+        "widgetType": "EditText",
+        "hint": "Example +260967546754",
+        "weight": 1
+      }
+      ]
+    },
+    {
       "title": "Plan",
       "widgets": [
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 1",
-          "weight": 1
+          "tag":"ceftriaxone",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 2",
-          "weight": 1
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextView",
-          "label": "Drug 3",
-          "weight": 1
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
         },
         {
-          "tag": "drug",
-          "widgetType": "TextBoxTwo",
-          "hint": "Drug name x mg x days",
-          "weight": 1
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
+        },
+        {
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
+        },
+        {
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+        },
+        {
+          "tag":"Metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+        },
+        {
+          "tag":"Metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
         },
         {
           "tag": "date_discussed",

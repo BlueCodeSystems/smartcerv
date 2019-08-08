@@ -36,6 +36,9 @@ public class Key {
     public static final String VISIT_FORM_LIST= "VISIT_FORM_LIST";
     public static final String VISIT_METADATA= "VISIT_METADATA";
     public static final String MODULE = "MODULE";
+    public static final String BASE_URL = "BASE_URL";
+    public static final String AUTHORIZED_USER_UUID = "AUTHORIZED_USER_UUID";
+
 
 
 }

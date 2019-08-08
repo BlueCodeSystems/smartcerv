@@ -13,6 +13,7 @@ import zm.gov.moh.common.submodule.form.view.FormActivity;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.common.submodule.visit.view.Visit;
+import zm.gov.moh.common.submodule.settings.view.Settings;
 import zm.gov.moh.common.submodule.vitals.view.VitalsActivity;
 import zm.gov.moh.core.model.Criteria;
 import zm.gov.moh.core.model.submodule.BasicModule;
@@ -34,6 +35,11 @@ public class ApplicationContext extends BaseApplication {
         registerModule(CoreModule.VITALS, new BasicModule("Vitals",VitalsActivity.class));
         registerModule(CoreModule.FORM, new BasicModule("FormModel", FormActivity.class));
         registerModule(CoreModule.VISIT, new BasicModule("Visit", Visit.class));
+
+        registerModule(CoreModule.BOOTSTRAP, new BasicModule("Bootstrap", BootstrapActivity.class));
+
+        registerModule(CoreModule.SETTINGS, new BasicModule("Settings", Settings.class));
+
 
         //Load healthcare service modules
         zm.gov.moh.core.model.submodule.Module cervicalCancerEnrollment = new BasicModule("Client Enrollment", CervicalCancerEnrollmentActivity.class);

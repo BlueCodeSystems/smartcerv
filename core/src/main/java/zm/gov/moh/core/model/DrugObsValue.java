@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class DrugObsValue implements Serializable {
 
-    // No DataLongype and conceptID in json
     private Long value;
     private String uuid;
     private Long frequency;
