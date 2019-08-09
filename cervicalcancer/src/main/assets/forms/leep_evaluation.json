@@ -211,7 +211,7 @@
         },
         {
           "widgetType": "TextView",
-          "label": "Date on which the client started ARVs if on ARVs",
+          "label": "Date on which the client started ART if on ART",
           "textSize": 18,
           "weight": 1
         },

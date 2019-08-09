@@ -1,5 +1,6 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
@@ -40,6 +42,7 @@ import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDefaultCameraButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormDialogWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
@@ -135,7 +138,7 @@ public class WidgetModelToWidgetAdapter {
 
             return widget;
         }
-        else if(widgetModel instanceof DatePickerButtonModel){
+        else if(widgetModel instanceof DatePickerButtonModel) {
 
             DatePickerButtonModel model = (DatePickerButtonModel) widgetModel;
 
@@ -144,6 +147,7 @@ public class WidgetModelToWidgetAdapter {
             widget.setText(model.getText());
             return widget;
         }
+
         else if(widgetModel instanceof CameraButtonModel) {
 
             CameraButtonModel model = (CameraButtonModel) widgetModel;
@@ -161,6 +165,17 @@ public class WidgetModelToWidgetAdapter {
 
             BaseWidget widget = new FormDefaultCameraButtonWidget.Builder(this.context)
                     .setLabel(model.getLabel())
+                    .setBundle(bundle)
+                    .build();
+            return widget;
+        }
+
+        else if(widgetModel instanceof DialogButtonModel) {
+
+            DialogButtonModel model = (DialogButtonModel) widgetModel;
+
+            BaseWidget widget = new FormDialogWidget.Builder(this.context)
+                    //.setLabel(model.getLabel())
                     .setBundle(bundle)
                     .build();
             return widget;
