@@ -50,6 +50,7 @@
           "label": "NRC No.",
           "tag": "nrc",
           "widgetType": "EditText",
+          "dataType":"Numeric",
           "hint": "Example 145683/10/1",
           "weight": 1
         },
@@ -135,6 +136,7 @@
               "tag": "phone",
               "widgetType": "EditText",
               "hint": "Example +260967546754",
+              "dataType":"Numeric",
               "weight": 1
             }
           ]

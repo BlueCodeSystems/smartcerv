@@ -211,7 +211,7 @@
           "widgetType": "Concept",
           "dataType": "Date",
           "weight": 1,
-          "label":"Via",
+          "label":"VIA",
           "hint": "dd MMM yyyy",
           "textSize": 18
         },

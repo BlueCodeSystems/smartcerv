@@ -20,12 +20,14 @@
             {
               "tag":"PERSON_GIVEN_NAME",
               "widgetType":"EditText",
+              "dataType": "Text",
               "hint": "First name",
               "weight":1
             },
             {
               "tag":"PERSON_FAMILY_NAME",
               "widgetType":"EditText",
+              "dataType": "Text",
               "hint": "Last name",
               "weight":1
             }
@@ -67,6 +69,7 @@
           "tag":"PERSON_PHONE",
           "label":"Phone",
           "widgetType":"EditText",
+          "dataType": "Numeric",
           "hint": "Example 0967546754",
           "weight":1
         },

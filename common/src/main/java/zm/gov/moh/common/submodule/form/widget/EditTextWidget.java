@@ -17,9 +17,15 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     protected AppCompatEditText mEditText;
     private Context context;
     protected Consumer<CharSequence> mValueChangeListener;
+    protected String dataType;
 
     public EditTextWidget(Context context) {
         super(context);
+    }
+
+
+    public void setDataType(String DataType) {
+        this.dataType = DataType;
     }
 
     @Override
@@ -57,6 +63,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
 
+
         //auto populate
         if (mBundle != null) {
             String tag = (String) getTag();
@@ -74,6 +81,26 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         }
         //auto capitalize first word in sentence
         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+        if(dataType != null && dataType.equals("Numeric"))
+            mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        else if(dataType != null && dataType.equals("Text"))
+            //auto capitalize first word in sentence
+            mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+           /** String valuetxt = mEditText.getText().toString();
+            Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+            Matcher ms = ps.matcher( mEditText.getText().toString());
+            boolean bs = ms.matches();
+            if (bs == true) {
+                mEditText.setText(valuetxt);
+            } else
+                mEditText.setError("Enter Letters only");
+            */
+
+        mEditText.setGravity(Gravity.TOP);
+
         WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
 
         mEditText.setGravity(Gravity.START);
@@ -96,6 +123,14 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
         protected String mHint;
         protected Bundle mBundle;
+        protected String mDataType;
+
+        public Builder setDataType(String dataType) {
+            mDataType = dataType;
+            return this;
+        }
+
+
         protected Consumer<CharSequence> mValueChangeListener;
 
         public Builder(Context context) {
@@ -133,6 +168,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setLabel(mLabel);
             if (mTag != null)
                 widget.setTag(mTag);
+            if (mDataType !=null)
+                widget.setDataType(mDataType);
             if (mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
 

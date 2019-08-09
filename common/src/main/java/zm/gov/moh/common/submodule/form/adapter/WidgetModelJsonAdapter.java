@@ -48,6 +48,7 @@ public class WidgetModelJsonAdapter {
                 editText.setText(widgetModelJson.getText());
                 editText.setWeight(widgetModelJson.getWeight());
                 editText.setLabel(widgetModelJson.getLabel());
+                editText.setDataType(widgetModelJson.getDataType());
 
 
                 return editText;

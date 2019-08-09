@@ -76,6 +76,7 @@ public class WidgetModelToWidgetAdapter {
             EditTextModel model = (EditTextModel) widgetModel;
 
             BaseWidget widget = new EditTextWidget.Builder(this.context)
+                    .setDataType(((EditTextModel) widgetModel).getDataType())
                     .setBundle(this.bundle)
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())
