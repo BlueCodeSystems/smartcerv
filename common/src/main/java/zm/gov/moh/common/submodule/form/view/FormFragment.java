@@ -243,12 +243,12 @@ public class FormFragment extends BaseFragment {
 
             //get UUid and patientId
             String uuid = conceptWidget.getUuid();
-            long patientid = bundle.getLong(Key.PERSON_ID);
+            long visitId = bundle.getLong(Key.VISIT_ID);
 
 
 
             //fetch value from database
-            repository.getDatabase().obsDao().findPatientObsByConceptUuid(patientid, uuid).observe(context, obs -> {
+            repository.getDatabase().obsDao().findPatientObsByConceptUuid(visitId, uuid).observe(context, obs -> {
 
                 if (obs != null && obs.length != 0) {
                     //Passing obs to widget

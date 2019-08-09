@@ -158,6 +158,17 @@ public class PersistEncounter extends PersistService {
             Exception e1 =e;
         }
 
+        ArrayList<Long> obsVoid = (ArrayList<Long>) mBundle.getSerializable(Key.OBS_ID);
+
+        //Void obs
+        if(obsVoid.size() > 0)
+            for(Long obsId : obsVoid){
+
+                ObsEntity obsEntity = db.obsDao().getObsById(obsId);
+                obsEntity.setVoided((short)1);
+                db.obsDao().insert(obsEntity);
+            }
+
         notifyCompleted();
 
         return null;
