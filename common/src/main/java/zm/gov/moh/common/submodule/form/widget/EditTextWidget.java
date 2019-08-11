@@ -64,6 +64,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
 
 
+
         //auto populate
         if (mBundle != null) {
             String tag = (String) getTag();
@@ -100,6 +101,26 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             */
 
         mEditText.setGravity(Gravity.TOP);
+
+        if(dataType != null && dataType.equals("Numeric"))
+            mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+        else if(dataType != null && dataType.equals("Text"))
+            //auto capitalize first word in sentence
+            mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+           /** String valuetxt = mEditText.getText().toString();
+            Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+            Matcher ms = ps.matcher( mEditText.getText().toString());
+            boolean bs = ms.matches();
+            if (bs == true) {
+                mEditText.setText(valuetxt);
+            } else
+                mEditText.setError("Enter Letters only");
+            */
+
+        mEditText.setGravity(Gravity.TOP);
+
 
         WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
 
