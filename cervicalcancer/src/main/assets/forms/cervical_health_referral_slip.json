@@ -22,7 +22,7 @@
               "tag": "date of referral",
               "widgetType": "DatePicker",
               "weight": 1,
-              "hint": "DD/MM/YYYY"
+              "hint": "dd MMM yyyy"
             }
           ]
         },
