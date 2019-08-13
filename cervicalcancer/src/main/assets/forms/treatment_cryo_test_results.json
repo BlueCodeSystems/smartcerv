@@ -49,6 +49,12 @@
       "title": "Enhanced Digital Imaging(EDI)",
       "widgets": [
         {
+          "widgetType": "TextView",
+          "label": "Batch Upload Help",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
           "tag": "dialogbutton",
           "widgetType": "DialogButton",
           "label": "Batch Upload Help",
