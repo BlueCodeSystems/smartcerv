@@ -6,6 +6,7 @@ import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
+@Entity(tableName = "drug_ingredient")
 public class DrugIngredient {
 
     @PrimaryKey

@@ -6,7 +6,7 @@ import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
 
-@Entity(tableName = "")
+@Entity(tableName = "note")
 public class Note {
 
     @PrimaryKey
