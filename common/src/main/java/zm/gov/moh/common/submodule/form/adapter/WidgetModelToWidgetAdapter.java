@@ -20,6 +20,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.NumericEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
@@ -42,6 +43,7 @@ import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDefaultCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
+import zm.gov.moh.common.submodule.form.widget.NumericEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderNumberWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
@@ -332,6 +334,21 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(((DatePickerModel) widgetModel).getHint())
                     .setBundle(this.bundle)
                     .setLabel(model.getLabel())
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        } else if(widgetModel instanceof NumericEditTextModel) {
+
+            NumericEditTextModel model = (NumericEditTextModel) widgetModel;
+
+            BaseWidget widget = new NumericEditTextWidget.Builder(this.context)
+                    .setDataType(model.getDataType())
+                    .setBundle(this.bundle)
+                    .setHint(model.getHint())
+                    .setLabel(model.getLabel())
+                    .setTextSize(18)
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();
