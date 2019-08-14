@@ -2,6 +2,7 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Gravity;
 
@@ -65,14 +66,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
 
 
-        //auto populate
-        if (mBundle != null) {
-            String tag = (String) getTag();
-            String value = mBundle.getString(tag);
-            if (value != null)
-                mEditText.setText(value);
-        }
-
         mEditText.setGravity(Gravity.TOP);
         //auto populate
         if (mBundle != null) {
@@ -80,29 +73,27 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             if (value != null)
                 mEditText.setText(value);
         }
-        //auto capitalize first word in sentence
-        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
-        if(dataType != null && dataType.equals("Numeric"))
+        if(dataType != null && dataType.equals("Numeric")) {
             mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        else if(dataType != null && dataType.equals("Text"))
+        }
+        else if(dataType != null && dataType.equals("Text")) {
             //auto capitalize first word in sentence
             mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
-           /** String valuetxt = mEditText.getText().toString();
-            Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
-            Matcher ms = ps.matcher( mEditText.getText().toString());
-            boolean bs = ms.matches();
-            if (bs == true) {
-                mEditText.setText(valuetxt);
-            } else
-                mEditText.setError("Enter Letters only");
-            */
+            InputFilter filtertxt = (source, start, end, dest, dstart, dend) -> {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            };
 
-        mEditText.setGravity(Gravity.TOP);
+            mEditText.setFilters(new InputFilter[]{filtertxt});
 
-        if(dataType != null && dataType.equals("Numeric"))
+        }
+        /** if(dataType != null && dataType.equals("Numeric"))
             mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         else if(dataType != null && dataType.equals("Text"))

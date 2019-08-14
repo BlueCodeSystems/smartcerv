@@ -1,95 +1,96 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"demographics",
-    "submitLabel":"Submit"
+    "panelType": "form",
+    "formType": "demographics",
+    "submitLabel": "Submit"
   },
-  "widgetGroup":[
+  "widgetGroup": [
     {
-      "title":"Demographics",
-      "widgets":[
+      "title": "Demographics",
+      "widgets": [
         {
-          "label":"Client's names",
-          "widgetType":"TextView",
-          "textSize":24,
-          "weight":1
+          "label": "Client's names",
+          "widgetType": "TextView",
+          "textSize": 24,
+          "weight": 1
         },
         {
-          "widgetType":"WidgetGroupRow",
+          "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag":"PERSON_GIVEN_NAME",
-              "widgetType":"EditText",
+              "tag": "PERSON_GIVEN_NAME",
+              "widgetType": "EditText",
               "dataType": "Text",
               "hint": "First name",
-              "weight":1
+              "weight": 1
             },
             {
-              "tag":"PERSON_FAMILY_NAME",
-              "widgetType":"EditText",
+              "tag": "PERSON_FAMILY_NAME",
+              "widgetType": "EditText",
               "dataType": "Text",
               "hint": "Last name",
-              "weight":1
+              "weight": 1
             }
           ]
         },
         {
-          "label":"Gender",
-          "widgetType":"TextView",
-          "textSize":24,
-          "weight":1
+          "label": "Gender",
+          "widgetType": "TextView",
+          "textSize": 24,
+          "weight": 1
         },
         {
-          "tag":"PERSON_GENDER",
-          "label":"Gender",
-          "widgetType":"GenderPicker",
-          "textSize":24,
-          "weight":1
+          "tag": "PERSON_GENDER",
+          "label": "Gender",
+          "widgetType": "GenderPicker",
+          "textSize": 24,
+          "weight": 1
         },
         {
-          "label":"Date of birth",
-          "widgetType":"TextView",
-          "textSize":24,
-          "weight":1
+          "label": "Date of birth",
+          "widgetType": "TextView",
+          "textSize": 24,
+          "weight": 1
         },
-
         {
-          "tag":"PERSON_DOB",
-          "widgetType":"DatePicker",
-          "hint":"dd MMM yyyy",
-          "textSize":24,
-          "weight":1
+          "tag": "PERSON_DOB",
+          "widgetType": "DatePicker",
+          "futureDate": "False",
+          "hint": "dd MMM yyyy",
+          "textSize": 24,
+          "weight": 1
         }
       ]
     },
     {
-    "title":"Contact Information",
-      "widgets":[
+      "title": "Contact Information",
+      "widgets": [
         {
-          "tag":"PERSON_PHONE",
-          "label":"Phone",
-          "widgetType":"EditText",
+          "tag": "PERSON_PHONE",
+          "label": "Phone",
+          "widgetType": "EditText",
           "dataType": "Numeric",
           "hint": "Example 0967546754",
-          "weight":1
+          "weight": 1
         },
         {
-          "label":"Address",
-          "tag":"PERSON_ADDRESS",
-          "widgetType":"EditText",
+          "label": "Address",
+          "tag": "PERSON_ADDRESS",
+          "widgetType": "EditText",
           "hint": "Plot number, Village, Street",
-          "weight":1
+          "weight": 1
         },
         {
-          "widgetType":"WidgetGroupRow",
+          "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag":"nrc",
-              "widgetType":"DistrictPicker",
-              "weight":1
+              "tag": "nrc",
+              "widgetType": "DistrictPicker",
+              "weight": 1
             }
           ]
         }
       ]
-  }]
+    }
+  ]
 }

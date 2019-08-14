@@ -17,10 +17,22 @@ import zm.gov.moh.core.utils.Utils;
 
 public class DatePickerWidget extends EditTextWidget {
 
+    protected String mFutureDate;
+
     public DatePickerWidget(Context context){
         super(context);
 
     }
+
+
+    public String getFutureDate() {
+        return mFutureDate;
+    }
+
+    public void setFutureDate(String futureDate) {
+        mFutureDate = futureDate;
+    }
+
 
     @Override
     public void onCreateView() {
@@ -37,7 +49,7 @@ public class DatePickerWidget extends EditTextWidget {
         ((LinearLayoutCompat.LayoutParams)button.getLayoutParams()).setMarginEnd(Utils.dpToPx(mContext,20));
 
 
-        DatePickerDialog datePickerDialog = Utils.dateDialog1(mContext,button,(DatePicker view, int year, int monthOfYear, int dayOfMonth) -> {
+             DatePickerDialog datePickerDialog = Utils.dateDialog(mContext,button,(DatePicker view, int year, int monthOfYear, int dayOfMonth) -> {
 
 
             // set day of month , month and year value in the edit text
@@ -46,10 +58,17 @@ public class DatePickerWidget extends EditTextWidget {
 
             this.setValue(dob);
 
+            return ;
+             }
 
-        });
+        );
 
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+       if (mFutureDate != null && mFutureDate.matches("False")) {
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        }
+        else if (mFutureDate != null && mFutureDate.matches("True")){
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+        }
 
         this.setGravity(Gravity.CENTER_VERTICAL);
         addView(button);
@@ -97,6 +116,8 @@ public class DatePickerWidget extends EditTextWidget {
                 widget.setHint(mHint);
             if(mLabel != null)
                 widget.setLabel(mLabel);
+            if(mFutureDate !=null)
+                widget.setFutureDate(mFutureDate);
             if(mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
 

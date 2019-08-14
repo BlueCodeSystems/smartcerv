@@ -10,6 +10,15 @@ public abstract class AbstractConceptWidgetModel extends OpenmrsEntity implement
     private String hint;
     private String text;
     private String style;
+    protected String futureDate;
+
+    public String getFutureDate() {
+        return futureDate;
+    }
+
+    public void setFutureDate(String futureDate) {
+        this.futureDate = futureDate;
+    }
 
     @Override
     public long getConceptId() {

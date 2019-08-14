@@ -51,6 +51,8 @@ public class WidgetModelJsonAdapter {
                 editText.setDataType(widgetModelJson.getDataType());
 
 
+
+
                 return editText;
 
             case "ReadonlyText":
@@ -231,6 +233,7 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
                 basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+                basicConceptWidgetModel.setFutureDate(widgetModelJson.getFutureDate());
                 //Added to put uuid in bundle
                 basicConceptWidgetModel.setUuid(widgetModelJson.getUuid());
 
@@ -287,6 +290,7 @@ public class WidgetModelJsonAdapter {
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
                 datePickerModel.setLabel(widgetModelJson.getLabel());
+                datePickerModel.setFutureDate(widgetModelJson.getFutureDate());
 
                 return datePickerModel;
 

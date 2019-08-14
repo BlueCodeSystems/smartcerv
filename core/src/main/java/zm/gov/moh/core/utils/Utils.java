@@ -59,7 +59,7 @@ public class Utils {
                .setPositiveButton("OK",null);
     }
 
-    public static void dateDialog(Context context,View view, DatePickerDialog.OnDateSetListener onDateSetListener){
+    public static DatePickerDialog dateDialog(Context context, View view, DatePickerDialog.OnDateSetListener onDateSetListener){
 
         // calender class's instance and get current date , month and year from calender
         final Calendar c = Calendar.getInstance();
@@ -68,24 +68,18 @@ public class Utils {
         int day = c.get(Calendar.DAY_OF_MONTH); // current day
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, onDateSetListener , year, month, day);
 
-        // perform click event on edit text
-        view.setOnClickListener(view1 -> datePickerDialog.show());
-    }
-
-    public static DatePickerDialog dateDialog1(Context context,View view, DatePickerDialog.OnDateSetListener onDateSetListener){
-
-        // calender class's instance and get current date , month and year from calender
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR); // current year
-        int month = c.get(Calendar.MONTH); // current month
-        int day = c.get(Calendar.DAY_OF_MONTH); // current day
-        DatePickerDialog datePickerDialog = new DatePickerDialog(context, onDateSetListener , year, month, day);
 
         // perform click event on edit text
         view.setOnClickListener(view1 -> datePickerDialog.show());
+
         return datePickerDialog;
 
+
+
+
     }
+
+
 
     public static String getStringFromInputStream(InputStream stream) throws IOException {
 
