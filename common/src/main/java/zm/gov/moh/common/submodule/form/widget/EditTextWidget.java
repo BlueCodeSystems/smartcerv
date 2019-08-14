@@ -65,7 +65,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
 
 
-
         mEditText.setGravity(Gravity.TOP);
         //auto populate
         if (mBundle != null) {
@@ -74,16 +73,17 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 mEditText.setText(value);
         }
 
-        if(dataType != null && dataType.equals("Numeric")) {
+        if (dataType != null && dataType.equals("Numeric")) {
             mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        }
-        else if(dataType != null && dataType.equals("Text")) {
+        } else if (dataType != null && dataType.equals("Text")) {
             //auto capitalize first word in sentence
             mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
 
             InputFilter filtertxt = (source, start, end, dest, dstart, dend) -> {
                 for (int i = start; i < end; i++) {
                     if (!Character.isLetter(source.charAt(i))) {
+                        mEditText.setError("Enter letters only");
                         return "";
                     }
                 }
@@ -94,21 +94,21 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
         }
         /** if(dataType != null && dataType.equals("Numeric"))
-            mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+         mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        else if(dataType != null && dataType.equals("Text"))
-            //auto capitalize first word in sentence
-            mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+         else if(dataType != null && dataType.equals("Text"))
+         //auto capitalize first word in sentence
+         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
-           /** String valuetxt = mEditText.getText().toString();
-            Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
-            Matcher ms = ps.matcher( mEditText.getText().toString());
-            boolean bs = ms.matches();
-            if (bs == true) {
-                mEditText.setText(valuetxt);
-            } else
-                mEditText.setError("Enter Letters only");
-            */
+         /** String valuetxt = mEditText.getText().toString();
+         Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
+         Matcher ms = ps.matcher( mEditText.getText().toString());
+         boolean bs = ms.matches();
+         if (bs == true) {
+         mEditText.setText(valuetxt);
+         } else
+         mEditText.setError("Enter Letters only");
+         */
 
         mEditText.setGravity(Gravity.TOP);
 
@@ -116,7 +116,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
 
         mEditText.setGravity(Gravity.START);
-        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
+        WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
 
         addView(mEditText);
     }
@@ -180,7 +180,7 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setLabel(mLabel);
             if (mTag != null)
                 widget.setTag(mTag);
-            if (mDataType !=null)
+            if (mDataType != null)
                 widget.setDataType(mDataType);
             if (mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);

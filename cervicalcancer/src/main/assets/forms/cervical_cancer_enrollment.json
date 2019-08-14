@@ -101,12 +101,14 @@
             {
               "tag": "PERSON_GIVEN_NAME",
               "widgetType": "EditText",
+              "dataType": "Text",
               "hint": "First Name",
               "weight": 1
             },
             {
               "tag": "PERSON_FAMILY_NAME",
               "widgetType": "EditText",
+              "dataType": "Text",
               "hint": "Last Name",
               "weight": 1
             }
