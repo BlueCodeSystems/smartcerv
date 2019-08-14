@@ -4,6 +4,7 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
 
     protected String hint;
     protected String text;
+    protected String dataType;
 
 
     public void setHint(String hint) {
@@ -22,5 +23,13 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
     @Override
     public String getHint() {
         return hint;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 }
