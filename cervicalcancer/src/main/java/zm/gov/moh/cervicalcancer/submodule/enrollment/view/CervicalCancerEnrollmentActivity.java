@@ -29,7 +29,6 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
         //viewModel.getRepository().getClientById(34).observe(this, );
         cervicalCancerModule = (ModuleGroup)((BaseApplication) this.getApplication()).getModule(CervicalCancerModule.MODULE);
 
-        Module enrollmentModule = cervicalCancerModule.getSubmodule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
         final Bundle bundle = getIntent().getExtras();
 
         String action = (bundle != null)? bundle.getString(BaseActivity.ACTION_KEY): "";
@@ -76,8 +75,6 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                         }
                     }
                 });
-
-
     }
 
     public class Action{

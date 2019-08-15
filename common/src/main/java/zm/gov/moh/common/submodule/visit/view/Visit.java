@@ -1,26 +1,27 @@
 package zm.gov.moh.common.submodule.visit.view;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.model.JsonForm;
+import zm.gov.moh.common.databinding.ActivityVisitBinding;
 import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.common.submodule.visit.adapter.FormListAdapter;
+import zm.gov.moh.core.model.VisitState;
 import zm.gov.moh.common.submodule.visit.viewmodel.VisitViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.utils.Utils;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.LinkedHashMap;
@@ -29,65 +30,36 @@ import java.util.List;
 
 public class Visit extends BaseActivity {
 
+    Button button;
+    VisitViewModel viewModel;
+    long visitTypeId;
+    Bundle bundle;
+    FormListAdapter formListAdapter;
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit);
+        viewModel = ViewModelProviders.of(this).get(VisitViewModel.class);
 
+        ActivityVisitBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_visit);
+
+        button = findViewById(R.id.start_visit);
 
         viewModel = ViewModelProviders.of(this).get(VisitViewModel.class);
         setViewModel(viewModel);
-
-
-       /* //Passed visit types
-        LinkedList<String> linkedList = new LinkedList<>();
-        linkedList.add(OpenmrsConfig.VISIT_TYPE_UUID_FACILITY_VISIT);
-
-        //Passed visit forms
-        LinkedList<JsonForm> linkedListForms = new LinkedList<>();
-
-        try {
-            JsonForm reproductiveHealth = new JsonForm("Reproductive Health History",
-                    Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
-            JsonForm reproductiveHealth2 = new JsonForm("HIV Status",
-                    Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
-            JsonForm reproductiveHealth3 = new JsonForm("Physical Exam",
-                    Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
-"via_hiv_status","via_physical_exam","via_test_results","via_treatment","via_treatment","via_prescriptions"
-            linkedListForms.add(reproductiveHealth);
-            linkedListForms.add(reproductiveHealth2);
-            linkedListForms.add(reproductiveHealth3);
-        }catch (Exception e){
-
-        }*/
-
+        binding.setViewmodel(viewModel);
+        viewModel.getViewState().observe(this,this::updateViewState);
 
         String module = BaseApplication.CoreModule.FORM;
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
+        viewModel.setBundle(bundle);
        // bundle.putSerializable(Key.VISIT_LIST,linkedList);
        // bundle.putSerializable(Key.VISIT_FORM_LIST,linkedListForms);
         bundle.putString(Key.MODULE,module);
-
-        VisitMetadata visitMetadata =(VisitMetadata) bundle.getSerializable(Key.VISIT_METADATA);
-
-        List<String> visitList =  visitMetadata.getVisitTypes();
-
-        viewModel.getRepository()
-                .getDatabase()
-                .visitTypeDao()
-                .getById(visitList)
-                .observe(this, this::initVisitList);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        FormListAdapter adapter = new FormListAdapter(this,bundle);
-        RecyclerView recyclerView = findViewById(R.id.visit_forms);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
+        initForms();
+        updateViewState(bundle);
     }
 
     public void initVisitList(List<VisitType> visitTypeList){
@@ -95,13 +67,13 @@ public class Visit extends BaseActivity {
         if(visitTypeList.size() > 0) {
 
             LinkedList<String> visitTypes;
-            final LinkedHashMap<String,Long> visitTypeId = new LinkedHashMap<>();
+            final LinkedHashMap<String,Long> visitTypeIdList = new LinkedHashMap<>();
 
             for(VisitType visitType: visitTypeList)
-                visitTypeId.put(visitType.getName(),visitType.getVisitTypeId());
+                visitTypeIdList.put(visitType.getName(),visitType.getVisitTypeId());
 
 
-            visitTypes = new LinkedList<>(visitTypeId.keySet());
+            visitTypes = new LinkedList<>(visitTypeIdList.keySet());
 
 
             ArrayAdapter<String> visitAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, visitTypes);
@@ -115,19 +87,8 @@ public class Visit extends BaseActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                     String visitSelected = spinner.getSelectedItem().toString();
-                    int visitSelectedIndex = spinner.getSelectedItemPosition();
-                    //long visitTypeId = visitTypeId.get(visitSelected);
-
-                   /* if(viewModel.getVisitState().getState() == VisitState.ENDED) {
-
-                        bundle.putLong(Key.VISIT_TYPE_ID, visitTypeId);
-                    }else if(visitTypeId != (long) bundle.get(Key.VISIT_TYPE_ID)) {
-
-
-                        createDialog("Visit session will end",
-                                (DialogInterface dialogInterface, int j) -> viewModel.setVisitState(VisitState.ENDED), null).show();
-                        adapterView.setSelection(visitSelectedIndex);
-                    }*/
+                    visitTypeId = visitTypeIdList.get(visitSelected);
+                    bundle.putLong(Key.VISIT_TYPE_ID, visitTypeId);
                 }
 
                 @Override
@@ -138,10 +99,68 @@ public class Visit extends BaseActivity {
 
     }
 
+    public void updateViewState(Bundle bundle){
 
-    public void initForms(LinkedHashMap<String,String> visitList){
+        if(bundle == null)
+            return;
+
+        VisitState visitState = (VisitState)bundle.getSerializable(Key.VISIT_STATE);
+
+        if(visitState == VisitState.NEW){
+
+            button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_green)));
+            button.setText("Start visit");
+        }
+        else if(visitState == VisitState.AMEND) {
+
+            button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.warning)));
+            button.setText("End visit");
+            formListAdapter.setClickable(true);
+
+        }
+        else if(visitState == VisitState.SESSION) {
+
+            button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.warning)));
+            button.setText("End visit");
+            formListAdapter.setClickable(true);
+            recyclerView.setAdapter(formListAdapter);
+
+            viewModel.createVisit();
+            return;
+        }
+        else if(visitState == VisitState.END){
+            viewModel.endVisit();
+            finish();
+            return;
+        }
 
 
+
+    }
+
+
+    public void initForms(){
+
+        VisitMetadata visitMetadata =(VisitMetadata) bundle.getSerializable(Key.VISIT_METADATA);
+
+        List<String> visitList =  visitMetadata.getVisitTypes();
+
+        viewModel.getRepository()
+                .getDatabase()
+                .visitTypeDao()
+                .getById(visitList)
+                .observe(this, this::initVisitList);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        formListAdapter = new FormListAdapter(this,bundle);
+        recyclerView = findViewById(R.id.visit_forms);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(formListAdapter);
+
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
 

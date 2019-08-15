@@ -27,6 +27,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitEncounte
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.model.VisitMetadata;
+import zm.gov.moh.core.model.VisitState;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
@@ -186,6 +187,7 @@ public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
 
                         bundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
                         bundle.putLong(Key.VISIT_ID, visitId);
+                        bundle.putSerializable(Key.VISIT_STATE, VisitState.AMEND);
                         ((BaseActivity)context).startModule(BaseApplication.CoreModule.VISIT, bundle);
                     }catch (Exception e){
 

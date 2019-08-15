@@ -1,66 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewmodel"
+            type="zm.gov.moh.common.submodule.visit.viewmodel.VisitViewModel" />
 
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    tools:context=".submodule.visit.view.Visit">
-    <androidx.appcompat.widget.LinearLayoutCompat
+        <import type="zm.gov.moh.core.model.VisitState" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical">
-        <TextView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        tools:context=".submodule.visit.view.Visit">
+
+        <androidx.appcompat.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/base_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Visit"
+                    android:textSize="24sp"
+                    android:paddingRight="20dp"
+                    android:layout_centerInParent="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/white"/>
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Visit session"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:background="@drawable/border_bottom"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Visit Type"
-            android:textColor="@color/darker_grey"
-            android:layout_marginTop="20dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"/>
+            android:padding="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Visit session"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border_bottom"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Visit Type"
+                android:textColor="@color/darker_grey"
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"/>
 
-        <Spinner
-            android:id="@+id/visit_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"/>
+            <Spinner
+                android:id="@+id/visit_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"/>
 
-        <Button
-            android:id="@+id/start_visit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Visit"
-            android:textAllCaps="false"
-            android:backgroundTint="@color/light_green"
-            android:textColor="@color/white" />
+            <Button
+                android:id="@+id/start_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Visit"
+                android:onClick="@{()-> viewmodel.onClick()}"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
-        <View android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/border_bottom"/>
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/border_bottom"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:text="Forms"
-            android:textSize="24sp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:background="@drawable/border_bottom"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Forms"
+                android:textSize="24sp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:background="@drawable/border_bottom"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/visit_forms"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/visit_forms"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -10,6 +10,7 @@ public class Key {
     public static final String VISIT_TYPE_ID = "VISIT_TYPE_ID";
     public static final String VISIT_START_TIME = "VISIT_START_TIME";
     public static final String VISIT_ID = "VISIT_ID";
+    public static final String VISIT_STATE = "VISIT_STATE";
     public static final String PERSON_GIVEN_NAME = "PERSON_GIVEN_NAME";
     public static final String PERSON_FAMILY_NAME = "PERSON_FAMILY_NAME";
     public static final String PERSON_DOB = "PERSON_DOB";

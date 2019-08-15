@@ -49,7 +49,7 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT * FROM obs WHERE concept_id = (SELECT concept_id FROM concept WHERE uuid = :conceptUuid) AND encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId GROUP BY encounter_type ORDER BY date_created DESC) ORDER BY date_created DESC" )
     LiveData<ObsEntity[]>findPatientObsByConceptUuid(long visitId, String conceptUuid);
 
-    @Query("SELECT * FROM obs WHERE encounter_id = :id AND voided != 1")
+    @Query("SELECT * FROM obs WHERE encounter_id = :id AND voided != 1 ORDER BY date_created DESC")
     List<ObsEntity> getObsByEncounterId(long id);
 
     @Query("SELECT * FROM obs WHERE obs_id = :id")
@@ -58,7 +58,7 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT obs_id FROM obs WHERE encounter_id IN (:encounterId)")
     long[] getObsByEncounterId(long[] encounterId );
 
-    @Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds)")
+    @Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds) AND voided != 1")
     List<ObsEntity> getObsByEncounterId(List<Long> encounterIds);
 
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId) AND concept_id = :conceptId")

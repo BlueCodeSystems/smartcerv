@@ -11,6 +11,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FormListItemBinding;
 import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.VisitMetadata;
@@ -22,8 +23,10 @@ import zm.gov.moh.core.model.submodule.Module;
 public class FormListAdapter extends RecyclerView.Adapter<FormListAdapter.FormViewHolder>{
 
     private List<FormModel> jsonFormList;
+    private List<FormModel> jsonFormListTemp;
     private BaseActivity mContext;
     private Bundle mBundle;
+    private boolean isClickable = false;
 
 
     public FormListAdapter(@NonNull BaseActivity context, @NonNull Bundle bundle){
@@ -54,6 +57,11 @@ public class FormListAdapter extends RecyclerView.Adapter<FormListAdapter.FormVi
         }
     }
 
+    public void setClickable(boolean clickable) {
+        this.isClickable = clickable;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public FormViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -74,10 +82,14 @@ public class FormListAdapter extends RecyclerView.Adapter<FormListAdapter.FormVi
 
             mBinding = binding;
             mBinding.getRoot().setOnClickListener(this);
+            mBinding.getRoot().findViewById(R.id.form_name).setEnabled(isClickable);
         }
 
         @Override
         public void onClick(View view) {
+
+            if(isClickable != true)
+                return;
 
             FormModel formModel = jsonFormList.get(getAdapterPosition());
             mBundle.putSerializable(Key.FORM_MODEL, formModel);
@@ -93,87 +105,3 @@ public class FormListAdapter extends RecyclerView.Adapter<FormListAdapter.FormVi
     }
 
 }
-
-
-/*public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ClientViewHolder> {
-
-    private LayoutInflater mInflater;
-    private List<Client> clientList;
-    private BaseActivity context;
-    private Module clientDashboad;
-    private Bundle bundle;
-
-    class ClientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-        private final ClientDemographicsBinding binding;
-
-        private ClientViewHolder(ClientDemographicsBinding binding){
-            super(binding.getRoot());
-
-            this.binding = binding;
-
-            binding.getRoot().setOnClickListener(this);
-        }
-
-        public void bind(Client client){
-            binding.setClient(client);
-            binding.executePendingBindings();
-        }
-
-        @Override
-        public void onClick(View view) {
-
-            Client client = clientList.get(getAdapterPosition());
-            long clientId = client.getPatientId();
-            bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
-
-            Module call = (Module) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
-            context.startModule(call, bundle);
-        }
-
-    }
-
-    public ClientListAdapter(Context context){
-
-        mInflater = LayoutInflater.from(context);
-        this.context = (BaseActivity) context;
-        BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        clientDashboad = applicationContext.getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
-        bundle = new Bundle();
-    }
-
-    @Override
-    public ClientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        LayoutInflater layoutInflater =
-                LayoutInflater.from(parent.getContext());
-
-        ClientDemographicsBinding clientDemographicsBinding =
-                ClientDemographicsBinding.inflate(layoutInflater, parent, false);
-
-        return new ClientViewHolder(clientDemographicsBinding);
-    }
-
-    @Override
-    public void onBindViewHolder(ClientViewHolder holder, int position) {
-
-        if(clientList != null){
-
-            Client client = clientList.get(position);
-            holder.bind(client);
-        }
-    }
-
-    public void setClientList(List<Client> clients){
-
-        clientList = clients;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        if(clientList != null)
-            return clientList.size();
-        return 0;
-    }
-}*/

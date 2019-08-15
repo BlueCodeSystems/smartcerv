@@ -19,7 +19,7 @@ public interface EncounterProviderDao {
     @Query("SELECT * FROM encounter_provider WHERE provider_id = :id")
     LiveData<EncounterProvider> getByProviderId(long id);
 
-    @Query("SELECT * FROM encounter_provider WHERE encounter_id = :id")
+    @Query("SELECT * FROM encounter_provider WHERE encounter_id = :id ORDER BY date_created DESC LIMIT 1")
     EncounterProvider getByEncounterId(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
