@@ -130,7 +130,7 @@
               "conceptId": 165210,
               "dataType": "Date",
               "widgetType": "Concept",
-              "hint": "dd MM yyyy"
+              "hint": "dd MMM yyyy"
             }
           ]
         },
@@ -153,7 +153,7 @@
               "conceptId": 165212,
               "dataType": "Date",
               "widgetType": "Concept",
-              "hint": "dd MM yyyy"
+              "hint": "dd MMM yyyy"
             }
           ]
         },
@@ -270,7 +270,7 @@
           "tag": "art clinic",
           "widgetType": "Concept",
           "conceptId": 165136,
-          "uuid": "	758a1b06-09fc-4448-9edf-58ecda27365e",
+          "uuid": "758a1b06-09fc-4448-9edf-58ecda27365e",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Referred to ART Clinic",
@@ -319,7 +319,7 @@
           "dataType": "Date",
           "widgetType": "Concept",
           "label": "Select date tested negative",
-          "hint": "dd MM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "tag": "PICT was not offered",
