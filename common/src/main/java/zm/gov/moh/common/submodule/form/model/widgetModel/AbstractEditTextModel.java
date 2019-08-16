@@ -7,6 +7,7 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
     protected String dataType;
     protected String FutureDate;
 
+
     public String getFutureDate() {
         return FutureDate;
     }
@@ -41,4 +42,5 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
     public String getHint() {
         return hint;
     }
+
 }

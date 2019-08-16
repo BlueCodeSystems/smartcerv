@@ -23,7 +23,7 @@
               "widgetType": "DatePicker",
               "futureDate": "True",
               "weight": 1,
-              "hint": "DD/MM/YYYY"
+              "hint": "dd MMM yyyy"
             }
           ]
         },

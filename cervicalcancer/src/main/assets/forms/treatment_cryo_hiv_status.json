@@ -131,7 +131,7 @@
               "dataType": "Date",
               "futureDate": "False",
               "widgetType": "Concept",
-              "hint": "dd MM yyyy"
+              "hint": "dd MMM yyyy"
             }
           ]
         },
@@ -155,7 +155,7 @@
               "dataType": "Date",
               "futureDate": "False",
               "widgetType": "Concept",
-              "hint": "dd MM yyyy"
+              "hint": "dd MMM yyyy"
             }
           ]
         },

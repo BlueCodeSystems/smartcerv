@@ -185,7 +185,7 @@
           "conceptId": 165212,
           "dataType": "Date",
           "widgetType": "DatePicker",
-          "hint": "dd MM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "tag": "cd4 count",
@@ -208,7 +208,7 @@
           "conceptId": 165210,
           "dataType": "Date",
           "widgetType": "DatePicker",
-          "hint": "dd MM yyyy"
+          "hint": "dd MMM yyyy"
         },
         {
           "widgetType": "TextView",
