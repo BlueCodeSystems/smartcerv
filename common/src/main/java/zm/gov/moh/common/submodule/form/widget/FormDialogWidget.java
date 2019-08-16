@@ -122,32 +122,7 @@ public class FormDialogWidget extends TextViewWidget implements Submittable <Str
             }
         });
         builderSingle.show();
-        //builderSingle.getLayoutParams().height = 6000;
-        //builderSingle.getLayoutParams().width = 3000;
 
-
-    /*@Override
-    public void onClick(View v) {
-        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
-        AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-        alertDialog.setTitle("BATCH UPLOAD HELP");
-        alertDialog.setMessage("STEP 1: Go to the SmartCerv image upload web platform via a web browser following the url provided : <a> www.smartcerv.org/image_upload </a>" +
-                               "STEP 2: Upon the site opening up, enter user credentials.",
-                               "STEP 3: Click \"Add SmartCerv uploads\" on the top right corner of the screen to add/upload a batch of photo/images.",);
-
-
-
-
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
-        alertDialog.getWindow().setLayout(600, 3000);
-
-    }*/
     }
 
 
