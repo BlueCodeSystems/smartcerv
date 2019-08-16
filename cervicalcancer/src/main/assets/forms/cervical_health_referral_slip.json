@@ -21,6 +21,7 @@
             {
               "tag": "date of referral",
               "widgetType": "DatePicker",
+              "futureDate": "True",
               "weight": 1,
               "hint": "dd MMM yyyy"
             }
@@ -55,7 +56,7 @@
               "tag": "art number",
               "widgetType": "Concept",
               "conceptId": 165361,
-              "dataType": "Text",
+              "dataType": "Number",
               "hint": "ART Number",
               "textSize": 18
             }

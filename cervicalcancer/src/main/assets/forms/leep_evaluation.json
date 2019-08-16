@@ -193,6 +193,7 @@
           "conceptId": 165241,
           "dataType": "Text",
           "hint": "Number",
+          "dataType": "Numeric",
           "label": "Most Recent CD4",
           "textSize": 18
         },
@@ -411,6 +412,7 @@
           "tag": "phone",
           "widgetType": "EditText",
           "hint": "Example +260967546754",
+          "dataType": "Numeric",
           "weight": 1
         }
       ]
@@ -559,6 +561,7 @@
           "tag": "phone",
           "widgetType": "EditText",
           "hint": "Example +260967546754",
+          "dataType": "Numeric",
           "weight": 1
         }
       ]

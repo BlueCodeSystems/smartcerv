@@ -49,6 +49,9 @@ public class WidgetModelJsonAdapter {
                 editText.setText(widgetModelJson.getText());
                 editText.setWeight(widgetModelJson.getWeight());
                 editText.setLabel(widgetModelJson.getLabel());
+                editText.setDataType(widgetModelJson.getDataType());
+
+
 
 
                 return editText;
@@ -231,6 +234,7 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
                 basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+                basicConceptWidgetModel.setFutureDate(widgetModelJson.getFutureDate());
                 //Added to put uuid in bundle
                 basicConceptWidgetModel.setUuid(widgetModelJson.getUuid());
 
@@ -287,6 +291,7 @@ public class WidgetModelJsonAdapter {
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
                 datePickerModel.setLabel(widgetModelJson.getLabel());
+                datePickerModel.setFutureDate(widgetModelJson.getFutureDate());
 
                 return datePickerModel;
 

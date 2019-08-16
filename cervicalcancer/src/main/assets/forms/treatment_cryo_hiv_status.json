@@ -129,6 +129,7 @@
               "tag": "cd4 date",
               "conceptId": 165210,
               "dataType": "Date",
+              "futureDate": "False",
               "widgetType": "Concept",
               "hint": "dd MMM yyyy"
             }
@@ -152,6 +153,7 @@
               "tag": "viral load date",
               "conceptId": 165212,
               "dataType": "Date",
+              "futureDate": "False",
               "widgetType": "Concept",
               "hint": "dd MMM yyyy"
             }
@@ -316,10 +318,13 @@
         {
           "tag": "Date tested negative",
           "conceptId": 165251,
-          "dataType": "Date",
           "widgetType": "Concept",
-          "label": "Select date tested negative",
-          "hint": "dd MMM yyyy"
+          "dataType": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "label": "Date tested negative",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
         },
         {
           "tag": "PICT was not offered",
@@ -330,7 +335,6 @@
           "textSize": 18,
           "hint": "Reason PICT was not offered"
         }
-
       ]
     }
   ]

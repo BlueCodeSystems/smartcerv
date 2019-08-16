@@ -78,6 +78,7 @@ public class WidgetModelToWidgetAdapter {
             EditTextModel model = (EditTextModel) widgetModel;
 
             BaseWidget widget = new EditTextWidget.Builder(this.context)
+                    .setDataType(((EditTextModel) widgetModel).getDataType())
                     .setBundle(this.bundle)
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())
@@ -283,6 +284,7 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(model.getHint())
                     .setTextSize(model.getTextSize())
                     .setLogic(model.getLogic())
+                    .setFutureDate(model.getFutureDate())
                     //pass Uuid to basic widget
                     .setUuid(model.getUuid())
                     .setWeight(model.getWeight())
@@ -335,6 +337,7 @@ public class WidgetModelToWidgetAdapter {
                     .setBundle(this.bundle)
                     .setLabel(model.getLabel())
                     .setWeight(1)
+                    .setFutureDate(((DatePickerModel) widgetModel).getFutureDate())
                     .setTag(model.getTag())
                     .build();
 

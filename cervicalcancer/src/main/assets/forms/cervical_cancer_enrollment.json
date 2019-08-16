@@ -82,6 +82,7 @@
             {
               "tag": "via screening date",
               "widgetType": "DatePicker",
+              "futureDate": "False",
               "weight": 1,
               "hint": "dd MMM yyyy",
               "text": "Select Date"
@@ -100,12 +101,14 @@
             {
               "tag": "PERSON_GIVEN_NAME",
               "widgetType": "EditText",
+              "dataType": "Text",
               "hint": "First Name",
               "weight": 1
             },
             {
               "tag": "PERSON_FAMILY_NAME",
               "widgetType": "EditText",
+              "dataType": "Text",
               "hint": "Last Name",
               "weight": 1
             }
@@ -118,6 +121,7 @@
               "tag": "PERSON_DOB",
               "label": "Date Of Birth",
               "widgetType": "DatePicker",
+              "futureDate": "False",
               "weight": 1,
               "hint": "dd MMM yyyy"
             }
@@ -136,6 +140,7 @@
               "tag": "phone",
               "widgetType": "EditText",
               "hint": "Example +260967546754",
+              "dataType": "Numeric",
               "weight": 1
             }
           ]

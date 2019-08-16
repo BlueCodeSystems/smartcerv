@@ -22,7 +22,15 @@ public class WidgetModelJson {
     protected String style;
     protected List<Logic> logic;
     protected String uuid;
+    protected String futureDate;
 
+    public String getFutureDate() {
+        return futureDate;
+    }
+
+    public void setFutureDate(String futureDate) {
+        this.futureDate = futureDate;
+    }
 
     public void setWidgetType(String widgetType) {
         this.widgetType = widgetType;
