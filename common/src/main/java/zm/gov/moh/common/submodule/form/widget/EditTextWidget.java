@@ -15,6 +15,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
     protected String mValue;
     protected String mHint;
+    protected String mRegex;
+    protected String mErrorMessage;
     protected Bundle mBundle;
     protected AppCompatEditText mEditText;
     private Context context;
@@ -46,6 +48,14 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         mValueChangeListener = valueChangeListener;
     }
 
+    public void setErrorMessage(String mErrorMessage) {
+        this.mErrorMessage = mErrorMessage;
+    }
+
+    public void setRegex(String mRegex) {
+        this.mRegex = mRegex;
+    }
+
     @Override
     public void setBundle(Bundle bundle) {
         mBundle = bundle;
@@ -75,6 +85,16 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
     }
 
+    public boolean isValid(){
+
+        if(mValue != null && mValue.matches(mRegex))
+            return true;
+        else
+            mEditText.setError("Crap!");
+
+        return false;
+    }
+
 
     AppCompatEditText getEditTextView(){
         return mEditText;
@@ -84,6 +104,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
 
         protected String mHint;
         protected Bundle mBundle;
+        protected String mRegex;
+        protected String mErrorMessage;
         protected Consumer<CharSequence> mValueChangeListener;
 
         public Builder(Context context){
@@ -102,6 +124,18 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             return this;
         }
 
+        public Builder setRegex(String mRegex){
+
+            mRegex = mRegex;
+            return this;
+        }
+
+        public Builder setErrorMessage(String errorMessage){
+
+            mErrorMessage = errorMessage;
+            return this;
+        }
+
         public Builder setOnValueChangeListener(Consumer<CharSequence> valueChangeListener){
             mValueChangeListener = valueChangeListener;
             return this;
@@ -110,7 +144,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         @Override
         public BaseWidget build() {
 
-           // super.build();
             EditTextWidget widget = new EditTextWidget(mContext);
 
             if(mHint != null)
@@ -123,6 +156,11 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setTag(mTag);
             if(mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
+            if(mRegex != null)
+                widget.setRegex(mRegex);
+            if(mErrorMessage != null)
+                widget.setErrorMessage(mErrorMessage);
+            if(mLabel != null)
 
             widget.setTextSize(mTextSize);
 

@@ -11,6 +11,8 @@ public abstract class SubmittableWidget<T> extends BaseWidget implements Submitt
         super(context);
     }
 
+    public abstract boolean isValid();
+
     @Override
     public void setBundle(Bundle bundle) {
         mBundle = bundle;

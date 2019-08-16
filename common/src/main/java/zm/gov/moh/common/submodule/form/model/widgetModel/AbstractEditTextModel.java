@@ -4,6 +4,8 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
 
     protected String hint;
     protected String text;
+    protected String regex;
+    protected String errorMessage;
 
 
     public void setHint(String hint) {
@@ -22,5 +24,21 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
     @Override
     public String getHint() {
         return hint;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getRegex() {
+        return regex;
     }
 }

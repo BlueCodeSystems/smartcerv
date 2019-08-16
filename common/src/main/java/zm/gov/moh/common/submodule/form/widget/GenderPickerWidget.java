@@ -44,6 +44,11 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
     }
 
     @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
     public void onCreateView() {
 
         genderData = new LinkedHashMap<>();

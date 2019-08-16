@@ -22,6 +22,8 @@ public class WidgetModelJson {
     protected String style;
     protected List<Logic> logic;
     protected String uuid;
+    protected String regex;
+    protected String errorMessage;
 
 
     public void setWidgetType(String widgetType) {
@@ -154,5 +156,21 @@ public class WidgetModelJson {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

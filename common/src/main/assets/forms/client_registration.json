@@ -11,6 +11,8 @@
         {
           "label":"Client's names",
           "widgetType":"TextView",
+          "regex":"[a-zA-Z]",
+          "errorMessage":"There is an error",
           "textSize":24,
           "weight":1
         },
