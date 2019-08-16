@@ -53,6 +53,12 @@
           "widgetType": "ProviderLabel",
           "label": "Provider Name",
           "textSize": 18
+        },
+        {
+          "tag": "hospital phone number",
+          "widgetType": "ProviderNumber",
+          "label": "Provider's Phone Number",
+          "textSize": 18
         }
       ]
     }]

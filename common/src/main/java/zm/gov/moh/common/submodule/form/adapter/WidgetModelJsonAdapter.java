@@ -1,5 +1,7 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
+import android.app.Dialog;
+
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
@@ -9,6 +11,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTe
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
@@ -116,6 +119,18 @@ public class WidgetModelJsonAdapter {
 
 
                 return imageViewButtonModel;
+
+            case "DialogButton":
+
+                final DialogButtonModel DialogButtonModel = new DialogButtonModel();
+
+                DialogButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                DialogButtonModel.setTag(widgetModelJson.getTag());
+                DialogButtonModel.setLabel(widgetModelJson.getLabel());
+
+
+
+                return DialogButtonModel;
 
             case "PhotoAlbumButton":
 
