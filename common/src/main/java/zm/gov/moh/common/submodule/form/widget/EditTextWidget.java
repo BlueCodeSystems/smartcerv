@@ -3,19 +3,24 @@ package zm.gov.moh.common.submodule.form.widget;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.TypedValue;
 import android.text.InputType;
 import android.view.Gravity;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.util.Consumer;
 
-public class EditTextWidget extends TextViewWidget implements Submittable<CharSequence> {
+public class EditTextWidget extends SubmittableWidget<CharSequence> {
 
 
     protected String mValue;
     protected String mHint;
-    protected Bundle mBundle;
+    protected String mLabel;
+    protected int mTextSize;
     protected AppCompatEditText mEditText;
+    protected TextView mTextView;
     private Context context;
     protected Consumer<CharSequence> mValueChangeListener;
     protected String dataType;
@@ -47,8 +52,16 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             mValueChangeListener.accept(value);
     }
 
+    public void setLabel(String mLabel) {
+        this.mLabel = mLabel;
+    }
+
     public void setOnValueChangeListener(Consumer<CharSequence> valueChangeListener) {
         mValueChangeListener = valueChangeListener;
+    }
+
+    public void setTextSize(int mTextSize) {
+        this.mTextSize = mTextSize;
     }
 
     @Override
@@ -59,7 +72,16 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     @Override
     public void onCreateView() {
 
-        super.onCreateView();
+        if(mLabel != null) {
+
+            mTextView = new AppCompatTextView(mContext);
+            mTextView.setText(mLabel);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            WidgetUtils.setLayoutParams(mTextView, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight)
+                    .setGravity(Gravity.CENTER_VERTICAL);
+
+            addView(mTextView);
+        }
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
@@ -93,37 +115,28 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             mEditText.setFilters(new InputFilter[]{filtertxt});
 
         }
-        /** if(dataType != null && dataType.equals("Numeric"))
-         mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-         else if(dataType != null && dataType.equals("Text"))
-         //auto capitalize first word in sentence
-         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
-
-         /** String valuetxt = mEditText.getText().toString();
-         Pattern ps = Pattern.compile("^[a-zA-Z ]+$");
-         Matcher ms = ps.matcher( mEditText.getText().toString());
-         boolean bs = ms.matches();
-         if (bs == true) {
-         mEditText.setText(valuetxt);
-         } else
-         mEditText.setError("Enter Letters only");
-         */
 
         mEditText.setGravity(Gravity.TOP);
-
-
-        WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
-
         mEditText.setGravity(Gravity.START);
-        WidgetUtils.setLayoutParams(mEditText, WidgetUtils.MATCH_PARENT, WidgetUtils.WRAP_CONTENT, mWeight);
+        WidgetUtils.setLayoutParams(mEditText, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
 
         addView(mEditText);
     }
 
-    @Override
-    public void addViewToViewGroup() {
+    public boolean isValid(){
 
+        if(mRequired != null && mRequired) {
+            mValue = mBundle.getString((String) getTag());
+
+            if (mValue != null && mValue.matches(mRegex))
+                return true;
+            else {
+                mEditText.setError(mErrorMessage);
+                return false;
+            }
+        }
+        else
+            return true;
     }
 
 
@@ -131,17 +144,17 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         return mEditText;
     }
 
-    public static class Builder extends TextViewWidget.Builder {
+    public static class Builder extends SubmittableWidget.Builder{
 
         protected String mHint;
-        protected Bundle mBundle;
+        protected int mTextSize;
+        protected String mLabel;
         protected String mDataType;
 
         public Builder setDataType(String dataType) {
             mDataType = dataType;
             return this;
         }
-
 
         protected Consumer<CharSequence> mValueChangeListener;
 
@@ -155,9 +168,13 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             return this;
         }
 
-        public Builder setBundle(Bundle bundle) {
+        public Builder setLabel(String label){
+            mLabel = label;
+            return this;
+        }
 
-            mBundle = bundle;
+        public Builder setTextSize(int textSize) {
+            this.mTextSize = textSize;
             return this;
         }
 
@@ -169,7 +186,6 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         @Override
         public BaseWidget build() {
 
-            // super.build();
             EditTextWidget widget = new EditTextWidget(mContext);
 
             if (mHint != null)
@@ -184,6 +200,12 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setDataType(mDataType);
             if (mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
+            if(mRegex != null)
+                widget.setRegex(mRegex);
+            if(mErrorMessage != null)
+                widget.setErrorMessage(mErrorMessage);
+            if(mRequired != null)
+                widget.setRequired(mRequired);
 
             widget.setTextSize(mTextSize);
 

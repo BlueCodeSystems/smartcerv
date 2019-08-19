@@ -22,14 +22,20 @@
               "widgetType": "EditText",
               "dataType": "Text",
               "hint": "First name",
-              "weight": 1
+              "regex":"[a-zA-Z]+",
+              "errorMessage":"Should only contain alphabet characters",
+              "required":true,
+              "weight":1
             },
             {
               "tag": "PERSON_FAMILY_NAME",
               "widgetType": "EditText",
               "dataType": "Text",
               "hint": "Last name",
-              "weight": 1
+              "regex":"[a-zA-Z]+",
+              "required":true,
+              "errorMessage":"Should only contain alphabet characters",
+              "weight":1
             }
           ]
         },
@@ -40,11 +46,13 @@
           "weight": 1
         },
         {
-          "tag": "PERSON_GENDER",
-          "label": "Gender",
-          "widgetType": "GenderPicker",
-          "textSize": 24,
-          "weight": 1
+          "tag":"PERSON_GENDER",
+          "label":"Gender",
+          "widgetType":"GenderPicker",
+          "errorMessage":"Gender cannot be left blank",
+          "textSize":24,
+          "required":true,
+          "weight":1
         },
         {
           "label": "Date of birth",
@@ -53,12 +61,14 @@
           "weight": 1
         },
         {
-          "tag": "PERSON_DOB",
-          "widgetType": "DatePicker",
+          "tag":"PERSON_DOB",
+          "widgetType":"DatePicker",
+          "hint":"dd MMM yyyy",
+          "textSize":24,
+          "weight":1,
           "futureDate": "False",
-          "hint": "dd MMM yyyy",
-          "textSize": 24,
-          "weight": 1
+          "errorMessage":"Date of birth cannot be left blank",
+          "required":true
         }
       ]
     },
@@ -71,14 +81,19 @@
           "widgetType": "EditText",
           "dataType": "Numeric",
           "hint": "Example 0967546754",
-          "weight": 1
+          "regex":"[0-9]+",
+          "errorMessage":"Should only contain alphabet characters",
+          "weight":1
         },
         {
           "label": "Address",
           "tag": "PERSON_ADDRESS",
           "widgetType": "EditText",
           "hint": "Plot number, Village, Street",
-          "weight": 1
+          "regex":"[a-zA-Z0-9\\s]+",
+          "errorMessage":"Should only contain alphabet characters",
+          "weight":1,
+          "required":true
         },
         {
           "widgetType": "WidgetGroupRow",

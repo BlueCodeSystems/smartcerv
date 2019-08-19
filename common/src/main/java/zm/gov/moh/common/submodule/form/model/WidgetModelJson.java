@@ -22,6 +22,9 @@ public class WidgetModelJson {
     protected String style;
     protected List<Logic> logic;
     protected String uuid;
+    protected String regex;
+    protected String errorMessage;
+    protected Boolean required;
     protected String futureDate;
 
     public String getFutureDate() {
@@ -162,5 +165,29 @@ public class WidgetModelJson {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
     }
 }

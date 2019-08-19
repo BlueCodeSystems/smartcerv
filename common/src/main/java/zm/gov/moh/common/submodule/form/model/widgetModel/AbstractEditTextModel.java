@@ -4,6 +4,8 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
 
     protected String hint;
     protected String text;
+    protected String regex;
+    protected Boolean required;
     protected String dataType;
     protected String FutureDate;
 
@@ -43,4 +45,20 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
         return hint;
     }
 
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
+    }
 }

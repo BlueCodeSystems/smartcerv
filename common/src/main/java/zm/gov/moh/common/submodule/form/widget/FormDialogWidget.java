@@ -46,11 +46,16 @@ public class FormDialogWidget extends TextViewWidget implements Submittable <Str
 
     }
 
+
     @Override
     public void addViewToViewGroup() {
 
     }
 
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 
     @Override
     public void setBundle(Bundle bundle) {

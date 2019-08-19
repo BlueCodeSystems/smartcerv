@@ -52,9 +52,10 @@ public class WidgetModelJsonAdapter {
                 editText.setText(widgetModelJson.getText());
                 editText.setWeight(widgetModelJson.getWeight());
                 editText.setLabel(widgetModelJson.getLabel());
+                editText.setRegex(widgetModelJson.getRegex());
+                editText.setErrorMessage(widgetModelJson.getErrorMessage());
+                editText.setRequired(widgetModelJson.getRequired());
                 editText.setDataType(widgetModelJson.getDataType());
-
-
 
 
                 return editText;
@@ -274,6 +275,7 @@ public class WidgetModelJsonAdapter {
                 genderPickerModel.setTag(widgetModelJson.getTag());
                 genderPickerModel.setWeight(widgetModelJson.getWeight());
                 genderPickerModel.setStyle(widgetModelJson.getStyle());
+                genderPickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
 
                 return genderPickerModel;
 
@@ -285,6 +287,9 @@ public class WidgetModelJsonAdapter {
                 districtPickerModel.setTag(widgetModelJson.getTag());
                 districtPickerModel.setWeight(widgetModelJson.getWeight());
                 districtPickerModel.setLabel(widgetModelJson.getLabel());
+                districtPickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
+                districtPickerModel.setRequired(widgetModelJson.getRequired());
+
 
                 return districtPickerModel;
 
@@ -306,6 +311,8 @@ public class WidgetModelJsonAdapter {
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
                 datePickerModel.setLabel(widgetModelJson.getLabel());
+                datePickerModel.setRequired(widgetModelJson.getRequired());
+                datePickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
                 datePickerModel.setFutureDate(widgetModelJson.getFutureDate());
 
                 return datePickerModel;
