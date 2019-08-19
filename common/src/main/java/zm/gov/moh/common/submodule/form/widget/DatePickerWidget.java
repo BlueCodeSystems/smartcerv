@@ -20,6 +20,7 @@ import zm.gov.moh.core.utils.Utils;
 
 public class DatePickerWidget extends EditTextWidget {
 
+    AppCompatImageButton button;
     public DatePickerWidget(Context context){
         super(context);
 
@@ -28,7 +29,7 @@ public class DatePickerWidget extends EditTextWidget {
     @Override
     public void onCreateView() {
         super.onCreateView();
-        AppCompatImageButton button = new AppCompatImageButton(mContext);
+        button = new AppCompatImageButton(mContext);
         super.setGravity(Gravity.CENTER_HORIZONTAL);
         mEditText.setEnabled(false);
         mEditText.setTextColor(Color.BLACK);
@@ -58,6 +59,20 @@ public class DatePickerWidget extends EditTextWidget {
     }
 
     @Override
+    public boolean isValid() {
+
+        if(mRequired != null && mRequired)
+            if(mValue == null){
+                mEditText.setError(mErrorMessage);
+
+                return false;
+            }
+
+
+        return true;
+    }
+
+    @Override
     public void setValue(CharSequence value) {
 
         String date = value.toString();
@@ -66,8 +81,11 @@ public class DatePickerWidget extends EditTextWidget {
 
             LocalDate localDate = LocalDate.parse(date);
             String formattedDate = localDate.format(DateTimeFormatter.ofPattern(mHint));
-            if(mBundle != null)
+            if(mBundle != null) {
                 mBundle.putString((String) getTag(), date);
+                mValue = date;
+                mEditText.setError(null);
+            }
             getEditTextView().setText(formattedDate);
             mValueChangeListener.accept(date);
         }catch (Exception e){
@@ -101,6 +119,10 @@ public class DatePickerWidget extends EditTextWidget {
                 widget.setLabel(mLabel);
             if(mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
+            if(mErrorMessage != null)
+                widget.setErrorMessage(mErrorMessage);
+            if(mRequired != null)
+                widget.setRequired(mRequired);
 
             widget.onCreateView();
 

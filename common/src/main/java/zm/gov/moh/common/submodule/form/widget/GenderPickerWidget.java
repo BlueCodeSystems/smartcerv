@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.LinkedHashMap;
@@ -13,6 +14,8 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
     protected final int BUTTON_ID_MALE = 1;
     protected final int BUTTON_ID_FEMALE = 2;
     protected Map<String,Long> genderData;
+    protected RadioGroup radioGroup;
+    private RadioButton errorTooltipAnchor;
 
 
    public GenderPickerWidget(Context context){
@@ -33,6 +36,8 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
 
        final String genderValue = (buttonId == BUTTON_ID_MALE)? "M":"F";
        setValue(genderValue);
+       if(errorTooltipAnchor != null)
+           errorTooltipAnchor.setError(null);
     }
 
     public void setFemaleLabel(String mFemaleLabel) {
@@ -45,6 +50,13 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
 
     @Override
     public boolean isValid() {
+
+        if(mBundle.getString((String) getTag()) == null){
+
+            errorTooltipAnchor = (RadioButton) radioGroup.getChildAt(1);
+            errorTooltipAnchor.setError(mErrorMessage);
+            return false;
+        }
         return true;
     }
 
@@ -54,7 +66,7 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
         genderData = new LinkedHashMap<>();
         genderData.put(mMaleLabel, Long.valueOf(BUTTON_ID_MALE));
         genderData.put(mFemaleLabel, Long.valueOf(BUTTON_ID_FEMALE));
-        RadioGroup radioGroup = WidgetUtils.createRadioButtons(mContext, genderData,this::onButtonSelected,WidgetUtils.HORIZONTAL ,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
+        radioGroup = WidgetUtils.createRadioButtons(mContext, genderData,this::onButtonSelected,WidgetUtils.HORIZONTAL ,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,mWeight);
         this.addView(radioGroup);
     }
 
@@ -92,6 +104,8 @@ public class GenderPickerWidget extends SubmittableWidget<String> {
                 widget.setFemaleLabel(mFemaleLabel);
             if(mTag != null)
                 widget.setTag(mTag);
+            if(mErrorMessage != null)
+                widget.setErrorMessage(mErrorMessage);
 
             widget.onCreateView();
 

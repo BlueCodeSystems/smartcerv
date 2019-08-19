@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
@@ -29,6 +30,7 @@ import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.widget.Retainable;
 import zm.gov.moh.common.submodule.form.widget.Submittable;
 import zm.gov.moh.common.submodule.form.widget.SubmittableWidget;
@@ -139,10 +141,24 @@ public class FormFragment extends BaseFragment {
 
                     View view = WidgetModelToWidgetAdapter.getWidget(widgetModel);
                     formSection.addView(view);
-                    getLatestValue(view, this.bundle, context.getViewModel().getRepository());
 
-                    if(view instanceof Submittable)
-                        getSubmittableWidgets().add((Submittable)view);
+                    ArrayList<View> views = new ArrayList<>();
+
+                    if(widgetModel instanceof WidgetGroupRowModel){
+                        LinearLayoutCompat viewGroup = ((LinearLayoutCompat)view);
+                        int size = viewGroup.getChildCount();
+
+                        for(int i = 0; i < size; i++)
+                            views.add(viewGroup.getChildAt(i));
+
+                    }else
+                        views.add(view);
+
+                    for(View widget: views) {
+                        getLatestValue(widget, this.bundle, context.getViewModel().getRepository());
+                        if (widget instanceof SubmittableWidget)
+                            getSubmittableWidgets().add((SubmittableWidget) widget);
+                    }
                 }
 
                 this.form.getRootView().addView(formSection);
@@ -155,7 +171,7 @@ public class FormFragment extends BaseFragment {
 
                 if(submittableWidgets != null && submittableWidgets.size() > 0)
                     for(Submittable submittableWidget :submittableWidgets)
-                        if(!submittableWidget.isValid())
+                        if (!submittableWidget.isValid())
                             return;
 
                 bundle = this.bundle;

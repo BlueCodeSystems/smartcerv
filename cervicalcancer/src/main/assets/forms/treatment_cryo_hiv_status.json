@@ -129,6 +129,7 @@
               "tag": "cd4 date",
               "conceptId": 165210,
               "dataType": "Date",
+              "uuid":"852149f1-c61c-46c4-a3aa-caee6e91574d",
               "widgetType": "Concept",
               "hint": "dd MM yyyy"
             }
@@ -152,6 +153,7 @@
               "tag": "viral load date",
               "conceptId": 165212,
               "dataType": "Date",
+              "uuid":"a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
               "widgetType": "Concept",
               "hint": "dd MM yyyy"
             }

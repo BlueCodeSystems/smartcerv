@@ -76,10 +76,13 @@ public class WidgetModelToWidgetAdapter {
             EditTextModel model = (EditTextModel) widgetModel;
 
             BaseWidget widget = new EditTextWidget.Builder(this.context)
-                    .setBundle(this.bundle)
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())
                     .setTextSize(18)
+                    .setRegex(model.getRegex())
+                    .setErrorMessage(model.getErrorMessage())
+                    .setBundle(this.bundle)
+                    .setRequired(model.getRequired())
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();
@@ -306,6 +309,7 @@ public class WidgetModelToWidgetAdapter {
                     .setFemaleLabel("Female")
                     .setMaleLabel("Male")
                     .setBundle(this.bundle)
+                    .setErrorMessage(model.getErrorMessage())
                     .setTag(model.getTag())
                     .setWeight(1)
                     .build();
@@ -314,6 +318,7 @@ public class WidgetModelToWidgetAdapter {
         }
         else if(widgetModel instanceof DistrictPickerModel){
 
+            DistrictPickerModel model = (DistrictPickerModel) widgetModel;
             BaseWidget widget = new DistrictPickerWidget.Builder(this.context)
                     .setDistrictLabel("District")
                     .setProvinceLabel("Province")
@@ -329,9 +334,11 @@ public class WidgetModelToWidgetAdapter {
 
             DatePickerModel model = (DatePickerModel)widgetModel;
             BaseWidget widget = new DatePickerWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
                     .setHint(((DatePickerModel) widgetModel).getHint())
                     .setBundle(this.bundle)
-                    .setLabel(model.getLabel())
+                    .setRequired(model.getRequired())
+                    .setErrorMessage(model.getErrorMessage())
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();

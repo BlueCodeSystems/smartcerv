@@ -51,7 +51,8 @@
           "tag": "nrc",
           "widgetType": "EditText",
           "hint": "Example 145683/10/1",
-          "weight": 1
+          "weight": 1,
+          "required":false
         },
         {
           "widgetType": "WidgetGroupRow",

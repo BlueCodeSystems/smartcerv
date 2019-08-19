@@ -3,22 +3,25 @@ package zm.gov.moh.common.submodule.form.widget;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Consumer;
 import zm.gov.moh.common.R;
 
-public class EditTextWidget extends TextViewWidget implements Submittable<CharSequence> {
+public class EditTextWidget extends SubmittableWidget<CharSequence> {
 
 
     protected String mValue;
     protected String mHint;
-    protected String mRegex;
-    protected String mErrorMessage;
-    protected Bundle mBundle;
+    protected String mLabel;
+    protected int mTextSize;
     protected AppCompatEditText mEditText;
+    protected TextView mTextView;
     private Context context;
     protected Consumer<CharSequence> mValueChangeListener;
 
@@ -44,16 +47,16 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             mValueChangeListener.accept(value);
     }
 
+    public void setLabel(String mLabel) {
+        this.mLabel = mLabel;
+    }
+
     public void setOnValueChangeListener(Consumer<CharSequence> valueChangeListener){
         mValueChangeListener = valueChangeListener;
     }
 
-    public void setErrorMessage(String mErrorMessage) {
-        this.mErrorMessage = mErrorMessage;
-    }
-
-    public void setRegex(String mRegex) {
-        this.mRegex = mRegex;
+    public void setTextSize(int mTextSize) {
+        this.mTextSize = mTextSize;
     }
 
     @Override
@@ -64,13 +67,24 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
     @Override
     public void onCreateView() {
 
-        super.onCreateView();
+        if(mLabel != null) {
+
+            mTextView = new AppCompatTextView(mContext);
+            mTextView.setText(mLabel);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+            WidgetUtils.setLayoutParams(mTextView, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight)
+                    .setGravity(Gravity.CENTER_VERTICAL);
+
+            addView(mTextView);
+        }
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
         mEditText.setGravity(Gravity.START);
-        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.MATCH_PARENT,WidgetUtils.WRAP_CONTENT, mWeight);
+        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT, mWeight);
         addView(mEditText);
+
+
 
         //auto populate
         if(mBundle != null) {
@@ -80,19 +94,20 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         }
     }
 
-    @Override
-    public void addViewToViewGroup() {
-
-    }
-
     public boolean isValid(){
 
-        if(mValue != null && mValue.matches(mRegex))
-            return true;
-        else
-            mEditText.setError("Crap!");
+        if(mRequired != null && mRequired) {
+            mValue = mBundle.getString((String) getTag());
 
-        return false;
+            if (mValue != null && mValue.matches(mRegex))
+                return true;
+            else {
+                mEditText.setError(mErrorMessage);
+                return false;
+            }
+        }
+        else
+            return true;
     }
 
 
@@ -100,12 +115,11 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
         return mEditText;
     }
 
-    public static class Builder extends TextViewWidget.Builder{
+    public static class Builder extends SubmittableWidget.Builder{
 
         protected String mHint;
-        protected Bundle mBundle;
-        protected String mRegex;
-        protected String mErrorMessage;
+        protected int mTextSize;
+        protected String mLabel;
         protected Consumer<CharSequence> mValueChangeListener;
 
         public Builder(Context context){
@@ -118,21 +132,13 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
             return this;
         }
 
-        public Builder setBundle(Bundle bundle){
-
-            mBundle = bundle;
+        public Builder setLabel(String label){
+            mLabel = label;
             return this;
         }
 
-        public Builder setRegex(String mRegex){
-
-            mRegex = mRegex;
-            return this;
-        }
-
-        public Builder setErrorMessage(String errorMessage){
-
-            mErrorMessage = errorMessage;
+        public Builder setTextSize(int textSize) {
+            this.mTextSize = textSize;
             return this;
         }
 
@@ -160,7 +166,8 @@ public class EditTextWidget extends TextViewWidget implements Submittable<CharSe
                 widget.setRegex(mRegex);
             if(mErrorMessage != null)
                 widget.setErrorMessage(mErrorMessage);
-            if(mLabel != null)
+            if(mRequired != null)
+                widget.setRequired(mRequired);
 
             widget.setTextSize(mTextSize);
 

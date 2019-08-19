@@ -24,6 +24,8 @@ public class WidgetModelJson {
     protected String uuid;
     protected String regex;
     protected String errorMessage;
+    protected Boolean required;
+
 
 
     public void setWidgetType(String widgetType) {
@@ -172,5 +174,13 @@ public class WidgetModelJson {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
     }
 }

@@ -11,8 +11,6 @@
         {
           "label":"Client's names",
           "widgetType":"TextView",
-          "regex":"[a-zA-Z]",
-          "errorMessage":"There is an error",
           "textSize":24,
           "weight":1
         },
@@ -23,12 +21,16 @@
               "tag":"PERSON_GIVEN_NAME",
               "widgetType":"EditText",
               "hint": "First name",
+              "regex":"[a-zA-Z]+",
+              "errorMessage":"Should only contain alphabet characters",
               "weight":1
             },
             {
               "tag":"PERSON_FAMILY_NAME",
               "widgetType":"EditText",
               "hint": "Last name",
+              "regex":"[a-zA-Z]+",
+              "errorMessage":"Should only contain alphabet characters",
               "weight":1
             }
           ]
@@ -43,6 +45,7 @@
           "tag":"PERSON_GENDER",
           "label":"Gender",
           "widgetType":"GenderPicker",
+          "errorMessage":"Gender cannot be left blank",
           "textSize":24,
           "weight":1
         },
@@ -58,7 +61,9 @@
           "widgetType":"DatePicker",
           "hint":"dd MMM yyyy",
           "textSize":24,
-          "weight":1
+          "weight":1,
+          "errorMessage":"Date of birth cannot be left blank",
+          "required":true
         }
       ]
     },
@@ -70,6 +75,8 @@
           "label":"Phone",
           "widgetType":"EditText",
           "hint": "Example 0967546754",
+          "regex":"[0-9]+",
+          "errorMessage":"Should only contain alphabet characters",
           "weight":1
         },
         {
@@ -77,6 +84,8 @@
           "tag":"PERSON_ADDRESS",
           "widgetType":"EditText",
           "hint": "Plot number, Village, Street",
+          "regex":"[a-zA-Z0-9\\s]+",
+          "errorMessage":"Should only contain alphabet characters",
           "weight":1
         },
         {
