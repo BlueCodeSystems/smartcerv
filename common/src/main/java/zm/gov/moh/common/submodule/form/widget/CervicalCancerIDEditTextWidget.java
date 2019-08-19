@@ -43,11 +43,15 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
 
     public void  appendSerial(List<String> identifiers){
 
+        String districtFacilityCode = this.code.getDistrictCode()+"-"+this.code.getFacilityCode();
         if(identifiers.size() > 0) {
 
             List<Long> serials = new ArrayList<>();
             for (String identifier : identifiers) {
                 int index = identifier.lastIndexOf('-');
+
+                if(!identifier.contains(districtFacilityCode))
+                    continue;
 
                 long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
 
@@ -55,7 +59,7 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
             }
 
             long preferredSerial = Collections.max(serials) + 1;
-            this.setText(this.code.getDistrictCode()+"-"+this.code.getFacilityCode() +"-"+preferredSerial);
+            this.setText(districtFacilityCode+"-"+preferredSerial);
         }
     }
 }
