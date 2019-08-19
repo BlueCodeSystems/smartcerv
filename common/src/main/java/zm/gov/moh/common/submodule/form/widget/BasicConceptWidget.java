@@ -72,6 +72,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
     private int gravity;
+    protected String mFutureDate;
+
 
     ArrayList<Long> selectedConcepts = new ArrayList<>();
     boolean isCodedAnswersRetrieved = false;
@@ -209,8 +211,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
         mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
 
-        //Auto capitalize first letter of every word
-        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+        //Auto capitalize first letter of every sentence
+        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
         //Set Cursor to Leftmost
         mEditText.setSelection(0);
@@ -233,13 +235,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
 
                         mEditText.setGravity(Gravity.LEFT);
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+                        //Auto capitalize first letter of every sentence
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
                         params.leftMargin = 1000;
                         params.topMargin = 2000;
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+
                         WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
                         mEditText.setPadding(10, 10, 10, 10);
                         mEditText.setSingleLine(false);
@@ -255,6 +258,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
 
                         mEditText.setGravity(Gravity.CENTER);
+                        //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
                         mEditText.setGravity(Gravity.TOP);
@@ -265,7 +269,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         TextView textRegion = (mEditText);
                         textRegion.setGravity(gravity);
                         //LayoutParams.setMargins(50,50,50,50);
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
@@ -284,8 +287,10 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
             case ConceptDataType.DATE:
                 datePicker = new DatePickerWidget.Builder(mContext)
                         .setOnValueChangeListener(this::onTextValueChangeListener)
-                        .setHint(mHint).build();
+                        .setHint(mHint).setFutureDate(mFutureDate).build();
+
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, datePicker));
+
                 break;
 
 
@@ -473,6 +478,16 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         mStyle = style;
         return this;
     }
+
+    public BasicConceptWidget setFutureDate(String futureDate) {
+
+        mFutureDate = futureDate;
+        return this;
+    }
+
+
+
+
 
     public void reset() {
 

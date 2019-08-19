@@ -25,8 +25,15 @@ public class WidgetModelJson {
     protected String regex;
     protected String errorMessage;
     protected Boolean required;
+    protected String futureDate;
 
+    public String getFutureDate() {
+        return futureDate;
+    }
 
+    public void setFutureDate(String futureDate) {
+        this.futureDate = futureDate;
+    }
 
     public void setWidgetType(String widgetType) {
         this.widgetType = widgetType;

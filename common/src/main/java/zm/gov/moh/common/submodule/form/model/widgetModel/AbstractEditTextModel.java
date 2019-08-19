@@ -6,7 +6,26 @@ public abstract class AbstractEditTextModel extends AbstractLabelModel implement
     protected String text;
     protected String regex;
     protected Boolean required;
+    protected String dataType;
+    protected String FutureDate;
 
+
+    public String getFutureDate() {
+        return FutureDate;
+    }
+
+    public void setFutureDate(String futureDate) {
+        this.FutureDate = futureDate;
+    }
+
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
 
     public void setHint(String hint) {
         this.hint = hint;

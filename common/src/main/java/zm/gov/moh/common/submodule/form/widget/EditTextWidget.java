@@ -4,14 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.TypedValue;
+import android.text.InputType;
 import android.view.Gravity;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.content.ContextCompat;
 import androidx.core.util.Consumer;
-import zm.gov.moh.common.R;
 
 public class EditTextWidget extends SubmittableWidget<CharSequence> {
 
@@ -24,9 +23,15 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
     protected TextView mTextView;
     private Context context;
     protected Consumer<CharSequence> mValueChangeListener;
+    protected String dataType;
 
-    public EditTextWidget(Context context){
+    public EditTextWidget(Context context) {
         super(context);
+    }
+
+
+    public void setDataType(String DataType) {
+        this.dataType = DataType;
     }
 
     @Override
@@ -34,16 +39,16 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
         return mValue;
     }
 
-    public void setHint(String hint){
+    public void setHint(String hint) {
         mHint = hint;
     }
 
     @Override
     public void setValue(CharSequence value) {
 
-        mBundle.putString((String) this.getTag(),value.toString());
+        mBundle.putString((String) this.getTag(), value.toString());
 
-        if(mValueChangeListener != null)
+        if (mValueChangeListener != null)
             mValueChangeListener.accept(value);
     }
 
@@ -51,7 +56,7 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
         this.mLabel = mLabel;
     }
 
-    public void setOnValueChangeListener(Consumer<CharSequence> valueChangeListener){
+    public void setOnValueChangeListener(Consumer<CharSequence> valueChangeListener) {
         mValueChangeListener = valueChangeListener;
     }
 
@@ -80,18 +85,42 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
         mEditText = new AppCompatEditText(mContext);
         mEditText.setHint(mHint);
         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-        mEditText.setGravity(Gravity.START);
-        WidgetUtils.setLayoutParams(mEditText,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT, mWeight);
-        addView(mEditText);
 
 
-
+        mEditText.setGravity(Gravity.TOP);
         //auto populate
-        if(mBundle != null) {
+        if (mBundle != null) {
             String value = mBundle.getString((String) getTag());
             if (value != null)
                 mEditText.setText(value);
         }
+
+        if (dataType != null && dataType.equals("Numeric")) {
+            mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        } else if (dataType != null && dataType.equals("Text")) {
+            //auto capitalize first word in sentence
+            mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+
+            InputFilter filtertxt = (source, start, end, dest, dstart, dend) -> {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetter(source.charAt(i))) {
+                        mEditText.setError("Enter letters only");
+                        return "";
+                    }
+                }
+                return null;
+            };
+
+            mEditText.setFilters(new InputFilter[]{filtertxt});
+
+        }
+
+        mEditText.setGravity(Gravity.TOP);
+        mEditText.setGravity(Gravity.START);
+        WidgetUtils.setLayoutParams(mEditText, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
+
+        addView(mEditText);
     }
 
     public boolean isValid(){
@@ -111,7 +140,7 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
     }
 
 
-    AppCompatEditText getEditTextView(){
+    AppCompatEditText getEditTextView() {
         return mEditText;
     }
 
@@ -120,13 +149,20 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
         protected String mHint;
         protected int mTextSize;
         protected String mLabel;
+        protected String mDataType;
+
+        public Builder setDataType(String dataType) {
+            mDataType = dataType;
+            return this;
+        }
+
         protected Consumer<CharSequence> mValueChangeListener;
 
-        public Builder(Context context){
+        public Builder(Context context) {
             super(context);
         }
 
-        public Builder setHint(String hint){
+        public Builder setHint(String hint) {
 
             mHint = hint;
             return this;
@@ -142,7 +178,7 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
             return this;
         }
 
-        public Builder setOnValueChangeListener(Consumer<CharSequence> valueChangeListener){
+        public Builder setOnValueChangeListener(Consumer<CharSequence> valueChangeListener) {
             mValueChangeListener = valueChangeListener;
             return this;
         }
@@ -152,15 +188,17 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
 
             EditTextWidget widget = new EditTextWidget(mContext);
 
-            if(mHint != null)
+            if (mHint != null)
                 widget.setHint(mHint);
-            if(mBundle != null)
+            if (mBundle != null)
                 widget.setBundle(mBundle);
-            if(mLabel != null)
+            if (mLabel != null)
                 widget.setLabel(mLabel);
-            if(mTag != null)
+            if (mTag != null)
                 widget.setTag(mTag);
-            if(mValueChangeListener != null)
+            if (mDataType != null)
+                widget.setDataType(mDataType);
+            if (mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
             if(mRegex != null)
                 widget.setRegex(mRegex);
@@ -173,7 +211,7 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
 
             widget.onCreateView();
 
-            return  widget;
+            return widget;
         }
     }
 }

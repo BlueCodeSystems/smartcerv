@@ -32,8 +32,9 @@ public class SettingsViewModel extends BaseAndroidViewModel {
                 return;
             }
 
-            getRepository().getDefaultSharePrefrences().edit().putString(Key.BASE_URL, preferences.getBaseUrl().toString()).apply();
+            getRepository().getDefaultSharePrefrences().edit().clear().apply();
             ConcurrencyUtils.asyncRunnable(()-> db.clearAllTables(), this::onError);
+            getRepository().getDefaultSharePrefrences().edit().putString(Key.BASE_URL, preferences.getBaseUrl().toString()).apply();
         }
 
         getPreferencesSaveStatus().setValue(true);

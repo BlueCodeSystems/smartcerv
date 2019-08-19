@@ -177,7 +177,7 @@ public class FormFragment extends BaseFragment {
                 bundle = this.bundle;
                 Bundle contextbundle = context.getIntent().getExtras();
                 this.bundle.putAll(contextbundle);
-
+                ArrayList<String> tags = form.getFormContext().getTags();
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 
                 if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {

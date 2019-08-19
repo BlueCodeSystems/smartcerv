@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.content.Intent;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
 
@@ -42,6 +41,7 @@ public  abstract class BaseWidget extends LinearLayoutCompat implements Widget{
         Object mTag;
         int mWeight = 0;
         Context mContext;
+        String mFutureDate;
 
         Builder(Context context){
 
@@ -57,6 +57,10 @@ public  abstract class BaseWidget extends LinearLayoutCompat implements Widget{
         public Builder setWeight(int weight){
 
             mWeight = weight;
+            return this;
+        }
+        public Builder setFutureDate(String FutureDate){
+            mFutureDate = FutureDate;
             return this;
         }
 
