@@ -42,35 +42,31 @@ public class PersistEncounter extends PersistService {
         VisitState visitState = (VisitState) mBundle.getSerializable(Key.VISIT_STATE);
 
 
-        if(visitState == VisitState.AMEND){
 
-            //void previous visit data
-            EncounterEntity encounterEntity = db.encounterDao().getByTypeVisitId(visit_id,encounter_type_id);
 
-            if(encounterEntity != null){
+        //void previous visit data
+        EncounterEntity encounterEntity = db.encounterDao().getByTypeVisitId(visit_id,encounter_type_id);
 
-                encounterEntity.setVoided((short) 1);
-                db.encounterDao().insert(encounterEntity);
+        if(encounterEntity != null){
 
-                EncounterProvider encounterProvider = db.encounterProviderDao().getByEncounterId(encounterEntity.getEncounterId());
+            encounterEntity.setVoided((short) 1);
+            db.encounterDao().insert(encounterEntity);
 
-                if(encounterProvider != null) {
-                    encounterProvider.setVoided((short) 1);
-                    db.encounterProviderDao().insert(encounterProvider);
-                }
+            EncounterProvider encounterProvider = db.encounterProviderDao().getByEncounterId(encounterEntity.getEncounterId());
 
-                List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterEntity.getEncounterId());
+            if(encounterProvider != null) {
+                encounterProvider.setVoided((short) 1);
+                db.encounterProviderDao().insert(encounterProvider);
+            }
 
-                if(obsEntities.size() > 0){
+            List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterEntity.getEncounterId());
 
+                if(obsEntities.size() > 0)
                     for(ObsEntity obsEntity:obsEntities){
                         obsEntity.setVoided((short)1);
                         db.obsDao().insert(obsEntity);
                     }
-                }
-            }
         }
-
 
         if (visit_id == null) {
 
