@@ -3,7 +3,6 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 import android.os.Bundle;
 
-import androidx.arch.core.util.Function;
 import androidx.core.util.Consumer;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -13,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import com.google.common.collect.LinkedHashMultimap;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,8 +19,6 @@ import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.FragmentPatientDashboardVisitBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.VisitExpandableListAdapter;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitEncounterItem;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 
 /**
@@ -68,9 +63,6 @@ public class PatientDashboardVisitFragment extends Fragment {
         View rootView = binding.getRoot();
 
         visitItemList = rootView.findViewById(R.id.visit_list);
-        Fragment visitSessionPage = new PatientDashboardVisitSessionFragment();
-        visitSessionPage.setArguments(getArguments());
-        binding.setVisitSessionPage(visitSessionPage);
         binding.setContext(mContext);
 
         viewModel.getVisitDataEmitter().observe(mContext,linkedHashMultimaps -> {

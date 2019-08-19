@@ -81,6 +81,10 @@ public class TextBoxWidgetTwo extends TextViewWidget implements Submittable<Char
 
     }
 
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 
     AppCompatEditText getTextBoxView(){
         return mTextBox;

@@ -25,8 +25,11 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     @Query("DELETE FROM encounter WHERE encounter_id IN (:encounterId) AND encounter_id >= :offset")
     void deleteById(long[] encounterId, long offset);
 
-    @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId)")
+    @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId) AND voided != 1")
     List<EncounterEntity> getByVisitId(List<Long> visitId);
+
+    @Query("SELECT * FROM encounter WHERE visit_id =:visitId AND encounter_type = :encounterTypeId ORDER BY date_created DESC LIMIT 1")
+    EncounterEntity getByTypeVisitId(Long visitId, Long encounterTypeId);
 
     @Query("SELECT encounter_id FROM encounter WHERE visit_id IN (:visitId)")
     long[] getByVisitId(long[] visitId);
@@ -42,7 +45,7 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     void replaceLocalPatientId(long localPatientId, long remotePatientId);
 
     //gets all locations
-    @Query("SELECT * FROM encounter WHERE visit_id = :visitId ORDER BY encounter_type")
+    @Query("SELECT * FROM encounter WHERE visit_id = :visitId AND voided != 1 ORDER BY encounter_type")
     List<EncounterEntity> getByEncounterByVisitId(long visitId);
 
     @Query("UPDATE encounter SET encounter_id= :id, patient_id = :patientId WHERE encounter_datetime = :dateTime ")

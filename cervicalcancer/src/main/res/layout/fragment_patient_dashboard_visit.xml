@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="20dp"
-            android:onClick="@{()-> context.replaceFragment(visitSessionPage)}"
+            android:onClick="@{()-> context.startVisit()}"
             android:src="@android:drawable/ic_input_add"
             android:tint="@color/white" />
 

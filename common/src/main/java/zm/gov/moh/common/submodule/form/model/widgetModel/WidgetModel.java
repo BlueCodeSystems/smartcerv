@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-public interface WidgetModel {
+import java.io.Serializable;
+
+public interface WidgetModel extends Serializable {
 
     String getTag();
 

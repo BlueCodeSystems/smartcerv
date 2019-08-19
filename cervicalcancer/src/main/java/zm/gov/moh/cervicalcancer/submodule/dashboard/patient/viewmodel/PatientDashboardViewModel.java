@@ -20,7 +20,7 @@ import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.ObsListItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitEncounterItem;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
+import zm.gov.moh.core.model.VisitState;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
@@ -36,7 +36,7 @@ import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class PatientDashboardViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
-    private MutableLiveData<Integer> emitVisitState;
+    private MutableLiveData<VisitState> emitVisitState;
     private Bundle bundle;
     private VisitState visitState;
     private VisitEntity visit;
@@ -54,20 +54,16 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     public PatientDashboardViewModel(Application application) {
         super(application);
 
-        this.visitState = new VisitState();
-
-
     }
 
-    public void setVisitState(final int state) {
+    public void setVisitState(final VisitState state) {
 
-        visitState.setState(state);
         persistVisit(state);
 
         emitVisitState.setValue(state);
     }
 
-    public MutableLiveData<Integer> getEmitVisitState() {
+    public MutableLiveData<VisitState> getEmitVisitState() {
 
         if (emitVisitState == null)
             emitVisitState = new MutableLiveData<>();
@@ -143,13 +139,13 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return visitState;
     }
 
-    public void persistVisit(int visitState){
+    public void persistVisit(VisitState visitState){
 
 
         if(visit == null)
             visit = new VisitEntity();
 
-        if(visitState == VisitState.STARTED)
+        if(visitState == VisitState.NEW)
 
             ConcurrencyUtils.consumeAsync(this::createVisit, this::onError, bundle);
         else if(visit.getDateStarted() != null) {
@@ -336,6 +332,7 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         visit = new VisitEntity(visit_id,visit_type_id,person_id,location_id,creator,start_time);
         visitDao.insert(visit);
         bundle.putLong(Key.VISIT_ID, visit_id);
+        setVisitState(VisitState.NEW);
     }
 
     public LinkedHashMap<Long, Collection<String>> extractProviderData(List<VisitEntity> visits){
@@ -378,8 +375,6 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
 
         LinkedList<LinkedHashMultimap<VisitListItem,VisitEncounterItem>> visitListItems = new LinkedList<>();
         for(VisitEntity visit: visits){
-
-            List<ObsEntity> obsList = db.genericDao().getPatientObsByVisitId(person_id,visit.getVisitId());
 
             LinkedHashMultimap<VisitListItem,VisitEncounterItem> itemLinkedHashMultimap = LinkedHashMultimap.create();
 

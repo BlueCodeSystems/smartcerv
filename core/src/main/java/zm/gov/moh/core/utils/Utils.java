@@ -5,10 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Calendar;
-import java.util.Locale;
 
 import okhttp3.Credentials;
 
@@ -58,7 +59,7 @@ public class Utils {
                .setPositiveButton("OK",null);
     }
 
-    public static void dateDialog(Context context,View view, DatePickerDialog.OnDateSetListener onDateSetListener){
+    public static DatePickerDialog dateDialog(Context context, View view, DatePickerDialog.OnDateSetListener onDateSetListener){
 
         // calender class's instance and get current date , month and year from calender
         final Calendar c = Calendar.getInstance();
@@ -67,9 +68,18 @@ public class Utils {
         int day = c.get(Calendar.DAY_OF_MONTH); // current day
         DatePickerDialog datePickerDialog = new DatePickerDialog(context, onDateSetListener , year, month, day);
 
+
         // perform click event on edit text
         view.setOnClickListener(view1 -> datePickerDialog.show());
+
+        return datePickerDialog;
+
+
+
+
     }
+
+
 
     public static String getStringFromInputStream(InputStream stream) throws IOException {
 

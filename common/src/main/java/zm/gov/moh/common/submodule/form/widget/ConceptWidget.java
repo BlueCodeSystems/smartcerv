@@ -35,6 +35,11 @@ public class ConceptWidget <T> extends RepositoryWidget<T>
     }
 
     @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
     public T getValue() {
         return null;
     }
@@ -52,6 +57,8 @@ public class ConceptWidget <T> extends RepositoryWidget<T>
             mUuid = uuid;
             return this;
         }
+
+
 
         @Override
         public  BaseWidget build(){

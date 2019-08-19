@@ -6,9 +6,9 @@ import java.util.List;
 public class FormJsonGroup {
 
     private String name;
-    private List<FormJson> formJsons;
+    private List<JsonForm> formJsons;
 
-    public FormJsonGroup(final String name, final List<FormJson> formJsons){
+    public FormJsonGroup(final String name, final List<JsonForm> formJsons){
         this.name = name;
         this.formJsons = formJsons;
     }
@@ -22,11 +22,11 @@ public class FormJsonGroup {
         return name;
     }
 
-    public List<FormJson> getFormJsons() {
+    public List<JsonForm> getFormJsons() {
         return formJsons;
     }
 
-    public void addForm(FormJson formJson){
+    public void addForm(JsonForm formJson){
         formJsons.add(formJson);
     }
 }

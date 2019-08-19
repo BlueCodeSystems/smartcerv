@@ -42,6 +42,7 @@ import zm.gov.moh.common.submodule.form.model.Condition;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.core.model.ConceptDataType;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
@@ -72,6 +73,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
     private int gravity;
+    protected String mFutureDate;
+
 
     ArrayList<Long> selectedConcepts = new ArrayList<>();
     boolean isCodedAnswersRetrieved = false;
@@ -209,8 +212,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
         mEditText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
 
-        //Auto capitalize first letter of every word
-        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+        //Auto capitalize first letter of every sentence
+        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
         //Set Cursor to Leftmost
         mEditText.setSelection(0);
@@ -233,13 +236,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
 
                         mEditText.setGravity(Gravity.LEFT);
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+                        //Auto capitalize first letter of every sentence
+                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
                         params.leftMargin = 1000;
                         params.topMargin = 2000;
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_CLASS_TEXT);
+
                         WidgetUtils.setLayoutParams(mEditText, 800, WidgetUtils.WRAP_CONTENT, mWeight);
                         mEditText.setPadding(10, 10, 10, 10);
                         mEditText.setSingleLine(false);
@@ -255,6 +259,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::onTextValueChangeListener));
 
                         mEditText.setGravity(Gravity.CENTER);
+                        //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
                         mEditText.setGravity(Gravity.TOP);
@@ -265,7 +270,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         TextView textRegion = (mEditText);
                         textRegion.setGravity(gravity);
                         //LayoutParams.setMargins(50,50,50,50);
-                        mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
                         WidgetUtils.setLayoutParams(mEditText, 300, WidgetUtils.WRAP_CONTENT, mWeight);
                         addView(mEditText);
                     }
@@ -284,8 +288,10 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
             case ConceptDataType.DATE:
                 datePicker = new DatePickerWidget.Builder(mContext)
                         .setOnValueChangeListener(this::onTextValueChangeListener)
-                        .setHint(mHint).build();
+                        .setHint(mHint).setFutureDate(mFutureDate).build();
+
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, datePicker));
+
                 break;
 
 
@@ -474,6 +480,16 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         return this;
     }
 
+    public BasicConceptWidget setFutureDate(String futureDate) {
+
+        mFutureDate = futureDate;
+        return this;
+    }
+
+
+
+
+
     public void reset() {
 
         canSetValue.compareAndSet(true, false);
@@ -504,65 +520,76 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         // Method retrieves entered observations and displays the values in widgets
         int firstIndex = 0;
 
-        switch (mDataType) {
+        if(obs.length > 0) {
 
-            // Numeric values retained
-            case ConceptDataType.NUMERIC:
-                String valuenum = String.valueOf(obs[firstIndex].getValueNumeric());
+            switch (mDataType) {
 
-                //Numeric values are returned as Double, thus need to trim string to remove trailing decimal point
-                String sub = valuenum.substring(valuenum.length() - 2);
+                // Numeric values retained
+                case ConceptDataType.NUMERIC:
+                    String valuenum = String.valueOf(obs[firstIndex].getValueNumeric());
 
-                if (sub.equals(".0"))
-                    mEditText.setText(valuenum.substring(0, valuenum.length() - 2));
-                else
-                    mEditText.setText(valuenum);
-                break;
+                    //Numeric values are returned as Double, thus need to trim string to remove trailing decimal point
+                    String sub = valuenum.substring(valuenum.length() - 2);
 
-            //Retrieving Text Values
-            case ConceptDataType.TEXT:
-                String valuetxt = String.valueOf(obs[firstIndex].getValueText());
-                mEditText.setText(valuetxt);
-                break;
+                    if (sub.equals(".0"))
+                        mEditText.setText(valuenum.substring(0, valuenum.length() - 2));
+                    else
+                        mEditText.setText(valuenum);
+                    break;
 
-            case ConceptDataType.BOOLEAN:
-                Long conceptId = obs[firstIndex].getValueCoded();
+                //Retrieving Text Values
+                case ConceptDataType.TEXT:
+                    String valuetxt = String.valueOf(obs[firstIndex].getValueText());
+                    mEditText.setText(valuetxt);
+                    break;
 
-                if (mStyle.equals(STYLE_RADIO)) {
+                case ConceptDataType.BOOLEAN:
+                    Long conceptId = obs[firstIndex].getValueCoded();
 
-                    if (conceptId == 1) {
-                        RadioButton button = (RadioButton) radioGroup.getChildAt(0);
-                        button.setChecked(true);
-                    } else if (conceptId == 2) {
-                        RadioButton button = (RadioButton) radioGroup.getChildAt(1);
-                        button.setChecked(true);
+                    if (mStyle.equals(STYLE_RADIO)) {
+
+                        if (conceptId == 1) {
+                            RadioButton button = (RadioButton) radioGroup.getChildAt(0);
+                            button.setChecked(true);
+                        } else if (conceptId == 2) {
+                            RadioButton button = (RadioButton) radioGroup.getChildAt(1);
+                            button.setChecked(true);
+                        }
+                    } else if (mStyle.equals(STYLE_CHECK)) {
+                        CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);
+                        if (checkBox != null && conceptId == 1)
+                            checkBox.setChecked(true);
                     }
-                } else if (mStyle.equals(STYLE_CHECK)) {
-                    CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);
-                    if (checkBox != null && conceptId == 1)
-                        checkBox.setChecked(true);
-                }
-                break;
+                    break;
 
-            case ConceptDataType.CODED:
+                case ConceptDataType.CODED:
 
-                for (ObsEntity codedObs : obs)
-                    selectedConcepts.add(codedObs.getValueCoded());
+                    for (ObsEntity codedObs : obs)
+                        selectedConcepts.add(codedObs.getValueCoded());
 
-                if (isCodedAnswersRetrieved)
-                    onConceptIdAnswersRetrieved(mConceptAnswerNames);
-                break;
+                    if (isCodedAnswersRetrieved)
+                        onConceptIdAnswersRetrieved(mConceptAnswerNames);
+                    break;
 
-            case ConceptDataType.DATE:
+                case ConceptDataType.DATE:
 
-                String date = obs[firstIndex].getValueDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String date = obs[firstIndex].getValueDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                ((DatePickerWidget) datePicker).setValue(date);
+                    ((DatePickerWidget) datePicker).setValue(date);
 
 
-                break;
+                    break;
+            }
+
+            ArrayList<Long> obsVoid = (ArrayList<Long>)bundle.getSerializable(Key.OBS_ID);
+            if(obsVoid == null)
+                obsVoid = new ArrayList<>();
 
 
+            for(ObsEntity obsEntity: obs)
+                obsVoid.add(obsEntity.getObsId());
+
+            bundle.putSerializable(Key.OBS_ID, obsVoid);
         }
     }
 }

@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.model;
 
-public class Action {
+import java.io.Serializable;
+
+public class Action implements Serializable {
 
     //added a static field for criteria
     public static final String ACTION_TYPE_CRITERIA = "criteria";

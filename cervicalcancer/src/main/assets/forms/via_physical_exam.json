@@ -2,6 +2,7 @@
   "attributes": {
     "panelType": "form",
     "formType": "encounter",
+    "name":"Physical Exam",
     "encounterId": 11,
     "submitLabel": "Submit"
   },
@@ -20,12 +21,12 @@
           "textSize": 18
         },
         {
-          "tag": "Vulva/Perineuem",
+          "tag":"Vulva/Perineum",
           "widgetType": "Concept",
           "conceptId": 165139,
           "uuid": "d9530112-49ad-442e-a80d-5bd7c1cbf7eb",
           "dataType": "Coded",
-          "label": "Vulva/Perineuem",
+          "label": "Vulva/Perineum",
           "style": "radio",
           "textSize": 18
         },
