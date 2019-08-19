@@ -323,6 +323,8 @@
           "tag": "return_to_evaluation_site_for_pathology_results",
           "widgetType": "DatePicker",
           "label": "Return to evaluation site for pathology results",
+          "text": "Date",
+          "hint": "dd MMM yyyy",
           "textSize": 18,
           "weight": 1
         },
@@ -330,6 +332,8 @@
           "tag": "return_to_referring_clinic_for_follow_up",
           "widgetType": "DatePicker",
           "label": "Return to referring clinic for follow up",
+          "text": "Date",
+          "hint": "dd MMM yyyy",
           "textSize": 18,
           "weight": 1
         },

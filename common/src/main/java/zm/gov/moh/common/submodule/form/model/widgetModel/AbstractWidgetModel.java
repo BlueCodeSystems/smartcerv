@@ -13,6 +13,7 @@ public abstract class AbstractWidgetModel implements WidgetModel, Serializable {
     protected String widgetType;
     protected int weight;
     protected List<Logic> logic;
+    protected String errorMessage;
 
     public AbstractWidgetModel(){
         super();
@@ -40,6 +41,14 @@ public abstract class AbstractWidgetModel implements WidgetModel, Serializable {
 
     public int getWeight() {
         return weight;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     public List<Logic> getLogic() {

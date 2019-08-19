@@ -1,5 +1,6 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 import java.util.List;
 
@@ -20,6 +21,9 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
 
     @Query("SELECT * FROM patient_identifier WHERE  identifier = :id ")
     List<PatientIdentifierEntity> getAllT(String id);
+
+    @Query("SELECT identifier FROM patient_identifier WHERE identifier_type =(SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid =:identifierType) AND location_id = :locationId")
+    LiveData<List<String>> getByLocationType(long locationId, String identifierType);
 
     // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)

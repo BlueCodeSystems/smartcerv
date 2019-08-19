@@ -130,8 +130,10 @@
               "tag": "cd4 date",
               "conceptId": 165210,
               "dataType": "Date",
+              "uuid":"852149f1-c61c-46c4-a3aa-caee6e91574d",
+              "futureDate": "False",
               "widgetType": "Concept",
-              "hint": "dd MM yyyy"
+              "hint": "dd MMM yyyy"
             }
           ]
         },
@@ -153,8 +155,10 @@
               "tag": "viral load date",
               "conceptId": 165212,
               "dataType": "Date",
+              "uuid":"a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
+              "futureDate": "False",
               "widgetType": "Concept",
-              "hint": "dd MM yyyy"
+              "hint": "dd MMM yyyy"
             }
           ]
         },
@@ -271,7 +275,7 @@
           "tag": "art clinic",
           "widgetType": "Concept",
           "conceptId": 165136,
-          "uuid": "	758a1b06-09fc-4448-9edf-58ecda27365e",
+          "uuid": "758a1b06-09fc-4448-9edf-58ecda27365e",
           "dataType": "Boolean",
           "style": "radio",
           "label": "Referred to ART Clinic",
@@ -317,10 +321,13 @@
         {
           "tag": "Date tested negative",
           "conceptId": 165251,
-          "dataType": "Date",
           "widgetType": "Concept",
-          "label": "Select date tested negative",
-          "hint": "dd MM yyyy"
+          "dataType": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "label": "Date tested negative",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
         },
         {
           "tag": "PICT was not offered",
@@ -331,7 +338,6 @@
           "textSize": 18,
           "hint": "Reason PICT was not offered"
         }
-
       ]
     }
   ]

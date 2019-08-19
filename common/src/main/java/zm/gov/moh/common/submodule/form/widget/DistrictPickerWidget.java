@@ -57,6 +57,11 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
     }
 
     @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
     public Map.Entry<Long, Long> getValue() {
         return null;
     }

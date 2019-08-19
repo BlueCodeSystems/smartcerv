@@ -1,5 +1,6 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
@@ -20,6 +22,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.NumericEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
@@ -40,8 +43,10 @@ import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.FormDefaultCameraButtonWidget;
+import zm.gov.moh.common.submodule.form.widget.FormDialogWidget;
 import zm.gov.moh.common.submodule.form.widget.FormImageViewButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.GenderPickerWidget;
+import zm.gov.moh.common.submodule.form.widget.NumericEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderNumberWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
@@ -76,10 +81,15 @@ public class WidgetModelToWidgetAdapter {
             EditTextModel model = (EditTextModel) widgetModel;
 
             BaseWidget widget = new EditTextWidget.Builder(this.context)
-                    .setBundle(this.bundle)
+                    .setDataType(((EditTextModel) widgetModel).getDataType())
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())
                     .setTextSize(18)
+                    .setBundle(this.bundle)
+                    .setRegex(model.getRegex())
+                    .setErrorMessage(model.getErrorMessage())
+                    .setBundle(this.bundle)
+                    .setRequired(model.getRequired())
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();
@@ -135,7 +145,7 @@ public class WidgetModelToWidgetAdapter {
 
             return widget;
         }
-        else if(widgetModel instanceof DatePickerButtonModel){
+        else if(widgetModel instanceof DatePickerButtonModel) {
 
             DatePickerButtonModel model = (DatePickerButtonModel) widgetModel;
 
@@ -144,6 +154,7 @@ public class WidgetModelToWidgetAdapter {
             widget.setText(model.getText());
             return widget;
         }
+
         else if(widgetModel instanceof CameraButtonModel) {
 
             CameraButtonModel model = (CameraButtonModel) widgetModel;
@@ -161,6 +172,17 @@ public class WidgetModelToWidgetAdapter {
 
             BaseWidget widget = new FormDefaultCameraButtonWidget.Builder(this.context)
                     .setLabel(model.getLabel())
+                    .setBundle(bundle)
+                    .build();
+            return widget;
+        }
+
+        else if(widgetModel instanceof DialogButtonModel) {
+
+            DialogButtonModel model = (DialogButtonModel) widgetModel;
+
+            BaseWidget widget = new FormDialogWidget.Builder(this.context)
+                    //.setLabel(model.getLabel())
                     .setBundle(bundle)
                     .build();
             return widget;
@@ -281,6 +303,7 @@ public class WidgetModelToWidgetAdapter {
                     .setHint(model.getHint())
                     .setTextSize(model.getTextSize())
                     .setLogic(model.getLogic())
+                    .setFutureDate(model.getFutureDate())
                     //pass Uuid to basic widget
                     .setUuid(model.getUuid())
                     .setWeight(model.getWeight())
@@ -306,6 +329,7 @@ public class WidgetModelToWidgetAdapter {
                     .setFemaleLabel("Female")
                     .setMaleLabel("Male")
                     .setBundle(this.bundle)
+                    .setErrorMessage(model.getErrorMessage())
                     .setTag(model.getTag())
                     .setWeight(1)
                     .build();
@@ -314,6 +338,7 @@ public class WidgetModelToWidgetAdapter {
         }
         else if(widgetModel instanceof DistrictPickerModel){
 
+            DistrictPickerModel model = (DistrictPickerModel) widgetModel;
             BaseWidget widget = new DistrictPickerWidget.Builder(this.context)
                     .setDistrictLabel("District")
                     .setProvinceLabel("Province")
@@ -329,9 +354,27 @@ public class WidgetModelToWidgetAdapter {
 
             DatePickerModel model = (DatePickerModel)widgetModel;
             BaseWidget widget = new DatePickerWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
                     .setHint(((DatePickerModel) widgetModel).getHint())
                     .setBundle(this.bundle)
+                    .setRequired(model.getRequired())
+                    .setErrorMessage(model.getErrorMessage())
+                    .setWeight(1)
+                    .setFutureDate(((DatePickerModel) widgetModel).getFutureDate())
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        } else if(widgetModel instanceof NumericEditTextModel) {
+
+            NumericEditTextModel model = (NumericEditTextModel) widgetModel;
+
+            BaseWidget widget = new NumericEditTextWidget.Builder(this.context)
+                    .setDataType(model.getDataType())
+                    .setHint(model.getHint())
                     .setLabel(model.getLabel())
+                    .setTextSize(18)
+                    .setBundle(this.bundle)
                     .setWeight(1)
                     .setTag(model.getTag())
                     .build();

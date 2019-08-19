@@ -73,6 +73,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
     Map<String, Long> conceptNameIdMap;
     AtomicBoolean canSetValue;
     private int gravity;
+    protected String mFutureDate;
+
 
     ArrayList<Long> selectedConcepts = new ArrayList<>();
     boolean isCodedAnswersRetrieved = false;
@@ -286,8 +288,10 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
             case ConceptDataType.DATE:
                 datePicker = new DatePickerWidget.Builder(mContext)
                         .setOnValueChangeListener(this::onTextValueChangeListener)
-                        .setHint(mHint).build();
+                        .setHint(mHint).setFutureDate(mFutureDate).build();
+
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, datePicker));
+
                 break;
 
 
@@ -475,6 +479,16 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         mStyle = style;
         return this;
     }
+
+    public BasicConceptWidget setFutureDate(String futureDate) {
+
+        mFutureDate = futureDate;
+        return this;
+    }
+
+
+
+
 
     public void reset() {
 

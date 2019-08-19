@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
@@ -28,7 +30,10 @@ import zm.gov.moh.common.submodule.form.model.FormContext;
 import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
+import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.widget.Retainable;
+import zm.gov.moh.common.submodule.form.widget.Submittable;
+import zm.gov.moh.common.submodule.form.widget.SubmittableWidget;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
@@ -48,17 +53,23 @@ public class FormFragment extends BaseFragment {
 
     private Form form;
     private View rootView;
-    private EditText mEditText;
     private AtomicBoolean renderWidgets;
     private FormModel formModel;
     private JsonForm formJson;
     private FormActivity context;
     private Bundle bundle;
-    private Object EditTextWidget;
     private Intent intent;
+    private List<Submittable> submittableWidgets;
 
     public FormFragment() {
         // Required empty public constructor
+    }
+
+    public List<Submittable> getSubmittableWidgets() {
+        if(submittableWidgets == null)
+            submittableWidgets = new ArrayList<>();
+
+        return submittableWidgets;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -122,7 +133,6 @@ public class FormFragment extends BaseFragment {
 
             }
 
-
         initFormData(bundle);
 
         if (renderWidgets.get()) {
@@ -138,7 +148,24 @@ public class FormFragment extends BaseFragment {
 
                     View view = WidgetModelToWidgetAdapter.getWidget(widgetModel);
                     formSection.addView(view);
-                    getLatestValue(view, this.bundle, context.getViewModel().getRepository());
+
+                    ArrayList<View> views = new ArrayList<>();
+
+                    if(widgetModel instanceof WidgetGroupRowModel){
+                        LinearLayoutCompat viewGroup = ((LinearLayoutCompat)view);
+                        int size = viewGroup.getChildCount();
+
+                        for(int i = 0; i < size; i++)
+                            views.add(viewGroup.getChildAt(i));
+
+                    }else
+                        views.add(view);
+
+                    for(View widget: views) {
+                        getLatestValue(widget, this.bundle, context.getViewModel().getRepository());
+                        if (widget instanceof SubmittableWidget)
+                            getSubmittableWidgets().add((SubmittableWidget) widget);
+                    }
                 }
 
                 this.form.getRootView().addView(formSection);
@@ -148,13 +175,16 @@ public class FormFragment extends BaseFragment {
             formSubmitButtonWidget.setText(formModel.getAttributes().getSubmitLabel());
 
             formSubmitButtonWidget.setOnSubmit(bundle -> {
+
+                if(submittableWidgets != null && submittableWidgets.size() > 0)
+                    for(Submittable submittableWidget :submittableWidgets)
+                        if (!submittableWidget.isValid())
+                            return;
+
                 bundle = this.bundle;
                 Bundle contextbundle = context.getIntent().getExtras();
-                //bundle.putSerializable(EncounterSubmission.FORM_DATA_KEY, bundle);
                 this.bundle.putAll(contextbundle);
-
                 ArrayList<String> tags = form.getFormContext().getTags();
-
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 
                 if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER)) {
@@ -172,7 +202,6 @@ public class FormFragment extends BaseFragment {
                         Toast.makeText(context, context.getResources().getText(R.string.no_observations), Toast.LENGTH_LONG).show();
                         return;
                     }
-
                 }
                 else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
                     intent = new Intent(context, PersistDemographics.class);
@@ -195,7 +224,6 @@ public class FormFragment extends BaseFragment {
 
         renderWidgets.set(false);
         // Inflate the layout for this fragment
-
 
         return rootView;
     }
@@ -235,8 +263,6 @@ public class FormFragment extends BaseFragment {
     // fetch data from Dao using the name of the query
     public void getLatestValue(View widget, Bundle bundle, Repository repository) {
 
-
-
         if (widget instanceof Retainable) {
 
            Retainable conceptWidget = (Retainable) widget;
@@ -244,8 +270,6 @@ public class FormFragment extends BaseFragment {
             //get UUid and patientId
             String uuid = conceptWidget.getUuid();
             long visitId = bundle.getLong(Key.VISIT_ID);
-
-
 
             //fetch value from database
             repository.getDatabase().obsDao().findPatientObsByConceptUuid(visitId, uuid).observe(context, obs -> {
@@ -256,9 +280,7 @@ public class FormFragment extends BaseFragment {
                 }
             });
         }
-
     }
-
 
     @Override
     public void onStart() {
