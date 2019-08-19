@@ -2,11 +2,12 @@ package zm.gov.moh.common.submodule.form.model.widgetModel;
 
 import android.view.View;
 
+import java.io.Serializable;
 import java.util.List;
 
 import zm.gov.moh.common.submodule.form.model.Logic;
 
-public abstract class AbstractWidgetModel implements WidgetModel {
+public abstract class AbstractWidgetModel implements WidgetModel, Serializable {
 
     protected String tag;
     protected String widgetType;

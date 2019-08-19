@@ -12,7 +12,7 @@ import java.util.List;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityRegisterBinding;
-import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.common.submodule.register.model.SearchTermObserver;
 import zm.gov.moh.common.submodule.register.viewmodel.RegisterViewModel;
@@ -108,7 +108,7 @@ public class RegisterActivity extends BaseActivity {
 
         try {
 
-            FormJson clientRegistration = new FormJson("Client Registration",
+            JsonForm clientRegistration = new JsonForm("Client Registration",
                     Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
 
 

@@ -393,6 +393,7 @@ public class WidgetModelJsonAdapter {
                 basicFormAttribute.setType(formAttributeJson.getType());
                 basicFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
                 basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                basicFormAttribute.setName(formAttributeJson.getName());
                 //Added new form attribute called logic
                 basicFormAttribute.setLogic(formAttributeJson.getLogic());
 

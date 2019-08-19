@@ -21,7 +21,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.databinding.DataBindingUtil;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
-import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
 import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
 import zm.gov.moh.common.submodule.form.model.Action;
@@ -55,7 +55,7 @@ public class FormFragment extends BaseFragment {
     private View rootView;
     private AtomicBoolean renderWidgets;
     private FormModel formModel;
-    private FormJson formJson;
+    private JsonForm formJson;
     private FormActivity context;
     private Bundle bundle;
     private Intent intent;
@@ -99,10 +99,17 @@ public class FormFragment extends BaseFragment {
 
         try {
 
-            this.formJson = (FormJson) bundle.getSerializable(Key.JSON_FORM);
-            formModel = FormAdapter.getAdapter().fromJson(this.formJson.getJson());
+            this.formJson = (JsonForm) bundle.getSerializable(Key.JSON_FORM);
+            if(formJson != null) {
+                formModel = FormAdapter.getAdapter().fromJson(this.formJson.getJson());
+                toolBarEventHandler.setTitle(formJson.getName());
+            }
+            else {
+                formModel = (FormModel) bundle.getSerializable(Key.FORM_MODEL);
+                toolBarEventHandler.setTitle(formModel.getAttributes().getName());
+            }
 
-            toolBarEventHandler.setTitle(formJson.getName());
+
 
         } catch (Exception e) {
             Exception ex = e;
@@ -262,10 +269,10 @@ public class FormFragment extends BaseFragment {
 
             //get UUid and patientId
             String uuid = conceptWidget.getUuid();
-            long patientid = bundle.getLong(Key.PERSON_ID);
+            long visitId = bundle.getLong(Key.VISIT_ID);
 
             //fetch value from database
-            repository.getDatabase().obsDao().findPatientObsByConceptUuid(patientid, uuid).observe(context, obs -> {
+            repository.getDatabase().obsDao().findPatientObsByConceptUuid(visitId, uuid).observe(context, obs -> {
 
                 if (obs != null && obs.length != 0) {
                     //Passing obs to widget

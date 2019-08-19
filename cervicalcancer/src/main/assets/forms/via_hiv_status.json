@@ -2,6 +2,7 @@
   "attributes": {
     "panelType": "form",
     "formType": "encounter",
+    "name":"HIV Status",
     "encounterId": 10,
     "submitLabel": "Submit"
   },

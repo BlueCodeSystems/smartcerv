@@ -12,6 +12,7 @@ import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity
 import zm.gov.moh.common.submodule.form.view.FormActivity;
 import zm.gov.moh.common.submodule.login.view.LoginActivity;
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
+import zm.gov.moh.common.submodule.visit.view.Visit;
 import zm.gov.moh.common.submodule.settings.view.Settings;
 import zm.gov.moh.common.submodule.vitals.view.VitalsActivity;
 import zm.gov.moh.core.model.Criteria;
@@ -33,6 +34,7 @@ public class ApplicationContext extends BaseApplication {
         registerModule(CoreModule.LOGIN, new BasicModule("Login",LoginActivity.class));
         registerModule(CoreModule.VITALS, new BasicModule("Vitals",VitalsActivity.class));
         registerModule(CoreModule.FORM, new BasicModule("FormModel", FormActivity.class));
+        registerModule(CoreModule.VISIT, new BasicModule("Visit", Visit.class));
 
         registerModule(CoreModule.BOOTSTRAP, new BasicModule("Bootstrap", BootstrapActivity.class));
 
