@@ -67,8 +67,11 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
             LocalDateTime endTime = LocalDateTime.now();
             long visitId = mBundle.getLong(Key.VISIT_ID);
             VisitEntity visitEntity = db.visitDao().getById(visitId);
-            visitEntity.setDateStopped(endTime);
-            db.visitDao().insert(visitEntity);
+
+            if(visitEntity.getDateStopped() == null) {
+                visitEntity.setDateStopped(endTime);
+                db.visitDao().insert(visitEntity);
+            }
         }, this::onError);
 
     }
