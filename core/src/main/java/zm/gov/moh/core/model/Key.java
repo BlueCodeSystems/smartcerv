@@ -40,7 +40,7 @@ public class Key {
     public static final String BASE_URL = "BASE_URL";
     public static final String AUTHORIZED_USER_UUID = "AUTHORIZED_USER_UUID";
     public static final String OBS_ID = "OBS_ID";
-
+    public static final String LAST_LOCATION="last_location";
 
 
 }
