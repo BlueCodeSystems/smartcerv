@@ -90,6 +90,7 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
 
     public void onProvinceRetrieved(Location province){
 
+
         mProvinceId = province.getLocationId();
         mProvinceName.setText(province.getName());
         setValue(new AbstractMap.SimpleEntry<>(mDistrictId,mProvinceId));
