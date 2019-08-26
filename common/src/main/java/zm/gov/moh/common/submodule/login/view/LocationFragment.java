@@ -14,22 +14,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentLoginCredentialsBinding;
 import zm.gov.moh.common.databinding.FragmentLoginLocationBinding;
 import zm.gov.moh.common.submodule.login.adapter.LocationArrayAdapter;
 import zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 
 public class LocationFragment extends Fragment  implements AdapterView.OnItemSelectedListener {
     private LocationArrayAdapter locationArrayAdapter;
     private AppCompatSpinner locationSpinner;
     LoginViewModel viewModel;
+    private List<Location> locations;
 
     public LocationFragment() {
         // Required empty public constructor
@@ -50,12 +55,16 @@ public class LocationFragment extends Fragment  implements AdapterView.OnItemSel
         FragmentLoginLocationBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login_location,container,false);
         binding.setViewmodel(viewModel);
 
-
+        locations=new ArrayList<>();
+        locations=Arrays.asList(viewModel.getProviderLocations());
         locationSpinner = binding.getRoot().findViewById(R.id.locations);
-        locationArrayAdapter = new LocationArrayAdapter(getContext(), Arrays.asList(viewModel.getProviderLocations()));
+
+        locationArrayAdapter = new LocationArrayAdapter(getContext(),locations);
         locationArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         locationSpinner.setAdapter(locationArrayAdapter);
         locationSpinner.setOnItemSelectedListener(this);
+
+        setLastLocation();
 
         return binding.getRoot();
     }
@@ -70,6 +79,31 @@ public class LocationFragment extends Fragment  implements AdapterView.OnItemSel
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+
     }
+
+   public  void setLastLocation()
+   {
+
+
+
+       long lastLocationId=viewModel.getRepository().getDefaultSharePrefrences().getLong(Key.LAST_LOCATION,0);
+
+      if(lastLocationId != 0) {
+          for (int i = 0; i < locationSpinner.getCount(); i++) {
+              if (locationArrayAdapter.getItem(i).getLocationId() == lastLocationId) {
+                  locationSpinner.setSelection(i);
+              }
+          }
+      }else
+      {
+          return;
+      }
+
+
+
+   }
+
+
 
 }
