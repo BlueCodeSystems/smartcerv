@@ -1,21 +1,26 @@
-package zm.gov.moh.core.service;
+package zm.gov.moh.core.service.worker;
 
+import android.content.Context;
 import android.content.Intent;
-
-import androidx.annotation.Nullable;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDateTime;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.work.WorkerParameters;
+import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.BaseIntentService;
+import zm.gov.moh.core.service.ServiceManager;
 
-@Deprecated
-public abstract class RemoteService extends BaseIntentService {
+
+public abstract class RemoteWorker extends BaseWorker {
 
     protected String accessToken ="";
     protected final int TIMEOUT = 300000;
@@ -29,20 +34,14 @@ public abstract class RemoteService extends BaseIntentService {
     protected LocalDateTime MIN_DATETIME = LocalDateTime.parse("1970-01-01T00:00:00");
     long OFFSET = 0;
 
-    public RemoteService(ServiceManager.Service service){
-        super(service);
-    }
+    public RemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
+        super(context, workerParams);
+        AndroidThreeTen.init(context);
 
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        super.onHandleIntent(intent);
-        AndroidThreeTen.init(this);
         //TODO: replace hard coded token with dynamically assigned tokens
         //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
-
         if(accessToken == null){
 
-            notifyInterrupted();
             return;
         }
 
@@ -50,16 +49,20 @@ public abstract class RemoteService extends BaseIntentService {
         locationId = repository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
     }
 
-    public void onTaskStarted(){
-        tasksStarted++;
+    @NonNull
+    @Override
+    public Result doWork() {
+
+
+        return super.doWork();
     }
 
-    public void onTaskCompleted(){
 
-        tasksCompleted++;
+    @Override
+    public void onError(Throwable throwable) {
+        super.onError(throwable);
 
-        if(tasksCompleted == tasksStarted)
-            notifyCompleted();
+        mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SERVICE_INTERRUPTED));
     }
 
     public enum Status{

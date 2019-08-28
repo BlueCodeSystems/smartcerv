@@ -22,5 +22,8 @@ public class BaseReceiver extends BroadcastReceiver {
                 if(action.equals(IntentAction.REMOTE_SYNC_COMPLETE))
                         Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
 
+                if(action.equals(IntentAction.REMOTE_SERVICE_INTERRUPTED))
+                        Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
+
         }
 }

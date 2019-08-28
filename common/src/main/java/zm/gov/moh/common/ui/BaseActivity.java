@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     protected String[] layers;
 
 
-    ToolBarEventHandler toolBarEventHandler;
+    BaseEventHandler toolBarEventHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,8 +77,10 @@ public class BaseActivity extends AppCompatActivity {
             IntentFilter intentFilter = new IntentFilter(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION);
             IntentFilter syncIntentFilter = new IntentFilter(IntentAction.REMOTE_SYNC_COMPLETE);
 
+
             broadcastManager.registerReceiver(baseReceiver, intentFilter);
             broadcastManager.registerReceiver(baseReceiver, syncIntentFilter);
+            broadcastManager.registerReceiver(baseReceiver, new IntentFilter(IntentAction.REMOTE_SERVICE_INTERRUPTED));
         }
     }
 
@@ -120,10 +122,10 @@ public class BaseActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public ToolBarEventHandler getToolbarHandler(Context context){
+    public BaseEventHandler getToolbarHandler(Context context){
 
         if(toolBarEventHandler == null)
-         toolBarEventHandler = new ToolBarEventHandler(context);
+         toolBarEventHandler = new BaseEventHandler(context);
         return toolBarEventHandler;
     }
 

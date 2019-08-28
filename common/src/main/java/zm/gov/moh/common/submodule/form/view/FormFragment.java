@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,14 +26,13 @@ import zm.gov.moh.common.submodule.form.adapter.WidgetModelToWidgetAdapter;
 import zm.gov.moh.common.submodule.form.model.Action;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.FormContext;
-import zm.gov.moh.common.submodule.form.model.FormDataBundleKey;
 import zm.gov.moh.common.submodule.form.model.FormModel;
 import zm.gov.moh.common.submodule.form.model.FormType;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.widget.Retainable;
 import zm.gov.moh.common.submodule.form.widget.Submittable;
 import zm.gov.moh.common.submodule.form.widget.SubmittableWidget;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.ui.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -94,7 +92,7 @@ public class FormFragment extends BaseFragment {
         this.form.setFormContext(new FormContext());
         
 
-        ToolBarEventHandler toolBarEventHandler = context.getToolbarHandler(context);
+        BaseEventHandler toolBarEventHandler = context.getToolbarHandler(context);
         binding.setToolbarhandler(toolBarEventHandler);
 
         try {
@@ -235,12 +233,15 @@ public class FormFragment extends BaseFragment {
         final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getString(Key.AUTHORIZED_USER_UUID, "null");
 
+        final long PROVIDER_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
+                .getLong(Key.PROVIDER_ID, 0);
+
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         if (formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER))
             this.bundle.putLong(Key.ENCOUNTER_TYPE_ID, formModel.getAttributes().getEncounterId());
 
-        context.getViewModel()
+       /* context.getViewModel()
                 .getRepository()
                 .getDatabase()
                 .providerUserDao()
@@ -250,7 +251,9 @@ public class FormFragment extends BaseFragment {
                     bundle.putLong(FormDataBundleKey.PROVIDER_ID, providerUser.getProviderId());
                     bundle.putLong(FormDataBundleKey.USER_ID, providerUser.getUserId());
                 });
-        //bundle.put(Key.PERSON_ID,)
+        //bundle.put(Key.PERSON_ID,)*/
+
+       bundle.putLong(Key.PROVIDER_ID, PROVIDER_ID);
     }
 
     public void onUriRetrieved(Map.Entry<Integer, Uri> data) {

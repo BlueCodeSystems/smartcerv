@@ -17,7 +17,7 @@ import zm.gov.moh.common.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.common.submodule.register.model.SearchTermObserver;
 import zm.gov.moh.common.submodule.register.viewmodel.RegisterViewModel;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.ui.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
@@ -43,7 +43,7 @@ public class RegisterActivity extends BaseActivity {
         ActivityRegisterBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
         binding.setContext(this);
         mBundle = getIntent().getExtras();
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Client Register");
 
 

@@ -1,11 +1,16 @@
-package zm.gov.moh.core.service;
+package zm.gov.moh.core.service.worker;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+import androidx.work.WorkerParameters;
 import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
+import zm.gov.moh.core.service.RemoteService;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
-@Deprecated
-public class PullPatientIDRemote extends RemoteService {
+public class PullPatientIDRemoteWorker extends RemoteWorker {
 
 
     final int SOURCE = BuildConfig.REMOTE_ID_SOURCE;
@@ -14,28 +19,29 @@ public class PullPatientIDRemote extends RemoteService {
     final short NOT_ASSIGNED = 0;
 
 
-    public PullPatientIDRemote(){
-        super(ServiceManager.Service.PULL_PATIENT_ID_REMOTE);
+    public PullPatientIDRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
+        super(context, workerParams);
     }
 
     @Override
-    protected void executeAsync() {
+    @NonNull
+    public Result doWork() {
 
         int identifiersNotAssigned = db.identifierDao().count(NOT_ASSIGNED);
 
         if(RESERVED > identifiersNotAssigned) {
 
-            ConcurrencyUtils.consumeAsync(identifierList -> {
+            ConcurrencyUtils.consumeBlocking(identifierList -> {
 
                         for (String identifier : identifierList.getIdentifiers())
                             db.identifierDao().insert(new Identifier(identifier));
 
-                        notifyCompleted();
                     }, this::onError,
                     restApi.getIdentifiers(accessToken, SOURCE, BATCH_SIZE),
                     TIMEOUT);
+            return mResult;
         }
         else
-            notifyCompleted();
+           return mResult;
     }
 }

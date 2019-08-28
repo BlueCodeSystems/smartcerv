@@ -11,8 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
 import android.widget.Toast;
 import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.ui.BaseEventHandler;
 import zm.gov.moh.core.model.submodule.Module;
-import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -27,6 +27,7 @@ public class LoginActivity extends BaseActivity {
     private ProgressDialog progressDialog;
     private Resources resources;
     private Toast exitToast;
+    protected BaseEventHandler baseEventHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseActivity {
         context = this;
         resources = context.getResources();
 
+        baseEventHandler = getToolbarHandler(this);
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
         this.viewModel = loginViewModel;
@@ -64,12 +66,7 @@ public class LoginActivity extends BaseActivity {
                     case AUTHORIZED:
                         startModule(nextModule);
                         progressDialog.dismiss();
-
-                        ServiceManager.getInstance(this)
-                                .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
-                                .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
-                                .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PUSH_ENTITY_REMOTE)
-                                .start();
+                        baseEventHandler.syncData();
                         finish();
                         break;
 

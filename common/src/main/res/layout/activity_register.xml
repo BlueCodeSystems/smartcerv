@@ -2,7 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseEventHandler"/>
         <variable name="search" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
         <variable name="context" type="zm.gov.moh.common.submodule.register.view.RegisterActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>

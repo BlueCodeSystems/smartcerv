@@ -20,7 +20,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDa
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.ui.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
@@ -62,7 +62,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
         AndroidThreeTen.init(this);
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Patient Dashboard");
 
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);

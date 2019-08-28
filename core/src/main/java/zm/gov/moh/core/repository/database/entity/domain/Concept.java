@@ -5,11 +5,12 @@ import org.threeten.bp.LocalDateTime;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 @Entity
-public class Concept {
+public class Concept extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "concept_id")
@@ -81,6 +82,11 @@ public class Concept {
     private String uuid;
 
     public long getConceptId() {
+        return conceptId;
+    }
+
+    @Override
+    public long getId() {
         return conceptId;
     }
 

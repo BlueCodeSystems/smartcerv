@@ -1,12 +1,15 @@
-package zm.gov.moh.core.service;
+package zm.gov.moh.core.service.worker;
 
+import android.content.Context;
 import android.content.Intent;
 
 import org.threeten.bp.LocalDateTime;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.work.WorkerParameters;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
@@ -14,26 +17,21 @@ import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.RemoteService;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
-@Deprecated
-public class PullMetaDataRemote extends RemoteService {
 
-    int tasksStarted = 16;
-    int tasksCompleted = 0;
-    public PullMetaDataRemote(){
-        super(ServiceManager.Service.PULL_META_DATA_REMOTE);
+public class PullMetaDataRemoteWorker extends RemoteWorker {
+
+    public PullMetaDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
+        super(context, workerParams);
     }
 
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        super.onHandleIntent(intent);
-    }
 
     @Override
-    protected void executeAsync() {
-
-        List<Person> people = db.personDao().getAllT();
+    @NonNull
+    public Result doWork() {
 
         String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
 
@@ -51,72 +49,62 @@ public class PullMetaDataRemote extends RemoteService {
         getLocations(accessToken, MIN_DATETIME, OFFSET, LIMIT);
 
         //Location attributes
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 locationAttributes -> {
                     repository.getDatabase().locationAttributeDao().insert(locationAttributes);
-                    this.onTaskCompleted();
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getLocationAttributes(accessToken), //producer
                 TIMEOUT);
 
         //Location attributes types
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 locationAttributeTypes -> {
                     repository.getDatabase().locationAttributeTypeDao().insert(locationAttributeTypes);
-                    this.onTaskCompleted();
                 } , //consumer
                 this::onError,
-                this::onTaskCompleted,
                 repository.getRestApi().getLocationAttributeTypes(accessToken), //producer
                 TIMEOUT);
 
         //Location tag types
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 locationTag -> {
                     repository.getDatabase().locationTagDao().insert(locationTag);
-                    this.onTaskCompleted();
                 } , //consumer
                 this::onError,
-                this::onTaskCompleted,
                 repository.getRestApi().getLocationTags(accessToken), //producer
                 TIMEOUT);
 
         //Location tag map types
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 locationTagMap -> {
                     repository.getDatabase().locationTagMapDao().insert(locationTagMap);
-                    this.onTaskCompleted();
                 } , //consumer
                 this::onError,
-                this::onTaskCompleted,
                 repository.getRestApi().getLocationTagMaps(accessToken), //producer
                 TIMEOUT);
 
         //Users
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 users ->{
                     repository.getDatabase().userDao().insert(users);
-                    this.onTaskCompleted();
                 },  //consumer
                 this::onError,
-                this::onTaskCompleted,
                 repository.getRestApi().getUsers(accessToken), //producer
                 TIMEOUT);
 
 
         //Patient identifier types
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 patientIdentifierTypes ->{
                     repository.getDatabase().patientIdentifierTypeDao().insert(patientIdentifierTypes);
-                    this.onTaskCompleted();
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getPatientIdentifierTypes(accessToken), //producer
                 TIMEOUT);
 
         //Providers
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 providers ->{
                     repository.getDatabase().providerDao().insert(providers);
                     this.onTaskCompleted();
@@ -138,7 +126,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
 
         //Concept
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 visitTypes ->{
                     repository.getDatabase().visitTypeDao().insert(visitTypes);
                     this.onTaskCompleted();
@@ -148,7 +136,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
 
         // Drugs
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 drugs ->{
                     repository.getDatabase().drugDao().insert(drugs);
                     this.onTaskCompleted();
@@ -159,7 +147,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
 
         // Provider Attributes
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 attributes ->{
                     repository.getDatabase().providerAttributeDao().insert(attributes);
                     this.onTaskCompleted();
@@ -170,7 +158,7 @@ public class PullMetaDataRemote extends RemoteService {
                 TIMEOUT);
 
         // Provider Attribute Types
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
                 attributes ->{
                     repository.getDatabase().providerAttributeTypeDao().insert(attributes);
                     this.onTaskCompleted();
@@ -179,12 +167,14 @@ public class PullMetaDataRemote extends RemoteService {
                 repository.getRestApi().getProviderAttributeType(accessToken),
                 //producer
                 TIMEOUT);
+
+        return this.mResult;
     }
 
     //Concept name
     public void getConceptName(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
 
                 conceptNames -> {
 
@@ -210,7 +200,7 @@ public class PullMetaDataRemote extends RemoteService {
     //Concept answer
     public void getConceptAnswer(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
 
                 conceptAnswers -> {
 
@@ -234,7 +224,7 @@ public class PullMetaDataRemote extends RemoteService {
     //Concept
     public void getConcept(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
 
                 concepts -> {
 
@@ -259,8 +249,7 @@ public class PullMetaDataRemote extends RemoteService {
     //Location
     public void getLocations(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        onTaskStarted();
-        ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeBlocking(
 
                 locations -> {
 
@@ -270,7 +259,6 @@ public class PullMetaDataRemote extends RemoteService {
                         updateMetadata(locations, EntityType.LOCATION);
                         getLocations(accessToken,MIN_DATETIME,offset + limit,limit);
                     }else {
-                        this.onTaskCompleted();
                         List<Location> locationList =  db.locationDao().getAllT();
                         locationList.size();
                     }
@@ -286,7 +274,6 @@ public class PullMetaDataRemote extends RemoteService {
         tasksCompleted++;
 
         if(tasksCompleted == tasksStarted){
-            notifyCompleted();
 
             mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
             ServiceManager.getInstance(getApplicationContext())
