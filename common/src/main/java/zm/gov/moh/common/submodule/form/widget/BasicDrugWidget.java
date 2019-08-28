@@ -47,6 +47,11 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     Long answerFrequencyConcept;
     Long answerDurationConcept;
 
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
     AtomicBoolean canSetValue;
     //Long drugConceptId, mFrequency, mDuration;
     //DrugObsValue mDrugObsValue;

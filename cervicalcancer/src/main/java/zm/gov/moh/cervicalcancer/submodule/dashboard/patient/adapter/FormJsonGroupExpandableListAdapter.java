@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.model.FormJson;
+import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.FormJsonGroup;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
@@ -33,9 +33,9 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
     }
 
     @Override
-    public FormJson getChild(int groupPosition, int childPosition) {
+    public JsonForm getChild(int groupPosition, int childPosition) {
 
-        List<FormJson> formJsons = formJsonGroups.get(groupPosition).getFormJsons();
+        List<JsonForm> formJsons = formJsonGroups.get(groupPosition).getFormJsons();
 
         return formJsons.get(childPosition);
     }
@@ -47,7 +47,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
-        FormJson formJson = getChild(groupPosition, childPosition);
+        JsonForm formJson = getChild(groupPosition, childPosition);
 
         if (view == null) {
 
@@ -65,7 +65,7 @@ public class FormJsonGroupExpandableListAdapter extends BaseExpandableListAdapte
     @Override
     public int getChildrenCount(int groupPosition) {
 
-        List<FormJson> formJsons = formJsonGroups.get(groupPosition).getFormJsons();
+        List<JsonForm> formJsons = formJsonGroups.get(groupPosition).getFormJsons();
         return formJsons.size();
     }
 

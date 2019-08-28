@@ -1,5 +1,7 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
+import android.app.Dialog;
+
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
@@ -9,6 +11,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTe
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
@@ -18,6 +21,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.NumericEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
@@ -48,6 +52,10 @@ public class WidgetModelJsonAdapter {
                 editText.setText(widgetModelJson.getText());
                 editText.setWeight(widgetModelJson.getWeight());
                 editText.setLabel(widgetModelJson.getLabel());
+                editText.setRegex(widgetModelJson.getRegex());
+                editText.setErrorMessage(widgetModelJson.getErrorMessage());
+                editText.setRequired(widgetModelJson.getRequired());
+                editText.setDataType(widgetModelJson.getDataType());
 
 
                 return editText;
@@ -112,6 +120,18 @@ public class WidgetModelJsonAdapter {
 
 
                 return imageViewButtonModel;
+
+            case "DialogButton":
+
+                final DialogButtonModel DialogButtonModel = new DialogButtonModel();
+
+                DialogButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                DialogButtonModel.setTag(widgetModelJson.getTag());
+                DialogButtonModel.setLabel(widgetModelJson.getLabel());
+
+
+
+                return DialogButtonModel;
 
             case "PhotoAlbumButton":
 
@@ -230,6 +250,7 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
                 basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+                basicConceptWidgetModel.setFutureDate(widgetModelJson.getFutureDate());
                 //Added to put uuid in bundle
                 basicConceptWidgetModel.setUuid(widgetModelJson.getUuid());
 
@@ -254,6 +275,7 @@ public class WidgetModelJsonAdapter {
                 genderPickerModel.setTag(widgetModelJson.getTag());
                 genderPickerModel.setWeight(widgetModelJson.getWeight());
                 genderPickerModel.setStyle(widgetModelJson.getStyle());
+                genderPickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
 
                 return genderPickerModel;
 
@@ -265,6 +287,9 @@ public class WidgetModelJsonAdapter {
                 districtPickerModel.setTag(widgetModelJson.getTag());
                 districtPickerModel.setWeight(widgetModelJson.getWeight());
                 districtPickerModel.setLabel(widgetModelJson.getLabel());
+                districtPickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
+                districtPickerModel.setRequired(widgetModelJson.getRequired());
+
 
                 return districtPickerModel;
 
@@ -286,8 +311,25 @@ public class WidgetModelJsonAdapter {
                 datePickerModel.setWeight(widgetModelJson.getWeight());
                 datePickerModel.setHint(widgetModelJson.getHint());
                 datePickerModel.setLabel(widgetModelJson.getLabel());
+                datePickerModel.setRequired(widgetModelJson.getRequired());
+                datePickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
+                datePickerModel.setFutureDate(widgetModelJson.getFutureDate());
 
                 return datePickerModel;
+
+            case "NumericEditText":
+
+                final NumericEditTextModel numericEditTextModel = new NumericEditTextModel();
+
+                numericEditTextModel.setWidgetType(widgetModelJson.getWidgetType());
+                numericEditTextModel.setTag(widgetModelJson.getTag());
+                numericEditTextModel.setHint(widgetModelJson.getHint());
+                numericEditTextModel.setDataType(widgetModelJson.getDataType());
+                numericEditTextModel.setText(widgetModelJson.getText());
+                numericEditTextModel.setWeight(widgetModelJson.getWeight());
+                numericEditTextModel.setLabel(widgetModelJson.getLabel());
+
+                return numericEditTextModel;
 
             default:
                 return null;
@@ -351,6 +393,7 @@ public class WidgetModelJsonAdapter {
                 basicFormAttribute.setType(formAttributeJson.getType());
                 basicFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
                 basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                basicFormAttribute.setName(formAttributeJson.getName());
                 //Added new form attribute called logic
                 basicFormAttribute.setLogic(formAttributeJson.getLogic());
 

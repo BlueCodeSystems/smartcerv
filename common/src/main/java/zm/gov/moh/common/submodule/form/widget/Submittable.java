@@ -8,4 +8,6 @@ public interface Submittable<T> {
     T getValue();
     void setBundle(Bundle bundle);
 
+    boolean isValid();
+
 }

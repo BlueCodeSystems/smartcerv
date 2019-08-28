@@ -2,8 +2,10 @@ package zm.gov.moh.common.submodule.form.model;
 
 import com.squareup.moshi.Json;
 
+import java.io.Serializable;
+
 // Class was added to implement usage of comparison operators
-public class Expression {
+public class Expression implements Serializable {
 
     @Json(name = "$lt")
     private String lessThan;

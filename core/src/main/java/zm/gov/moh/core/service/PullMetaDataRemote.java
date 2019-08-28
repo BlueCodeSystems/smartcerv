@@ -1,13 +1,9 @@
 package zm.gov.moh.core.service;
 
-import android.content.Intent;
-
-import java.util.List;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
+
 
 public class PullMetaDataRemote extends RemoteService {
 

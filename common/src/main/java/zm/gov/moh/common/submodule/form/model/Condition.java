@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.model;
 
-public class Condition {
+import java.io.Serializable;
+
+public class Condition implements Serializable {
 
     private Object value;
     //Add expression object

@@ -13,7 +13,7 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
     protected Repository mRepository;
     private final short PREFERED = 1;
     private final String LOCALE_EN = "en";
-    private Bundle bundle;
+    protected Bundle mBundle;
     protected Application application;
     protected Database db;
 
@@ -38,11 +38,11 @@ public class BaseAndroidViewModel extends AndroidViewModel implements Injectable
     }
 
     public void setBundle(Bundle bundle) {
-        this.bundle = bundle;
+        this.mBundle = bundle;
     }
 
     public Bundle getBundle() {
-        return bundle;
+        return mBundle;
     }
 
     public String getLOCALE_EN() {

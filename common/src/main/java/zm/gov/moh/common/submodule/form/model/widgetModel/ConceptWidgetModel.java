@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-public interface ConceptWidgetModel {
+import java.io.Serializable;
+
+public interface ConceptWidgetModel extends Serializable {
 
      void setConceptId(long id);
      long getConceptId();

@@ -10,6 +10,7 @@ public class Key {
     public static final String VISIT_TYPE_ID = "VISIT_TYPE_ID";
     public static final String VISIT_START_TIME = "VISIT_START_TIME";
     public static final String VISIT_ID = "VISIT_ID";
+    public static final String VISIT_STATE = "VISIT_STATE";
     public static final String PERSON_GIVEN_NAME = "PERSON_GIVEN_NAME";
     public static final String PERSON_FAMILY_NAME = "PERSON_FAMILY_NAME";
     public static final String PERSON_DOB = "PERSON_DOB";
@@ -23,8 +24,8 @@ public class Key {
     public static final String START_MODULE_ON_RESULT = "START_MODULE_ON_RESULT";
     public static final String FORM_TAGS = "FORM_TAGS";
     public static final String SERVICE = "SERVICE";
-    public static final String SERVICE_TYPE = "SERVICE_TYPE";
     public static final String JSON_FORM = "JSON_FORM";
+    public static final String FORM_MODEL = "FORM_MODEL";
     public static final String EDI_IMAGE = "EDI IMAGE";
     public static final String VIEW_TAG = "VIEW_TAG";
     public static final String ENTITY_TYPE = "ENTITY_TYPE";
@@ -32,8 +33,14 @@ public class Key {
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String ACCESS_TOKEN_ENCRYPTED = "ACCESS_TOKEN_ENCRYPTED";
     public static final String LAST_SYNC_DATE = "LAST_SYNC_DATE";
+    public static final String VISIT_LIST= "VISIT_LIST";
+    public static final String VISIT_FORM_LIST= "VISIT_FORM_LIST";
+    public static final String VISIT_METADATA= "VISIT_METADATA";
+    public static final String MODULE = "MODULE";
     public static final String BASE_URL = "BASE_URL";
     public static final String AUTHORIZED_USER_UUID = "AUTHORIZED_USER_UUID";
+    public static final String OBS_ID = "OBS_ID";
+    public static final String LAST_LOCATION="last_location";
 
 
 }

@@ -2,6 +2,7 @@
   "attributes": {
     "panelType":"form",
     "formType":"encounter",
+    "name":"Referral",
     "encounterId": 14,
     "submitLabel":"Submit"
   },

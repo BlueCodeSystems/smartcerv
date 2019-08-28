@@ -53,6 +53,11 @@ public class FormDefaultCameraButtonWidget extends TextViewWidget implements Sub
     }
 
     @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
     public void addViewToViewGroup() {
 
     }

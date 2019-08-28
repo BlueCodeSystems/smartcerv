@@ -2,6 +2,7 @@
   "attributes": {
     "panelType": "form",
     "formType": "encounter",
+    "name":"Test Results",
     "encounterId": 12,
     "submitLabel": "Submit"
   },
@@ -48,6 +49,19 @@
     {
       "title": "Enhanced Digital Imaging(EDI)",
       "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "Batch Upload Help",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dialogbutton",
+          "widgetType": "DialogButton",
+          "label": "Batch Upload Help",
+          "textSize": 18,
+          "weight": 1
+        },
         {
           "tag": "edi inspection done",
           "widgetType": "Concept",
@@ -101,13 +115,6 @@
           "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
           "label": "Image Load",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "default camera",
-          "widgetType": "DefaultCameraButton",
-          "label": "Take Photo",
           "textSize": 18,
           "weight": 1
         },
@@ -208,7 +215,7 @@
           "conceptId": 165164,
           "dataType": "Boolean",
           "style": "check",
-          "label": "Eligible for cryotherapy",
+          "label": "Eligible for Cryotherapy/Thermal coagulation",
           "textSize": 18
         },
         {
@@ -252,13 +259,13 @@
           "textSize": 18
         },
         {
-          "tag": "mosaicism or punctuation",
+          "tag": "mosaicism or punctation",
           "widgetType": "Concept",
           "conceptId": 165173,
           "uuid": "2347f64d-380d-4ef3-ae10-845fffeb4fd1",
           "dataType": "Boolean",
           "style": "radio",
-          "label": "Mosaicism/ Punctuation",
+          "label": "Mosaicism/ Punctation",
           "textSize": 18
         }
       ]

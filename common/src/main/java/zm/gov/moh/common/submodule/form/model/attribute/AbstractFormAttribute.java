@@ -7,6 +7,7 @@ import zm.gov.moh.common.submodule.form.model.Logic;
 public abstract class AbstractFormAttribute implements FormAttribute {
 
     private String type;
+    private String name;
     private String submitLabel;
     private long encounterId;
     private String panelType;
@@ -63,5 +64,15 @@ public abstract class AbstractFormAttribute implements FormAttribute {
     @Override
     public String getFormType() {
         return formType;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

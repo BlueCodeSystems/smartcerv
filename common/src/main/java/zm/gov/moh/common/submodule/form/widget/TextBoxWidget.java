@@ -50,6 +50,11 @@ public class TextBoxWidget extends TextViewWidget implements Submittable<CharSeq
     }
 
     @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    @Override
     public void onCreateView() {
 
         super.onCreateView();

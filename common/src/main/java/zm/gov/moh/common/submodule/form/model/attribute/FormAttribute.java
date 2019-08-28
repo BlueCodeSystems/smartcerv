@@ -1,10 +1,11 @@
 package zm.gov.moh.common.submodule.form.model.attribute;
 
+import java.io.Serializable;
 import java.util.List;
 
 import zm.gov.moh.common.submodule.form.model.Logic;
 
-public interface FormAttribute {
+public interface FormAttribute extends Serializable {
 
     void setType(String formType);
 
@@ -28,4 +29,8 @@ public interface FormAttribute {
     List<Logic> getLogic();
 
     String getType();
+
+    void setName(String name);
+
+    String getName();
 }
