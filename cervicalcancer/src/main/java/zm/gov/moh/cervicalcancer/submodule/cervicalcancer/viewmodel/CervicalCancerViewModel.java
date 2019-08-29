@@ -9,6 +9,7 @@ import java.util.EnumMap;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Submodules;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
@@ -50,7 +51,36 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
     public void startSubmodule(Module module){
         startSubmodule.setValue(module);
     }
+
+    //get all registered clients from current location
+    public LiveData <Long> getAllRegisteredClients()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return  getRepository().getDatabase().patientDao().getTotalRegistered(location_id);
+
+    }
+
+    //get all patients seen from current location
+
+    public LiveData <Long> getAllseenClients()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return getRepository().getDatabase().patientDao().getTotalSeenClients(location_id);
+    }
+
+    public  LiveData<Long> getAllScreenedClients()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return getRepository().getDatabase().patientDao().getTotalScreened(location_id);
+
+    }
+
+
+
 }
+
+
+
 
 
 
