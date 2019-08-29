@@ -1,24 +1,13 @@
 package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
-import android.content.Intent;
 
 import org.threeten.bp.LocalDateTime;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.work.WorkerParameters;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.repository.database.entity.domain.Concept;
-import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
-import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
-import zm.gov.moh.core.repository.database.entity.domain.Location;
-import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.RemoteService;
-import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 
@@ -33,6 +22,7 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     @NonNull
     public Result doWork() {
 
+        taskPoolSize = 16;
         String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
 
         if(lastSyncDate != null)
@@ -49,45 +39,50 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
         getLocations(accessToken, MIN_DATETIME, OFFSET, LIMIT);
 
         //Location attributes
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 locationAttributes -> {
                     repository.getDatabase().locationAttributeDao().insert(locationAttributes);
+                    onTaskCompleted();
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getLocationAttributes(accessToken), //producer
                 TIMEOUT);
 
         //Location attributes types
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 locationAttributeTypes -> {
                     repository.getDatabase().locationAttributeTypeDao().insert(locationAttributeTypes);
+                    onTaskCompleted();
                 } , //consumer
                 this::onError,
                 repository.getRestApi().getLocationAttributeTypes(accessToken), //producer
                 TIMEOUT);
 
         //Location tag types
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 locationTag -> {
                     repository.getDatabase().locationTagDao().insert(locationTag);
+                    onTaskCompleted();
                 } , //consumer
                 this::onError,
                 repository.getRestApi().getLocationTags(accessToken), //producer
                 TIMEOUT);
 
         //Location tag map types
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 locationTagMap -> {
                     repository.getDatabase().locationTagMapDao().insert(locationTagMap);
+                    onTaskCompleted();
                 } , //consumer
                 this::onError,
                 repository.getRestApi().getLocationTagMaps(accessToken), //producer
                 TIMEOUT);
 
         //Users
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 users ->{
                     repository.getDatabase().userDao().insert(users);
+                    onTaskCompleted();
                 },  //consumer
                 this::onError,
                 repository.getRestApi().getUsers(accessToken), //producer
@@ -95,19 +90,20 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
 
 
         //Patient identifier types
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 patientIdentifierTypes ->{
                     repository.getDatabase().patientIdentifierTypeDao().insert(patientIdentifierTypes);
+                    onTaskCompleted();
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getPatientIdentifierTypes(accessToken), //producer
                 TIMEOUT);
 
         //Providers
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 providers ->{
                     repository.getDatabase().providerDao().insert(providers);
-                    this.onTaskCompleted();
+                    onTaskCompleted();
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getProviders(accessToken), //producer
@@ -118,28 +114,28 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
         ConcurrencyUtils.consumeAsync(
                 encounterTypes ->{
                     repository.getDatabase().encounterTypeDao().insert(encounterTypes);
-                    this.onTaskCompleted();
+                    onTaskCompleted();
 
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getEncounterTypes(accessToken), //producer
                 TIMEOUT);
 
-        //Concept
-        ConcurrencyUtils.consumeBlocking(
+        //Visit types
+        ConcurrencyUtils.consumeAsync(
                 visitTypes ->{
                     repository.getDatabase().visitTypeDao().insert(visitTypes);
-                    this.onTaskCompleted();
+                    onTaskCompleted();
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getVisitTypes(accessToken), //producer
                 TIMEOUT);
 
         // Drugs
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 drugs ->{
                     repository.getDatabase().drugDao().insert(drugs);
-                    this.onTaskCompleted();
+                    onTaskCompleted();
                 },//consumer
                 this::onError,
                 repository.getRestApi().getDrugs(accessToken),
@@ -147,10 +143,10 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 TIMEOUT);
 
         // Provider Attributes
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 attributes ->{
                     repository.getDatabase().providerAttributeDao().insert(attributes);
-                    this.onTaskCompleted();
+                    onTaskCompleted();
                 },//consumer
                 this::onError,
                 repository.getRestApi().getProviderAttribute(accessToken),
@@ -158,23 +154,23 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 TIMEOUT);
 
         // Provider Attribute Types
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 attributes ->{
                     repository.getDatabase().providerAttributeTypeDao().insert(attributes);
-                    this.onTaskCompleted();
+                    onTaskCompleted();
                 },//consumer
                 this::onError,
                 repository.getRestApi().getProviderAttributeType(accessToken),
                 //producer
                 TIMEOUT);
 
-        return this.mResult;
+        return awaitResult();
     }
 
     //Concept name
     public void getConceptName(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 conceptNames -> {
 
@@ -183,13 +179,9 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                         db.conceptNameDao().insert(conceptNames);
                         updateMetadata(conceptNames, EntityType.CONCEPT_NAME);
                         getConceptName(accessToken,MIN_DATETIME,offset + limit,limit);
-                    }else {
+                    }else
+                        onTaskCompleted();
 
-                       List<ConceptName> conceptNameList = db.conceptNameDao().getAll();
-                        conceptNameList.size();
-                        this.onTaskCompleted();
-
-                    }
 
                 }, //consumer
                 this::onError,
@@ -200,7 +192,7 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     //Concept answer
     public void getConceptAnswer(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 conceptAnswers -> {
 
@@ -209,11 +201,8 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                         db.conceptAnswerDao().insert(conceptAnswers);
                         updateMetadata(conceptAnswers, EntityType.CONCEPT_ANSWER);
                         getConceptAnswer(accessToken,MIN_DATETIME,offset + limit,limit);
-                    }else {
-                        this.onTaskCompleted();
-                       List<ConceptAnswer> conceptAnswerList = db.conceptAnswerDao().getAll();
-                       conceptAnswerList.size();
-                    }
+                    }else
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
@@ -224,7 +213,7 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     //Concept
     public void getConcept(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 concepts -> {
 
@@ -234,11 +223,9 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                         updateMetadata(concepts, EntityType.CONCEPT);
 
                         getConcept(accessToken,MIN_DATETIME,offset + limit,limit);
-                    }else {
+                    }else
                         this.onTaskCompleted();
-                        List<Concept> conceptList  = db.conceptDao().getAll();
-                        conceptList.size();
-                    }
+
 
                 }, //consumer
                 this::onError,
@@ -249,7 +236,7 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     //Location
     public void getLocations(String accessToken, LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 locations -> {
 
@@ -258,30 +245,13 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                         db.locationDao().insert(locations);
                         updateMetadata(locations, EntityType.LOCATION);
                         getLocations(accessToken,MIN_DATETIME,offset + limit,limit);
-                    }else {
-                        List<Location> locationList =  db.locationDao().getAllT();
-                        locationList.size();
-                    }
+                    }else
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getLocations(accessToken,MIN_DATETIME,offset,limit), //producer
                 TIMEOUT);
-    }
-
-    public void onTaskCompleted(){
-
-        tasksCompleted++;
-
-        if(tasksCompleted == tasksStarted){
-
-            mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.PATIENT);
-            ServiceManager.getInstance(getApplicationContext())
-                    .setService(ServiceManager.Service.PUSH_ENTITY_REMOTE)
-                    .putExtras(mBundle)
-                    .start();
-        }
-
     }
 
 }

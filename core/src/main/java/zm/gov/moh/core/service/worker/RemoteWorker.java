@@ -2,13 +2,20 @@ package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.icu.util.TimeUnit;
+import android.os.SystemClock;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDateTime;
 
+import java.util.Timer;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.TimeUtils;
 import androidx.work.WorkerParameters;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
@@ -24,20 +31,19 @@ public abstract class RemoteWorker extends BaseWorker {
 
     protected String accessToken ="";
     protected final int TIMEOUT = 300000;
-    protected int tasksCompleted = 0;
-    protected int tasksStarted = 0;
     protected RestApi restApi;
+    protected long workerTimeout = 600000;
+    protected int taskPoolSize = 0;
 
     long locationId;
     protected final int LIMIT = 100;
-    LocalDateTime lastModified;
     protected LocalDateTime MIN_DATETIME = LocalDateTime.parse("1970-01-01T00:00:00");
     long OFFSET = 0;
 
     public RemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
         AndroidThreeTen.init(context);
-
+        workerTimeout += SystemClock.currentThreadTimeMillis();
         //TODO: replace hard coded token with dynamically assigned tokens
         //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
         if(accessToken == null){
@@ -94,5 +100,22 @@ public abstract class RemoteWorker extends BaseWorker {
 
             db.entityMetadataDao().insert(new EntityMetadata(entity.getId(), entityType.getId(), Status.SYNCED.getCode(),lastModified));
         }
+    }
+
+    public void onTaskCompleted(){
+        taskPoolSize--;
+        int i = taskPoolSize;
+    }
+
+    public Result awaitResult(){
+
+        while (SystemClock.currentThreadTimeMillis() < workerTimeout && mResult.equals(Result.success())){
+            if(this.taskPoolSize == 0)
+                return mResult;
+        }
+
+        mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SERVICE_INTERRUPTED));
+        return Result.failure();
+
     }
 }

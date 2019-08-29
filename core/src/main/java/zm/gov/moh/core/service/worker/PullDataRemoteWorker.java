@@ -2,6 +2,7 @@ package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -24,24 +25,18 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullDataRemoteWorker extends RemoteWorker {
 
-    int tasksCompleted = 0;
-    int tasksStarted = 8;
-
-    Result result = Result.success();
-
     List<Long> localPatientIds;
-
-
-
-
 
     public PullDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
+
     }
 
     @NonNull
     @Override
     public Result doWork() {
+
+        taskPoolSize = 8;
 
         String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
 
@@ -54,8 +49,6 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     patientIdentifierEntities -> {
 
                         List<String> localIdentifiers = db.patientIdentifierDao().getLocal();
-
-
                         localPatientIds = Observable.fromArray(patientIdentifierEntities).filter(
                                 patientIdentifierEntity -> localIdentifiers.contains(patientIdentifierEntity.getIdentifier()))
                                 .map(patientIdentifierEntity -> patientIdentifierEntity.getPatientId())
@@ -67,11 +60,11 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     this::onError,
                     repository.getRestApi().getPatientIdentifiers(accessToken), //producer
                     TIMEOUT);
+        onTaskCompleted();
 
 
             //Patients
-            ConcurrencyUtils.consumeBlocking(
-
+            ConcurrencyUtils.consumeAsync(
 
                     patient -> {
                         List<Long> indexIds = db.patientDao().getIds();
@@ -81,11 +74,11 @@ public class PullDataRemoteWorker extends RemoteWorker {
                                 .blockingGet();
 
                         repository.getDatabase().patientDao().insert(patientEntities);
+                        onTaskCompleted();
                     }, //consumer
                     this::onError,
                     repository.getRestApi().getPatients(accessToken), //producer
                     TIMEOUT);
-            onTaskCompleted();
 
             //obs
             getObs(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
@@ -105,27 +98,16 @@ public class PullDataRemoteWorker extends RemoteWorker {
             //person address
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
-        return this.result;
+
+        return awaitResult();
     }
 
-    public void onTaskCompleted(){
 
-        tasksCompleted++;
-
-        if(tasksCompleted == tasksStarted) {
-            repository.getDefaultSharePrefrences().edit().putString(Key.LAST_SYNC_DATE,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
-            mBundle.putSerializable(Key.ENTITY_TYPE, EntityType.VISIT);
-                ServiceManager.getInstance(getApplicationContext())
-                        .setService(ServiceManager.Service.PUSH_ENTITY_REMOTE)
-                        .putExtras(mBundle)
-                        .start();
-        }
-    }
 
 
     public void getObs(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit ){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
                 obs -> {
 
                     if(obs.length > 0){
@@ -134,7 +116,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         updateMetadata(obs, EntityType.OBS);
                         getObs(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
-                        this.onTaskCompleted();
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
@@ -144,7 +126,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getVisit(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 visitEntities -> {
 
@@ -154,7 +136,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         updateMetadata(visitEntities, EntityType.VISIT);
                         getVisit(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
-                        this.onTaskCompleted();
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
@@ -164,7 +146,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getEncounter(String accessToken,long locationId,LocalDateTime MIN_DATETIME, final long offset,int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 encounterEntities -> {
 
@@ -174,7 +156,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         updateMetadata(encounterEntities, EntityType.ENCOUNTER);
                         getEncounter(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
-                        this.onTaskCompleted();
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
@@ -184,7 +166,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getPersons(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 persons -> {
 
@@ -193,11 +175,9 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         db.personDao().insert(persons);
                         updateMetadata(persons, EntityType.PERSON);
                         getPersons(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
-                    }else {
-                        List<Person> people = db.personDao().getAllT();
-                        this.onTaskCompleted();
+                    }else
+                        onTaskCompleted();
 
-                    }
 
                 }, //consumer
                 this::onError,
@@ -208,7 +188,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getPersonNames(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 personNames -> {
 
@@ -218,7 +198,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         updateMetadata(personNames, EntityType.PERSON_NAME);
                         getPersonNames(accessToken,locationId,MIN_DATETIME,offset + limit, limit);
                     }else
-                        this.onTaskCompleted();
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
@@ -228,7 +208,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getPersonAddress(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        ConcurrencyUtils.consumeBlocking(
+        ConcurrencyUtils.consumeAsync(
 
                 personAddresses -> {
 
@@ -239,7 +219,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
                         getPersonAddress(accessToken,locationId, MIN_DATETIME, offset + limit, limit);
                     }else
-                        this.onTaskCompleted();
+                        onTaskCompleted();
 
                 }, //consumer
                 this::onError,
