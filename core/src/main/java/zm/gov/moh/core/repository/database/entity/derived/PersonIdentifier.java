@@ -2,6 +2,7 @@ package zm.gov.moh.core.repository.database.entity.derived;
 
 import com.squareup.moshi.Json;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -11,34 +12,51 @@ import zm.gov.moh.core.repository.database.entity.domain.Person;
 public class PersonIdentifier {
 
     @PrimaryKey
-    @ColumnInfo(name = "person_id")
-    @Json(name = "person_id")
-    private long personId;
-    private String uuid;
+    @NonNull
+    private String identifier;
 
-    public long getPersonId() {
-        return personId;
+    @ColumnInfo(name = "remote_id")
+    @Json(name = "remote_id")
+    private Long remoteId;
+
+    @ColumnInfo(name = "local_id")
+    @Json(name = "local_id")
+    private Long localId;
+
+    @ColumnInfo(name = "remote_uuid")
+    @Json(name = "remote_uuid")
+    private String remoteUuid;
+
+    @NonNull
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public String getUuid() {
-        return uuid;
+    public void setIdentifier(@NonNull String identifier) {
+        this.identifier = identifier;
     }
 
-    public void setPersonId(long personId) {
-        this.personId = personId;
+    public Long getRemoteId() {
+        return remoteId;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setRemoteId(Long remoteId) {
+        this.remoteId = remoteId;
     }
 
-    public PersonIdentifier(Person person){
-
-        this.personId = person.getPersonId();
-        this.uuid = person.getUuid();
+    public Long getLocalId() {
+        return localId;
     }
 
-    public PersonIdentifier(){
+    public void setLocalId(Long localId) {
+        this.localId = localId;
+    }
 
+    public String getRemoteUuid() {
+        return remoteUuid;
+    }
+
+    public void setRemoteUuid(String remoteUuid) {
+        this.remoteUuid = remoteUuid;
     }
 }

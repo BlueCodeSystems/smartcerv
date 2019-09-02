@@ -10,8 +10,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.BaseEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
 

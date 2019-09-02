@@ -1,7 +1,6 @@
 package zm.gov.moh.core.service;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -51,7 +50,7 @@ public class PersistDemographics extends PersistService {
 
             if(identifier == null){
 
-                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION));
+                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILED_REGISTRATION));
                 return;
             }
 

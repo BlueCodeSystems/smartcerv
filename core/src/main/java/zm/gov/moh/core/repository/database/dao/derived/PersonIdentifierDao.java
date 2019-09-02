@@ -17,7 +17,7 @@ public interface PersonIdentifierDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonIdentifier... personIdentifiers);
 
-    @Query("SELECT uuid FROM person_identifier WHERE person_id = :personId")
+    @Query("SELECT remote_uuid FROM person_identifier WHERE remote_id = :personId")
     String getUuidByPersonId(long personId);
 
     @Query("SELECT * FROM person_identifier")

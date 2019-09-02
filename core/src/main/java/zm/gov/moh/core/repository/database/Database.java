@@ -115,7 +115,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 Identifier.class,
                 PersonIdentifier.class
 
-        }, version = 3)
+        }, version = 4)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
@@ -174,6 +174,7 @@ public abstract class Database extends RoomDatabase {
                   if (dbInstance == null)
                      dbInstance = Room.databaseBuilder(context.getApplicationContext(),Database.class, DATABASE_NAME)
                              .addMigrations(Migrations.MIGRATION_2_3)
+                             .addMigrations(Migrations.MIGRATION_3_4)
                              .build();
               }
 

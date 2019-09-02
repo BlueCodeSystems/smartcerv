@@ -8,8 +8,8 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityVitalsBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.common.submodule.vitals.viewmodel.VitalsViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.BaseEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 
 public class VitalsActivity extends BaseActivity {
 

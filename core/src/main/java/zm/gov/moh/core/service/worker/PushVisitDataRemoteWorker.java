@@ -48,6 +48,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
+
         if(unpushedVisitEntityId.length > 0) {
 
             Visit[] patientVisits = createVisits(unpushedVisitEntityId);

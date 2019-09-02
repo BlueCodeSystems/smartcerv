@@ -8,8 +8,8 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.databinding.CervicalCancerActivityBinding;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.BaseEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 
 public class CervicalCancerActivity extends BaseActivity {
 

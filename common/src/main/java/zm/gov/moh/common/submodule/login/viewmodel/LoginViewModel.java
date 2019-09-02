@@ -95,12 +95,18 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
     }
 
     public void saveSessionLocation(Long locationId){
-        locationId.toString();
+
+        long currentLocationId = getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID, 0);
+
+        if(locationId != currentLocationId)
+            getRepository().getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,null).apply();
+
         getRepository().getDefaultSharePrefrences().edit().putLong(Key.LOCATION_ID, locationId)
                 .apply();
         pending.set(true);
         viewState.setValue(ViewState.AUTHORIZED);
         saveLocation(locationId);
+
     }
 
     private void onSuccess(Authentication authentication){
@@ -210,11 +216,19 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         User user = auth.getUser();
 
-            if(user.getProviderId() != null) {
+            if(user.getProvider() != null && user.getPersonName() != null) {
+
+                db.personNameDao().insert(user.getPersonName());
+                db.providerDao().insert(user.getProvider());
 
                 getRepository().getDefaultSharePrefrences()
                         .edit()
-                        .putLong(Key.PROVIDER_ID, user.getProviderId())
+                        .putLong(Key.PROVIDER_ID, user.getProvider().getProviderId())
+                        .apply();
+
+                getRepository().getDefaultSharePrefrences()
+                        .edit()
+                        .putLong(Key.USER_ID, user.getUserId())
                         .apply();
 
                 if(user.getLocation().length > 0){

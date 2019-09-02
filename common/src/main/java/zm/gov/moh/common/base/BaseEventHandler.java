@@ -1,15 +1,12 @@
-package zm.gov.moh.common.ui;
+package zm.gov.moh.common.base;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 
 
-import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
-import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.service.worker.PullDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullMetaDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullPatientIDRemoteWorker;
@@ -26,15 +23,6 @@ public class BaseEventHandler {
         this.context = context;
     }
 
-    public void syncMetaData() {
-        ServiceManager.getInstance(context)
-                .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
-                .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
-                .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE, ServiceManager.Service.PULL_ENTITY_REMOTE)
-                .startOnComplete(ServiceManager.Service.PULL_ENTITY_REMOTE, ServiceManager.Service.PUSH_ENTITY_REMOTE)
-                .start();
-    }
-
     public void syncData(){
         Toast.makeText(context,"Syncing",Toast.LENGTH_LONG).show();
         WorkManager workManager = WorkManager.getInstance(context);
@@ -49,17 +37,10 @@ public class BaseEventHandler {
     public void onClicklogOut() {
         ((BaseActivity)context).startModule(BaseApplication.CoreModule.BOOTSTRAP);
     }
-    public PackageManager getPackageManager() {
-        return context.getPackageManager();
-    }
 
     public void setTitle(String title) {
         this.title = title;
     }
-
-        Bundle bundle = new Bundle();
-
-
 
     public String getTitle() {
         return title;

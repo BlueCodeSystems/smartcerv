@@ -12,8 +12,8 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBinding;
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.RegisterViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.BaseEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 
 public class RegisterActivity extends BaseActivity {
 

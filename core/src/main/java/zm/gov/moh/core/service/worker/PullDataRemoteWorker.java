@@ -1,8 +1,6 @@
 package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.SystemClock;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -10,17 +8,11 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
-import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
-import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullDataRemoteWorker extends RemoteWorker {
@@ -38,7 +30,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         taskPoolSize = 8;
 
-        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
+        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_DATA_SYNC_DATETIME,null);
 
         if(lastSyncDate != null)
             MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
@@ -98,6 +90,13 @@ public class PullDataRemoteWorker extends RemoteWorker {
             //person address
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
+
+        if(awaitResult().equals(Result.success())){
+
+            repository.getDefaultSharePrefrences().edit()
+                    .putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                    .apply();
+        }
 
         return awaitResult();
     }

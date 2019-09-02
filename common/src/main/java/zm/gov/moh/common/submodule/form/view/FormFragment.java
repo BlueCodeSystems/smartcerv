@@ -32,7 +32,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.widget.Retainable;
 import zm.gov.moh.common.submodule.form.widget.Submittable;
 import zm.gov.moh.common.submodule.form.widget.SubmittableWidget;
-import zm.gov.moh.common.ui.BaseEventHandler;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
@@ -230,30 +230,19 @@ public class FormFragment extends BaseFragment {
 
         final long SESSION_LOCATION_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(Key.LOCATION_ID, 1);
-        final String USER_UUID = context.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(Key.AUTHORIZED_USER_UUID, "null");
 
         final long PROVIDER_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(Key.PROVIDER_ID, 0);
 
-        bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
+        final long USER_ID = context.getViewModel().getRepository().getDefaultSharePrefrences()
+                .getLong(Key.USER_ID, 0);
 
-        if (formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER))
+        if(formModel.getAttributes().getFormType().equals(FormType.ENCOUNTER))
             this.bundle.putLong(Key.ENCOUNTER_TYPE_ID, formModel.getAttributes().getEncounterId());
 
-       /* context.getViewModel()
-                .getRepository()
-                .getDatabase()
-                .providerUserDao()
-                .getAllByUserUuid(USER_UUID)
-                .observe(context, providerUser -> {
-
-                    bundle.putLong(FormDataBundleKey.PROVIDER_ID, providerUser.getProviderId());
-                    bundle.putLong(FormDataBundleKey.USER_ID, providerUser.getUserId());
-                });
-        //bundle.put(Key.PERSON_ID,)*/
-
-       bundle.putLong(Key.PROVIDER_ID, PROVIDER_ID);
+        bundle.putLong(Key.PROVIDER_ID, PROVIDER_ID);
+        bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
+        bundle.putLong(Key.USER_ID, USER_ID);
     }
 
     public void onUriRetrieved(Map.Entry<Integer, Uri> data) {

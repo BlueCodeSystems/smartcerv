@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseEventHandler"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <import type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
         <variable name="metrics" type="java.util.Map"/>

@@ -5,7 +5,7 @@
             name="obsListItem"
             type="zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.ObsListItem" />
 
-        <import type="zm.gov.moh.common.ui.Utils" />
+        <import type="zm.gov.moh.common.base.Utils" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout

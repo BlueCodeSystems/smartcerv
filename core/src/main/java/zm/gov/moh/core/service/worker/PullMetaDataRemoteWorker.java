@@ -3,6 +3,7 @@ package zm.gov.moh.core.service.worker;
 import android.content.Context;
 
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
@@ -22,8 +23,8 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     @NonNull
     public Result doWork() {
 
-        taskPoolSize = 16;
-        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
+        taskPoolSize = 14;
+        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_METADATA_SYNC_DATETIME,null);
 
         if(lastSyncDate != null)
             MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
@@ -78,16 +79,6 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 repository.getRestApi().getLocationTagMaps(accessToken), //producer
                 TIMEOUT);
 
-        //Users
-        ConcurrencyUtils.consumeAsync(
-                users ->{
-                    repository.getDatabase().userDao().insert(users);
-                    onTaskCompleted();
-                },  //consumer
-                this::onError,
-                repository.getRestApi().getUsers(accessToken), //producer
-                TIMEOUT);
-
 
         //Patient identifier types
         ConcurrencyUtils.consumeAsync(
@@ -98,17 +89,6 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 this::onError,
                 repository.getRestApi().getPatientIdentifierTypes(accessToken), //producer
                 TIMEOUT);
-
-        //Providers
-        ConcurrencyUtils.consumeAsync(
-                providers ->{
-                    repository.getDatabase().providerDao().insert(providers);
-                    onTaskCompleted();
-                }, //consumer
-                this::onError,
-                repository.getRestApi().getProviders(accessToken), //producer
-                TIMEOUT);
-
 
         //Encounter types
         ConcurrencyUtils.consumeAsync(
@@ -164,7 +144,15 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 //producer
                 TIMEOUT);
 
-        return awaitResult();
+       if(awaitResult().equals(Result.success())){
+
+           repository.getDefaultSharePrefrences().edit()
+                   .putString(Key.LAST_METADATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                   .apply();
+       }
+
+       return awaitResult();
+
     }
 
     //Concept name

@@ -104,7 +104,6 @@ public abstract class RemoteWorker extends BaseWorker {
 
     public void onTaskCompleted(){
         taskPoolSize--;
-        int i = taskPoolSize;
     }
 
     public Result awaitResult(){

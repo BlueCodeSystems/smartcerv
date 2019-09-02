@@ -60,7 +60,7 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     EntityId[] getSyncedEntityId(long localOffset, long identifierType);
 
 
-    @Query("SELECT person_identifier.uuid  FROM (SELECT patient_id, identifier FROM patient_identifier WHERE uuid NOT NULL) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_id = :localPatientId) AS local ON local.identifier = remote.identifier JOIN person_identifier ON person_identifier.person_id = remote.patient_id")
+    @Query("SELECT person_identifier.remote_uuid  FROM (SELECT patient_id, identifier FROM patient_identifier WHERE uuid NOT NULL) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_id = :localPatientId) AS local ON local.identifier = remote.identifier JOIN person_identifier ON person_identifier.remote_id = remote.patient_id")
    String getRemotePatientUuid(long localPatientId);
 
     @Override
