@@ -2,13 +2,20 @@ package zm.gov.moh.cervicalcancer;
 
 public class OpenmrsConfig {
 
-    //Visit Types
+    //Visit Types VIA
     public static final long VISIT_TYPE_ID_INTIAL_VIA = 2;
     public static final long VISIT_TYPE_ID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION = 3;
     public static final long VISIT_TYPE_ID_POST_TREATMENT_COMPILATION = 4;
     public static final long VISIT_TYPE_ID_ONE_YEAR_FOLLOW_UP = 5;
     public static final long VISIT_TYPE_ID_ROUTINE_SCREENING = 6;
     public static final long VISIT_TYPE_ID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION = 7;
+
+    public static final String VISIT_TYPE_UUID_INITIAL_VIA = "2bd5d3e2-6cbf-4c3c-83d7-d759a1e23072";
+    public static final String VISIT_TYPE_UUID_DELAYED_CRYOTHERAPHY_THERMAL_COAGULATION = "4cd28081-8879-492a-8e87-d456d4a22f75";
+    public static final String VISIT_TYPE_UUID_POST_TREATMENT_COMPILATION = "8613e0a9-8ff5-460b-b9bf-866a420f5a48";
+    public static final String VISIT_TYPE_UUID_ONE_YEAR_FOLLOW_UP = "6451a53d-14c8-4e6d-9961-d6d58b5e02d2";
+    public static final String VISIT_TYPE_UUID_ROUTINE_SCREENING = "20cf57e0-1047-4700-91df-79f715f7958d";
+    public static final String VISIT_TYPE_UUID_REFERRAL_CRYOTHERAPHY_THERMAL_COAGULATION = "f39746aa-3553-401c-97e1-81b67a845a8e";
 
     //Concepts
     public static final String CONCEPT_UUID_VIA_INSPECTION_DONE = "a1dc1c20-074d-4cba-86e6-42a41b14f9f1";

@@ -2,13 +2,15 @@ package zm.gov.moh.core.repository.database.dao.domain;
 
 import androidx.room.*;
 
+import zm.gov.moh.core.repository.database.entity.domain.AppointmentschedulingAppointmentBlock;
+
 @Dao
 public interface AppointmentschedulingAppointmentBlockDao {
 
 
     @Query("SELECT * FROM appointmentscheduling_appointment_block")
-    AppointmentschedulingAppointmentBlockDao getAppointmentBlock();
+    AppointmentschedulingAppointmentBlock getAppointmentBlock();
 
     @Insert
-    void insert(AppointmentschedulingAppointmentBlockDao appointmentschedulingAppointmentBlockDao);
+    void insert(AppointmentschedulingAppointmentBlock appointmentschedulingAppointmentBlockDao);
 }

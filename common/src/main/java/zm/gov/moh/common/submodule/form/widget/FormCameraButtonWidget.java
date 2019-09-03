@@ -41,6 +41,10 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
 
     }
 
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 
     @Override
     public void setBundle(Bundle bundle) {

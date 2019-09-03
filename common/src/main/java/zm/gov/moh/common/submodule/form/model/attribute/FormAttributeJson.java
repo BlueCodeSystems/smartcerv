@@ -11,6 +11,7 @@ public class FormAttributeJson {
     private String submitLabel;
     private String formType;
     private String panelType;
+    private String name;
     private List<Logic> logic;
 
 
@@ -62,5 +63,13 @@ public class FormAttributeJson {
     //getter for logic
     public List<Logic> getLogic() {
         return logic;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -1,32 +1,25 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Activity;
-import android.app.Application;
-import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitState;
-import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
+
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.common.submodule.login.view.LoginActivity;
-import zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel;
+import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
+import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.common.ui.ToolBarEventHandler;
 import zm.gov.moh.core.model.Key;
@@ -34,6 +27,8 @@ import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
+
 public class PatientDashboardActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
@@ -141,5 +136,18 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     }
     public PatientDashboardViewModel getViewModel(){
         return viewModel;
+    }
+
+    public void startVisit(){
+
+        try {
+            VisitMetadata visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/via.json")));
+
+            mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+            mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+            this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+        }catch (Exception e){
+
+        }
     }
 }

@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -47,8 +48,13 @@ public class WidgetUtils {
         linearLayoutCompat.setGravity(Gravity.CENTER_VERTICAL);
         linearLayoutCompat.setPadding(0,0,Utils.dpToPx(context,20),0);
 
-        for(View view: views)
+        for(View view: views) {
+
+            ViewParent parent = view.getParent();
+            if(parent != null)
+                ((ViewGroup) parent).removeAllViews();
             linearLayoutCompat.addView(view);
+        }
 
         return linearLayoutCompat;
     }

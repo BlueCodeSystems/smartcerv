@@ -3,11 +3,14 @@ package zm.gov.moh.common.submodule.login.viewmodel;
 import android.app.Application;
 import android.util.Base64;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
 import java.security.MessageDigest;
+import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -97,6 +100,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
                 .apply();
         pending.set(true);
         viewState.setValue(ViewState.AUTHORIZED);
+        saveLocation(locationId);
     }
 
     private void onSuccess(Authentication authentication){
@@ -135,7 +139,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
                 authoriseLocationLogin(authentication));
     }
 
-    private void onError(Throwable throwable){
+    public void onError(Throwable throwable){
 
         pending.set(true);
         if (throwable instanceof HttpException) {
@@ -247,4 +251,17 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
     protected void onCleared() {
         super.onCleared();
     }
+
+
+    public void saveLocation(long lastLocation)
+    {
+
+        getRepository().getDefaultSharePrefrences().edit().putLong(Key.LAST_LOCATION,lastLocation).apply();
+
+    }
+
+
+
+
+
 }

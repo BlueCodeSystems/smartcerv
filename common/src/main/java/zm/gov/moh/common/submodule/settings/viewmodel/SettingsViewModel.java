@@ -11,6 +11,7 @@ import zm.gov.moh.common.submodule.settings.model.Preferences;
 import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class SettingsViewModel extends BaseAndroidViewModel {
 
@@ -31,6 +32,8 @@ public class SettingsViewModel extends BaseAndroidViewModel {
                 return;
             }
 
+            getRepository().getDefaultSharePrefrences().edit().clear().apply();
+            ConcurrencyUtils.asyncRunnable(()-> db.clearAllTables(), this::onError);
             getRepository().getDefaultSharePrefrences().edit().putString(Key.BASE_URL, preferences.getBaseUrl().toString()).apply();
         }
 

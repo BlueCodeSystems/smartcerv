@@ -1,8 +1,9 @@
 package zm.gov.moh.common.submodule.form.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Logic {
+public class Logic implements Serializable {
 
     private Condition condition;
     private Action action;

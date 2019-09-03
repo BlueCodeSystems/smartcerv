@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
+import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.model.VisitState;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
@@ -37,6 +39,34 @@ public class PersistEncounter extends PersistService {
         long person_id = (long) mBundle.get(Key.PERSON_ID);
         long encounter_type_id = (long) mBundle.get(Key.ENCOUNTER_TYPE_ID);
         Long visit_id = (Long) mBundle.get(Key.VISIT_ID);
+        VisitState visitState = (VisitState) mBundle.getSerializable(Key.VISIT_STATE);
+
+
+
+
+        //void previous visit data
+        EncounterEntity encounterEntity = db.encounterDao().getByTypeVisitId(visit_id,encounter_type_id);
+
+        if(encounterEntity != null){
+
+            encounterEntity.setVoided((short) 1);
+            db.encounterDao().insert(encounterEntity);
+
+            EncounterProvider encounterProvider = db.encounterProviderDao().getByEncounterId(encounterEntity.getEncounterId());
+
+            if(encounterProvider != null) {
+                encounterProvider.setVoided((short) 1);
+                db.encounterProviderDao().insert(encounterProvider);
+            }
+
+            List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterEntity.getEncounterId());
+
+                if(obsEntities.size() > 0)
+                    for(ObsEntity obsEntity:obsEntities){
+                        obsEntity.setVoided((short)1);
+                        db.obsDao().insert(obsEntity);
+                    }
+        }
 
         if (visit_id == null) {
 

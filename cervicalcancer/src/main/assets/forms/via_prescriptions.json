@@ -1,9 +1,10 @@
 {
   "attributes": {
-    "panelType":"form",
-    "formType":"encounter",
-    "encounterId":15,
-    "submitLabel":"Submit"
+  "panelType":"form",
+  "formType":"encounter",
+    "name":"Prescription(s)",
+  "encounterId":15,
+  "submitLabel":"Submit"
   },
   "widgetGroup":[
     {

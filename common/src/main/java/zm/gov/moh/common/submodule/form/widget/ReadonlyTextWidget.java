@@ -38,6 +38,11 @@ public class ReadonlyTextWidget extends TextViewWidget implements Submittable<Ch
         mBundle.putString((String) this.getTag(),value.toString());
     }
 
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
     public void setHint(String hint){
         mHint = hint;
     }

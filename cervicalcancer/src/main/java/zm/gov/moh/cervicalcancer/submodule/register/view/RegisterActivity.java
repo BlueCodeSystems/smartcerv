@@ -34,21 +34,6 @@ public class RegisterActivity extends BaseActivity {
 
         binding.setToolbarhandler(toolBarEventHandler);
 
-
-        /*if(bundle != null){
-            try {
-                getIntent().getExtras().getSerializable(START_SUBMODULE_WITH_RESULT_KEY);
-            }catch (Exception e){
-                getIntent().getExtras().putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
-            }
-        }
-        else {
-            bundle = new Bundle();
-            bundle.putSerializable(START_SUBMODULE_WITH_RESULT_KEY, defaultSubmodule);
-            getIntent().putExtras(bundle);
-        }*/
-
-
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
 
         clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
