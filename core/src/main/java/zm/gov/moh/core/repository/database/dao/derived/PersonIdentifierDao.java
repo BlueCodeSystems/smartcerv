@@ -17,9 +17,12 @@ public interface PersonIdentifierDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PersonIdentifier... personIdentifiers);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<PersonIdentifier> personIdentifiers);
+
     @Query("SELECT remote_uuid FROM person_identifier WHERE remote_id = :personId")
     String getUuidByPersonId(long personId);
 
-    @Query("SELECT * FROM person_identifier")
-    List<PersonIdentifier> getByPersonId();
+    @Query("SELECT * FROM person_identifier WHERE identifier = :identifier")
+    PersonIdentifier getByIdentifier(String identifier);
 }

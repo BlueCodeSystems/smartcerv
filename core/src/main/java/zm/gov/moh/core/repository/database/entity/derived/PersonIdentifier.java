@@ -59,4 +59,9 @@ public class PersonIdentifier {
     public void setRemoteUuid(String remoteUuid) {
         this.remoteUuid = remoteUuid;
     }
+
+    public PersonIdentifier(String identifier, Long localId){
+        this.identifier = identifier;
+        this.localId = localId;
+    }
 }

@@ -9,6 +9,7 @@ import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
+import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
@@ -61,12 +62,14 @@ public class PersistDemographics extends PersistService {
             Person person = new Person(personId, dateOfBirth, gender,now);
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);
             PatientEntity patient = new PatientEntity(personId, now);
+            PersonIdentifier personIdentifier = new PersonIdentifier(identifier.getIdentifier(),personId);
 
             identifier.markAsAssigned();
             db.identifierDao().insert(identifier);
 
             //Persist database entity instances asynchronously into the database
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, patientId);
+            ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personIdentifierDao()::insert,this::onError, personIdentifier);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personNameDao()::insert, this::onError, personName);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personDao()::insert, this::onError, person);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personAddressDao()::insert,this::onError, personAddress);
