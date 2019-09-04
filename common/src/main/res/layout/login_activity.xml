@@ -110,6 +110,13 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="69dp"
+                android:layout_height="52dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/px_coat_of_arms_of_zambia" />
+
+            <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="69dp"
                 android:layout_height="52dp"
