@@ -53,7 +53,7 @@
           "dataType": "Numeric",
           "hint": "Example 145683/10/1",
           "weight": 1,
-          "required":false
+          "required": false
         },
         {
           "widgetType": "WidgetGroupRow",
@@ -68,25 +68,6 @@
               "tag": "client ID",
               "widgetType": "CCPIZEditText",
               "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "VIA Screening Date",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "tag": "via screening date",
-              "widgetType": "DatePicker",
-              "futureDate": "False",
-              "weight": 1,
-              "hint": "dd MMM yyyy",
-              "text": "Select Date"
             }
           ]
         },
