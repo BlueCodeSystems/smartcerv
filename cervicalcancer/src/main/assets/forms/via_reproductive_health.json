@@ -32,30 +32,12 @@
           "logic": [
             {
               "condition": {
-                "value": "PERSON_DOB",
-                "dataType": "date",
-                "expression": {
-                  "$lt": 40
-                }
-              },
-              "action": {
-                "type": "skipLogic",
-                "metadata": {
-                  "tags": [
-                    "Amenorrhea or Menopause"
-                  ]
-                }
-              }
-            },
-            {
-              "condition": {
                 "value": 1
               },
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": [
-                    "last_menstrual_period"
+                  "tags": ["last_menstrual_period"
                   ]
                 }
               }
@@ -68,7 +50,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "Amenorrhea or Menopause"
+                     "Amenorrhea or Menopause"
                   ]
                 }
               }
@@ -97,6 +79,23 @@
           "label": "Select Amenorrhea or Menopause",
           "textSize": 18,
           "logic": [
+            {
+              "condition": {
+                "value": "PERSON_DOB",
+                "dataType": "date",
+                "expression": {
+                  "$lt": 40
+                }
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            },
             {
               "condition": {
                 "value": 165247
@@ -156,6 +155,7 @@
             {
               "condition": {
                 "value": 1
+
               },
               "action": {
                 "type": "skipLogic",
