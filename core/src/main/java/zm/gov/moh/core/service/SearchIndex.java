@@ -37,17 +37,13 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
         ConcurrencyUtils.consumeAsync(
                 clients -> {
 
+                    repository.getDatabase().clientFtsDao().clear();
+
                     for(Client client: clients) {
 
-                        String age = String.valueOf(LocalDate.now().getYear() - client.getBirthDate().getYear());
-                        String gender = (client.getGender().equals("F"))? "Female":"Male";
-                        String searchTerm = DatabaseUtils.buildSearchTerm(age,client.getIdentifier(),client.getGivenName(),client.getFamilyName(),gender);
-
+                        String searchTerm = DatabaseUtils.buildSearchTerm(client.getGivenName(),client.getFamilyName(),client.getIdentifier());
                         repository.getDatabase().clientFtsDao().
                                 insert(new ClientNameFts(client.getPatientId(), searchTerm, client.getPatientId()));
-
-                       // List<Long> list = repository.getDatabase().clientFtsDao().findClientByTerms("zita");
-                       // list.get(0);
                     }
                 }, //consumer
                  this::onError,
