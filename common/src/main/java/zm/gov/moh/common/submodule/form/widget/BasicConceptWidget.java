@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -146,7 +145,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                                     int clientAge = LocalDateTime.now().getYear() - ld.getYear();
                                     int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
 
-                                    if (clientAge < conditionAge) {
+                                    if (clientAge < conditionAge && answerConcepts.contains(165248L)) {
 
                                         Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
                                         Set<String> tags = new HashSet<>();
