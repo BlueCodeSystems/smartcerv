@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -151,7 +152,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                                         Set<String> tags = new HashSet<>();
                                         WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
                                         form.getFormContext().getVisibleWidgetTags().addAll(tags);
-
                                     }
                                 }
 
@@ -554,6 +554,9 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         } else if (conceptId == 2) {
                             RadioButton button = (RadioButton) radioGroup.getChildAt(1);
                             button.setChecked(true);
+                            FormImageViewButtonWidget.INVISIBLE();
+                            FormCameraButtonWidget.INVISIBLE();
+
                         }
                     } else if (mStyle.equals(STYLE_CHECK)) {
                         CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);

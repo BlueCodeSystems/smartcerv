@@ -7,6 +7,7 @@ import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
@@ -121,6 +122,17 @@ public class WidgetModelJsonAdapter {
 
                 return imageViewButtonModel;
 
+            case "CameraConnectButton":
+
+                final CameraConnectButtonModel cameraconnectButtonModel = new CameraConnectButtonModel();
+                cameraconnectButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                cameraconnectButtonModel.setTag(widgetModelJson.getTag());
+                cameraconnectButtonModel.setLabel(widgetModelJson.getLabel());
+                cameraconnectButtonModel.setUuid(widgetModelJson.getUuid());
+
+                return cameraconnectButtonModel;
+
+
             case "DialogButton":
 
                 final DialogButtonModel DialogButtonModel = new DialogButtonModel();
@@ -146,6 +158,7 @@ public class WidgetModelJsonAdapter {
 
                 final CameraButtonModel CameraButtonModel = new CameraButtonModel();
 
+                CameraButtonModel.setWidgetType(widgetModelJson.getWidgetType());
                 CameraButtonModel.setWidgetType(widgetModelJson.getTag());
                 CameraButtonModel.setLabel(widgetModelJson.getLabel());
 
