@@ -152,10 +152,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                                         Set<String> tags = new HashSet<>();
                                         WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
                                         form.getFormContext().getVisibleWidgetTags().addAll(tags);
-
                                     }
-
-                                    //if()
                                 }
 
                             }
