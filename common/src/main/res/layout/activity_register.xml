@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
-        <variable name="search" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
+        <variable name="searchTermObserver" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
         <variable name="context" type="zm.gov.moh.common.submodule.register.view.RegisterActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
     </data>
     <LinearLayout
-       android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include
@@ -29,15 +29,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <EditText
+
+                <include
+                    layout="@layout/base_search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:drawableStart="@android:drawable/ic_menu_search"
-                    android:inputType="textFilter"
-                    android:text="@={search.term}"
-                    android:layout_marginHorizontal="10dp"
-                    android:hint="Find client by name or ID" />
+                    android:padding="10dp"
+                    app:searchTermObserver="@{searchTermObserver}">
+                </include>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/client_list"
