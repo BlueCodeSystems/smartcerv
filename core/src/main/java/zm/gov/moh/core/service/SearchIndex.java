@@ -7,12 +7,18 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.Nullable;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
+import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
@@ -33,25 +39,48 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
 
         AndroidThreeTen.init(this);
         InjectorUtils.provideRepository(this, getApplication());
+        ConcurrencyUtils.asyncRunnable(this::indexSearch,this::onError);
+    }
 
-        ConcurrencyUtils.consumeAsync(
-                clients -> {
+    public void indexSearch(){
 
-                    for(Client client: clients) {
+        long locationId = repository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        repository.getDatabase().clientFtsDao().clear();
 
-                        String age = String.valueOf(LocalDate.now().getYear() - client.getBirthDate().getYear());
-                        String gender = (client.getGender().equals("F"))? "Female":"Male";
-                        String searchTerm = DatabaseUtils.buildSearchTerm(age,client.getIdentifier(),client.getGivenName(),client.getFamilyName(),gender);
+        List<PatientIdentifierEntity> patientIdentifierEntities= repository.getDatabase().patientIdentifierDao().getByLocationId(locationId);
+        Set<Long> personIds = new HashSet<> ();
 
-                        repository.getDatabase().clientFtsDao().
-                                insert(new ClientNameFts(client.getPatientId(), searchTerm, client.getPatientId()));
+        if(patientIdentifierEntities.size() > 0)
+            for(PatientIdentifierEntity patientIdentifierEntity: patientIdentifierEntities){
+                if(patientIdentifierEntity != null) {
+                    personIds.add(patientIdentifierEntity.getPatientId());
+                    String term = null;
+                    if(patientIdentifierEntity.getIdentifierType() == 3)
+                        term = DatabaseUtils.buildSearchTerm(patientIdentifierEntity.getIdentifier());
 
-                       // List<Long> list = repository.getDatabase().clientFtsDao().findClientByTerms("zita");
-                       // list.get(0);
+                    if(patientIdentifierEntity.getIdentifierType() == 4) {
+
+                        int index = patientIdentifierEntity.getIdentifier().lastIndexOf('-');
+                        term = DatabaseUtils.buildSearchTerm(patientIdentifierEntity.getIdentifier().substring(index + 1));
                     }
-                }, //consumer
-                 this::onError,
-                repository.getDatabase().clientDao().getAllClients());
+
+                    repository.getDatabase().clientFtsDao().
+                            insert(new ClientNameFts(term,patientIdentifierEntity.getPatientId()));
+                }
+            }
+
+        List<PersonName> personNames = repository.getDatabase().personNameDao().findPersonNameById(personIds);
+
+       if(personNames.size() > 0)
+            for(PersonName personName: personNames){
+                if(personName != null)
+                    repository.getDatabase().clientFtsDao().
+                            insert(new ClientNameFts(
+                                    DatabaseUtils.buildSearchTerm(personName.getGivenName(),personName.getFamilyName()),
+                                    personName.getPersonId()));
+            }
+
+
     }
 
     @Override

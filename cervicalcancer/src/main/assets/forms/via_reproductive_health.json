@@ -262,7 +262,7 @@
           "hint": "dd MMM yyyy",
           "textSize": 18
         }
-        ,{
+      ,{
           "tag": "history of stis",
           "widgetType": "Concept",
           "conceptId": 165111,

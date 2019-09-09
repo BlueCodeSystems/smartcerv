@@ -145,7 +145,10 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                                     int clientAge = LocalDateTime.now().getYear() - ld.getYear();
                                     int conditionAge = Integer.valueOf(condition.getExpression().getLessThan());
 
-                                    if (clientAge < conditionAge && answerConcepts.contains(165248L))  {
+
+
+                                    if (clientAge < conditionAge && answerConcepts.contains(165248L)) {
+
 
                                         Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
 
@@ -555,6 +558,9 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         } else if (conceptId == 2) {
                             RadioButton button = (RadioButton) radioGroup.getChildAt(1);
                             button.setChecked(true);
+                            FormImageViewButtonWidget.INVISIBLE();
+                            FormCameraButtonWidget.INVISIBLE();
+
                         }
                     } else if (mStyle.equals(STYLE_CHECK)) {
                         CheckBox checkBox = (CheckBox) checkBoxGroup.getChildAt(0);
