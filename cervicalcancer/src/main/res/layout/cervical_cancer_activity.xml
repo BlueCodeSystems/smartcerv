@@ -24,15 +24,16 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="450dp">
 
             <androidx.gridlayout.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:columnCount="3"
-                app:rowCount="3"
+                app:columnCount="4"
+                app:rowCount="4"
                 app:alignmentMode="alignMargins"
                 app:orientation="horizontal">
+
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="85dp"
@@ -163,11 +164,38 @@
                             android:text="Total clients screened" />
 
                     </LinearLayout>
-
-
                 </androidx.cardview.widget.CardView>
 
+
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="210dp"
+                    android:orientation="vertical"
+                    app:layout_column="0"
+                    app:layout_columnSpan="3"
+                    app:layout_columnWeight="1"
+                    app:layout_row="3"
+                    app:layout_rowWeight="1"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp">
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="VIA screen results history"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChart"
+                        android:layout_width="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
             </androidx.gridlayout.widget.GridLayout>
+
         </ScrollView>
 
         <TextView
@@ -178,6 +206,7 @@
             android:layout_marginRight="13dp"
             android:layout_marginTop="10dp"
             android:background="#c0c0c0" />
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"

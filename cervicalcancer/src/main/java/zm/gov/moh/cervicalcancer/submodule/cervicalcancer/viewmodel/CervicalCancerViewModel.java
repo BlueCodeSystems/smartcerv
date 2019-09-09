@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 
 import java.util.EnumMap;
+import java.util.List;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.LineChartVisitItem;
 import zm.gov.moh.core.model.Submodules;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
@@ -74,6 +76,15 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
         return getRepository().getDatabase().patientDao().getTotalScreened(location_id);
 
     }
+
+    //get all patients Screened from current location for line chart
+
+    public LiveData<List<LineChartVisitItem>> getAllScreenedInLastSevenDays()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return getRepository().getDatabase().patientDao().getTotalScreenedLineChart(location_id);
+    }
+
 
 
 
