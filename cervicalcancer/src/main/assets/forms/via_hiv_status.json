@@ -2,7 +2,7 @@
   "attributes": {
     "panelType": "form",
     "formType": "encounter",
-    "name":"HIV Status",
+    "name": "HIV Status",
     "encounterId": 10,
     "submitLabel": "Submit"
   },
@@ -130,7 +130,7 @@
               "tag": "cd4 date",
               "conceptId": 165210,
               "dataType": "Date",
-              "uuid":"852149f1-c61c-46c4-a3aa-caee6e91574d",
+              "uuid": "852149f1-c61c-46c4-a3aa-caee6e91574d",
               "futureDate": "False",
               "widgetType": "Concept",
               "hint": "dd MMM yyyy"
@@ -155,7 +155,7 @@
               "tag": "viral load date",
               "conceptId": 165212,
               "dataType": "Date",
-              "uuid":"a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
+              "uuid": "a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
               "futureDate": "False",
               "widgetType": "Concept",
               "hint": "dd MMM yyyy"
@@ -251,6 +251,7 @@
           "tag": "pict result",
           "widgetType": "Concept",
           "conceptId": 165239,
+          "uuid": "12e7bc9f-f57d-463b-bd82-cf25f10e5b64",
           "dataType": "Coded",
           "style": "radio",
           "label": "Result",
@@ -322,7 +323,7 @@
           "tag": "Date tested negative",
           "conceptId": 165251,
           "widgetType": "Concept",
-          "uuid":"10c18b01-0fe3-46ba-94f8-9e896b3879a4",
+          "uuid": "10c18b01-0fe3-46ba-94f8-9e896b3879a4",
           "dataType": "Date",
           "futureDate": "False",
           "weight": 1,
