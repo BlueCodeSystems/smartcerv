@@ -53,9 +53,13 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
                 if(!identifier.contains(districtFacilityCode))
                     continue;
 
-                long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
+                try {
+                    long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
+                    serials.add(serial);
+                }
+                catch (Exception e){
 
-                serials.add(serial);
+                }
             }
 
             long preferredSerial = Collections.max(serials) + 1;
