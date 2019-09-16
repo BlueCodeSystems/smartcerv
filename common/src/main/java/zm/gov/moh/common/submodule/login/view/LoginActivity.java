@@ -8,6 +8,8 @@ import android.content.res.Resources;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+
 import android.widget.Toast;
 import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.common.ui.BaseActivity;

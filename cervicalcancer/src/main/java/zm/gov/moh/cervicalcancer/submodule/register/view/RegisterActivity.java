@@ -43,5 +43,7 @@ public class RegisterActivity extends BaseActivity {
         clientRecyclerView.setAdapter(clientListAdapter);
 
         registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
+        setViewModel(registerViewModel);
+        addDrawer(this);
     }
 }

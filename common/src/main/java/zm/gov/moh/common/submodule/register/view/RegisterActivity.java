@@ -92,6 +92,8 @@ public class RegisterActivity extends BaseActivity {
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setSearch(searchTermObserver);
         binding.setContext(this);
+        setViewModel(registerViewModel);
+        addDrawer(this);
     }
 
     public void searchCallback(String term){

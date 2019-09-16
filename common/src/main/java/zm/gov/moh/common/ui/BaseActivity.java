@@ -5,8 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -19,11 +30,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.repository.database.entity.derived.DrawerProvider;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
 
@@ -43,18 +56,21 @@ public class BaseActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     protected ListView drawerList;
     protected String[] layers;
+    protected Drawer drawer;
 
-
+    Toolbar toolbar;
     ToolBarEventHandler toolBarEventHandler;
+    String firstname,lastname,userName;
+    AccountHeader provider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+       drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (drawerLayout != null) {
-            Toolbar toolbar = findViewById(R.id.base_toolbar);
+            toolbar = findViewById(R.id.base_toolbar);
 
             drawerToggle = new BaseActionBarDrawerToggle((Activity) this, drawerLayout, toolbar, 0, 0) {
                 public void onDrawerClosed(View view) {
@@ -210,4 +226,56 @@ public class BaseActivity extends AppCompatActivity {
         int age = LocalDateTime.now().getYear() - birthdate.getYear();
         return age;
     }
+
+    public void addDrawer(Activity activity)
+    {   Long providerId;
+        providerId=getViewModel().getRepository().getDefaultSharePrefrences().getLong(Key.PROVIDER_ID,0);
+
+       //setup the header of the navigation bar
+      getViewModel().getRepository().getDatabase().providerUserDao().getDrawerUser(providerId).observe(this, new Observer<DrawerProvider>() {
+          @Override
+          public void onChanged(DrawerProvider drawerProvider) {
+              userName=drawerProvider.getUserName();
+              lastname=drawerProvider.getLastName();
+              firstname=drawerProvider.getFirstName();
+
+              buildDrawer(BaseActivity.this, drawerProvider);
+
+          }
+      });
+
+
+
+    }
+
+
+    public void buildDrawer(Activity activity, DrawerProvider drawerProvider){
+
+
+        PrimaryDrawerItem home=new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.home_icon);
+        PrimaryDrawerItem allClients=new PrimaryDrawerItem().withIdentifier(2).withName("Records").withIcon(R.drawable.file_icon);
+        PrimaryDrawerItem logOut=new PrimaryDrawerItem().withIdentifier(3).withName("Log out").withIcon(R.drawable.ic_logout);
+
+        provider=new AccountHeaderBuilder().withActivity(activity).addProfiles(new ProfileDrawerItem().withName(drawerProvider.getUserName()).withEmail(drawerProvider.getFirstName()+" "+drawerProvider.getLastName()).withIcon(getResources().getDrawable(R.drawable.ic_openmrs))).build();
+        drawer = new DrawerBuilder()
+                .withActivity(activity)
+                .addDrawerItems(home,allClients,logOut).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        if(drawerItem.getIdentifier()==1)
+                        {
+                            startModule(BaseApplication.CoreModule.HOME);
+                        }else if(drawerItem.getIdentifier()==2)
+                        {
+                            startModule(BaseApplication.CoreModule.REGISTER);
+                        }
+                        else if(drawerItem.getIdentifier()==3)
+                        {
+                            startModule(BaseApplication.CoreModule.BOOTSTRAP);
+                        }
+                        return  true;
+                    }
+                }).withAccountHeader(provider).build();
+    }
+
 }
