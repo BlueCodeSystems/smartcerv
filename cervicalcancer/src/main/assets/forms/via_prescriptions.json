@@ -77,46 +77,10 @@
           "uuid": "dc0f1aa3-2def-4322-a9c6-5dce5b195d14"
         },
         {
-          "tag":"Acyclovir",
+          "tag": "other_prescription_text",
           "widgetType":"ConceptDrug",
           "weight": 1,
-          "uuid": "be55fbf0-1f04-423f-8d1c-df5678d62c6f"
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "tag": "other prescription",
-              "widgetType": "Concept",
-              "conceptId": 165407,
-              "uuid": "3bbf8f5e-cea8-4568-ac62-4c63217a49bd",
-              "dataType": "Coded",
-              "style": "check",
-              "textSize": 18,
-              "logic": [
-                {
-                  "condition": {
-                    "value": 165197
-                  },
-                  "action":{
-                    "type": "skipLogic",
-                    "metadata": {
-                    "tags": ["other_prescription_text"]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "tag": "other_prescription_text",
-              "widgetType": "Concept",
-              "conceptId": 165197,
-              "uuid": "48cbf1c5-bbdb-44f4-96b7-61812c67bebe",
-              "dataType": "Text",
-              "textSize": 16,
-              "hint": "Other prescription"
-            }
-          ]
+          "uuid": "f87d44a7-7f19-45fc-8639-c1f56562d1bc"
         }
       ]
     }
