@@ -23,6 +23,9 @@ public interface PersonIdentifierDao {
     @Query("SELECT remote_uuid FROM person_identifier WHERE remote_id = :personId")
     String getUuidByPersonId(long personId);
 
+    @Query("SELECT * FROM person_identifier WHERE remote_id = :personId")
+    PersonIdentifier getByPersonId(long personId);
+
     @Query("SELECT * FROM person_identifier WHERE identifier = :identifier")
     PersonIdentifier getByIdentifier(String identifier);
 }

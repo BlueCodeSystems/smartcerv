@@ -2,20 +2,11 @@ package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.icu.util.TimeUnit;
 import android.os.SystemClock;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDateTime;
-
-import java.util.Timer;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.util.TimeUtils;
 import androidx.work.WorkerParameters;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
@@ -23,8 +14,6 @@ import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.BaseIntentService;
-import zm.gov.moh.core.service.ServiceManager;
 
 
 public abstract class RemoteWorker extends BaseWorker {

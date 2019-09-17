@@ -1,15 +1,11 @@
 package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
-import android.util.LongSparseArray;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
@@ -26,6 +22,7 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 public class PullDataRemoteWorker extends RemoteWorker {
 
     HashMap<Long,Long> remoteLocalIdentifierMap = new HashMap<>();
+    LocalDateTime localDateTime =  LocalDateTime.parse("1970-01-01T00:00:00");
 
     public PullDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
@@ -42,8 +39,6 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         if(lastSyncDate != null)
             MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
-
-        LocalDateTime localDateTime =  LocalDateTime.parse("1970-01-01T00:00:00");
 
             //Patient identifier
             ConcurrencyUtils.consumeBlocking(
@@ -186,19 +181,22 @@ public class PullDataRemoteWorker extends RemoteWorker {
                             if(remoteLocalIdentifierMap.keySet().contains(person.getPersonId())) {
 
                                 Person person1 = db.personDao().findById(remoteLocalIdentifierMap.get(person.getPersonId()));
+                                PersonIdentifier personIdentifier = db.personIdentifierDao().getByPersonId(person.getPersonId());
                                 person.setPersonId(person1.getPersonId());
+                                personIdentifier.setRemoteUuid(person.getUuid());
+
+                                db.personIdentifierDao().insert(personIdentifier);
                             }
                             db.personDao().insert(person);
                         }
                         updateMetadata(persons, EntityType.PERSON);
-                        getPersons(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                        getPersons(accessToken,locationId,localDateTime,offset + limit,limit);
                     }else
                         onTaskCompleted();
 
-
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getPersons(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                repository.getRestApi().getPersons(accessToken,locationId,localDateTime,offset,limit), //producer
                 TIMEOUT);
     }
 
@@ -244,10 +242,16 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
                             if(remoteLocalIdentifierMap.keySet().contains(personAddress.getPersonId())) {
 
-                                PersonAddress personAddress1 = db.personAddressDao().findByPersonId(remoteLocalIdentifierMap.get(personAddress.getPersonId()));
-                                personAddress.setPersonAddressId(personAddress1.getPersonAddressId());
-                                personAddress.setPersonId(personAddress1.getPersonId());
+                                Long id = remoteLocalIdentifierMap.get(personAddress.getPersonId());
 
+                                PersonAddress personAddress1 = db.personAddressDao().findByPersonId(id);
+
+                                if(personAddress1 == null)
+                                    continue;
+
+                                personAddress1.setAddress1(personAddress.getAddress1());
+                                db.personAddressDao().insert(personAddress1);
+                                continue;
                             }
                             db.personAddressDao().insert(personAddress);
                         }
@@ -266,6 +270,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
     }
 
     public PatientIdentifierEntity updateIdentifiers(PatientIdentifierEntity patientIdentifierEntity){
+
         PersonIdentifier personIdentifier = db.personIdentifierDao().getByIdentifier(patientIdentifierEntity.getIdentifier());
         if(personIdentifier != null){
             personIdentifier.setRemoteId(patientIdentifierEntity.getPatientId());
