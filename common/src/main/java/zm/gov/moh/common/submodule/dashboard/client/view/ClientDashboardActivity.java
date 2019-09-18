@@ -64,6 +64,7 @@ public class ClientDashboardActivity extends BaseActivity {
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
+
         setViewModel(viewModel);
         addDrawer(this);
     }

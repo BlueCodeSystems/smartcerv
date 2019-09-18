@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -18,6 +23,8 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -228,16 +235,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void addDrawer(Activity activity)
-    {   Long providerId;
+    {
+        Long providerId;
         providerId=getViewModel().getRepository().getDefaultSharePrefrences().getLong(Key.PROVIDER_ID,0);
-
        //setup the header of the navigation bar
       getViewModel().getRepository().getDatabase().providerUserDao().getDrawerUser(providerId).observe(this, new Observer<DrawerProvider>() {
           @Override
           public void onChanged(DrawerProvider drawerProvider) {
-              userName=drawerProvider.getUserName();
-              lastname=drawerProvider.getLastName();
-              firstname=drawerProvider.getFirstName();
 
               buildDrawer(BaseActivity.this, drawerProvider);
 
@@ -251,12 +255,48 @@ public class BaseActivity extends AppCompatActivity {
 
     public void buildDrawer(Activity activity, DrawerProvider drawerProvider){
 
-
+        //navigation names with their icons
         PrimaryDrawerItem home=new PrimaryDrawerItem().withIdentifier(1).withName("Home").withIcon(R.drawable.home_icon);
         PrimaryDrawerItem allClients=new PrimaryDrawerItem().withIdentifier(2).withName("Records").withIcon(R.drawable.file_icon);
         PrimaryDrawerItem logOut=new PrimaryDrawerItem().withIdentifier(3).withName("Log out").withIcon(R.drawable.ic_logout);
 
-        provider=new AccountHeaderBuilder().withActivity(activity).addProfiles(new ProfileDrawerItem().withName(drawerProvider.getUserName()).withEmail(drawerProvider.getFirstName()+" "+drawerProvider.getLastName()).withIcon(getResources().getDrawable(R.drawable.ic_openmrs))).build();
+
+        if (drawerProvider==null)
+        {
+            provider=new AccountHeaderBuilder().withActivity(activity).addProfiles(new ProfileDrawerItem().withName("User").withIcon(getResources().getDrawable(R.drawable.ic_openmrs))).build();
+        }else
+        {
+            //get image of initials from api
+            DrawerImageLoader.init(new AbstractDrawerImageLoader() {
+                @Override
+                public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                    Glide.with(imageView.getContext()).load("https://ui-avatars.com/api/?name="+drawerProvider.getFirstName()+"+"+drawerProvider.getLastName()).diskCacheStrategy(DiskCacheStrategy.DATA).placeholder(placeholder).into(imageView);
+                }
+
+                @Override
+                public void set(ImageView imageView, Uri uri, Drawable placeholder, String tag) {
+                    super.set(imageView, uri, placeholder, tag);
+                }
+
+                @Override
+                public void cancel(ImageView imageView) {
+                    super.cancel(imageView);
+                }
+
+                @Override
+                public Drawable placeholder(Context ctx) {
+                    return super.placeholder(ctx);
+                }
+
+                @Override
+                public Drawable placeholder(Context ctx, String tag) {
+                    return super.placeholder(ctx, tag);
+                }
+            });
+            //create the navigation header
+            provider=new AccountHeaderBuilder().withActivity(activity).addProfiles(new ProfileDrawerItem().withName(drawerProvider.getUserName()).withEmail(drawerProvider.getFirstName()+" "+drawerProvider.getLastName()).withIcon("https://ui-avatars.com/api/?name=Open+mrs")).build();
+        }
+
         drawer = new DrawerBuilder()
                 .withActivity(activity)
                 .addDrawerItems(home,allClients,logOut).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -277,5 +317,7 @@ public class BaseActivity extends AppCompatActivity {
                     }
                 }).withAccountHeader(provider).build();
     }
+
+
 
 }
