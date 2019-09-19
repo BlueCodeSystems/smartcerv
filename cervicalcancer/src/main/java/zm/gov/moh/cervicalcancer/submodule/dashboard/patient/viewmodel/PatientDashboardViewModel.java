@@ -349,7 +349,6 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                 Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
                 Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
-
                 if(treatmentEncounterId !=null || screeningEncounterId != null) {
 
                     Long treatmentProviderId = (treatmentEncounterId != null ) ?
@@ -357,18 +356,25 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                     Long screeningProviderId = (screeningEncounterId != null ) ?
                             db.encounterProviderDao().getByEncounterId(screeningEncounterId).getProviderId() : null;
 
+                    String treatmentProviderNumber = (treatmentEncounterId != null ) ?
+                            db.providerAttributeDao().findByProviderId(treatmentProviderId).getValueReference() : "";
+                    String screeningProviderNumber = (screeningProviderId != null ) ?
+                            db.providerAttributeDao().findByProviderId(screeningProviderId).getValueReference() : "";
+
                     PersonName treatmentProviderName = (treatmentProviderId != null) ?
                             db.personNameDao().getByProviderId(treatmentProviderId) : null;
                     PersonName screeningProviderName = (screeningProviderId != null) ?
                             db.personNameDao().getByProviderId(screeningProviderId) : null;
 
                     if (treatmentProviderName != null)
-                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName());
+                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName() +
+                                " - " + treatmentProviderNumber);
                     else
                         providerData.put(2L, "N/A");
 
                     if (screeningProviderName != null)
-                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName());
+                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName() +
+                                " - " + screeningProviderNumber);
                     else
                         providerData.put(1L, "N/A");
 
