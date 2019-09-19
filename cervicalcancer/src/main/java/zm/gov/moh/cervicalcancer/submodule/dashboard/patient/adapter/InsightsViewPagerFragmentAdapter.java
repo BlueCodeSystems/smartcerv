@@ -36,9 +36,10 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
             fragment =  new PatientDashboardTreatmentFragment();
         else if (position == 4)
             fragment =  new PatientDashboardProviderFragment();
-        else
+        else if (position == 5)
             fragment = new PatientDashboardEDIGalleryFragment();
-
+        else
+            fragment = new PatientDashboardVisitTypeFragment();
 
         fragment.setArguments(mContext.getIntent().getExtras());
 
