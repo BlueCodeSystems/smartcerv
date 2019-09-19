@@ -19,7 +19,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:background="@drawable/border_right"/>
-            <TextView android:text="Screening Provider Name and Number"
+            <TextView android:text="Screening Provider Name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textStyle="bold"
@@ -27,7 +27,7 @@
                 android:padding="2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_right"/>
-            <TextView android:text="Treatment Provider Name and Number"
+            <TextView android:text="Treatment Provider Name"
                 android:layout_width="0dp"
                 android:textStyle="bold"
                 android:layout_height="match_parent"

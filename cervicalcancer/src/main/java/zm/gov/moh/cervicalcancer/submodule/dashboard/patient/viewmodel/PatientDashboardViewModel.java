@@ -356,25 +356,18 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                     Long screeningProviderId = (screeningEncounterId != null ) ?
                             db.encounterProviderDao().getByEncounterId(screeningEncounterId).getProviderId() : null;
 
-                    String treatmentProviderNumber = (treatmentEncounterId != null ) ?
-                            db.providerAttributeDao().findByProviderId(treatmentProviderId).getValueReference() : "";
-                    String screeningProviderNumber = (screeningProviderId != null ) ?
-                            db.providerAttributeDao().findByProviderId(screeningProviderId).getValueReference() : "";
-
                     PersonName treatmentProviderName = (treatmentProviderId != null) ?
                             db.personNameDao().getByProviderId(treatmentProviderId) : null;
                     PersonName screeningProviderName = (screeningProviderId != null) ?
                             db.personNameDao().getByProviderId(screeningProviderId) : null;
 
                     if (treatmentProviderName != null)
-                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName() +
-                                " - " + treatmentProviderNumber);
+                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName());
                     else
                         providerData.put(2L, "N/A");
 
                     if (screeningProviderName != null)
-                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName() +
-                                " - " + screeningProviderNumber);
+                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName());
                     else
                         providerData.put(1L, "N/A");
 
