@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import zm.gov.moh.common.ui.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.SearchIndex;
 import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseApplication;
 
@@ -33,6 +34,7 @@ public class BootstrapActivity extends BaseActivity {
         bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactModule);
 
         startModule(BaseApplication.CoreModule.LOGIN, bundle);
+
 
        ServiceManager.getInstance(this)
                 .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)

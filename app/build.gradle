@@ -6,8 +6,8 @@ android {
         applicationId "zm.gov.moh.app"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.0.0-alpha.5"
+        versionCode 9
+        versionName "1.0.0-alpha.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

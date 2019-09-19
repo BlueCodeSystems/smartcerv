@@ -11,6 +11,12 @@
       "title":"Prescription(s)",
       "widgets":[
         {
+          "tag":"acyclovir",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "be55fbf0-1f04-423f-8d1c-df5678d62c6f"
+        },
+        {
           "tag":"ceftriaxone",
           "widgetType":"ConceptDrug",
           "weight": 1,
@@ -69,6 +75,12 @@
           "widgetType":"ConceptDrug",
           "weight": 1,
           "uuid": "dc0f1aa3-2def-4322-a9c6-5dce5b195d14"
+        },
+        {
+          "tag": "other_prescription_text",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f87d44a7-7f19-45fc-8639-c1f56562d1bc"
         }
       ]
     }

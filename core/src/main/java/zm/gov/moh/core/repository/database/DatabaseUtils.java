@@ -22,18 +22,21 @@ public class DatabaseUtils {
     public static String buildSearchTerm(String... terms){
 
         StringBuilder splitTerm  = new StringBuilder();
-        StringBuilder combinedTerm  = new StringBuilder();
-        StringBuilder segmentTerm  = new StringBuilder();
 
-        for (String term:terms) {
-            combinedTerm.append(term);
-            splitTerm.append(term).append(" OR ");
-        }
+        for (String term:terms)
+            if(term != null) {
 
+                int termLength = term.length();
 
-        for(int subtermLen = 2; subtermLen <= combinedTerm.length(); subtermLen++)
-            segmentTerm.append(combinedTerm.substring(0,subtermLen)).append(" OR ");
+                if (termLength == 2)
+                    splitTerm.append(term).append(" OR ");
+                else if (termLength > 2)
+                    for (int i = 2; i <= termLength; i++)
+                        splitTerm.append(term.substring(0, i)).append(" OR ");
+            }
 
-        return segmentTerm.toString(); //+ splitTerm.toString();
+        if(terms.length == 1)
+            return splitTerm.toString();
+        return splitTerm.toString() + buildSearchTerm(terms[0]+" "+terms[1]);
     }
 }

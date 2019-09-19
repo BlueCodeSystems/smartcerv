@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="searchTermObserver" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
+    </data>
+    <EditText android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:inputType="textFilter"
+        android:text="@={searchTermObserver.term}"
+        android:layout_marginHorizontal="10dp"
+        android:hint="Find client by name or ID"
+        xmlns:android="http://schemas.android.com/apk/res/android" />
+</layout>
