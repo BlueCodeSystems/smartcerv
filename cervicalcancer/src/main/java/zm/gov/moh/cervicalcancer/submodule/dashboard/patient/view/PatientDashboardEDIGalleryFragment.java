@@ -149,7 +149,7 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
                     } else {
                         isImageFitToScreen = true;
                         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                     }
                 }
             });

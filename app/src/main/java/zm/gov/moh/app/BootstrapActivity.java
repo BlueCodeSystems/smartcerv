@@ -12,6 +12,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.SearchIndex;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class BootstrapActivity extends BaseActivity {

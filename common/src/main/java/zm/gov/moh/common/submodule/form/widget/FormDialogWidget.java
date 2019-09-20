@@ -41,7 +41,7 @@ public class FormDialogWidget extends TextViewWidget implements Submittable <Str
         Dialog dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.popupview);
         WidgetUtils.setLayoutParams(button, Utils.dpToPx(mContext, 50), Utils.dpToPx(mContext, 50));
-        ((LinearLayoutCompat.LayoutParams) button.getLayoutParams()).setMarginEnd(Utils.dpToPx(mContext, 20));
+        ((LinearLayoutCompat.LayoutParams) button.getLayoutParams()).setMarginEnd(Utils.dpToPx(mContext, 30));
         this.addView(button);
 
     }
@@ -84,7 +84,7 @@ public class FormDialogWidget extends TextViewWidget implements Submittable <Str
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(mContext);
         builderSingle.setTitle("BATCH UPLOAD HELP");
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.test_list_item);
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mContext, android.R.layout.select_dialog_item);
 
         arrayAdapter.add(   "STEP 1: Go to the SmartCerv image upload web platform via " +
                             "a web browser following the url provided : www.smartcerv.org/image_upload");

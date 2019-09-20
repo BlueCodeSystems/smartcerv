@@ -21,6 +21,6 @@ SmartCerv enables providers to;
  10. Record Screening results
  11. Record treatment administered 
  12. Make and track referrals 
- 13. Record data in offiline mode and sync when there is an internet connection
- 14. View insghts on client or facility
+ 13. Record data in offline mode and sync when there is an internet connection
+ 14. View insights on client or facility
  15. View recent visits

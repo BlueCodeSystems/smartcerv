@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
 import java.util.List;
+import java.util.Set;
 
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -35,6 +36,9 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     //get persons name by getPersons id
     @Query("SELECT * FROM person_name WHERE person_id = :id")
     PersonName findPersonNameById(long id);
+
+    @Query("SELECT * FROM person_name WHERE person_id IN (:ids)")
+    List<PersonName> findPersonNameById(Set<Long> ids);
 
     @Query("UPDATE person_name SET person_id = :remote WHERE person_id = :local")
     void replacePerson(long local, long remote);
