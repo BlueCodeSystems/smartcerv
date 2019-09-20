@@ -5,6 +5,7 @@ import com.squareup.moshi.Json;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 
@@ -63,5 +64,12 @@ public class PersonIdentifier {
     public PersonIdentifier(String identifier, Long localId){
         this.identifier = identifier;
         this.localId = localId;
+    }
+
+    @Ignore
+    public PersonIdentifier(String identifier, Long localId, Long remoteId){
+        this.identifier = identifier;
+        this.localId = localId;
+        this.remoteId = remoteId;
     }
 }

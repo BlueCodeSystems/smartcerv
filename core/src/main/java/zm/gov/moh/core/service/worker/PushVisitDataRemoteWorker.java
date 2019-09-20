@@ -7,6 +7,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,7 @@ import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
@@ -51,11 +53,14 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
         if(unpushedVisitEntityId.length > 0) {
 
-            Visit[] patientVisits = createVisits(unpushedVisitEntityId);
 
-            restApi.putVisit(accessToken, batchVersion, patientVisits)
-                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+                List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
+
+                if(patientVisits.size() > 0)
+                    restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
+                            .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                            .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+
         }
 
         if(mResult.equals(Result.success()))
@@ -81,14 +86,14 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         };
     }
 
-    public Visit[] createVisits(Long ...visitEntityId){
+    public List<Visit> createVisits (Long ...visitEntityId){
 
         List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
 
         if(visitEntities.size() > 0) {
 
             int visitIndex = 0;
-            Visit[] visits = new Visit[visitEntities.size()];
+            List<Visit> visits = new ArrayList<>();
 
             List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
                     .toList().blockingGet();
@@ -106,40 +111,46 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
             for (VisitEntity visitEntity : visitEntities) {
 
-                Visit.Builder visit = normalizeVisit(visitEntity);
+                try {
 
-                List<EncounterEntity> visitEncounter = Observable.fromIterable(encounterEntities)
-                        .filter( encounterEntity -> (encounterEntity.getVisitId().longValue() == visitEntity.getVisitId().longValue())).toList().blockingGet();
+                    Visit.Builder visit = normalizeVisit(visitEntity);
 
-
-                Encounter[] encounters = new Encounter[visitEncounter.size()];
-                int index = 0;
-
-                for (EncounterEntity encounterEntity : visitEncounter) {
-
-                    if(encounterEntity == null)
-                        continue;
-                    Encounter encounter = normalizeEncounter(encounterEntity);
+                    List<EncounterEntity> visitEncounter = Observable.fromIterable(encounterEntities)
+                            .filter(encounterEntity -> (encounterEntity.getVisitId().longValue() == visitEntity.getVisitId().longValue())).toList().blockingGet();
 
 
-                    List<ObsEntity> encounterObs = Observable.fromIterable(obsEntities)
-                            .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
-                            .toList()
-                            .blockingGet();
+                    Encounter[] encounters = new Encounter[visitEncounter.size()];
+                    int index = 0;
 
-                     Obs[] obs = Observable.fromIterable(encounterObs)
-                            .map((this::normalizeObs))
-                            .toList()
-                            .blockingGet()
-                            .toArray(new Obs[encounterObs.size()]);
+                    for (EncounterEntity encounterEntity : visitEncounter) {
+
+                        if (encounterEntity == null)
+                            continue;
+                        Encounter encounter = normalizeEncounter(encounterEntity);
 
 
-                    encounter.setObs(obs);
+                        List<ObsEntity> encounterObs = Observable.fromIterable(obsEntities)
+                                .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
+                                .toList()
+                                .blockingGet();
 
-                    encounters[index++] = encounter;
+                        Obs[] obs = Observable.fromIterable(encounterObs)
+                                .map((this::normalizeObs))
+                                .toList()
+                                .blockingGet()
+                                .toArray(new Obs[encounterObs.size()]);
+
+
+                        encounter.setObs(obs);
+
+                        encounters[index++] = encounter;
+                    }
+
+                    visits.add(visit.setEncounters(encounters).build());
                 }
+                catch (Exception e){
 
-                visits[visitIndex++] = visit.setEncounters(encounters).build();
+                }
             }
 
             return visits;
@@ -173,15 +184,17 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         return obs;
     }
 
-    public Visit.Builder normalizeVisit(VisitEntity visitEntity){
+    public Visit.Builder normalizeVisit(VisitEntity visitEntity) throws Exception {
 
         Visit.Builder visit = new  Visit.Builder();
         String visitType = db.visitTypeDao().getUuidVisitTypeById(visitEntity.getVisitTypeId());
         String patient = db.personIdentifierDao().getUuidByPersonId(visitEntity.getPatientId());//db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId(),3);
         String location = db.locationDao().getUuidById(visitEntity.getLocationId());
 
-        if(patient == null)
-            patient = db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId());
+        List<PersonIdentifier> personIdentifiers = db.personIdentifierDao().getAll();
+        if(patient == null || visitType == null || location == null)
+            throw new Exception("Inadequate parameters");
+
 
         visit.setVisitType(visitType)
                 .setPatient(patient)

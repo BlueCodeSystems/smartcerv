@@ -11,11 +11,14 @@ import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
@@ -40,42 +43,9 @@ public class PullDataRemoteWorker extends RemoteWorker {
         if(lastSyncDate != null)
             MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
 
-            //Patient identifier
-            ConcurrencyUtils.consumeBlocking(
-                    patientIdentifierEntities -> {
+            getPatientId(accessToken,locationId, localDateTime,OFFSET, LIMIT);
 
-                        Observable.fromArray(patientIdentifierEntities)
-                                .filter(patientIdentifierEntity -> patientIdentifierEntity.getIdentifierType() == 3)
-                                .map(this::updateIdentifiers)
-                                .toList()
-                                .blockingGet();
-
-                        //db.personIdentifierDao().insert(personIdentifiers);
-
-                        db.patientIdentifierDao().insert(patientIdentifierEntities);
-                    }, //consumer
-                    this::onError,
-                    repository.getRestApi().getPatientIdentifiers(accessToken,locationId, localDateTime,OFFSET, LIMIT), //producer
-                    TIMEOUT);
-        onTaskCompleted();
-
-
-            //Patients
-            ConcurrencyUtils.consumeAsync(
-
-                    patient -> {
-
-                        List<PatientEntity> patientEntities = Observable.fromArray(patient)
-                                .filter((patientEntity -> (!remoteLocalIdentifierMap.keySet().contains(patientEntity.getPatientId()))))
-                                .toList()
-                                .blockingGet();
-
-                        repository.getDatabase().patientDao().insert(patientEntities);
-                        onTaskCompleted();
-                    }, //consumer
-                    this::onError,
-                    repository.getRestApi().getPatients(accessToken), //producer
-                    TIMEOUT);
+            getPatient(accessToken,locationId, localDateTime,OFFSET, LIMIT);
 
             //obs
             getObs(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
@@ -95,19 +65,63 @@ public class PullDataRemoteWorker extends RemoteWorker {
             //person address
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
-
-        if(awaitResult().equals(Result.success())){
-
-            repository.getDefaultSharePrefrences().edit()
-                    .putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
-                    .apply();
-        }
+            if(awaitResult().equals(Result.success()))
+                repository.getDefaultSharePrefrences().edit()
+                        .putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                        .apply();
 
         return awaitResult();
     }
 
 
+    public void getPatient(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
+        //Patients
+        ConcurrencyUtils.consumeAsync(
+
+                patient -> {
+
+                    if(patient.length > 0) {
+                        List<PatientEntity> patientEntities = Observable.fromArray(patient)
+                                .filter((patientEntity -> (!remoteLocalIdentifierMap.keySet().contains(patientEntity.getPatientId()))))
+                                .toList()
+                                .blockingGet();
+
+                        repository.getDatabase().patientDao().insert(patientEntities);
+                        getPatient(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                    }
+                    else
+                        onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPatients(accessToken,locationId, MIN_DATETIME,offset, limit), //producer
+                TIMEOUT);
+    }
+
+    public void getPatientId(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
+
+        ConcurrencyUtils.consumeBlocking(
+                patientIdentifierEntities -> {
+
+                    if(patientIdentifierEntities.length > 0) {
+
+                        Observable.fromArray(patientIdentifierEntities)
+                                .filter(patientIdentifierEntity -> patientIdentifierEntity.getIdentifierType() == 3)
+                                .map(this::updateIdentifiers)
+                                .toList()
+                                .blockingGet();
+
+                        //db.personIdentifierDao().insert(personIdentifiers);
+
+                        db.patientIdentifierDao().insert(patientIdentifierEntities);
+                        getPatientId(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                    }else
+                        onTaskCompleted();
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPatientIdentifiers(accessToken,locationId, MIN_DATETIME,offset, limit), //producer
+                TIMEOUT);
+    }
 
     public void getObs(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit ){
 
@@ -116,7 +130,10 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
                     if(obs.length > 0){
 
-                        db.obsDao().insert(obs);
+                        for(ObsEntity obsEntity : obs)
+                            if(db.obsDao().findByObsDatetime(obsEntity.getObsDateTime()).length == 0)
+                                db.obsDao().insert(obs);
+
                         updateMetadata(obs, EntityType.OBS);
                         getObs(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
@@ -136,7 +153,10 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
                     if(visitEntities.length > 0){
 
-                        db.visitDao().insert(visitEntities);
+                        for(VisitEntity visitEntity : visitEntities)
+                            if(db.visitDao().getByDatetime(visitEntity.getDateStarted()).length == 0)
+                                db.visitDao().insert(visitEntities);
+
                         updateMetadata(visitEntities, EntityType.VISIT);
                         getVisit(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
@@ -156,7 +176,10 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
                     if(encounterEntities.length > 0){
 
-                        db.encounterDao().insert(encounterEntities);
+                        for(EncounterEntity encounterEntity : encounterEntities)
+                            if(db.encounterDao().getByDatetime(encounterEntity.getEncounterDatetime()).length == 0)
+                                db.encounterDao().insert(encounterEntities);
+
                         updateMetadata(encounterEntities, EntityType.ENCOUNTER);
                         getEncounter(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
@@ -178,13 +201,15 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
                         for(Person person: persons){
 
+                            PersonIdentifier personIdentifier = db.personIdentifierDao().getByPersonId(person.getPersonId());
                             if(remoteLocalIdentifierMap.keySet().contains(person.getPersonId())) {
 
                                 Person person1 = db.personDao().findById(remoteLocalIdentifierMap.get(person.getPersonId()));
-                                PersonIdentifier personIdentifier = db.personIdentifierDao().getByPersonId(person.getPersonId());
                                 person.setPersonId(person1.getPersonId());
-                                personIdentifier.setRemoteUuid(person.getUuid());
+                            }
 
+                            if(personIdentifier != null) {
+                                personIdentifier.setRemoteUuid(person.getUuid());
                                 db.personIdentifierDao().insert(personIdentifier);
                             }
                             db.personDao().insert(person);
@@ -273,11 +298,15 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         PersonIdentifier personIdentifier = db.personIdentifierDao().getByIdentifier(patientIdentifierEntity.getIdentifier());
         if(personIdentifier != null){
+
             personIdentifier.setRemoteId(patientIdentifierEntity.getPatientId());
-            db.personIdentifierDao().insert(personIdentifier);
             if(personIdentifier.getLocalId() != null)
                 remoteLocalIdentifierMap.put(patientIdentifierEntity.getPatientId(), personIdentifier.getLocalId());          // syncedPersonIdentifiers.add(patientIdentifierEntity.getPatientId());
         }
+        else
+             personIdentifier = new PersonIdentifier(patientIdentifierEntity.getIdentifier(),null, patientIdentifierEntity.getPatientId());
+
+        db.personIdentifierDao().insert(personIdentifier);
 
         return patientIdentifierEntity;
     }

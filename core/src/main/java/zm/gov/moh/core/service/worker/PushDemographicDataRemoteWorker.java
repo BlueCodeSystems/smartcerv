@@ -7,6 +7,8 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -49,23 +51,31 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode());
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
 
-        Patient[] patients;
+        List<Patient> patients;
         int index = 0;
         Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset,pushedEntityId);
         if(unpushedPatientEntityId.length != 0) {
 
-            patients = new Patient[unpushedPatientEntityId.length];
+            patients = new ArrayList<>();
 
             for(Long patientEntityId : unpushedPatientEntityId){
 
-                Patient patient = createPatient(patientEntityId);
-                if(patient != null)
-                    patients[index++] = patient;
+                try {
+
+                    Patient patient = createPatient(patientEntityId);
+                    if (patient != null)
+                        patients.add(patient);
+                }catch (Exception e){
+
+                }
             }
 
-            restApi.putPatients(accessToken, batchVersion, patients)
-                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(unpushedPatientEntityId, EntityType.PATIENT.getId()), this::onError);
+            if(patients.size() > 0) {
+
+                restApi.putPatients(accessToken, batchVersion, patients.toArray(new Patient[patients.size()]))
+                        .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                        .subscribe(onComplete(unpushedPatientEntityId, EntityType.PATIENT.getId()), this::onError);
+            }
         }else
             return mResult;
 
@@ -84,7 +94,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
         };
     }
 
-    public Patient createPatient(long patientId){
+    public Patient createPatient(long patientId) throws Exception{
 
        Person person = db.personDao().findById(patientId);
        PersonName personName = db.personNameDao().findPersonNameById(patientId);
@@ -92,12 +102,17 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId);
        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
 
-       return new Patient.Builder()
-               .setPerson(person)
-               .setPersonName(personName)
-               .setPersonAddress(personAddress)
-               .setAttributes(personAttributes)
-               .setIdentifiers(patientIdentifiers)
-               .build();
+       if((person != null || personName != null || personAddress != null) && patientIdentifiers.size() > 1) {
+
+           return new Patient.Builder()
+                   .setPerson(person)
+                   .setPersonName(personName)
+                   .setPersonAddress(personAddress)
+                   .setAttributes(personAttributes)
+                   .setIdentifiers(patientIdentifiers)
+                   .build();
+       }
+       else
+           throw new Exception("Inadequate arguments");
     }
 }
