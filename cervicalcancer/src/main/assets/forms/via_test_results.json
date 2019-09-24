@@ -152,7 +152,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "screening results"
+                    "screening results","eligible for cryotherapy"
                   ]
                 }
               }
@@ -205,7 +205,19 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "eligible for cryotherapy"
+                    "percentage of cervix covered"
+                  ]
+                }
+              }
+            }, {
+              "condition": {
+                "value": 165163
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "percentage of cervix covered2"
                   ]
                 }
               }
@@ -254,6 +266,16 @@
         },
         {
           "tag": "percentage of cervix covered",
+          "widgetType": "Concept",
+          "conceptId": 165268,
+          "uuid": "0f72a78f-c461-4626-9027-42565082b158",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Percentage(%) of cervix covered",
+          "textSize": 18
+        },
+        {
+          "tag": "percentage of cervix covered2",
           "widgetType": "Concept",
           "conceptId": 165268,
           "uuid": "0f72a78f-c461-4626-9027-42565082b158",
