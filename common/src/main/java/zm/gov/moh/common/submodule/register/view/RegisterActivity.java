@@ -88,7 +88,10 @@ public class RegisterActivity extends BaseRegisterActivity {
         binding.setSearchTermObserver(searchTermObserver);
         binding.setContext(this);
 
+        setViewModel(registerViewModel);
+        addDrawer(this);
         getAllClient();
+
     }
 
     @Override
