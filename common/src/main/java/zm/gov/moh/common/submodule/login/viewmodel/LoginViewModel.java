@@ -3,14 +3,15 @@ package zm.gov.moh.common.submodule.login.viewmodel;
 import android.app.Application;
 import android.util.Base64;
 
-import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+
 import java.security.MessageDigest;
-import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -39,6 +40,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
     private final int TIMEOUT = 30000;
     private String credentialsToBase64;
     private Location[] providerLocations;
+    private String serverTimeZoneOffset;
 
     public LoginViewModel(Application application){
         super(application);
@@ -47,6 +49,9 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
         viewBindings = new ViewBindings();
     }
 
+    public String getServerTimeZoneOffset() {
+        return serverTimeZoneOffset;
+    }
 
     public void submitCredentials(ViewBindings credentials){
 
@@ -111,18 +116,19 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
     private void onSuccess(Authentication authentication){
 
-        String accessToken = authentication.getToken();
-        getRepository().getDefaultSharePrefrences()
-                .edit()
-                .putString(Key.AUTHORIZED_USER_UUID, authentication.getUserUuid())
-                .apply();
-
-        getRepository().getDefaultSharePrefrences()
-                .edit()
-                .putString(Key.ACCESS_TOKEN, accessToken)
-                .apply();
-
         try {
+
+            String accessToken = authentication.getToken();
+            getRepository().getDefaultSharePrefrences()
+                    .edit()
+                    .putString(Key.AUTHORIZED_USER_UUID, authentication.getUserUuid())
+                    .apply();
+
+            getRepository().getDefaultSharePrefrences()
+                    .edit()
+                    .putString(Key.ACCESS_TOKEN, accessToken)
+                    .apply();
+
 
             Cipher cipher = Cipher.getInstance(AES);
             java.security.Key aesKey = new SecretKeySpec(to128bit(credentialsToBase64), AES);
@@ -135,14 +141,16 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
                     .putString(Key.ACCESS_TOKEN_ENCRYPTED, Base64.encodeToString(encrypted,Base64.DEFAULT))
                     .apply();
 
+            pending.set(true);
+
+            ConcurrencyUtils.consumeOnMainThread(state -> viewState.setValue(state),
+                    authoriseLocationLogin(authentication));
+
         }catch (Exception e){
 
         }
 
-        pending.set(true);
 
-        ConcurrencyUtils.consumeOnMainThread(state -> viewState.setValue(state),
-                authoriseLocationLogin(authentication));
     }
 
     public void onError(Throwable throwable){
@@ -165,6 +173,14 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         String accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
         String accessTokenEncrypted = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN_ENCRYPTED,null);
+
+        String serverTimeZone = getRepository().getDefaultSharePrefrences().getString(Key.TIMEZONE_ID,null);
+
+
+        if(!compareCurrentTimeZoneOffset(serverTimeZone)) {
+            viewState.setValue(ViewState.MISMATCHED_TIME_OFFSETS);
+            return;
+        }
 
         if(accessToken == null) {
             viewState.setValue(ViewState.NO_INTERNET);
@@ -215,6 +231,13 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
     public ViewState authoriseLocationLogin(Authentication auth){
 
         User user = auth.getUser();
+
+        String serverTimeZoneId = auth.getTimeZone();
+        getRepository().getDefaultSharePrefrences().edit().putString(Key.TIMEZONE_ID, serverTimeZoneId).apply();
+
+        if(!compareCurrentTimeZoneOffset(serverTimeZoneId))
+            return ViewState.MISMATCHED_TIME_OFFSETS;
+
 
             if(user.getProvider() != null && user.getPersonName() != null) {
 
@@ -274,8 +297,22 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
     }
 
+    private boolean compareCurrentTimeZoneOffset(@NonNull String timeZoneId){
+
+        try {
+            ZoneId zoneId = ZoneId.of(timeZoneId);
+            ZonedDateTime currentTime = ZonedDateTime.now();
+            ZonedDateTime serverTime = ZonedDateTime.now(zoneId);
 
 
-
-
+            serverTimeZoneOffset = serverTime.getOffset().getId();
+            if (currentTime.getOffset().compareTo(serverTime.getOffset()) == 0)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 }

@@ -43,6 +43,7 @@ public class Key {
     public static final String LAST_LOCATION="last_location";
     public static final String LAST_DATA_SYNC_DATETIME = "LAST_DATA_SYNC_DATETIME";
     public static final String LAST_METADATA_SYNC_DATETIME = "LAST_METADATA_SYNC_DATETIME";
+    public static final String TIMEZONE_ID = "TIMEZONE_ID";
 
 
 }

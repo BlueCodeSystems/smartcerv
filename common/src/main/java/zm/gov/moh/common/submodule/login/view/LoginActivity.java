@@ -111,6 +111,12 @@ public class LoginActivity extends BaseActivity {
                     case MULTIPLE_LOCATION_SELECTION:
                         getSupportFragmentManager().beginTransaction().replace(R.id.segment, new LocationFragment()).commit();
                         progressDialog.dismiss();
+                        break;
+
+                    case MISMATCHED_TIME_OFFSETS:
+                        Utils.showModelDialog(context, resources.getString(R.string.time_zone_mismatched_header), resources.getString(R.string.time_zone_mismatched)+" GMT"+loginViewModel.getServerTimeZoneOffset()).show();
+                        progressDialog.dismiss();
+                        break;
 
                     default: break;
                 }
