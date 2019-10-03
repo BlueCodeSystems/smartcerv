@@ -22,6 +22,7 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
     Repository repository;
     Context context;
     FacilityDistrictCode code;
+    final String OFFSET = "000001";
 
     public CervicalCancerIDEditTextWidget(Context context, int weight, Repository repository){
         super(context, weight);
@@ -46,20 +47,31 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
         String districtFacilityCode = this.code.getDistrictCode()+"-"+this.code.getFacilityCode();
         if(identifiers.size() > 0) {
 
-            List<Long> serials = new ArrayList<>();
-            for (String identifier : identifiers) {
-                int index = identifier.lastIndexOf('-');
+            try {
+                List<Long> serials = new ArrayList<>();
+                for (String identifier : identifiers) {
+                    int index = identifier.lastIndexOf('-');
 
-                if(!identifier.contains(districtFacilityCode))
-                    continue;
+                    if(!identifier.contains(districtFacilityCode))
+                        continue;
 
-                long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
+                        try {
+                            long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
+                            serials.add(serial);
+                        }catch (Exception e){
 
-                serials.add(serial);
+                        }
+                }
+
+                long preferredSerial = Collections.max(serials) + 1;
+                this.setText(districtFacilityCode + "-"+OFFSET.substring(0,OFFSET.length()-String.valueOf(preferredSerial).length()) + preferredSerial);
+
+            }catch (Exception e){
+                this.setText(districtFacilityCode+"-"+OFFSET);
             }
-
-            long preferredSerial = Collections.max(serials) + 1;
-            this.setText(districtFacilityCode+"-"+preferredSerial);
+        }
+        else {
+            this.setText(districtFacilityCode+"-"+OFFSET);
         }
     }
 }
