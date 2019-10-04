@@ -281,9 +281,15 @@ public class WidgetModelToWidgetAdapter {
         else if(widgetModel instanceof CervicalCancerIDEditTextModel){
 
             CervicalCancerIDEditTextModel model = (CervicalCancerIDEditTextModel) widgetModel;
-            CervicalCancerIDEditTextWidget widget = new CervicalCancerIDEditTextWidget(context,model.getWeight(),repository);
-            widget.setTag(model.getTag());
-            widget.setBundle(bundle);
+            BaseWidget widget = new CervicalCancerIDEditTextWidget.Builder(context)
+                    .setLabel(model.getLabel())
+                    .setRepository(repository)
+                    .setErrorMessage(model.getErrorMessage())
+                    .setRegex(model.getRegex())
+                    .setRequired(model.getRequired())
+                    .setBundle(bundle)
+                    .setTag(model.getTag())
+                    .build();
 
             return widget;
         }
