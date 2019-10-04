@@ -66,7 +66,7 @@
           "tag": "edi inspection done",
           "widgetType": "Concept",
           "uuid": "0ddf399e-dd1b-4e9f-ab15-c2020865b0fa",
-          "conceptId": 165156,
+          "conceptId": 	165156,
           "dataType": "Boolean",
           "style": "radio",
           "textSize": 18,
@@ -80,8 +80,8 @@
                 "metadata": {
                   "tags": [
                     "image view button",
-                    "default camera",
-                    "camera button"
+                    "camera connect button",
+                    "edi reason"
                   ]
                 }
               }
@@ -95,6 +95,7 @@
                 "metadata": {
                   "tags": [
                     "edi reason"
+
                   ]
                 }
               }
@@ -112,6 +113,7 @@
         },
         {
           "tag": "image view button",
+          "conceptId": 165261,
           "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
           "label": "Image Load",
@@ -119,8 +121,10 @@
           "weight": 1
         },
         {
-          "tag": "camera button",
-          "widgetType": "CameraButton",
+          "tag": "camera connect button",
+          "conceptId": 165261,
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "CameraConnectButton",
           "label": "Camera Connect",
           "textSize": 18,
           "weight": 1
@@ -148,7 +152,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "screening results"
+                    "screening results","eligible for cryotherapy"
                   ]
                 }
               }
@@ -201,7 +205,19 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "eligible for cryotherapy"
+                    "percentage of cervix covered"
+                  ]
+                }
+              }
+            }, {
+              "condition": {
+                "value": 165163
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "percentage of cervix covered2"
                   ]
                 }
               }
@@ -250,6 +266,16 @@
         },
         {
           "tag": "percentage of cervix covered",
+          "widgetType": "Concept",
+          "conceptId": 165268,
+          "uuid": "0f72a78f-c461-4626-9027-42565082b158",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Percentage(%) of cervix covered",
+          "textSize": 18
+        },
+        {
+          "tag": "percentage of cervix covered2",
           "widgetType": "Concept",
           "conceptId": 165268,
           "uuid": "0f72a78f-c461-4626-9027-42565082b158",
