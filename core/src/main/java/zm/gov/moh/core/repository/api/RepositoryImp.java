@@ -27,10 +27,10 @@ public class RepositoryImp implements Repository{
 
     private Database database;
     private RestApi restApi;
-    private Application application;
+    private Context application;
 
 
-    public RepositoryImp(Application application){
+    public RepositoryImp(Context application){
 
         this.application = application;
         this.database = Database.getDatabase(application);

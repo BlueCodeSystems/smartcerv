@@ -11,7 +11,7 @@ import android.util.TypedValue;
 
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
-import zm.gov.moh.core.repository.database.entity.derived.ProviderUser;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 
 public class ProviderLabelWidget extends LinearLayoutCompat {
 
@@ -35,10 +35,10 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
         this.addView(label);
         this.addView(value);
 
-        String userUuid = repository.getDefaultSharePrefrences()
-                .getString(Key.AUTHORIZED_USER_UUID,"Not Found");
+        long providerId = repository.getDefaultSharePrefrences()
+                .getLong(Key.PROVIDER_ID,0);
 
-        repository.getDatabase().providerUserDao().getAllByUserUuid(userUuid).observe((AppCompatActivity)context,this::setProvider);
+        repository.getDatabase().personNameDao().getByProviderId(providerId).observe((AppCompatActivity)context,this::setProviderName);
     }
 
     public void setLabelText(String text) {
@@ -59,14 +59,9 @@ public class ProviderLabelWidget extends LinearLayoutCompat {
         value.setTextSize(TypedValue.COMPLEX_UNIT_SP,size);
     }
 
-    private void setProvider(ProviderUser providerUser) {
+    private void setProviderName(PersonName personName) {
 
-        String displayName = providerUser.getGivenName()+" "+providerUser.getFamilyName();
+        String displayName = personName.getGivenName()+" "+personName.getFamilyName();
         setTextValue(displayName);
-        this.bundle.putLong((String)getTag(), providerUser.getProviderId());
-    }
-
-    public void setFormData(Bundle bundle){
-        this.bundle = bundle;
     }
 }

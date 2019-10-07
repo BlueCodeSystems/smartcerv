@@ -28,7 +28,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.model.VisitListItem
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.core.model.VisitState;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;

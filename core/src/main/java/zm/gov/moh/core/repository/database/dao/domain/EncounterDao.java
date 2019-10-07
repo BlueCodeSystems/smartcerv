@@ -25,6 +25,9 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     @Query("DELETE FROM encounter WHERE encounter_id IN (:encounterId) AND encounter_id >= :offset")
     void deleteById(long[] encounterId, long offset);
 
+    @Query("SELECT encounter_id FROM encounter WHERE datetime(encounter_datetime) = datetime(:dateTime)")
+    Long[] getByDatetime(LocalDateTime dateTime);
+
     @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId) AND voided != 1")
     List<EncounterEntity> getByVisitId(List<Long> visitId);
 

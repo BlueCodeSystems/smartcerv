@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentCommonHomeBinding;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.

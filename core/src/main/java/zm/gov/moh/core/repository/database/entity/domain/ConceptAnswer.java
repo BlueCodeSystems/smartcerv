@@ -3,11 +3,12 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import org.threeten.bp.LocalDateTime;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 @Entity(tableName = "concept_answer")
-public class ConceptAnswer {
+public class ConceptAnswer extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "concept_answer_id")
@@ -43,6 +44,11 @@ public class ConceptAnswer {
     private String uuid;
 
     public long getConceptAnswerId() {
+        return conceptAnswerId;
+    }
+
+    @Override
+    public long getId() {
         return conceptAnswerId;
     }
 
@@ -104,5 +110,10 @@ public class ConceptAnswer {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    @Override
+    public LocalDateTime getDateChanged() {
+        return null;
     }
 }

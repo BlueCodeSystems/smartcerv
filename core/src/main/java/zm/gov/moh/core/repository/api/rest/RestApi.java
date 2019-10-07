@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.api.rest;
 
+import org.threeten.bp.LocalDateTime;
+
 import io.reactivex.Maybe;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -45,8 +47,8 @@ public interface RestApi {
     @GET("idgen/{source}/{batchSize}/")
     Maybe<IdentifiersResponseBody> getIdentifiers(@Header("x-access-token") String accessToken, @Path("source") int source, @Path("batchSize") int batchSize);
 
-    @GET("location/")
-    Maybe<Location[]> getLocations(@Header("x-access-token") String accessToken);
+    @GET("v1/location/LIMIT/{datetime}/{OFFSET}/{LIMIT}/")
+    Maybe<Location[]> getLocations(@Header("x-access-token") String accessToken,@Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit );
 
     @GET("location/tag/")
     Maybe<LocationTag[]> getLocationTags(@Header("x-access-token") String accessToken);
@@ -69,20 +71,17 @@ public interface RestApi {
     @GET("person/name/")
     Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken);
 
-    @GET("person/name/{datetime}/")
-    Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+    @GET("v1/person/name/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
-    @GET("person/address/")
-    Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken);
+    @GET("v1/person/address/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
     @GET("person/address/{datetime}")
     Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
 
-    @GET("person/{datetime}")
-    Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
-
-    @GET("person/")
-    Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken);
+    @GET("v1/person/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
     @GET("patient/{datetime}")
     Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
@@ -90,8 +89,11 @@ public interface RestApi {
     @GET("patient/")
     Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken);
 
-    @GET("patient/identifier/{datetime}")
-    Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+    @GET("v1/patient/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
+
+    @GET("v1/patient/identifier/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
     @GET("patient/identifier/")
     Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken);
@@ -99,38 +101,30 @@ public interface RestApi {
     @GET("patient/identifier/type")
     Maybe<PatientIdentifierType[]> getPatientIdentifierTypes(@Header("x-access-token") String accessToken);
 
-    @GET("obs/")
-    Maybe<ObsEntity[]> getObs(@Header("x-access-token") String accessToken);
+    @GET("v1/obs/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<ObsEntity[]> getObs(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
-    @GET("obs/{datetime}")
-    Maybe<ObsEntity[]> getObs(@Header("x-access-token") String accessToken,  @Path("datetime") String datetime);
+    @GET("v1/concept/name/LIMIT/{datetime}/{OFFSET}/{LIMIT}/")
+    Maybe<ConceptName[]> getConceptNames(@Header("x-access-token") String accessToken, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
-    @GET("concept/name/")
-    Maybe<ConceptName[]> getConceptNames(@Header("x-access-token") String accessToken);
+    @GET("v1/concept/answer/LIMIT/{datetime}/{OFFSET}/{LIMIT}/")
+    Maybe<ConceptAnswer[]> getConceptAnswers(@Header("x-access-token") String accessToken, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
-    @GET("concept/answer/")
-    Maybe<ConceptAnswer[]> getConceptAnswers(@Header("x-access-token") String accessToken);
-
-    @GET("concept/")
-    Maybe<Concept[]> getConcept(@Header("x-access-token") String accessToken);
+    @GET("v1/concept/LIMIT/{datetime}/{OFFSET}/{LIMIT}/")
+    Maybe<Concept[]> getConcept(@Header("x-access-token") String accessToken, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
     @GET("encounter/type/")
     Maybe<EncounterType[]> getEncounterTypes(@Header("x-access-token") String accessToken);
 
-    @GET("encounter/")
-    Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken);
-
-    @GET("encounter/{datetime}")
-    Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+    @GET("v1/encounter/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
     @GET("visit/type/")
     Maybe<VisitType[]> getVisitTypes(@Header("x-access-token") String accessToken);
 
-    @GET("visit/")
-    Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken);
+    @GET("v1/visit/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
+    Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
-    @GET("visit/{datetime}")
-    Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken,  @Path("datetime") String datetime);
 
     @GET("drug/")
     Maybe<Drug[]> getDrugs(@Header("x-access-token") String accessToken);

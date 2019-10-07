@@ -7,8 +7,8 @@
     <data>
         <variable name="ccancerviewmodel" type="zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel"/>
         <variable name="modules" type="zm.gov.moh.core.model.Submodules"/>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
     </data>
     <LinearLayout

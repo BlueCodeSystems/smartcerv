@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.view;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -9,18 +8,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import com.google.common.base.Strings;
-
-import java.net.URI;
 import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.viewmodel.FormViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.Key;
+import zm.gov.moh.common.base.BaseActivity;
 
 public class FormActivity extends BaseActivity {
 

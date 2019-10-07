@@ -8,7 +8,8 @@
     <string name="no_observations">"No observations recorded"</string>
     <string name="insufficient_identifiers">Registration unsuccessful, please sync and try again</string>
     <string name="Logout">logout</string>
-
+    <string name="time_zone_mismatched">Set a time zone with an offset of</string>
+    <string name="time_zone_mismatched_header">Timezone mismatch</string>
     <string name="logged_in_user_uuid_key">zm.gov.moh.core.logged_in_user_uuid_key</string>
     <string name="no_internet">No internet connection</string>
     <string name="please_wait">Please Wait</string>

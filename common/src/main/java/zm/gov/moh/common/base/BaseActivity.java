@@ -1,6 +1,7 @@
-package zm.gov.moh.common.ui;
+package zm.gov.moh.common.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -46,6 +47,7 @@ import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.DrawerProvider;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 
 import static zm.gov.moh.core.model.Key.PERSON_ADDRESS;
 
@@ -63,10 +65,12 @@ public class BaseActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     protected ListView drawerList;
     protected String[] layers;
+    protected ProgressDialog progressDialog;
+    BaseEventHandler toolBarEventHandler;
+
     protected Drawer drawer;
 
     Toolbar toolbar;
-    ToolBarEventHandler toolBarEventHandler;
     String firstname,lastname,userName;
     AccountHeader provider;
 
@@ -97,11 +101,14 @@ public class BaseActivity extends AppCompatActivity {
             baseReceiver = new BaseReceiver();
             broadcastManager = LocalBroadcastManager.getInstance(this);
 
-            IntentFilter intentFilter = new IntentFilter(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION);
+            IntentFilter intentFilter = new IntentFilter(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILED_REGISTRATION);
             IntentFilter syncIntentFilter = new IntentFilter(IntentAction.REMOTE_SYNC_COMPLETE);
+
 
             broadcastManager.registerReceiver(baseReceiver, intentFilter);
             broadcastManager.registerReceiver(baseReceiver, syncIntentFilter);
+            broadcastManager.registerReceiver(baseReceiver, new IntentFilter(IntentAction.REMOTE_SERVICE_INTERRUPTED));
+            broadcastManager.registerReceiver(baseReceiver, new IntentFilter(IntentAction.REMOTE_SERVICE_METADATA_SYNC_COMPLETE));
         }
     }
 
@@ -143,10 +150,10 @@ public class BaseActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    public ToolBarEventHandler getToolbarHandler(Context context){
+    public BaseEventHandler getToolbarHandler(Context context){
 
         if(toolBarEventHandler == null)
-         toolBarEventHandler = new ToolBarEventHandler(context);
+         toolBarEventHandler = new BaseEventHandler(context);
         return toolBarEventHandler;
     }
 
@@ -166,23 +173,12 @@ public class BaseActivity extends AppCompatActivity {
 
         final long SESSION_LOCATION_ID = getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(Key.LOCATION_ID, 1);
-        final String USER_UUID = getViewModel().getRepository().getDefaultSharePrefrences()
-                .getString(Key.AUTHORIZED_USER_UUID, "null");
+        final long PROVIDER_ID = getViewModel().getRepository().getDefaultSharePrefrences()
+                .getLong(Key.PROVIDER_ID, 1);
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         Long personId = bundle.getLong(Key.PERSON_ID);
-
-
-        getViewModel()
-                .getRepository()
-                .getDatabase()
-                .providerUserDao()
-                .getAllByUserUuid(USER_UUID)
-                .observe(this, providerUser -> {
-
-                    bundle.putLong(Key.PROVIDER_ID, providerUser.getProviderId());
-                    bundle.putLong(Key.USER_ID, providerUser.getUserId());
-                });
+        bundle.putLong(Key.PROVIDER_ID, PROVIDER_ID);
 
         if (personId != null) {
 
@@ -225,6 +221,15 @@ public class BaseActivity extends AppCompatActivity {
         public BaseActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar, int openDrawerContentDescRes, int closeDrawerContentDescRes) {
             super(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes);
         }
+    }
+
+    public void showProgressIndicator(String label){
+        progressDialog = Utils.showProgressDialog(this, label);
+    }
+
+    public void dismissProgressIndicator(){
+        if(progressDialog != null)
+            progressDialog.dismiss();
     }
 
     //Calculate client age as Integer

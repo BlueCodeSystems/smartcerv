@@ -2,8 +2,11 @@ package zm.gov.moh.core.repository.database.entity.system;
 
 import com.squareup.moshi.Json;
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "entity_metadata")
@@ -23,6 +26,10 @@ public class EntityMetadata {
     @Json(name = "remote_status_code")
     @ColumnInfo(name = "remote_status_code")
     private short remoteStatusCode;
+
+    @Json(name = "last_modified")
+    @ColumnInfo(name = "last_modified")
+    private LocalDateTime lastModified;
 
     public long getId() {
         return id;
@@ -56,9 +63,25 @@ public class EntityMetadata {
         this.remoteStatusCode = remoteStatusCode;
     }
 
+    public LocalDateTime getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
+    }
+
     public EntityMetadata(long entityId, int entityTypeId, short remoteStatusCode){
         this.entityId = entityId;
         this.entityTypeId = entityTypeId;
         this.remoteStatusCode = remoteStatusCode;
+    }
+
+    @Ignore
+    public EntityMetadata(long entityId, int entityTypeId, short remoteStatusCode, LocalDateTime lastModified){
+        this.entityId = entityId;
+        this.entityTypeId = entityTypeId;
+        this.remoteStatusCode = remoteStatusCode;
+        this.lastModified = lastModified;
     }
 }

@@ -23,12 +23,12 @@ import zm.gov.moh.core.repository.api.rest.RestApi;
 public class InjectorUtils {
 
 
-    public static void provideRepository(InjectableViewModel injectableViewModel, Application application){
+    public static void provideRepository(InjectableViewModel injectableViewModel, Context application){
 
         injectableViewModel.setRepository(new RepositoryImp(application));
     }
 
-    public static RestApi provideRestAPIAdapter(Application application) {
+    public static RestApi provideRestAPIAdapter(Context application) {
 
         Moshi moshi = new Moshi.Builder().add(new JsonAdapter()).build();
 
@@ -46,6 +46,8 @@ public class InjectorUtils {
 
         return  retrofit.create(RestApi.class);
     }
+
+
 
 
     }

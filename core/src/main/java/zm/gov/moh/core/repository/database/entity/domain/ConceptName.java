@@ -3,11 +3,12 @@ package zm.gov.moh.core.repository.database.entity.domain;
 import org.threeten.bp.LocalDateTime;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
 @Entity(tableName = "concept_name")
-public class ConceptName {
+public class ConceptName extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "concept_name_id")
@@ -69,6 +70,11 @@ public class ConceptName {
     @ColumnInfo(name = "changed_by")
     @Json(name = "changed_by")
     private Long changedBy;
+
+    @Override
+    public long getId() {
+        return conceptNameId;
+    }
 
     public long getConceptNameId() {
         return conceptNameId;

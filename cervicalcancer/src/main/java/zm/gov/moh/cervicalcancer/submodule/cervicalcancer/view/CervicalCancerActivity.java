@@ -38,8 +38,8 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.databinding.CervicalCancerActivityBinding;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.LineChartVisitItem;
 
 public class CervicalCancerActivity extends BaseActivity {
@@ -73,7 +73,7 @@ public class CervicalCancerActivity extends BaseActivity {
         cervicalCancerViewModel.getStartSubmodule().observe(this, this::startModule);
 
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Cervical Cancer");
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setContext(this);

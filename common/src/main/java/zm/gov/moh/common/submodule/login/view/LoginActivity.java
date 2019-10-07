@@ -12,9 +12,9 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 
 import android.widget.Toast;
 import zm.gov.moh.common.submodule.login.model.ViewState;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.submodule.Module;
-import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -29,6 +29,7 @@ public class LoginActivity extends BaseActivity {
     private ProgressDialog progressDialog;
     private Resources resources;
     private Toast exitToast;
+    protected BaseEventHandler baseEventHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class LoginActivity extends BaseActivity {
         context = this;
         resources = context.getResources();
 
+        baseEventHandler = getToolbarHandler(this);
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
         this.viewModel = loginViewModel;
@@ -66,12 +68,7 @@ public class LoginActivity extends BaseActivity {
                     case AUTHORIZED:
                         startModule(nextModule);
                         progressDialog.dismiss();
-
-                        ServiceManager.getInstance(this)
-                                .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
-                                .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
-                                .startOnComplete(ServiceManager.Service.PULL_META_DATA_REMOTE,ServiceManager.Service.PUSH_ENTITY_REMOTE)
-                                .start();
+                        baseEventHandler.syncData();
                         finish();
                         break;
 
@@ -116,6 +113,12 @@ public class LoginActivity extends BaseActivity {
                     case MULTIPLE_LOCATION_SELECTION:
                         getSupportFragmentManager().beginTransaction().replace(R.id.segment, new LocationFragment()).commit();
                         progressDialog.dismiss();
+                        break;
+
+                    case MISMATCHED_TIME_OFFSETS:
+                        Utils.showModelDialog(context, resources.getString(R.string.time_zone_mismatched_header), resources.getString(R.string.time_zone_mismatched)+" GMT"+loginViewModel.getServerTimeZoneOffset()).show();
+                        progressDialog.dismiss();
+                        break;
 
                     default: break;
                 }

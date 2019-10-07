@@ -53,6 +53,9 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
 
+    //Worker manager
+    api "androidx.work:work-runtime:$workerVersion"
+
     //Retrofit
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.retrofit2:converter-moshi:2.4.0'
