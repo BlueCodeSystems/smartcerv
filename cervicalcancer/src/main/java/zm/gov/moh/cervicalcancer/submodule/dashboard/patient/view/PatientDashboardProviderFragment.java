@@ -25,6 +25,8 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDa
 import zm.gov.moh.common.base.BaseActivity;
 
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.providerInitialsCellView;
+import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,21 +81,6 @@ public class PatientDashboardProviderFragment extends Fragment {
         }
     }
 
-    public static AppCompatTextView providerInitialsCellView(Context context, String intials){
-
-        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(zm.gov.moh.core.utils.Utils.dpToPx(context,0), TableRow.LayoutParams.MATCH_PARENT);
-        layoutParams.weight = 1;
-        AppCompatTextView intialsTv = new AppCompatTextView(context);
-        intialsTv.setText(intials);
-        intialsTv.setGravity(Gravity.CENTER);
-        intialsTv.setTypeface(null,Typeface.BOLD);
-        intialsTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
-        intialsTv.setTextColor(context.getResources().getColor(R.color.colorAccent));
-        intialsTv.setLayoutParams(layoutParams);
-        intialsTv.setBackground(context.getResources().getDrawable(R.drawable.border_right));
-
-        return intialsTv;
-    }
 }
 
 

@@ -16,6 +16,9 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     List<Long> getIds();
 
     @Query("SELECT person_name.* FROM person_name JOIN provider ON person_name.person_id = provider.person_id WHERE provider_id = :providerId AND person_name.voided = 0")
+    PersonName getByInsightProviderId(long providerId);
+
+    @Query("SELECT person_name.* FROM person_name JOIN provider ON person_name.person_id = provider.person_id WHERE provider_id = :providerId AND person_name.voided = 0")
     LiveData<PersonName> getByProviderId(long providerId);
 
     //gets all persons attribute type
