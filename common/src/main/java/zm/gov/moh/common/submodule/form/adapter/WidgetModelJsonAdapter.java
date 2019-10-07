@@ -277,6 +277,10 @@ public class WidgetModelJsonAdapter {
                 cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
                 cervicalCancerIDEditTextModel.setWeight(widgetModelJson.getWeight());
                 cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
+                cervicalCancerIDEditTextModel.setRequired(widgetModelJson.getRequired());
+                cervicalCancerIDEditTextModel.setRegex(widgetModelJson.getRegex());
+                cervicalCancerIDEditTextModel.setErrorMessage(widgetModelJson.getErrorMessage());
+
 
                 return cervicalCancerIDEditTextModel;
 

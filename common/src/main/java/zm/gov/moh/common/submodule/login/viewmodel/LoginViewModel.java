@@ -260,8 +260,4 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
     }
 
-
-
-
-
 }
