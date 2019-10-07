@@ -145,10 +145,10 @@ public class CervicalCancerActivity extends BaseActivity {
                 xAxis.setGranularity(1);
                 xAxis.setCenterAxisLabels(true);
                 xAxis.setGranularityEnabled(true);
-                float barSpace = 0.02f;
-                float groupSpace = 0.3f;
-                int groupCount = 4;
-                data.setBarWidth(0.20f);
+                float barSpace = 0.04f;
+                float groupSpace = 0.2f;
+                int groupCount = 5;
+                data.setBarWidth(0.22f);
                 barChart.getDescription().setEnabled(false);
                 barChart.getXAxis().setAxisMinimum(0);
                 barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
@@ -315,8 +315,8 @@ private  String[] getDates()
     String[] days=new String[6];
     SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar=Calendar.getInstance();
-    calendar.add(Calendar.DAY_OF_YEAR,-4);
-    for(int i=0;i<4;i++)
+    calendar.add(Calendar.DAY_OF_YEAR,-5);
+    for(int i=0;i<5;i++)
     {
         calendar.add(Calendar.DAY_OF_YEAR,1);
         days[i]=simpleDateFormat.format(calendar.getTime());
