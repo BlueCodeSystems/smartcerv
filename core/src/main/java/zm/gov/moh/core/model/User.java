@@ -14,6 +14,7 @@ public class User {
     private Location[] location;
     private PersonName personName;
     private Provider provider;
+    private long personId;
 
     public String getDisplay() {
         return display;
@@ -41,6 +42,10 @@ public class User {
 
     public long getUserId() {
         return userId;
+    }
+
+    public long getPersonId() {
+        return personId;
     }
 
     public PersonName getPersonName() {

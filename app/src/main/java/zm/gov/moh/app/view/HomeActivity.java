@@ -54,7 +54,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
         toolBarEventHandler.setTitle("Home");
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setContext(this);
-
+        addDrawer(this);
         Fragment common = new CommonHomeFragment();
 
         Fragment cervicalCancer = new CervicalCancerHomeFragment();

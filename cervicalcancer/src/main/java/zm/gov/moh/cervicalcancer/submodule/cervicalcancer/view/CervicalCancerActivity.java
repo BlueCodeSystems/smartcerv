@@ -64,6 +64,8 @@ public class CervicalCancerActivity extends BaseActivity {
 
         cervicalCancerViewModel = ViewModelProviders.of(this).get(CervicalCancerViewModel.class);
 
+        setViewModel(cervicalCancerViewModel);
+
         CervicalCancerActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.cervical_cancer_activity);
 
         binding.setVariable(BR.ccancerviewmodel, cervicalCancerViewModel);
@@ -75,6 +77,7 @@ public class CervicalCancerActivity extends BaseActivity {
         toolBarEventHandler.setTitle("Cervical Cancer");
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setContext(this);
+        addDrawer(this);
         barChart= findViewById(R.id.barChart);
 
 

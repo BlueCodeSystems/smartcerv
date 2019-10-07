@@ -99,6 +99,9 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
+
+        //set navigation drawer
+        addDrawer(this);
     }
 
     public void EDIonClick(final View v) {
