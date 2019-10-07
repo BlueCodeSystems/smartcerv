@@ -10,24 +10,24 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import io.reactivex.Observable;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
-import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
+@Deprecated
 public class PullDataRemote extends RemoteService {
 
+    int tasksCompleted = 0;
+    int tasksStarted = 8;
     public PullDataRemote(){
         super(ServiceManager.Service.PULL_ENTITY_REMOTE);
     }
 
     List<Long> localPatientIds;
-
-    final String MIN_DATETIME = "1970-01-01T00:00:00";
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
@@ -37,13 +37,11 @@ public class PullDataRemote extends RemoteService {
     @Override
     protected void executeAsync() {
 
-        onTaskStarted();
-
         String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_SYNC_DATE,null);
 
-        if(lastSyncDate == null){
-            lastSyncDate = MIN_DATETIME;
-        }
+        if(lastSyncDate != null)
+            MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
+
 
         //Patient identifier
         ConcurrencyUtils.consumeBlocking(
@@ -63,7 +61,7 @@ public class PullDataRemote extends RemoteService {
                 this::onError,
                 repository.getRestApi().getPatientIdentifiers(accessToken), //producer
                 TIMEOUT);
-
+        onTaskCompleted();
 
 
         //Patients
@@ -82,43 +80,11 @@ public class PullDataRemote extends RemoteService {
                 this::onError,
                 repository.getRestApi().getPatients(accessToken), //producer
                 TIMEOUT);
+        onTaskCompleted();
 
-        //Person Names
-        ConcurrencyUtils.consumeBlocking(
-                personNames -> {
-
-                    List<Long> indexIds = db.personNameDao().getIds();
-
-                    List<PersonName> personNameList = Observable.fromArray(personNames)
-                            .filter((personName -> (!localPatientIds.contains(personName.getPersonId()) && !indexIds.contains(personName.getPersonId()))))
-                            .toList()
-                            .blockingGet();
-
-                    repository.getDatabase().personNameDao().insert(personNameList);
-                },//consumer
-                this::onError,
-                repository.getRestApi().getPersonNames(accessToken), //producer
-                TIMEOUT);
-
-        //Person Address
-        ConcurrencyUtils.consumeBlocking(
-                personAddresses -> {
-
-                    List<Long> indexIds = db.personAddressDao().getIds();
-                    List<PersonAddress> personAddressList = Observable.fromArray(personAddresses)
-                            .filter((personAddress ->(!localPatientIds.contains(personAddress.getPersonId()) && !indexIds.contains(personAddress.getPersonId()))))
-                            .toList()
-                            .blockingGet();
-
-                    repository.getDatabase().personAddressDao().insert(personAddressList);
-                }
-                , //consumer
-                this::onError,
-                repository.getRestApi().getPersonAddresses(accessToken), //producer
-                TIMEOUT);
 
         //Person
-        ConcurrencyUtils.consumeBlocking(
+        /*ConcurrencyUtils.consumeBlocking(
                 persons -> {
                     List<Long> indexIds = db.personDao().getIds();
                     List<Person> personList = Observable.fromArray(persons)
@@ -135,47 +101,44 @@ public class PullDataRemote extends RemoteService {
                 }, //consumer
                 this::onError,
                 repository.getRestApi().getPersons(accessToken), //producer
-                TIMEOUT);
+                TIMEOUT);*/
 
 
 
-        if(lastSyncDate.equals(MIN_DATETIME)) {
+            //obs
+            //lastModified = db.entityMetadataDao().findEntityLatestModifiedById(EntityType.OBS.getId());
+           // if(lastModified == null) lastModified = MIN_DATETIME;
+            getObs(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
-            //Observations
-            ConcurrencyUtils.consumeAsync(
-                    obs -> {
-                        repository.getDatabase().obsDao().insert(obs);
-                        this.onTaskCompleted();
-                    }, //consumer
-                    this::onError,
-                    repository.getRestApi().getObs(accessToken), //producer
-                    TIMEOUT);
-            onTaskStarted();
+            //visit
+           //// lastModified = db.entityMetadataDao().findEntityLatestModifiedById(EntityType.VISIT.getId());
+            //if(lastModified == null) lastModified = MIN_DATETIME;
+            getVisit(accessToken,locationId, MIN_DATETIME, OFFSET,LIMIT);
 
-            //Visit
-            ConcurrencyUtils.consumeAsync(
-                    visits -> {
-                        repository.getDatabase().visitDao().insert(visits);
-                        this.onTaskCompleted();
-                    }, //consumer
-                    this::onError,
-                    repository.getRestApi().getVisit(accessToken), //producer
-                    TIMEOUT);
-            onTaskStarted();
+            //encounter
+            //lastModified = db.entityMetadataDao().findEntityLatestModifiedById(EntityType.ENCOUNTER.getId());
+            //if(lastModified == null) lastModified = MIN_DATETIME;
+            getEncounter(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
-            //Encounter
-            ConcurrencyUtils.consumeAsync(
-                    encounterEntities -> {
-                        repository.getDatabase().encounterDao().insert(encounterEntities);
-                        this.onTaskCompleted();
-                    }, //consumer
-                    this::onError,
-                    repository.getRestApi().getEncounters(accessToken), //producer
-                    TIMEOUT);
-            onTaskStarted();
-        }
+            //person
+           // lastModified = db.entityMetadataDao().findEntityLatestModifiedById(EntityType.PERSON.getId());
+          //  if(lastModified == null) lastModified = MIN_DATETIME;
+            getPersons(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
-        onTaskCompleted();
+            //person name
+            //lastModified = db.entityMetadataDao().findEntityLatestModifiedById(EntityType.PERSON_NAME.getId());
+            //if(lastModified == null) lastModified = MIN_DATETIME;
+            getPersonNames(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
+
+            //person address
+            //lastModified = db.entityMetadataDao().findEntityLatestModifiedById(EntityType.PERSON_ADDRESS.getId());
+            //if(lastModified == null) lastModified = MIN_DATETIME;
+            getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
+
+
+        //}
+
+        //onTaskCompleted();
     }
 
     @Override
@@ -195,8 +158,152 @@ public class PullDataRemote extends RemoteService {
     }
 
 
+    public void getObs(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
+
+        ConcurrencyUtils.consumeAsync(
+                obs -> {
+
+                    if(obs.length > 0){
+
+                        db.obsDao().insert(obs);
+                        updateMetadata(obs, EntityType.OBS);
+                        getObs(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                    }else
+                        this.onTaskCompleted();
+
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getObs(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                TIMEOUT);
+    }
+
+    public void getVisit(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
+
+        ConcurrencyUtils.consumeAsync(
+
+                visitEntities -> {
+
+                    if(visitEntities.length > 0){
+
+                        db.visitDao().insert(visitEntities);
+                        updateMetadata(visitEntities, EntityType.VISIT);
+                        getVisit(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                    }else
+                        this.onTaskCompleted();
+
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getVisit(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                TIMEOUT);
+    }
+
+    public void getEncounter(String accessToken,long locationId,LocalDateTime MIN_DATETIME, final long offset,int limit){
+
+        ConcurrencyUtils.consumeAsync(
+
+                encounterEntities -> {
+
+                    if(encounterEntities.length > 0){
+
+                        db.encounterDao().insert(encounterEntities);
+                        updateMetadata(encounterEntities, EntityType.ENCOUNTER);
+                        getEncounter(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                    }else
+                        this.onTaskCompleted();
+
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getEncounters(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                TIMEOUT);
+    }
+
+    public void getPersons(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
+
+        ConcurrencyUtils.consumeAsync(
+
+                persons -> {
+
+                    if(persons.length > 0){
+
+                        db.personDao().insert(persons);
+                        updateMetadata(persons, EntityType.PERSON);
+                        getPersons(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
+                    }else {
+                        List<Person> people = db.personDao().getAllT();
+                        this.onTaskCompleted();
+
+                    }
+
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPersons(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                TIMEOUT);
+    }
+
+
+    public void getPersonNames(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
+
+        ConcurrencyUtils.consumeAsync(
+
+                personNames -> {
+
+                    if(personNames.length > 0){
+
+                        db.personNameDao().insert(personNames);
+                        updateMetadata(personNames, EntityType.PERSON_NAME);
+                        getPersonNames(accessToken,locationId,MIN_DATETIME,offset + limit, limit);
+                    }else
+                        this.onTaskCompleted();
+
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPersonNames(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                TIMEOUT);
+    }
+
+    public void getPersonAddress(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
+
+        ConcurrencyUtils.consumeAsync(
+
+                personAddresses -> {
+
+                    if(personAddresses.length > 0){
+
+                        db.personAddressDao().insert(personAddresses);
+                        updateMetadata(personAddresses, EntityType.PERSON_ADDRESS);
+
+                        getPersonAddress(accessToken,locationId, MIN_DATETIME, offset + limit, limit);
+                    }else
+                        this.onTaskCompleted();
+
+                }, //consumer
+                this::onError,
+                repository.getRestApi().getPersonAddresses(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
+                TIMEOUT);
+    }
+
+
     public void persistPatientIdentifier(PatientIdentifierEntity... patientIdentifiers){
 
 
     }
+
+    /*public LocalDateTime getLatestDate(SynchronizableEntity[] synchronizableEntities){
+
+        LocalDateTime latestDate = lastModified;
+
+        for (SynchronizableEntity entity: synchronizableEntities){
+            LocalDateTime dateCreated = entity.getDateCreated();
+            LocalDateTime dateChanged = entity.getDateCreated();
+
+            if(dateCreated != null && dateCreated.isAfter(latestDate))
+                latestDate = dateCreated;
+
+            if(dateChanged != null  && dateChanged.isAfter(latestDate))
+                latestDate = dateChanged;
+        }
+
+        return latestDate;
+    }*/
+
 }

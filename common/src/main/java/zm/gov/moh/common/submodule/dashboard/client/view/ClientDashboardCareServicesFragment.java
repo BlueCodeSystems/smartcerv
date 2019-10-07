@@ -8,12 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import java.util.HashMap;
-
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.CareServicesExpandableListAdapter;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.core.model.Key;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class ClientDashboardCareServicesFragment extends Fragment {

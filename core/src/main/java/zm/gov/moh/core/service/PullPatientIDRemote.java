@@ -4,6 +4,7 @@ import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
+@Deprecated
 public class PullPatientIDRemote extends RemoteService {
 
 

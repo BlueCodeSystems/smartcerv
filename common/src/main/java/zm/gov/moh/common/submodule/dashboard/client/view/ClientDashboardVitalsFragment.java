@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,7 +1,6 @@
 package zm.gov.moh.app;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -11,7 +10,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.service.SearchIndex;
 import zm.gov.moh.core.service.ServiceManager;
@@ -34,12 +33,6 @@ public class BootstrapActivity extends BaseActivity {
         bundle.putSerializable(START_SUBMODULE_KEY, firstPointOfContactModule);
 
         startModule(BaseApplication.CoreModule.LOGIN, bundle);
-
-
-       ServiceManager.getInstance(this)
-                .setService(ServiceManager.Service.PULL_PATIENT_ID_REMOTE)
-                .startOnComplete(ServiceManager.Service.PULL_PATIENT_ID_REMOTE, ServiceManager.Service.PULL_META_DATA_REMOTE)
-                .start();
 
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)

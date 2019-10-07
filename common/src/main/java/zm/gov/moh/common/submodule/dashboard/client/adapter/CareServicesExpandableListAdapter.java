@@ -18,7 +18,7 @@ import zm.gov.moh.core.model.submodule.BasicModuleGroup;
 import zm.gov.moh.core.model.submodule.CriteriaModule;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class CareServicesExpandableListAdapter extends BaseExpandableListAdapter {

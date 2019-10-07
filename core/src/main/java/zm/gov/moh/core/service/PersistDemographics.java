@@ -1,7 +1,6 @@
 package zm.gov.moh.core.service;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -10,6 +9,7 @@ import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
+import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
@@ -51,7 +51,7 @@ public class PersistDemographics extends PersistService {
 
             if(identifier == null){
 
-                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILD_REGISTRATION));
+                mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.INSUFFICIENT_IDENTIFIERS_FAILED_REGISTRATION));
                 return;
             }
 
@@ -62,12 +62,14 @@ public class PersistDemographics extends PersistService {
             Person person = new Person(personId, dateOfBirth, gender,now);
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);
             PatientEntity patient = new PatientEntity(personId, now);
+            PersonIdentifier personIdentifier = new PersonIdentifier(identifier.getIdentifier(),personId);
 
             identifier.markAsAssigned();
             db.identifierDao().insert(identifier);
 
             //Persist database entity instances asynchronously into the database
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert,this::onError, patientId);
+            ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personIdentifierDao()::insert,this::onError, personIdentifier);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personNameDao()::insert, this::onError, personName);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personDao()::insert, this::onError, person);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personAddressDao()::insert,this::onError, personAddress);

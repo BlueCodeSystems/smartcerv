@@ -14,6 +14,9 @@ public interface LocationDao {
     @Query("SELECT * FROM location ORDER BY name ASC")
     LiveData<List<Location>> getAll();
 
+    @Query("SELECT * FROM location ORDER BY name ASC")
+    List<Location> getAllT();
+
     @Query("SELECT location.* FROM location JOIN location_tag_map ON location.location_id = location_tag_map.location_id WHERE location_tag_id = :id ORDER BY name ASC")
     LiveData<List<Location>> getByTagId(long id);
 

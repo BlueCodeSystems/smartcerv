@@ -6,9 +6,15 @@ import androidx.annotation.Nullable;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import org.threeten.bp.LocalDateTime;
+
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.rest.RestApi;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
 
-
+@Deprecated
 public abstract class RemoteService extends BaseIntentService {
 
     protected String accessToken ="";
@@ -16,6 +22,12 @@ public abstract class RemoteService extends BaseIntentService {
     protected int tasksCompleted = 0;
     protected int tasksStarted = 0;
     protected RestApi restApi;
+
+    long locationId;
+    protected final int LIMIT = 100;
+    LocalDateTime lastModified;
+    protected LocalDateTime MIN_DATETIME = LocalDateTime.parse("1970-01-01T00:00:00");
+    long OFFSET = 0;
 
     public RemoteService(ServiceManager.Service service){
         super(service);
@@ -35,6 +47,7 @@ public abstract class RemoteService extends BaseIntentService {
         }
 
         restApi = repository.getRestApi();
+        locationId = repository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
     }
 
     public void onTaskStarted(){
@@ -60,6 +73,23 @@ public abstract class RemoteService extends BaseIntentService {
 
         public short getCode(){
             return this.code;
+        }
+    }
+
+    public void updateMetadata(SynchronizableEntity[] synchronizableEntities, EntityType entityType){
+
+        LocalDateTime lastModified;
+        for (SynchronizableEntity entity: synchronizableEntities){
+            LocalDateTime dateCreated = entity.getDateCreated();
+            LocalDateTime dateChanged = entity.getDateChanged();
+
+
+            if(dateChanged != null)
+                lastModified = dateChanged;
+            else
+                lastModified = dateCreated;
+
+            db.entityMetadataDao().insert(new EntityMetadata(entity.getId(), entityType.getId(), Status.SYNCED.getCode(),lastModified));
         }
     }
 }
