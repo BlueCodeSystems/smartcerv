@@ -115,7 +115,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
                 Identifier.class,
                 PersonIdentifier.class
 
-        }, version = 4)
+        }, version = 4, exportSchema = false)
 @TypeConverters(Converter.class)
 public abstract class Database extends RoomDatabase {
 
