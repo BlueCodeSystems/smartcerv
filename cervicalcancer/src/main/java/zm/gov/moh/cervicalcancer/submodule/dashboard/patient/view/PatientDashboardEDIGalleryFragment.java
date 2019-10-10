@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -150,15 +152,37 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
 
-                    if (isImageFitToScreen) {
-                        isImageFitToScreen = false;
-                        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                        imageView.setAdjustViewBounds(true);
-                    } else {
-                        isImageFitToScreen = true;
-                        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-                        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    }
+                    File ediSamples = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+
+                    File pic = new File(ediSamples.getAbsolutePath()+"/"+"test.png");
+                    boolean there = pic.exists();
+
+                    ImageView imageView1 = viewHolder.img3;
+
+
+
+                    Glide.with(context)
+                            .asFile()
+                            .load(pic)
+                            .into(imageView2);
+
+                   /* Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(pic), "image/*");
+                    context.startActivity(intent);*/
+
+                 /*   MediaScannerConnection.scanFile(context,
+                            new String[] { pic.getAbsolutePath() }, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("onScanCompleted", uri.getPath());
+
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_VIEW);
+                                    intent.setDataAndType(Uri.parse(uri.getPath()), "image/*");
+                                    context.startActivity(intent);
+                                }
+                            });*/
                 }
             });
 
@@ -170,6 +194,7 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
                     signature(new StringSignature(String.valueOf(System.currentTimeMillis())));
                     builder.load(image.getCanonicalPath() + "/" + images.next() + ".png")
                             .into(imageView);
+
 
                     if (images.hasNext()) {
                         builder.load(image.getCanonicalPath() + "/" + images.next() + ".png")
@@ -198,13 +223,15 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        AppCompatImageView img,img2;
+        AppCompatImageView img,img2,img3;
         TextView caption;
 
         public ViewHolder(View view) {
             super(view);
             img = view.findViewById(R.id.iv);
             img2 = view.findViewById(R.id.img2);
+
+            img3 = view.findViewById(R.id.image_test);
             caption = view.findViewById(R.id.caption);
 
 
