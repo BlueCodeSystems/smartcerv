@@ -298,13 +298,14 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         drawer = new DrawerBuilder()
-                .withActivity(activity)
+                .withActivity(activity).withCloseOnClick(true)
                 .addDrawerItems(home,allClients,logOut).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if(drawerItem.getIdentifier()==1)
                         {
                             startModule(BaseApplication.CoreModule.HOME);
+
                         }else if(drawerItem.getIdentifier()==2)
                         {
                             startModule(BaseApplication.CoreModule.REGISTER);
@@ -313,7 +314,7 @@ public class BaseActivity extends AppCompatActivity {
                         {
                             startModule(BaseApplication.CoreModule.BOOTSTRAP);
                         }
-                        return  true;
+                        return  false;
                     }
                 }).withAccountHeader(provider).build();
     }
