@@ -478,4 +478,9 @@ public class ObsEntity extends SynchronizableEntity {
     public long getId() {
         return obsId;
     }
+
+    @Override
+    public LocalDateTime getDateChanged() {
+        return null;
+    }
 }

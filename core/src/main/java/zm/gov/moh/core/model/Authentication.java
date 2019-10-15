@@ -8,6 +8,7 @@ public class Authentication {
 
     private User user;
     private String token;
+    private String timeZone;
 
     public User getUser() {
         return user;
@@ -19,5 +20,9 @@ public class Authentication {
 
     public String getToken() {
         return token;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
     }
 }

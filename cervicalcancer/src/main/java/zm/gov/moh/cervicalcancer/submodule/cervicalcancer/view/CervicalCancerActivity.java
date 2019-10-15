@@ -38,8 +38,8 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.BR;
 import zm.gov.moh.cervicalcancer.databinding.CervicalCancerActivityBinding;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.LineChartVisitItem;
 
 public class CervicalCancerActivity extends BaseActivity {
@@ -64,6 +64,8 @@ public class CervicalCancerActivity extends BaseActivity {
 
         cervicalCancerViewModel = ViewModelProviders.of(this).get(CervicalCancerViewModel.class);
 
+        setViewModel(cervicalCancerViewModel);
+
         CervicalCancerActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.cervical_cancer_activity);
 
         binding.setVariable(BR.ccancerviewmodel, cervicalCancerViewModel);
@@ -71,10 +73,11 @@ public class CervicalCancerActivity extends BaseActivity {
         cervicalCancerViewModel.getStartSubmodule().observe(this, this::startModule);
 
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Cervical Cancer");
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setContext(this);
+        addDrawer(this);
         barChart= findViewById(R.id.barChart);
 
 
@@ -142,10 +145,10 @@ public class CervicalCancerActivity extends BaseActivity {
                 xAxis.setGranularity(1);
                 xAxis.setCenterAxisLabels(true);
                 xAxis.setGranularityEnabled(true);
-                float barSpace = 0.02f;
-                float groupSpace = 0.3f;
-                int groupCount = 4;
-                data.setBarWidth(0.20f);
+                float barSpace = 0.04f;
+                float groupSpace = 0.2f;
+                int groupCount = 5;
+                data.setBarWidth(0.22f);
                 barChart.getDescription().setEnabled(false);
                 barChart.getXAxis().setAxisMinimum(0);
                 barChart.getXAxis().setAxisMaximum(0 + barChart.getBarData().getGroupWidth(groupSpace, barSpace) * groupCount);
@@ -312,8 +315,8 @@ private  String[] getDates()
     String[] days=new String[6];
     SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
     Calendar calendar=Calendar.getInstance();
-    calendar.add(Calendar.DAY_OF_YEAR,-4);
-    for(int i=0;i<4;i++)
+    calendar.add(Calendar.DAY_OF_YEAR,-5);
+    for(int i=0;i<5;i++)
     {
         calendar.add(Calendar.DAY_OF_YEAR,1);
         days[i]=simpleDateFormat.format(calendar.getTime());

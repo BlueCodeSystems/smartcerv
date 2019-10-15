@@ -1,13 +1,12 @@
 package zm.gov.moh.common.submodule.settings.view;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivitySettingsBinding;
 import zm.gov.moh.common.submodule.settings.model.Preferences;
 import zm.gov.moh.common.submodule.settings.viewmodel.SettingsViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 import android.os.Bundle;

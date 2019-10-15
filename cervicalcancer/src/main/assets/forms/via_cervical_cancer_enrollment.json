@@ -67,7 +67,10 @@
             {
               "tag": "client ID",
               "widgetType": "CCPIZEditText",
-              "weight": 1
+              "weight": 1,
+              "regex":"([0-9A-Z]+)-([0-9A-Z]+)-([0-9]+)",
+              "required":true,
+              "errorMessage":"Invalid identifier format, should be in CCPIZ format e.g MSA-06-000001"
             }
           ]
         },

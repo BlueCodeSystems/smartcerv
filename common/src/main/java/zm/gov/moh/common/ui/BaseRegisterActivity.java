@@ -2,6 +2,7 @@ package zm.gov.moh.common.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import zm.gov.moh.common.R;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.submodule.register.model.SearchTermObserver;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 

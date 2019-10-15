@@ -6,7 +6,7 @@
     <data>
         <variable name="viewmodel" type="zm.gov.moh.common.submodule.login.viewmodel.LoginViewModel"/>
         <import type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
     </data>
 
     <ScrollView

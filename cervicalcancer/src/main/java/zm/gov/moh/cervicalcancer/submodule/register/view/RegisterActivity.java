@@ -14,9 +14,10 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBinding;
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.RegisterViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.common.ui.BaseRegisterActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+
 
 public class RegisterActivity extends BaseRegisterActivity {
 
@@ -33,9 +34,8 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         setViewModel(registerViewModel);
-
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Client Register");
 
         binding.setToolbarhandler(toolBarEventHandler);
@@ -59,5 +59,7 @@ public class RegisterActivity extends BaseRegisterActivity {
     @Override
     public void getAllClient() {
         registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
+        setViewModel(registerViewModel);
+        addDrawer(this);
     }
 }

@@ -1,6 +1,5 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,17 +15,20 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import java.io.IOException;
+
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
+import zm.gov.moh.cervicalcancer.view.MyDialogFragment;
 import zm.gov.moh.common.model.VisitMetadata;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 
@@ -65,7 +66,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
         AndroidThreeTen.init(this);
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Patient Dashboard");
 
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
@@ -102,6 +103,13 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
+
+        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
+        database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
+
+        //set navigation drawer
+        addDrawer(this);
+
     }
 
     public void EDIonClick(final View v) {
@@ -146,28 +154,63 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
 
 
     public void startVisit() {
-        String[] visitType = {"VIA", "LEEP"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Visit Type");
-        builder.setItems(visitType, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        MyDialogFragment dialogFragment = new MyDialogFragment();
 
-            }
-
-        });
-
-        builder.show();
+        dialogFragment.show(fragmentManager, "Test");
     }
-}
+
+    public void selectVisit(int visit) throws IOException {
+
+        switch (visit) {
+
+            case 1:
+
+                VisitMetadata visitMetadata = null;
+                try {
+                    visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/via.json")));
+                    mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                    mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                    this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case 2:
+
+
+                    visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/leep.json")));
+                    mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                    mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                    this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+
+                }
+        }
+    }
+
+                        /*mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                        mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                        this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+                } catch (IOException e) {
+                }*/
+
 
         /*try {
             VisitMetadata visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/via.json")));
             mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
             mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
             this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
-        } catch (Exception e) {*/
+        } catch (Exception e) {
+
+            try {
+                VisitMetadata visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/leep.json")));
+                mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+            } catch (Exception e) {*/
+
 
 
 

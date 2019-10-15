@@ -10,7 +10,7 @@ import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
 @Entity
-public class Person {
+public class Person extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "person_id")
@@ -90,6 +90,10 @@ public class Person {
     }
 
     public long getPersonId() {
+        return personId;
+    }
+
+    public long getId() {
         return personId;
     }
 

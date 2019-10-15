@@ -2,6 +2,8 @@
   "attributes": {
     "panelType": "form",
     "formType": "encounter",
+    "name": "Evaluation",
+    "encounterId": 19,
     "submitLabel": "Submit"
   },
   "widgetGroup": [

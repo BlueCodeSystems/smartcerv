@@ -1,6 +1,5 @@
 package zm.gov.moh.common.submodule.visit.adapter;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FormListItemBinding;
-import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.common.submodule.form.model.FormModel;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.model.submodule.Module;
 
 public class FormListAdapter extends RecyclerView.Adapter<FormListAdapter.FormViewHolder>{
 

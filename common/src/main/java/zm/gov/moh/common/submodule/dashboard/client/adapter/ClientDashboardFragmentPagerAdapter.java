@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardCareServicesFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 public class ClientDashboardFragmentPagerAdapter extends FragmentPagerAdapter {
 

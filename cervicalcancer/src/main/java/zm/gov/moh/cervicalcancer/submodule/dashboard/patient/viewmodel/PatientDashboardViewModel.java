@@ -29,6 +29,7 @@ import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
@@ -338,32 +339,39 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     public LinkedHashMap<Long, Collection<String>> extractProviderData(List<VisitEntity> visits){
 
 
-        LinkedHashMap<Long, String> providerData = new LinkedHashMap<>();
-
         if(visits.size() > 0) {
 
             LinkedHashMap<Long, Collection<String>> providerResults = new LinkedHashMap<>();
 
             for(VisitEntity visit: visits) {
+                LinkedHashMap<Long, String> providerData = new LinkedHashMap<>();
                 long datatime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
                 Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
+                if(treatmentEncounterId !=null || screeningEncounterId != null) {
 
-                if(treatmentEncounterId !=null && screeningEncounterId != null) {
-                    long treatmentProviderId = db.encounterProviderDao().getByEncounterId(treatmentEncounterId).getProviderId();
-                    long screeningProviderId = db.encounterProviderDao().getByEncounterId(screeningEncounterId).getProviderId();
+                    Long treatmentProviderId = (treatmentEncounterId != null ) ?
+                            db.encounterProviderDao().getByEncounterId(treatmentEncounterId).getProviderId() : null;
+                    Long screeningProviderId = (screeningEncounterId != null ) ?
+                            db.encounterProviderDao().getByEncounterId(screeningEncounterId).getProviderId() : null;
 
-                    String treatmentProviderName = db.providerDao().getById(treatmentProviderId).getName();
-                    String screeningProviderName = db.providerDao().getById(screeningProviderId).getName();
+                    PersonName treatmentProviderName = (treatmentProviderId != null) ?
+                            db.personNameDao().getByInsightProviderId(treatmentProviderId) : null;
+                    PersonName screeningProviderName = (screeningProviderId != null) ?
+                            db.personNameDao().getByInsightProviderId(screeningProviderId) : null;
 
-                    if (treatmentProviderName != null && screeningProviderName != null) {
+                    if (treatmentProviderName != null)
+                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName());
+                    else
+                        providerData.put(2L, "N/A");
 
-                        providerData.put(1L, screeningProviderName);
-                        providerData.put(2L, treatmentProviderName);
+                    if (screeningProviderName != null)
+                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName());
+                    else
+                        providerData.put(1L, "N/A");
 
-                        providerResults.put(datatime, providerData.values());
-                    }
+                    providerResults.put(datatime, providerData.values());
                 }
             }
             return providerResults;

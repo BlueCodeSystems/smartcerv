@@ -76,7 +76,7 @@ public class EncounterProvider {
     }
 
     @Ignore
-    public EncounterProvider(long encounterProviderId, long encounter_id, long providerId, long creator){
+    public EncounterProvider(long encounterProviderId, long encounterId, long providerId, long creator){
 
         this.encounterProviderId = encounterProviderId;
         this.encounterId = encounterId;
