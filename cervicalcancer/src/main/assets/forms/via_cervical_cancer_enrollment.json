@@ -67,26 +67,10 @@
             {
               "tag": "client ID",
               "widgetType": "CCPIZEditText",
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "VIA Screening Date",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "tag": "via screening date",
-              "widgetType": "DatePicker",
-              "futureDate": "False",
               "weight": 1,
-              "hint": "dd MMM yyyy",
-              "text": "Select Date"
+              "regex":"([0-9A-Z]+)-([0-9A-Z]+)-([0-9]+)",
+              "required":true,
+              "errorMessage":"Invalid identifier format, should be in CCPIZ format e.g MSA-06-000001"
             }
           ]
         },

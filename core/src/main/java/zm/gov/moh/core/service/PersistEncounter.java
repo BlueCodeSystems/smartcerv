@@ -39,10 +39,6 @@ public class PersistEncounter extends PersistService {
         long person_id = (long) mBundle.get(Key.PERSON_ID);
         long encounter_type_id = (long) mBundle.get(Key.ENCOUNTER_TYPE_ID);
         Long visit_id = (Long) mBundle.get(Key.VISIT_ID);
-        VisitState visitState = (VisitState) mBundle.getSerializable(Key.VISIT_STATE);
-
-
-
 
         //void previous visit data
         EncounterEntity encounterEntity = db.encounterDao().getByTypeVisitId(visit_id,encounter_type_id);

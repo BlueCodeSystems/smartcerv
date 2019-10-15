@@ -2,6 +2,8 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils;
 
 import android.content.Context;
 import androidx.appcompat.widget.AppCompatTextView;
+
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -37,5 +39,20 @@ public class Utils {
         dateTv.setBackground(context.getResources().getDrawable(R.drawable.border_right));
 
         return dateTv;
+    }
+
+    public static AppCompatTextView providerInitialsCellView(Context context, String intials){
+
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(zm.gov.moh.core.utils.Utils.dpToPx(context,0), TableRow.LayoutParams.MATCH_PARENT);
+        layoutParams.weight = 1;
+        AppCompatTextView intialsTv = new AppCompatTextView(context);
+        intialsTv.setText(intials);
+        intialsTv.setGravity(Gravity.CENTER);
+        intialsTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+        intialsTv.setTextColor(context.getResources().getColor(R.color.black));
+        intialsTv.setLayoutParams(layoutParams);
+        intialsTv.setBackground(context.getResources().getDrawable(R.drawable.border_right));
+
+        return intialsTv;
     }
 }

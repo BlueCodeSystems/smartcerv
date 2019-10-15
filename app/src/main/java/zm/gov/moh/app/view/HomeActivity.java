@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import java.util.HashMap;
@@ -16,11 +17,12 @@ import zm.gov.moh.app.R;
 import zm.gov.moh.app.databinding.FirstPointOfContactActivityBinding;
 import zm.gov.moh.app.viewmodel.HomeViewModel;
 import zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.common.view.CommonHomeFragment;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.service.SearchIndex;
 
 
 public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnFragmentInteractionListener {
@@ -48,11 +50,11 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
         homeViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Home");
         binding.setToolbarhandler(toolBarEventHandler);
         binding.setContext(this);
-
+        addDrawer(this);
         Fragment common = new CommonHomeFragment();
 
         Fragment cervicalCancer = new CervicalCancerHomeFragment();
@@ -61,7 +63,7 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
         FragmentTransaction transaction = fragmentTransitionSupport.beginTransaction();
 
-
+        startService(new Intent(this,SearchIndex.class));
 
     }
 

@@ -66,7 +66,7 @@
           "tag": "edi inspection done",
           "widgetType": "Concept",
           "uuid": "0ddf399e-dd1b-4e9f-ab15-c2020865b0fa",
-          "conceptId": 165156,
+          "conceptId": 	165156,
           "dataType": "Boolean",
           "style": "radio",
           "textSize": 18,
@@ -80,8 +80,8 @@
                 "metadata": {
                   "tags": [
                     "image view button",
-                    "default camera",
-                    "camera button"
+                    "camera connect button",
+                    "edi reason"
                   ]
                 }
               }
@@ -95,6 +95,7 @@
                 "metadata": {
                   "tags": [
                     "edi reason"
+
                   ]
                 }
               }
@@ -112,6 +113,7 @@
         },
         {
           "tag": "image view button",
+          "conceptId": 165261,
           "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
           "widgetType": "ImageViewButton",
           "label": "Image Load",
@@ -119,8 +121,10 @@
           "weight": 1
         },
         {
-          "tag": "camera button",
-          "widgetType": "CameraButton",
+          "tag": "camera connect button",
+          "conceptId": 165261,
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "CameraConnectButton",
           "label": "Camera Connect",
           "textSize": 18,
           "weight": 1
@@ -201,7 +205,29 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "eligible for cryotherapy"
+                    "percentage of cervix covered",
+                    "entire lesion seen",
+                    "eligible for cryotherapy",
+                    "atypical vessel",
+                    "extends into cervical os",
+                    "mosaicism or punctation"
+                  ]
+                }
+              }
+            }, {
+              "condition": {
+                "value": 165163
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "percentage of cervix covered2",
+                    "entire lesion seen2",
+                    "eligible for cryotherapy2",
+                    "atypical vessel2",
+                    "extends into cervical os2",
+                    "mosaicism or punctation2"
                   ]
                 }
               }
@@ -210,6 +236,16 @@
         },
         {
           "tag": "eligible for cryotherapy",
+          "widgetType": "Concept",
+          "uuid": "f27863f3-b3ec-44db-bc48-0863903e5e51",
+          "conceptId": 165164,
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Eligible for Cryotherapy/Thermal coagulation",
+          "textSize": 18
+        },
+        {
+          "tag": "eligible for cryotherapy2",
           "widgetType": "Concept",
           "uuid": "f27863f3-b3ec-44db-bc48-0863903e5e51",
           "conceptId": 165164,
@@ -229,7 +265,27 @@
           "textSize": 18
         },
         {
+          "tag": "entire lesion seen2",
+          "widgetType": "Concept",
+          "conceptId": 165168,
+          "uuid": "4dc498d3-f668-4e83-8dbb-c555dd84b883",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Entire lesion seen",
+          "textSize": 18
+        },
+        {
           "tag": "atypical vessel",
+          "widgetType": "Concept",
+          "conceptId": 165170,
+          "uuid": "4322eb57-e248-4592-bba2-b33e222da9bb",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Atypical vessel",
+          "textSize": 18
+        },
+        {
+          "tag": "atypical vessel2",
           "widgetType": "Concept",
           "conceptId": 165170,
           "uuid": "4322eb57-e248-4592-bba2-b33e222da9bb",
@@ -249,6 +305,16 @@
           "textSize": 18
         },
         {
+          "tag": "extends into cervical os2",
+          "widgetType": "Concept",
+          "conceptId": 165171,
+          "uuid": "4f3f3a82-67cc-4cc5-a24b-b0d17b901456",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Extends into cervical os",
+          "textSize": 18
+        },
+        {
           "tag": "percentage of cervix covered",
           "widgetType": "Concept",
           "conceptId": 165268,
@@ -259,7 +325,27 @@
           "textSize": 18
         },
         {
+          "tag": "percentage of cervix covered2",
+          "widgetType": "Concept",
+          "conceptId": 165268,
+          "uuid": "0f72a78f-c461-4626-9027-42565082b158",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Percentage(%) of cervix covered",
+          "textSize": 18
+        },
+        {
           "tag": "mosaicism or punctation",
+          "widgetType": "Concept",
+          "conceptId": 165173,
+          "uuid": "2347f64d-380d-4ef3-ae10-845fffeb4fd1",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Mosaicism/ Punctation",
+          "textSize": 18
+        },
+        {
+          "tag": "mosaicism or punctation2",
           "widgetType": "Concept",
           "conceptId": 165173,
           "uuid": "2347f64d-380d-4ef3-ae10-845fffeb4fd1",

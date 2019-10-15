@@ -19,8 +19,8 @@ import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.common.model.VisitMetadata;
-import zm.gov.moh.common.ui.BaseActivity;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
@@ -62,7 +62,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
         AndroidThreeTen.init(this);
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Patient Dashboard");
 
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
@@ -99,6 +99,9 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId,4L).observe(this ,binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId,2L,3L,4L,5L,6L,7L).observe(this,viewModel::onVisitsRetrieved);
+
+        //set navigation drawer
+        addDrawer(this);
     }
 
     public void EDIonClick(final View v) {

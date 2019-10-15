@@ -9,7 +9,7 @@ import org.threeten.bp.LocalTime;
 import org.threeten.bp.ZonedDateTime;
 
 @Entity
-public class User {
+public class User{
 
     @PrimaryKey
     @ColumnInfo(name = "user_id")
@@ -22,7 +22,7 @@ public class User {
 
     @ColumnInfo(name = "username")
     @Json(name = "username")
-    private String userName;
+    protected String userName;
 
     @Ignore
     @ColumnInfo(name = "password")
@@ -81,6 +81,13 @@ public class User {
     @ColumnInfo(name = "uuid")
     @Json(name = "uuid")
     private String uuid;
+
+    public User(Long userId, String userName,Long personId, String uuid){
+        this.userId = userId;
+        this.userName = userName;
+        this.personId = personId;
+        this.uuid = uuid;
+    }
 
     public Long getUserId() {
         return userId;

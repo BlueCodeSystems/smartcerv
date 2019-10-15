@@ -11,7 +11,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboa
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardTreatmentFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
 
@@ -36,9 +36,10 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
             fragment =  new PatientDashboardTreatmentFragment();
         else if (position == 4)
             fragment =  new PatientDashboardProviderFragment();
-        else
+        else if (position == 5)
             fragment = new PatientDashboardEDIGalleryFragment();
-
+        else
+            fragment = new PatientDashboardVisitTypeFragment();
 
         fragment.setArguments(mContext.getIntent().getExtras());
 

@@ -11,7 +11,7 @@ import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.common.submodule.visit.adapter.FormListAdapter;
 import zm.gov.moh.core.model.VisitState;
 import zm.gov.moh.common.submodule.visit.viewmodel.VisitViewModel;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.utils.BaseApplication;

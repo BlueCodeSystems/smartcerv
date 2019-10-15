@@ -31,6 +31,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
+@Deprecated
 public class PushDataRemote extends RemoteService {
 
     EntityType entityType;

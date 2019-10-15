@@ -10,7 +10,15 @@ public enum EntityType {
 
     PATIENT(1),
     ENCOUNTER(2),
-    VISIT(3);
+    VISIT(3),
+    OBS(4),
+    PERSON(5),
+    PERSON_NAME(6),
+    PERSON_ADDRESS(7),
+    CONCEPT(8),
+    CONCEPT_NAME(9),
+    CONCEPT_ANSWER(10),
+    LOCATION(11);
 
 
     private int id;

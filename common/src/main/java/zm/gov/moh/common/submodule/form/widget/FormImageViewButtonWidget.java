@@ -62,6 +62,9 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         super(context);
     }
 
+    public static void INVISIBLE() {
+
+    }
 
 
     public void setLabel(String label) {
@@ -83,6 +86,12 @@ public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> i
         button.setText(this.mLabel);
         this.addView(button);
         this.addView(imageView);
+
+        //OnCreateView for Camera Connect
+        AppCompatButton button1 = new AppCompatButton(this.mContext);
+        button1.setOnClickListener(this);
+        button1.setText(this.mLabel);
+        this.addView(button1);
     }
 
 

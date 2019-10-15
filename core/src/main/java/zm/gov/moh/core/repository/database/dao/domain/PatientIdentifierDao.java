@@ -19,8 +19,11 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT identifier FROM patient_identifier WHERE uuid IS NULL")
     List<String> getLocal();
 
-    @Query("SELECT * FROM patient_identifier WHERE  identifier = :id ")
-    List<PatientIdentifierEntity> getAllT(String id);
+    @Query("SELECT * FROM patient_identifier")
+    List<PatientIdentifierEntity> getAll();
+
+    @Query("SELECT * FROM patient_identifier WHERE location_id = :locationId")
+    List<PatientIdentifierEntity> getByLocationId(long locationId);
 
     @Query("SELECT identifier FROM patient_identifier WHERE identifier_type =(SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid =:identifierType) AND location_id = :locationId")
     LiveData<List<String>> getByLocationType(long locationId, String identifierType);
@@ -59,8 +62,10 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT local.patient_id AS local, remote.patient_id AS remote FROM (SELECT patient_id, identifier FROM patient_identifier WHERE patient_identifier_id < :localOffset AND identifier_type = :identifierType) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_identifier_id >= :localOffset  AND identifier_type = :identifierType) AS local ON local.identifier = remote.identifier")
     EntityId[] getSyncedEntityId(long localOffset, long identifierType);
 
+    @Query("SELECT identifier FROM patient_identifier WHERE patient_id = :id")
+    String[] getIdentifiersByPatientId(long id);
 
-    @Query("SELECT person_identifier.uuid  FROM (SELECT patient_id, identifier FROM patient_identifier WHERE uuid NOT NULL) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_id = :localPatientId) AS local ON local.identifier = remote.identifier JOIN person_identifier ON person_identifier.person_id = remote.patient_id")
+    @Query("SELECT person_identifier.remote_uuid  FROM (SELECT patient_id, identifier FROM patient_identifier WHERE uuid NOT NULL) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_id = :localPatientId) AS local ON local.identifier = remote.identifier JOIN person_identifier ON person_identifier.remote_id = remote.patient_id")
    String getRemotePatientUuid(long localPatientId);
 
     @Override

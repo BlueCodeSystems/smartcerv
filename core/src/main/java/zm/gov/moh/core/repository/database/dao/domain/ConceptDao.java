@@ -14,6 +14,10 @@ import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 public interface ConceptDao {
 
     //get by concept id
+    @Query("SELECT * FROM concept")
+    List<Concept> getAll();
+
+    //get by concept id
     @Query("SELECT concept_id FROM concept WHERE uuid = :uuid")
     Long getConceptIdByUuid(String uuid);
 

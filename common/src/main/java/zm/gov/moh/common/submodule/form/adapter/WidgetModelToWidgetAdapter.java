@@ -9,6 +9,7 @@ import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
@@ -33,6 +34,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
+import zm.gov.moh.common.submodule.form.widget.CameraConnectButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
@@ -72,11 +74,11 @@ public class WidgetModelToWidgetAdapter {
 
     }
 
-    public View getWidget(WidgetModel widgetModel){
+    public View getWidget(WidgetModel widgetModel) {
 
 
         form.getFormContext().getTags().add(widgetModel.getTag());
-        if(widgetModel instanceof EditTextModel) {
+        if (widgetModel instanceof EditTextModel) {
 
             EditTextModel model = (EditTextModel) widgetModel;
 
@@ -95,9 +97,7 @@ public class WidgetModelToWidgetAdapter {
                     .build();
 
             return widget;
-        }
-
-        else if(widgetModel instanceof ReadonlyTextModel){
+        } else if (widgetModel instanceof ReadonlyTextModel) {
 
             ReadonlyTextModel model = (ReadonlyTextModel) widgetModel;
 
@@ -111,10 +111,7 @@ public class WidgetModelToWidgetAdapter {
                     .build();
 
             return widget;
-        }
-
-
-        else if(widgetModel instanceof TextBoxModel){
+        } else if (widgetModel instanceof TextBoxModel) {
 
             TextBoxModel model = (TextBoxModel) widgetModel;
 
@@ -128,9 +125,7 @@ public class WidgetModelToWidgetAdapter {
                     .build();
 
             return widget;
-        }
-
-        else if(widgetModel instanceof TextBoxTwoModel) {
+        } else if (widgetModel instanceof TextBoxTwoModel) {
 
             TextBoxTwoModel model = (TextBoxTwoModel) widgetModel;
 
@@ -144,8 +139,7 @@ public class WidgetModelToWidgetAdapter {
                     .build();
 
             return widget;
-        }
-        else if(widgetModel instanceof DatePickerButtonModel) {
+        } else if (widgetModel instanceof DatePickerButtonModel) {
 
             DatePickerButtonModel model = (DatePickerButtonModel) widgetModel;
 
@@ -153,9 +147,7 @@ public class WidgetModelToWidgetAdapter {
             widget.setTag(model.getTag());
             widget.setText(model.getText());
             return widget;
-        }
-
-        else if(widgetModel instanceof CameraButtonModel) {
+        } else if (widgetModel instanceof CameraButtonModel) {
 
             CameraButtonModel model = (CameraButtonModel) widgetModel;
 
@@ -164,9 +156,7 @@ public class WidgetModelToWidgetAdapter {
                     .setBundle(bundle)
                     .build();
             return widget;
-        }
-
-        else if(widgetModel instanceof DefaultCameraButtonModel) {
+        } else if (widgetModel instanceof DefaultCameraButtonModel) {
 
             DefaultCameraButtonModel model = (DefaultCameraButtonModel) widgetModel;
 
@@ -175,9 +165,7 @@ public class WidgetModelToWidgetAdapter {
                     .setBundle(bundle)
                     .build();
             return widget;
-        }
-
-        else if(widgetModel instanceof DialogButtonModel) {
+        } else if (widgetModel instanceof DialogButtonModel) {
 
             DialogButtonModel model = (DialogButtonModel) widgetModel;
 
@@ -186,6 +174,19 @@ public class WidgetModelToWidgetAdapter {
                     .setBundle(bundle)
                     .build();
             return widget;
+        }
+        else if (widgetModel instanceof CameraConnectButtonModel) {
+
+            CameraConnectButtonModel model = (CameraConnectButtonModel) widgetModel;
+            BaseWidget widget = new CameraConnectButtonWidget.Builder(this.context)
+                    .setLabel(model.getLabel())
+                    .setUuid(model.getUuid())
+                    .setRepository(repository)
+                    .setBundle(bundle)
+                    .setTag(model.getTag())
+                    .build();
+            return widget;
+
         }
 
         else if(widgetModel instanceof ImageViewButtonModel) {
@@ -281,9 +282,15 @@ public class WidgetModelToWidgetAdapter {
         else if(widgetModel instanceof CervicalCancerIDEditTextModel){
 
             CervicalCancerIDEditTextModel model = (CervicalCancerIDEditTextModel) widgetModel;
-            CervicalCancerIDEditTextWidget widget = new CervicalCancerIDEditTextWidget(context,model.getWeight(),repository);
-            widget.setTag(model.getTag());
-            widget.setBundle(bundle);
+            BaseWidget widget = new CervicalCancerIDEditTextWidget.Builder(context)
+                    .setLabel(model.getLabel())
+                    .setRepository(repository)
+                    .setErrorMessage(model.getErrorMessage())
+                    .setRegex(model.getRegex())
+                    .setRequired(model.getRequired())
+                    .setBundle(bundle)
+                    .setTag(model.getTag())
+                    .build();
 
             return widget;
         }

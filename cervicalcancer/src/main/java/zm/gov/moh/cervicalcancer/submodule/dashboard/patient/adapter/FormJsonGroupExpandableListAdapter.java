@@ -13,7 +13,7 @@ import java.util.List;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.FormJsonGroup;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.BaseApplication;
 

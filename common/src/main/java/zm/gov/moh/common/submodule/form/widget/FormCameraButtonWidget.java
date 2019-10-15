@@ -1,28 +1,27 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
-
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.net.DatagramPacket;
 import java.util.DoubleSummaryStatistics;
 
-public class FormCameraButtonWidget extends TextViewWidget implements Submittable <String>, View.OnClickListener {
+public class FormCameraButtonWidget extends TextViewWidget implements  Submittable <String>, View.OnClickListener {
     
     private Bundle bundle;
     public DoubleSummaryStatistics onClick;
+    protected String mLabel;
 
+    public static void INVISIBLE() {
 
+    }
+
+    public void setLabel(String mLabel) {
+        this.mLabel = mLabel;
+    }
 
     public FormCameraButtonWidget(Context context) {
         super(context);
@@ -35,6 +34,8 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
         button.setText(this.mLabel);
         this.addView(button);
     }
+
+
 
     @Override
     public void addViewToViewGroup() {
@@ -103,7 +104,7 @@ public class FormCameraButtonWidget extends TextViewWidget implements Submittabl
 
             FormCameraButtonWidget widget = new FormCameraButtonWidget(mContext);
 
-            if (mLabel != null)
+            if(mLabel != null)
                 widget.setLabel(mLabel);
             if (mBundle != null)
                 widget.setBundle(mBundle);
