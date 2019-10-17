@@ -1,5 +1,20 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -44,4 +59,5 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
     implementation project(':common')
     implementation project(':core')
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }
