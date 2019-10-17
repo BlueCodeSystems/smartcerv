@@ -8,6 +8,7 @@ import android.view.View;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
@@ -35,6 +36,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicOtherDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CameraConnectButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
@@ -322,6 +324,18 @@ public class WidgetModelToWidgetAdapter {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
             BaseWidget widget = new BasicDrugWidget.Builder(this.context)
+                    .setUuid(model.getUuid())
+                    .setRepository(repository)
+                    .setBundle(bundle)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof BasicOtherDrugWidgetModel) {
+            BasicOtherDrugWidgetModel model = (BasicOtherDrugWidgetModel) widgetModel;
+
+            BaseWidget widget = new BasicOtherDrugWidget.Builder(this.context)
                     .setUuid(model.getUuid())
                     .setRepository(repository)
                     .setBundle(bundle)
