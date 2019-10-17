@@ -112,8 +112,12 @@ public class DistrictPickerWidget extends RepositoryWidget<Map.Entry<Long,Long>>
         this.addView(WidgetUtils.createLinearLayout(mContext,WidgetUtils.HORIZONTAL,mDistrictTextView, districtSelector));
         this.addView(WidgetUtils.createLinearLayout(mContext,WidgetUtils.HORIZONTAL,mProvinceTextView, mProvinceName));
 
+        Long districtId = mBundle.getLong(Key.PERSON_DISTRICT_LOCATION_ID,0);
 
-        getRepository().getDatabase().locationDao().findById(mLocationId).observe((AppCompatActivity)mContext,onFacilityRetrieved(districtSelector, districts));
+        if(districtId != 0)
+            getRepository().getDatabase().locationDao().findByChild(districtId).observe((AppCompatActivity) mContext, onFacilityRetrieved(districtSelector, districts));
+        else
+            getRepository().getDatabase().locationDao().findById(mLocationId).observe((AppCompatActivity)mContext,onFacilityRetrieved(districtSelector, districts));
     }
 
     public void onDistrictSelected(Long locationId){

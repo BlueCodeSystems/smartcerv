@@ -40,21 +40,6 @@
           ]
         },
         {
-          "label": "Gender",
-          "widgetType": "TextView",
-          "textSize": 24,
-          "weight": 1
-        },
-        {
-          "tag":"PERSON_GENDER",
-          "label":"Gender",
-          "widgetType":"GenderPicker",
-          "errorMessage":"Gender cannot be left blank",
-          "textSize":24,
-          "required":true,
-          "weight":1
-        },
-        {
           "label": "Date of birth",
           "widgetType": "TextView",
           "textSize": 24,

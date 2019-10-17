@@ -45,8 +45,7 @@ public class RegisterActivity extends BaseRegisterActivity {
         ActivityRegisterBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_register);
         binding.setContext(this);
         mBundle = getIntent().getExtras();
-        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
-        toolBarEventHandler.setTitle("Client Register");
+        binding.setTitle("Client Register");
 
 
         defaultModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
@@ -83,8 +82,6 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         locationId = registerViewModel.getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0L);
 
-
-        binding.setToolbarhandler(toolBarEventHandler);
         binding.setSearchTermObserver(searchTermObserver);
         binding.setContext(this);
 

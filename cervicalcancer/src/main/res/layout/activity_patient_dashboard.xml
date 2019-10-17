@@ -6,7 +6,7 @@
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
         <variable name="clientAddress" type="zm.gov.moh.core.repository.database.entity.domain.PersonAddress"/>
         <variable name="facility" type="zm.gov.moh.core.repository.database.entity.domain.Location"/>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
+        <variable name="title" type="String"/>
         <import type="org.threeten.bp.LocalDate"/>
     </data>
 
@@ -26,7 +26,7 @@
                 layout="@layout/base_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:toolbarhandler="@{toolbarhandler}"></include>
+                app:title="@{title}"></include>
 
 
             <include

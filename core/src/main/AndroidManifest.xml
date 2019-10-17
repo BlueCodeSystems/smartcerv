@@ -22,9 +22,6 @@
         <service
             android:name=".service.PullPatientIDRemote"
             android:exported="false"/>
-        <service
-            android:name=".service.SubstituteLocalEntity"
-            android:exported="false"/>
     </application>
 
     <!--Permissions-->

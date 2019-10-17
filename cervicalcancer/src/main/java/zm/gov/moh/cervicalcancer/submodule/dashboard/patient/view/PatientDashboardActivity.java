@@ -62,8 +62,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
         AndroidThreeTen.init(this);
-        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
-        toolBarEventHandler.setTitle("Patient Dashboard");
+
 
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
 
@@ -77,7 +76,9 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
                     }
                 });
         ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Patient Dashboard");
+
+        initToolBar(binding.getRoot());
         viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
                 observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).

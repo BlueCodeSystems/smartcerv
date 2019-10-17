@@ -41,9 +41,15 @@ public interface LocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Location... locations);
 
+    @Query("SELECT * FROM location WHERE name = :districtName")
+    LiveData<Location> getLocationByName(String districtName);
+
     //get getLocations by id
     @Query("SELECT * FROM location WHERE location_id = :id")
     LiveData<Location> findById(Long id);
+
+    @Query("SELECT * FROM location WHERE parent_location = :id LIMIT 1")
+    LiveData<Location> findByChild(Long id);
 
     //get getLocations by id
     @Query("SELECT name FROM location WHERE location_id = :id")
