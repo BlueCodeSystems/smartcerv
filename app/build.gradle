@@ -59,5 +59,10 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
     implementation project(':common')
     implementation project(':core')
+
+    /**Crash reporting Sdk for Crashlytics
+     * TO DO: Refactor for FireBase integration
+     * BB:March 2020
+     */
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 }

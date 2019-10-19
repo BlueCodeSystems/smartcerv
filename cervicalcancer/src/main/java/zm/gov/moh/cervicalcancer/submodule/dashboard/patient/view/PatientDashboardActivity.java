@@ -3,7 +3,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -50,7 +49,6 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     private Object context;
     private ImageView imageView2;
     private View v;
-    private Button crash;
     private Object Tag;
     private Object mContext;
     private Object Application;
@@ -91,7 +89,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
 
         //Set EDI Image View Listener
         ImageButton1 = findViewById(R.id.load_image);
-        crash = findViewById(R.id.crash_button);
+
 
 
 
