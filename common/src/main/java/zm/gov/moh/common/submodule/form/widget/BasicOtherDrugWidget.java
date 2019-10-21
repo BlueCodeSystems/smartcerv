@@ -6,6 +6,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -27,7 +28,6 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
 
     protected AppCompatEditText otherText;
     ObsValue<String> mObsValue;
-    TextWatcher obsTextWatcher;
     String frequencyName;
     String durationName;
     String otherDrug;
@@ -37,6 +37,11 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
     }
 
     public boolean isValid() {
+        if (otherDrug == null || otherDrug.equals("")) {
+            Toast.makeText(mContext, mContext.getString(R.string.empty_other_prescription), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         return true;
     }
 
@@ -98,8 +103,7 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
         otherText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         otherText.setHint("Prescription Drug");
-        obsTextWatcher = WidgetUtils.createTextWatcher(this::setOtherTextValue);
-        otherText.addTextChangedListener(obsTextWatcher);
+        otherText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setOtherTextValue));
 
         frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
                 WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
