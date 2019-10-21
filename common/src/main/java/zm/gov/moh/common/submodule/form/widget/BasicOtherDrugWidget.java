@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.text.TextWatcher;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
@@ -8,9 +9,12 @@ import android.widget.TableRow;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.util.Consumer;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.R;
@@ -22,9 +26,18 @@ import zm.gov.moh.core.repository.database.entity.domain.Drug;
 public class BasicOtherDrugWidget extends BasicDrugWidget {
 
     protected AppCompatEditText otherText;
+    ObsValue<String> mObsValue;
+    TextWatcher obsTextWatcher;
+    String frequencyName;
+    String durationName;
+    String otherDrug;
 
     public BasicOtherDrugWidget(Context context) {
         super(context);
+    }
+
+    public boolean isValid() {
+        return true;
     }
 
     public void onCreateView(){
@@ -85,7 +98,8 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
         otherText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
         otherText.setHint("Prescription Drug");
-        otherText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setOtherTextValue));
+        obsTextWatcher = WidgetUtils.createTextWatcher(this::setOtherTextValue);
+        otherText.addTextChangedListener(obsTextWatcher);
 
         frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
                 WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
@@ -103,13 +117,13 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
     }
 
     private void setOtherTextValue(CharSequence charSequence) {
-        ObsValue<String> textObs = new ObsValue<>();
-        textObs.setValue(charSequence.toString());
-        textObs.setConceptId(165197L);
-        textObs.setUuid("48cbf1c5-bbdb-44f4-96b7-61812c67bebe");
-        textObs.setConceptDataType(ConceptDataType.TEXT);
+        otherDrug = charSequence.toString();
+        obsNotify();
+        setObsValue();
+    }
 
-        mBundle.putSerializable("prescription_text", textObs);
+    private void obsNotify() {
+        mObsValue.setValue(otherDrug + "-" + frequencyName + "-" + durationName);
     }
 
     private void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -118,7 +132,7 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
         answerConcept = id;
 
         if( (frequencySpinner.getParent() != null) && (frequencySpinner.getParent() != null) ) {
-            if (answerConcept == 165407L) {     // other selection
+            if (answerConcept == 165197L) {     // other selection
                 tableRow.removeView(otherText);
                 otherText.setVisibility(GONE);
             }
@@ -128,7 +142,7 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
             tableRow.removeView(durationSpinner);
             durationSpinner.setVisibility(GONE);
         } else {
-            if (answerConcept == 165407L) {     // other selection
+            if (answerConcept == 165197L) {     // other selection
                 tableRow.addView(otherText);
                 otherText.setVisibility(VISIBLE);
                 otherText.setLayoutParams(rowLayoutParams);
@@ -140,20 +154,42 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
             durationSpinner.setVisibility(VISIBLE);
         }
 
-        //setDrugObsValue(answerConcept, answerFrequencyConcept, answerDurationConcept);
         setObsValue();
     }
 
+    // set the rest of the ObsValue instance
     public void setObsValue() {
 
-
         mObsValue.setConceptId(answerConcept);
-        mObsValue.getValue().clear();
-        mObsValue.getValue().add(answerDurationConcept);
-        mObsValue.getValue().add(answerFrequencyConcept);
+        mObsValue.setUuid(mUuid);
 
         mBundle.putSerializable(mTag, mObsValue);
+    }
 
+    void onSelectedFrequencyValue(Long value) {
+        answerFrequencyConcept = value;
+
+        for (Map.Entry<String,Long> entry :frequencyIdMap.entrySet()){
+
+            if(entry.getValue() == value)
+                frequencyName = entry.getKey();
+
+        }
+        obsNotify();
+        setObsValue();
+    }
+
+    void onSelectedDurationValue(Long value) {
+        answerDurationConcept = value;
+
+        for (Map.Entry<String,Long> entry :durationIdMap.entrySet()){
+
+            if(entry.getValue() == value)
+                durationName = entry.getKey();
+
+        }
+        obsNotify();
+        setObsValue();
     }
 
     public static class Builder extends BasicDrugWidget.Builder {
@@ -166,8 +202,7 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
 
             BasicOtherDrugWidget widget = new BasicOtherDrugWidget(mContext);
             widget.mObsValue = new ObsValue<>();
-            widget.mObsValue.setValue(new HashSet<>());
-            widget.mObsValue.setConceptDataType(ConceptDataType.CODED);
+            widget.mObsValue.setConceptDataType(ConceptDataType.TEXT);
             widget.canSetValue = new AtomicBoolean();
             widget.canSetValue.set(true);
 
