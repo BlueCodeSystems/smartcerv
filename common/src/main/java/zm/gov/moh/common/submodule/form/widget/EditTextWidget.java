@@ -52,6 +52,7 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
             mValueChangeListener.accept(value);
     }
 
+
     public void setLabel(String mLabel) {
         this.mLabel = mLabel;
     }

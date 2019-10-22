@@ -289,6 +289,13 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         .setOnValueChangeListener(this::onTextValueChangeListener)
                         .setHint(mHint).setFutureDate(mFutureDate).build();
 
+                ((DatePickerWidget)datePicker).setLongClick(v ->{
+
+                    ((DatePickerWidget)datePicker).clear();
+
+                    return true;
+                });
+
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, datePicker));
 
                 break;
