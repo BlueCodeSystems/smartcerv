@@ -3,22 +3,38 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
-        android:layout_gravity="center"
-        android:layout_width="300dp"
+        android:layout_margin="15dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_width="267dp"
         android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="85dp"
         android:text="Select Visit">
 
     </TextView>
+
     <Button
         android:id="@+id/via_visit"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="VIA" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#E91E63"
+        android:text="VIA"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/leep_visit"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="LEEP" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:background="#E91E63"
+        android:text="LEEP"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
 </LinearLayout>
