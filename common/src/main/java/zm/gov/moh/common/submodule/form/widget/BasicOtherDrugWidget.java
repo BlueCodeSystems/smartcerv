@@ -37,10 +37,10 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
     }
 
     public boolean isValid() {
-        if (otherDrug == null || otherDrug.equals("")) {
+        /*if (otherDrug == null || otherDrug.equals("")) {
             Toast.makeText(mContext, mContext.getString(R.string.empty_other_prescription), Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
 
         return true;
     }
