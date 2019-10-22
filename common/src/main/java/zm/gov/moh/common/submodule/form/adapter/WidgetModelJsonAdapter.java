@@ -1,7 +1,5 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
-import android.app.Dialog;
-
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
@@ -27,6 +25,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidget
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
@@ -343,6 +342,17 @@ public class WidgetModelJsonAdapter {
                 numericEditTextModel.setLabel(widgetModelJson.getLabel());
 
                 return numericEditTextModel;
+
+            case "Table":
+
+                final TableWidgetModel tableWidgetModel = new TableWidgetModel();
+
+                tableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                tableWidgetModel.setTag(widgetModelJson.getTag());
+                tableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                tableWidgetModel.setColSize(widgetModelJson.getColSize());
+                tableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return tableWidgetModel;
 
             default:
                 return null;

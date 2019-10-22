@@ -27,6 +27,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.NumericEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
@@ -52,6 +53,7 @@ import zm.gov.moh.common.submodule.form.widget.NumericEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderNumberWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
+import zm.gov.moh.common.submodule.form.widget.TableWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidgetTwo;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
@@ -377,6 +379,20 @@ public class WidgetModelToWidgetAdapter {
                     .setTextSize(18)
                     .setBundle(this.bundle)
                     .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof TableWidgetModel) {
+
+            TableWidgetModel model = (TableWidgetModel) widgetModel;
+
+            BaseWidget widget = new TableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setRepository(this.repository)
                     .setTag(model.getTag())
                     .build();
 

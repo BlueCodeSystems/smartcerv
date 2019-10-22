@@ -104,6 +104,39 @@
               "weight": 1
             }
           ]
+        },
+
+        {
+          "tag":"SUMMARY_TABLE",
+          "widgetType": "Table",
+          "rowSize": 10,
+          "colSize": 10,
+          "tableData": [
+            {"type":"Text",
+              "value": "Visit Type",
+              "posX": 0,
+              "posY": 0
+            },
+            {"type":"Text",
+              "query": [{ "concept": 16373,
+                "conceptAnswer": 164939
+              }],
+              "value":"Initial Visit",
+              "posX": 1,
+              "posY": 0
+            },{"type":"Text",
+              "value": "Visit Type",
+              "posX": 1,
+              "posY": 0
+            },
+            {"type":"Text",
+              "query": [{ "concept": 16373,
+                "conceptAnswer": 164939
+              }],
+              "value":"Initial Visit",
+              "posX": 1,
+              "posY": 1
+            }]
         }
       ]
     }
