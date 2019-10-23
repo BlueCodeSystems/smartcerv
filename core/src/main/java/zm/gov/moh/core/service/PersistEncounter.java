@@ -3,7 +3,9 @@ package zm.gov.moh.core.service;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
@@ -40,6 +42,10 @@ public class PersistEncounter extends PersistService {
         long encounter_type_id = (long) mBundle.get(Key.ENCOUNTER_TYPE_ID);
         Long visit_id = (Long) mBundle.get(Key.VISIT_ID);
 
+        LocalDate visitDatetime =  db.visitDao().getDateStartTimeByVisitId(visit_id).toLocalDate();
+
+        LocalDateTime encounterDateTime = LocalDateTime.of(visitDatetime, LocalTime.now());
+
         //void previous visit data
         EncounterEntity encounterEntity = db.encounterDao().getByTypeVisitId(visit_id,encounter_type_id);
 
@@ -62,23 +68,14 @@ public class PersistEncounter extends PersistService {
                         obsEntity.setVoided((short)1);
                         db.obsDao().insert(obsEntity);
                     }
+             encounterDateTime = encounterEntity.getEncounterDatetime();
         }
 
-        if (visit_id == null) {
 
-            visit_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
-            long visit_type_id = (Long) mBundle.get(Key.VISIT_TYPE_ID);
-            LocalDateTime start_time = LocalDateTime.now();
 
-            VisitEntity visit = new VisitEntity(visit_id, visit_type_id, person_id, location_id, user_id, start_time, start_time);
-            getRepository().getDatabase().visitDao().insert(visit);
-        }
+        long encounter_id = submitEncounter(encounter_type_id, person_id, location_id, visit_id, user_id, encounterDateTime);
 
-        LocalDateTime zonedDatetimeNow = LocalDateTime.now();
-
-        long encounter_id = submitEncounter(encounter_type_id, person_id, location_id, visit_id, user_id, zonedDatetimeNow);
-
-        submitObs(person_id, encounter_id, location_id, user_id, zonedDatetimeNow, mBundle);
+        submitObs(person_id, encounter_id, location_id, user_id, encounterDateTime, mBundle);
 
         submitEncounterProvider(encounter_id, provider_id, null, user_id);
     }
