@@ -31,16 +31,18 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
     String frequencyName;
     String durationName;
     String otherDrug;
+    boolean isOther;
 
     public BasicOtherDrugWidget(Context context) {
         super(context);
     }
 
     public boolean isValid() {
-        /*if (otherDrug == null || otherDrug.equals("")) {
+
+        if (otherDrug == null && isOther) {
             Toast.makeText(mContext, mContext.getString(R.string.empty_other_prescription), Toast.LENGTH_SHORT).show();
             return false;
-        }*/
+        }
 
         return true;
     }
@@ -150,6 +152,9 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
                 tableRow.addView(otherText);
                 otherText.setVisibility(VISIBLE);
                 otherText.setLayoutParams(rowLayoutParams);
+
+                if (checked)
+                    isOther = true;
             }
 
             tableRow.addView(frequencySpinner);
