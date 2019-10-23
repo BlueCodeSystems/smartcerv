@@ -152,6 +152,8 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
         protected String mLabel;
         protected String mDataType;
 
+
+
         public Builder setDataType(String dataType) {
             mDataType = dataType;
             return this;
@@ -183,6 +185,8 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
             mValueChangeListener = valueChangeListener;
             return this;
         }
+
+
 
         @Override
         public BaseWidget build() {

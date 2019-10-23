@@ -223,6 +223,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         switch (mDataType) {
 
             case ConceptDataType.TEXT:
+                mEditText.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mEditText.setText("");
+                        deleteFromBundle();
+                        return true;
+                    }
+                });
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
 
                 if (mStyle != null) {
@@ -237,6 +245,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.setGravity(Gravity.LEFT);
                         //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+
 
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
@@ -260,7 +270,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.setGravity(Gravity.CENTER);
                         //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
-
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
                         params.width = 200;
@@ -279,6 +288,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
             case ConceptDataType.NUMERIC:
                 mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                mEditText.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mEditText.setText("");
+                        deleteFromBundle();
+                        return true;
+                    }
+                });
                 view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
                 this.addView(view);
                 break;
@@ -292,6 +309,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                 ((DatePickerWidget)datePicker).setLongClick(v ->{
 
                     ((DatePickerWidget)datePicker).clear();
+                    deleteFromBundle();
 
                     return true;
                 });
@@ -601,4 +619,12 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
             bundle.putSerializable(Key.OBS_ID, obsVoid);
         }
     }
+    public void deleteFromBundle()
+    {
+        if (bundle.containsKey(getTag().toString())) {
+
+            bundle.remove(getTag().toString());
+        }
+    }
+
 }
