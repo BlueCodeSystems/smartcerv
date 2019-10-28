@@ -1,8 +1,7 @@
 package zm.gov.moh.common.view;
 
-import androidx.appcompat.app.AppCompatActivity;
 import zm.gov.moh.common.R;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 import android.os.Bundle;
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
     </data>
     <androidx.appcompat.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,9 +35,7 @@
                 android:scaleType="fitCenter"
                 android:background="@color/transparent"
                 android:layout_alignParentEnd="true"
-                android:onClick="@{() -> toolbarhandler.syncMetaData()}"/>
+                android:onClick="@{() -> toolbarhandler.syncData()}"/>
         </RelativeLayout>
-
-
     </androidx.appcompat.widget.Toolbar>
 </layout>

@@ -23,6 +23,10 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT * FROM Visit WHERE patient_id = :id")
     LiveData<List<VisitEntity>> getByPatientIdLive(long id);
 
+    //gets all locations
+    @Query("SELECT visit_id FROM Visit WHERE datetime(date_started) = datetime(:dateTime)")
+    Long[] getByDatetime(LocalDateTime dateTime);
+
     @Query("SELECT * FROM Visit WHERE patient_id = :id")
     VisitEntity[] getByPatientId(long id);
 
@@ -31,6 +35,9 @@ public interface VisitDao extends Synchronizable<Long> {
 
     @Query("SELECT * FROM  Visit WHERE date_started = :dateTime AND visit_id >= :offset")
     VisitEntity getByDate( LocalDateTime dateTime, long offset);
+
+    @Query("SELECT * FROM  Visit WHERE date_started >= :dateTime")
+    VisitEntity getAll( LocalDateTime dateTime);
 
     @Query("SELECT * FROM  Visit WHERE visit_id >= :offset")
     VisitEntity getByDate( long offset);

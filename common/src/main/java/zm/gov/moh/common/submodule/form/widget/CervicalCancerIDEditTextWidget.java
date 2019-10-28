@@ -1,44 +1,87 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
+import android.widget.EditText;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.lifecycle.LiveData;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.derived.FacilityDistrictCode;
 
 
-public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
+public class CervicalCancerIDEditTextWidget extends RepositoryWidget<CharSequence> {
 
     long facilityLocationId;
-    Repository repository;
-    Context context;
     FacilityDistrictCode code;
+    final String OFFSET = "000001";
+    private AppCompatEditText mEditText;
+    private AppCompatTextView mTextView;
+    private String mLabel;
+    private String mIdentifier;
 
-    public CervicalCancerIDEditTextWidget(Context context, int weight, Repository repository){
-        super(context, weight);
+    public CervicalCancerIDEditTextWidget(Context context){
+        super(context);
+    }
 
-        this.repository = repository;
-        this.context = context;
+    @Override
+    public void onCreateView() {
 
-        facilityLocationId = repository.getDefaultSharePrefrences()
+        mEditText = new AppCompatEditText(mContext);
+        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
+        mTextView = new AppCompatTextView(mContext);
+        mTextView.setText((mLabel != null)?mLabel:"");
+
+        this.addView(mTextView);
+        this.addView(mEditText);
+        facilityLocationId = mRepository.getDefaultSharePrefrences()
                 .getLong(Key.LOCATION_ID, 1);
-
-        repository.getDatabase().facilityDistrictCodeDao().getFacilitydistrictCodeByLocationId(facilityLocationId).observe((AppCompatActivity)context,this::setFacilityDistrictCode);
+        mRepository.getDatabase().facilityDistrictCodeDao().getFacilitydistrictCodeByLocationId(facilityLocationId).observe((AppCompatActivity)mContext,this::setFacilityDistrictCode);
     }
 
     public void setFacilityDistrictCode(FacilityDistrictCode code){
 
       this.code = code;
-      repository.getDatabase().patientIdentifierDao().getByLocationType(facilityLocationId, OpenmrsConfig.CCPIZ_IDENTIFIER_TYPE).observe((AppCompatActivity)context, this::appendSerial);
+      mRepository.getDatabase().patientIdentifierDao().getByLocationType(facilityLocationId, OpenmrsConfig.CCPIZ_IDENTIFIER_TYPE).observe((AppCompatActivity)mContext, this::appendSerial);
+    }
+
+    public void setLabel(String mLabel) {
+        this.mLabel = mLabel;
+    }
+
+    @Override
+    public String getValue() {
+        return null;
+    }
+
+    @Override
+    public void setValue(CharSequence value) {
+
+        mIdentifier = value.toString();
+        mBundle.putString((String)getTag(), value.toString());
+    }
+
+    @Override
+    public boolean isValid() {
+
+
+        if(mRequired != null && mRequired) {
+            mIdentifier = mBundle.getString((String) getTag());
+
+            if (mIdentifier != null && mIdentifier.matches(mRegex))
+                return true;
+            else {
+                mEditText.setError(mErrorMessage);
+                return false;
+            }
+        }else
+            return false;
     }
 
     public void  appendSerial(List<String> identifiers){
@@ -46,24 +89,74 @@ public class CervicalCancerIDEditTextWidget extends FormEditTextWidget {
         String districtFacilityCode = this.code.getDistrictCode()+"-"+this.code.getFacilityCode();
         if(identifiers.size() > 0) {
 
-            List<Long> serials = new ArrayList<>();
-            for (String identifier : identifiers) {
-                int index = identifier.lastIndexOf('-');
+            try {
+                List<Long> serials = new ArrayList<>();
+                for (String identifier : identifiers) {
+                    int index = identifier.lastIndexOf('-');
 
-                if(!identifier.contains(districtFacilityCode))
-                    continue;
+                    if(!identifier.contains(districtFacilityCode))
+                        continue;
 
-                try {
-                    long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
-                    serials.add(serial);
+                        try {
+                            long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
+                            serials.add(serial);
+                        }catch (Exception e){
+
+                        }
                 }
-                catch (Exception e){
 
-                }
+                long preferredSerial = Collections.max(serials) + 1;
+                int identifierLength = String.valueOf(preferredSerial).length();
+
+                if(OFFSET.length() >= identifierLength)
+                    mEditText.setText(districtFacilityCode + "-"+OFFSET.substring(0,OFFSET.length()- identifierLength) + preferredSerial);
+                else
+                    mEditText.setText(districtFacilityCode + "-"+preferredSerial);
+
+            }catch (Exception e){
+                mEditText.setText(districtFacilityCode+"-"+OFFSET);
             }
+        }
+        else {
+            mEditText.setText(districtFacilityCode+"-"+OFFSET);
+        }
+    }
 
-            long preferredSerial = Collections.max(serials) + 1;
-            this.setText(districtFacilityCode+"-"+preferredSerial);
+    public static class Builder extends RepositoryWidget.Builder{
+
+        private String mLabel;
+        public Builder(Context context){
+            super(context);
+        }
+
+        public Builder setLabel(String mLabel) {
+            this.mLabel = mLabel;
+            return this;
+        }
+
+        @Override
+        public BaseWidget build() {
+
+            CervicalCancerIDEditTextWidget widget = new CervicalCancerIDEditTextWidget(mContext);
+
+            if(mBundle != null)
+                widget.setBundle(mBundle);
+            if(mTag != null)
+                widget.setTag(mTag);
+            if( mRepository != null)
+                widget.setRepository(mRepository);
+            if(mLabel != null)
+                widget.setLabel(mLabel);
+            if(mErrorMessage != null)
+                widget.setErrorMessage(mErrorMessage);
+            if(mRequired != null)
+                widget.setRequired(mRequired);
+            if(mRegex != null)
+                widget.setRegex(mRegex);
+
+            widget.onCreateView();
+
+            return  widget;
         }
     }
 }

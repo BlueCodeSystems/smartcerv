@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import org.threeten.bp.LocalDateTime;
+
 import java.util.List;
 
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
@@ -34,6 +36,10 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")
     ObsEntity[] findByPatientId(long id);
+
+    //get getPersons by id
+    @Query("SELECT * FROM obs WHERE datetime(obs_datetime) = datetime(:dateTime)")
+    ObsEntity[] findByObsDatetime(LocalDateTime dateTime);
 
     @Query("DELETE FROM obs WHERE obs_id IN (:obsId) AND obs_id >= :offset")
     void deleteById(long[] obsId, long offset);

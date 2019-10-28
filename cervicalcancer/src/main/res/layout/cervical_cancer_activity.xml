@@ -7,8 +7,8 @@
     <data>
         <variable name="ccancerviewmodel" type="zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel"/>
         <variable name="modules" type="zm.gov.moh.core.model.Submodules"/>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.ToolBarEventHandler"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
     </data>
     <LinearLayout
@@ -22,9 +22,148 @@
             app:toolbarhandler="@{toolbarhandler}">
         </include>
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginTop="30dp"
+            android:paddingTop="20dp"
+            android:stretchColumns="1">
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <ImageButton
+                        android:id="@+id/register_patient"
+                        android:layout_width="271dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="4dp"
+                        android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/woman_ico"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Enroll Client"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/smartcerv"
+                        android:layout_width="258dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:elevation="4dp"
+                        android:onClick="@{() -> ccancerviewmodel.startSubmodule(1)}"
+                        android:padding="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ico_search"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Client Register"
+                        android:textAllCaps="false"
+                        android:textColor="@color/dark_purple"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/your_id"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="10dp"
+            android:background="#c0c0c0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/option_noFilter"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No Filter"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:textColor="@color/darker_grey"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/option_today"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Today"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:textColor="@color/darker_grey"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/option_month"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/optionbackground"
+                android:gravity="center"
+                android:text="This Month"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:textColor="#F5FFFA"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/option_3months"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Last 3 months"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:textColor="@color/darker_grey"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="450dp">
+            android:layout_height="wrap_content">
 
             <androidx.gridlayout.widget.GridLayout
                 android:layout_width="match_parent"
@@ -72,7 +211,7 @@
                             android:layout_height="45dp"
                             android:height="100dp"
                             android:paddingLeft="15dp"
-                            android:text="Registered Patients" />
+                            android:text="Total clients enrolled" />
 
                     </LinearLayout>
 
@@ -183,9 +322,10 @@
                         android:id="@+id/textView11"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="VIA screen results history"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:text="VIA screen results in last 5 days"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                        android:textColor="@color/darker_grey"
+                        android:textSize="24sp" />
 
                     <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/barChart"
@@ -197,93 +337,5 @@
             </androidx.gridlayout.widget.GridLayout>
 
         </ScrollView>
-
-        <TextView
-            android:id="@+id/your_id"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
-            android:layout_marginTop="10dp"
-            android:background="#c0c0c0" />
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:paddingTop="20dp"
-            android:stretchColumns="1">
-
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-
-                    <ImageButton
-                        android:id="@+id/register_patient"
-                        android:layout_width="271dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center_horizontal"
-                        android:elevation="4dp"
-                        android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
-                        android:padding="10dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/woman_ico"
-                        android:textAllCaps="false" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Enroll Patient"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_purple"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageButton
-                        android:id="@+id/smartcerv"
-                        android:layout_width="258dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center_horizontal"
-                        android:elevation="4dp"
-                        android:onClick="@{() -> ccancerviewmodel.startSubmodule(1)}"
-                        android:padding="10dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ico_search"
-                        android:textAllCaps="false" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Client Register"
-                        android:textAllCaps="false"
-                        android:textColor="@color/dark_purple"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-            </TableRow>
-
-        </TableLayout>
-
     </LinearLayout>
 </layout>

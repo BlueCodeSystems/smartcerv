@@ -17,6 +17,9 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM person")
     LiveData<List<Person>> getAll();
 
+    @Query("SELECT * FROM person")
+    List<Person> getAllT();
+
     @Query("SELECT person_id FROM person")
     List<Long> getIds();
 

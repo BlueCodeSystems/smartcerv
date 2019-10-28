@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.FragmentCervicalCancerHomeBinding;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.

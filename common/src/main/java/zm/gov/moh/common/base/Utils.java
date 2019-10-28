@@ -1,4 +1,4 @@
-package zm.gov.moh.common.ui;
+package zm.gov.moh.common.base;
 
 public class Utils {
 

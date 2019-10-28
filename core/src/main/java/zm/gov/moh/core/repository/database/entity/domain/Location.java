@@ -1,6 +1,7 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
 import androidx.room.*;
+import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 
 import com.squareup.moshi.Json;
 
@@ -8,7 +9,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalDateTime;
 
 @Entity
-public class Location {
+public class Location extends SynchronizableEntity {
 
     @PrimaryKey
     @ColumnInfo(name = "location_id")
@@ -108,6 +109,11 @@ public class Location {
     private String address15;
 
     public long getLocationId() {
+        return locationId;
+    }
+
+    @Override
+    public long getId() {
         return locationId;
     }
 

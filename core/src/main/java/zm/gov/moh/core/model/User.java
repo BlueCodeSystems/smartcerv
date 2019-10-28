@@ -1,6 +1,8 @@
 package zm.gov.moh.core.model;
 
 import zm.gov.moh.core.repository.database.entity.domain.Location;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.Provider;
 
 public class User {
 
@@ -8,9 +10,11 @@ public class User {
     private String display;
     private String username;
     private String systemId;
-    private Integer providerId;
-    private Integer userId;
+    private long userId;
     private Location[] location;
+    private PersonName personName;
+    private Provider provider;
+    private long personId;
 
     public String getDisplay() {
         return display;
@@ -32,11 +36,19 @@ public class User {
         return location;
     }
 
-    public Integer getProviderId() {
-        return providerId;
+    public Provider getProvider() {
+        return provider;
     }
 
-    public Integer getUserId() {
+    public long getUserId() {
         return userId;
+    }
+
+    public long getPersonId() {
+        return personId;
+    }
+
+    public PersonName getPersonName() {
+        return personName;
     }
 }

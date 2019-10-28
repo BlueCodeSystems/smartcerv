@@ -13,10 +13,10 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityClientDashboardBinding;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
 import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
-import zm.gov.moh.common.ui.ToolBarEventHandler;
+import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class ClientDashboardActivity extends BaseActivity {
@@ -34,7 +34,7 @@ public class ClientDashboardActivity extends BaseActivity {
 
         AndroidThreeTen.init(this);
 
-        ToolBarEventHandler toolBarEventHandler = getToolbarHandler(this);
+        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         toolBarEventHandler.setTitle("Client Dashboard");
 
         vitals = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);

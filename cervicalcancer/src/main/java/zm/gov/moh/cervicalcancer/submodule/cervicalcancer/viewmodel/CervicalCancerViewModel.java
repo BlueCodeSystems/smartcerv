@@ -4,7 +4,12 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.util.Log;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -23,6 +28,8 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
     EnumMap<Submodules, Class> submodules;
     Context context;
     MutableLiveData<Module> startSubmodule;
+
+
 
     public CervicalCancerViewModel(Application application){
         super(application);
@@ -62,7 +69,7 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
     }
 
-    //get all patients seen from current location
+    //get all patients seen from current location.
 
     public LiveData <Long> getAllseenClients()
     {
@@ -86,6 +93,90 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
     }
 
 
+    //patents today
+
+    public LiveData<Long> getClientsRegisteredToday()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return  getRepository().getDatabase().patientDao().getTotalRegisteredClientsByDate(location_id,"-0 days");
+    }
+
+    public LiveData<Long>getClientsSeenToday()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return getRepository().getDatabase().patientDao().getTotalSeenClientsByDays(location_id,"-0 days");
+    }
+
+    public LiveData<Long>getClientsScreenedToday()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return getRepository().getDatabase().patientDao().getTotalSeenClientsByDays(location_id,"-0 days");
+    }
+
+    //get day of the month
+
+
+    //client data for this month
+
+
+    public LiveData<Long>getClientsRegisteredThisMonth()
+    {
+        Date date=new Date();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+
+        return getRepository().getDatabase().patientDao().getTotalRegisteredClientsByDate(location_id,"-"+String.valueOf(day)+" days");
+    }
+
+
+    public LiveData<Long>getClientsSeenThisMonth()
+    {
+        Date date=new Date();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+
+        return getRepository().getDatabase().patientDao().getTotalSeenClientsByDays(location_id,"-"+String.valueOf(day)+" days");
+
+    }
+
+    public LiveData<Long>getClientsScreenedThisMonth()
+    {
+
+        Date date=new Date();
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(date);
+
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+
+        return getRepository().getDatabase().patientDao().getTotalScreenedByDays(location_id,"-"+String.valueOf(day)+" days");
+    }
+
+
+    //patient Data  for last three months
+    public LiveData<Long>getRegisteredInLast3Months()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return  getRepository().getDatabase().patientDao().getTotalRegisteredClientsByDate(location_id,"-90 days");
+    }
+
+    public LiveData<Long> getScreenedInlast3Months()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return  getRepository().getDatabase().patientDao().getTotalScreenedByDays(location_id,"-90 days");
+    }
+
+    public LiveData<Long> getSeenInlast3Months()
+    {
+        long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+        return  getRepository().getDatabase().patientDao().getTotalSeenClientsByDays(location_id,"-90 days");
+    }
 
 
 }
