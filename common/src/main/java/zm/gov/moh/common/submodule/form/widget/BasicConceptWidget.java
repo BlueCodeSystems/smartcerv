@@ -332,13 +332,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                 } else if (mStyle.equals(STYLE_CHECK)) {
 
                     conceptNameIdMap.put(mLabel, 1L);
-                    checkBoxGroup.setOnLongClickListener(new OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            checkBoxGroup.clearCheck();
-                            return true;
-                        }
-                    });
+
                     checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(checkBoxGroup);
                 }
