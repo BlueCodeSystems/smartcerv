@@ -15,7 +15,7 @@ public class MediaStorageUtil {
         File file = new File(context.getExternalFilesDir(
                 Environment.DIRECTORY_PICTURES), albumName);
         if (!file.mkdirs()) {
-            Log.e("Cool", "Directory not created");
+            Log.e("EDICrypt", "Directory not created");
         }
         return file;
     }
