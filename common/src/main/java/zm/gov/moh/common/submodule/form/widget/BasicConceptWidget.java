@@ -326,11 +326,19 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
                     conceptNameIdMap.put("Yes", 1L);
                     conceptNameIdMap.put("No", 2L);
+
                     radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
                 } else if (mStyle.equals(STYLE_CHECK)) {
 
                     conceptNameIdMap.put(mLabel, 1L);
+                    checkBoxGroup.setOnLongClickListener(new OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            checkBoxGroup.clearCheck();
+                            return true;
+                        }
+                    });
                     checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(checkBoxGroup);
                 }
@@ -368,6 +376,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         switch (mStyle) {
 
             case STYLE_CHECK:
+
                 checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, checkBoxGroup));
 
@@ -388,6 +397,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                     for (Long conceptId : selectedConcepts) {
                         RadioButton button = radioGroup.findViewWithTag(conceptId.intValue());
                         button.setChecked(true);
+
                     }
                 break;
 
