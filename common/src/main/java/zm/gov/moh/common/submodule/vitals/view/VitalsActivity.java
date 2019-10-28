@@ -36,8 +36,7 @@ public class VitalsActivity extends BaseActivity {
         binding.setContext(this);
 
         BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
-        toolBarEventHandler.setTitle("Capture Vitals");
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Capture Vitals");
     }
 
     public void onSubmit(Bundle bundle){

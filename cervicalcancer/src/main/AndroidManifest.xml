@@ -17,13 +17,7 @@
         <activity
             android:name=".submodule.dashboard.patient.view.PatientDashboardActivity"
             android:theme="@style/Smartcerv" />
-        <activity android:name=".view.CervicalCancerHomeActivity"></activity>
-        <activity android:name=".submodule.dashboard.patient.view.PatientDashboardImageFragment"/>
-        
-
-        <!--activity android:name=".submodule.dashboard.patient.view.PatientImageActivity"
-            android:configChanges="orientation|screenSize"/!-->
-
+        <activity android:name=".view.CervicalCancerHomeActivity" />
 
     </application>
 
