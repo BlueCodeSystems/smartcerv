@@ -223,6 +223,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         switch (mDataType) {
 
             case ConceptDataType.TEXT:
+                mEditText.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mEditText.setText("");
+                        deleteFromBundle();
+                        return true;
+                    }
+                });
                 View view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
 
                 if (mStyle != null) {
@@ -237,6 +245,8 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.setGravity(Gravity.LEFT);
                         //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
+
+
 
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
@@ -260,7 +270,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.setGravity(Gravity.CENTER);
                         //Auto capitalize first letter of every sentence
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
-
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
                         params.width = 200;
@@ -279,6 +288,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
             case ConceptDataType.NUMERIC:
                 mEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                mEditText.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mEditText.setText("");
+                        deleteFromBundle();
+                        return true;
+                    }
+                });
                 view = WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, mEditText);
                 this.addView(view);
                 break;
@@ -288,6 +305,14 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                 datePicker = new DatePickerWidget.Builder(mContext)
                         .setOnValueChangeListener(this::onTextValueChangeListener)
                         .setHint(mHint).setFutureDate(mFutureDate).build();
+
+                ((DatePickerWidget)datePicker).setLongClick(v ->{
+
+                    ((DatePickerWidget)datePicker).clear();
+                    deleteFromBundle();
+
+                    return true;
+                });
 
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.HORIZONTAL, mTextView, datePicker));
 
@@ -301,11 +326,13 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
                     conceptNameIdMap.put("Yes", 1L);
                     conceptNameIdMap.put("No", 2L);
+
                     radioGroup = WidgetUtils.createRadioButtons(mContext, conceptNameIdMap, this::onSelectedValue, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, radioGroup));
                 } else if (mStyle.equals(STYLE_CHECK)) {
 
                     conceptNameIdMap.put(mLabel, 1L);
+
                     checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, RadioGroup.HORIZONTAL, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 0);
                     this.addView(checkBoxGroup);
                 }
@@ -343,6 +370,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         switch (mStyle) {
 
             case STYLE_CHECK:
+
                 checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, conceptNameIdMap, this::onCheckedChanged, orientation, WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, mWeight);
                 this.addView(WidgetUtils.createLinearLayout(mContext, WidgetUtils.VERTICAL, mTextView, checkBoxGroup));
 
@@ -363,6 +391,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                     for (Long conceptId : selectedConcepts) {
                         RadioButton button = radioGroup.findViewWithTag(conceptId.intValue());
                         button.setChecked(true);
+
                     }
                 break;
 
@@ -594,4 +623,12 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
             bundle.putSerializable(Key.OBS_ID, obsVoid);
         }
     }
+    public void deleteFromBundle()
+    {
+        if (bundle.containsKey(getTag().toString())) {
+
+            bundle.remove(getTag().toString());
+        }
+    }
+
 }
