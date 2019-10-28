@@ -143,6 +143,9 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
                 otherText.setVisibility(GONE);
             }
 
+            if (!checked)
+                isOther = false;
+
             tableRow.removeView(frequencySpinner);
             frequencySpinner.setVisibility(GONE);
             tableRow.removeView(durationSpinner);
