@@ -1,23 +1,19 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
-
 import java.io.IOException;
-
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
@@ -31,6 +27,7 @@ import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
+
 
 public class PatientDashboardActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String PERSON_ID = "PERSON_ID";
@@ -93,8 +90,12 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         ImageButton1 = findViewById(R.id.load_image);
 
 
+
+
+
         // Set Bottom Navigation View Listener
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
         bottomNavigationView.inflateMenu(R.menu.bottom_menu);
         fragmentManager = getSupportFragmentManager();
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -111,6 +112,15 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         addDrawer(this);
 
     }
+
+
+
+
+
+
+
+
+
 
     public void EDIonClick(final View v) {
         /*if (VisitState == null) {

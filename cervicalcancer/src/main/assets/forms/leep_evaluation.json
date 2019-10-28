@@ -75,7 +75,7 @@
         },
         {
           "tag": "nrc",
-          "widgetType": "Concept",
+          "widgetType": "NumericEditText",
           "uuid": "ef5935b5-b96f-4d00-8429-46c0c3267c3a",
           "conceptId": 165349,
           "dataType": "Numeric",
@@ -83,7 +83,7 @@
           "textSize": 18,
           "style": "EditText",
           "label": "NRC No.",
-          "widgetType": "EditText",
+          "required":false,
           "weight": 1
         },
         {
@@ -113,6 +113,7 @@
         {
           "tag": "most_recent_hiv_status",
           "widgetType": "Concept",
+          "uuid": "e8913df8-f2c7-4eb8-9da6-54be2e1e2ad4",
           "conceptId": 165341,
           "dataType": "Coded",
           "style": "radio",
