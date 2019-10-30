@@ -47,6 +47,8 @@ public class RegisterActivity extends BaseRegisterActivity {
         mBundle = getIntent().getExtras();
         binding.setTitle("Client Register");
 
+        initToolBar(binding.getRoot());
+
 
         defaultModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 

@@ -78,7 +78,7 @@
         },
         {
           "tag": "other_prescription_text",
-          "widgetType":"ConceptDrug",
+          "widgetType":"ConceptOtherDrug",
           "weight": 1,
           "uuid": "f87d44a7-7f19-45fc-8639-c1f56562d1bc"
         }
