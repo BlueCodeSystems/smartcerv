@@ -39,8 +39,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-beta01'
     implementation project(':core')
 
-    //Butter Knife
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc1'
+    //Butter Knife dependency upgraded to 10.0.0
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.google.android.material:material:1.0.0'
 
     //mikepenze drawer
