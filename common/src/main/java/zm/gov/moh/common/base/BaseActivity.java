@@ -160,10 +160,15 @@ public class BaseActivity extends AppCompatActivity {
                 .getLong(Key.LOCATION_ID, 1);
         final long PROVIDER_ID = getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(Key.PROVIDER_ID, 1);
+
+        final long USER_ID = getViewModel().getRepository().getDefaultSharePrefrences()
+                .getLong(Key.USER_ID, 1);
+
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         Long personId = bundle.getLong(Key.PERSON_ID);
         bundle.putLong(Key.PROVIDER_ID, PROVIDER_ID);
+        bundle.putLong(Key.USER_ID, USER_ID);
 
         if (personId != null) {
 

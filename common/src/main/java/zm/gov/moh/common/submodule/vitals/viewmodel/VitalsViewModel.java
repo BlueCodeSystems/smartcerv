@@ -4,6 +4,9 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.LongSparseArray;
 
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +16,8 @@ import zm.gov.moh.common.submodule.vitals.model.Vitals;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
+import zm.gov.moh.core.repository.database.DatabaseUtils;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
@@ -49,9 +54,18 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
            LongSparseArray<Double> conceptIdVitalValueMap = new LongSparseArray<>();
            ArrayList<String> tags = new ArrayList<>();
 
+           long visitId = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
+           long visitTypeId = 1;
+           long locationId = mRepository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+           long creator = mRepository.getDefaultSharePrefrences().getLong(Key.USER_ID,0);
+           long personId = (Long) mBundle.get(Key.PERSON_ID);
+           LocalDateTime start_time = LocalDateTime.now();
+
+           db.visitDao().insert(new VisitEntity(visitId,visitTypeId,personId,locationId,creator,start_time));
+
+           bundle.putLong(Key.VISIT_ID, visitId);
            bundle.putStringArrayList(Key.FORM_TAGS, tags);
            bundle.putLong(Key.ENCOUNTER_TYPE_ID, encounterTypeUuidToId.apply(OpenmrsConfig.ENCOUNTER_TYPE_UUID_VITALS));
-           bundle.putLong(Key.VISIT_TYPE_ID, 1);
 
 
 
