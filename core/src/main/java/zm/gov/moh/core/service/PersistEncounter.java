@@ -168,8 +168,6 @@ public class PersistEncounter extends PersistService {
                             obsList.addAll(obs.setObsConceptId(obsValue.getConceptId())
                                     .setValue(answerConcepts));
                             break;
-
-
                     }
 
                     if (!obsList.isEmpty())

@@ -190,15 +190,19 @@ public class ServiceManager {
 
                 EntityType entityType = (EntityType) bundle.getSerializable(Key.ENTITY_TYPE);
 
-                if(serviceSchedule.containsKey(service)) {
-                    serviceManager.setService(serviceSchedule.get(service)).start();
-                    serviceSchedule.remove(service);
-                }
+                if(serviceManager != null && serviceSchedule != null)
+                    if(serviceSchedule.containsKey(service)) {
+                        serviceManager.setService(serviceSchedule.get(service)).start();
+                        serviceSchedule.remove(service);
+                    }
 
             }else if (action != null && action.equals(intentActionServiceInterrupted)){
-                serviceManager.getServiceExecutionPool().remove(service);
-                if(serviceManager.remoteServices.contains(service))
-                    Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
+
+                if(serviceManager != null) {
+                    serviceManager.getServiceExecutionPool().remove(service);
+                    if (serviceManager.remoteServices.contains(service))
+                        Toast.makeText(context, "Sync interrupted", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }
