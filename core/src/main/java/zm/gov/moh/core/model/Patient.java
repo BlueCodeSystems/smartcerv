@@ -6,6 +6,7 @@ import java.util.List;
 
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 
 public class Patient {
@@ -15,7 +16,7 @@ public class Patient {
     private String givenName;
     private String middleName;
     private String familyName;
-    private List<PersonAttribute> attributes;
+    private PersonAttributeEntity attributes;
     private List<PatientIdentifier> identifiers;
     private String address1;
     private String cityVillage;
@@ -45,7 +46,7 @@ public class Patient {
         this.identifiers = identifiers;
     }
 
-    public void setAttributes(List<PersonAttribute> attributes) {
+    public void setAttributes(PersonAttributeEntity attributes) {
         this.attributes = attributes;
     }
 
@@ -54,7 +55,7 @@ public class Patient {
         protected Person person;
         protected PersonName personName;
         protected PersonAddress personAddress;
-        protected List<PersonAttribute> attributes;
+        protected PersonAttributeEntity attributes;
         protected List<PatientIdentifier> identifiers;
 
         public Person getPerson() {
@@ -89,7 +90,7 @@ public class Patient {
             return this;
         }
 
-        public Builder setAttributes(List<PersonAttribute> attributes) {
+        public Builder setAttributes(PersonAttributeEntity attributes) {
             this.attributes = attributes;
             return this;
         }

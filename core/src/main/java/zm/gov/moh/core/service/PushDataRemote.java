@@ -25,6 +25,7 @@ import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
@@ -150,7 +151,8 @@ public class PushDataRemote extends RemoteService {
        PersonName personName = db.personNameDao().findByPersonId(patientId);
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId);
-       List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
+       //List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
+        PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonId(patientId);
 
        return new Patient.Builder()
                .setPerson(person)

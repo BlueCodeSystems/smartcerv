@@ -19,6 +19,7 @@ import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
@@ -86,7 +87,8 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        PersonName personName = db.personNameDao().findByPersonId(patientId);
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId);
-       List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
+       //List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
+       PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonId(patientId);
 
        if((person != null || personName != null || personAddress != null) && patientIdentifiers.size() > 1) {
 

@@ -11,6 +11,8 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.List;
+
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.ActivityClientDashboardBinding;
@@ -18,6 +20,7 @@ import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragm
 import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
 import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.common.base.BaseActivity;
@@ -95,7 +98,20 @@ public class ClientDashboardActivity extends BaseActivity {
             binding.setVariable(BR.facility, location);
         });
 
-
+        try {
+            viewModel.getRepository().getDatabase().personAttributeDao().findByPersonIdObservable(clientId).observe(this, attribute -> {
+                // no views, therfore no binding
+                if (attribute != null)
+                    mBundle.putString(Key.PERSON_PHONE, attribute.getValue());
+                else {
+                    mBundle.putString(Key.PERSON_PHONE, "");    // use empty string for client returning 'attribute = null'
+                }
+                ClientDashboardActivity.this.getIntent().putExtras(mBundle);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
 
 
 

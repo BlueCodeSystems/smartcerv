@@ -144,6 +144,26 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 //producer
                 TIMEOUT);
 
+        // PersonAttribute Types
+        ConcurrencyUtils.consumeAsync(
+               personAttributes -> {
+                   repository.getDatabase().personAttributeDao().insert(personAttributes);
+                   onTaskCompleted();
+               }, // consumer
+               this::onError,
+               repository.getRestApi().getPersonAttributes(accessToken), // producer
+               TIMEOUT);
+
+        // PersonAttributeType Types
+        /*ConcurrencyUtils.consumeAsync(
+                personAttributeTypes -> {
+                    repository.getDatabase().personAttributeTypeDao().insert(personAttributeTypes);
+                    onTaskCompleted();
+                }, // consumer
+                this::onError,
+                repository.getRestApi().getPersonAttributeTypes(accessToken), // producer
+                TIMEOUT);*/
+
        if(awaitResult().equals(Result.success())){
 
            repository.getDefaultSharePrefrences().edit()
