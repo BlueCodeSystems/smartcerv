@@ -2,6 +2,8 @@
   "attributes": {
     "panelType": "form",
     "formType": "encounter",
+    "name": "Final Diagnosis And Plan",
+    "encounterId": 21,
     "submitLabel": "Submit"
   },
   "widgetGroup": [

@@ -44,10 +44,12 @@ public class DatePickerWidget extends EditTextWidget {
         mEditText.setTextColor(Color.BLACK);
 
 
+
+
         button.setBackgroundResource(R.drawable.calendar);
 
-        WidgetUtils.setLayoutParams(button,Utils.dpToPx(mContext,25), Utils.dpToPx(mContext,25));
-        ((LinearLayoutCompat.LayoutParams)button.getLayoutParams()).setMarginEnd(Utils.dpToPx(mContext,20));
+        WidgetUtils.setLayoutParams(button,Utils.dpToPx(mContext,35), Utils.dpToPx(mContext,35));
+        ((LinearLayoutCompat.LayoutParams)button.getLayoutParams()).setMarginEnd(Utils.dpToPx(mContext,25));
 
 
              DatePickerDialog datePickerDialog = Utils.dateDialog(mContext,button,(DatePicker view, int year, int monthOfYear, int dayOfMonth) -> {
@@ -74,6 +76,17 @@ public class DatePickerWidget extends EditTextWidget {
         this.setGravity(Gravity.CENTER_VERTICAL);
         addView(button);
     }
+
+    public void clear(){
+       // mEditText.setText("");
+        getEditTextView().setText("");
+        mValueChangeListener.accept("");
+    }
+
+   public void setLongClick(OnLongClickListener clickListener){
+        button .setOnLongClickListener(clickListener);
+    }
+
 
     @Override
     public boolean isValid() {

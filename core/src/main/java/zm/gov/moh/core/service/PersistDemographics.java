@@ -26,7 +26,7 @@ public class PersistDemographics extends PersistService {
     @Override
     protected void executeAsync() {
 
-        final long personId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personDao()::getMaxId);
+        long personId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personDao()::getMaxId);
         final long patientIdentifierId = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
         final long  personNameId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personNameDao()::getMaxId);
         final long  personAddressId = DatabaseUtils.generateLocalId(getRepository().getDatabase().personAddressDao()::getMaxId);
@@ -40,7 +40,11 @@ public class PersistDemographics extends PersistService {
         final long locationId = mBundle.getLong(Key.LOCATION_ID);
 
 
-        if (givenName != null && familyName != null && gender != null && address != null && districtId != null && provinceId != null && dob != null) {
+
+
+
+
+        if (givenName != null && familyName != null && address != null && districtId != null && provinceId != null && dob != null) {
 
             LocalDateTime dateOfBirth = LocalDateTime.parse(dob + MID_DAY_TIME, DateTimeFormatter.ISO_ZONED_DATE_TIME);
             LocalDateTime now = LocalDateTime.now();
@@ -48,6 +52,39 @@ public class PersistDemographics extends PersistService {
             String districtName = getRepository().getDatabase().locationDao().getNameById(districtId);
             String provinceName = getRepository().getDatabase().locationDao().getNameById(provinceId);
             Identifier identifier = db.identifierDao().getIdentifierNotAssigned();
+
+            //Edit client block
+            if(mBundle.getLong(Key.PERSON_ID,0) != 0){
+
+                personId = mBundle.getLong(Key.PERSON_ID);
+
+                PersonName personName = db.personNameDao().findByPersonId(personId);
+                PersonAddress personAddress = db.personAddressDao().findByPersonId(personId);
+                Person person = db.personDao().findById(personId);
+
+                if(personName != null){
+                    personName.setFamilyName(familyName);
+                    personName.setGivenName(givenName);
+                    personName.setDateChanged(now);
+                    db.personNameDao().insert(personName);
+                }
+
+                if(personAddress != null){
+                    personAddress.setAddress1(address);
+                    personAddress.setCityVillage(districtName);
+                    personAddress.setStateProvince(provinceName);
+                    personAddress.setDateChanged(now);
+                    db.personAddressDao().insert(personAddress);
+                }
+
+                if(person != null){
+                    person.setBirthDate(dateOfBirth);
+                    person.setDateChanged(now);
+                    db.personDao().insert(person);
+                }
+
+                return;
+            }
 
             if(identifier == null){
 

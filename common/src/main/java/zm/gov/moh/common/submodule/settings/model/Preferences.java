@@ -10,6 +10,7 @@ import zm.gov.moh.core.repository.api.Repository;
 public class Preferences extends BaseObservable {
 
     private CharSequence baseUrl;
+    private boolean promptToSave = false;
 
     public void setBaseUrl(CharSequence baseUrl) {
 
@@ -27,5 +28,13 @@ public class Preferences extends BaseObservable {
 
     public Preferences(Repository repository){
         this.setBaseUrl(repository.getDefaultSharePrefrences().getString(Key.BASE_URL, BuildConfig.BASE_URL));
+    }
+
+    public void setPromptToSave(boolean promptToSave) {
+        this.promptToSave = promptToSave;
+    }
+
+    public boolean isPromptToSave() {
+        return promptToSave;
     }
 }

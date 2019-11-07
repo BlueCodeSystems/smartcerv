@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -45,7 +46,7 @@ import zm.gov.moh.core.model.LineChartVisitItem;
 public class CervicalCancerActivity extends BaseActivity {
 
     CervicalCancerViewModel cervicalCancerViewModel;
-    TextView totalPatientsRegistered, totalSeen, totalScreened;
+
     BarChart barChart;
     BarData barData;
     ArrayList<BarEntry> barEntries = new ArrayList<>();
@@ -53,7 +54,7 @@ public class CervicalCancerActivity extends BaseActivity {
     ArrayList<BarEntry> barEntries2 = new ArrayList<>();
     ArrayList<BarEntry> barEntries3 = new ArrayList<>();
     List<Integer> ints;
-
+    TextView today,monthly,monthsAgo, totalPatientsRegistered, totalSeen, totalScreened,noFilter;
     BarDataSet viaNegativeDataSet,viaPositiveDataSet,suspectCancerDataSet;
 
 
@@ -72,22 +73,65 @@ public class CervicalCancerActivity extends BaseActivity {
 
         cervicalCancerViewModel.getStartSubmodule().observe(this, this::startModule);
 
+        initPopupMenu(R.menu.base_menu,toolBarEventHandler::onMenuItemSelected);
+        initToolBar(binding.getRoot());
 
-        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
-        toolBarEventHandler.setTitle("Cervical Cancer");
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Cervical Cancer");
         binding.setContext(this);
         addDrawer(this);
         barChart= findViewById(R.id.barChart);
 
 
-
+        today=findViewById(R.id.option_today);
+        monthly=findViewById(R.id.option_month);
+        monthsAgo=findViewById(R.id.option_3months);
         totalPatientsRegistered = findViewById(R.id.totalRegistered);
         totalSeen = findViewById(R.id.totalPatientsSeen);
         totalScreened = findViewById(R.id.totalScreened);
+        noFilter=findViewById(R.id.option_noFilter);
 
 
         updateDataForViews();
+
+
+        //today selected
+        today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                todayData();
+            }
+        });
+
+        //monthly selected
+
+        monthly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thisMonthData();
+            }
+        });
+
+        //3 months selected
+
+        monthsAgo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                last3monthsData();
+            }
+        });
+
+            //nofilter option selected
+
+        noFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noFilterData();
+            }
+        });
+
+
+
+
 
 
 
@@ -97,27 +141,23 @@ public class CervicalCancerActivity extends BaseActivity {
 
     public void updateDataForViews() {
         //observe the number of registered clients
-        cervicalCancerViewModel.getAllRegisteredClients().observe(this, new Observer<Long>() {
+        cervicalCancerViewModel.getClientsRegisteredThisMonth().observe(this, new Observer<Long>() {
             @Override
             public void onChanged(Long aLong) {
                 totalPatientsRegistered.setText(aLong.toString());
             }
         });
 
-        //observe the number of patients seen
-
-        cervicalCancerViewModel.getAllseenClients().observe(this, new Observer<Long>() {
+        cervicalCancerViewModel.getClientsSeenThisMonth().observe(this, new Observer<Long>() {
             @Override
             public void onChanged(Long aLong) {
                 totalSeen.setText(aLong.toString());
             }
         });
-
-        cervicalCancerViewModel.getAllScreenedClients().observe(this, new Observer<Long>() {
+        cervicalCancerViewModel.getClientsScreenedThisMonth().observe(this, new Observer<Long>() {
             @Override
             public void onChanged(Long aLong) {
                 totalScreened.setText(aLong.toString());
-
             }
         });
 
@@ -334,6 +374,150 @@ private  class MyValueFormatter implements IValueFormatter{
 }
 
 
+//clients seen today
+
+    public void todayData()
+    {
+        today.setBackgroundResource(R.drawable.optionbackground);
+        today.setTextColor(Color.parseColor("#F5FFFA"));
+        monthsAgo.setBackground(null);
+        monthly.setBackground(null);
+        noFilter.setBackground(null);
+        noFilter.setTextColor(Color.GRAY);
+        monthsAgo.setTextColor(Color.GRAY);
+        monthly.setTextColor(Color.GRAY);
+
+        cervicalCancerViewModel.getClientsRegisteredToday().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                totalPatientsRegistered.setText(aLong.toString());
+            }
+        });
+        cervicalCancerViewModel.getClientsScreenedToday().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) { totalScreened.setText(aLong.toString());
+
+            }
+        });
+
+        cervicalCancerViewModel.getClientsSeenToday().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                totalSeen.setText(aLong.toString());
+            }
+        });
+
+    }
+
+
+    //last 3 months data
+
+    public void last3monthsData()
+    {
+        monthsAgo.setBackgroundResource(R.drawable.optionbackground);
+        monthsAgo.setTextColor(Color.parseColor("#F5FFFA"));
+        monthly.setBackground(null);
+        today.setBackground(null);
+        noFilter.setBackground(null);
+        noFilter.setTextColor(Color.GRAY);
+        monthly.setTextColor(Color.GRAY);
+        today.setTextColor(Color.GRAY);
+
+        cervicalCancerViewModel.getRegisteredInLast3Months().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                totalPatientsRegistered.setText(aLong.toString());
+            }
+        });
+
+        cervicalCancerViewModel.getScreenedInlast3Months().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                totalScreened.setText(aLong.toString());
+            }
+        });
+
+
+        cervicalCancerViewModel.getSeenInlast3Months().observe(this, new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                totalSeen.setText(aLong.toString());
+            }
+        });
+    }
+
+
+        //this month data
+
+        public void thisMonthData()
+        {
+
+            monthly.setBackgroundResource(R.drawable.optionbackground);
+            monthly.setTextColor(Color.parseColor("#F5FFFA"));
+            today.setBackground(null);
+            monthsAgo.setBackground(null);
+            noFilter.setBackground(null);
+            noFilter.setTextColor(Color.GRAY);
+            today.setTextColor(Color.GRAY);
+            monthsAgo.setTextColor(Color.GRAY);
+
+            cervicalCancerViewModel.getClientsRegisteredThisMonth().observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    totalPatientsRegistered.setText(aLong.toString());
+                }
+            });
+
+            cervicalCancerViewModel.getClientsSeenThisMonth().observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    totalSeen.setText(aLong.toString());
+                }
+            });
+            cervicalCancerViewModel.getClientsScreenedThisMonth().observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    totalScreened.setText(aLong.toString());
+                }
+            });
+        }
+
+
+        public  void noFilterData()
+        {
+
+            noFilter.setBackgroundResource(R.drawable.optionbackground);
+            noFilter.setTextColor(Color.parseColor("#F5FFFA"));
+            today.setBackground(null);
+            monthsAgo.setBackground(null);
+            today.setTextColor(Color.GRAY);
+            monthsAgo.setTextColor(Color.GRAY);
+            monthly.setBackground(null);
+            monthly.setTextColor(Color.GRAY);
+            cervicalCancerViewModel.getAllRegisteredClients().observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    totalPatientsRegistered.setText(aLong.toString());
+                }
+            });
+
+            //observe the number of patients seen
+
+            cervicalCancerViewModel.getAllseenClients().observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    totalSeen.setText(aLong.toString());
+                }
+            });
+
+            cervicalCancerViewModel.getAllScreenedClients().observe(this, new Observer<Long>() {
+                @Override
+                public void onChanged(Long aLong) {
+                    totalScreened.setText(aLong.toString());
+
+                }
+            });
+        }
 
 
     }

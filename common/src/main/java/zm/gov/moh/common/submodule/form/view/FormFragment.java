@@ -90,21 +90,18 @@ public class FormFragment extends BaseFragment {
         rootView = binding.getRoot();
         this.form.setRootView(rootView.findViewById(R.id.form_container));
         this.form.setFormContext(new FormContext());
-        
 
-        BaseEventHandler toolBarEventHandler = context.getToolbarHandler(context);
-        binding.setToolbarhandler(toolBarEventHandler);
 
         try {
 
             this.formJson = (JsonForm) bundle.getSerializable(Key.JSON_FORM);
             if(formJson != null) {
                 formModel = FormAdapter.getAdapter().fromJson(this.formJson.getJson());
-                toolBarEventHandler.setTitle(formJson.getName());
+                binding.setTitle(formJson.getName());
             }
             else {
                 formModel = (FormModel) bundle.getSerializable(Key.FORM_MODEL);
-                toolBarEventHandler.setTitle(formModel.getAttributes().getName());
+                binding.setTitle(formModel.getAttributes().getName());
             }
 
 
@@ -180,8 +177,7 @@ public class FormFragment extends BaseFragment {
                             return;
 
                 bundle = this.bundle;
-                Bundle contextbundle = context.getIntent().getExtras();
-                this.bundle.putAll(contextbundle);
+
                 ArrayList<String> tags = form.getFormContext().getTags();
                 this.bundle.putStringArrayList(Key.FORM_TAGS, form.getFormContext().getTags());
 

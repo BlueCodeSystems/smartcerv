@@ -3,7 +3,9 @@ package zm.gov.moh.common.submodule.visit.viewmodel;
 import android.app.Application;
 import android.os.Bundle;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 
 import androidx.lifecycle.MutableLiveData;
 import zm.gov.moh.core.model.VisitState;
@@ -18,10 +20,59 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
 
 
     MutableLiveData<Bundle> viewState;
+    LocalDate visitStartDate = LocalDate.now();
+
+    MutableLiveData<LocalDate> visitStartDateObserver;
+
+    MutableLiveData<Long> visitTypeObserver;
+
     public VisitViewModel(Application application){
         super(application);
 
         viewState = new MutableLiveData<>();
+
+        getVisitStartDateObserver().setValue(visitStartDate);
+
+    }
+
+    @Override
+    public void setBundle(Bundle bundle) {
+        super.setBundle(bundle);
+
+       long visitId =  bundle.getLong(Key.VISIT_ID, 0);
+
+       if(visitId != 0){
+           ConcurrencyUtils.asyncFunction(
+                   v -> db.visitDao().getDateStartTimeByVisitId(v).toLocalDate(),
+                   this::setPastVisitDate,
+                   visitId,
+                   this::onError);
+
+           ConcurrencyUtils.asyncFunction(
+                   v -> db.visitDao().getById(v).getVisitTypeId(),
+                   this::setVisitType,
+                   visitId,
+                   this::onError);
+       }
+
+    }
+
+    public void setPastVisitDate(LocalDate localDate){
+        getVisitStartDateObserver().setValue(localDate);
+    }
+
+    public MutableLiveData<Long> getVisitTypeObserver() {
+
+        if(visitTypeObserver == null)
+            visitTypeObserver = new MutableLiveData<>();
+        return visitTypeObserver;
+    }
+
+    public MutableLiveData<LocalDate> getVisitStartDateObserver() {
+
+        if(visitStartDateObserver == null)
+            visitStartDateObserver = new MutableLiveData<>();
+        return visitStartDateObserver;
     }
 
     public MutableLiveData<Bundle> getViewState() {
@@ -41,6 +92,17 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
         viewState.setValue(mBundle);
     }
 
+    public void setVisitDate(LocalDate visitDate) {
+
+        this.visitStartDate = visitDate;
+        getVisitStartDateObserver().setValue(visitStartDate);
+    }
+
+    public void setVisitType(Long visitTypeId){
+
+        getVisitTypeObserver().setValue(visitTypeId);
+    }
+
     public void createVisit(){
 
         ConcurrencyUtils.asyncRunnable(() -> {
@@ -51,7 +113,7 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
             long creator = mRepository.getDefaultSharePrefrences().getLong(Key.USER_ID,0);
             long providerId = mRepository.getDefaultSharePrefrences().getLong(Key.PROVIDER_ID,0);
             long personId = (Long) mBundle.get(Key.PERSON_ID);
-            LocalDateTime start_time = LocalDateTime.now();
+            LocalDateTime start_time = LocalDateTime.of(visitStartDate,LocalTime.now());
 
             db.visitDao().insert(new VisitEntity(visitId,visitTypeId,personId,locationId,creator,start_time));
             mBundle.putLong(Key.VISIT_ID, visitId);
@@ -64,7 +126,7 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
 
         ConcurrencyUtils.asyncRunnable(() -> {
 
-            LocalDateTime endTime = LocalDateTime.now();
+            LocalDateTime endTime = LocalDateTime.of(visitStartDate,LocalTime.now());
             long visitId = mBundle.getLong(Key.VISIT_ID);
             VisitEntity visitEntity = db.visitDao().getById(visitId);
 
