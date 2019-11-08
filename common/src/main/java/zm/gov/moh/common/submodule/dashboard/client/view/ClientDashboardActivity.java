@@ -87,17 +87,20 @@ public class ClientDashboardActivity extends BaseActivity {
 
             viewModel.getRepository().getDatabase().locationDao().getLocationByName(clientAdress.getCityVillage())
                     .observe(ClientDashboardActivity.this, location -> {
-                        mBundle.putLong(Key.PERSON_DISTRICT_LOCATION_ID, location.getLocationId());
-                        mBundle.putLong(Key.PERSON_PROVINCE_LOCATION_ID, location.getParentLocation());
 
-                        ClientDashboardActivity.this.getIntent().putExtras(mBundle);
+                        if(location != null) {
+                            mBundle.putLong(Key.PERSON_DISTRICT_LOCATION_ID, location.getLocationId());
+                            mBundle.putLong(Key.PERSON_PROVINCE_LOCATION_ID, location.getParentLocation());
+
+                            ClientDashboardActivity.this.getIntent().putExtras(mBundle);
+                        }
                     });
             this.getIntent().putExtras(mBundle);
         });
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
-
+        
         try {
             viewModel.getRepository().getDatabase().personAttributeDao().findByPersonIdObservable(clientId).observe(this, attribute -> {
                 // no views, therfore no binding
@@ -112,8 +115,6 @@ public class ClientDashboardActivity extends BaseActivity {
             e.printStackTrace();
             return;
         }
-
-
 
         setViewModel(viewModel);
         addDrawer(this);

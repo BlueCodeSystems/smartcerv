@@ -395,8 +395,7 @@ private  class MyValueFormatter implements IValueFormatter{
         });
         cervicalCancerViewModel.getClientsScreenedToday().observe(this, new Observer<Long>() {
             @Override
-            public void onChanged(Long aLong) {
-                totalScreened.setText(aLong.toString());
+            public void onChanged(Long aLong) { totalScreened.setText(aLong.toString());
 
             }
         });

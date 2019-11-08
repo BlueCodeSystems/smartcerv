@@ -7,10 +7,10 @@
         android:bottom="0dp">
         <shape android:shape="rectangle">
             <padding
-                android:top="12dp"
-                android:left="12dp"
-                android:right="12dp"
-                android:bottom="12dp"/>
+                android:top="10dp"
+                android:left="10dp"
+                android:right="10dp"
+                android:bottom="10dp"/>
             <corners
                 android:bottomLeftRadius="20dp"
                 android:bottomRightRadius="20dp"
