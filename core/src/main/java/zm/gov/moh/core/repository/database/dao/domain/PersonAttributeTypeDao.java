@@ -13,6 +13,9 @@ public interface PersonAttributeTypeDao {
     @Query("SELECT * FROM person_attribute_type")
     List<PersonAttributeType> getAll();
 
+    @Query("SELECT person_attribute_type_id FROM person_attribute_type WHERE uuid = :uuid")
+    Long getPersonAttributeByUuid(String uuid);
+
     //get persons address by getPersons id
     @Query("SELECT * FROM person_attribute_type WHERE person_attribute_type_id = :id")
     PersonAttributeType findById(long id);

@@ -155,14 +155,14 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                TIMEOUT);
 
         // PersonAttributeType Types
-        /*ConcurrencyUtils.consumeAsync(
+        ConcurrencyUtils.consumeAsync(
                 personAttributeTypes -> {
                     repository.getDatabase().personAttributeTypeDao().insert(personAttributeTypes);
                     onTaskCompleted();
                 }, // consumer
                 this::onError,
                 repository.getRestApi().getPersonAttributeTypes(accessToken), // producer
-                TIMEOUT);*/
+                TIMEOUT);
 
        if(awaitResult().equals(Result.success())){
 

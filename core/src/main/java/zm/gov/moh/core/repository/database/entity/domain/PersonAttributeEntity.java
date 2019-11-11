@@ -63,6 +63,12 @@ public class PersonAttributeEntity {
     @Json(name = "uuid")
     private String uuid;
 
+    public PersonAttributeEntity(long personId, String value, long personAttributeTypeId) {
+        this.personId = personId;
+        this.value = value;
+        this.personAttributeTypeId = personAttributeTypeId;
+    }
+
     public long getPersonAttributeId() {
         return personAttributeId;
     }

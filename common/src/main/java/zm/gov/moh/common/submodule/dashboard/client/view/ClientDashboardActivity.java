@@ -100,7 +100,7 @@ public class ClientDashboardActivity extends BaseActivity {
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
-        
+
         try {
             viewModel.getRepository().getDatabase().personAttributeDao().findByPersonIdObservable(clientId).observe(this, attribute -> {
                 // no views, therfore no binding

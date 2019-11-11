@@ -15,10 +15,6 @@ public interface PersonAttributeDao {
     @Query("SELECT * FROM person_attribute")
     List<PersonAttributeEntity> getAll();
 
-    //get persons attribute by getPersons id
-    //@Query("SELECT value, person_attribute_type.uuid AS attributeType FROM person_attribute JOIN person_attribute_type WHERE person_id = :id")
-    //List<PersonAttribute> findByPersonId(long id);
-
     @Query("SELECT * FROM person_attribute WHERE person_id = :id")
     PersonAttributeEntity findByPersonId(long id);
 
@@ -26,5 +22,8 @@ public interface PersonAttributeDao {
     LiveData<PersonAttributeEntity> findByPersonIdObservable(long id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(PersonAttributeEntity... personAttribute);
+    void insert(PersonAttributeEntity... personAttribute);  // used to insert an array of attributes
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(PersonAttributeEntity personAttribute);     // used to insert a single attribute
 }
