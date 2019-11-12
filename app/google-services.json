@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "872607792214",
-    "firebase_url": "https://smartcerv.firebaseio.com",
-    "project_id": "smartcerv",
-    "storage_bucket": "smartcerv.appspot.com"
+    "project_number": "679068348023",
+    "firebase_url": "https://smartcerv-b09da.firebaseio.com",
+    "project_id": "smartcerv-b09da",
+    "storage_bucket": "smartcerv-b09da.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:872607792214:android:6d4adb2754eae8f1cbcff7",
+        "mobilesdk_app_id": "1:679068348023:android:e89148c1a1ae8522a96072",
         "android_client_info": {
           "package_name": "zm.gov.moh.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "872607792214-abrgee0lbrbj3hp42afhhouioblri4q6.apps.googleusercontent.com",
+          "client_id": "679068348023-cbqbvmhjqom3096tk1ljt111gjksgcme.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBavy2eB63NGLnsPqQU5CM-3AtUaE-kCJc"
+          "current_key": "AIzaSyCphbkzTdmKDUroaC19MrJcIDPHvAEcXZk"
         }
       ],
       "services": {
-        "appinvite_service": {
+        "appinvite_service": {g
           "other_platform_oauth_client": [
             {
-              "client_id": "872607792214-abrgee0lbrbj3hp42afhhouioblri4q6.apps.googleusercontent.com",
+              "client_id": "679068348023-cbqbvmhjqom3096tk1ljt111gjksgcme.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
