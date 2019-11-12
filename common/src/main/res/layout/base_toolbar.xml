@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
+        <variable name="title" type="String"/>
     </data>
     <androidx.appcompat.widget.Toolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,31 +11,19 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:gravity="center"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <RelativeLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{toolbarhandler.getTitle()}"
-                android:textSize="24sp"
-                android:paddingRight="20dp"
-                android:layout_centerInParent="true"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                android:textColor="@color/white"/>
+            android:layout_height="wrap_content"
+            android:text="@{title}"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:paddingRight="20dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+            android:textColor="@color/white"/>
 
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/cloud_sync"
-                android:scaleType="fitCenter"
-                android:background="@color/transparent"
-                android:layout_alignParentEnd="true"
-                android:onClick="@{() -> toolbarhandler.syncData()}"/>
-        </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 </layout>

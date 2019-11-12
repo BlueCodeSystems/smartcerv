@@ -73,10 +73,10 @@ public class CervicalCancerActivity extends BaseActivity {
 
         cervicalCancerViewModel.getStartSubmodule().observe(this, this::startModule);
 
+        initPopupMenu(R.menu.base_menu,toolBarEventHandler::onMenuItemSelected);
+        initToolBar(binding.getRoot());
 
-        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
-        toolBarEventHandler.setTitle("Cervical Cancer");
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Cervical Cancer");
         binding.setContext(this);
         addDrawer(this);
         barChart= findViewById(R.id.barChart);
@@ -395,8 +395,7 @@ private  class MyValueFormatter implements IValueFormatter{
         });
         cervicalCancerViewModel.getClientsScreenedToday().observe(this, new Observer<Long>() {
             @Override
-            public void onChanged(Long aLong) {
-                totalScreened.setText(aLong.toString());
+            public void onChanged(Long aLong) { totalScreened.setText(aLong.toString());
 
             }
         });

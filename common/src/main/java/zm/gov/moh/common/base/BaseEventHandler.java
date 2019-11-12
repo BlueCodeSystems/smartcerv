@@ -3,16 +3,22 @@ package zm.gov.moh.common.base;
 import android.content.Context;
 
 
+import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+import zm.gov.moh.common.R;
+import zm.gov.moh.common.model.JsonForm;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.service.worker.PullDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullMetaDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullPatientIDRemoteWorker;
 import zm.gov.moh.core.service.worker.PushDemographicDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 
 public class BaseEventHandler {
 
@@ -46,6 +52,31 @@ public class BaseEventHandler {
         return title;
     }
 
+    public void onMenuItemSelected(MenuItem menuItem){
+
+        if (menuItem.getItemId() == R.id.sync_action){
+            syncData();
+        }
+
+        else if(menuItem.getItemId() == R.id.edit_action){
+            BaseActivity activity  = (BaseActivity)context;
+
+            Bundle mBundle = activity.getIntent().getExtras();
+
+            try {
+
+                JsonForm clientRegistration = new JsonForm("Edit client demographics",
+                        Utils.getStringFromInputStream(activity.getAssets().open("forms/client_demographics_edit.json")));
+
+
+                mBundle.putSerializable(Key.JSON_FORM, clientRegistration);
+                activity.startModule(BaseApplication.CoreModule.FORM, mBundle);
+
+            }catch (Exception e){
+
+            }
+        }
+    }
 }
 
 

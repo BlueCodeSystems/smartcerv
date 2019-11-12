@@ -48,6 +48,9 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT * FROM Visit WHERE visit_id IN (:id)")
     List<VisitEntity> getById(Long[] id);
 
+    @Query("SELECT date_started FROM Visit WHERE visit_id = :id")
+    LocalDateTime getDateStartTimeByVisitId(long id);
+
     @Query("SELECT * FROM Visit WHERE visit_id = :id")
     VisitEntity getById(Long id);
 

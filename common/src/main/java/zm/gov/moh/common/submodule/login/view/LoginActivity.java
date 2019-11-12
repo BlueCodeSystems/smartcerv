@@ -56,7 +56,6 @@ public class LoginActivity extends BaseActivity {
         LoginActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.login_activity);
 
         binding.setVariable(BR.viewmodel, loginViewModel);
-        binding.setVariable(BR.toolbarhandler, getToolbarHandler(this));
         binding.setContext(this);
 
         final Observer<ViewState> viewStateObserver = state -> {

@@ -5,6 +5,7 @@ import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
@@ -316,6 +317,14 @@ public class WidgetModelJsonAdapter {
                 basicDrugWidgetModel.setTag(widgetModelJson.getTag());
 
                 return basicDrugWidgetModel;
+
+            case "ConceptOtherDrug":
+                final BasicOtherDrugWidgetModel basicOtherDrugWidgetModel = new BasicOtherDrugWidgetModel();
+
+                basicOtherDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicOtherDrugWidgetModel.setTag(widgetModelJson.getTag());
+
+                return basicOtherDrugWidgetModel;
 
             case "DatePicker":
 

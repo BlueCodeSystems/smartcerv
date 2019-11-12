@@ -237,7 +237,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         for(PersonName personName: personNames){
                             if(remoteLocalIdentifierMap.keySet().contains(personName.getPersonId())) {
 
-                                PersonName personName1 = db.personNameDao().findPersonNameById(remoteLocalIdentifierMap.get(personName.getPersonId()));
+                                PersonName personName1 = db.personNameDao().findByPersonId(remoteLocalIdentifierMap.get(personName.getPersonId()));
                                 personName.setPersonNameId(personName1.getPersonNameId());
                                 personName.setPersonId(personName1.getPersonId());
                             }
