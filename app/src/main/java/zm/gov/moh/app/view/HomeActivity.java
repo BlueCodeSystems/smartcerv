@@ -38,21 +38,16 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         setViewModel(homeViewModel);
 
-        final long SESSION_LOCATION_ID = this.getViewModel().getRepository().getDefaultSharePrefrences()
-                .getLong(Key.LOCATION_ID, 1);
-
-
-
         metrics = new HashMap<>();
 
         FirstPointOfContactActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.first_point_of_contact_activity);
 
+        initToolBar(binding.getRoot());
+
 
         homeViewModel.getStartSubmodule().observe(this, startSubmoduleObserver);
 
-        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
-        toolBarEventHandler.setTitle("Home");
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Home");
         binding.setContext(this);
         addDrawer(this);
         Fragment common = new CommonHomeFragment();

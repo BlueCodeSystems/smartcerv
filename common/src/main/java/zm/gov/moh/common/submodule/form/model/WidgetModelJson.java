@@ -4,7 +4,7 @@ import java.util.List;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 
-public class WidgetModelJson {
+public class  WidgetModelJson {
 
     protected String tag;
     protected String widgetType;
@@ -26,6 +26,34 @@ public class WidgetModelJson {
     protected String errorMessage;
     protected Boolean required;
     protected String futureDate;
+
+    protected  int rowSize;
+    protected int colSize;
+    protected TableData[] tableData;
+
+    public TableData[] getTableData() {
+        return tableData;
+    }
+
+    public void setTableData(TableData[] tableData) {
+        this.tableData = tableData;
+    }
+
+    public int getRowSize() {
+        return rowSize;
+    }
+
+    public void setRowSize(int rowSize) {
+        this.rowSize = rowSize;
+    }
+
+    public int getColSize() {
+        return colSize;
+    }
+
+    public void setColSize(int colSize) {
+        this.colSize = colSize;
+    }
 
     public String getFutureDate() {
         return futureDate;

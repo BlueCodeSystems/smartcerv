@@ -8,6 +8,7 @@ import android.view.View;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
@@ -27,6 +28,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.NumericEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
@@ -34,6 +36,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.widget.BaseWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicConceptWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
+import zm.gov.moh.common.submodule.form.widget.BasicOtherDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CameraConnectButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
@@ -52,6 +55,7 @@ import zm.gov.moh.common.submodule.form.widget.NumericEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.ProviderNumberWidget;
 import zm.gov.moh.common.submodule.form.widget.ReadonlyTextWidget;
+import zm.gov.moh.common.submodule.form.widget.TableWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidget;
 import zm.gov.moh.common.submodule.form.widget.TextBoxWidgetTwo;
 import zm.gov.moh.common.submodule.form.widget.TextViewWidget;
@@ -328,6 +332,18 @@ public class WidgetModelToWidgetAdapter {
 
             return widget;
         }
+        else if(widgetModel instanceof BasicOtherDrugWidgetModel) {
+            BasicOtherDrugWidgetModel model = (BasicOtherDrugWidgetModel) widgetModel;
+
+            BaseWidget widget = new BasicOtherDrugWidget.Builder(this.context)
+                    .setUuid(model.getUuid())
+                    .setRepository(repository)
+                    .setBundle(bundle)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
         else if(widgetModel instanceof GenderPickerModel){
 
             GenderPickerModel model = (GenderPickerModel) widgetModel;
@@ -383,6 +399,20 @@ public class WidgetModelToWidgetAdapter {
                     .setTextSize(18)
                     .setBundle(this.bundle)
                     .setWeight(1)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof TableWidgetModel) {
+
+            TableWidgetModel model = (TableWidgetModel) widgetModel;
+
+            BaseWidget widget = new TableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setRepository(this.repository)
                     .setTag(model.getTag())
                     .build();
 

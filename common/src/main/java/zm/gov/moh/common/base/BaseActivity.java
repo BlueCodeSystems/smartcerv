@@ -1,19 +1,16 @@
 package zm.gov.moh.common.base;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -31,10 +28,9 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.core.util.Consumer;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -47,12 +43,10 @@ import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.DrawerProvider;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
-import zm.gov.moh.core.utils.Utils;
 
 import static zm.gov.moh.core.model.Key.PERSON_ADDRESS;
 
 public class BaseActivity extends AppCompatActivity {
-
 
     protected static final String START_SUBMODULE_KEY = "start_submodule";
     public static final String CLIENT_ID_KEY = "PERSON_ID";
@@ -61,42 +55,20 @@ public class BaseActivity extends AppCompatActivity {
     protected LocalBroadcastManager broadcastManager;
     protected static BaseReceiver baseReceiver;
     protected BaseAndroidViewModel viewModel;
-    protected ActionBarDrawerToggle drawerToggle;
-    DrawerLayout drawerLayout;
-    protected ListView drawerList;
-    protected String[] layers;
-    protected ProgressDialog progressDialog;
-    BaseEventHandler toolBarEventHandler;
-
+    protected BaseEventHandler toolBarEventHandler;
     protected Drawer drawer;
-
-    Toolbar toolbar;
-    String firstname,lastname,userName;
+    protected Toolbar toolbar;
     AccountHeader provider;
+    protected int menuResource;
+    protected Consumer<MenuItem> eventHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        if (drawerLayout != null) {
-            toolbar = findViewById(R.id.base_toolbar);
-
-            drawerToggle = new BaseActionBarDrawerToggle((Activity) this, drawerLayout, toolbar, 0, 0) {
-                public void onDrawerClosed(View view) {
-                    getActionBar().setTitle(R.string.app_name);
-                }
-
-                public void onDrawerOpened(View drawerView) {
-                    getActionBar().setTitle("cool");
-                }
-            };
-            drawerLayout.setDrawerListener(drawerToggle);
-        }
-
-
-
+        setToolBarEventHandler(new BaseEventHandler(this));
+        initPopupMenu(R.menu.base_menu, this.toolBarEventHandler::onMenuItemSelected);
         if(baseReceiver == null) {
             baseReceiver = new BaseReceiver();
             broadcastManager = LocalBroadcastManager.getInstance(this);
@@ -157,6 +129,10 @@ public class BaseActivity extends AppCompatActivity {
         return toolBarEventHandler;
     }
 
+    public void setToolBarEventHandler(BaseEventHandler toolBarEventHandler) {
+        this.toolBarEventHandler = toolBarEventHandler;
+    }
+
     public BaseAndroidViewModel getViewModel() {
         return viewModel;
     }
@@ -169,16 +145,30 @@ public class BaseActivity extends AppCompatActivity {
             viewModel.setBundle(bundle);
     }
 
+    protected void initToolBar(View rootView){
+
+        toolbar = rootView.findViewById(R.id.base_toolbar);
+        setSupportActionBar(toolbar);
+
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
     public void initBundle(Bundle bundle) {
 
         final long SESSION_LOCATION_ID = getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(Key.LOCATION_ID, 1);
         final long PROVIDER_ID = getViewModel().getRepository().getDefaultSharePrefrences()
                 .getLong(Key.PROVIDER_ID, 1);
+
+        final long USER_ID = getViewModel().getRepository().getDefaultSharePrefrences()
+                .getLong(Key.USER_ID, 1);
+
         bundle.putLong(Key.LOCATION_ID, SESSION_LOCATION_ID);
 
         Long personId = bundle.getLong(Key.PERSON_ID);
         bundle.putLong(Key.PROVIDER_ID, PROVIDER_ID);
+        bundle.putLong(Key.USER_ID, USER_ID);
 
         if (personId != null) {
 
@@ -200,7 +190,6 @@ public class BaseActivity extends AppCompatActivity {
                         bundle.putString(Key.PERSON_AGE, calculateClientAge(client.getBirthDate()).toString());
                         bundle.putString(Key.PERSON_DOB, client.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
-
                     });
 
             getViewModel()
@@ -216,20 +205,23 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public class BaseActionBarDrawerToggle extends ActionBarDrawerToggle {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
 
-        public BaseActionBarDrawerToggle(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar, int openDrawerContentDescRes, int closeDrawerContentDescRes) {
-            super(activity, drawerLayout, toolbar, openDrawerContentDescRes, closeDrawerContentDescRes);
-        }
+        getMenuInflater().inflate(menuResource, menu);
+        return true;
     }
 
-    public void showProgressIndicator(String label){
-        progressDialog = Utils.showProgressDialog(this, label);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        eventHandler.accept(item);
+        return super.onOptionsItemSelected(item);
     }
 
-    public void dismissProgressIndicator(){
-        if(progressDialog != null)
-            progressDialog.dismiss();
+    public void initPopupMenu(int menuResource, Consumer<MenuItem> eventHandler){
+        this.menuResource = menuResource;
+        this.eventHandler = eventHandler;
     }
 
     //Calculate client age as Integer

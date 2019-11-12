@@ -38,10 +38,10 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
 
     //get persons name by getPersons id
     @Query("SELECT * FROM person_name WHERE person_id = :id")
-    PersonName findPersonNameById(long id);
+    PersonName findByPersonId(long id);
 
     @Query("SELECT * FROM person_name WHERE person_id IN (:ids)")
-    List<PersonName> findPersonNameById(Set<Long> ids);
+    List<PersonName> findByPersonId(Set<Long> ids);
 
     @Query("UPDATE person_name SET person_id = :remote WHERE person_id = :local")
     void replacePerson(long local, long remote);

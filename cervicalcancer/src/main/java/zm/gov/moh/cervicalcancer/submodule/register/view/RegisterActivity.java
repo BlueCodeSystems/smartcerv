@@ -34,11 +34,8 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
-        BaseEventHandler toolBarEventHandler = getToolbarHandler(this);
         setViewModel(registerViewModel);
-        toolBarEventHandler.setTitle("Client Register");
-
-        binding.setToolbarhandler(toolBarEventHandler);
+        binding.setTitle("Client Register");
         binding.setSearchTermObserver(searchTermObserver);
 
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
