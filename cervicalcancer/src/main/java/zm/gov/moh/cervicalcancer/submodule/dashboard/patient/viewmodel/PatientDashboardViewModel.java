@@ -9,6 +9,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
+import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -29,7 +30,9 @@ import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
@@ -48,7 +51,8 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> screeningDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> treatmentDataEmitter;
-    private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<Map.Entry<String, String>>>>  providerDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerNumberEmitter;
     private MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>>  ediDataEmitter;
     private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem, VisitEncounterItem>>> visitDataEmitter;
 
@@ -104,12 +108,20 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return visitDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMap<Long, Collection<String>>> getProviderDataEmitter() {
+    public MutableLiveData<LinkedHashMap<Long, Collection<Map.Entry<String, String>>>> getProviderDataEmitter() {
 
         if (providerDataEmitter == null)
             providerDataEmitter = new MutableLiveData<>();
 
         return providerDataEmitter;
+    }
+
+    public MutableLiveData<LinkedHashMap<Long, Collection<String>>> getProviderNumberEmitter() {
+
+        if (providerNumberEmitter == null)
+            providerNumberEmitter = new MutableLiveData<>();
+
+        return providerNumberEmitter;
     }
 
     public MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>> getEDIDataEmitter() {
@@ -336,15 +348,15 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         setVisitState(VisitState.NEW);
     }
 
-    public LinkedHashMap<Long, Collection<String>> extractProviderData(List<VisitEntity> visits){
+    public LinkedHashMap<Long, Collection<Map.Entry<String, String>>> extractProviderData(List<VisitEntity> visits){
 
 
         if(visits.size() > 0) {
 
-            LinkedHashMap<Long, Collection<String>> providerResults = new LinkedHashMap<>();
+            LinkedHashMap<Long, Collection<Map.Entry<String, String>>> providerResults = new LinkedHashMap<>();
 
             for(VisitEntity visit: visits) {
-                LinkedHashMap<Long, String> providerData = new LinkedHashMap<>();
+                LinkedHashMap<Long, Map.Entry<String, String>> providerData = new LinkedHashMap<>();
                 long datatime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
                 Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
@@ -361,15 +373,24 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                     PersonName screeningProviderName = (screeningProviderId != null) ?
                             db.personNameDao().getByInsightProviderId(screeningProviderId) : null;
 
-                    if (treatmentProviderName != null)
-                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName());
-                    else
-                        providerData.put(2L, "N/A");
+                    ProviderAttribute treatmentAttribute = (treatmentProviderId != null) ?
+                            db.providerAttributeDao().findByProviderId(treatmentProviderId) : null;
+                    ProviderAttribute screeningAttribute = (screeningProviderId != null) ?
+                            db.providerAttributeDao().findByProviderId(screeningProviderId) : null;
 
-                    if (screeningProviderName != null)
-                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName());
+                    // Extract name of provider
+                    if (treatmentProviderName != null && treatmentAttribute != null)
+                        providerData.put(2L, new AbstractMap.SimpleEntry<>(treatmentAttribute.getValueReference(),
+                                treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName()));
                     else
-                        providerData.put(1L, "N/A");
+                        providerData.put(2L, new AbstractMap.SimpleEntry<>("No Number", "N/A"));
+
+                    if (screeningProviderName != null && screeningAttribute != null)
+                        providerData.put(1L, new AbstractMap.SimpleEntry<>(screeningAttribute.getValueReference(),
+                                screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName()));
+                    else
+                        providerData.put(1L, new AbstractMap.SimpleEntry<>("No Number", "N/A"));
+
 
                     providerResults.put(datatime, providerData.values());
                 }
