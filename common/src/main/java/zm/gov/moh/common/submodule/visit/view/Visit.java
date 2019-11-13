@@ -191,7 +191,10 @@ public class Visit extends BaseActivity {
                         }
 
                 )
-                //.setNegativeButton("NO", (DialogInterface dialogInterface, int i) -> onBackPressed())
+                .setNegativeButton("NO", (DialogInterface dialogInterface, int i) ->
+                {
+                })
+
                 .show();
 
         {
