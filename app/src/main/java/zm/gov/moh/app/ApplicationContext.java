@@ -28,6 +28,8 @@ public class ApplicationContext extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        this.buildName =  BuildConfig.VERSION_NAME;
         Fabric.with(this, new Crashlytics());
 
         //Load common modules

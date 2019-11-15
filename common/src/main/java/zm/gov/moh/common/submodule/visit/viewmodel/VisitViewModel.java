@@ -137,5 +137,17 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
         }, this::onError);
 
     }
+
+        public void cancelVisit()
+        {
+            long locationId = mRepository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+            long visitId = mBundle.getLong(Key.VISIT_ID);
+           ConcurrencyUtils.asyncRunnable(()-> db.visitDao().abortVisitObs(visitId,locationId),this::onError);
+            ConcurrencyUtils.asyncRunnable(()-> db.visitDao().abortVisit(visitId,locationId),this::onError);
+            ConcurrencyUtils.asyncRunnable(()-> db.visitDao().abortVisitEncounter(visitId,locationId),this::onError);
+
+
+        }
+
 }
 

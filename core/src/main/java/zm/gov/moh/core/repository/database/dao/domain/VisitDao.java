@@ -70,4 +70,16 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("UPDATE visit SET patient_id = :remotePatientId WHERE visit_id IN (SELECT visit_id FROM visit WHERE patient_id = :localPatientId)")
     void replaceLocalPatientId(long localPatientId, long remotePatientId);
 
+    //void encounters
+    @Query("Update encounter SET voided=1 WHERE visit_id=:visitId AND location_id=:locationId")
+    void abortVisitEncounter(long visitId,long locationId);
+
+    //void visit
+    @Query("Update visit SET voided=1 WHERE visit_id=:visitId AND location_id=:locationId")
+    void abortVisit(long visitId,long locationId);
+
+    //void obs by visit id
+
+    @Query("Update obs SET voided=1 WHERE obs.person_id IN(Select obs.person_id from obs join encounter on obs.encounter_id=encounter.encounter_id WHERE encounter.visit_id=:visitId) AND location_id=:locationId")
+    void abortVisitObs(long visitId,long locationId);
 }

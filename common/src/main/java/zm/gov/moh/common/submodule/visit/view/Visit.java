@@ -1,5 +1,6 @@
 package zm.gov.moh.common.submodule.visit.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -17,6 +18,7 @@ import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -37,7 +40,7 @@ import java.util.Map;
 
 public class Visit extends BaseActivity {
 
-    Button button;
+    Button button,abortVisitBtn;
     VisitViewModel viewModel;
     long visitTypeId;
     Bundle bundle;
@@ -47,6 +50,7 @@ public class Visit extends BaseActivity {
     ImageView calenderPickerButton;
     Spinner spinner;
     ActivityVisitBinding binding;
+
     Long selectedVisitType;
 
     @Override
@@ -57,7 +61,7 @@ public class Visit extends BaseActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_visit);
 
         button = findViewById(R.id.start_visit);
-
+        abortVisitBtn=findViewById(R.id.abort_visit);
         spinner = this.findViewById(R.id.visit_type);
 
         calenderPickerButton = findViewById(R.id.date_picker);
@@ -79,7 +83,27 @@ public class Visit extends BaseActivity {
         bundle.putString(Key.MODULE,module);
         initForms();
         updateViewState(bundle);
+        abortVisitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(Visit.this);
+                builder.setTitle("Abort Visit").setMessage("Do you want to abort visit?")
+                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                        abortCurrentVisit();
+                        dialog.dismiss();
+                     }
+                 })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create().show();
 
+            }
+        });
         viewModel.getVisitStartDateObserver().observe(this, date -> binding.setVisitDate(date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))));
     }
 
@@ -142,16 +166,19 @@ public class Visit extends BaseActivity {
         if(visitState == VisitState.NEW){
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_green)));
+            abortVisitBtn.setEnabled(false);
             button.setText("Start visit");
             binding.setVisitDateEnabled(true);
+
         }
         else if(visitState == VisitState.AMEND) {
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.warning)));
             button.setText("End visit");
+            abortVisitBtn.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_red)));
             formListAdapter.setClickable(true);
             binding.setVisitDateEnabled(false);
-
+            abortVisitBtn.setEnabled(true);
         }
         else if(visitState == VisitState.SESSION) {
 
@@ -160,7 +187,8 @@ public class Visit extends BaseActivity {
             formListAdapter.setClickable(true);
             recyclerView.setAdapter(formListAdapter);
             binding.setVisitDateEnabled(false);
-
+            abortVisitBtn.setEnabled(true);
+            abortVisitBtn.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_red)));
             viewModel.createVisit();
             return;
         }
@@ -208,6 +236,12 @@ public class Visit extends BaseActivity {
 
         return ;
     }
+
+    public void abortCurrentVisit()
+    {
+        this.viewModel.cancelVisit();
+        onBackPressed();
+}
 
 
 }
