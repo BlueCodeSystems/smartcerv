@@ -52,6 +52,7 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
             mValueChangeListener.accept(value);
     }
 
+
     public void setLabel(String mLabel) {
         this.mLabel = mLabel;
     }
@@ -151,6 +152,8 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
         protected String mLabel;
         protected String mDataType;
 
+
+
         public Builder setDataType(String dataType) {
             mDataType = dataType;
             return this;
@@ -182,6 +185,8 @@ public class EditTextWidget extends SubmittableWidget<CharSequence> {
             mValueChangeListener = valueChangeListener;
             return this;
         }
+
+
 
         @Override
         public BaseWidget build() {

@@ -27,6 +27,7 @@ import zm.gov.moh.core.model.DrugObsValue;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
+import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.utils.Utils;
 
@@ -35,7 +36,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     protected String mUuid;
     protected AppCompatSpinner frequencySpinner;
     protected AppCompatSpinner durationSpinner;
-    protected AppCompatEditText otherText;
     protected  String mTag;
 
     protected TableLayout tableLayout;
@@ -62,7 +62,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     List<Logic> logic;
     Form form;
 
-    private BasicDrugWidget(Context context) {
+    public BasicDrugWidget(Context context) {
         super(context);
         mContext = context;
     }
@@ -151,9 +151,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         tableRow = new TableRow(mContext);
         tableRow.setBackground(mContext.getResources().getDrawable(R.drawable.border_bottom));
 
-        otherText = WidgetUtils.setLayoutParams(new AppCompatEditText(mContext), WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT);
-        otherText.setHint("Prescription Drug");
-
         frequencySpinner = WidgetUtils.createSpinner(mContext, frequencyIdMap, this::onSelectedFrequencyValue,
             WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
 
@@ -175,21 +172,12 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         answerConcept = id;
 
         if( (frequencySpinner.getParent() != null) && (frequencySpinner.getParent() != null) ) {
-            if (answerConcept == 165407L) {     // other selection
-                tableRow.removeView(otherText);
-                otherText.setVisibility(GONE);
-            }
 
             tableRow.removeView(frequencySpinner);
             frequencySpinner.setVisibility(GONE);
             tableRow.removeView(durationSpinner);
             durationSpinner.setVisibility(GONE);
         } else {
-            if (answerConcept == 165407L) {     // other selection
-                tableRow.addView(otherText);
-                otherText.setVisibility(VISIBLE);
-                otherText.setLayoutParams(rowLayoutParams);
-            }
 
             tableRow.addView(frequencySpinner);
             frequencySpinner.setVisibility(VISIBLE);
@@ -201,33 +189,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         setObsValue();
     }
 
-    /*public void setDrugObsValue(Long obsValue, Long obsFrequencyValue, Long obsDurationValue) {
-
-        if( (frequencySpinner.getParent() != null) && (frequencySpinner.getParent() != null) ) {
-            tableRow.removeView(frequencySpinner);
-            frequencySpinner.setVisibility(GONE);
-            tableRow.removeView(durationSpinner);
-            durationSpinner.setVisibility(GONE);
-        } else {
-            tableRow.addView(frequencySpinner);
-            frequencySpinner.setVisibility(VISIBLE);
-            tableRow.addView(durationSpinner);
-            durationSpinner.setVisibility(VISIBLE);
-        }
-
-        if(canSetValue.get()) {
-            drugConceptId = obsValue;
-            mFrequency = obsFrequencyValue;
-            mDuration = obsDurationValue;
-
-            mDrugObsValue.setValue(obsValue);
-            mDrugObsValue.setFrequency(obsFrequencyValue);
-            mDrugObsValue.setDuration(obsDurationValue);
-
-            mBundle.putSerializable((String)this.getTag(), mDrugObsValue);
-        }
-    }*/
-
     public void setObsValue() {
 
 
@@ -235,33 +196,19 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
             mObsValue.getValue().clear();
             mObsValue.getValue().add(answerDurationConcept);
             mObsValue.getValue().add(answerFrequencyConcept);
-            otherText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setOtherTextValue));
 
             mBundle.putSerializable(mTag, mObsValue);
 
     }
 
-    private void onSelectedFrequencyValue(Long value) {
+    void onSelectedFrequencyValue(Long value) {
         answerFrequencyConcept = value;
         setObsValue();
     }
 
-    private void onSelectedDurationValue(Long value) {
+    void onSelectedDurationValue(Long value) {
         answerDurationConcept = value;
         setObsValue();
-    }
-
-    private void setOtherTextValue(CharSequence charSequence) {
-        ObsValue<String> textObs = new ObsValue<>();
-        textObs.setValue(charSequence.toString());
-        textObs.setConceptId(165197L);
-        textObs.setUuid("48cbf1c5-bbdb-44f4-96b7-61812c67bebe");
-        textObs.setConceptDataType(ConceptDataType.TEXT);
-
-        mBundle.putSerializable("prescription_text", textObs);
-        /*ArrayList<String> temp = mBundle.getStringArrayList(Key.FORM_TAGS);
-        temp.add("prescription_text");
-        mBundle.putStringArrayList(Key.FORM_TAGS, temp);*/
     }
 
     public static class Builder extends RepositoryWidget.Builder {

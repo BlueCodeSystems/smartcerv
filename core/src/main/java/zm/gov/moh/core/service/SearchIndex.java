@@ -5,9 +5,6 @@ import android.content.Intent;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import org.threeten.bp.LocalDate;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,7 +13,6 @@ import androidx.annotation.Nullable;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
-import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.fts.ClientNameFts;
@@ -69,7 +65,7 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
                 }
             }
 
-        List<PersonName> personNames = repository.getDatabase().personNameDao().findPersonNameById(personIds);
+        List<PersonName> personNames = repository.getDatabase().personNameDao().findByPersonId(personIds);
 
        if(personNames.size() > 0)
             for(PersonName personName: personNames){

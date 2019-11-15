@@ -10,6 +10,7 @@ import com.squareup.moshi.Moshi;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -30,6 +31,14 @@ public class InjectorUtils {
 
     public static RestApi provideRestAPIAdapter(Context application) {
 
+        final int TIMEOUT = 300;
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+                .build();
+
         Moshi moshi = new Moshi.Builder().add(new JsonAdapter()).build();
 
         SharedPreferences sharedPreferences = application.getSharedPreferences(
@@ -42,12 +51,11 @@ public class InjectorUtils {
                 .baseUrl(baseUrl+ BuildConfig.BASE_ROUTE)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
                 .build();
 
         return  retrofit.create(RestApi.class);
-    }
-
-
 
 
     }
+}

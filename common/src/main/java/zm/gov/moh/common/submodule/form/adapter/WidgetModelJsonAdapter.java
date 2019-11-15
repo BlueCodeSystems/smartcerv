@@ -1,12 +1,11 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
-import android.app.Dialog;
-
 import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
@@ -27,6 +26,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidget
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
@@ -318,6 +318,14 @@ public class WidgetModelJsonAdapter {
 
                 return basicDrugWidgetModel;
 
+            case "ConceptOtherDrug":
+                final BasicOtherDrugWidgetModel basicOtherDrugWidgetModel = new BasicOtherDrugWidgetModel();
+
+                basicOtherDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicOtherDrugWidgetModel.setTag(widgetModelJson.getTag());
+
+                return basicOtherDrugWidgetModel;
+
             case "DatePicker":
 
                 final DatePickerModel datePickerModel = new DatePickerModel();
@@ -347,6 +355,17 @@ public class WidgetModelJsonAdapter {
                 numericEditTextModel.setLabel(widgetModelJson.getLabel());
 
                 return numericEditTextModel;
+
+            case "Table":
+
+                final TableWidgetModel tableWidgetModel = new TableWidgetModel();
+
+                tableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                tableWidgetModel.setTag(widgetModelJson.getTag());
+                tableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                tableWidgetModel.setColSize(widgetModelJson.getColSize());
+                tableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return tableWidgetModel;
 
             default:
                 return null;

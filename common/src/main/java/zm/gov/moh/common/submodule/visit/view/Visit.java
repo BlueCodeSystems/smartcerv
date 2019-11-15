@@ -1,5 +1,6 @@
 package zm.gov.moh.common.submodule.visit.view;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -15,18 +16,29 @@ import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import static zm.gov.moh.common.BR.preferences;
 
 public class Visit extends BaseActivity {
 
@@ -36,16 +48,29 @@ public class Visit extends BaseActivity {
     Bundle bundle;
     FormListAdapter formListAdapter;
     RecyclerView recyclerView;
+    DatePicker datePicker;
+    ImageView calenderPickerButton;
+    Spinner spinner;
+    ActivityVisitBinding binding;
+    Long selectedVisitType;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit);
-        viewModel = ViewModelProviders.of(this).get(VisitViewModel.class);
 
-        ActivityVisitBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_visit);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_visit);
 
         button = findViewById(R.id.start_visit);
+
+        spinner = this.findViewById(R.id.visit_type);
+
+        calenderPickerButton = findViewById(R.id.date_picker);
+
+        datePicker = Utils.dateDialog(this, calenderPickerButton,this::dateHandler).getDatePicker();
+        datePicker.setMaxDate(System.currentTimeMillis());
+
 
         viewModel = ViewModelProviders.of(this).get(VisitViewModel.class);
         setViewModel(viewModel);
@@ -60,6 +85,8 @@ public class Visit extends BaseActivity {
         bundle.putString(Key.MODULE,module);
         initForms();
         updateViewState(bundle);
+
+        viewModel.getVisitStartDateObserver().observe(this, date -> binding.setVisitDate(date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))));
     }
 
     public void initVisitList(List<VisitType> visitTypeList){
@@ -77,7 +104,7 @@ public class Visit extends BaseActivity {
 
 
             ArrayAdapter<String> visitAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, visitTypes);
-            Spinner spinner = this.findViewById(R.id.visit_type);
+
             spinner.setAdapter(visitAdapter);
 
             //Spinner item click listener
@@ -95,6 +122,18 @@ public class Visit extends BaseActivity {
                 public void onNothingSelected(AdapterView<?> adapterView) {
                 }
             });
+
+            viewModel.getVisitTypeObserver().observe(this, visitTypeId -> {
+
+                int position = 0;
+                for(Map.Entry<String, Long> entry :visitTypeIdList.entrySet()){
+
+                   if(entry.getValue().equals(visitTypeId))
+                        spinner.setSelection(position);
+
+                    position++;
+                }
+            });
         }
 
     }
@@ -110,12 +149,14 @@ public class Visit extends BaseActivity {
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_green)));
             button.setText("Start visit");
+            binding.setVisitDateEnabled(true);
         }
         else if(visitState == VisitState.AMEND) {
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.warning)));
             button.setText("End visit");
             formListAdapter.setClickable(true);
+            binding.setVisitDateEnabled(false);
 
         }
         else if(visitState == VisitState.SESSION) {
@@ -124,6 +165,7 @@ public class Visit extends BaseActivity {
             button.setText("End visit");
             formListAdapter.setClickable(true);
             recyclerView.setAdapter(formListAdapter);
+            binding.setVisitDateEnabled(false);
 
             viewModel.createVisit();
             return;
@@ -137,6 +179,38 @@ public class Visit extends BaseActivity {
 
 
     }
+
+    public void onBackPressed() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Do you want to return to the Patient Dashboard?")
+                .setMessage("Click 'YES' to return to the Patient Dashboard OR click the 'Back Button' to close this dialog.")
+                .setPositiveButton("YES", (DialogInterface dialogInterface, int i) -> {
+
+                    this.finish();
+                        }
+
+                )
+                .setNegativeButton("NO", (DialogInterface dialogInterface, int i) ->
+                {
+                })
+
+                .show();
+
+        {
+
+
+        }
+
+
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.green));
+
+    }
+
+
+
+
 
 
     public void initForms(){
@@ -161,6 +235,16 @@ public class Visit extends BaseActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+
+    public void dateHandler(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+
+        // set day of month , month and year value in the edit text
+        this.viewModel.setVisitDate(LocalDate.of(year,monthOfYear + 1,dayOfMonth));
+
+        return ;
     }
 
 

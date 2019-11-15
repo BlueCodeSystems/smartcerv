@@ -2,7 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.base.BaseEventHandler"/>
+        <variable name="title" type="String"/>
         <variable name="searchTermObserver" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
         <variable name="context" type="zm.gov.moh.common.submodule.register.view.RegisterActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
@@ -15,7 +15,7 @@
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:toolbarhandler="@{toolbarhandler}">
+            app:title="@{title}">
         </include>
         <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"

@@ -152,7 +152,7 @@
                 "type": "skipLogic",
                 "metadata": {
                   "tags": [
-                    "screening results"
+                    "screening results","eligible for cryotherapy"
                   ]
                 }
               }

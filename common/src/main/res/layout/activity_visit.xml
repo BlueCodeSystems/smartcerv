@@ -5,7 +5,18 @@
             name="viewmodel"
             type="zm.gov.moh.common.submodule.visit.viewmodel.VisitViewModel" />
 
+        <variable
+            name="visitDate"
+            type="String" />
+
+        <variable
+            name="visitDateEnabled"
+            type="boolean" />
+
+
         <import type="zm.gov.moh.core.model.VisitState" />
+
+        <import type="android.R.color" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -45,31 +56,66 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/border_bottom"
                 android:text="Visit session"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:background="@drawable/border_bottom"/>
+                android:textSize="24sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Visit Type"
                 android:textColor="@color/darker_grey"
                 android:layout_marginTop="20dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
             <Spinner
                 android:id="@+id/visit_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="@{visitDateEnabled}"
                 android:layout_marginBottom="20dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Visit date"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+
+                android:textColor="@color/darker_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@{visitDate}"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem"
+                android:enabled="@{visitDateEnabled}" />
+
+                <ImageView
+                    android:id="@+id/date_picker"
+                    android:layout_marginLeft="10dp"
+                    android:enabled="@{visitDateEnabled}"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+
+                    android:src="@drawable/calendar"/>
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/start_visit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:text="Start Visit"
                 android:onClick="@{()-> viewmodel.onClick()}"
                 android:textAllCaps="false"
