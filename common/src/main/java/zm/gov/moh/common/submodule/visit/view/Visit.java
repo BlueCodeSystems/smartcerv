@@ -184,7 +184,7 @@ public class Visit extends BaseActivity {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("Do you want to return to the Patient Dashboard?")
-                .setMessage("Click 'YES' to return to the Patient Dashboard OR click the 'Back Button' to close this dialog.")
+                .setMessage("Click 'YES' to return to the Patient Dashboard OR click 'NO' to close this dialog.")
                 .setPositiveButton("YES", (DialogInterface dialogInterface, int i) -> {
 
                     this.finish();
