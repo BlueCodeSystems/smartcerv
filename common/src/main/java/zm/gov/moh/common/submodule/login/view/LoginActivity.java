@@ -10,11 +10,13 @@ import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 
+import android.widget.TextView;
 import android.widget.Toast;
 import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.submodule.Module;
+import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -30,7 +32,7 @@ public class LoginActivity extends BaseActivity {
     private Resources resources;
     private Toast exitToast;
     protected BaseEventHandler baseEventHandler;
-
+    TextView buildVersion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,8 @@ public class LoginActivity extends BaseActivity {
 
         binding.setVariable(BR.viewmodel, loginViewModel);
         binding.setContext(this);
-
+        buildVersion=findViewById(R.id.buildVersionTxt);
+        buildVersion.setText(((BaseApplication)getApplication()).getBuildName());
         final Observer<ViewState> viewStateObserver = state -> {
 
             if(loginViewModel.getPending().compareAndSet(true, false) && state != null) {
