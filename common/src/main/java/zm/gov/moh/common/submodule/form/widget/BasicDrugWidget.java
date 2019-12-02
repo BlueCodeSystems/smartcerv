@@ -2,13 +2,12 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.view.Gravity;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,22 +16,19 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatSpinner;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.model.Form;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.core.model.ConceptDataType;
-import zm.gov.moh.core.model.DrugObsValue;
-import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
-import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
-import zm.gov.moh.core.utils.Utils;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
-public class BasicDrugWidget extends RepositoryWidget<String> {
+public class BasicDrugWidget extends RepositoryWidget<String> implements Retainable {
 
+    protected String mDrugUuid;
     protected String mUuid;
     protected AppCompatSpinner frequencySpinner;
     protected AppCompatSpinner durationSpinner;
@@ -56,8 +52,6 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
     }
 
     AtomicBoolean canSetValue;
-    //Long drugConceptId, mFrequency, mDuration;
-    //DrugObsValue mDrugObsValue;
     ObsValue<Set<Long>> mObsValue; // temporarily use to Array contain value of frequency and Duration
     List<Logic> logic;
     Form form;
@@ -67,12 +61,22 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         mContext = context;
     }
 
-    public String getUuid() {
+    public String getUuid()
+    {
         return mUuid;
     }
 
     public BasicDrugWidget setUuid(String uuid) {
         this.mUuid = uuid;
+        return this;
+    }
+
+    public String getDrugUuid() {
+        return mDrugUuid;
+    }
+
+    public BasicDrugWidget setDrugUuid(String drugUuid) {
+        this.mDrugUuid = drugUuid;
         return this;
     }
 
@@ -131,7 +135,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
         mRepository.getDatabase()
                 .drugDao()
-                .getDrugNameByUuid(mUuid)
+                .getDrugNameByUuid(mDrugUuid)
                 .observe((AppCompatActivity)mContext, this::onDrugReceived);
     }
 
@@ -193,6 +197,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
 
 
             mObsValue.setConceptId(answerConcept);
+            mObsValue.setUuid(mDrugUuid);
             mObsValue.getValue().clear();
             mObsValue.getValue().add(answerDurationConcept);
             mObsValue.getValue().add(answerFrequencyConcept);
@@ -211,9 +216,27 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         setObsValue();
     }
 
+    @Override
+    public void onLastObsRetrieved(ObsEntity... obs) {
+        int orientation = (checkboxNameIdMap.size() > 2)? WidgetUtils.VERTICAL: WidgetUtils.HORIZONTAL;
+
+        if (obs.length > 0) {
+            if (mObsValue.getConceptDataType().equals(ConceptDataType.CODED)) {
+                for (ObsEntity codedDrugObs : obs) {
+                    answerConcept = codedDrugObs.getConceptId();
+                    Set<Long> obsSetObject = mObsValue.getValue();
+                    // find frequency and duration selection
+                    // selectedConcepts.add(codedObs.getValueCoded());
+
+                }
+            }
+        }
+    }
+
     public static class Builder extends RepositoryWidget.Builder {
 
 
+        protected String mDrugUuid;
         protected String mUuid;
 
         public Builder(Context context) {
@@ -221,12 +244,21 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
         }
 
 
+        public String getDrugUuid() {
+            return mDrugUuid;
+        }
+
+        public Builder setDrugUuid(String uuid) {
+            this.mDrugUuid = uuid;
+            return this;
+        }
+
         public String getUuid() {
             return mUuid;
         }
 
-        public Builder setUuid(String uuid) {
-            this.mUuid = uuid;
+        public Builder setUuid(String mUuid) {
+            this.mUuid = mUuid;
             return this;
         }
 
@@ -239,6 +271,8 @@ public class BasicDrugWidget extends RepositoryWidget<String> {
             widget.canSetValue = new AtomicBoolean();
             widget.canSetValue.set(true);
 
+            if(mDrugUuid != null)
+                widget.setDrugUuid(mDrugUuid);
             if(mUuid != null)
                 widget.setUuid(mUuid);
             if(mRepository != null)
