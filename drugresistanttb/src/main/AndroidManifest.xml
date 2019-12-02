@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="zm.gov.moh.drugresistanttb">
+
+    <application>
+        <activity android:name=".submodule.drugresistanttb.view.DrugResistantTbActivity"
+            android:label="MOH mCare - MDR"
+            android:theme="@style/MDR" />
+        <activity android:name=".submodule.enrollment.view.DrugResistantTbEnrollmentActivity"
+            android:label="MOH mCare - MDR"
+            android:theme="@style/MDR" />
+        <activity android:name=".view.DrugResistantTbHomeActivity"
+            android:label="MOH mCare - MDR"
+            android:theme="@style/MDR"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <data>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
+        <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
+        <variable name="mdrtbviewmodel" type="zm.gov.moh.drugresistanttb.submodule.drugresistanttb.viewmodel.DrugResistantTbViewModel" />
+        <variable name="modules" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
+        <variable name="title" type="String" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <include
+            layout="@layout/base_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="@{title}">
+        </include>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:stretchColumns="1"
+                    android:paddingTop="20dp" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/register_patient"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:elevation="4dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/woman_ico"
+                            android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
+                            android:textAllCaps="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Enroll Patient"
+                            android:textAllCaps="false"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/smartcerv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="150dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            android:elevation="4dp"
+                            android:scaleType="fitCenter"
+                            android:onClick="@{() -> mdrtbviewmodel.startSubmodule(1)}"
+                            android:src="@drawable/ico_search"
+                            android:textAllCaps="false" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Client Register"
+                            android:textAllCaps="false"
+                            android:textColor="@color/dark_purple"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+                </TableRow>
+<!--
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+-->
+            </TableLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>
