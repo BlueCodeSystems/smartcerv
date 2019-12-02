@@ -1,1 +1,1 @@
-include ':app', ':core', ':cervicalcancer', ':common'
+include ':app', ':core', ':cervicalcancer', ':common', ':drugresistanttb'
