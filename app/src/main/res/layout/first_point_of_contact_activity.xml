@@ -61,6 +61,16 @@
                         android:orientation="vertical">
                     </LinearLayout>
                 </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/mdr_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <fragment
+                        android:name="zm.gov.moh.drugresistanttb.view.DrugResistantTbHomeFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </fragment>
+                </FrameLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
