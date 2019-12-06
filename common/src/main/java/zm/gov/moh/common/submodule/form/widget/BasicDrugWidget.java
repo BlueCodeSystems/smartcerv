@@ -2,12 +2,14 @@ package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,6 +44,10 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
     protected Map<String, Long> frequencyIdMap = new HashMap<>();
     protected Map<String, Long> durationIdMap = new HashMap<>();
     protected Map<String, Long> checkboxNameIdMap = new HashMap<>();
+
+    ArrayList<ObsEntity> selectedObservations = new ArrayList<>();
+    RadioGroup checkBoxGroup;
+
     Long answerConcept;
     Long answerFrequencyConcept;
     Long answerDurationConcept;
@@ -149,7 +155,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
 
         int orientation = (checkboxNameIdMap.size() > 2)? WidgetUtils.VERTICAL: WidgetUtils.HORIZONTAL;
 
-        RadioGroup checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, checkboxNameIdMap,
+        checkBoxGroup = WidgetUtils.createCheckBoxes(mContext, checkboxNameIdMap,
             this::onCheckedChanged, orientation,WidgetUtils.WRAP_CONTENT,WidgetUtils.WRAP_CONTENT,1);
 
         tableRow = new TableRow(mContext);
@@ -162,12 +168,14 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
             WidgetUtils.WRAP_CONTENT, WidgetUtils.WRAP_CONTENT, 1);
 
         checkBoxGroup.setLayoutParams(rowLayoutParams);
+        checkBoxGroup.setTag(drug.name);
         frequencySpinner.setLayoutParams(rowLayoutParams);
         durationSpinner.setLayoutParams(rowLayoutParams);
 
         tableRow.addView(checkBoxGroup);
 
         tableLayout.addView(tableRow);
+        accessRetrivedObservations(selectedObservations, drug.concept_id);
     }
 
     private void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -218,19 +226,29 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
 
     @Override
     public void onLastObsRetrieved(ObsEntity... obs) {
-        int orientation = (checkboxNameIdMap.size() > 2)? WidgetUtils.VERTICAL: WidgetUtils.HORIZONTAL;
 
         if (obs.length > 0) {
             if (mObsValue.getConceptDataType().equals(ConceptDataType.CODED)) {
-                for (ObsEntity codedDrugObs : obs) {
-                    answerConcept = codedDrugObs.getConceptId();
-                    Set<Long> obsSetObject = mObsValue.getValue();
-                    // find frequency and duration selection
-                    // selectedConcepts.add(codedObs.getValueCoded());
-
-                }
+                for (ObsEntity codedDrugObs : obs)
+                    selectedObservations.add(codedDrugObs);
             }
         }
+    }
+
+    public void accessRetrivedObservations(List<ObsEntity> observations, Long drugConceptId) {
+
+        CheckBox checkBox = (CheckBox)checkBoxGroup.getChildAt(0);
+        List<Long> observationConcepts = new ArrayList<>();
+        //List<Long> observationValueCoded = new ArrayList<>(); // attempting to retrieve spinner values
+
+        for (ObsEntity obs: observations) {
+            observationConcepts.add(obs.getConceptId());
+            //observationValueCoded.add(obs.getValueCoded());
+        }
+
+        if(observationConcepts.contains(drugConceptId))
+            checkBox.setChecked(true);
+        //if(observationValueCoded.contains())
     }
 
     public static class Builder extends RepositoryWidget.Builder {
