@@ -12,6 +12,8 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,8 +43,10 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
     protected TableRow.LayoutParams rowLayoutParams;
     protected TableLayout.LayoutParams layoutParams;
 
-    protected Map<String, Long> frequencyIdMap = new HashMap<>();
-    protected Map<String, Long> durationIdMap = new HashMap<>();
+    //protected Map<String, Long> frequencyIdMap = new HashMap<>();
+    protected Map<String, Long> frequencyIdMap = new LinkedHashMap<>();
+    //protected Map<String, Long> durationIdMap = new HashMap<>();
+    Map<String, Long> durationIdMap = new LinkedHashMap<>();
     protected Map<String, Long> checkboxNameIdMap = new HashMap<>();
 
     ArrayList<ObsEntity> selectedObservations = new ArrayList<>();
@@ -235,20 +239,63 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
         }
     }
 
+    /**
+     * Uses returned observations objects to return previously checked and spinner values
+     * @param observations List of obs Entities
+     * @param drugConceptId Drug concept in current observable iteration
+     */
     public void accessRetrivedObservations(List<ObsEntity> observations, Long drugConceptId) {
 
-        CheckBox checkBox = (CheckBox)checkBoxGroup.getChildAt(0);
+        int position = 0;
+        CheckBox checkBox = (CheckBox)checkBoxGroup.getChildAt(0); // Retrieve checkbox
         List<Long> observationConcepts = new ArrayList<>();
-        //List<Long> observationValueCoded = new ArrayList<>(); // attempting to retrieve spinner values
+
+        Map<Integer, Long> frequencyPosition = new LinkedHashMap<>();
+        Map<Integer, Long> durationPosition = new LinkedHashMap<>();
+
+        Set<Map.Entry<String, Long>> collectionView = frequencyIdMap.entrySet();
+        for (Map.Entry<String, Long> group : collectionView) {
+            frequencyPosition.put(position, group.getValue());  // Map integers to conceptId's
+            position++;
+        }
+
+        position = 0;   // Reset position for duration map
+        Set<Map.Entry<String, Long>> collectionView2 = durationIdMap.entrySet();
+        for (Map.Entry<String, Long> group : collectionView2) {
+            durationPosition.put(position, group.getValue());   // Map integers to conceptId's
+            position++;
+        }
+
+        // Iterate key value pairs using entrySet()
+        Set<Map.Entry<Integer, Long>> freqMapView = frequencyPosition.entrySet();
+        Set<Map.Entry<Integer, Long>> duraMapView = durationPosition.entrySet();
+
 
         for (ObsEntity obs: observations) {
-            observationConcepts.add(obs.getConceptId());
-            //observationValueCoded.add(obs.getValueCoded());
+            observationConcepts.add(obs.getConceptId());    // Add's drug concept
+
+            for (Map.Entry<Integer, Long> group : freqMapView) {
+                if (frequencyIdMap.containsValue(obs.getValueCoded())) {
+                    answerFrequencyConcept = obs.getValueCoded();   // Set answer frequency if in Frequency Map
+                    if (answerFrequencyConcept.equals(group.getValue()))
+                        frequencySpinner.setSelection(group.getKey());  // Get integer if concepts are equal
+                }
+
+            }
+
+            for (Map.Entry<Integer, Long> group : duraMapView) {
+                if (durationIdMap.containsValue(obs.getValueCoded())) {
+                    answerDurationConcept = obs.getValueCoded(); // Set answer frequency if in Frequency Map
+                    if (answerDurationConcept.equals(group.getValue()))
+                        durationSpinner.setSelection(group.getKey());   // Get integer if concepts are equal
+                }
+            }
+
         }
 
         if(observationConcepts.contains(drugConceptId))
-            checkBox.setChecked(true);
-        //if(observationValueCoded.contains())
+            checkBox.setChecked(true);  // Check the CheckBox
+
     }
 
     public static class Builder extends RepositoryWidget.Builder {
