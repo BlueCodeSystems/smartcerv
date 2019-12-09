@@ -179,7 +179,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
         tableRow.addView(checkBoxGroup);
 
         tableLayout.addView(tableRow);
-        accessRetrivedObservations(selectedObservations, drug.concept_id);
+        accessRetrievedObservations(selectedObservations, drug.concept_id);
     }
 
     private void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
@@ -244,7 +244,7 @@ public class BasicDrugWidget extends RepositoryWidget<String> implements Retaina
      * @param observations List of obs Entities
      * @param drugConceptId Drug concept in current observable iteration
      */
-    public void accessRetrivedObservations(List<ObsEntity> observations, Long drugConceptId) {
+    public void accessRetrievedObservations(List<ObsEntity> observations, Long drugConceptId) {
 
         int position = 0;
         CheckBox checkBox = (CheckBox)checkBoxGroup.getChildAt(0); // Retrieve checkbox
