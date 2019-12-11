@@ -50,6 +50,7 @@
                     android:id="@+id/home_fragmdent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <fragment
                         android:name="zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment"
                         android:layout_width="match_parent"
@@ -62,7 +63,7 @@
                     </LinearLayout>
                 </FrameLayout>
                 <FrameLayout
-                    android:id="@+id/mdr_fragment"
+                    android:id="@+id/home_mdr_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <fragment

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DrugResistantTb</string>
+    <string name="multidrug_tb">MultiDrug - TB</string>
+    <string name="mdr_app_description">MDR App logo - Zambia</string>
 </resources>

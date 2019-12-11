@@ -45,14 +45,14 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/register_patient"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/register_mdr_patient"
+                            android:layout_width="148dp"
                             android:layout_height="150dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="10dp"
                             android:elevation="4dp"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/woman_ico"
+                            android:src="@drawable/man_woman"
                             android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
                             android:textAllCaps="false" />
 
@@ -66,7 +66,7 @@
                             android:textSize="18dp" />
                     </LinearLayout>
 
-                    <LinearLayout
+                    <!--<LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -76,7 +76,7 @@
                         android:orientation="vertical">
 
                         <ImageButton
-                            android:id="@+id/smartcerv"
+                            android:id="@+id/mdr"
                             android:layout_width="wrap_content"
                             android:layout_height="150dp"
                             android:layout_gravity="center_horizontal"
@@ -90,11 +90,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Client Register"
+                            android:text="Client Register"s
                             android:textAllCaps="false"
                             android:textColor="@color/dark_purple"
                             android:textSize="18dp" />
-                    </LinearLayout>
+                    </LinearLayout> -->
                 </TableRow>
 <!--
                 <TableRow

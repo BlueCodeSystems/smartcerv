@@ -1,8 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.DrugResistantTbHomeFragment" >
+<layout>
 
-</RelativeLayout>
+    <data>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity" />
+        <variable name="module" type="zm.gov.moh.drugresistanttb.DrugResistantTbModule"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.DrugResistantTbHomeFragment">
+
+        <ImageButton
+            android:id="@+id/mdrBtn"
+            android:layout_width="148dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="8sp"
+            android:layout_marginTop="8sp"
+            android:contentDescription="@string/mdr_app_description"
+            android:onClick="@{() -> context.startModule(module.MODULE)}"
+            android:src="@mipmap/mdr_icon_foreground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/mdr_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8sp"
+            android:layout_marginTop="8sp"
+            android:text="@string/multidrug_tb"
+            android:textSize="18sp"
+            android:textColor="@color/dark_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mdrBtn"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

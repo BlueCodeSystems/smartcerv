@@ -22,6 +22,9 @@ import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.BasicModuleGroup;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.drugresistanttb.DrugResistantTbModule;
+import zm.gov.moh.drugresistanttb.submodule.drugresistanttb.view.DrugResistantTbActivity;
+import zm.gov.moh.drugresistanttb.submodule.enrollment.view.DrugResistantTbEnrollmentActivity;
 
 public class ApplicationContext extends BaseApplication {
 
@@ -62,6 +65,19 @@ public class ApplicationContext extends BaseApplication {
         ModuleGroup cervicalCancer = new BasicModuleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerModules);
         registerModule(CervicalCancerModule.MODULE, cervicalCancer);
         loadFirstPointOfCareSubmodule(cervicalCancer);
+
+        // Load MDR service modules
+        zm.gov.moh.core.model.submodule.Module mdrEnrollment = new BasicModule("MDR Client Enrollment", DrugResistantTbEnrollmentActivity.class);
+
+        registerModule(DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT, mdrEnrollment);
+
+        //Add module to module group
+        List<zm.gov.moh.core.model.submodule.Module> mdrModules = new ArrayList<>();
+        mdrModules.add(mdrEnrollment);
+
+        ModuleGroup mdrTuberculosis = new BasicModuleGroup("MultiDrug-Resistant TB", DrugResistantTbActivity.class, mdrModules);
+        registerModule(DrugResistantTbModule.MODULE, mdrTuberculosis);
+        loadFirstPointOfCareSubmodule(mdrTuberculosis);
     }
 }
 
