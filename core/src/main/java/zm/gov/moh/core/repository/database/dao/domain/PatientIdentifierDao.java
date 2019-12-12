@@ -71,4 +71,16 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Override
     @Query("SELECT * FROM (SELECT * FROM patient_identifier WHERE patient_identifier_id NOT IN (:id)) WHERE patient_identifier_id >= :offsetId")
     PatientIdentifierEntity[] findEntityNotWithId(long offsetId, long... id);
+
+    //void patient by ID
+
+    @Query("UPDATE patient SET voided=1 WHERE patient_id=:patientID")
+    void voidPatientById(long patientID);
+
+    //void patient identifier
+
+    @Query("UPDATE patient_identifier SET voided=1 WHERE patient_id=:patientID")
+    void voidPatientIdentifierById(long patientID);
+
+
 }

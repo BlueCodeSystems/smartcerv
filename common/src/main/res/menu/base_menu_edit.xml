@@ -15,5 +15,9 @@
                     android:id="@+id/edit_action"
                     android:title="Edit"
                     app:showAsAction="never"/>
+                <item
+                        android:id="@+id/deleteEntry"
+                        android:title="Delete"
+                        app:showAsAction="never"/>
         </group>
 </menu>
