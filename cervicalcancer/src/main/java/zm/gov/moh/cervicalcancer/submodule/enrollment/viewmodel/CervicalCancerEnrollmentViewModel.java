@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -12,6 +13,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import androidx.core.util.Consumer;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Key;
@@ -68,34 +70,44 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         //TODO:Replace with IDs generated from OPENMRS
 
         long  personId = bundle.getLong(Key.PERSON_ID);
-            long patientIdentifierIdccpiz = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
+        long locationId = (long) bundle.get(Key.LOCATION_ID);
+        String identifier = (String) bundle.get(CLIENT_ID_TAG);
 
-            //Create database entity instances
+        PatientIdentifierEntity patientIdentifier =  db.patientIdentifierDao().getByLocationType(personId,locationId, OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
 
-            //patient id CCPIZ
-            PatientIdentifierEntity ccpiz = new PatientIdentifierEntity(patientIdentifierIdccpiz, personId,
-                    (String) bundle.get(CLIENT_ID_TAG),
-                    CERVICAL_CANCER_ID_TYPE, preffered(),
-                    (long) bundle.get(Key.LOCATION_ID), LocalDateTime.now());
+            if(patientIdentifier == null) {
+                long patientIdentifierIdccpiz = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
+
+                //Create database entity instances
+
+                //patient id CCPIZ
+                patientIdentifier = new PatientIdentifierEntity(patientIdentifierIdccpiz, personId,
+                        identifier,
+                        CERVICAL_CANCER_ID_TYPE, preffered(),
+                        locationId, LocalDateTime.now());
+            }else {
+                patientIdentifier.setIdentifier(identifier);
+                patientIdentifier.setDateChanged(LocalDateTime.now());
+            }
 
             //persist database entity instances asynchronously into the database
-            ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert, this::onError, ccpiz);
+            ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert, this::onError, patientIdentifier);
             getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT);
 
     }
 
     public void editClient(Bundle bundle){
-
+        this.enrollClient(bundle);
         long  patientId = bundle.getLong(Key.PERSON_ID);
         Person person = getRepository().getDatabase().personDao().findById(patientId);
 
         if(person != null){
             person.setBirthDate(LocalDateTime.parse(bundle.getString(Key.PERSON_DOB)+ Constant.MID_DAY_TIME, DateTimeFormatter.ISO_ZONED_DATE_TIME));
             db.personDao().insert(person);
-            db.clientDao().updateNamesById(patientId,bundle.getString(Key.PERSON_GIVEN_NAME),bundle.getString(Key.PERSON_FAMILY_NAME));
-            db.clientDao().updatePhoneNumberByPatientId(patientId,bundle.getString(Key.PERSON_PHONE));
-            db.clientDao().updateClientIdByPatientId(patientId,bundle.getString(Key.PERSON_ID));
-            db.clientDao().updateAddressById(patientId,bundle.getString(Key.PERSON_ADDRESS));
+            db.clientDao().updateNamesById(patientId,bundle.getString(Key.PERSON_GIVEN_NAME),bundle.getString(Key.PERSON_FAMILY_NAME),LocalDateTime.now());
+            db.clientDao().updatePhoneNumberByPatientId(patientId,bundle.getString(Key.PERSON_PHONE),LocalDateTime.now());
+            db.clientDao().updateAddressById(patientId,bundle.getString(Key.PERSON_ADDRESS),LocalDateTime.now());
+            db.personDao().updateNRCNumberBydID(patientId,bundle.getString(Key.NRC_NUMBER),LocalDateTime.now());
         }
 
         getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);

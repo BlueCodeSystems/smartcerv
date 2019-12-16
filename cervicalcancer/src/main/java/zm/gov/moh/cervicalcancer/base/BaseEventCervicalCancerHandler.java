@@ -56,6 +56,5 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
            ConcurrencyUtils.consumeAsync(activity.getViewModel().getRepository().getDatabase().patientIdentifierDao()::voidPatientIdentifierById, Throwable::printStackTrace, patientID);
             Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
 
-
         }
 }}
