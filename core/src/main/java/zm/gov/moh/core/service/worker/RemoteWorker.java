@@ -18,7 +18,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityType;
 
 public abstract class RemoteWorker extends BaseWorker {
 
-    protected String accessToken ="";
+    protected String accessToken ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InV1aWQiOiJhM2FjYTE4MS1kMDJhLTRiODgtOTc1NC1lYWM0NWQzZGUzZmUiLCJkaXNwbGF5IjoiYW50aG9ueSIsInVzZXJuYW1lIjoiYW50aG9ueSIsInN5c3RlbUlkIjoiMy00In0sImlhdCI6MTU0MjE0MzU3NiwiZXhwIjoxNTkyMTQzNTc2fQ.DsDbPXwaZ5sg2SFCq1CBykITJjog-9u-4XzNGw9IYV8";
     protected final int TIMEOUT = 300000;
     protected RestApi restApi;
     protected long workerTimeout = 600000;
@@ -29,9 +29,15 @@ public abstract class RemoteWorker extends BaseWorker {
     protected LocalDateTime MIN_DATETIME = LocalDateTime.parse("1970-01-01T00:00:00");
     long OFFSET = 0;
 
+    protected String lastDataSyncDate;
+    protected String lastMetadataSyncDate;
+
     public RemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
         AndroidThreeTen.init(context);
+
+        lastDataSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_DATA_SYNC_DATETIME,null);
+        lastMetadataSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_METADATA_SYNC_DATETIME,null);
         workerTimeout += SystemClock.currentThreadTimeMillis();
         //TODO: replace hard coded token with dynamically assigned tokens
         //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);

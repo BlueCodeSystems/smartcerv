@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 import java.util.List;
@@ -43,8 +45,11 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("UPDATE patient_identifier SET patient_id = :remote WHERE patient_id = :local ")
      void replacePatient(long local, long remote);
 
-    @Query("SELECT identifier,patient_identifier_type.uuid AS identifierType, location.uuid AS location, preferred FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.voided = 0")
-    List<PatientIdentifier> findAllByPatientId(long id);
+    @Query("SELECT identifier,patient_identifier_type.uuid AS identifierType, location.uuid AS location, preferred FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.date_changed >= :lastModifiedDate AND patient_identifier.voided = 0")
+    List<PatientIdentifier> findAllByPatientId(long id, LocalDateTime lastModifiedDate);
+
+    @Query("SELECT patient_identifier.* FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.voided = 0")
+    List<PatientIdentifierEntity> findAllByPatientId(long id);
 
     @Query("SELECT * FROM patient_identifier WHERE identifier = :identifier AND uuid = null AND identifier_type = :identifierType")
     PatientIdentifierEntity ifExistsLocal(String identifier, long identifierType);

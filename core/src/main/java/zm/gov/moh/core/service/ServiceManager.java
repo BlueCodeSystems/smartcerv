@@ -88,23 +88,6 @@ public class ServiceManager {
 
         switch (mService){
 
-            case PULL_PATIENT_ID_REMOTE:
-                Toast.makeText(context,"Syncing",Toast.LENGTH_LONG).show();
-                mIntent = new Intent(context, PullPatientIDRemote.class);
-                break;
-
-            case PULL_META_DATA_REMOTE:
-                mIntent = new Intent(context, PullMetaDataRemote.class);
-                break;
-
-            case PULL_ENTITY_REMOTE:
-               mIntent = new Intent(context, PullDataRemote.class);
-               break;
-
-            case PUSH_ENTITY_REMOTE:
-                mIntent = new Intent(context, PushDataRemote.class);
-                break;
-
             case PERSIST_DEMOGRAPHICS:
                 mIntent = new Intent(context, PersistDemographics.class);
                 break;

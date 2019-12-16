@@ -87,6 +87,7 @@ public class Person extends SynchronizableEntity {
         this.birthDate = birthDate;
         this.gender = gender;
         this.dateCreated = dateCreated;
+        this.dateChanged = dateCreated;
     }
 
     public long getPersonId() {

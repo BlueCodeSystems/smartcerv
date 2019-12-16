@@ -81,6 +81,7 @@ public class PatientIdentifierEntity {
         this.preferred = preferred;
         this.locationId = locationId;
         this.dateCreated = dateCreated;
+        this.dateChanged = dateCreated;
     }
 
     @Ignore

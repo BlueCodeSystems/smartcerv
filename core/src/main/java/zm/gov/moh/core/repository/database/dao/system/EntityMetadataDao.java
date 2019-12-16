@@ -17,6 +17,9 @@ public interface EntityMetadataDao {
     @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus")
     long[] findEntityIdByTypeRemoteStatus(int entityTypeId, short remoteStatus);
 
+    @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus AND last_modified >= :lastModified")
+    long[] findEntityIdByTypeRemoteStatus(int entityTypeId, short remoteStatus, LocalDateTime lastModified);
+
     @Query("SELECT MAX(last_modified) FROM entity_metadata WHERE entity_type_id = :entityTypeId")
     LocalDateTime findEntityLatestModifiedById(int entityTypeId);
 
