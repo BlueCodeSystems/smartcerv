@@ -86,5 +86,4 @@ public interface PatientDao extends Synchronizable<Long> {
     Long[] findEntityNotWithId(long offsetId, long... id);
 
 
-
 }

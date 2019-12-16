@@ -44,5 +44,6 @@ public class OpenmrsConfig {
     //Encounter Type
     public static final String ENCOUNTER_TYPE_UUID_TEST_RESULT = "18c7295b-bd02-4766-8341-95337197606b";
     public static final String ENCOUNTER_TYPE_UUID_TREAMENT = "792cdf01-d7c6-435b-8224-40159f5baea2";
+    public static final String IDENTIFIER_TYPE_CCPIZ_UUID = "852a0bd1-d283-48b1-b72e-e7af0b4b6ce7";
 
 }
