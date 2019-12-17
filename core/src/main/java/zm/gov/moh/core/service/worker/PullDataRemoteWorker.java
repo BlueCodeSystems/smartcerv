@@ -64,10 +64,10 @@ public class PullDataRemoteWorker extends RemoteWorker {
             //person address
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
-            if(awaitResult().equals(Result.success()))
+           /* if(awaitResult().equals(Result.success()))
                 repository.getDefaultSharePrefrences().edit()
                         .putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
-                        .apply();
+                        .apply();*/
 
         return awaitResult();
     }

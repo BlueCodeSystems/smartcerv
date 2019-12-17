@@ -83,6 +83,8 @@ public class PersistDemographics extends PersistService {
                     db.personDao().insert(person);
                 }
 
+                db.entityMetadataDao().updateLastModifiedDate(personId,LocalDateTime.now());
+
                 return;
             }
 

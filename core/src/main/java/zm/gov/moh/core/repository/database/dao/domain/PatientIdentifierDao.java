@@ -44,18 +44,11 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<PatientIdentifierEntity> patientIdentifiers);
 
-    //get persons name by getPersons id
-    @Query("UPDATE patient_identifier SET patient_id = :remote WHERE patient_id = :local ")
-     void replacePatient(long local, long remote);
-
     @Query("SELECT identifier,patient_identifier_type.uuid AS identifierType, location.uuid AS location, preferred FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.date_changed >= :lastModifiedDate AND patient_identifier.voided = 0")
     List<PatientIdentifier> findAllByPatientId(long id, LocalDateTime lastModifiedDate);
 
     @Query("SELECT patient_identifier.* FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.voided = 0")
     List<PatientIdentifierEntity> findAllByPatientId(long id);
-
-    @Query("SELECT * FROM patient_identifier WHERE identifier = :identifier AND uuid = null AND identifier_type = :identifierType")
-    PatientIdentifierEntity ifExistsLocal(String identifier, long identifierType);
 
     //get persons name by getPersons id
     @Query("SELECT MAX(patient_identifier_id) FROM patient_identifier")
@@ -64,14 +57,8 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT patient_identifier_id FROM patient_identifier WHERE uuid = :uuid")
     Long getIdByUuid(String uuid);
 
-    @Query("SELECT local.patient_identifier_id FROM (SELECT patient_identifier_id, identifier FROM patient_identifier WHERE patient_identifier_id < :localOffset) AS remote JOIN (SELECT patient_identifier_id, identifier FROM patient_identifier WHERE patient_identifier_id >= :localOffset) AS local ON local.identifier = remote.identifier")
-    long[] getSynced(long localOffset);
-
-    @Query("SELECT local.patient_id AS local, remote.patient_id AS remote FROM (SELECT patient_id, identifier FROM patient_identifier WHERE patient_identifier_id < :localOffset AND identifier_type = :identifierType) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_identifier_id >= :localOffset  AND identifier_type = :identifierType) AS local ON local.identifier = remote.identifier")
-    EntityId[] getSyncedEntityId(long localOffset, long identifierType);
-
-    @Query("SELECT identifier FROM patient_identifier WHERE patient_id = :id")
-    String[] getIdentifiersByPatientId(long id);
+    @Query("SELECT identifier FROM patient_identifier WHERE patient_id = :patientId AND identifier_type = (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = :identifierTypeUuid)")
+    LiveData<String> findPatientIDByIdentifierType(long patientId, String identifierTypeUuid);
 
     @Query("SELECT person_identifier.remote_uuid  FROM (SELECT patient_id, identifier FROM patient_identifier WHERE uuid NOT NULL) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_id = :localPatientId) AS local ON local.identifier = remote.identifier JOIN person_identifier ON person_identifier.remote_id = remote.patient_id")
    String getRemotePatientUuid(long localPatientId);
@@ -81,12 +68,10 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     PatientIdentifierEntity[] findEntityNotWithId(long offsetId, long... id);
 
     //void patient by ID
-
     @Query("UPDATE patient SET voided=1 WHERE patient_id=:patientID")
     void voidPatientById(long patientID);
 
     //void patient identifier
-
     @Query("UPDATE patient_identifier SET voided=1 WHERE patient_id=:patientID")
     void voidPatientIdentifierById(long patientID);
 

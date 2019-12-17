@@ -37,6 +37,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode());
+
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         dataSyncDate = LocalDateTime.parse(lastDataSyncDate);
 
@@ -105,7 +106,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);
        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
 
-       if((person != null || personName != null || personAddress != null) && patientIdentifiers.size() > 1) {
+       if((person != null || personName != null || personAddress != null) && (patientIdentifiers.size() > 1 || person.getUuid() != null)) {
 
            return new Patient.Builder()
                    .setPerson(person)

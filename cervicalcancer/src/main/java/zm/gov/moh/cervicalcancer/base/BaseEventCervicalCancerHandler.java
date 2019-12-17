@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.base.BaseEventHandler;
@@ -39,8 +40,9 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             try {
 
                 JsonForm clientRegistration = new JsonForm("Edit client demographics",
-                        Utils.getStringFromInputStream(activity.getAssets().open("forms/via_cervical_cancer_enrollment.json")));
+                        Utils.getStringFromInputStream(activity.getAssets().open("forms/via_cervical_cancer_enrollment_edit.json")));
                 mBundle.putString(Key.START_MODULE_ON_RESULT, CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
+                mBundle.putString(Key.PATIENT_ID_TYPE, OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
                 mBundle.putSerializable(Key.JSON_FORM, clientRegistration);
                 mBundle.putString(Key.ACTION, CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
                 activity.startModule(BaseApplication.CoreModule.FORM, mBundle);
