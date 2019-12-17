@@ -14,6 +14,7 @@ import android.widget.ExpandableListView;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
@@ -34,7 +35,6 @@ public class PatientDashboardVisitFragment extends Fragment {
         // Required empty public constructor
     }
 
-    LinkedList<String> filterConceptIdUuid;
     ExpandableListView visitItemList;
 
     @Override
@@ -43,20 +43,6 @@ public class PatientDashboardVisitFragment extends Fragment {
 
         mContext = (PatientDashboardActivity) getContext();
         viewModel = mContext.getViewModel();
-
-
-        //Filter concept ids
-        filterConceptIdUuid = new LinkedList<>();
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_INSPECTION_DONE);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_SCREENING_RESULT);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_REFERRAL_REASON);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HEALTH_FACILITY_REFERRED);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_TREATMENT_PERFORMED);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_SCREENING_PROVIDER);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_TREATMENT_PROVIDER);
-        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HIV_STATUS);
-
-
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.fragment_patient_dashboard_visit, container, false);
@@ -69,24 +55,18 @@ public class PatientDashboardVisitFragment extends Fragment {
 
             VisitExpandableListAdapter adapter = new VisitExpandableListAdapter(mContext,linkedHashMultimaps);
 
-
-            viewModel.getRepository().getDatabase().conceptDao()
-                    .getConceptIdByUuid(filterConceptIdUuid)
-                    .observe(this,populateList(visitItemList ,adapter)::accept);
+            viewModel.getFilterObsEmitter().observe(this, populateList(visitItemList ,adapter)::accept);
         });
-
-
-
-
 
         return rootView;
     }
 
-    public Consumer<List<Long>> populateList(ExpandableListView visitItemList, VisitExpandableListAdapter visitExpandableListAdapter){
+    public Consumer<Map.Entry<List<Long>, Map<Long,Long>>> populateList(ExpandableListView visitItemList, VisitExpandableListAdapter visitExpandableListAdapter){
 
-       return (filterConceptId) -> {
+       return (Map.Entry<List<Long>, Map<Long,Long>> filter) -> {
 
-           visitExpandableListAdapter.addFilterConceptId(filterConceptId);
+           visitExpandableListAdapter.addFilterConceptId(filter.getKey());
+           visitExpandableListAdapter.setSubstituteConcept(filter.getValue());
            binding.setNumberOfVisits(visitExpandableListAdapter.getGroupCount());
            visitItemList.setAdapter(visitExpandableListAdapter);
        };
