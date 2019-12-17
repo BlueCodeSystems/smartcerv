@@ -3,11 +3,13 @@ package zm.gov.moh.common.base;
 import android.content.Context;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import zm.gov.moh.common.R;
@@ -79,12 +81,29 @@ public class BaseEventHandler {
             BaseActivity activity = (BaseActivity) context;
             mBundle = ((BaseActivity) this.context).getIntent().getExtras();
             long patientID = mBundle.getLong(Key.PERSON_ID);
-            activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
-            ConcurrencyUtils.consumeAsync(activity.viewModel.getRepository().getDatabase().patientIdentifierDao()::voidPatientById, Throwable::printStackTrace, patientID);
-            Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
 
+            AlertDialog.Builder builder=new AlertDialog.Builder(context);
+            builder.setTitle("Confirm deletion");
+            builder.setMessage("All visit data that was submitted for this client  will be lost.Proceed?");
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
+                    ConcurrencyUtils.consumeAsync(activity.viewModel.getRepository().getDatabase().patientIdentifierDao()::voidPatientById, Throwable::printStackTrace, patientID);
+                    Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.create();
+            builder.show();
+        }
 
         }
     }
-}
+
 
