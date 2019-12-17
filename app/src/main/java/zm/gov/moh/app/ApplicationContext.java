@@ -68,12 +68,21 @@ public class ApplicationContext extends BaseApplication {
 
         // Load MDR service modules
         zm.gov.moh.core.model.submodule.Module mdrEnrollment = new BasicModule("MDR Client Enrollment", DrugResistantTbEnrollmentActivity.class);
+        zm.gov.moh.core.model.submodule.Module mdrRegister = new BasicModule("MDR Client Register", zm.gov.moh.drugresistanttb.submodule.register.view.DrugResistantTbRegisterActivity.class);
+        zm.gov.moh.core.model.submodule.Module mdrPatientDashboard = new BasicModule("MDR Patient Dashboard", zm.gov.moh.drugresistanttb.submodule.dashboard.patient.view.DrugResistantTbPatientDashboardActivity.class);
 
         registerModule(DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT, mdrEnrollment);
+        registerModule(DrugResistantTbModule.Submodules.MDR_CLIENT_REGISTER, mdrRegister);
+        registerModule(DrugResistantTbModule.Submodules.MDR_PATIENT_DASHBOARD, mdrPatientDashboard);
+
+
+        //registerModule(DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT, mdrEnrollment);
 
         //Add module to module group
         List<zm.gov.moh.core.model.submodule.Module> mdrModules = new ArrayList<>();
         mdrModules.add(mdrEnrollment);
+        mdrModules.add(mdrRegister);
+        mdrModules.add(mdrPatientDashboard);
 
         ModuleGroup mdrTuberculosis = new BasicModuleGroup("MultiDrug-Resistant TB", DrugResistantTbActivity.class, mdrModules);
         registerModule(DrugResistantTbModule.MODULE, mdrTuberculosis);
