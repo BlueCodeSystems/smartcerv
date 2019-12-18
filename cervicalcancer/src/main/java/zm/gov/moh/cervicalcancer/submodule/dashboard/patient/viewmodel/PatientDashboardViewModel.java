@@ -11,6 +11,7 @@ import org.threeten.bp.ZoneOffset;
 
 import java.util.AbstractMap;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,14 +41,12 @@ import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class PatientDashboardViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
-    private MutableLiveData<VisitState> emitVisitState;
     private Bundle bundle;
-    private VisitState visitState;
-    private VisitEntity visit;
-    VisitDao visitDao = getRepository().getDatabase().visitDao();
-    Database db = getRepository().getDatabase();
     long person_id;
+    VisitEntity visit;
 
+
+    private MutableLiveData<Map.Entry<List<Long>, Map<Long,Long>>> filterObsEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> screeningDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> treatmentDataEmitter;
@@ -59,21 +58,6 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
     public PatientDashboardViewModel(Application application) {
         super(application);
 
-    }
-
-    public void setVisitState(final VisitState state) {
-
-        persistVisit(state);
-
-        emitVisitState.setValue(state);
-    }
-
-    public MutableLiveData<VisitState> getEmitVisitState() {
-
-        if (emitVisitState == null)
-            emitVisitState = new MutableLiveData<>();
-
-        return emitVisitState;
     }
 
     public MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> getScreeningDataEmitter() {
@@ -132,6 +116,14 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return ediDataEmitter;
     }
 
+    public MutableLiveData<Map.Entry<List<Long>, Map<Long,Long>>> getFilterObsEmitter() {
+
+        if (filterObsEmitter == null)
+            filterObsEmitter = new MutableLiveData<>();
+
+        return filterObsEmitter;
+    }
+
 
 
     public void setBundle(Bundle bundle) {
@@ -146,26 +138,6 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             bundle = new Bundle();
 
         return bundle;
-    }
-
-    public VisitState getVisitState() {
-        return visitState;
-    }
-
-    public void persistVisit(VisitState visitState){
-
-
-        if(visit == null)
-            visit = new VisitEntity();
-
-        if(visitState == VisitState.NEW)
-
-            ConcurrencyUtils.consumeAsync(this::createVisit, this::onError, bundle);
-        else if(visit.getDateStarted() != null) {
-
-            visit.setDateStopped(LocalDateTime.now());
-            ConcurrencyUtils.consumeAsync( visit-> visitDao.updateVisit(visit),this::onError,visit);
-        }
     }
 
 
@@ -328,24 +300,11 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         ConcurrencyUtils.asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
         ConcurrencyUtils.asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);
         ConcurrencyUtils.asyncFunction(this::extractVisitData,getVisitDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractObsFilterData,getFilterObsEmitter()::setValue,visits,this::onError);
     }
 
     public void onError(Throwable throwable){
 
-    }
-
-    public void createVisit(Bundle bundle){
-
-        long visit_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
-        long visit_type_id = (Long) bundle.get(Key.VISIT_TYPE_ID);
-        long location_id = (Long) bundle.get(Key.LOCATION_ID);
-        long creator = (Long) bundle.get(Key.USER_ID);
-        LocalDateTime start_time = LocalDateTime.now();
-
-        visit = new VisitEntity(visit_id,visit_type_id,person_id,location_id,creator,start_time);
-        visitDao.insert(visit);
-        bundle.putLong(Key.VISIT_ID, visit_id);
-        setVisitState(VisitState.NEW);
     }
 
     public LinkedHashMap<Long, Collection<Map.Entry<String, String>>> extractProviderData(List<VisitEntity> visits){
@@ -452,5 +411,36 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         }
 
         return visitListItems;
+    }
+
+    public Map.Entry<List<Long>, Map<Long,Long>>extractObsFilterData(List<VisitEntity> visits){
+
+        List<String>filterConceptIdUuid = new LinkedList<>();
+        Map<String, String> substituteConceptIdUuid = new HashMap<>();
+        List<Long> filterConceptId;
+        Map<Long, Long> substituteConceptIds = new HashMap<>();
+
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_INSPECTION_DONE);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_SCREENING_RESULT);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_REFERRAL_REASON);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HEALTH_FACILITY_REFERRED);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_TREATMENT_PERFORMED);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_SCREENING_PROVIDER);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_TREATMENT_PROVIDER);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HIV_STATUS);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_PICT_HIV_RESULT);
+
+        filterConceptId = db.conceptDao().getConceptIdByUuid(filterConceptIdUuid);
+
+        substituteConceptIdUuid.put(OpenmrsConfig.CONCEPT_UUID_HIV_STATUS, OpenmrsConfig.CONCEPT_UUID_PICT_HIV_RESULT);
+
+        for(Map.Entry<String, String> entry: substituteConceptIdUuid.entrySet()){
+
+            Long conceptId = db.conceptDao().getConceptIdByUuid(entry.getKey());
+            Long substituteConceptId = db.conceptDao().getConceptIdByUuid(entry.getValue());
+            substituteConceptIds.put(conceptId,substituteConceptId);
+        }
+
+        return new AbstractMap.SimpleImmutableEntry<>(filterConceptId, substituteConceptIds);
     }
 }

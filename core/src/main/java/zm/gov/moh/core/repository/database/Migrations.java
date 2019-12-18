@@ -40,12 +40,12 @@ public class Migrations {
                 database.execSQL("INSERT INTO person_attribute_type SELECT * FROM person_attribute_type_temp");
                 database.execSQL("DROP TABLE `person_attribute_type_temp`");
 
-                /*database.execSQL("CREATE TABLE `person_attribute_temp` (`person_attribute_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `value` TEXT, `person_attribute_type_id` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`person_attribute_id`))");
+                database.execSQL("CREATE TABLE `person_attribute_temp` (`person_attribute_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `value` TEXT, `person_attribute_type_id` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`person_attribute_id`))");
                 database.execSQL("INSERT INTO person_attribute_temp SELECT * FROM person_attribute");
                 database.execSQL("DROP TABLE `person_attribute`");
                 database.execSQL("CREATE TABLE `person_attribute` (`person_attribute_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `value` TEXT, `person_attribute_type_id` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`person_attribute_id`))");
                 database.execSQL("INSERT INTO person_attribute SELECT * FROM person_attribute_temp");
-                database.execSQL("DROP TABLE `person_attribute_temp`");*/
+                database.execSQL("DROP TABLE `person_attribute_temp`");
             } catch (Exception e) {
 
                 e.printStackTrace();

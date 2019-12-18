@@ -152,7 +152,7 @@ public class PushDataRemote extends RemoteService {
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId);
        //List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
-        PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonId(patientId);
+        PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonEntityId(patientId);
 
        return new Patient.Builder()
                .setPerson(person)

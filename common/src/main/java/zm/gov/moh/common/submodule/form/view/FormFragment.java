@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil;
 
 import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.R;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
 import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.submodule.form.adapter.FormAdapter;
@@ -206,6 +207,7 @@ public class FormFragment extends BaseFragment {
                 else{
 
                     String moduleName = this.bundle.getString(Key.START_MODULE_ON_RESULT);
+                    bundle = ((BaseActivity) context).getIntent().getExtras();
                     context.startModule(moduleName, this.bundle);
                     context.onBackPressed();
                     return;

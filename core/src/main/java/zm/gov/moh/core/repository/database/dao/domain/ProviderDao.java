@@ -22,6 +22,9 @@ public interface ProviderDao {
     @Query("SELECT * FROM provider WHERE provider_id = :id")
     Provider getById(Long id);
 
+    @Query("SELECT uuid from provider WHERE provider_id=:providerId")
+    String getProviderUuidByProviderId(long providerId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Provider... providers);
 }

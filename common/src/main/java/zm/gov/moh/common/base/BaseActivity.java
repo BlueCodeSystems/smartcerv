@@ -179,16 +179,17 @@ public class BaseActivity extends AppCompatActivity {
                     .findById(personId)
                     .observe(this, client -> {
 
+                        if(client != null) {
+                            bundle.putString(Key.PERSON_GIVEN_NAME, client.getGivenName());
+                            bundle.putString(Key.PERSON_FAMILY_NAME, client.getFamilyName());
 
-                        bundle.putString(Key.PERSON_GIVEN_NAME, client.getGivenName());
-                        bundle.putString(Key.PERSON_FAMILY_NAME,client.getFamilyName());
+                            //Added to pass client gender with bundle
+                            bundle.putString(Key.PERSON_GENDER, client.getGender());
+                            //Added to pass client age with bundle
 
-                        //Added to pass client gender with bundle
-                        bundle.putString(Key.PERSON_GENDER, client.getGender());
-                        //Added to pass client age with bundle
-
-                        bundle.putString(Key.PERSON_AGE, calculateClientAge(client.getBirthDate()).toString());
-                        bundle.putString(Key.PERSON_DOB, client.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                            bundle.putString(Key.PERSON_AGE, calculateClientAge(client.getBirthDate()).toString());
+                            bundle.putString(Key.PERSON_DOB, client.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                        }
 
                     });
 

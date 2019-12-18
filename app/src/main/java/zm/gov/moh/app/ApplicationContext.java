@@ -29,7 +29,7 @@ public class ApplicationContext extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-
+        this.buildName =  BuildConfig.VERSION_NAME;
         //Load common modules
         registerModule(CoreModule.CLIENT_DASHOARD, new BasicModule("Client Dashboard",ClientDashboardActivity.class));
         registerModule(CoreModule.REGISTER, new BasicModule("Register",RegisterActivity.class));

@@ -88,7 +88,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId);
        //List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId);
-       PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonId(patientId);
+       PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonEntityId(patientId);
 
        if((person != null || personName != null || personAddress != null) && patientIdentifiers.size() > 1) {
 
