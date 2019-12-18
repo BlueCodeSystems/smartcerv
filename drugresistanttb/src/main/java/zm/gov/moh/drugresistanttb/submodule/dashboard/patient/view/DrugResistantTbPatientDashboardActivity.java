@@ -76,6 +76,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         fragmentManager = getSupportFragmentManager();
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.recents_menu_item_id);
+
         database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
