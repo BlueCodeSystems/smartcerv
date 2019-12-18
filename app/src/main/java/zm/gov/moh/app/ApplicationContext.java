@@ -75,9 +75,6 @@ public class ApplicationContext extends BaseApplication {
         registerModule(DrugResistantTbModule.Submodules.MDR_CLIENT_REGISTER, mdrRegister);
         registerModule(DrugResistantTbModule.Submodules.MDR_PATIENT_DASHBOARD, mdrPatientDashboard);
 
-
-        //registerModule(DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT, mdrEnrollment);
-
         //Add module to module group
         List<zm.gov.moh.core.model.submodule.Module> mdrModules = new ArrayList<>();
         mdrModules.add(mdrEnrollment);

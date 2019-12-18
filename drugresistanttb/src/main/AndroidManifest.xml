@@ -12,6 +12,9 @@
         <activity android:name=".view.DrugResistantTbHomeActivity"
             android:label="MOH mCare - MDR"
             android:theme="@style/MDR"/>
+        <activity android:name=".submodule.dashboard.patient.view.DrugResistantTbPatientDashboardActivity"
+            android:label="MOH mCare - MDR"
+            android:theme="@style/MDR"/>
     </application>
 
 </manifest>

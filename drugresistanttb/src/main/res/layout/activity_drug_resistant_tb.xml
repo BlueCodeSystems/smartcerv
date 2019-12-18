@@ -50,6 +50,7 @@
                             android:layout_height="150dp"
                             android:layout_gravity="center_horizontal"
                             android:padding="10dp"
+                            android:contentDescription="@string/register_client_for_mdr"
                             android:elevation="4dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/man_woman"
@@ -60,10 +61,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Enroll Patient"
+                            android:text="@string/mdr_enroll_patient"
                             android:textAllCaps="false"
                             android:textColor="@color/dark_purple"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <!--<LinearLayout
@@ -90,10 +91,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Client Register"s
+                            android:text="Client Register"
                             android:textAllCaps="false"
                             android:textColor="@color/dark_purple"
-                            android:textSize="18dp" />
+                            android:textSize="18sp" />
                     </LinearLayout> -->
                 </TableRow>
 <!--

@@ -14,90 +14,57 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include
+            layout="@layout/base_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="@{title}"/>
 
 
+        <include
+            android:id="@+id/client"
+            layout="@layout/client_card"
+            app:client="@{client}" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{facility.getName}"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="EDI Gallery"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:background="@drawable/border_bottom"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
+            android:textColor="@color/darker_grey" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable" />
 
         <LinearLayout
+            android:id="@+id/bottom_navigation_view_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".module.dashboard.patient.view.PatientDashboardEDIGalleryFragment">
-
-
-            <include
-                layout="@layout/base_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:title="@{title}"></include>
-
-
-            <include
-                android:id="@+id/client"
-                layout="@layout/client_card"
-                app:client="@{client}" />
-
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@{facility.getName}"
-                android:textStyle="bold"/>
-            --android:textColor="@color/colorAccent"
-                />
-
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="EDI Gallery"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:background="@drawable/border_bottom"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                android:orientation="horizontal"
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/load_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="EDIonClick"
-                    android:orientation="horizontal"></androidx.appcompat.widget.AppCompatImageButton>
-                    --android:src="@drawable/ic_baseline_photo_library_24px">
-
-                androidx.appcompat.widget.AppCompatImageButton>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="end"
-                android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
-                android:textColor="@color/darker_grey" />
-
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/sliding_tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
-
-            <LinearLayout
-                android:id="@+id/bottom_navigation_view_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="55dp"
-                android:orientation="vertical"></LinearLayout>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:orientation="vertical"></LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
@@ -107,9 +74,6 @@
             android:background="@color/pinker"
             android:elevation="4dp"
             android:text="@string/hello_blank_fragment"/>
-            --app:itemIconTint="@color/selector_bottom_nav"
-            --app:itemTextColor="@color/selector_bottom_nav" />
-
     </FrameLayout>
 
 </layout>
