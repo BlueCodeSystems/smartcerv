@@ -38,7 +38,18 @@ public class BaseEventHandler {
     }
 
     public void syncData() {
+
+        BaseApplication applicationContext =(BaseApplication) context.getApplicationContext();
+        if(!applicationContext.isSynchronizing())
+            applicationContext.setSynchronizing(true);
+        else {
+            Toast.makeText(context, "Synchronization in progress", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Toast.makeText(context, "Syncing", Toast.LENGTH_LONG).show();
+
+
         WorkManager workManager = WorkManager.getInstance(context);
         OneTimeWorkRequest workRequestPullIdData = new OneTimeWorkRequest.Builder(PullPatientIDRemoteWorker.class).build();
         OneTimeWorkRequest workRequestData = new OneTimeWorkRequest.Builder(PullDataRemoteWorker.class).build();
