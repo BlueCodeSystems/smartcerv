@@ -28,6 +28,9 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT identifier FROM patient_identifier WHERE identifier_type =(SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid =:identifierType) AND location_id = :locationId")
     LiveData<List<String>> getByLocationType(long locationId, String identifierType);
 
+    @Query("SELECT * FROM patient_identifier WHERE identifier_type =(SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid =:identifierType) AND  patient_identifier.voided =0 AND patient_id = :patientId AND location_id = :locationId")
+    PatientIdentifierEntity getByLocationType(long patientId,long locationId, String identifierType);
+
     // Inserts single getPersons name
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PatientIdentifierEntity patientIdentifier);
@@ -71,4 +74,16 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Override
     @Query("SELECT * FROM (SELECT * FROM patient_identifier WHERE patient_identifier_id NOT IN (:id)) WHERE patient_identifier_id >= :offsetId")
     PatientIdentifierEntity[] findEntityNotWithId(long offsetId, long... id);
+
+    //void patient by ID
+
+    @Query("UPDATE patient SET voided=1 WHERE patient_id=:patientID")
+    void voidPatientById(long patientID);
+
+    //void patient identifier
+
+    @Query("UPDATE patient_identifier SET voided=1 WHERE patient_id=:patientID")
+    void voidPatientIdentifierById(long patientID);
+
+
 }

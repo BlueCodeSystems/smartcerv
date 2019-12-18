@@ -21,4 +21,6 @@ public interface PersonAttributeDao {
     //get persons attribute by getPersons id
     @Query("SELECT value, person_attribute_type.uuid AS attributeType FROM person_attribute JOIN person_attribute_type WHERE person_id = :id")
     List<PersonAttribute> findByPersonId(long id);
+
+
 }

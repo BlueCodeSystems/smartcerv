@@ -11,7 +11,7 @@ import zm.gov.moh.core.model.submodule.ModuleGroup;
 
 public class BaseApplication extends Application {
 
-
+    protected String buildName;
     protected Map<String, zm.gov.moh.core.model.submodule.Module> submodules;
     protected ArrayList<ModuleGroup> firstPointOfCareSubmodules;
 
@@ -23,7 +23,9 @@ public class BaseApplication extends Application {
         submodules = new HashMap<>();
         firstPointOfCareSubmodules = new ArrayList<>();
     }
-
+    public String getBuildName() {
+        return buildName;
+    }
     public zm.gov.moh.core.model.submodule.Module getModule(String submodule){
 
         return submodules.get(submodule);
