@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.core.model.IntentAction;
+import zm.gov.moh.core.utils.BaseApplication;
 
 public class BaseReceiver extends BroadcastReceiver {
 
@@ -14,6 +15,7 @@ public class BaseReceiver extends BroadcastReceiver {
         public void onReceive(Context context, Intent intent) {
 
                 String action = intent.getAction();
+                BaseApplication applicationContext =(BaseApplication) context.getApplicationContext();
 
                 if(action != null)
                     switch (action){
@@ -23,9 +25,11 @@ public class BaseReceiver extends BroadcastReceiver {
                             break;
                         case IntentAction.REMOTE_SYNC_COMPLETE:
                             Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
+                            applicationContext.setSynchronizing(false);
                             break;
                         case IntentAction.REMOTE_SERVICE_INTERRUPTED:
                             Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
+                            applicationContext.setSynchronizing(false);
                             break;
                     }
 

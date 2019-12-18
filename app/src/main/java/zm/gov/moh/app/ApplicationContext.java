@@ -25,6 +25,7 @@ import zm.gov.moh.core.utils.BaseApplication;
 
 public class ApplicationContext extends BaseApplication {
 
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -42,7 +42,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
         dataSyncDate = LocalDateTime.parse(lastDataSyncDate);
 
         //Create new remote patients
-        List<Patient>  patients = new ArrayList<>();
+        List<Patient> patients = new ArrayList<>();
         Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset,pushedEntityId);
         if(unpushedPatientEntityId.length != 0) {
 
