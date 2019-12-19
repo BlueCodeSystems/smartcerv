@@ -116,6 +116,7 @@ public class RegisterActivity extends BaseRegisterActivity {
                 this.allClients = clients;
             });
         }
+
     }
 
     public void registerClient(){

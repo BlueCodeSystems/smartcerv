@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -36,6 +37,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static zm.gov.moh.common.BR.preferences;
 
 public class Visit extends BaseActivity {
 
@@ -50,6 +53,7 @@ public class Visit extends BaseActivity {
     Spinner spinner;
     ActivityVisitBinding binding;
     Long selectedVisitType;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +202,38 @@ public class Visit extends BaseActivity {
 
 
     }
+
+    public void onBackPressed() {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Do you want to return to the Patient Dashboard?")
+                .setMessage("Click 'YES' to return to the Patient Dashboard OR click 'NO' to close this dialog.")
+                .setPositiveButton("YES", (DialogInterface dialogInterface, int i) -> {
+
+                    this.finish();
+                        }
+
+                )
+                .setNegativeButton("NO", (DialogInterface dialogInterface, int i) ->
+                {
+                })
+
+                .show();
+
+        {
+
+
+        }
+
+
+
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.green));
+
+    }
+
+
+
+
 
 
     public void initForms(){
