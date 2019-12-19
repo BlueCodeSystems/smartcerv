@@ -4,6 +4,7 @@
         <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <import type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
         <variable name="metrics" type="java.util.Map"/>
+        <variable name="bundle" type="android.os.Bundle" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,7 +22,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:elevation="4dp"
-        android:onClick="@{() -> context.startModule(CoreModule.REGISTER)}"
+        android:onClick="@{() -> context.startModule(CoreModule.REGISTER,bundle)}"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/medical_record"
