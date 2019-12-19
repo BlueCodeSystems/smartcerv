@@ -40,6 +40,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        mBundle = getIntent().getExtras();
         clientId = mBundle.getLong(PERSON_ID);
 
         ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
