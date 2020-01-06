@@ -47,8 +47,11 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT identifier,patient_identifier_type.uuid AS identifierType, location.uuid AS location, preferred FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.date_changed >= :lastModifiedDate AND patient_identifier.voided = 0")
     List<PatientIdentifier> findAllByPatientId(long id, LocalDateTime lastModifiedDate);
 
-    @Query("SELECT patient_identifier.* FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.voided = 0")
+    @Query("SELECT * FROM patient_identifier WHERE patient_id = :id AND patient_identifier.voided = 0")
     List<PatientIdentifierEntity> findAllByPatientId(long id);
+
+    @Query("SELECT patient_identifier.* FROM patient_identifier JOIN patient_identifier_type ON patient_identifier.identifier_type = patient_identifier_type.patient_identifier_type_id JOIN location ON patient_identifier.location_id = location.location_id WHERE patient_id = :id AND patient_identifier.voided = 0")
+    List<PatientIdentifierEntity> findAllByPatientId2(long id);
 
     //get persons name by getPersons id
     @Query("SELECT MAX(patient_identifier_id) FROM patient_identifier")
@@ -57,7 +60,7 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT patient_identifier_id FROM patient_identifier WHERE uuid = :uuid")
     Long getIdByUuid(String uuid);
 
-    @Query("SELECT identifier FROM patient_identifier WHERE patient_id = :patientId AND identifier_type = (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = :identifierTypeUuid)")
+    @Query("SELECT identifier FROM (SELECT identifier,MAX(date_created) FROM patient_identifier WHERE patient_id = :patientId AND identifier_type = (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = :identifierTypeUuid))")
     LiveData<String> findPatientIDByIdentifierType(long patientId, String identifierTypeUuid);
 
     @Query("SELECT person_identifier.remote_uuid  FROM (SELECT patient_id, identifier FROM patient_identifier WHERE uuid NOT NULL) AS remote JOIN (SELECT patient_id, identifier FROM patient_identifier WHERE patient_id = :localPatientId) AS local ON local.identifier = remote.identifier JOIN person_identifier ON person_identifier.remote_id = remote.patient_id")
@@ -74,6 +77,10 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     //void patient identifier
     @Query("UPDATE patient_identifier SET voided=1 WHERE patient_id=:patientID")
     void voidPatientIdentifierById(long patientID);
+
+    //void patient identifier
+    @Query("UPDATE patient_identifier SET identifier=:identifier WHERE patient_id=:patientID")
+    void updatePatientIdentifierById(long patientID, String identifier);
 
 
 }

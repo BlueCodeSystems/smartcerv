@@ -2,14 +2,18 @@ package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 
+import com.google.common.collect.ObjectArrays;
+
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.TypedArrayUtils;
 import androidx.work.WorkerParameters;
 import io.reactivex.functions.Consumer;
 import zm.gov.moh.core.Constant;
@@ -35,55 +39,64 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
     @NonNull
     public Result doWork() {
 
-        long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode());
+        try {
+            long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+            long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode());
 
-        final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        dataSyncDate = LocalDateTime.parse(lastDataSyncDate);
+            Long[] editEntityId = db.entityMetadataDao().findByStatus(Status.NOT_PUSHED.getCode());
 
-        //Create new remote patients
-        List<Patient> patients = new ArrayList<>();
-        Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset,pushedEntityId);
-        if(unpushedPatientEntityId.length != 0) {
+            final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
+            dataSyncDate = LocalDateTime.parse(lastDataSyncDate);
 
-            for(Long patientEntityId : unpushedPatientEntityId){
+            //Create new remote patients
+            List<Patient> patients = new ArrayList<>();
+            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
 
-                try {
+            unpushedPatientEntityId = ObjectArrays.concat(unpushedPatientEntityId, editEntityId, Long.class);
+            if (unpushedPatientEntityId.length != 0) {
 
-                    Patient patient = createPatient(patientEntityId, MIN_DATETIME);
-                    if (patient != null)
-                        patients.add(patient);
-                }catch (Exception e){
+                for (Long patientEntityId : unpushedPatientEntityId) {
 
+                    try {
+
+                        Patient patient = createPatient(patientEntityId, dataSyncDate);
+                        if (patient != null)
+                            patients.add(patient);
+                    } catch (Exception e) {
+
+                    }
                 }
             }
-        }
 
-        //Update patient details remote
-        pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode(), dataSyncDate);
-        if(pushedEntityId.length > 0){
+            //Update patient details remote
+          /*  pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode(), dataSyncDate);
+            if (pushedEntityId.length > 0) {
 
-            for(Long patientEntityId : pushedEntityId){
+                for (Long patientEntityId : pushedEntityId) {
 
-                try {
+                    try {
 
-                    Patient patient = createPatient(patientEntityId, dataSyncDate);
-                    if (patient != null)
-                        patients.add(patient);
-                }catch (Exception e){
+                        Patient patient = createPatient(patientEntityId, dataSyncDate);
+                        if (patient != null)
+                            patients.add(patient);
+                    } catch (Exception e) {
 
+                    }
                 }
+            }*/
+
+            if (patients.size() > 0) {
+
+                restApi.putPatients(accessToken, batchVersion, patients.toArray(new Patient[patients.size()]))
+                        .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                        .subscribe(onComplete(unpushedPatientEntityId, EntityType.PATIENT.getId()), this::onError);
             }
+
+            return this.mResult;
+        }catch (Exception e){
+            e.getMessage();
         }
-
-        if(patients.size() > 0) {
-
-            restApi.putPatients(accessToken, batchVersion, patients.toArray(new Patient[patients.size()]))
-                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(unpushedPatientEntityId, EntityType.PATIENT.getId()), this::onError);
-        }
-
-        return this.mResult;
+        return null;
     }
 
     public Consumer<Response[]> onComplete(Long[] entityIds, int entityTypeId){
@@ -105,6 +118,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId, lastModified);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);
        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
+       List<PatientIdentifierEntity> id = db.patientIdentifierDao().findAllByPatientId2(patientId);
 
        if((person != null || personName != null || personAddress != null) && (patientIdentifiers.size() > 1 || person.getUuid() != null)) {
 
