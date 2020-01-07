@@ -46,7 +46,12 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
         binding.setTitle("MDR Patient Dashboard");
 
-        viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
+        try {
+            viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
         AndroidThreeTen.init(this);

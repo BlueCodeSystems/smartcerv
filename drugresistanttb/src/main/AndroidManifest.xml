@@ -3,18 +3,21 @@
     package="zm.gov.moh.drugresistanttb">
 
     <application>
-        <activity android:name=".submodule.drugresistanttb.view.DrugResistantTbActivity"
-            android:label="MOH mCare - MDR"
-            android:theme="@style/MDR" />
-        <activity android:name=".submodule.enrollment.view.DrugResistantTbEnrollmentActivity"
-            android:label="MOH mCare - MDR"
-            android:theme="@style/MDR" />
         <activity android:name=".view.DrugResistantTbHomeActivity"
             android:label="MOH mCare - MDR"
             android:theme="@style/MDR"/>
+        <activity android:name=".submodule.enrollment.view.DrugResistantTbEnrollmentActivity"
+            android:label="MOH mCare - MDR"
+            android:theme="@style/MDR" />
+        <activity
+            android:name=".submodule.register.view.DrugResistantTbRegisterActivity"
+            android:theme="@style/MDR" />
         <activity android:name=".submodule.dashboard.patient.view.DrugResistantTbPatientDashboardActivity"
             android:label="MOH mCare - MDR"
             android:theme="@style/MDR"/>
+        <activity android:name=".submodule.drugresistanttb.view.DrugResistantTbActivity"
+            android:label="MOH mCare - MDR"
+            android:theme="@style/MDR" />
     </application>
 
 </manifest>

@@ -22,7 +22,7 @@
 
         <include
             android:id="@+id/client"
-            layout="@layout/client_card"
+            layout="@layout/mdr_client_card"
             app:client="@{client}" />
 
         <TextView

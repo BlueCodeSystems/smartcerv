@@ -7,7 +7,8 @@ import java.util.EnumMap;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import zm.gov.moh.core.model.Submodules;
+//import zm.gov.moh.core.model.Submodules;
+import zm.gov.moh.drugresistanttb.model.Submodules;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;

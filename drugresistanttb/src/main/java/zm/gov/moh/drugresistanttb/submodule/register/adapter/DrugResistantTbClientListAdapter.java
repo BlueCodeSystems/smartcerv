@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import zm.gov.moh.drugresistanttb.DrugResistantTbModule;
-import zm.gov.moh.drugresistanttb.databinding.ClientCardBinding;
+import zm.gov.moh.drugresistanttb.databinding.MdrClientCardBinding;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.drugresistanttb.databinding.MdrClientCardBindingImpl;
 import zm.gov.moh.drugresistanttb.submodule.register.view.DrugResistantTbRegisterActivity;
 
 public class DrugResistantTbClientListAdapter extends RecyclerView.Adapter<DrugResistantTbClientListAdapter.ClientViewHolder> {
@@ -29,9 +30,9 @@ public class DrugResistantTbClientListAdapter extends RecyclerView.Adapter<DrugR
 
     class ClientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private final ClientCardBinding binding;
+        private final MdrClientCardBinding binding;
 
-        private ClientViewHolder(ClientCardBinding binding){
+        private ClientViewHolder(MdrClientCardBinding binding){
             super(binding.getRoot());
 
             this.binding = binding;
@@ -62,8 +63,8 @@ public class DrugResistantTbClientListAdapter extends RecyclerView.Adapter<DrugR
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        //mdrpatientDashboard = ((ModuleGroup)applicationContext.getModule(DrugResistantTbModule.MODULE))
-                            //.getSubmodule(DrugResistantTbModule.Submodules.MDR_PATIENT_DASHBOARD);
+        mdrpatientDashboard = ((ModuleGroup)applicationContext.getModule(DrugResistantTbModule.MODULE))
+                            .getSubmodule(DrugResistantTbModule.Submodules.MDR_PATIENT_DASHBOARD);
 
         bundle = new Bundle();
     }
@@ -74,8 +75,8 @@ public class DrugResistantTbClientListAdapter extends RecyclerView.Adapter<DrugR
         LayoutInflater layoutInflater =
                 LayoutInflater.from(parent.getContext());
 
-        ClientCardBinding clientCardBinding =
-                ClientCardBinding.inflate(layoutInflater, parent, false);
+        MdrClientCardBinding clientCardBinding =
+                MdrClientCardBinding.inflate(layoutInflater, parent, false);
 
         return new ClientViewHolder(clientCardBinding);
     }

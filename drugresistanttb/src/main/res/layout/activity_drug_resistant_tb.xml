@@ -95,7 +95,7 @@
                             android:textAllCaps="false"
                             android:textColor="@color/dark_purple"
                             android:textSize="18sp" />
-                    </LinearLayout> -->
+                    </LinearLayout>-->
                 </TableRow>
 <!--
                 <TableRow
