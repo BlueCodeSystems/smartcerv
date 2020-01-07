@@ -211,7 +211,9 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
         String location = db.locationDao().getUuidById(encounterEntity.getLocationId());
         String encounterType = db.encounterTypeDao().getUuidById(encounterEntity.getEncounterType());
-
+        Long providerID=db.encounterProviderDao().getProviderByEncounterId(encounterEntity.getEncounterId());
+        String providerUuid=db.providerDao().getProviderUuidByProviderId(providerID);
+        encounter.setProvider(providerUuid);
         encounter.setLocation(location);
         encounter.setEncounterType(encounterType);
         encounter.setEncounterDatetime(encounterEntity.getEncounterDatetime());

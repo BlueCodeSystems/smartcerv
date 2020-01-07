@@ -1,6 +1,8 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -51,5 +53,15 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM (SELECT * FROM person WHERE person_id NOT IN (:id)) WHERE person_id >= :offsetId")
     Person[] findEntityNotWithId(long offsetId,long[] id);
 
+    //get persons phone number
+    @Query("SELECT value from person_attribute WHERE person_id=:personID AND person_attribute_type_id=8 ")
+    String getPersonPhoneumberById(Long personID);
 
+    //get person nrc number
+
+    @Query("SELECT value from person_attribute WHERE person_id=:personID AND person_attribute_type_id=12")
+    String getPersonNRCNumberbyId(Long personID);
+    //update person nrc number
+    @Query("Update person_attribute SET value=:newNRCNumber,date_changed=:lastDateModified WHERE person_id=:personID AND person_attribute_type_id=8")
+    void updateNRCNumberBydID(Long personID, String newNRCNumber, LocalDateTime lastDateModified);
 }

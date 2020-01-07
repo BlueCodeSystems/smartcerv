@@ -101,7 +101,7 @@ public class RegisterActivity extends BaseRegisterActivity {
     @Override
     public void getAllClient() {
 
-        registerViewModel.getRepository().getDatabase().clientDao().findClientsByLocation(locationId).observe(this, clients -> {
+        registerViewModel.getRepository().getDatabase().clientDao().getAllClientsNotEnrolledByLocation(locationId).observe(this, clients -> {
             clientListAdapter.setClientList(clients);
             this.allClients = clients;
         });

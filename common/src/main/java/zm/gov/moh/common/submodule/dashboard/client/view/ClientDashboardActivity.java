@@ -6,6 +6,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -69,15 +70,19 @@ public class ClientDashboardActivity extends BaseActivity {
 
         viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this,
                 client1 -> {
-                    binding.setClient(client1);
+                    if(client1 != null) {
+                        binding.setClient(client1);
 
-                    mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
-                    mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
-                    mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                    this.getIntent().putExtras(mBundle);
+                        mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
+                        mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
+                        mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+                        this.getIntent().putExtras(mBundle);
+                    }
+                    else
+                        ClientDashboardActivity.this.onBackPressed();
+
         });
-
-
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).observe(this, clientAdress ->{
             binding.setClientAddress(clientAdress);
             mBundle.putString(Key.PERSON_ADDRESS, clientAdress.getAddress1());
@@ -97,7 +102,7 @@ public class ClientDashboardActivity extends BaseActivity {
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
-
+    initBundle(mBundle);
         setViewModel(viewModel);
         addDrawer(this);
     }
