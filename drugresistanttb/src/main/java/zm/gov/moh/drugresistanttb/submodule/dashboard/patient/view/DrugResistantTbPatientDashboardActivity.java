@@ -15,13 +15,20 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import java.io.IOException;
+
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.model.VisitMetadata;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
+import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbPatientDashboardBinding;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.viewmodel.DrugResistantTbPatientDashboardViewModel;
+import zm.gov.moh.drugresistanttb.view.MyDrugResistantTbDialogFragment;
 
 public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +39,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     Bundle mBundle;
     Module vitals;
     long clientId;
+    Client client;
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
@@ -46,6 +54,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
         binding.setTitle("MDR Patient Dashboard");
 
+        //Kaunda's "Try-Catch" shenanigans
         try {
             viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
         } catch (Exception e) {
@@ -98,6 +107,56 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+
+    public Module getVitals() {
+        return vitals;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public DrugResistantTbPatientDashboardViewModel getViewModel() {
+        return viewModel;
+    }
+
+
+    public void startVisit() {
+
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        MyDrugResistantTbDialogFragment dialogFragment = new MyDrugResistantTbDialogFragment();
+
+        dialogFragment.show(fragmentManager, "Test");
+    }
+
+    public void selectVisit(int visit) throws IOException {
+
+        switch (visit) {
+
+            case 1:
+
+                VisitMetadata visitMetadata = null;
+                try {
+                    visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/str_reg.json")));
+                    mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                    mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                    this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case 2:
+
+
+                visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/leep.json")));
+                mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+                mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
+
+        }
     }
 }
 
