@@ -77,7 +77,6 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
 
     public void notifyCompleteAction(String actionName){
 
-        Toast toast = Toast.makeText(this,null, Toast.LENGTH_LONG);
         switch (actionName){
             case Action.ENROLL_PATIENT:
                 Toast.makeText(this,"Client has been enrolled", Toast.LENGTH_LONG).show();
