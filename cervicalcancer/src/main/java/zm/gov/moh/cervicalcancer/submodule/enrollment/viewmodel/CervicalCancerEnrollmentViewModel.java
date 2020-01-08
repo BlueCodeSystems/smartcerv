@@ -80,9 +80,17 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
                         CERVICAL_CANCER_ID_TYPE, preffered(),
                         locationId, LocalDateTime.now());
             }else {
+
+                //Void previous identifier
+                patientIdentifier.setVoided((short)1);
+                getRepository().getDatabase().patientIdentifierDao().insert(patientIdentifier);
+
+                //Mutate previous identifier instance and insert it with a new PK
+                patientIdentifier.setVoided((short)0);
                 patientIdentifier.setIdentifier(identifier);
                 patientIdentifier.setDateCreated(LocalDateTime.now());
                 patientIdentifier.setDateChanged(LocalDateTime.now());
+                patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
             }
 
             //persist database entity instances asynchronously into the database

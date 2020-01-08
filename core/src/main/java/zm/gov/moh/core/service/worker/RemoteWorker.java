@@ -115,6 +115,5 @@ public abstract class RemoteWorker extends BaseWorker {
 
         mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SERVICE_INTERRUPTED));
         return Result.failure();
-
     }
 }
