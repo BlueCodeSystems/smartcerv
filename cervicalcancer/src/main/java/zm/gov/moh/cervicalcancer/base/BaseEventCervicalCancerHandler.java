@@ -1,10 +1,8 @@
 package zm.gov.moh.cervicalcancer.base;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -30,11 +28,12 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
         this.context = context;
     }
 
+
     @Override
     public void onMenuItemSelected(MenuItem menuItem) {
 
         if (menuItem.getItemId() == zm.gov.moh.common.R.id.sync_action){
-            syncData();
+            synchronizeData();
         }
 
         else if(menuItem.getItemId() == zm.gov.moh.common.R.id.edit_action){

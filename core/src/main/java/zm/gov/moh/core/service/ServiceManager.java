@@ -184,7 +184,7 @@ public class ServiceManager {
                 if(serviceManager != null) {
                     serviceManager.getServiceExecutionPool().remove(service);
                     if (serviceManager.remoteServices.contains(service))
-                        Toast.makeText(context, "Sync interrupted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Synchronization interrupted", Toast.LENGTH_LONG).show();
                 }
             }
         }

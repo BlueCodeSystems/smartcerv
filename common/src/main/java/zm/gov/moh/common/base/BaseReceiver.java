@@ -24,11 +24,11 @@ public class BaseReceiver extends BroadcastReceiver {
                             Toast.makeText(context,context.getString(R.string.insufficient_identifiers),Toast.LENGTH_LONG).show();
                             break;
                         case IntentAction.REMOTE_SYNC_COMPLETE:
-                            Toast.makeText(context,"Sync complete",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context,"Synchronization complete",Toast.LENGTH_LONG).show();
                             applicationContext.setSynchronizing(false);
                             break;
                         case IntentAction.REMOTE_SERVICE_INTERRUPTED:
-                            Toast.makeText(context,"Sync interrupted",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context,"Synchronization interrupted",Toast.LENGTH_LONG).show();
                             applicationContext.setSynchronizing(false);
                             break;
                     }
