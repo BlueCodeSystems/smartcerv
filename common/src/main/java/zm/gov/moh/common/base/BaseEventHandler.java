@@ -84,7 +84,7 @@ public class BaseEventHandler implements View.OnLongClickListener {
                         view.setOnLongClickListener(this);
                 }
             }catch (Exception e){
-                e.getMessage();
+                e.printStackTrace();
             }
         },Throwable::printStackTrace);
     }
@@ -131,7 +131,10 @@ public class BaseEventHandler implements View.OnLongClickListener {
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    mBundle.putLong("identifier",3);
                     activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
+
+
                     ConcurrencyUtils.consumeAsync(activity.viewModel.getRepository().getDatabase().patientIdentifierDao()::voidPatientById, Throwable::printStackTrace, patientID);
                     Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
                 }

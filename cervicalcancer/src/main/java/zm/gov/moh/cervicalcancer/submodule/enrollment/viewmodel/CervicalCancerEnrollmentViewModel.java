@@ -61,8 +61,6 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
     public void enrollClient(Bundle bundle){
 
-        //TODO:Replace with IDs generated from OPENMRS
-
         long  personId = bundle.getLong(Key.PERSON_ID);
         long locationId = (long) bundle.get(Key.LOCATION_ID);
         String identifier = (String) bundle.get(Key.PATIENT_ID);
@@ -83,10 +81,8 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
                         locationId, LocalDateTime.now());
             }else {
                 patientIdentifier.setIdentifier(identifier);
-                ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert, this::onError, patientIdentifier);
                 patientIdentifier.setDateCreated(LocalDateTime.now());
                 patientIdentifier.setDateChanged(LocalDateTime.now());
-                patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
             }
 
             //persist database entity instances asynchronously into the database
@@ -114,7 +110,6 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
         db.entityMetadataDao().insert(entityMetadata);
         getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
-
     }
 
 
