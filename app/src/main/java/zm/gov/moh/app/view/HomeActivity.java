@@ -29,7 +29,6 @@ public class HomeActivity extends BaseActivity implements CommonHomeFragment.OnF
 
     HomeViewModel homeViewModel;
     Map<String,Long> metrics;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,6 +10,7 @@
         <variable name="title" type="String"/>
         <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
+        <variable name="bundle" type="android.os.Bundle" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
                         android:layout_height="150dp"
                         android:layout_gravity="center_horizontal"
                         android:elevation="4dp"
-                        android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
+                        android:onClick="@{()-> context.startModule(coreModule.REGISTER,bundle)}"
                         android:padding="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/woman_ico"
