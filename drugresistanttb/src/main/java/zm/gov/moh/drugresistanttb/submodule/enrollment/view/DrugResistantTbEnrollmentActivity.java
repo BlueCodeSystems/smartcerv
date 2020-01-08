@@ -14,20 +14,23 @@ import zm.gov.moh.drugresistanttb.submodule.enrollment.viewModel.DrugResistantTb
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class DrugResistantTbEnrollmentActivity extends BaseActivity {
 
     private DrugResistantTbEnrollmentViewModel viewModel;
     private ModuleGroup DrugResistantTbModule;
+    AtomicBoolean checkObserver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drug_resistant_tb_enrollment);
+        //setContentView(R.layout.activity_drug_resistant_tb_enrollment);
 
         viewModel = ViewModelProviders.of(this).get(DrugResistantTbEnrollmentViewModel.class);
         setViewModel(viewModel);
+        checkObserver = new AtomicBoolean(true);
 
-        //viewModel.getRepository().getClientById(34).observe(this, );
         DrugResistantTbModule = (ModuleGroup)((BaseApplication) this.getApplication()).getModule(zm.gov.moh.drugresistanttb.DrugResistantTbModule.MODULE);
 
         final Bundle bundle = getIntent().getExtras();
@@ -37,26 +40,19 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
         long personId = bundle.getLong(Key.PERSON_ID);
 
         getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientById(personId)
-                .observe(this ,patient->{
-                    if(patient != null) {
+                .getPatientById(personId).observe(this ,patient-> {
+                    if (checkObserver.get()) {
+                        if (action == null && patient != null) {
 
-                        Toast toast = Toast.makeText(this,null, Toast.LENGTH_LONG);
-                        if(bundle.containsKey(BaseActivity.ACTION_KEY))
-                            toast.setText("Client has been enrolled");
-                        else
-                            toast.setText("Client already exists");
-
-                        toast.show();
-                        DrugResistantTbEnrollmentActivity.this.finish();
-                    }else {
-
-                        if(action != null && action.equals(Action.ENROLL_PATIENT)) {
-
-                            viewModel.enrollPatient(bundle);
-
-                        }
-                        else{
+                            Toast.makeText(this, "Client already exists", Toast.LENGTH_LONG).show();
+                            DrugResistantTbEnrollmentActivity.this.finish();
+                        } else if (action != null && action.equals(Action.ENROLL_PATIENT)) {
+                            viewModel.enroll(bundle);
+                            Toast.makeText(this, "enrolled successfully", Toast.LENGTH_LONG).show();
+                        } else if (action != null && action.equals(Action.EDIT_PATIENT)) {
+                            viewModel.edit(bundle);
+                            Toast.makeText(this,"edited successfully",Toast.LENGTH_LONG).show();
+                        } else {
 
                             Module formModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.FORM);
 
@@ -76,12 +72,22 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
                         }
                     }
                 });
-
-
+        viewModel.getActionEmitter().observe(this,this::notifyCompleteAction );
     }
 
-    public class Action{
-        static final String ENROLL_PATIENT = "ENROLL_PATIENT";
+    public void notifyCompleteAction(String actionName){
+
+        Toast toast = Toast.makeText(this,null, Toast.LENGTH_LONG);
+        switch (actionName){
+            case Action.ENROLL_PATIENT:
+                Toast.makeText(this,"Client has been enrolled", Toast.LENGTH_LONG).show();
+        }
+        this.finish();
+    }
+
+    public class Action {
+        public static final String ENROLL_PATIENT = "ENROLL_PATIENT";
+        public static final String EDIT_PATIENT = "EDIT_PATIENT";
     }
 
 }
