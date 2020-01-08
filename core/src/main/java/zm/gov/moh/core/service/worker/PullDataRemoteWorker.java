@@ -38,10 +38,8 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         taskPoolSize = 8;
 
-        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_DATA_SYNC_DATETIME,null);
-
-        if(lastSyncDate != null)
-            MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
+        if(lastDataSyncDate != null)
+            MIN_DATETIME = LocalDateTime.parse(lastDataSyncDate);
 
             getPatientId(accessToken,locationId, localDateTime,OFFSET, LIMIT);
 
@@ -64,11 +62,6 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
             //person address
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
-
-            if(awaitResult().equals(Result.success()))
-                repository.getDefaultSharePrefrences().edit()
-                        .putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
-                        .apply();
 
         return awaitResult();
     }
