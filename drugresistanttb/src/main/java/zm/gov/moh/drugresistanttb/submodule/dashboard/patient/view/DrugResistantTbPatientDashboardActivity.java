@@ -68,7 +68,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
         Database database = viewModel.getRepository().getDatabase();
         getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientById(clientId)
+                .getMdrPatientById(clientId)
                 .observe(this, patient -> {
                     if (patient == null) {
                         Toast.makeText(this, "Client not enrolled", Toast.LENGTH_LONG).show();
