@@ -15,7 +15,10 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import org.threeten.bp.format.DateTimeFormatter;
+
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.utils.BaseApplication;
@@ -40,17 +43,10 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         mBundle = getIntent().getExtras();
         clientId = mBundle.getLong(PERSON_ID);
-
-        ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
-        binding.setTitle("MDR Patient Dashboard");
-
-        try {
-            viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
 
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
@@ -58,14 +54,16 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
 
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
         Database database = viewModel.getRepository().getDatabase();
-        getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientById(clientId)
-                .observe(this, patient -> {
-                    if (patient == null) {
-                        Toast.makeText(this, "Client not enrolled", Toast.LENGTH_LONG).show();
-                        onBackPressed();
-                    }
-                });
+        getViewModel().getRepository().getDatabase().genericDao().getMdrPatientById(clientId)
+            .observe(this, patient -> {
+                if (patient == null) {
+                    Toast.makeText(this, "Client not enrolled", Toast.LENGTH_LONG).show();
+                    onBackPressed();
+                }
+        });
+
+        ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
+        binding.setTitle("MDR Patient Dashboard");
 
         initToolBar(binding.getRoot());
         viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
@@ -75,8 +73,21 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
                 observe(this, binding::setFacility);
 
+        // adding patient information in databundle
+        viewModel.getRepository().getDatabase().clientDao().findById(clientId)
+                .observe(this, client1 -> {
+                    binding.setClient(client1);
+
+                    mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
+                    mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
+                    mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                    this.getIntent().putExtras(mBundle);
+                });
+
+        initBundle(mBundle);
+
         // Set Bottom Navigation View Listener
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view1);
 
         bottomNavigationView.inflateMenu(R.menu.bottom_menu);
         fragmentManager = getSupportFragmentManager();
@@ -88,16 +99,13 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
         //database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
 
-        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
-        //database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
-
         //set navigation drawer
         addDrawer(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        return true;
     }
 }
 

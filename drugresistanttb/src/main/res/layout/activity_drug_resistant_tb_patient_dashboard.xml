@@ -10,10 +10,11 @@
         <import type="org.threeten.bp.LocalDate"/>
     </data>
 
-
-    <FrameLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
         <include
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
@@ -52,19 +53,20 @@
             app:tabMode="scrollable" />
 
         <LinearLayout
-            android:id="@+id/bottom_navigation_view_container"
+            android:id="@+id/bottom_navigation_view_container1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="55dp"
             android:orientation="vertical"></LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_view"
+            android:id="@+id/bottom_navigation_view1"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@color/primary"
             android:elevation="4dp" />
-    </FrameLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>
