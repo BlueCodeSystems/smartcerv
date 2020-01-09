@@ -9,34 +9,29 @@
         <variable name="title" type="String"/>
         <import type="org.threeten.bp.LocalDate"/>
     </data>
-
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-<<<<<<< HEAD
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-=======
         android:layout_height="match_parent"
         android:orientation="vertical" >
->>>>>>> 24cb8360f55a8d1adc18a4872d781e5cb2584eb0
-
         <include
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:title="@{title}"></include>
-
-        <LinearLayout
-            android:id="@+id/bottom_navigation_view_container"
-            android:layout_width="match_parent"
+            app:title="@{title}"/>
+        <include
+            android:id="@+id/client"
+            layout="@layout/mdr_client_card"
+            app:client="@{client}" />
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="55dp"
-            android:orientation="vertical"></LinearLayout>
-
+            android:layout_margin="10dp"
+            android:text="@{facility.getName}"
+            android:textStyle="bold"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/textView17"
             android:layout_width="match_parent"
@@ -45,55 +40,23 @@
             android:gravity="end"
             android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
             android:textColor="@color/darker_grey" />
-
-<<<<<<< HEAD
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-=======
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable" />
-
         <LinearLayout
             android:id="@+id/bottom_navigation_view_container1"
             android:layout_width="match_parent"
->>>>>>> 24cb8360f55a8d1adc18a4872d781e5cb2584eb0
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@{facility.getName}"
-            android:textStyle="bold" />
-
+            android:layout_marginBottom="55dp"
+            android:orientation="vertical"></LinearLayout>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_view1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@color/primary"
             android:elevation="4dp" />
-
-<<<<<<< HEAD
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="scrollable" />
-
-        <include
-            layout="@layout/base_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:title="@{title}" />
-
-        <include
-            android:id="@+id/client"
-            layout="@layout/mdr_client_card"
-            app:client="@{client}" />
-    </FrameLayout>
-=======
     </androidx.appcompat.widget.LinearLayoutCompat>
->>>>>>> 24cb8360f55a8d1adc18a4872d781e5cb2584eb0
-
 </layout>
