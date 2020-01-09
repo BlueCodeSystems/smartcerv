@@ -48,7 +48,7 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
                             DrugResistantTbEnrollmentActivity.this.finish();
                         } else if (action != null && action.equals(Action.ENROLL_PATIENT)) {
                             viewModel.enroll(bundle);
-                            Toast.makeText(this, "enrolled successfully", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(this, "enrolled successfully", Toast.LENGTH_LONG).show();
                         } else if (action != null && action.equals(Action.EDIT_PATIENT)) {
                             viewModel.edit(bundle);
                             Toast.makeText(this,"edited successfully",Toast.LENGTH_LONG).show();

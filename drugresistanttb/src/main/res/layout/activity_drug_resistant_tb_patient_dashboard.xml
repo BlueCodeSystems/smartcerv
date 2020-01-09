@@ -10,15 +10,19 @@
         <import type="org.threeten.bp.LocalDate"/>
     </data>
 
-
-    <FrameLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
+=======
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+>>>>>>> 24cb8360f55a8d1adc18a4872d781e5cb2584eb0
 
         <include
             layout="@layout/base_toolbar"
@@ -42,22 +46,35 @@
             android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
             android:textColor="@color/darker_grey" />
 
+<<<<<<< HEAD
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
+=======
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable" />
+
+        <LinearLayout
+            android:id="@+id/bottom_navigation_view_container1"
+            android:layout_width="match_parent"
+>>>>>>> 24cb8360f55a8d1adc18a4872d781e5cb2584eb0
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@{facility.getName}"
             android:textStyle="bold" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_view"
+            android:id="@+id/bottom_navigation_view1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/primary"
             android:elevation="4dp" />
 
+<<<<<<< HEAD
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sliding_tabs"
             android:layout_width="match_parent"
@@ -75,5 +92,8 @@
             layout="@layout/mdr_client_card"
             app:client="@{client}" />
     </FrameLayout>
+=======
+    </androidx.appcompat.widget.LinearLayoutCompat>
+>>>>>>> 24cb8360f55a8d1adc18a4872d781e5cb2584eb0
 
 </layout>

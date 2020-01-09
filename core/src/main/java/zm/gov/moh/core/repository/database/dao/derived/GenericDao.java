@@ -23,11 +23,11 @@ public  interface GenericDao {
     @Query("SELECT patient.patient_id,patient_identifier.identifier, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND identifier_type = 4 AND location_id = :locationId AND patient.patient_id IN (:ids) AND patient_identifier.voided=0 ORDER BY patient_identifier.date_created DESC")
     LiveData<List<Client>> getPatientsByLocation(long locationId, List<Long> ids);
 
-    @Query("SELECT patient.patient_id,patient_identifier.identifier, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = patient.voided = 0 AND patient_identifier.voided !=1 AND identifier_type = 6 AND patient.patient_id = :id")
-    LiveData<Client> getMdrPatientById(long id);
-
-    @Query("SELECT patient.patient_id,patient_identifier.identifier, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND patient_identifier.voided !=1 AND identifier_type = 4 /*OR identifier_type = 6*/ AND patient.patient_id = :id")
+    @Query("SELECT patient.patient_id,patient_identifier.identifier, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND patient_identifier.voided !=1 AND identifier_type = 4 AND patient.patient_id = :id")
     LiveData<Client> getPatientById(long id);
+
+    @Query("SELECT patient.patient_id,patient_identifier.identifier, given_name, family_name, gender, birthdate FROM person JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND patient_identifier.voided !=1 AND identifier_type = 6 AND patient.patient_id = :id")
+    LiveData<Client> getMdrPatientById(long id);
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId AND encounter_type = (SELECT encounter_type_id  FROM encounter_type WHERE uuid = :encounterTypeUuid) AND patient_id = :patientId)")
