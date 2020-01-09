@@ -33,10 +33,10 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
         drugResistantTbregisterViewModel = ViewModelProviders.of(this).get(DrugResistantTbRegisterViewModel.class);
 
         setViewModel(drugResistantTbregisterViewModel);
-        binding.setTitle("Client Register");
+        binding.setTitle("MDR Client Register");
         binding.setSearchTermObserver(searchTermObserver);
 
-        RecyclerView clientRecyclerView = findViewById(R.id.client_list);
+        RecyclerView clientRecyclerView = findViewById(R.id.mdr_client_list);
 
         clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

@@ -40,7 +40,7 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
         long personId = bundle.getLong(Key.PERSON_ID);
 
         getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientById(personId).observe(this ,patient-> {
+                .getMdrPatientById(personId).observe(this ,patient-> {
                     if (checkObserver.get()) {
                         if (action == null && patient != null) {
 
