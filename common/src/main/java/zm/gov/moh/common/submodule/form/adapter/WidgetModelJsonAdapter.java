@@ -314,6 +314,7 @@ public class WidgetModelJsonAdapter {
                 final BasicDrugWidgetModel basicDrugWidgetModel = new BasicDrugWidgetModel();
 
                 basicDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicDrugWidgetModel.setDrugUuid(widgetModelJson.getDrugUuid());
                 basicDrugWidgetModel.setTag(widgetModelJson.getTag());
 
                 return basicDrugWidgetModel;
@@ -322,6 +323,7 @@ public class WidgetModelJsonAdapter {
                 final BasicOtherDrugWidgetModel basicOtherDrugWidgetModel = new BasicOtherDrugWidgetModel();
 
                 basicOtherDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicOtherDrugWidgetModel.setDrugUuid(widgetModelJson.getDrugUuid());
                 basicOtherDrugWidgetModel.setTag(widgetModelJson.getTag());
 
                 return basicOtherDrugWidgetModel;
