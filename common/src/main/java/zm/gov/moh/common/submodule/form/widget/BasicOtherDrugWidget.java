@@ -1,7 +1,6 @@
 package zm.gov.moh.common.submodule.form.widget;
 
 import android.content.Context;
-import android.text.TextWatcher;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
@@ -10,12 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.util.Consumer;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.common.R;
@@ -85,7 +81,7 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
 
         mRepository.getDatabase()
                 .drugDao()
-                .getDrugNameByUuid(mUuid)
+                .getDrugNameByUuid(mDrugUuid)
                 .observe((AppCompatActivity)mContext, this::onDrugReceived);
     }
 
@@ -173,7 +169,7 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
     public void setObsValue() {
 
         mObsValue.setConceptId(answerConcept);
-        mObsValue.setUuid(mUuid);
+        mObsValue.setUuid(mDrugUuid);
 
         mBundle.putSerializable(mTag, mObsValue);
     }
@@ -218,6 +214,8 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
             widget.canSetValue = new AtomicBoolean();
             widget.canSetValue.set(true);
 
+            if(mDrugUuid != null)
+                widget.setDrugUuid(mDrugUuid);
             if(mUuid != null)
                 widget.setUuid(mUuid);
             if(mRepository != null)

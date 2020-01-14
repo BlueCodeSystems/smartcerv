@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
@@ -36,6 +38,9 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
 
     @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1")
     PersonAddress findByPersonId(long id);
+
+    @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1 AND date_changed >= :lastModifiedDate")
+    PersonAddress findByPersonId(long id, LocalDateTime lastModifiedDate);
 
     @Query("UPDATE person_address SET person_id = :remote WHERE person_id = :local")
     void replacePerson(long local, long remote);

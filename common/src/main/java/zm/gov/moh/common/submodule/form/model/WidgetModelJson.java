@@ -22,6 +22,7 @@ public class  WidgetModelJson {
     protected String style;
     protected List<Logic> logic;
     protected String uuid;
+    protected String drugUuid;
     protected String regex;
     protected String errorMessage;
     protected Boolean required;
@@ -193,6 +194,14 @@ public class  WidgetModelJson {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getDrugUuid() {
+        return drugUuid;
+    }
+
+    public void setDrugUuid(String drugUuid) {
+        this.drugUuid = drugUuid;
     }
 
     public void setRegex(String regex) {
