@@ -2,6 +2,7 @@ package zm.gov.moh.core.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.util.Log;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -40,41 +41,48 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
 
     public void indexSearch(){
 
-        long locationId = repository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
-        repository.getDatabase().clientFtsDao().clear();
+        try {
+            long locationId = repository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID, 0);
+            repository.getDatabase().clientFtsDao().clear();
 
-        List<PatientIdentifierEntity> patientIdentifierEntities= repository.getDatabase().patientIdentifierDao().getByLocationId(locationId);
-        Set<Long> personIds = new HashSet<> ();
+            List<PatientIdentifierEntity> patientIdentifierEntities = repository.getDatabase().patientIdentifierDao().getByLocationId(locationId);
+            Set<Long> personIds = new HashSet<>();
 
-        if(patientIdentifierEntities.size() > 0)
-            for(PatientIdentifierEntity patientIdentifierEntity: patientIdentifierEntities){
-                if(patientIdentifierEntity != null) {
-                    personIds.add(patientIdentifierEntity.getPatientId());
-                    String term = null;
-                    if(patientIdentifierEntity.getIdentifierType() == 3)
-                        term = DatabaseUtils.buildSearchTerm(patientIdentifierEntity.getIdentifier());
+            if (patientIdentifierEntities.size() > 0)
+                for (PatientIdentifierEntity patientIdentifierEntity : patientIdentifierEntities) {
+                    if (patientIdentifierEntity != null && patientIdentifierEntity.getIdentifier() != null) {
+                        personIds.add(patientIdentifierEntity.getPatientId());
+                        String term = null;
+                        if (patientIdentifierEntity.getIdentifierType() == 3)
+                                term = DatabaseUtils.buildSearchTerm(patientIdentifierEntity.getIdentifier());
 
-                    if(patientIdentifierEntity.getIdentifierType() == 4) {
+                        if (patientIdentifierEntity.getIdentifierType() == 4) {
 
-                        int index = patientIdentifierEntity.getIdentifier().lastIndexOf('-');
-                        term = DatabaseUtils.buildSearchTerm(patientIdentifierEntity.getIdentifier().substring(index + 1));
+                            int index = patientIdentifierEntity.getIdentifier().lastIndexOf('-');
+                            term = DatabaseUtils.buildSearchTerm(patientIdentifierEntity.getIdentifier().substring(index + 1));
+                        }
+
+                        repository.getDatabase().clientFtsDao().
+                                insert(new ClientNameFts(term, patientIdentifierEntity.getPatientId()));
                     }
-
-                    repository.getDatabase().clientFtsDao().
-                            insert(new ClientNameFts(term,patientIdentifierEntity.getPatientId()));
                 }
-            }
 
-        List<PersonName> personNames = repository.getDatabase().personNameDao().findByPersonId(personIds);
+            List<PersonName> personNames = repository.getDatabase().personNameDao().findByPersonId(personIds);
 
-       if(personNames.size() > 0)
-            for(PersonName personName: personNames){
-                if(personName != null)
-                    repository.getDatabase().clientFtsDao().
-                            insert(new ClientNameFts(
-                                    DatabaseUtils.buildSearchTerm(personName.getGivenName(),personName.getFamilyName()),
-                                    personName.getPersonId()));
-            }
+            if(personNames.size() > 0)
+                for(PersonName personName: personNames){
+                    if(personName != null)
+                        repository.getDatabase().clientFtsDao().
+                                insert(new ClientNameFts(
+                                        DatabaseUtils.buildSearchTerm(personName.getGivenName(),personName.getFamilyName()),
+                                        personName.getPersonId()));
+                }
+
+        }catch (Exception e){
+            Log.e("ERROR", e.getMessage());
+        }
+
+
 
 
     }

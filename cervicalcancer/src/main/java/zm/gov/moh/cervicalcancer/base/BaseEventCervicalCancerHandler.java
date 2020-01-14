@@ -1,15 +1,14 @@
 package zm.gov.moh.cervicalcancer.base;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.view.CervicalCancerEnrollmentActivity;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.base.BaseEventHandler;
@@ -29,11 +28,12 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
         this.context = context;
     }
 
+
     @Override
     public void onMenuItemSelected(MenuItem menuItem) {
 
         if (menuItem.getItemId() == zm.gov.moh.common.R.id.sync_action){
-            syncData();
+            synchronizeData();
         }
 
         else if(menuItem.getItemId() == zm.gov.moh.common.R.id.edit_action){
@@ -42,8 +42,9 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             try {
 
                 JsonForm clientRegistration = new JsonForm("Edit client demographics",
-                        Utils.getStringFromInputStream(activity.getAssets().open("forms/via_cervical_cancer_enrollment.json")));
+                        Utils.getStringFromInputStream(activity.getAssets().open("forms/via_cervical_cancer_enrollment_edit.json")));
                 mBundle.putString(Key.START_MODULE_ON_RESULT, CervicalCancerModule.Submodules.CLIENT_ENROLLMENT);
+                mBundle.putString(Key.PATIENT_ID_TYPE, OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
                 mBundle.putSerializable(Key.JSON_FORM, clientRegistration);
                 mBundle.putString(Key.ACTION, CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
                 activity.startModule(BaseApplication.CoreModule.FORM, mBundle);

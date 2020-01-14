@@ -24,10 +24,9 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     public Result doWork() {
 
         taskPoolSize = 14;
-        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_METADATA_SYNC_DATETIME,null);
 
-        if(lastSyncDate != null)
-            MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
+        if(lastMetadataSyncDate != null)
+            MIN_DATETIME = LocalDateTime.parse(lastMetadataSyncDate);
         //Get from rest API and insert into database asynchronously
 
 

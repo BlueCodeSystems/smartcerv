@@ -8,7 +8,6 @@ public class Key {
     public static final String USER_ID = "USER_ID";
     public static final String PERSON_ID = "PERSON_ID";
     public static final String VISIT_TYPE_ID = "VISIT_TYPE_ID";
-    public static final String VISIT_START_TIME = "VISIT_START_TIME";
     public static final String VISIT_ID = "VISIT_ID";
     public static final String VISIT_STATE = "VISIT_STATE";
     public static final String PERSON_GIVEN_NAME = "PERSON_GIVEN_NAME";
@@ -16,6 +15,7 @@ public class Key {
     public static final String PERSON_DOB = "PERSON_DOB";
     public static final String PERSON_GENDER = "PERSON_GENDER";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
+    public static final String PERSON_ADDRESS1 = "PERSON_ADDRESS1";
     //Add key for person age
     public static final String PERSON_AGE = "PERSON_AGE";
     public static final String PERSON_PHONE = "PERSON_PHONE";
@@ -47,4 +47,6 @@ public class Key {
     public static final String PERSON_PHONE_ATTRIBUTE_TYPE_UUID = "PERSON_PHONE_ATTRIBUTE_TYPE_UUID";
     public static final String ACTION = "ACTION";
     public static final String NRC_NUMBER="NRC_NUMBER";
+    public static final String PATIENT_ID = "PATIENT_ID";
+    public static final String PATIENT_ID_TYPE = "PATIENT_ID_TYPE";
 }

@@ -86,21 +86,25 @@ public class ClientDashboardActivity extends BaseActivity {
                         ClientDashboardActivity.this.onBackPressed();
 
         });
-        viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).observe(this, clientAdress ->{
-            binding.setClientAddress(clientAdress);
-            mBundle.putString(Key.PERSON_ADDRESS, clientAdress.getAddress1());
+        viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).observe(this, clientAddress ->{
 
-            viewModel.getRepository().getDatabase().locationDao().getLocationByName(clientAdress.getCityVillage())
-                    .observe(ClientDashboardActivity.this, location -> {
+            if(clientAddress != null) {
 
-                        if(location != null) {
-                            mBundle.putLong(Key.PERSON_DISTRICT_LOCATION_ID, location.getLocationId());
-                            mBundle.putLong(Key.PERSON_PROVINCE_LOCATION_ID, location.getParentLocation());
+                binding.setClientAddress(clientAddress);
+                mBundle.putString(Key.PERSON_ADDRESS, clientAddress.getAddress1());
 
-                            ClientDashboardActivity.this.getIntent().putExtras(mBundle);
-                        }
-                    });
-            this.getIntent().putExtras(mBundle);
+                viewModel.getRepository().getDatabase().locationDao().getLocationByName(clientAddress.getCityVillage())
+                        .observe(ClientDashboardActivity.this, location -> {
+
+                            if (location != null) {
+                                mBundle.putLong(Key.PERSON_DISTRICT_LOCATION_ID, location.getLocationId());
+                                mBundle.putLong(Key.PERSON_PROVINCE_LOCATION_ID, location.getParentLocation());
+
+                                ClientDashboardActivity.this.getIntent().putExtras(mBundle);
+                            }
+                        });
+                this.getIntent().putExtras(mBundle);
+            }
         });
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);

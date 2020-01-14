@@ -17,6 +17,9 @@ import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.worker.RemoteWorker;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PersistDemographics extends PersistService {
@@ -85,6 +88,15 @@ public class PersistDemographics extends PersistService {
                     person.setDateChanged(now);
                     db.personDao().insert(person);
                 }
+
+                EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(personId);
+
+                if(entityMetadata == null)
+                    entityMetadata = new EntityMetadata(personId, EntityType.PATIENT.getId());
+                entityMetadata.setLastModified(LocalDateTime.now());
+                entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());
+
+                db.entityMetadataDao().insert(entityMetadata);
 
                 return;
             }

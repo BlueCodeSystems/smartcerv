@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import zm.gov.moh.cervicalcancer.CervicalCancerModule;
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.submodule.enrollment.viewmodel.CervicalCancerEnrollmentViewModel;
 import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.core.model.Key;
@@ -54,12 +55,12 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
                     }else if(action != null && action.equals(Action.ENROLL_PATIENT)) {
 
                             viewModel.enroll(bundle);
-                            Toast.makeText(this,"enrolled successfully",Toast.LENGTH_LONG).show();
+                            Toast.makeText(this,"Enrolled successfully",Toast.LENGTH_LONG).show();
 
                     }
                     else if(action != null && action.equals(Action.EDIT_PATIENT)) {
                             viewModel.edit(bundle);
-                            Toast.makeText(this,"edited successfully",Toast.LENGTH_LONG).show();
+                            Toast.makeText(this,"Edited successfully",Toast.LENGTH_LONG).show();
                     }
                     else{
 

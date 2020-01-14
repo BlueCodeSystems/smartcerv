@@ -16,7 +16,7 @@ public class Patient {
     private String givenName;
     private String middleName;
     private String familyName;
-    private PersonAttributeEntity attributes;
+    private List<PersonAttribute> attributes;
     private List<PatientIdentifier> identifiers;
     private String address1;
     private String cityVillage;
@@ -46,7 +46,7 @@ public class Patient {
         this.identifiers = identifiers;
     }
 
-    public void setAttributes(PersonAttributeEntity attributes) {
+    public void setAttributes(List<PersonAttribute> attributes) {
         this.attributes = attributes;
     }
 
@@ -55,7 +55,7 @@ public class Patient {
         protected Person person;
         protected PersonName personName;
         protected PersonAddress personAddress;
-        protected PersonAttributeEntity attributes;
+        protected List<PersonAttribute> attributes;
         protected List<PatientIdentifier> identifiers;
 
         public Person getPerson() {
@@ -90,7 +90,7 @@ public class Patient {
             return this;
         }
 
-        public Builder setAttributes(PersonAttributeEntity attributes) {
+        public Builder setAttributes(List<PersonAttribute> attributes) {
             this.attributes = attributes;
             return this;
         }

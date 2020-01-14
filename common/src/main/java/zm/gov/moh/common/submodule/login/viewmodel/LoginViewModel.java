@@ -102,7 +102,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         long currentLocationId = getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID, 0);
 
-        if(locationId != currentLocationId)
+        if(locationId != currentLocationId)//Invalidate last data sync date
             getRepository().getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,null).apply();
 
         getRepository().getDefaultSharePrefrences().edit().putLong(Key.LOCATION_ID, locationId)

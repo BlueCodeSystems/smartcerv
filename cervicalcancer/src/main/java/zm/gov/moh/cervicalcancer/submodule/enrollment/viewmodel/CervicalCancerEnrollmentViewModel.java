@@ -10,6 +10,8 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 
+import java.util.List;
+
 import androidx.core.util.Consumer;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -20,22 +22,14 @@ import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.worker.RemoteWorker;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
-    private final String GENDER = "F";
-    private final String FIRST_NAME_TAG = "first name";
-    private final String LAST_NAME_TAG = "last name";
-    private final String CLIENT_ID_TAG = "client ID";
-    private final String ADDRESS_TAG = "address";
-    private final String PHONE_TAG = "phone";
-    private final String DISTRICT_TAG = "district";
-    private final String FACILITY_TAG = "facility";
-    private final String NRC_TAG = "nrc";
-    private final String DOB_TAG = "dob";
-    private final String VIA_SCREENING_DATE_TAG = "via screening date";
     private MutableLiveData<String>actionEmitter;
 
     //TODO:Must read value from global context
@@ -67,16 +61,16 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
     public void enrollClient(Bundle bundle){
 
-        //TODO:Replace with IDs generated from OPENMRS
-
         long  personId = bundle.getLong(Key.PERSON_ID);
         long locationId = (long) bundle.get(Key.LOCATION_ID);
-        String identifier = (String) bundle.get(CLIENT_ID_TAG);
+        String identifier = (String) bundle.get(Key.PATIENT_ID);
+        String action = bundle.getString(Key.ACTION);
+        long patientIdentifierIdccpiz = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
 
         PatientIdentifierEntity patientIdentifier =  db.patientIdentifierDao().getByLocationType(personId,locationId, OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
 
             if(patientIdentifier == null) {
-                long patientIdentifierIdccpiz = DatabaseUtils.generateLocalId(getRepository().getDatabase().patientIdentifierDao()::getMaxId);
+
 
                 //Create database entity instances
 
@@ -86,13 +80,23 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
                         CERVICAL_CANCER_ID_TYPE, preffered(),
                         locationId, LocalDateTime.now());
             }else {
+
+                //Void previous identifier
+                patientIdentifier.setVoided((short)1);
+                getRepository().getDatabase().patientIdentifierDao().insert(patientIdentifier);
+
+                //Mutate previous identifier instance and insert it with a new PK
+                patientIdentifier.setVoided((short)0);
                 patientIdentifier.setIdentifier(identifier);
+                patientIdentifier.setDateCreated(LocalDateTime.now());
                 patientIdentifier.setDateChanged(LocalDateTime.now());
+                patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
             }
 
             //persist database entity instances asynchronously into the database
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert, this::onError, patientIdentifier);
-            getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT);
+            if(action != null && action.equals(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT))
+                getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT);
 
     }
 
@@ -102,16 +106,18 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         Person person = getRepository().getDatabase().personDao().findById(patientId);
 
         if(person != null){
-            person.setBirthDate(LocalDateTime.parse(bundle.getString(Key.PERSON_DOB)+ Constant.MID_DAY_TIME, DateTimeFormatter.ISO_ZONED_DATE_TIME));
-            db.personDao().insert(person);
-            db.clientDao().updateNamesById(patientId,bundle.getString(Key.PERSON_GIVEN_NAME),bundle.getString(Key.PERSON_FAMILY_NAME),LocalDateTime.now());
-            db.clientDao().updatePhoneNumberByPatientId(patientId,bundle.getString(Key.PERSON_PHONE),LocalDateTime.now());
-            db.clientDao().updateAddressById(patientId,bundle.getString(Key.PERSON_ADDRESS),LocalDateTime.now());
             db.personDao().updateNRCNumberBydID(patientId,bundle.getString(Key.NRC_NUMBER),LocalDateTime.now());
         }
 
-        getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
+        EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(patientId);
+        if(entityMetadata == null)
+            entityMetadata = new EntityMetadata(patientId, EntityType.PATIENT.getId());
 
+        entityMetadata.setLastModified(LocalDateTime.now());
+        entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());
+
+        db.entityMetadataDao().insert(entityMetadata);
+        getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
     }
 
 
