@@ -41,11 +41,11 @@ public class DrugResistantTbPatientDashboardViewModel extends BaseAndroidViewMod
         person_id = (Long) bundle.get(Key.PERSON_ID);
     }
 
-    public long getPerson_id() {
+    public long getPersonId() {
         return person_id;
     }
 
-    public void setPerson_id(long person_id) {
+    public void setPersonId(long person_id) {
         this.person_id = person_id;
     }
 }

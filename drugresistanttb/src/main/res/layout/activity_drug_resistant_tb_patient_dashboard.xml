@@ -14,59 +14,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-
-
-        <include
-            layout="@layout/base_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:title="@{title}"/>
-        <include
-            android:id="@+id/client"
-            layout="@layout/mdr_client_card"
-            app:client="@{client}" />
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@{facility.getName}"
-            android:textStyle="bold"/>
-
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            android:orientation="horizontal"
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <TextView
-            android:id="@+id/textView17"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="end"
-            android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
-            android:textColor="@color/darker_grey" />
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
+            <include
+                layout="@layout/base_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:title="@{title}"/>
+            <include
+                android:id="@+id/client"
+                layout="@layout/mdr_client_card"
+                app:client="@{client}" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{facility.getName}"
+                android:textStyle="bold"/>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/sliding_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="scrollable" />
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="end"
+                android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
+                android:textColor="@color/darker_grey" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/bottom_navigation_view_container1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="55dp"
-            android:orientation="vertical"></androidx.appcompat.widget.LinearLayoutCompat>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/sliding_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/bottom_navigation_view_container1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="55dp"
+                android:orientation="vertical"></androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
