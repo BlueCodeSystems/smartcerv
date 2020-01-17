@@ -12,28 +12,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.fragment.app.FragmentManager;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Criteria;
+import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.BasicModuleGroup;
 import zm.gov.moh.core.model.submodule.CriteriaModule;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.drugresistanttb.R;
+import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
 
 
 public class MdrFormListAdapter extends BaseExpandableListAdapter {
 
     private BaseActivity context;
-    private List<ModuleGroup> submoduleGroups;
+    private List<FormGroup> formGroups;
     private Bundle bundle;
     private Module formModule;
 
-    public MdrFormListAdapter(Context context, List<ModuleGroup> submoduleGroups, Bundle bundle) {
+    public MdrFormListAdapter(Context context, List<FormGroup> formGroups, Bundle bundle) {
 
         this.context = (BaseActivity) context;
-        this.submoduleGroups = submoduleGroups;
+        this.formGroups = formGroups;
         this.bundle = bundle;
         this.formModule = ((BaseApplication) ((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
@@ -42,27 +43,27 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return submoduleGroups.size();
+        return formGroups.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
 
-        List<Module> modules = submoduleGroups.get(groupPosition).getModules();
-        return modules.size();
+        List<BasicModule> forms = formGroups.get(groupPosition).getFormList();
+        return forms.size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return submoduleGroups.get(groupPosition);
+        return formGroups.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
 
-        List<Module> modules = submoduleGroups.get(groupPosition).getModules();
+        List<BasicModule> forms = formGroups.get(groupPosition).getFormList();
 
-        return modules.get(childPosition);
+        return forms.get(childPosition);
     }
 
     @Override
@@ -83,15 +84,7 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-        CriteriaModule submoduleGroup = (BasicModuleGroup) getGroup(groupPosition);
-
-        Map<String,String> gender = new HashMap<>();
-
-        gender.put("gender","Female");
-
-        Criteria criteria = new Criteria(gender);
-
-        submoduleGroup.setCriteria(criteria);
+        FormGroup formGroup = (FormGroup) getGroup(groupPosition);
 
         if (view == null) {
             LayoutInflater inf = (LayoutInflater)
@@ -100,9 +93,7 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView heading = view.findViewById(zm.gov.moh.common.R.id.submodule_group_item_title);
-        heading.setText(submoduleGroup.getName());
-
-
+        heading.setText(formGroup.getTitle());
 
         return view;
     }
@@ -110,7 +101,7 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
 
-        Module module = (Module) getChild(groupPosition, childPosition);
+        BasicModule forms = (BasicModule) getChild(groupPosition, childPosition);
         if (view == null) {
             LayoutInflater infalInflater = (LayoutInflater)
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -118,11 +109,11 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView sequence = view.findViewById(R.id.mdr_submodule_group_child_item_title);
-        sequence.setText(module.getName());
+        sequence.setText(forms.getName());
 
-        view.setOnClickListener(view1 ->{
+        /*view.setOnClickListener(view1 ->{
             context.startModule(module, bundle);
-        });
+        });*/
 
         return view;
     }

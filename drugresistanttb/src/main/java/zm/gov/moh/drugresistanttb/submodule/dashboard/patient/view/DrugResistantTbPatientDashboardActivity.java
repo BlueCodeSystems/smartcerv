@@ -22,11 +22,15 @@ import zm.gov.moh.common.model.VisitMetadata;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
@@ -36,6 +40,7 @@ import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbPatientDashboardBinding;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrDashboardFragmentPagerAdapter;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrFormListAdapter;
+import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.viewmodel.DrugResistantTbPatientDashboardViewModel;
 import zm.gov.moh.drugresistanttb.view.MyDrugResistantTbDialogFragment;
 
@@ -52,7 +57,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
-    List<String> forms;
+    Map<String, List<FormGroup>> formGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +78,11 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
         binding.setTitle("MDR Patient Dashboard");
 
+        formGroup = new HashMap<>();
+        List<FormGroup> formList = new ArrayList<>();
+        formGroup.put( "Patient Arrival Forms", formList);
         // Create an adapter that knows which fragment should be shown on each page
-        MdrFormListAdapter adapter = new MdrFormListAdapter(this, ((BaseApplication) this.getApplicationContext()).getCareServices(), mBundle);
+        MdrFormListAdapter adapter = new MdrFormListAdapter(this, formGroup, mBundle);
         ExpandableListView formListView = findViewById(R.id.mdr_adapter_list);
         formListView.setAdapter(adapter);
 
