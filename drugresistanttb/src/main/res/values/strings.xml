@@ -4,4 +4,7 @@
     <string name="mdr_app_description">MDR App logo - Zambia</string>
     <string name="mdr_enroll_patient">Enroll Patient</string>
     <string name="register_client_for_mdr">Register client for MDR</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
