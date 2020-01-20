@@ -11,8 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Consumer;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -20,11 +23,16 @@ import zm.gov.moh.common.R;
 import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.repository.database.Database;
+import zm.gov.moh.core.repository.database.entity.domain.Person;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.service.worker.PullDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullMetaDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullPatientIDRemoteWorker;
 import zm.gov.moh.core.service.worker.PushDemographicDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
+import zm.gov.moh.core.service.worker.RemoteWorker;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.Utils;
@@ -114,7 +122,7 @@ public class BaseEventHandler implements View.OnLongClickListener {
             } catch (Exception e) {
 
             }
-        } else if (menuItem.getItemId() == R.id.deleteEntry) {
+        } else if (menuItem.getItemId() == R.id.delete_action) {
             BaseActivity activity = (BaseActivity) context;
             mBundle = ((BaseActivity) this.context).getIntent().getExtras();
             long patientID = mBundle.getLong(Key.PERSON_ID);
@@ -131,19 +139,43 @@ public class BaseEventHandler implements View.OnLongClickListener {
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+
+
                     mBundle.putLong("identifier",3);
                     activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
 
-
-                    ConcurrencyUtils.consumeAsync(activity.viewModel.getRepository().getDatabase().patientIdentifierDao()::voidPatientById, Throwable::printStackTrace, patientID);
+                    ConcurrencyUtils.consumeAsync(delete(activity)::accept, Throwable::printStackTrace, patientID);
                     Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
                 }
             });
             builder.create();
             builder.show();
         }
+    }
 
-        }
+    public Consumer<Long> delete(BaseActivity context) {
+
+
+        return (Long patientId) -> {
+
+            Database db = context.viewModel.getRepository().getDatabase();
+
+            db.patientIdentifierDao().voidPatientById(patientId);
+
+            Person person = db.personDao().findById(patientId);
+            person.setVoided((short)1);
+            db.personDao().insert(person);
+
+            //Queue for pushing changes to remote
+            EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(patientId);
+            if(entityMetadata == null)
+                entityMetadata = new EntityMetadata(patientId, EntityType.PATIENT.getId());
+
+            entityMetadata.setLastModified(LocalDateTime.now());
+            entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());
+            db.entityMetadataDao().insert(entityMetadata);
+        };
+    }
 
     @Override
     public boolean onLongClick(View view) {

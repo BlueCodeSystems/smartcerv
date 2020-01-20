@@ -61,7 +61,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
             getPersonNames(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person address
-            getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
+            getPersonAddress(accessToken,locationId, localDateTime,OFFSET, LIMIT);
 
         return awaitResult();
     }
@@ -197,8 +197,12 @@ public class PullDataRemoteWorker extends RemoteWorker {
                             PersonIdentifier personIdentifier = db.personIdentifierDao().getByPersonId(person.getPersonId());
                             if(remoteLocalIdentifierMap.keySet().contains(person.getPersonId())) {
 
-                                Person person1 = db.personDao().findById(remoteLocalIdentifierMap.get(person.getPersonId()));
-                                person.setPersonId(person1.getPersonId());
+                                Person personLocal = db.personDao().findById(remoteLocalIdentifierMap.get(person.getPersonId()));
+
+                                person.setPersonId(personLocal.getPersonId());
+
+                                if((personLocal.getVoided() != null) && personLocal.getVoided() == 1)
+                                    person.setVoided(personLocal.getVoided());
                             }
 
                             if(personIdentifier != null) {
@@ -208,13 +212,13 @@ public class PullDataRemoteWorker extends RemoteWorker {
                             db.personDao().insert(person);
                         }
                         updateMetadata(persons, EntityType.PERSON);
-                        getPersons(accessToken,locationId,localDateTime,offset + limit,limit);
+                        getPersons(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
                         onTaskCompleted();
 
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getPersons(accessToken,locationId,localDateTime,offset,limit), //producer
+                repository.getRestApi().getPersons(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
                 TIMEOUT);
     }
 
