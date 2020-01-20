@@ -10,6 +10,7 @@
         <import type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
         <variable name="metrics" type="java.util.Map"/>
+
     </data>
     <LinearLayout
         android:layout_width="match_parent"

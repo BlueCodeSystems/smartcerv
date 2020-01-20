@@ -6,6 +6,8 @@ import android.os.SystemClock;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import zm.gov.moh.core.model.IntentAction;
@@ -29,9 +31,17 @@ public abstract class RemoteWorker extends BaseWorker {
     protected LocalDateTime MIN_DATETIME = LocalDateTime.parse("1970-01-01T00:00:00");
     long OFFSET = 0;
 
+    protected String lastDataSyncDate;
+    protected String lastMetadataSyncDate;
+
     public RemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
         AndroidThreeTen.init(context);
+        String minDate = MIN_DATETIME.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        lastDataSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_DATA_SYNC_DATETIME,minDate);
+
+        lastMetadataSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_METADATA_SYNC_DATETIME,minDate);
         workerTimeout += SystemClock.currentThreadTimeMillis();
         //TODO: replace hard coded token with dynamically assigned tokens
         //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
@@ -62,7 +72,7 @@ public abstract class RemoteWorker extends BaseWorker {
 
     public enum Status{
 
-        SYNCED((short)1),PUSHED((short)2),PULLED((short)3);
+        SYNCED((short)1),PUSHED((short)2),PULLED((short)3), NOT_PUSHED((short)4);
         private short code;
 
         Status(short code){
@@ -97,13 +107,13 @@ public abstract class RemoteWorker extends BaseWorker {
 
     public Result awaitResult(){
 
-        while (SystemClock.currentThreadTimeMillis() < workerTimeout && mResult.equals(Result.success())){
+       long i = SystemClock.currentThreadTimeMillis();
+        while (i < workerTimeout && mResult.equals(Result.success())){
             if(this.taskPoolSize == 0)
                 return mResult;
         }
 
         mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SERVICE_INTERRUPTED));
         return Result.failure();
-
     }
 }

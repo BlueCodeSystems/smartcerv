@@ -1,0 +1,80 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "basic",
+    "submitLabel": "Submit",
+    "logic": [
+      {
+        "condition": {
+          "value": "F"
+        },
+        "action": {
+          "type": "criteria",
+          "metadata": {
+            "tags": [
+              "PERSON_GENDER"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "widgetGroup": [
+    {
+      "title": "Facility Information",
+      "widgets": [
+        {
+          "tag": "district",
+          "widgetType": "DistrictLabel",
+          "label": "District Name",
+          "textSize": 18
+        },
+        {
+          "tag": "facility",
+          "widgetType": "FacilityLabel",
+          "label": "Facility Name",
+          "textSize": 18
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "title": "Client Information",
+      "widgets": [
+        {
+          "label": "NRC No.",
+          "tag": "nrc",
+          "widgetType": "NumericEditText",
+          "dataType": "Numeric",
+          "hint": "Example 145683/10/1",
+          "weight": 1,
+          "required":false
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Client ID",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "PATIENT_ID",
+              "widgetType": "CCPIZEditText",
+              "weight": 1,
+              "regex":"([0-9A-Z]+)-([0-9A-Z]+)-([0-9]+)",
+              "required":true,
+              "errorMessage":"Invalid identifier format, should be in CCPIZ format e.g MSA-06-000001"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
