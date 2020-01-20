@@ -10,25 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import androidx.viewpager.widget.ViewPager;
-import zm.gov.moh.common.model.VisitMetadata;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import zm.gov.moh.common.base.BaseActivity;
-import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
+import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.Module;
@@ -38,11 +32,9 @@ import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbPatientDashboardBinding;
-import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrDashboardFragmentPagerAdapter;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrFormListAdapter;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.viewmodel.DrugResistantTbPatientDashboardViewModel;
-import zm.gov.moh.drugresistanttb.view.MyDrugResistantTbDialogFragment;
 
 public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +50,9 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     private Fragment fragment;
     private FragmentManager fragmentManager;
     List<FormGroup> mdrFormLists = new ArrayList<>();
+    private Bundle bundle;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +75,15 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
 
         FormGroup formGroup = new FormGroup();
         List<BasicModule> list = new ArrayList<>();
-        BasicModule formModule = new BasicModule("Notification Card", NotificationCardFormActivity.class);
+        BasicModule formModule = null;
+        formModule = new BasicModule("Notification Form", NotificationCardFormActivity.class);
+        try {
+            JsonForm formJson = new JsonForm("Notification Form",
+                    Utils.getStringFromInputStream(this.getAssets().open("mdr_notification_card.json")));
+            bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         list.add(formModule);
 
         formGroup.setTitle("MDR Forms");
@@ -156,44 +159,8 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     public DrugResistantTbPatientDashboardViewModel getViewModel() {
         return viewModel;
     }
-
-
-    public void startVisit() {
-
-        final FragmentTransaction transaction = fragmentManager.beginTransaction();
-        MyDrugResistantTbDialogFragment dialogFragment = new MyDrugResistantTbDialogFragment();
-
-        dialogFragment.show(fragmentManager, "Test");
-    }
-
-    public void selectVisit(int visit) throws IOException {
-
-        switch (visit) {
-
-            case 1:
-
-                VisitMetadata visitMetadata = null;
-                try {
-                    visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/str_reg.json")));
-                    mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
-                    mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
-                    this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-
-            case 2:
-
-
-                visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/leep.json")));
-                mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
-                mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
-                this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
-
-        }
-    }
 }
+
 
 
 
