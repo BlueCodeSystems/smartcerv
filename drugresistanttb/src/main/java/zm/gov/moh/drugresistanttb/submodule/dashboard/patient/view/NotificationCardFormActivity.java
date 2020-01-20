@@ -1,15 +1,61 @@
 package zm.gov.moh.drugresistanttb.submodule.dashboard.patient.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.model.JsonForm;
+import zm.gov.moh.common.model.VisitMetadata;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.submodule.AbstractModule;
+import zm.gov.moh.core.model.submodule.BasicModule;
+import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
+import zm.gov.moh.core.model.submodule.BasicModule;
+import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.FormJsonGroupExpandableListAdapter;
 
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ExpandableListView;
 
-public class NotificationCardFormActivity extends AppCompatActivity {
+import java.io.IOException;
+
+public class NotificationCardFormActivity extends BaseActivity {
+
+    Bundle mbundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_card_form);
+        mbundle = getIntent().getExtras();
+        //setContentView(R.layout.activity_notification_card_form);
+        BasicModule formModule = new BasicModule("Notification Form", NotificationCardFormActivity.class);
+        try {
+            JsonForm notificationForm = new JsonForm("Notification Form",
+                    Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json.json")));
+            mbundle.putSerializable(BaseActivity.JSON_FORM,notificationForm);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+         startVisit(formModule, mbundle);
+
+
+    }
+
+    private void startVisit(BasicModule formModule, Bundle mbundle) {
+
+        VisitMetadata visitMetadata = null;
+        try {
+            visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json")));
+            mbundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+            mbundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+            this.startModule(BaseApplication.CoreModule.VISIT, mbundle);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+
