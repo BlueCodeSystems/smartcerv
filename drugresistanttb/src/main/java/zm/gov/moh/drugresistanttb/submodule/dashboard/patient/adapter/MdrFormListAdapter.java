@@ -27,14 +27,14 @@ import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
 public class MdrFormListAdapter extends BaseExpandableListAdapter {
 
     private BaseActivity context;
-    private List<FormGroup> formGroups;
+    private List<FormGroup> mdrFormLists;
     private Bundle bundle;
     private Module formModule;
 
-    public MdrFormListAdapter(Context context, List<FormGroup> formGroups, Bundle bundle) {
+    public MdrFormListAdapter(Context context, List<FormGroup> mdrFormLists, Bundle bundle) {
 
         this.context = (BaseActivity) context;
-        this.formGroups = formGroups;
+        this.mdrFormLists = mdrFormLists;
         this.bundle = bundle;
         this.formModule = ((BaseApplication) ((BaseActivity) context).getApplication()).getModule(BaseApplication.CoreModule.FORM);
     }
@@ -43,25 +43,25 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return formGroups.size();
+        return mdrFormLists.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
 
-        List<BasicModule> forms = formGroups.get(groupPosition).getFormList();
+        List<BasicModule> forms = mdrFormLists.get(groupPosition).getFormList();
         return forms.size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return formGroups.get(groupPosition);
+        return mdrFormLists.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
 
-        List<BasicModule> forms = formGroups.get(groupPosition).getFormList();
+        List<BasicModule> forms = mdrFormLists.get(groupPosition).getFormList();
 
         return forms.get(childPosition);
     }
@@ -111,9 +111,9 @@ public class MdrFormListAdapter extends BaseExpandableListAdapter {
         TextView sequence = view.findViewById(R.id.mdr_submodule_group_child_item_title);
         sequence.setText(forms.getName());
 
-        /*view.setOnClickListener(view1 ->{
-            context.startModule(module, bundle);
-        });*/
+        view.setOnClickListener(view1 ->{
+            context.startModule(forms, bundle);
+        });
 
         return view;
     }

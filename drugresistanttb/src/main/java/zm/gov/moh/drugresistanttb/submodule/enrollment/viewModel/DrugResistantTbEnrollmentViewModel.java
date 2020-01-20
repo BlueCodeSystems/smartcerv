@@ -35,7 +35,7 @@ public class DrugResistantTbEnrollmentViewModel extends BaseAndroidViewModel {
     private MutableLiveData<String>actionEmitter;
 
     //TODO:Must read value from global context
-    private final long DR_TB_ID_TYPE = 6;
+    private final long DR_TB_ID_TYPE = 7;
 
     public DrugResistantTbEnrollmentViewModel(Application application) {
         super(application);

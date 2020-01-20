@@ -57,7 +57,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
-    Map<String, List<FormGroup>> formGroup;
+    List<FormGroup> mdrFormLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +78,17 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
         binding.setTitle("MDR Patient Dashboard");
 
-        formGroup = new HashMap<>();
-        List<FormGroup> formList = new ArrayList<>();
-        formGroup.put( "Patient Arrival Forms", formList);
+        FormGroup formGroup = new FormGroup();
+        List<BasicModule> list = new ArrayList<>();
+        BasicModule formModule = new BasicModule("Notification Card", NotificationCardFormActivity.class);
+        list.add(formModule);
+
+        formGroup.setTitle("MDR Forms");
+        formGroup.setFormList(list);
+        mdrFormLists.add(formGroup);
+
         // Create an adapter that knows which fragment should be shown on each page
-        MdrFormListAdapter adapter = new MdrFormListAdapter(this, formGroup, mBundle);
+        MdrFormListAdapter adapter = new MdrFormListAdapter(this, mdrFormLists, mBundle);
         ExpandableListView formListView = findViewById(R.id.mdr_adapter_list);
         formListView.setAdapter(adapter);
 
@@ -96,17 +102,17 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         });
 
         initToolBar(binding.getRoot());
-        viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
+        /*viewModel.getRepository().getDatabase().genericDao().getMdrPatientById(clientId).
                 observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).
                 observe(this, binding::setClientAddress);
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
-                observe(this, binding::setFacility);
+                observe(this, binding::setFacility);*/
 
         // adding patient information in databundle
         viewModel.getRepository().getDatabase().clientDao().findById(clientId)
                 .observe(this, client1 -> {
-                    binding.setClient(client1);
+                    //binding.setClient(client1);
 
                     mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
                     mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
@@ -124,9 +130,9 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.recents_menu_item_id);
 
-        database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
+        database.genericDao().getMdrPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
-        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
+        database.locationDao().getByPatientId(clientId, 7L).observe(this, binding::setFacility);
         //database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
 
         //set navigation drawer
