@@ -3,6 +3,7 @@ package zm.gov.moh.drugresistanttb.submodule.dashboard.patient.view;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,14 +14,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.common.model.VisitMetadata;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragmentPagerAdapter;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
@@ -28,6 +38,9 @@ import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbPatientDashboardBinding;
+import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrDashboardFragmentPagerAdapter;
+import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrFormListAdapter;
+import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.viewmodel.DrugResistantTbPatientDashboardViewModel;
 import zm.gov.moh.drugresistanttb.view.MyDrugResistantTbDialogFragment;
 
@@ -44,6 +57,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private FragmentManager fragmentManager;
+    List<FormGroup> mdrFormLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +75,24 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
         Database database = viewModel.getRepository().getDatabase();
 
+        ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
+        binding.setTitle("MDR Patient Dashboard");
+
+        FormGroup formGroup = new FormGroup();
+        List<BasicModule> list = new ArrayList<>();
+        BasicModule formModule = new BasicModule("Notification Card", NotificationCardFormActivity.class);
+        list.add(formModule);
+
+        formGroup.setTitle("MDR Forms");
+        formGroup.setFormList(list);
+        mdrFormLists.add(formGroup);
+
+        // Create an adapter that knows which fragment should be shown on each page
+        MdrFormListAdapter adapter = new MdrFormListAdapter(this, mdrFormLists, mBundle);
+        ExpandableListView formListView = findViewById(R.id.mdr_adapter_list);
+        formListView.setAdapter(adapter);
+
+
         getViewModel().getRepository().getDatabase().genericDao().getMdrPatientById(clientId)
             .observe(this, patient -> {
                 if (patient == null) {
@@ -68,9 +100,6 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
                     onBackPressed();
                 }
         });
-
-        ActivityDrugResistantTbPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_patient_dashboard);
-        binding.setTitle("MDR Patient Dashboard");
 
         initToolBar(binding.getRoot());
         /*viewModel.getRepository().getDatabase().genericDao().getMdrPatientById(clientId).
