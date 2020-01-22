@@ -76,14 +76,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         FormGroup formGroup = new FormGroup();
         List<BasicModule> list = new ArrayList<>();
         BasicModule formModule = null;
-        formModule = new BasicModule("Notification Form", NotificationCardFormActivity.class);
-        try {
-            JsonForm formJson = new JsonForm("Notification Form",
-                    Utils.getStringFromInputStream(this.getAssets().open("mdr_notification_card.json")));
-            bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        formModule = new BasicModule("MDR Visits", NotificationCardFormActivity.class);
         list.add(formModule);
 
         formGroup.setTitle("MDR Forms");
