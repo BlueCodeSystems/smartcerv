@@ -54,7 +54,7 @@
                             android:elevation="4dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/man_woman"
-                            android:onClick="@{()-> context.startModule(coreModule.REGISTER)}"
+                            android:onClick="@{()-> mdrtbviewmodel.startSubmodule(1)}"
                             android:textAllCaps="false" />
 
                         <TextView
