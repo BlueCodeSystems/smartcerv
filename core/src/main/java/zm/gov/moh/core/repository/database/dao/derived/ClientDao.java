@@ -57,4 +57,10 @@ public interface ClientDao {
 
     @Query("SELECT patient.patient_id AS patient_id ,identifier, given_name, family_name, gender, birthdate FROM person  JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND identifier_type = 3 AND patient_identifier.location_id = :locationId AND patient_identifier.patient_id NOT IN(SELECT person.person_id From person JOIN patient_identifier ON person.person_id= patient_identifier.patient_id WHERE patient_identifier.identifier_type=4) ORDER BY patient.date_created DESC")
     LiveData<List<Client>> getAllClientsNotEnrolledByLocation(long locationId);
+
+    @Query("SELECT patient.patient_id AS patient_id ,identifier, given_name, family_name, gender, birthdate FROM person  JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND identifier_type = 3 AND patient_identifier.location_id = :locationId AND patient_identifier.patient_id NOT IN(SELECT person.person_id From person JOIN patient_identifier ON person.person_id= patient_identifier.patient_id WHERE patient_identifier.identifier_type= :excludeIdentifierId) ORDER BY patient.date_created DESC")
+    List<Client> getAllClientsNotEnrolledByLocation(long locationId, long excludeIdentifierId);
+
+    @Query("SELECT patient.patient_id AS patient_id ,identifier, given_name, family_name, gender, birthdate FROM person  JOIN person_name ON person.person_id = person_name.person_id JOIN patient ON patient.patient_id = person.person_id JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE person_name.preferred = 1 AND patient.voided = 0 AND identifier_type = :identifierTypeId AND patient_identifier.location_id = :locationId  ORDER BY patient.date_created DESC ")
+    List<Client> findClientsByIdentifierTypeLocation(long locationId, long identifierTypeId);
 }

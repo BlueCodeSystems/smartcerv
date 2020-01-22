@@ -12,6 +12,9 @@ import androidx.room.Entity;
 @Entity
 public class Client {
 
+    @Ignore
+    private Type type;
+
     @ColumnInfo(name = "patient_id")
     @Json(name = "patient_id")
     private long patientId;
@@ -35,6 +38,11 @@ public class Client {
     @ColumnInfo(name = "birthdate")
     @Json(name = "birthdate")
     private LocalDateTime birthDate;
+
+    public enum Type{
+        INPATIENT, OUTPATIENT, PARTITION
+    }
+
 
     public long getPatientId() {
         return patientId;
@@ -84,4 +92,11 @@ public class Client {
         this.birthDate = birthDate;
     }
 
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }

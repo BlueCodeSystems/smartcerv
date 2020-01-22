@@ -55,8 +55,10 @@ public class RegisterActivity extends BaseRegisterActivity {
 
     @Override
     public void getAllClient() {
-        registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
+        /*registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
         setViewModel(registerViewModel);
-        addDrawer(this);
+        addDrawer(this);*/
+
+        registerViewModel.getClientsList().observe(this, clientListAdapter::setClientList);
     }
 }
