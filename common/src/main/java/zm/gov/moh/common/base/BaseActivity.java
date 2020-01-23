@@ -210,6 +210,7 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(menuResource, menu);
+        toolBarEventHandler.enableLongClick(menu);
         return true;
     }
 

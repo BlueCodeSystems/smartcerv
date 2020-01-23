@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import zm.gov.moh.common.OpenmrsConfig;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.derived.FacilityDistrictCode;
+import zm.gov.moh.core.utils.BaseApplication;
 
 
 public class CervicalCancerIDEditTextWidget extends RepositoryWidget<CharSequence> {
@@ -40,9 +42,22 @@ public class CervicalCancerIDEditTextWidget extends RepositoryWidget<CharSequenc
 
         this.addView(mTextView);
         this.addView(mEditText);
-        facilityLocationId = mRepository.getDefaultSharePrefrences()
-                .getLong(Key.LOCATION_ID, 1);
-        mRepository.getDatabase().facilityDistrictCodeDao().getFacilitydistrictCodeByLocationId(facilityLocationId).observe((AppCompatActivity)mContext,this::setFacilityDistrictCode);
+
+        Long patientId = mBundle.getLong(Key.PERSON_ID);
+        String identifierType = mBundle.getString(Key.PATIENT_ID_TYPE);
+        mRepository.getDatabase().patientIdentifierDao().findPatientIDByIdentifierType(patientId, identifierType).observe((AppCompatActivity)mContext, this::setIdentifier);
+    }
+
+    public void setIdentifier(String identifier){
+
+        if(identifier != null){
+            mEditText.setText(identifier);
+        }
+        else {
+            facilityLocationId = mRepository.getDefaultSharePrefrences()
+                    .getLong(Key.LOCATION_ID, 1);
+            mRepository.getDatabase().facilityDistrictCodeDao().getFacilitydistrictCodeByLocationId(facilityLocationId).observe((AppCompatActivity) mContext, this::setFacilityDistrictCode);
+        }
     }
 
     public void setFacilityDistrictCode(FacilityDistrictCode code){

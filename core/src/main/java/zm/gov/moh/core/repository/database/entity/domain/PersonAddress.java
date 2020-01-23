@@ -131,6 +131,7 @@ public class PersonAddress extends SynchronizableEntity {
         this.stateProvince = stateProvince;
         this.preferred = preferred;
         this.dateCreated = dateCreated;
+        this.dateChanged = dateCreated;
     }
 
     @Override
