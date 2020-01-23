@@ -3,6 +3,7 @@ package zm.gov.moh.common.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.common.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.common.submodule.register.model.SearchTermObserver;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 
@@ -11,7 +12,7 @@ import android.os.Bundle;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class BaseRegisterActivity extends BaseActivity {
+public abstract class BaseRegisterActivity<T> extends BaseActivity {
 
     protected SearchTermObserver searchTermObserver;
     protected List<Long> emptyList;
@@ -32,7 +33,13 @@ public abstract class BaseRegisterActivity extends BaseActivity {
 
     }
 
+    public SearchTermObserver getSearchTermObserver() {
+        return searchTermObserver;
+    }
+
     public abstract void matchedSearchId(List<Long> ids);
 
     public abstract void getAllClient();
+
+    public abstract T getAdapter();
 }

@@ -25,7 +25,7 @@ import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.Utils;
 
-public class RegisterActivity extends BaseRegisterActivity {
+public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
 
     public static final String START_SUBMODULE_WITH_RESULT_KEY = "START_SUBMODULE_WITH_RESULT_KEY";
 
@@ -92,6 +92,11 @@ public class RegisterActivity extends BaseRegisterActivity {
         addDrawer(this);
         getAllClient();
 
+    }
+
+    @Override
+    public ClientListAdapter getAdapter() {
+        return null;
     }
 
     @Override

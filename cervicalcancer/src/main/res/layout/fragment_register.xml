@@ -2,6 +2,7 @@
 <layout>
     <data>
         <variable name="title" type="String"/>
+        <variable name="searchTermObserver" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,18 +14,22 @@
         tools:context=".module.register.view.RegisterActivity">
 
         <include
-            layout="@layout/base_toolbar"
+            layout="@layout/base_search_bar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:title="@{title}">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="10dp"
+            app:searchTermObserver="@{searchTermObserver}">
         </include>
 
-        <!-- activity_screen_slide.xml -->
-        <androidx.viewpager2.widget.ViewPager2
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pager"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/client_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:listitem="@layout/client_card">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 </layout>
