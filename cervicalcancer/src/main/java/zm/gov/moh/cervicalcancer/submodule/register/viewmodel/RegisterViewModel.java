@@ -16,44 +16,43 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class RegisterViewModel extends BaseAndroidViewModel{
 
-    private LiveData<List<Client>> allClients;
     private MutableLiveData<List<Client>> clientsList;
     long facilityLocationId;
+    private String identifierTypeUuid;
 
     public RegisterViewModel(Application application){
         super(application);
 
-
-        facilityLocationId = mRepository.getDefaultSharePrefrences()
-                .getLong(Key.LOCATION_ID, 1);
-
-        allClients = db.genericDao().getAllPatientsByLocation(facilityLocationId);
-
-        ConcurrencyUtils.consumeAsync(this::getClients, this::onError, this::sorter);
-    }
-
-    public LiveData<List<Client>> getAllClients() {
-
-        return allClients;
-    }
-
-    public LiveData<List<Client>> getMatchedClients(List<Long> ids) {
-
-        return db.genericDao().getPatientsByLocation(facilityLocationId, ids);
+        facilityLocationId = mRepository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID, 1);
     }
 
     public void getClients(BiFunction<List<Client>, List<Client>, List<Client>> sorter){
 
+        this.getClientsSearch(sorter, new LinkedList<>());
+    }
+
+    private void getClientsSearch(BiFunction<List<Client>, List<Client>, List<Client>> sorter, List<Long> filterIds){
+
         try {
 
-            List<Client> inPatient =  db.clientDao().findClientsByIdentifierTypeLocation(facilityLocationId, 4L);
-            List<Client> outPatient = db.clientDao().getAllClientsNotEnrolledByLocation(facilityLocationId, 4L);
+            Long identifierTypeId = db.patientIdentifierTypeDao().findIdByUuid(identifierTypeUuid);
 
-            final List<Client>clientList = sorter.apply(inPatient, outPatient);
+            if(identifierTypeId != null){
 
-            clientsList.postValue(clientList);
+                List<Client> inPatient = (filterIds.size() > 0)? db.clientDao().findClientsByIdentifierTypeLocation(facilityLocationId, identifierTypeId, filterIds):
+                        db.clientDao().findClientsByIdentifierTypeLocation(facilityLocationId, identifierTypeId);
+
+                List<Client> outPatient = (filterIds.size() > 0)? db.clientDao().getAllClientsNotEnrolledByLocation(facilityLocationId, identifierTypeId, filterIds):
+                        db.clientDao().getAllClientsNotEnrolledByLocation(facilityLocationId, identifierTypeId);
+
+                final List<Client>clientList = sorter.apply(inPatient, outPatient);
+
+                getClientsList().postValue(clientList);
+            }else
+                throw new Exception("Identifier type not found");
+
         }catch (Exception ex){
-
+            ex.printStackTrace();
         }
     }
 
@@ -65,22 +64,26 @@ public class RegisterViewModel extends BaseAndroidViewModel{
         return clientsList;
     }
 
-    public List<Client> sorter(List<Client> inPatients, List<Client> outPatients){
+    private List<Client> sorter(List<Client> inPatients, List<Client> outPatients){
 
         List<Client> patients = new LinkedList<>();
-        Client partion = new Client();
-        partion.setType(Client.Type.PARTITION);
-
-        for(Client client: inPatients)
-            client.setType(Client.Type.INPATIENT);
-
-        for(Client client: outPatients)
-            client.setType(Client.Type.OUTPATIENT);
-
         patients.addAll(inPatients);
-        patients.add(partion);
+        patients.add(new Client());
         patients.addAll(outPatients);
 
         return patients;
+    }
+
+    public void setIdentifierTypeUuid(String identifierTypeUuid) {
+        this.identifierTypeUuid = identifierTypeUuid;
+    }
+
+    public void getAllClients(){
+        ConcurrencyUtils.consumeAsync(this::getClients, this::onError, this::sorter);
+    }
+
+    public void setSearchArguments(List<Long> args) {
+
+        ConcurrencyUtils.biConsumeAsync(this::getClientsSearch, this::onError, this::sorter, args);
     }
 }

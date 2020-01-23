@@ -33,6 +33,15 @@ public class ConcurrencyUtils {
                 .subscribe(p -> consumer.accept(p.getKey(),p.getValue()), onError);
     }
 
+    public static <T1, T2>Disposable biConsumeAsync(BiConsumer<T1,T2> consumer, Consumer<Throwable> onError, T1 param1, T2 param2){
+
+        AbstractMap.SimpleImmutableEntry<T1,T2>  params = new AbstractMap.SimpleImmutableEntry<>(param1,param2);
+        return Single.just(params)
+                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
+                .subscribe(p -> consumer.accept(p.getKey(),p.getValue()), onError);
+    }
+
     public static  <T,R>Disposable asyncFunction(Function<T,R> function, Consumer<R> consumer, T items, Consumer<Throwable> onError){
 
         return Single.just(items)

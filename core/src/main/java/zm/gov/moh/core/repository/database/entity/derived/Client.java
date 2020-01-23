@@ -12,8 +12,9 @@ import androidx.room.Entity;
 @Entity
 public class Client {
 
-    @Ignore
-    private Type type;
+    @ColumnInfo(name = "identifier_type")
+    @Json(name = "identifier_type")
+    private int identifierType;
 
     @ColumnInfo(name = "patient_id")
     @Json(name = "patient_id")
@@ -92,11 +93,11 @@ public class Client {
         this.birthDate = birthDate;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public int getIdentifierType() {
+        return identifierType;
     }
 
-    public Type getType() {
-        return type;
+    public void setIdentifierType(int identifierType) {
+        this.identifierType = identifierType;
     }
 }

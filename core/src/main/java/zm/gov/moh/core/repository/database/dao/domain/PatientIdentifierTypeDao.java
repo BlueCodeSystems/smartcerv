@@ -24,4 +24,7 @@ public interface PatientIdentifierTypeDao {
     //get persons name by getPersons id
     @Query("SELECT * FROM patient_identifier_type WHERE patient_identifier_type_id = :id")
     PatientIdentifierType findById(long id);
+
+    @Query("SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = :uuid")
+    Long findIdByUuid(String uuid);
 }

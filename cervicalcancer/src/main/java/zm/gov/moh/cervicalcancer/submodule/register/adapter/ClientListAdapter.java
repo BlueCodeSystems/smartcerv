@@ -27,6 +27,8 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
     private BaseActivity context;
     private Module patientDashboard;
     private Bundle bundle;
+    private int inPatientIdentifierType;
+    private int outPatientIdentifierType;
 
     class ClientViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -160,21 +162,21 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
 
         ClientViewHolder clientViewHolder = null;
 
-        if(Client.Type.INPATIENT.ordinal() == viewType) {
+        if(viewType == inPatientIdentifierType ) {
             ClientCardBinding clientCardBinding =
                     ClientCardBinding.inflate(layoutInflater, parent, false);
 
             clientViewHolder = new ClientViewHolder(clientCardBinding);
         }
-        else if(Client.Type.OUTPATIENT.ordinal() == viewType){
+        else if(viewType == outPatientIdentifierType){
 
             ClientDemographicsBinding clientDemographicsBinding =
                     ClientDemographicsBinding.inflate(layoutInflater, parent, false);
 
             clientViewHolder = new OutClientViewHolder(clientDemographicsBinding);
         }else{
-            PartitionViewBinding partitionViewBinding = PartitionViewBinding.inflate(layoutInflater, parent, false);
 
+            PartitionViewBinding partitionViewBinding = PartitionViewBinding.inflate(layoutInflater, parent, false);
             clientViewHolder = new PartitionViewHolder(partitionViewBinding);
         }
 
@@ -184,7 +186,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
     @Override
     public int getItemViewType(int position) {
 
-        return clientList.get(position).getType().ordinal();
+        return clientList.get(position).getIdentifierType();
     }
 
     @Override
@@ -201,6 +203,14 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
 
         clientList = clients;
         notifyDataSetChanged();
+    }
+
+    public void setInPatientIdentifierType(int inPatientIdentifierType) {
+        this.inPatientIdentifierType = inPatientIdentifierType;
+    }
+
+    public void setOutPatientIdentifierType(int outPatientIdentifierType) {
+        this.outPatientIdentifierType = outPatientIdentifierType;
     }
 
     @Override

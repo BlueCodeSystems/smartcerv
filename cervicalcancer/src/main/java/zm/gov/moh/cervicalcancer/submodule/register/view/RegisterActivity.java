@@ -10,6 +10,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.List;
 
+import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBinding;
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
@@ -23,6 +24,7 @@ public class RegisterActivity extends BaseRegisterActivity {
 
     RegisterViewModel registerViewModel;
     ClientListAdapter clientListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +32,9 @@ public class RegisterActivity extends BaseRegisterActivity {
         ActivityCervicalCancerRegisterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_cervical_cancer_register);
         AndroidThreeTen.init(this);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
-
         setViewModel(registerViewModel);
+
         binding.setTitle("Client Register");
         binding.setSearchTermObserver(searchTermObserver);
 
@@ -43,22 +43,28 @@ public class RegisterActivity extends BaseRegisterActivity {
         clientRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         clientListAdapter = new ClientListAdapter(this);
+        clientListAdapter.setInPatientIdentifierType(4);
+        clientListAdapter.setOutPatientIdentifierType(3);
 
         clientRecyclerView.setAdapter(clientListAdapter);
+
+        registerViewModel.setIdentifierTypeUuid(OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
+        registerViewModel.getClientsList().observe(this, clientListAdapter::setClientList);
+
+        //Get all clients initially
         getAllClient();
+
     }
 
     @Override
     public void matchedSearchId(List<Long> ids) {
-        registerViewModel.getMatchedClients(ids).observe(this, clientListAdapter::setClientList);
+        registerViewModel.setSearchArguments(ids);
     }
 
     @Override
     public void getAllClient() {
-        /*registerViewModel.getAllClients().observe(this, clientListAdapter::setClientList);
-        setViewModel(registerViewModel);
-        addDrawer(this);*/
 
-        registerViewModel.getClientsList().observe(this, clientListAdapter::setClientList);
+        //Get all clients if search field is empty
+        registerViewModel.getAllClients();
     }
 }
