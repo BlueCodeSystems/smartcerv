@@ -48,5 +48,7 @@ public class Key {
     public static final String NRC_NUMBER="NRC_NUMBER";
     public static final String PATIENT_ID = "PATIENT_ID";
     public static final String PATIENT_ID_TYPE = "PATIENT_ID_TYPE";
+    public static final String MIDDLE_NAME="MIDDLE_NAME";
+
 
 }

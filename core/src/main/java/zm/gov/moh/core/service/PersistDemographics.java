@@ -1,6 +1,7 @@
 package zm.gov.moh.core.service;
 
 import android.content.Intent;
+import android.util.Log;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -47,6 +48,7 @@ public class PersistDemographics extends PersistService {
 
 
 
+
         if (givenName != null && familyName != null && address != null && districtId != null && provinceId != null && dob != null) {
 
             LocalDateTime dateOfBirth = LocalDateTime.parse(dob + MID_DAY_TIME, DateTimeFormatter.ISO_ZONED_DATE_TIME);
@@ -68,6 +70,9 @@ public class PersistDemographics extends PersistService {
                 if(personName != null){
                     personName.setFamilyName(familyName);
                     personName.setGivenName(givenName);
+                    //check if patient has middle name
+                    personName.setMiddleName(mBundle.getString(Key.MIDDLE_NAME));
+
                     personName.setDateChanged(now);
                     db.personNameDao().insert(personName);
                 }

@@ -8,9 +8,6 @@ import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.List;
@@ -22,7 +19,7 @@ import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.databinding.ActivityCervicalCancerRegisterBinding;
 import zm.gov.moh.cervicalcancer.submodule.register.adapter.ClientListAdapter;
 import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.RegisterViewModel;
-import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
+import zm.gov.moh.cervicalcancer.submodule.register.viewmodel.StatsViewModel;
 import zm.gov.moh.common.ui.BaseRegisterActivity;
 import zm.gov.moh.core.model.Key;
 
@@ -30,6 +27,7 @@ import zm.gov.moh.core.model.Key;
 public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
 
     RegisterViewModel registerViewModel;
+    StatsViewModel statsViewModel;
     ClientListAdapter mClientListAdapter;
     private static final int NUM_PAGES = 2;
     private ViewPager2 viewPager;
@@ -51,6 +49,8 @@ public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
         setViewModel(registerViewModel);
+
+        statsViewModel = ViewModelProviders.of(this).get(StatsViewModel.class);
 
         ClientListAdapter clientListAdapter;
         clientListAdapter = new ClientListAdapter(this);
@@ -76,6 +76,10 @@ public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
         return mClientListAdapter;
     }
 
+    public StatsViewModel getStatsViewModel() {
+        return statsViewModel;
+    }
+
     @Override
     public void matchedSearchId(List<Long> ids) {
         registerViewModel.setSearchArguments(ids);
@@ -99,7 +103,7 @@ public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
             if(position == 0)
                 return new RegisterFragment();
             else
-                return new RegisterFragment();
+                return new StatisticsFragment();
         }
 
         @Override

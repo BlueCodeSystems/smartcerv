@@ -32,6 +32,10 @@ public class Client {
     @Json(name = "family_name")
     private String familyName;
 
+    @ColumnInfo(name = "middle_name")
+    @Json(name = "middle_name")
+    private String middle_name;
+
     @ColumnInfo(name = "gender")
     @Json(name = "gender")
     private String gender;
@@ -40,7 +44,7 @@ public class Client {
     @Json(name = "birthdate")
     private LocalDateTime birthDate;
 
-    public enum Type{
+    public enum Type {
         INPATIENT, OUTPATIENT, PARTITION
     }
 
@@ -75,6 +79,14 @@ public class Client {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
+    }
+
+    public String getMiddle_name() {
+        return middle_name;
+    }
+
+    public void setMiddle_name(String middle_name) {
+        this.middle_name = middle_name;
     }
 
     public String getGender() {

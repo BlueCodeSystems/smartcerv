@@ -1,4 +1,4 @@
-package zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel;
+package zm.gov.moh.cervicalcancer.submodule.register.viewmodel;
 
 import android.app.Application;
 import androidx.lifecycle.LiveData;
@@ -23,7 +23,7 @@ import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.BaseApplication;
 
-public class CervicalCancerViewModel extends BaseAndroidViewModel {
+public class StatsViewModel extends BaseAndroidViewModel {
 
     EnumMap<Submodules, Class> submodules;
     Context context;
@@ -31,7 +31,7 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
 
 
 
-    public CervicalCancerViewModel(Application application){
+    public StatsViewModel(Application application){
         super(application);
 
         submodules = new EnumMap<>(Submodules.class);
@@ -39,13 +39,6 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
         submodules.put(Submodules.REGISTRATION, CervicalCancerEnrollmentActivity.class);
     }
 
-    public void startSubmodule(int index){
-
-        ModuleGroup cervicalCancerSubmodule = (ModuleGroup)((BaseApplication)getApplication()).getModule(CervicalCancerModule.MODULE);
-
-        Module module1 = cervicalCancerSubmodule.getModules().get(index);
-        startSubmodule.setValue(module1);
-    }
 
     public LiveData<Module> getStartSubmodule() {
 
@@ -53,12 +46,6 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
             startSubmodule = new MutableLiveData<>();
 
         return startSubmodule;
-    }
-
-
-
-    public void startSubmodule(Module module){
-        startSubmodule.setValue(module);
     }
 
     //get all registered clients from current location
@@ -70,7 +57,6 @@ public class CervicalCancerViewModel extends BaseAndroidViewModel {
     }
 
     //get all patients seen from current location.
-
     public LiveData <Long> getAllseenClients()
     {
         long location_id=getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
