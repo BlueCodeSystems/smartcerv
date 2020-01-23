@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 
@@ -75,6 +76,12 @@ public class ClientDashboardActivity extends BaseActivity {
 
                         mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
                         mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
+                       /* if(client1.getMiddle_name() != null)
+                        {
+                            mBundle.putString(Key.MIDDLE_NAME,client1.getMiddle_name());
+
+                        }*/
+                       Log.d("middle_name",client1.toString());
                         mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 
                         this.getIntent().putExtras(mBundle);
@@ -102,7 +109,7 @@ public class ClientDashboardActivity extends BaseActivity {
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
-    initBundle(mBundle);
+     initBundle(mBundle);
         setViewModel(viewModel);
         addDrawer(this);
     }

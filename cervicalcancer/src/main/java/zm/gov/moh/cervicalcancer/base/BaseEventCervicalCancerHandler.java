@@ -67,7 +67,8 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    activity.startModule(CervicalCancerModule.Submodules.CLIENT_REGISTER);
+                    //activity.startModule(CervicalCancerModule.Submodules.CLIENT_REGISTER);
+                    activity.onBackPressed();
                     ConcurrencyUtils.consumeAsync(activity.getViewModel().getRepository().getDatabase().patientIdentifierDao()::voidPatientIdentifierById, Throwable::printStackTrace, patientID);
                     Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
                 }

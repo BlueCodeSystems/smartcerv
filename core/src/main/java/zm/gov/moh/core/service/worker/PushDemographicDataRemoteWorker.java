@@ -56,6 +56,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
                 }
             }
 
+
             if(patients.size() > 0) {
 
                 restApi.putPatients(accessToken, batchVersion, patients.toArray(new Patient[patients.size()]))

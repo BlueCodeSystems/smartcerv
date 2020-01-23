@@ -46,5 +46,6 @@ public class Key {
     public static final String TIMEZONE_ID = "TIMEZONE_ID";
     public static final String ACTION = "ACTION";
     public static final String NRC_NUMBER="NRC_NUMBER";
+    public static final String MIDDLE_NAME="MIDDLE_NAME";
 
 }

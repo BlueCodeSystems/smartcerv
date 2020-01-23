@@ -3,6 +3,8 @@ package zm.gov.moh.common.submodule.register.view;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +59,6 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
         setViewModel(registerViewModel);
-
 
         if(mBundle != null){
 

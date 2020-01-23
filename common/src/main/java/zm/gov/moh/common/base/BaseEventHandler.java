@@ -94,8 +94,9 @@ public class BaseEventHandler {
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    mBundle.putLong("identifier",3);
-                    activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
+                    //mBundle.putLong("identifier",3);
+                   // activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
+                    activity.onBackPressed();
 
 
                     ConcurrencyUtils.consumeAsync(activity.viewModel.getRepository().getDatabase().patientIdentifierDao()::voidPatientById, Throwable::printStackTrace, patientID);
