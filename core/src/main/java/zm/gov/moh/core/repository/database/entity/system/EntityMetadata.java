@@ -71,10 +71,16 @@ public class EntityMetadata {
         this.lastModified = lastModified;
     }
 
+    @Ignore
     public EntityMetadata(long entityId, int entityTypeId, short remoteStatusCode){
         this.entityId = entityId;
         this.entityTypeId = entityTypeId;
         this.remoteStatusCode = remoteStatusCode;
+    }
+
+    public EntityMetadata(long entityId, int entityTypeId){
+        this.entityId = entityId;
+        this.entityTypeId = entityTypeId;
     }
 
     @Ignore

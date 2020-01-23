@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
-import zm.gov.moh.core.service.RemoteService;
-import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullPatientIDRemoteWorker extends RemoteWorker {

@@ -60,6 +60,7 @@ public class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
     AccountHeader provider;
     protected int menuResource;
+    protected Bundle mbundle;
     protected Consumer<MenuItem> eventHandler;
 
     @Override
@@ -210,6 +211,7 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(menuResource, menu);
+        toolBarEventHandler.enableLongClick(menu);
         return true;
     }
 
@@ -306,7 +308,9 @@ public class BaseActivity extends AppCompatActivity {
 
                         }else if(drawerItem.getIdentifier()==2)
                         {
-                            startModule(BaseApplication.CoreModule.REGISTER);
+                            mbundle= new Bundle();
+                            mbundle.putLong("identifier",3);
+                            startModule(BaseApplication.CoreModule.REGISTER,mbundle);
                         }
                         else if(drawerItem.getIdentifier()==3)
                         {
