@@ -45,6 +45,9 @@ public class RegisterFragment extends Fragment {
 
         context.setTitle("Client Register");
         binding.setSearchTermObserver(context.getSearchTermObserver());
+        binding.setContext(context);
+
+        context.setInPatientCountCallback(binding::setInPatientCount);
 
         RecyclerView clientRecyclerView = root.findViewById(R.id.client_list);
 

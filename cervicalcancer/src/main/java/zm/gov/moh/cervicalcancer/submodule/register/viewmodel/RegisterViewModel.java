@@ -19,6 +19,7 @@ public class RegisterViewModel extends BaseAndroidViewModel{
     private MutableLiveData<List<Client>> clientsList;
     long facilityLocationId;
     private String identifierTypeUuid;
+    private MutableLiveData<Integer> inPatientCount;
 
     public RegisterViewModel(Application application){
         super(application);
@@ -44,6 +45,10 @@ public class RegisterViewModel extends BaseAndroidViewModel{
 
                 List<Client> outPatient = (filterIds.size() > 0)? db.clientDao().getAllClientsNotEnrolledByLocation(facilityLocationId, identifierTypeId, filterIds):
                         db.clientDao().getAllClientsNotEnrolledByLocation(facilityLocationId, identifierTypeId);
+
+                if(filterIds.size()==0)
+                    inPatientCount.postValue(inPatient.size());
+
 
                 final List<Client>clientList = sorter.apply(inPatient, outPatient);
 
@@ -85,5 +90,14 @@ public class RegisterViewModel extends BaseAndroidViewModel{
     public void setSearchArguments(List<Long> args) {
 
         ConcurrencyUtils.biConsumeAsync(this::getClientsSearch, this::onError, this::sorter, args);
+    }
+
+
+
+    public MutableLiveData<Integer> getInPatientCount() {
+
+        if(inPatientCount == null)
+            inPatientCount = new MutableLiveData<>();
+        return inPatientCount;
     }
 }
