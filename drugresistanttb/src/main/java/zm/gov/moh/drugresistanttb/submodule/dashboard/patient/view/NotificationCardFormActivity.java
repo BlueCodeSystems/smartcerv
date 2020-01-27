@@ -33,7 +33,7 @@ public class NotificationCardFormActivity extends BaseActivity {
         BasicModule formModule = new BasicModule("Notification Form", NotificationCardFormActivity.class);
         try {
             JsonForm notificationForm = new JsonForm("Notification Form",
-                    Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json.json")));
+                    Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json")));
             mbundle.putSerializable(BaseActivity.JSON_FORM,notificationForm);
         } catch (IOException e) {
             e.printStackTrace();
