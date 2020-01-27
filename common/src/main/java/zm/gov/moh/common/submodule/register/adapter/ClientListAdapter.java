@@ -49,12 +49,11 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
             long clientId = client.getPatientId();
             bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
-            Module call = (Module) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
+            Module call = ((BaseApplication)context.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
            context.startModule(call, bundle);
         }
 
     }
-
     public ClientListAdapter(Context context){
 
         mInflater = LayoutInflater.from(context);

@@ -8,7 +8,6 @@ import android.content.res.Resources;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
-import com.mikepenz.materialdrawer.DrawerBuilder;
 
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,7 +69,7 @@ public class LoginActivity extends BaseActivity {
                     case AUTHORIZED:
                         startModule(nextModule);
                         progressDialog.dismiss();
-                        baseEventHandler.syncData();
+                        baseEventHandler.synchronizeData();
                         finish();
                         break;
 

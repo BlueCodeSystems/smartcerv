@@ -30,7 +30,7 @@ public class NotificationCardFormActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mbundle = getIntent().getExtras();
         //setContentView(R.layout.activity_notification_card_form);
-        BasicModule formModule = new BasicModule("Notification Form", NotificationCardFormActivity.class);
+        BasicModule formModule = new BasicModule("Notification Card", NotificationCardFormActivity.class);
         try {
             JsonForm notificationForm = new JsonForm("Notification Form",
                     Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json")));

@@ -9,7 +9,9 @@
         <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <import type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
+        <variable name="mdrmodule" type="zm.gov.moh.drugresistanttb.DrugResistantTbModule"/>
         <variable name="metrics" type="java.util.Map"/>
+
     </data>
     <LinearLayout
         android:layout_width="match_parent"
