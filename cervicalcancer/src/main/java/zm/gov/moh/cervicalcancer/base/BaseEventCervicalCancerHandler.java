@@ -52,7 +52,7 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             }catch (Exception e){
 
             }
-    }else if (menuItem.getItemId() == zm.gov.moh.common.R.id.deleteEntry) {
+    }else if (menuItem.getItemId() == zm.gov.moh.common.R.id.delete_action) {
             BaseActivity activity = (BaseActivity) context;
             mBundle = ((BaseActivity) this.context).getIntent().getExtras();
             long patientID = mBundle.getLong(Key.PERSON_ID);
@@ -68,9 +68,10 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    activity.startModule(CervicalCancerModule.Submodules.CLIENT_REGISTER);
+
                     ConcurrencyUtils.consumeAsync(activity.getViewModel().getRepository().getDatabase().patientIdentifierDao()::voidPatientIdentifierById, Throwable::printStackTrace, patientID);
                     Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
+                    activity.onBackPressed();
                 }
             });
             builder.create();

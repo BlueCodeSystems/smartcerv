@@ -21,6 +21,9 @@ public interface PatientIdentifierDao extends Synchronizable<PatientIdentifierEn
     @Query("SELECT identifier FROM patient_identifier WHERE uuid IS NULL")
     List<String> getLocal();
 
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM patient_identifier WHERE location_id = :locationId)")
+    LocalDateTime getMaxDatetime(long locationId);
+
     @Query("SELECT * FROM patient_identifier")
     List<PatientIdentifierEntity> getAll();
 

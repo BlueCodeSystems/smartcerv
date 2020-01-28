@@ -28,4 +28,14 @@ public class Migrations {
             database.execSQL("INSERT INTO person_identifier(identifier,local_id) SELECT patient_identifier.identifier,person.person_id AS local_id FROM person JOIN patient_identifier ON person.person_id = patient_identifier.patient_id WHERE person.uuid IS NULL AND identifier_type=3");
         }
     };
+
+    public static Migration MIGRATION_4_5 = new Migration(4,5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+            //Add a voided column to person table
+            database.execSQL("ALTER TABLE person ADD COLUMN voided INTEGER DEFAULT 0");
+
+        }
+    };
 }
