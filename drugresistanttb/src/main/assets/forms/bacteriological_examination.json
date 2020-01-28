@@ -1,0 +1,94 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "basic",
+    "name": "Request for Bacteriological Examination",
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Request for Bacteriological Examination",
+      "widgets": [
+        {
+          "tag": "facility",
+          "widgetType": "FacilityLabel",
+          "label": "Name of Health Facility",
+          "textSize": 18
+        },
+        {
+          "tag": "date",
+          "label": "Date",
+          "widgetType": "DatePicker",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "department",
+          "widgetType": "EditText",
+          "dataType": "Text",
+          "hint": "Department",
+          "weight": 1
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "PERSON_GIVEN_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "First name *",
+              "errorMessage": "Should only contain alphabet characters",
+              "required": true,
+              "weight": 1
+            },
+            {
+              "tag": "PERSON_FAMILY_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "Last name *",
+              "required": true,
+              "errorMessage": "Should only contain alphabet characters",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "label": "Gender",
+          "widgetType": "TextView",
+          "textSize": 24,
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_GENDER",
+          "label": "Gender",
+          "widgetType": "GenderPicker",
+          "errorMessage": "Gender cannot be left blank",
+          "textSize": 24,
+          "required": true,
+          "weight": 1
+        },
+        {
+          "label": "Address",
+          "tag": "PERSON_ADDRESS",
+          "widgetType": "EditText",
+          "hint": "Plot number, Village, Street ",
+          "regex": "[a-zA-Z0-9\\s]+",
+          "errorMessage": "Should only contain alphanumeric characters",
+          "weight": 1,
+          "required": true
+        },
+        {
+          "tag": "PERSON_PHONE",
+          "label": "Phone",
+          "widgetType": "EditText",
+          "dataType": "Numeric",
+          "hint": "Example 0967546754",
+          "regex": "[0-9]+",
+          "errorMessage": "Should only contain alphabet characters",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
