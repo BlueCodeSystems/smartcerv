@@ -85,27 +85,7 @@ public class Visit extends BaseActivity {
         bundle.putString(Key.MODULE,module);
         initForms();
         updateViewState(bundle);
-        abortVisitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder=new AlertDialog.Builder(Visit.this);
-                builder.setTitle("Abort Visit").setMessage("Do you want to abort visit?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                abortCurrentVisit();
-                                dialog.dismiss();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        }).create().show();
-
-            }
-        });
+        abortVisitBtn.setOnClickListener(view -> onBackPressed());
         viewModel.getVisitStartDateObserver().observe(this, date -> binding.setVisitDate(date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))));
     }
 
@@ -205,29 +185,23 @@ public class Visit extends BaseActivity {
 
     public void onBackPressed() {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle("Do you want to return to the Patient Dashboard?")
-                .setMessage("Click 'YES' to return to the Patient Dashboard OR click 'NO' to close this dialog.")
-                .setPositiveButton("YES", (DialogInterface dialogInterface, int i) -> {
+        AlertDialog.Builder builder=new AlertDialog.Builder(Visit.this);
+        builder.setTitle("Abort Visit").setMessage("Do you want to abort visit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                    this.finish();
-                        }
-
-                )
-                .setNegativeButton("NO", (DialogInterface dialogInterface, int i) ->
-                {
+                        dialog.dismiss();
+                        Visit.this.viewModel.cancelVisit();
+                        Visit.super.onBackPressed();
+                    }
                 })
-
-                .show();
-
-        {
-
-
-        }
-
-
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.green));
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                }).create().show();
 
     }
 
@@ -268,12 +242,6 @@ public class Visit extends BaseActivity {
         this.viewModel.setVisitDate(LocalDate.of(year,monthOfYear + 1,dayOfMonth));
 
         return ;
-    }
-
-    public void abortCurrentVisit()
-    {
-        this.viewModel.cancelVisit();
-        onBackPressed();
     }
 
 }
