@@ -1,6 +1,9 @@
 package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
+import android.icu.util.TimeUnit;
+
+import com.google.common.base.Optional;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -25,7 +28,8 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 public class PullDataRemoteWorker extends RemoteWorker {
 
     HashMap<Long,Long> remoteLocalIdentifierMap = new HashMap<>();
-    LocalDateTime localDateTime =  LocalDateTime.parse("1970-01-01T00:00:00");
+    LocalDateTime defaultLocalDateTime =  LocalDateTime.parse("1970-01-01T00:00:00");
+    Optional<LocalDateTime> localDateTime;
 
     public PullDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
@@ -38,12 +42,12 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         taskPoolSize = 8;
 
-        if(lastDataSyncDate != null)
-            MIN_DATETIME = LocalDateTime.parse(lastDataSyncDate);
 
-            getPatientId(accessToken,locationId, localDateTime,OFFSET, LIMIT);
+            MIN_DATETIME = localDateTime.fromNullable(db.patientIdentifierDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            getPatientId(accessToken, locationId, MIN_DATETIME, OFFSET, LIMIT);
 
-            getPatient(accessToken,locationId, localDateTime,OFFSET, LIMIT);
+            MIN_DATETIME = localDateTime.fromNullable(db.patientDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            getPatient(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //obs
             getObs(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
@@ -55,13 +59,16 @@ public class PullDataRemoteWorker extends RemoteWorker {
             getEncounter(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person
+            MIN_DATETIME = localDateTime.fromNullable(db.personDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
             getPersons(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person name
+            MIN_DATETIME = localDateTime.fromNullable(db.personNameDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
             getPersonNames(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person address
-            getPersonAddress(accessToken,locationId, localDateTime,OFFSET, LIMIT);
+            MIN_DATETIME = localDateTime.fromNullable(db.personAddressDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
         return awaitResult();
     }

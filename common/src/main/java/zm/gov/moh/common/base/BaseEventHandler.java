@@ -73,6 +73,7 @@ public class BaseEventHandler implements View.OnLongClickListener {
 
     }
 
+
     public void onClicklogOut() {
         ((BaseActivity) context).startModule(BaseApplication.CoreModule.BOOTSTRAP);
     }
@@ -140,12 +141,9 @@ public class BaseEventHandler implements View.OnLongClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
-
-                    mBundle.putLong("identifier",3);
-                    activity.startModule(BaseApplication.CoreModule.REGISTER,mBundle);
-
                     ConcurrencyUtils.consumeAsync(delete(activity)::accept, Throwable::printStackTrace, patientID);
                     Toast.makeText(activity.getBaseContext(),"Deleted successfully",Toast.LENGTH_SHORT).show();
+                    activity.onBackPressed();
                 }
             });
             builder.create();
