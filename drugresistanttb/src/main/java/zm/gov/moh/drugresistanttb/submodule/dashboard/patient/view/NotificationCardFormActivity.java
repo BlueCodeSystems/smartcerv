@@ -1,23 +1,13 @@
 package zm.gov.moh.drugresistanttb.submodule.dashboard.patient.view;
 
-import androidx.appcompat.app.AppCompatActivity;
 import zm.gov.moh.common.base.BaseActivity;
-import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.VisitMetadata;
+
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.model.submodule.AbstractModule;
-import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
-import zm.gov.moh.drugresistanttb.R;
-import zm.gov.moh.core.model.submodule.BasicModule;
-import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.FormJsonGroupExpandableListAdapter;
 
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ExpandableListView;
 
 import java.io.IOException;
 
@@ -29,23 +19,6 @@ public class NotificationCardFormActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mbundle = getIntent().getExtras();
-        //setContentView(R.layout.activity_notification_card_form);
-        BasicModule formModule = new BasicModule("Notification Card", NotificationCardFormActivity.class);
-        try {
-            JsonForm jsonForm = new JsonForm("Notification Card",
-                    Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json.json")));
-            mbundle.putSerializable(BaseActivity.JSON_FORM,jsonForm);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-         startVisit(formModule, mbundle);
-
-
-    }
-
-    private void startVisit(BasicModule formModule, Bundle mbundle) {
 
         VisitMetadata visitMetadata = null;
         try {
