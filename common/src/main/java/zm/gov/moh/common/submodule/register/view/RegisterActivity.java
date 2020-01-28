@@ -117,6 +117,7 @@ public class RegisterActivity extends BaseRegisterActivity {
             });
         }
 
+
     }
 
     public void registerClient(){
