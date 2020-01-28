@@ -1,0 +1,53 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "encounter",
+    "name": "Baseline and Follow Up Assessment",
+    "encounterId": 22,
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Patient Details",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Background",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Physical Examination",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Date of Initiation of Treatment",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Contact Investigation (include household and other close contacts)",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Psycho-social Assessment",
+      "widgets": [
+
+      ]
+    },
+    {
+      "title": "Other Comments",
+      "widgets": [
+
+      ]
+    }
+  ]
+}

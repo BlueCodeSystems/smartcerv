@@ -75,14 +75,11 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
 
         FormGroup formGroup = new FormGroup();
         List<BasicModule> list = new ArrayList<>();
-        BasicModule formModule, baselineFollowupModule;
+        BasicModule formModule;
 
         formModule = new BasicModule("MDR Visits", NotificationCardFormActivity.class);
-        baselineFollowupModule = new BasicModule("Baseline and Follow up form",
-                BaselineFollowupActivity.class);
 
         list.add(formModule);
-        list.add(baselineFollowupModule);
 
         formGroup.setTitle("MDR Forms");
         formGroup.setFormList(list);
