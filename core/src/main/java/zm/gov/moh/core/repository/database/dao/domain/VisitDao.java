@@ -54,7 +54,7 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT * FROM Visit WHERE visit_id = :id")
     VisitEntity getById(Long id);
 
-    @Query("SELECT * FROM Visit WHERE visit_type_id IN (:visitTypes) AND patient_id = :id")
+    @Query("SELECT * FROM Visit WHERE visit_type_id IN (:visitTypes) AND patient_id = :id AND voided != 1")
     LiveData<List<VisitEntity>> getByPatientIdVisitTypeId(long id, long... visitTypes);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

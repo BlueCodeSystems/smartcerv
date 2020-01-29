@@ -101,16 +101,15 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId, lastModified);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);
        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
-       List<PatientIdentifierEntity> id = db.patientIdentifierDao().findAllByPatientId2(patientId);
 
-       if((person != null || personName != null || personAddress != null) && (patientIdentifiers.size() > 1 || person.getUuid() != null)) {
+       if((person != null || personName != null || personAddress != null) && ((patientIdentifiers.size() > 1 && person.getVoided() == 0) || person.getUuid() != null)) {
 
            return new Patient.Builder()
                    .setPerson(person)
                    .setPersonName(personName)
                    .setPersonAddress(personAddress)
                    .setAttributes(personAttributes)
-                   .setIdentifiers(patientIdentifiers)
+                   .setIdentifiers((patientIdentifiers.size() == 0)? null:patientIdentifiers)
                    .build();
        }
        else

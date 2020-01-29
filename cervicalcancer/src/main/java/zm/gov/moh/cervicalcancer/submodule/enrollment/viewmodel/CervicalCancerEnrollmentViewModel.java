@@ -117,6 +117,8 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());
 
         db.entityMetadataDao().insert(entityMetadata);
+
+        Long[] editEntityId = db.entityMetadataDao().findByStatus(RemoteWorker.Status.NOT_PUSHED.getCode());
         getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
     }
 
