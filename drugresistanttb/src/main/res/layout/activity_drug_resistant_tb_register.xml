@@ -3,7 +3,7 @@
     <data>
         <variable name="title" type="String"/>
         <variable name="searchTermObserver" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
-        <variable name="context" type="zm.gov.moh.common.submodule.register.view.RegisterActivity"/>
+        <variable name="context" type="zm.gov.moh.drugresistanttb.submodule.register.view.DrugResistantTbRegisterActivity"/>
         <variable name="coreModule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
     </data>
     <LinearLayout
@@ -21,6 +21,16 @@
             android:layout_height="?actionBarSize"
             app:title="@{title}">
         </include>
+
+        <include
+            layout="@layout/base_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="10dp"
+            app:searchTermObserver="@{searchTermObserver}">
+        </include>
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -49,18 +59,13 @@
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/faab"
+                android:id="@+id/baf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_gravity="bottom|end"
-                android:onClick="@{()-> context.registerClient()}"
+                android:onClick="@{()-> context.mdrregisterClient()}"
                 android:src="@drawable/addavatar" />
-
-
-
-
-
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </LinearLayout>

@@ -10,6 +10,10 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.List;
 
+import zm.gov.moh.common.model.JsonForm;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.utils.BaseApplication;
+import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbRegisterBinding;
 import zm.gov.moh.drugresistanttb.submodule.register.adapter.DrugResistantTbClientListAdapter;
@@ -21,6 +25,7 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
 
     DrugResistantTbRegisterViewModel drugResistantTbregisterViewModel;
     DrugResistantTbClientListAdapter drugResistantTbClientListAdapter;
+    Bundle mBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,7 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
         setViewModel(drugResistantTbregisterViewModel);
         binding.setTitle("MDR Client Register");
         binding.setSearchTermObserver(searchTermObserver);
+        binding.setContext(this);
 
         RecyclerView clientRecyclerView = findViewById(R.id.mdr_client_list);
 
@@ -56,5 +62,21 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
         drugResistantTbregisterViewModel.getAllClients().observe(this, drugResistantTbClientListAdapter::setClientList);
         setViewModel(drugResistantTbregisterViewModel);
         addDrawer(this);
+    }
+    public void mdrregisterClient(){
+
+        try {
+            mBundle  = new Bundle();
+            JsonForm clientRegistration = new JsonForm("Client Registration",
+                    Utils.getStringFromInputStream(this.getAssets().open("forms/client_registration.json")));
+
+
+
+            mBundle.putSerializable(Key.JSON_FORM, clientRegistration);
+            startModule(BaseApplication.CoreModule.FORM, mBundle);
+
+        }catch (Exception e){
+
+        }
     }
 }
