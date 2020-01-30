@@ -3,11 +3,12 @@
     "panelType": "form",
     "formType": "basic",
     "name": "Request for Bacteriological Examination",
+    "encounterId": 17,
     "submitLabel": "Submit"
   },
   "widgetGroup": [
     {
-      "title": "Request for Bacteriological Examination",
+      "title": "Patient Details",
       "widgets": [
         {
           "tag": "facility",
@@ -50,6 +51,16 @@
               "required": true,
               "errorMessage": "Should only contain alphabet characters",
               "weight": 1
+            },
+            {
+              "tag": "PERSON_AGE",
+              "label": "Age",
+              "widgetType": "EditText",
+              "dataType": "Numeric",
+              "hint": "Age",
+              "regex": "[0-9]+",
+              "errorMessage": "Should only contain numeric characters",
+              "weight": 1
             }
           ]
         },
@@ -72,7 +83,7 @@
           "label": "Address",
           "tag": "PERSON_ADDRESS",
           "widgetType": "EditText",
-          "hint": "Plot number, Village, Street ",
+          "hint": "Plot number, Village, Street *",
           "regex": "[a-zA-Z0-9\\s]+",
           "errorMessage": "Should only contain alphanumeric characters",
           "weight": 1,
@@ -87,6 +98,443 @@
           "regex": "[0-9]+",
           "errorMessage": "Should only contain alphabet characters",
           "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Reason for Examination",
+      "widgets": [
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "Concept",
+              "label": "Diagnosis",
+              "dataType": "Boolean",
+              "style": "check",
+              "textSize": 15,
+              "weight": 1
+            },
+            {
+              "tag": "diagnosis_reason",
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "radio",
+              "label": "Presumptive RR-TB/MDR-TB",
+              "textSize": 18
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "label": "Follow-Up",
+              "textSize": 18,
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "tag": "date",
+              "label": "Month of treatment",
+              "widgetType": "DatePicker",
+              "futureDate": "False",
+              "weight": 1,
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "HIV Status",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "label": "NR",
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "label": "R",
+              "dataType": "Boolean",
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "label": "Unknown",
+              "dataType": "Boolean",
+              "style": "check",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Previously treated for TB?",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "label": "Yes",
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "label": "No",
+              "dataType": "Boolean",
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "label": "Unknown",
+              "dataType": "Boolean",
+              "style": "check",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "MDR Contact?",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "label": "Yes",
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "label": "No",
+              "dataType": "Boolean",
+              "style": "check",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "label": "Unknown",
+              "dataType": "Boolean",
+              "style": "check",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Specimen type",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "specimen_Type",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "Sputum Other(specify)",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Test(s) requested",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "tag": "microscopy",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Microscopy",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "tag": "microscopy",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Xpert MTB/RIF",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Patient's District TB No",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "MDRTBID",
+              "widgetType": "NumericEditText",
+              "dataType": "Numeric",
+              "hint": "TB District ID",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Number of samples sent with this form",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "NumericEditText",
+              "dataType": "Numeric",
+              "hint": "Enter number of samples",
+              "regex": "[0-9]+",
+              "errorMessage": "Should only contain numeric characters",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "tag": "date_sample_collect",
+          "label": "Date first Sample Collected",
+          "widgetType": "DatePicker",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "requested_by",
+          "widgetType": "EditText",
+          "dataType": "Text",
+          "label": "Requested by",
+          "hint": "(Full name)",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "Results(To be completed by Laboratory)",
+      "widgets": [
+        {
+          "widgetType": "DatePicker",
+          "label": "Date sample received",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "widgetType": "EditText",
+          "weight": 1,
+          "hint": "Time in",
+          "label": "Time in "
+        },
+        {
+          "widgetType": "EditText",
+          "weight": 1,
+          "hint": "Serial No",
+          "label": "Lab Serial No"
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Tests performed",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "tag": "zehl neelsen",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Zehl Neelsen",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "tag": "flourochrome",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Flourochrome",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "tag": "xpert",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Xpert MTB/RIF",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Microscopy",
+              "weight": 1
+            },
+            {
+              "widgetType": "DatePicker",
+              "label": "Date tested",
+              "futureDate": "False",
+              "weight": 1,
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "widgetType": "EditText",
+          "weight": 1,
+          "label": "Result",
+          "hint": "Enter Result"
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "MTB",
+              "weight": 1
+            },
+            {
+              "widgetType": "DatePicker",
+              "label": "Date tested",
+              "futureDate": "False",
+              "weight": 1,
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "MTB Not Detected",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "MTB Detected",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Error in/ No Result",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "Concept",
+          "dataType": "Boolean",
+          "style": "check",
+          "label": "Rifampicin",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "PR Not Detected",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "RR Detected",
+              "weight": 1
+            },
+            {
+              "widgetType": "Concept",
+              "dataType": "Boolean",
+              "style": "check",
+              "label": "Indet.",
+              "weight": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Comments",
+      "widgets": [
+        {
+          "tag": "comments",
+          "widgetType": "TextBoxOne",
+          "dataType": "Text",
+          "hint": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "DatePicker",
+          "label": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "widgetType": "EditText",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "Time out",
+          "label": "Time out "
         }
       ]
     }
