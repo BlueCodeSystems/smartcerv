@@ -11,7 +11,7 @@ import android.os.Bundle;
 
 import java.io.IOException;
 
-public class NotificationCardFormActivity extends BaseActivity {
+public class DrugResistantTbMonthlyReviewFormActivity extends BaseActivity {
 
     Bundle mbundle;
 
