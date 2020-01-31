@@ -2,6 +2,6 @@
 <resources>
         <style name="MDR" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimary">@color/yeller</item>
     </style>
 </resources>
