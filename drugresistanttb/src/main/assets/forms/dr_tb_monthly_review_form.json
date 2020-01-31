@@ -46,7 +46,7 @@
               "regex": "[a-zA-Z0-9\\s]+",
               "errorMessage": "Should only contain alphanumeric characters",
               "weight": 1,
-              "required": true
+              "required": false
             }
           ]
         },
@@ -67,21 +67,6 @@
           ]
         },
         {
-          "label": "Sex",
-          "widgetType": "TextView",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "PERSON_GENDER",
-          "label": "Sex",
-          "widgetType": "GenderPicker",
-          "errorMessage": "Gender cannot be left blank",
-          "textSize": 18,
-          "required": true,
-          "weight": 1
-        },
-        {
           "tag": "PERSON_DOB",
           "label": "Date Of Birth",
           "widgetType": "DatePicker",
@@ -90,44 +75,32 @@
           "hint": "dd MMM yyyy"
         },
         {
+          "tag": "TYPE_OF_REGIMEN_STR",
           "label": "Type of Regimen: STR*",
-          "widgetType": "TextView",
+          "widgetType": "Concept",
+          "conceptId": 166149,
+          "dataType" : "Text",
+          "uuid": "c098ec28-fb8d-4ad1-bab8-7ee1433a37e6",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "TextBoxTwo",
+          "tag": "CONVENTIONAL_LONGER_DR_TE_REGIMEN",
+          "label" : "Conventional Longer DR-TB regimen",
+          "widgetType": "Concept",
           "dataType": "Text",
-          "hint": " ",
-          "style": "textboxtwo",
+          "conceptId": 166150,
+          "uuid": "5345a8f7-7017-4044-b978-8b50678f886c",
           "textSize": 18,
           "weight": 1
         },
         {
-          "label": "Conventional Longer DR-TB regimen",
-          "widgetType": "TextView",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "TextBoxTwo",
-          "dataType": "Text",
-          "hint": " ",
-          "style": "textboxtwo",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
+          "tag": "ITR",
           "label": "ITR**",
-          "widgetType": "TextView",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "TextBoxTwo",
+          "widgetType": "Concept",
           "dataType": "Text",
-          "hint": " ",
-          "style": "textboxtwo",
+          "conceptId": 166151,
+          "uuid": "ea28ac63-970a-4de1-a2bf-2aec0c87d1fe",
           "textSize": 18,
           "weight": 1
         },
@@ -140,8 +113,8 @@
         {
           "tag": "complaints",
           "widgetType": "Concept",
-          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
-          "conceptId": 165345,
+          "uuid": "592d779b-3620-4dcf-bc4a-38bf5e33def9",
+          "conceptId": 166174,
           "dataType": "Text",
           "textSize": 18,
           "style": "TextBoxOne",
@@ -156,8 +129,8 @@
         {
           "tag": "examination_findings_(physical)",
           "widgetType": "Concept",
-          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
-          "conceptId": 165345,
+          "uuid": "21528bca-afed-427f-a93f-7771cd474c9d",
+          "conceptId": 166175,
           "dataType": "Text",
           "textSize": 18,
           "style": "TextBoxOne",
@@ -197,8 +170,13 @@
       "title": "Follow up Sputum Examination:",
       "widgets": [
         {
-          "widgetType":"TextView",
+          "tag": "SMEAR_MICROSCOPY_RESULTS",
+          "widgetType":"Concept",
           "label":"Smear Microscopy results",
+          "conceptId": 166176,
+          "dataType" : "Coded",
+          "style": "radio",
+          "uuid": "e434f969-5f50-477f-9d31-0e2b1149ca9e",
           "textSize":18,
           "weight":1
         },
