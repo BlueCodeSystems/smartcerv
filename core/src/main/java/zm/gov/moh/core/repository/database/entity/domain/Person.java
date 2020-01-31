@@ -57,6 +57,8 @@ public class Person extends SynchronizableEntity {
     @Json(name = "date_changed")
     private LocalDateTime dateChanged;
 
+    private Short voided = 0;
+
     @ColumnInfo(name = "voided_by")
     @Json(name = "voided_by")
     private Long voidedBy;
@@ -220,6 +222,14 @@ public class Person extends SynchronizableEntity {
 
     public void setDeathdateEstimated(short deathdateEstimated) {
         this.deathdateEstimated = deathdateEstimated;
+    }
+
+    public Short getVoided() {
+        return voided;
+    }
+
+    public void setVoided(Short voided) {
+        this.voided = voided;
     }
 
     public LocalDateTime getBirthTime() {

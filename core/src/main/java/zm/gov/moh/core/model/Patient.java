@@ -22,12 +22,14 @@ public class Patient {
     private String cityVillage;
     private String stateProvince;
     private String uuid;
+    private short voided;
 
 
     public void setPerson(Person person){
         this.gender = person.getGender();
         this.birthdate = person.getBirthDate();
         this.uuid = person.getUuid();
+        this.voided = person.getVoided();
     }
 
     public void setPersonName(PersonName personName){
