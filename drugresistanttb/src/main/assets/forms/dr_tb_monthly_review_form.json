@@ -1,0 +1,584 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "encounter",
+    "name": "Drug Resistant - TB Monthly Review Form",
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Drug Resistant - TB Monthly Review Form",
+      "widgets": [
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Name of patient",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "PERSON_GIVEN_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "First Name",
+              "regex": "[a-zA-Z]+",
+              "errorMessage": "Should only contain alphabet characters",
+              "required": true,
+              "weight": 1
+            },
+            {
+              "tag": "PERSON_FAMILY_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "Last Name",
+              "regex": "[a-zA-Z]+",
+              "required": true,
+              "errorMessage": "Should only contain alphabet characters",
+              "weight": 1
+            },
+            {
+              "label": "DR-TB Number",
+              "tag": "DR_TB_NUMBER",
+              "widgetType": "EditText",
+              "hint": " UTH/DR/45/19",
+              "regex": "[a-zA-Z0-9\\s]+",
+              "errorMessage": "Should only contain alphanumeric characters",
+              "weight": 1,
+              "required": false
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+
+            {
+              "label": "Address",
+              "tag": "PERSON_ADDRESS",
+              "widgetType": "EditText",
+              "hint": "Plot number, Village, Street *",
+              "regex": "[a-zA-Z0-9\\s]+",
+              "errorMessage": "Should only contain alphanumeric characters",
+              "weight": 1,
+              "required": true
+            }
+          ]
+        },
+        {
+          "tag": "PERSON_DOB",
+          "label": "Date Of Birth",
+          "widgetType": "DatePicker",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "TYPE_OF_REGIMEN_STR",
+          "label": "Type of Regimen: STR*",
+          "widgetType": "Concept",
+          "conceptId": 166149,
+          "dataType" : "Text",
+          "uuid": "c098ec28-fb8d-4ad1-bab8-7ee1433a37e6",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "CONVENTIONAL_LONGER_DR_TE_REGIMEN",
+          "label" : "Conventional Longer DR-TB regimen",
+          "widgetType": "Concept",
+          "dataType": "Text",
+          "conceptId": 166150,
+          "uuid": "5345a8f7-7017-4044-b978-8b50678f886c",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "ITR",
+          "label": "ITR**",
+          "widgetType": "Concept",
+          "dataType": "Text",
+          "conceptId": 166151,
+          "uuid": "ea28ac63-970a-4de1-a2bf-2aec0c87d1fe",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType":"TextView",
+          "label":"Complaints",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "complaints",
+          "widgetType": "Concept",
+          "uuid": "592d779b-3620-4dcf-bc4a-38bf5e33def9",
+          "conceptId": 166174,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "weight": 1
+        },
+        {
+          "widgetType":"TextView",
+          "label": "Examination findings(Physical)",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag": "examination_findings_(physical)",
+          "widgetType": "Concept",
+          "uuid": "21528bca-afed-427f-a93f-7771cd474c9d",
+          "conceptId": 166175,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "weight": 1
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "title": "TREATMENT",
+          "widgets": [
+
+            {
+              "widgetType": "TextView",
+              "dataType": "Text",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "title": "Follow up Sputum Examination:",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "TextView",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "title": "Follow up Sputum Examination:",
+      "widgets": [
+        {
+          "tag": "SMEAR_MICROSCOPY_RESULTS",
+          "widgetType":"Concept",
+          "label":"Smear Microscopy results",
+          "conceptId": 166176,
+          "dataType" : "Coded",
+          "style": "radio",
+          "uuid": "e434f969-5f50-477f-9d31-0e2b1149ca9e",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "widgetType": "EditText",
+          "hint": "+VE",
+          "weight": 1
+        },
+        {
+          "widgetType":"TextView",
+          "label":"Month of treatment",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "widgetType": "DatePicker",
+          "hint": "dd MMM yyyy",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType":"TextView",
+          "label":"Culture results",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "widgetType": "EditText",
+          "hint": "+VE",
+          "weight": 1
+        },
+        {
+          "widgetType":"TextView",
+          "label":"Month of treatment when samples were collected",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "widgetType": "DatePicker",
+          "hint": "dd MMM yyyy",
+          "textSize": 18,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "title": "Hearing loss (Ototoxicity)",
+      "widgets": [
+        {
+          "widgetType": "EditText",
+          "label": "Normal",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "mild",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "moderate",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "severe",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "profound",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Creatinine(umol/L):",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Hb(g/dL):",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Potassium:",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "ALT(SGPT):",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "AST(SGOT):",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "TSH:",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "HIV results:",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "If HIV positive: Viral Load:",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "CD4:",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "ECG(QTcF):",
+          "dataType": "Text",
+          "hint": "",
+          "textSize": 20,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "title": "Nutrtional Assessment:",
+      "widgets": [
+        {
+          "widgetType": "EditText",
+          "label": "Height",
+          "dataType": "Text",
+          "hint": "1.5m",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Weight",
+          "dataType": "Text",
+          "hint": "60kg",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "BMI",
+          "dataType": "Text",
+          "hint": "kg/m2",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Underweight",
+          "dataType": "Text",
+          "hint": "Below 18.5",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Normal",
+          "dataType": "Text",
+          "hint": "18.5 - 24.9",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Overweight",
+          "dataType": "Text",
+          "hint": "25.0 - 29.9",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Obese",
+          "dataType": "Text",
+          "hint": "30.0 and Above",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "tag": "Other_final_diagnosis_&_plan",
+          "widgetType": "Concept",
+          "conceptId": 165384,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Are you receiving any food support?",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Recommended diet"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "Recommended Diet",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "notes",
+          "widgetType": "Concept",
+          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "title": "Social Assessment:",
+      "widgets": [
+        {
+          "widgetType": "EditText",
+          "label": "How many people are in the household?",
+          "dataType": "Text",
+          "hint": " ",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Who is monitoring the treatment?:",
+          "dataType": "Text",
+          "hint": " ",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "How far are you from the health facility?:",
+          "dataType": "Text",
+          "hint": " ",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Where do you work?",
+          "dataType": "Text",
+          "hint": " ",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Other_final_diagnosis_&_plan",
+          "widgetType": "Concept",
+          "conceptId": 165384,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Are you on social case transfer support?",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Recommended diet"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "title": "aDSM: Tick",
+      "widgets": [
+        {
+          "tag": "adsm_tick",
+          "widgetType": "Concept",
+          "conceptId": 166173,
+          "uuid": "cf0266bc-4bcb-4d54-a4ba-c6d38138d9bf",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Clinical Findings",
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "widgetType": "WidgetGroupRow",
+      "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "Management plan",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "management_plan",
+          "widgetType": "Concept",
+          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

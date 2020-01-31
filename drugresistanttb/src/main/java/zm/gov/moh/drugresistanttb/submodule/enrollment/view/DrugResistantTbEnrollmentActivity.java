@@ -13,13 +13,15 @@ import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.submodule.enrollment.viewModel.DrugResistantTbEnrollmentViewModel;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import java.util.concurrent.atomic.AtomicBoolean;
+import zm.gov.moh.drugresistanttb.OpenmrsConfig;
+
+
 
 public class DrugResistantTbEnrollmentActivity extends BaseActivity {
 
     private DrugResistantTbEnrollmentViewModel viewModel;
-    private ModuleGroup DrugResistantTbModule;
+    private ModuleGroup drugResistantTbModule;
     AtomicBoolean checkObserver;
 
     @Override
@@ -31,7 +33,7 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
         setViewModel(viewModel);
         checkObserver = new AtomicBoolean(true);
 
-        DrugResistantTbModule = (ModuleGroup)((BaseApplication) this.getApplication()).getModule(zm.gov.moh.drugresistanttb.DrugResistantTbModule.MODULE);
+        drugResistantTbModule = (ModuleGroup)((BaseApplication) this.getApplication()).getModule(DrugResistantTbModule.MODULE);
 
         final Bundle bundle = getIntent().getExtras();
 
@@ -62,7 +64,7 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
 
                                 bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
                                 bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);
-                                bundle.putString(Key.START_MODULE_ON_RESULT, zm.gov.moh.drugresistanttb.DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT);
+                                bundle.putString(Key.START_MODULE_ON_RESULT, DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT);
                             }catch (Exception ex){
 
                             }

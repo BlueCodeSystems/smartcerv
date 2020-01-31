@@ -203,39 +203,6 @@ public class Visit extends BaseActivity {
 
     }
 
-    public void onBackPressed() {
-
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                .setTitle("Do you want to return to the Patient Dashboard?")
-                .setMessage("Click 'YES' to return to the Patient Dashboard OR click 'NO' to close this dialog.")
-                .setPositiveButton("YES", (DialogInterface dialogInterface, int i) -> {
-
-                    this.finish();
-                        }
-
-                )
-                .setNegativeButton("NO", (DialogInterface dialogInterface, int i) ->
-                {
-                })
-
-                .show();
-
-        {
-
-
-        }
-
-
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.green));
-
-    }
-
-
-
-
-
-
     public void initForms(){
 
         VisitMetadata visitMetadata =(VisitMetadata) bundle.getSerializable(Key.VISIT_METADATA);
