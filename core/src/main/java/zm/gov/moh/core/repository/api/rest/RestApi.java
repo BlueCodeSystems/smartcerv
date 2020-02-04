@@ -71,6 +71,18 @@ public interface RestApi {
     @GET("v1/person/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
+    @GET("person/attribute")
+    Maybe<PersonAttributeEntity[]> getPersonAttributes(@Header("x-access-token") String accessToken);
+
+    @GET("person/attribute/type")
+    Maybe<PersonAttributeType[]> getPersonAttributeTypes(@Header("x-access-token") String accessToken);
+
+    @GET("patient/{datetime}")
+    Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
+
+    @GET("patient/")
+    Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken);
+
     @GET("v1/patient/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 

@@ -30,6 +30,7 @@ import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -321,11 +322,17 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
                 Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
                 if(treatmentEncounterId !=null || screeningEncounterId != null) {
+                    EncounterProvider forTreatment = (treatmentEncounterId != null) ?
+                            db.encounterProviderDao().getByEncounterId(treatmentEncounterId) : null;
+                    EncounterProvider forScreening = (screeningEncounterId != null) ?
+                            db.encounterProviderDao().getByEncounterId(screeningEncounterId) : null;
 
-                    Long treatmentProviderId = (treatmentEncounterId != null ) ?
-                            db.encounterProviderDao().getByEncounterId(treatmentEncounterId).getProviderId() : null;
-                    Long screeningProviderId = (screeningEncounterId != null ) ?
-                            db.encounterProviderDao().getByEncounterId(screeningEncounterId).getProviderId() : null;
+                    Long treatmentProviderId = null;
+                    Long screeningProviderId = null;
+                    if (forTreatment != null)
+                        treatmentProviderId = forTreatment.getProviderId();
+                    if (forScreening != null)
+                        screeningProviderId = forScreening.getProviderId();
 
                     PersonName treatmentProviderName = (treatmentProviderId != null) ?
                             db.personNameDao().getByInsightProviderId(treatmentProviderId) : null;
