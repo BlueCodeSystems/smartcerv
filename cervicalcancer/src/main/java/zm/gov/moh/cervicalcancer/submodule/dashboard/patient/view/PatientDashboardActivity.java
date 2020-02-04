@@ -91,12 +91,12 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         binding.setTitle("Patient Dashboard");
         initPopupMenu(zm.gov.moh.common.R.menu.base_menu_edit, baseEventCervicalCancerHandler::onMenuItemSelected);
         initToolBar(binding.getRoot());
-        viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
+        /*viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
                 observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).
                 observe(this, binding::setClientAddress);
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
-                observe(this, binding::setFacility);
+                observe(this, binding::setFacility);*/
 
         //Set EDI Image View Listener
         ImageButton1 = findViewById(R.id.load_image);
