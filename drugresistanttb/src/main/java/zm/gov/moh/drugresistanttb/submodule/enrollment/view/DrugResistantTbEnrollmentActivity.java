@@ -9,13 +9,10 @@ import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.DrugResistantTbModule;
-import zm.gov.moh.drugresistanttb.R;
 import zm.gov.moh.drugresistanttb.submodule.enrollment.viewModel.DrugResistantTbEnrollmentViewModel;
 import android.os.Bundle;
 import android.widget.Toast;
 import java.util.concurrent.atomic.AtomicBoolean;
-import zm.gov.moh.drugresistanttb.OpenmrsConfig;
-
 
 
 public class DrugResistantTbEnrollmentActivity extends BaseActivity {
@@ -60,7 +57,7 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
 
                             try{
                                 JsonForm formJson = new JsonForm("Facility Information",
-                                        Utils.getStringFromInputStream(this.getAssets().open("forms/drug_resistant_tb_enrollment.json")));
+                                        Utils.getStringFromInputStream(this.getAssets().open("forms/mdr_enrollment.json")));
 
                                 bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
                                 bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);

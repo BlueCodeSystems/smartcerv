@@ -14,6 +14,7 @@ import java.util.Map;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.submodule.form.viewmodel.FormViewModel;
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.core.model.Key;
 
 public class FormActivity extends BaseActivity {
 
@@ -32,9 +33,13 @@ public class FormActivity extends BaseActivity {
         FormFragment formFragment = new FormFragment();
         formFragment.setArguments(getIntent().getExtras());
 
-        setTheme(R.style.Smartcerv);
-        setFragment(formFragment);
+        mBundle = getIntent().getExtras();
 
+        int style = R.attr.colorPrimary;
+        if (mBundle.getSerializable(Key.THEME_STYLE) != null)
+            style = Integer.parseInt(mBundle.getSerializable(Key.THEME_STYLE).toString());
+        setTheme(style);
+        setFragment(formFragment);
 
     }
 
