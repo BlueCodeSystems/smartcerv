@@ -82,7 +82,7 @@
         {
           "label": "Address",
           "tag": "PERSON_ADDRESS",
-          "widgetType": "EditTex0t",
+          "widgetType": "EditText",
           "hint": "Plot number, Village, Street *",
           "regex": "[a-zA-Z0-9\\s]+",
           "errorMessage": "Should only contain alphanumeric characters",
