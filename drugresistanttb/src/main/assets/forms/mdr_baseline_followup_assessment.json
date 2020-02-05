@@ -10,7 +10,126 @@
     {
       "title": "Patient Details",
       "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "DR No or identification",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "MDR_PATIENT_ID",
+              "widgetType": "CCPIZEditText",
+              "weight": 1,
+              "regex":"([0-9A-Z]+)-([0-9A-Z]+)-([0-9]+)",
+              "required":true,
+              "errorMessage":"Invalid identifier format, should be in CCPIZ format e.g MSA-06-000001"
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Client name",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "PERSON_GIVEN_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "First Name",
+              "weight": 1
+            },
+            {
+              "tag": "PERSON_FAMILY_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "Last Name",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "tag": "PERSON_DOB",
+              "label": "Date Of Birth",
+              "widgetType": "DatePicker",
+              "futureDate": "False",
+              "weight": 1,
+              "hint": "dd MMM yyyy"
+            },
+            {
+              "widgetType": "NumericEditText",
+              "label": "Age",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Address",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "PERSON_ADDRESS",
+              "widgetType": "EditText",
+              "hint": "Plot number, Village, Street",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Telephone",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "tag": "phone",
+              "widgetType": "EditText",
+              "hint": "Example +260967546754",
+              "dataType": "Numeric",
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Contact Person Name",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "NumericEditText",
+              "label": "Contact Person Telephone",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        }
       ]
     },
     {
@@ -22,13 +141,145 @@
     {
       "title": "Physical Examination",
       "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "NumericEditText",
+              "label": "Weight",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "NumericEditText",
+              "label": "Height",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "NumericEditText",
+              "label": "BMI(Calculated)",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Blood Pressure",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "NumericEditText",
+              "label": "Cardiac rate",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+              "widgetType": "NumericEditText",
+              "label": "Respiratory rate",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Mouth",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Respiratory",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Cardiological",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Abdominal",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Neurological",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "EditText",
+              "label": "Skin",
+              "textSize": 18,
+              "weight": 1
+            }
+          ]
+        }
       ]
     },
     {
       "title": "Date of Initiation of Treatment",
       "widgets": [
-
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Treatment regimens - drug and dosage (indicate changes in drug/dosages/regimen and reason",
+              "textSize": 14,
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
+            {
+              "widgetType": "TextView",
+              "label": "Other treatments (drug, dosage and reasons)",
+              "textSize": 14,
+              "weight": 1
+            }
+          ]
+        }
       ]
     },
     {
@@ -40,7 +291,49 @@
     {
       "title": "Psycho-social Assessment",
       "widgets": [
-
+        {
+          "widgetType": "NumericEditText",
+          "label": "Number of household members",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "DOT Plan",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Distance to health facility",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Occupation",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "On social cash transfer",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "if_social_cash",
+          "widgetType": "DatePicker",
+          "label": "If on social cash transfer support, start date",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "EditText",
+          "label": "Recommendation diet",
+          "textSize": 18,
+          "weight": 1
+        }
       ]
     },
     {

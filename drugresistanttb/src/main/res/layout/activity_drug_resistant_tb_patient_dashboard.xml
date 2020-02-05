@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
-            android:background="@color/primary"
+            android:background="@color/yeller"
             android:elevation="4dp" />
 
     </FrameLayout>
