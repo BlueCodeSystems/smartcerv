@@ -67,40 +67,23 @@
           ]
         },
         {
-          "tag": "PERSON_DOB",
-          "label": "Date Of Birth",
-          "widgetType": "DatePicker",
-          "futureDate": "False",
-          "weight": 1,
-          "hint": "dd MMM yyyy"
+          "tag": "PERSON_AGE",
+          "label": "Age",
+          "widgetType": "EditText",
+          "dataType": "Numeric",
+          "hint": "Age",
+          "regex": "[0-9]+",
+          "errorMessage": "Should only contain numeric characters",
+          "weight": 1
         },
         {
-          "tag": "TYPE_OF_REGIMEN_STR",
-          "label": "Type of Regimen: STR*",
+          "tag": "TYPE_OF_REGIMEN",
+          "label": "Type of Regimen:",
           "widgetType": "Concept",
           "conceptId": 166149,
-          "dataType" : "Text",
+          "dataType" : "Coded",
+          "style": "check",
           "uuid": "c098ec28-fb8d-4ad1-bab8-7ee1433a37e6",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "CONVENTIONAL_LONGER_DR_TE_REGIMEN",
-          "label" : "Conventional Longer DR-TB regimen",
-          "widgetType": "Concept",
-          "dataType": "Text",
-          "conceptId": 166150,
-          "uuid": "5345a8f7-7017-4044-b978-8b50678f886c",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "tag": "ITR",
-          "label": "ITR**",
-          "widgetType": "Concept",
-          "dataType": "Text",
-          "conceptId": 166151,
-          "uuid": "ea28ac63-970a-4de1-a2bf-2aec0c87d1fe",
           "textSize": 18,
           "weight": 1
         },
@@ -181,42 +164,35 @@
           "weight":1
         },
         {
-          "widgetType": "EditText",
-          "hint": "+VE",
-          "weight": 1
-        },
-        {
-          "widgetType":"TextView",
-          "label":"Month of treatment",
-          "textSize":18,
-          "weight":1
-        },
-        {
+          "tag": "MONTH_OF_TREATMENT",
+          "label": "Month of treatment",
+          "futureDate": "False",
           "widgetType": "DatePicker",
-          "hint": "dd MMM yyyy",
+          "conceptId": 166182,
+          "uuid": "d3421432-43df-4e30-be16-9d1378d3c5fe",
+          "hint": "MMM",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType":"TextView",
+          "tag": "CULTURE_RESULTS",
+          "widgetType":"Concept",
           "label":"Culture results",
+          "conceptId" : 166180,
+          "dataType" : "Coded",
+          "style": "radio",
+          "uuid" : "2939ff13-6ae2-4448-85a9-108954440328",
           "textSize":18,
           "weight":1
         },
         {
-          "widgetType": "EditText",
-          "hint": "+VE",
-          "weight": 1
-        },
-        {
-          "widgetType":"TextView",
-          "label":"Month of treatment when samples were collected",
-          "textSize":18,
-          "weight":1
-        },
-        {
+          "tag": "MONTH_OF_TREATMENT",
+          "label": "Month of treatment when samples were collected",
+          "conceptId" : 166183,
+          "uuid" : "d440ab34-7984-40a7-b9a6-28e9dd88ef60",
+          "futureDate": "False",
           "widgetType": "DatePicker",
-          "hint": "dd MMM yyyy",
+          "hint": "MMM",
           "textSize": 18,
           "weight": 1
         }
@@ -227,122 +203,210 @@
       "title": "Hearing loss (Ototoxicity)",
       "widgets": [
         {
-          "widgetType": "EditText",
-          "label": "Normal",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "EditText",
-          "label": "mild",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "EditText",
-          "label": "moderate",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "EditText",
-          "label": "severe",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
-          "widgetType": "EditText",
-          "label": "profound",
-          "dataType": "Text",
-          "hint": "",
+          "tag": "HEARING_LOSS(OTOTOXICITY)",
+          "widgetType": "Concept",
+          "label": "Hearing loss (Ototoxicity)",
+          "dataType": "Coded",
+          "style" : "check",
+          "uuid": "66371987-a53f-43a8-994d-2eee1b965615",
+          "conceptId": 166157,
           "textSize": 18,
           "weight": 1
         },
         {
           "widgetType": "EditText",
           "label": "Creatinine(umol/L):",
-          "dataType": "Text",
-          "hint": "",
+          "dataType": "Coded",
+          "conceptId": 166181,
+          "uuid": "0b1410c0-17f4-4538-8215-e8a35548afc8",
+          "hint": "                                     ",
           "textSize": 20,
           "weight": 1
         },
         {
           "widgetType": "EditText",
           "label": "Hb(g/dL):",
-          "dataType": "Text",
-          "hint": "",
+          "dataType": "Coded",
+          "conceptId": 166184,
+          "uuid": "2a9da8b0-9175-405a-97a6-59db94b6e78c",
+          "hint": "                                      ",
           "textSize": 20,
           "weight": 1
         },
         {
           "widgetType": "EditText",
           "label": "Potassium:",
-          "dataType": "Text",
-          "hint": "",
+          "dataType": "Coded",
+          "conceptId": 166185,
+          "uuid": "6bb92054-f6b3-4dee-bdf8-530b051748bc",
+          "hint": "                                      ",
           "textSize": 20,
           "weight": 1
         },
         {
           "widgetType": "EditText",
           "label": "ALT(SGPT):",
-          "dataType": "Text",
-          "hint": "",
+          "dataType": "Coded",
+          "conceptId": 166186,
+          "uuid": "7c1f7575-f72e-4fe5-98a8-20e9f67e7e37",
+          "hint": "                                       ",
           "textSize": 20,
           "weight": 1
         },
         {
           "widgetType": "EditText",
           "label": "AST(SGOT):",
-          "dataType": "Text",
-          "hint": "",
+          "dataType": "Coded",
+          "conceptId": 166187,
+          "uuid": "06ceffb8-ed25-4200-b395-edb8ab5926e2",
+          "hint": "                                       ",
           "textSize": 20,
           "weight": 1
         },
         {
           "widgetType": "EditText",
           "label": "TSH:",
-          "dataType": "Text",
-          "hint": "",
+          "dataType": "Coded",
+          "conceptId": 166188,
+          "uuid": "a24fd052-71ab-44e4-a1cf-f610a2335764",
+          "hint": "                                     ",
           "textSize": 20,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
-          "label": "HIV results:",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 20,
-          "weight": 1
+          "tag": "hiv status",
+          "widgetType": "Concept",
+          "conceptId": 165203,
+          "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "HIV Status",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165131
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Date tested negative"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165132
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "reason for unknown status",
+                    "pict offered"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "If hiv positive"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "viral load count",
+                    "CD4 Count"
+                  ]
+                }
+              }
+            }
+          ]
         },
         {
-          "widgetType": "EditText",
-          "label": "If HIV positive: Viral Load:",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 20,
-          "weight": 1
+          "tag": "If hiv positive",
+          "widgetType": "Concept",
+          "conceptId": 166193,
+          "uuid": "e852ef5f-8f7e-434b-a78b-a8b3dd20049a",
+          "dataType": "Coded",
+          "style": "radio",
+          "textSize": 18,
+          "label": "If HIV positive"
         },
         {
-          "widgetType": "EditText",
-          "label": "CD4:",
-          "dataType": "Text",
-          "hint": "",
-          "textSize": 20,
-          "weight": 1
+          "widgetType": "WidgetGroupRow",
+          "tag": "cd4",
+          "widgets": [
+            {
+              "tag": "CD4 Count",
+              "widgetType": "Concept",
+              "conceptId": 165241,
+              "dataType": "Numeric",
+              "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
+              "hint": "Number",
+              "label": "CD4 Count",
+              "textSize": 18
+            },
+            {
+              "tag": "cd4 date",
+              "conceptId": 165210,
+              "dataType": "Date",
+              "uuid": "852149f1-c61c-46c4-a3aa-caee6e91574d",
+              "futureDate": "False",
+              "widgetType": "Concept",
+              "hint": "dd MMM yyyy"
+            }
+          ]
         },
         {
+          "widgetType": "WidgetGroupRow",
+          "tag": "viral load",
+          "widgets": [
+            {
+              "tag": "viral load count",
+              "widgetType": "Concept",
+              "conceptId": 165242,
+              "uuid": "d25e9649-336c-409a-8e4f-a167b2b1ec85",
+              "dataType": "Numeric",
+              "hint": "Number",
+              "label": "Last Viral Load",
+              "textSize": 18
+            },
+            {
+              "tag": "viral load date",
+              "conceptId": 165212,
+              "dataType": "Date",
+              "uuid": "a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
+              "futureDate": "False",
+              "widgetType": "Concept",
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "tag": "ecg(qtcf)",
           "widgetType": "EditText",
+          "conceptId": 166194,
+          "uuid": "75ab4933-c15a-42bc-a6d0-5e9ee8527bde",
           "label": "ECG(QTcF):",
           "dataType": "Text",
-          "hint": "",
+          "hint": "                ",
           "textSize": 20,
           "weight": 1
         }
@@ -353,63 +417,90 @@
       "title": "Nutrtional Assessment:",
       "widgets": [
         {
-          "widgetType": "EditText",
+          "tag": "height",
+          "widgetType": "Concept",
           "label": "Height",
-          "dataType": "Text",
+          "conceptId": 166195,
+          "uuid": "e47d2ed9-007d-4333-a5d4-af757626a4de",
+          "dataType": "Numeric",
+          "style": "EditText",
           "hint": "1.5m",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
+          "tag": "weight",
+          "widgetType": "Concept",
           "label": "Weight",
-          "dataType": "Text",
+          "conceptId": 166196,
+          "uuid": "5f202a99-afe5-4931-a0e3-85eca5a059f6",
+          "dataType": "Numeric",
+          "style": "EditText",
           "hint": "60kg",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
+          "tag": "bmi",
+          "widgetType": "Concept",
           "label": "BMI",
-          "dataType": "Text",
+          "conceptId": 166197,
+          "uuid": "26932885-b38e-450b-8fbc-a5b78ec1b2f9",
+          "dataType": "Numeric",
+          "style": "EditText",
           "hint": "kg/m2",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
-          "label": "Underweight",
-          "dataType": "Text",
+          "tag": "underweight",
+          "widgetType": "Concept",
+          "label": "Underweight(Below 18.5)",
+          "conceptId": 166198,
+          "uuid":"2b6eb9c0-be12-43b6-9987-eda9ca82654a",
+          "dataType": "Numeric",
+          "style": "Edittext",
           "hint": "Below 18.5",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
-          "label": "Normal",
-          "dataType": "Text",
+          "tag": "normal",
+          "widgetType": "Concept",
+          "label": "Normal(18.5 - 24.9)",
+          "conceptId": 165222,
+          "uuid": "1ced7248-dc9f-4562-ae41-c0296ea21e3a",
+          "dataType": "Numeric",
+          "style": "EditText",
           "hint": "18.5 - 24.9",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
+          "tag": "overweight",
+          "widgetType": "Concept",
           "label": "Overweight",
-          "dataType": "Text",
+          "conceptId": 166199,
+          "uuid": "7d0d435a-79ba-488f-bfa2-252bd93a21b7",
+          "dataType": "Numeric",
+          "style": "EditText",
           "hint": "25.0 - 29.9",
           "textSize": 20,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
-          "label": "Obese",
-          "dataType": "Text",
+          "tag": "obese",
+          "widgetType": "Concept",
+          "label": "Obese (30.0 and Above)",
+          "conceptId": 166200,
+          "uuid": "d42080b6-79c6-493a-8f62-b0bc2662fcc4",
+          "dataType": "Numeric",
           "hint": "30.0 and Above",
           "textSize": 20,
           "weight": 1
         },
         {
-          "tag": "Other_final_diagnosis_&_plan",
+          "tag": "Food Support",
           "widgetType": "Concept",
           "conceptId": 165384,
           "dataType": "Boolean",
@@ -457,7 +548,7 @@
           "weight": 1
         },
         {
-          "tag": "notes",
+          "tag": "nutrition assessment notes",
           "widgetType": "Concept",
           "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
           "conceptId": 165345,
@@ -473,34 +564,46 @@
       "title": "Social Assessment:",
       "widgets": [
         {
-          "widgetType": "EditText",
+          "tag": "People in household",
+          "widgetType": "Concept",
+          "conceptId": 	166201,
+          "uuid": "c229e59c-614c-4904-a4aa-d04698b08db7",
           "label": "How many people are in the household?",
           "dataType": "Text",
-          "hint": " ",
+          "hint": "                                      ",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
+          "tag": "Monitoring the treatment",
+          "widgetType": "Concept",
+          "conceptId": 166202,
+          "uuid": "c6702eaf-2949-4d18-b9fc-e69a6426e767",
           "label": "Who is monitoring the treatment?:",
           "dataType": "Text",
-          "hint": " ",
+          "hint": "                                  ",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
+          "tag": "Distance from health Facility",
+          "conceptId": 166203,
+          "widgetType": "Concept",
+          "uuid": "a0bdfc18-57cc-4140-89d9-610886f4fb04",
           "label": "How far are you from the health facility?:",
           "dataType": "Text",
-          "hint": " ",
+          "hint": "                                           ",
           "textSize": 18,
           "weight": 1
         },
         {
-          "widgetType": "EditText",
+          "tag": "Place of work",
+          "conceptId": 166204,
+          "uuid": "a9023ea9-b2f7-4768-94ac-bc55ea2bc583",
+          "widgetType": "Concept",
           "label": "Where do you work?",
           "dataType": "Text",
-          "hint": " ",
+          "hint": "                                     ",
           "textSize": 18,
           "weight": 1
         },
