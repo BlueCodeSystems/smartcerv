@@ -34,20 +34,22 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
 
         final Bundle bundle = getIntent().getExtras();
 
-        String action = (bundle != null)? bundle.getString(BaseActivity.ACTION_KEY): "";
+        String action = (bundle != null)? bundle.getString(Key.ACTION): "";
 
         long personId = bundle.getLong(Key.PERSON_ID);
 
         getViewModel().getRepository().getDatabase().genericDao()
                 .getMdrPatientById(personId).observe(this ,patient-> {
+
                     if (checkObserver.get()) {
+                        checkObserver.set(false);
                         if (action == null && patient != null) {
 
                             Toast.makeText(this, "Client already exists", Toast.LENGTH_LONG).show();
                             DrugResistantTbEnrollmentActivity.this.finish();
                         } else if (action != null && action.equals(Action.ENROLL_PATIENT)) {
                             viewModel.enroll(bundle);
-                            //Toast.makeText(this, "enrolled successfully", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "enrolled successfully", Toast.LENGTH_LONG).show();
                         } else if (action != null && action.equals(Action.EDIT_PATIENT)) {
                             viewModel.edit(bundle);
                             Toast.makeText(this,"edited successfully",Toast.LENGTH_LONG).show();
@@ -60,7 +62,7 @@ public class DrugResistantTbEnrollmentActivity extends BaseActivity {
                                         Utils.getStringFromInputStream(this.getAssets().open("forms/mdr_enrollment.json")));
 
                                 bundle.putSerializable(BaseActivity.JSON_FORM,formJson);
-                                bundle.putString(BaseActivity.ACTION_KEY, Action.ENROLL_PATIENT);
+                                bundle.putString(Key.ACTION, Action.ENROLL_PATIENT);
                                 bundle.putString(Key.START_MODULE_ON_RESULT, DrugResistantTbModule.Submodules.MDR_CLIENT_ENROLLMENT);
                             }catch (Exception ex){
 
