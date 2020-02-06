@@ -19,6 +19,7 @@ import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
@@ -106,6 +107,9 @@ public interface RestApi {
 
     @GET("encounter/type/")
     Maybe<EncounterType[]> getEncounterTypes(@Header("x-access-token") String accessToken);
+
+    @GET("encounter/provider/")
+    Maybe<EncounterProvider[]> getEncounterProviders(@Header("x-access-token") String accessToken);
 
     @GET("v1/encounter/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);

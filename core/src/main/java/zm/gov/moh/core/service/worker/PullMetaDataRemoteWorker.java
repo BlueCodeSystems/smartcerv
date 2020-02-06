@@ -23,7 +23,7 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     @NonNull
     public Result doWork() {
 
-        taskPoolSize = 14;
+        taskPoolSize = 15;
 
         if(lastMetadataSyncDate != null)
             MIN_DATETIME = LocalDateTime.parse(lastMetadataSyncDate);
@@ -161,6 +161,16 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 }, // consumer
                 this::onError,
                 repository.getRestApi().getPersonAttributeTypes(accessToken), // producer
+                TIMEOUT);
+
+        // EncounterProvider Types
+        ConcurrencyUtils.consumeAsync(
+                encounterProviders -> {
+                    repository.getDatabase().encounterProviderDao().insert(encounterProviders);
+                    onTaskCompleted();
+                }, // consumer
+                this::onError,
+                repository.getRestApi().getEncounterProviders(accessToken), // producer
                 TIMEOUT);
 
        if(awaitResult().equals(Result.success())){
