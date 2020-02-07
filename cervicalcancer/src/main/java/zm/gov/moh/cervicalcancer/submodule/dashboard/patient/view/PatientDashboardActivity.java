@@ -124,8 +124,6 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         bottomNavigationView.setSelectedItemId(R.id.recents_menu_item_id);
         database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
-        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
-        database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
 
         database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);

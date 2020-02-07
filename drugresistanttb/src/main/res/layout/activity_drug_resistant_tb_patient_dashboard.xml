@@ -36,6 +36,16 @@
                 android:text="@{facility.getName}"
                 android:textStyle="bold"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <ExpandableListView
+                android:id="@+id/mdr_adapter_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </LinearLayout>
+
             <TextView
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
@@ -45,10 +55,19 @@
                 android:text="@{clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince}"
                 android:textColor="@color/darker_grey" />
 
-            <ExpandableListView
-                android:id="@+id/mdr_adapter_list"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mdr_bottom_navigation_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="55dp"
+            android:orientation="vertical"></androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -58,7 +77,10 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:background="@color/yeller"
-            android:elevation="4dp" />
+            android:elevation="4dp"
+            app:itemIconTint="@color/selector_bottom_nav"
+            app:itemTextColor="@color/selector_bottom_nav"/>
 
     </FrameLayout>
+
 </layout>

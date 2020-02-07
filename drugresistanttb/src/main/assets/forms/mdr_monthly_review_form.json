@@ -3,6 +3,7 @@
     "panelType": "form",
     "formType": "encounter",
     "name": "Drug Resistant - TB Monthly Review Form",
+    "encounterId": 23,
     "submitLabel": "Submit"
   },
   "widgetGroup": [

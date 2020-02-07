@@ -1,0 +1,108 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="visitListItem"
+            type="zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.VisitListItem" />
+        <import type="org.threeten.bp.LocalDate"/>
+        <import type="org.threeten.bp.format.TextStyle"/>
+        <import type="java.util.Locale"/>
+        <import type="org.threeten.bp.format.DateTimeFormatter" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/visit_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+       android:layout_margin="20dp"
+        android:weightSum="5"
+        tools:context=".module.dashboard.client.view.ClientDashboardActivity">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:elevation="4dp"
+            android:background="@color/yeller"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/visit_item_list_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(visitListItem.dateCreated.dayOfMonth)}"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/visit_item_list_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{visitListItem.dateCreated.month.getDisplayName(TextStyle.SHORT,Locale.ENGLISH).toUpperCase()}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:id="@+id/visit_item_list_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@{String.valueOf(visitListItem.dateCreated.year)}"
+                android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Button" />
+        </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:elevation="2dp"
+            android:layout_weight="4"
+            android:paddingLeft="20dp"
+            android:paddingTop="8dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/visit_item_list_visit_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{visitListItem.visitType}"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@color/dark_grey"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/visit_item_list_time_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{visitListItem.dateTimeStart.toLocalTime().format(DateTimeFormatter.ofPattern(`HH:mm`))+` - `+visitListItem.dateTimeStop.toLocalTime().format(DateTimeFormatter.ofPattern(`HH:mm`))}"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/visit_item_list_visit_type" />
+
+            <ImageView
+                android:id="@+id/visit_overflow_icon"
+                android:layout_width="31dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:tint="@color/darker_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_more_vert_24px" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
+

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,7 +24,9 @@ import java.util.List;
 
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.model.JsonForm;
+import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.VisitState;
 import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.Database;
@@ -36,8 +39,7 @@ import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrFormLis
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.viewmodel.DrugResistantTbPatientDashboardViewModel;
 
-public class DrugResistantTbPatientDashboardActivity extends BaseActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class DrugResistantTbPatientDashboardActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     public static final String PERSON_ID = "PERSON_ID";
 
@@ -131,15 +133,55 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity
         database.genericDao().getMdrPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
         database.locationDao().getByPatientId(clientId, 7L).observe(this, binding::setFacility);
-        //database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
+        database.visitDao().getByPatientIdVisitTypeId(clientId, 11L, 12L, 12L).observe(this, viewModel::onVisitsRetrieved);
+
 
         //set navigation drawer
         addDrawer(this);
+
+        /*BasicModule basicModule = new BasicModule("Bacteriological Exam",
+                BacteriologicalExaminationActivity.class);
+        try {
+            JsonForm bacterialExam = new JsonForm("Bacteriological Exam",
+                    Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json.json")));
+            bundle.putSerializable(BaseActivity.JSON_FORM, bacterialExam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+    }
+
+
+    public void startVisit () {
+        VisitMetadata visitMetadata = null;
+        try {
+            visitMetadata = new VisitMetadata(this,
+                    Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json")));
+            bundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
+            bundle.putSerializable(Key.VISIT_METADATA, VisitState.NEW);
+            this.startModule(BaseApplication.CoreModule.VISIT, bundle);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item)
+    {
+        int id = item.getItemId();
+        if (id == R.id.recents_menu_item_id)
+            fragment = new DrugResistantTbPatientDashboardRecentsViewPagerFragment();
+        else if (id == R.id.insights_menu_item_id)
+            fragment = new DrugResistantTbPatientDashboardRecentsViewPagerFragment();
+        fragment.setArguments(mBundle);
+        replaceFragment(fragment);
         return true;
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.mdr_bottom_navigation_view_container, fragment).commit();
     }
 
 

@@ -37,7 +37,7 @@ public class BacteriologicalExaminationActivity extends BaseActivity {
         }
         startVisit(basicModule, bundle);
     }
-     private void startVisit(BasicModule basicModule, Bundle bundle) {
+     public void startVisit(BasicModule basicModule, Bundle bundle) {
         VisitMetadata visitMetadata = null;
         try {
             visitMetadata = new VisitMetadata(this,
