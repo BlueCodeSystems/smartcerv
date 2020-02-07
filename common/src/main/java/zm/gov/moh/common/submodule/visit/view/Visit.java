@@ -52,13 +52,18 @@ public class Visit extends BaseActivity {
     ImageView calenderPickerButton;
     Spinner spinner;
     ActivityVisitBinding binding;
-    Long selectedVisitType;
-    AlertDialog alertDialog;
+    boolean isAborting = false;
+    AlertDialog.Builder dialogBuilder;
+    VisitState visitState;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit);
+
+        dialogBuilder = new AlertDialog.Builder(Visit.this);
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_visit);
 
@@ -85,7 +90,10 @@ public class Visit extends BaseActivity {
         bundle.putString(Key.MODULE,module);
         initForms();
         updateViewState(bundle);
-        abortVisitBtn.setOnClickListener(view -> onBackPressed());
+        abortVisitBtn.setOnClickListener(view -> {
+            isAborting = true;
+            onBackPressed();
+        });
         viewModel.getVisitStartDateObserver().observe(this, date -> binding.setVisitDate(date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))));
     }
 
@@ -143,7 +151,7 @@ public class Visit extends BaseActivity {
         if(bundle == null)
             return;
 
-        VisitState visitState = (VisitState)bundle.getSerializable(Key.VISIT_STATE);
+        visitState = (VisitState)bundle.getSerializable(Key.VISIT_STATE);
 
         if(visitState == VisitState.NEW){
 
@@ -185,23 +193,47 @@ public class Visit extends BaseActivity {
 
     public void onBackPressed() {
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(Visit.this);
-        builder.setTitle("Abort Visit").setMessage("Do you want to abort visit?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                        dialog.dismiss();
-                        Visit.this.viewModel.cancelVisit();
-                        Visit.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).create().show();
+        if(isAborting) {
+
+            dialogBuilder.setTitle("Abort Visit").setMessage("Do you want to abort visit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                            Visit.this.viewModel.cancelVisit();
+                            Visit.super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+
+        }else if(visitState == VisitState.SESSION || visitState == VisitState.AMEND){
+
+            dialogBuilder.setTitle("End Visit").setMessage("Do you want to end visit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                            viewModel.endVisit();
+                            Visit.super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+
+        }else
+            super.onBackPressed();
 
     }
 
@@ -236,7 +268,6 @@ public class Visit extends BaseActivity {
 
 
     public void dateHandler(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
 
         // set day of month , month and year value in the edit text
         this.viewModel.setVisitDate(LocalDate.of(year,monthOfYear + 1,dayOfMonth));
