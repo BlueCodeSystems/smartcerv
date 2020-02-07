@@ -16,6 +16,7 @@ public class Key {
     public static final String PERSON_GENDER = "PERSON_GENDER";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
     public static final String PERSON_ADDRESS1 = "PERSON_ADDRESS1";
+
     //Add key for person age
     public static final String PERSON_AGE = "PERSON_AGE";
     public static final String PERSON_PHONE = "PERSON_PHONE";
@@ -48,5 +49,8 @@ public class Key {
     public static final String NRC_NUMBER="NRC_NUMBER";
     public static final String PATIENT_ID = "PATIENT_ID";
     public static final String PATIENT_ID_TYPE = "PATIENT_ID_TYPE";
+
+    //Synchronization last date
+
 
 }
