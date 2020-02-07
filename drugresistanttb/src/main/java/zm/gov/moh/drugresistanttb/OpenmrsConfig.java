@@ -17,10 +17,6 @@ public class OpenmrsConfig {
     public static final String CONCEPT_UUID_CULTURE_RESULTS = "2939ff13-6ae2-4448-85a9-108954440328";
 
 
-
-
-
-
     //Encounter Type
     public static final String IDENTIFIER_TYPE_MDRPIZ_UUID = " c8e464ab-11be-4b90-8b28-226dacab2b2d";
 }
