@@ -14,7 +14,7 @@
         android:id="@+id/insights_menu_item_id"
         android:title="insights"
         app:showAsAction="ifRoom"
-        android:enabled="true"
+        android:enabled="false"
         android:icon="@drawable/ic_baseline_timeline_24px">
     </item>
 </menu>
