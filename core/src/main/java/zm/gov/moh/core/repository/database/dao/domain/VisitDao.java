@@ -13,6 +13,10 @@ import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 @Dao
 public interface VisitDao extends Synchronizable<Long> {
 
+
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM visit WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
+    LocalDateTime getMaxDatetime(long locationId);
+
     @Query("SELECT MAX(visit_id) FROM Visit")
     Long getMaxId();
 
@@ -24,8 +28,8 @@ public interface VisitDao extends Synchronizable<Long> {
     LiveData<List<VisitEntity>> getByPatientIdLive(long id);
 
     //gets all locations
-    @Query("SELECT visit_id FROM Visit WHERE datetime(date_started) = datetime(:dateTime)")
-    Long[] getByDatetime(LocalDateTime dateTime);
+    @Query("SELECT visit_id FROM Visit WHERE strftime('%s', date_started) = strftime('%s', :dateTime) AND location_id = :locationId")
+    Long[] getByDatetime(String dateTime, long locationId);
 
     @Query("SELECT * FROM Visit WHERE patient_id = :id")
     VisitEntity[] getByPatientId(long id);
@@ -38,6 +42,9 @@ public interface VisitDao extends Synchronizable<Long> {
 
     @Query("SELECT * FROM  Visit WHERE date_started >= :dateTime")
     VisitEntity getAll( LocalDateTime dateTime);
+
+    @Query("SELECT * FROM  Visit Order by date_started DESC")
+    List<VisitEntity> getAll();
 
     @Query("SELECT * FROM  Visit WHERE visit_id >= :offset")
     VisitEntity getByDate( long offset);
