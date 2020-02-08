@@ -44,30 +44,49 @@ public class PullDataRemoteWorker extends RemoteWorker {
         taskPoolSize = 8;
 
             MIN_DATETIME = localDateTime.fromNullable(db.patientIdentifierDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPatientId(accessToken, locationId, MIN_DATETIME, OFFSET, LIMIT);
 
             MIN_DATETIME = localDateTime.fromNullable(db.patientDao().getMaxDatetime(locationId, Constant.LOCAL_ENTITY_ID_OFFSET)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPatient(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //obs
+            MIN_DATETIME = localDateTime.fromNullable(db.obsDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getObs(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //visit
+            MIN_DATETIME = localDateTime.fromNullable(db.visitDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getVisit(accessToken,locationId, MIN_DATETIME, OFFSET,LIMIT);
 
             //encounter
+            MIN_DATETIME = localDateTime.fromNullable(db.encounterDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getEncounter(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person
             MIN_DATETIME = localDateTime.fromNullable(db.personDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPersons(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person name
             MIN_DATETIME = localDateTime.fromNullable(db.personNameDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPersonNames(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person address
             MIN_DATETIME = localDateTime.fromNullable(db.personAddressDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
         return awaitResult();
@@ -114,6 +133,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         //db.personIdentifierDao().insert(personIdentifiers);
 
                         db.patientIdentifierDao().insert(patientIdentifierEntities);
+
                         getPatientId(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
                         onTaskCompleted();
@@ -131,7 +151,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     if(obs.length > 0){
 
                         for(ObsEntity obsEntity : obs)
-                            if(db.obsDao().findByObsDatetime(obsEntity.getObsDateTime()).length == 0)
+                            if(db.obsDao().findByObsDatetime(obsEntity.getObsDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), obsEntity.getLocationId()).length == 0)
                                 db.obsDao().insert(obs);
 
                         updateMetadata(obs, EntityType.OBS);
@@ -147,6 +167,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getVisit(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
+        List<VisitEntity> l = db.visitDao().getAll();
         ConcurrencyUtils.consumeAsync(
 
                 visitEntities -> {
@@ -154,7 +175,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     if(visitEntities.length > 0){
 
                         for(VisitEntity visitEntity : visitEntities)
-                            if(db.visitDao().getByDatetime(visitEntity.getDateStarted()).length == 0)
+                            if (db.visitDao().getByDatetime(visitEntity.getDateStarted().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), visitEntity.getLocationId()).length == 0)
                                 db.visitDao().insert(visitEntities);
 
                         updateMetadata(visitEntities, EntityType.VISIT);
@@ -177,7 +198,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     if(encounterEntities.length > 0){
 
                         for(EncounterEntity encounterEntity : encounterEntities)
-                            if(db.encounterDao().getByDatetime(encounterEntity.getEncounterDatetime()).length == 0)
+                            if(db.encounterDao().getByDatetime(encounterEntity.getEncounterDatetime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), encounterEntity.getLocationId()).length == 0)
                                 db.encounterDao().insert(encounterEntities);
 
                         updateMetadata(encounterEntities, EntityType.ENCOUNTER);

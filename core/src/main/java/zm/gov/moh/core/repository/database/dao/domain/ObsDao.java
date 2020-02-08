@@ -15,6 +15,10 @@ import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 @Dao
 public interface ObsDao extends Synchronizable<ObsEntity> {
 
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT COALESCE(date_created,'1970-01-01T00:00:00') AS datetime FROM obs WHERE person_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
+    LocalDateTime getMaxDatetime(long locationId);
+
+
     @Query("SELECT MAX(obs_id) FROM obs")
     Long getMaxId();
 
@@ -38,8 +42,8 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     ObsEntity[] findByPatientId(long id);
 
     //get getPersons by id
-    @Query("SELECT * FROM obs WHERE datetime(obs_datetime) = datetime(:dateTime)")
-    ObsEntity[] findByObsDatetime(LocalDateTime dateTime);
+    @Query("SELECT * FROM obs WHERE strftime('%s',obs_datetime) = strftime('%s',:dateTime) AND location_id = :locationId")
+    ObsEntity[] findByObsDatetime(String dateTime, long locationId);
 
     @Query("DELETE FROM obs WHERE obs_id IN (:obsId) AND obs_id >= :offset")
     void deleteById(long[] obsId, long offset);

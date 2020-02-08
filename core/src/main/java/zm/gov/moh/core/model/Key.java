@@ -44,11 +44,13 @@ public class Key {
     public static final String LAST_LOCATION="last_location";
     public static final String LAST_DATA_SYNC_DATETIME = "LAST_DATA_SYNC_DATETIME";
     public static final String LAST_METADATA_SYNC_DATETIME = "LAST_METADATA_SYNC_DATETIME";
+    public static final String LAST_SYNC_SUCCESSFUL = "LAST_SYNC_SUCCESSFUL";
     public static final String TIMEZONE_ID = "TIMEZONE_ID";
     public static final String ACTION = "ACTION";
     public static final String NRC_NUMBER="NRC_NUMBER";
     public static final String PATIENT_ID = "PATIENT_ID";
     public static final String PATIENT_ID_TYPE = "PATIENT_ID_TYPE";
+    public static final String SHARED_PREFERENCES = "application_shared_prefernce_key";
 
     //Synchronization last date
 
