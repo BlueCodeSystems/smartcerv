@@ -31,4 +31,7 @@ public interface PersonIdentifierDao {
 
     @Query("SELECT * FROM person_identifier WHERE identifier = :identifier")
     PersonIdentifier getByIdentifier(String identifier);
+
+    @Query("SELECT remote_id FROM person_identifier WHERE local_id = :localId")
+    Long getRemoteIdByLocalId(long localId);
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
+import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
@@ -42,11 +43,10 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         taskPoolSize = 8;
 
-
             MIN_DATETIME = localDateTime.fromNullable(db.patientIdentifierDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
             getPatientId(accessToken, locationId, MIN_DATETIME, OFFSET, LIMIT);
 
-            MIN_DATETIME = localDateTime.fromNullable(db.patientDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            MIN_DATETIME = localDateTime.fromNullable(db.patientDao().getMaxDatetime(locationId, Constant.LOCAL_ENTITY_ID_OFFSET)).or(defaultLocalDateTime);
             getPatient(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //obs

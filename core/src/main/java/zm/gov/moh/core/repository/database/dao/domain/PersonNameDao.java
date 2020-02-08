@@ -17,7 +17,7 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     @Query("SELECT person_name_id FROM person_name")
     List<Long> getIds();
 
-    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM person_name WHERE person_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId))")
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM person_name WHERE person_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
     LocalDateTime getMaxDatetime(long locationId);
 
     @Query("SELECT person_name.* FROM person_name JOIN provider ON person_name.person_id = provider.person_id WHERE provider_id = :providerId AND person_name.voided = 0")
