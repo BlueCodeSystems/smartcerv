@@ -167,7 +167,6 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getVisit(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
-        List<VisitEntity> l = db.visitDao().getAll();
         ConcurrencyUtils.consumeAsync(
 
                 visitEntities -> {
