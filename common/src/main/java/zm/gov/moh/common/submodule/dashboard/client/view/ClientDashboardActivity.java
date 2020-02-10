@@ -91,7 +91,7 @@ public class ClientDashboardActivity extends BaseActivity {
             if(clientAddress != null) {
 
                 binding.setClientAddress(clientAddress);
-                mBundle.putString(Key.PERSON_ADDRESS, clientAddress.getAddress1());
+                mBundle.putString(Key.PERSON_ADDRESS1, clientAddress.getAddress1());
 
                 viewModel.getRepository().getDatabase().locationDao().getLocationByName(clientAddress.getCityVillage())
                         .observe(ClientDashboardActivity.this, location -> {

@@ -106,7 +106,13 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
 
             for(Long entityId:entityIds) {
 
-                EntityMetadata entityMetadata = new EntityMetadata(entityId,entityTypeId, Status.PUSHED.getCode(), LocalDateTime.now());
+                EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(entityId);
+                if(entityMetadata == null)
+                    entityMetadata = new EntityMetadata(entityId,entityTypeId);
+
+                entityMetadata.setRemoteStatusCode( Status.PUSHED.getCode());
+                entityMetadata.setLastModified(LocalDateTime.now());
+
                 db.entityMetadataDao().insert(entityMetadata);
             }
         };
@@ -123,6 +129,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
 
        if((person != null || personName != null || personAddress != null) && ((patientIdentifiers.size() > 1 && person.getVoided() == 0) || person.getUuid() != null)) {
+
 
            return new Patient.Builder()
                    .setPerson(person)

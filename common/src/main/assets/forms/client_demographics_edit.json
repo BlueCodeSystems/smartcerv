@@ -72,7 +72,7 @@
         },
         {
           "label": "Address",
-          "tag": "PERSON_ADDRESS",
+          "tag": "PERSON_ADDRESS1",
           "widgetType": "EditText",
           "hint": "Plot number, Village, Street *",
           "regex":"[a-zA-Z0-9\\s]+",
