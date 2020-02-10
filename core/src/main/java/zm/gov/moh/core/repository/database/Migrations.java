@@ -33,6 +33,8 @@ public class Migrations {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             try {
+                //Add a voided column to person table
+                database.execSQL("ALTER TABLE person ADD COLUMN voided INTEGER DEFAULT 0");
                 database.execSQL("CREATE TABLE `person_attribute_type_temp` (`person_attribute_type_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `format` TEXT, `foreign_key` INTEGER, `searchable` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `edit_privilege` TEXT, `sort_weight` REAL NOT NULL, `uuid` TEXT, PRIMARY KEY(`person_attribute_type_id`) )");
                 database.execSQL("INSERT INTO person_attribute_type_temp SELECT * FROM person_attribute_type");
                 database.execSQL("DROP TABLE `person_attribute_type`");
