@@ -124,8 +124,6 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         bottomNavigationView.setSelectedItemId(R.id.recents_menu_item_id);
         database.genericDao().getPatientById(clientId).observe(this, binding::setClient);
         database.personAddressDao().findByPersonIdObservable(clientId).observe(this, binding::setClientAddress);
-        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
-        database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
 
         //set navigation drawer
         addDrawer(this);
@@ -192,6 +190,7 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
                     visitMetadata = new VisitMetadata(this, Utils.getStringFromInputStream(this.getAssets().open("visits/via.json")));
                     mBundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
                     mBundle.putSerializable(Key.VISIT_STATE, zm.gov.moh.core.model.VisitState.NEW);
+                    mBundle.putSerializable(Key.THEME_STYLE, R.style.Smartcerv);
                     this.startModule(BaseApplication.CoreModule.VISIT, mBundle);
                 } catch (IOException e) {
                     e.printStackTrace();

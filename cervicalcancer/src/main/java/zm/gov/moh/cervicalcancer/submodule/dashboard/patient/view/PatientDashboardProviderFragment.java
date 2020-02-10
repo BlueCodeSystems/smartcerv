@@ -47,7 +47,7 @@ public class PatientDashboardProviderFragment extends Fragment {
 
         context = (BaseActivity)getContext();
         View view = inflater.inflate(R.layout.fragment_patient_dashoard_provider, container, false);
-        //context = (PatientDashboardActivity) getContext();
+        context = (PatientDashboardActivity) getContext();
         //context.getClientId();
         // Inflate the layout for this fragment
 

@@ -201,6 +201,7 @@ public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
         return filterConcepts;
     }
 
+
     public PopupMenu.OnMenuItemClickListener assignListener (final long visitId){
 
 
@@ -225,5 +226,4 @@ public class VisitExpandableListAdapter extends BaseExpandableListAdapter {
             }
         };
     }
-
 }

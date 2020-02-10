@@ -9,6 +9,7 @@
         <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <import type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
+        <variable name="mdrmodule" type="zm.gov.moh.drugresistanttb.DrugResistantTbModule"/>
         <variable name="metrics" type="java.util.Map"/>
 
     </data>
@@ -51,6 +52,7 @@
                     android:id="@+id/home_fragmdent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <fragment
                         android:name="zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment"
                         android:layout_width="match_parent"
@@ -61,6 +63,16 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                     </LinearLayout>
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/home_mdr_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <fragment
+                        android:name="zm.gov.moh.drugresistanttb.view.DrugResistantTbHomeFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </fragment>
                 </FrameLayout>
             </LinearLayout>
         </ScrollView>

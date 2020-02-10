@@ -42,7 +42,7 @@ import static zm.gov.moh.common.BR.preferences;
 
 public class Visit extends BaseActivity {
 
-    Button button,abortVisitBtn;
+    Button button, abortVisitBtn;
     VisitViewModel viewModel;
     long visitTypeId;
     Bundle bundle;
@@ -57,7 +57,6 @@ public class Visit extends BaseActivity {
     VisitState visitState;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,29 +64,29 @@ public class Visit extends BaseActivity {
 
         dialogBuilder = new AlertDialog.Builder(Visit.this);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_visit);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_visit);
 
         button = findViewById(R.id.start_visit);
-        abortVisitBtn=findViewById(R.id.abort_visit);
+        abortVisitBtn = findViewById(R.id.abort_visit);
         spinner = this.findViewById(R.id.visit_type);
 
         calenderPickerButton = findViewById(R.id.date_picker);
 
-        datePicker = Utils.dateDialog(this, calenderPickerButton,this::dateHandler).getDatePicker();
+        datePicker = Utils.dateDialog(this, calenderPickerButton, this::dateHandler).getDatePicker();
         datePicker.setMaxDate(System.currentTimeMillis());
 
 
         viewModel = ViewModelProviders.of(this).get(VisitViewModel.class);
         setViewModel(viewModel);
         binding.setViewmodel(viewModel);
-        viewModel.getViewState().observe(this,this::updateViewState);
+        viewModel.getViewState().observe(this, this::updateViewState);
 
         String module = BaseApplication.CoreModule.FORM;
         bundle = getIntent().getExtras();
         viewModel.setBundle(bundle);
-       // bundle.putSerializable(Key.VISIT_LIST,linkedList);
-       // bundle.putSerializable(Key.VISIT_FORM_LIST,linkedListForms);
-        bundle.putString(Key.MODULE,module);
+        // bundle.putSerializable(Key.VISIT_LIST,linkedList);
+        // bundle.putSerializable(Key.VISIT_FORM_LIST,linkedListForms);
+        bundle.putString(Key.MODULE, module);
         initForms();
         updateViewState(bundle);
         abortVisitBtn.setOnClickListener(view -> {
@@ -97,15 +96,15 @@ public class Visit extends BaseActivity {
         viewModel.getVisitStartDateObserver().observe(this, date -> binding.setVisitDate(date.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))));
     }
 
-    public void initVisitList(List<VisitType> visitTypeList){
+    public void initVisitList(List<VisitType> visitTypeList) {
 
-        if(visitTypeList.size() > 0) {
+        if (visitTypeList.size() > 0) {
 
             LinkedList<String> visitTypes;
-            final LinkedHashMap<String,Long> visitTypeIdList = new LinkedHashMap<>();
+            final LinkedHashMap<String, Long> visitTypeIdList = new LinkedHashMap<>();
 
-            for(VisitType visitType: visitTypeList)
-                visitTypeIdList.put(visitType.getName(),visitType.getVisitTypeId());
+            for (VisitType visitType : visitTypeList)
+                visitTypeIdList.put(visitType.getName(), visitType.getVisitTypeId());
 
 
             visitTypes = new LinkedList<>(visitTypeIdList.keySet());
@@ -134,9 +133,9 @@ public class Visit extends BaseActivity {
             viewModel.getVisitTypeObserver().observe(this, visitTypeId -> {
 
                 int position = 0;
-                for(Map.Entry<String, Long> entry :visitTypeIdList.entrySet()){
+                for (Map.Entry<String, Long> entry : visitTypeIdList.entrySet()) {
 
-                   if(entry.getValue().equals(visitTypeId))
+                    if (entry.getValue().equals(visitTypeId))
                         spinner.setSelection(position);
 
                     position++;
@@ -146,22 +145,21 @@ public class Visit extends BaseActivity {
 
     }
 
-    public void updateViewState(Bundle bundle){
+    public void updateViewState(Bundle bundle) {
 
-        if(bundle == null)
+        if (bundle == null)
             return;
 
-        visitState = (VisitState)bundle.getSerializable(Key.VISIT_STATE);
+        visitState = (VisitState) bundle.getSerializable(Key.VISIT_STATE);
 
-        if(visitState == VisitState.NEW){
+        if (visitState == VisitState.NEW) {
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_green)));
             abortVisitBtn.setEnabled(false);
             button.setText("Start visit");
             binding.setVisitDateEnabled(true);
 
-        }
-        else if(visitState == VisitState.AMEND) {
+        } else if (visitState == VisitState.AMEND) {
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.warning)));
             button.setText("End visit");
@@ -169,8 +167,7 @@ public class Visit extends BaseActivity {
             formListAdapter.setClickable(true);
             binding.setVisitDateEnabled(false);
             abortVisitBtn.setEnabled(true);
-        }
-        else if(visitState == VisitState.SESSION) {
+        } else if (visitState == VisitState.SESSION) {
 
             button.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.warning)));
             button.setText("End visit");
@@ -181,8 +178,7 @@ public class Visit extends BaseActivity {
             abortVisitBtn.setBackgroundTintList(ColorStateList.valueOf(this.getResources().getColor(R.color.light_red)));
             viewModel.createVisit();
             return;
-        }
-        else if(visitState == VisitState.END){
+        } else if (visitState == VisitState.END) {
             viewModel.endVisit();
             finish();
             return;
@@ -191,10 +187,11 @@ public class Visit extends BaseActivity {
 
     }
 
+
     public void onBackPressed() {
 
 
-        if(isAborting) {
+        if (isAborting) {
 
             dialogBuilder.setTitle("Abort Visit").setMessage("Do you want to abort visit?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -213,7 +210,7 @@ public class Visit extends BaseActivity {
                         }
                     }).create().show();
 
-        }else if(visitState == VisitState.SESSION || visitState == VisitState.AMEND){
+        } else if (visitState == VisitState.SESSION || visitState == VisitState.AMEND) {
 
             dialogBuilder.setTitle("End Visit").setMessage("Do you want to end visit?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -232,14 +229,10 @@ public class Visit extends BaseActivity {
                         }
                     }).create().show();
 
-        }else
+        } else
             super.onBackPressed();
 
     }
-
-
-
-
 
 
     public void initForms(){
