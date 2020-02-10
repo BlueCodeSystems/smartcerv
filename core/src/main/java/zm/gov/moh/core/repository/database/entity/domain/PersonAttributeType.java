@@ -29,7 +29,7 @@ public class PersonAttributeType {
 
     @ColumnInfo(name = "foreign_key")
     @Json(name = "foreign_key")
-    private long foreignKey;
+    private Long foreignKey;
 
     @ColumnInfo(name = "searchable")
     @Json(name = "searchable")
@@ -111,11 +111,11 @@ public class PersonAttributeType {
         this.format = format;
     }
 
-    public long getForeignKey() {
+    public Long getForeignKey() {
         return foreignKey;
     }
 
-    public void setForeignKey(long foreignKey) {
+    public void setForeignKey(Long foreignKey) {
         this.foreignKey = foreignKey;
     }
 

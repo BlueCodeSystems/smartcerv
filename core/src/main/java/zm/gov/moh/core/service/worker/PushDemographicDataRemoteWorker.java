@@ -25,6 +25,7 @@ import zm.gov.moh.core.repository.database.Migrations;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
@@ -114,6 +115,8 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
     public Patient createPatient(final long patientId, final LocalDateTime lastModified) throws Exception{
 
        Person person = db.personDao().findById(patientId);
+
+       //PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonEntityId(patientId);
        PersonName personName = db.personNameDao().findByPersonId(patientId, lastModified);
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId, lastModified);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);

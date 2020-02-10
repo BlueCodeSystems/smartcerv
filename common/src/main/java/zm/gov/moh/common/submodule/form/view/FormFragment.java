@@ -18,6 +18,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.databinding.DataBindingUtil;
+
+import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.databinding.FragmentFormBinding;
@@ -200,6 +202,7 @@ public class FormFragment extends BaseFragment {
                 }
                 else if(formModel.getAttributes().getFormType().equals(FormType.DEMOGRAPHICS)){
                     intent = new Intent(context, PersistDemographics.class);
+                    this.bundle.putString(Key.PERSON_PHONE_ATTRIBUTE_TYPE_UUID, OpenmrsConfig.PHONE_NUMBER_ATTRIBUTE);
                 }
                 else{
 
