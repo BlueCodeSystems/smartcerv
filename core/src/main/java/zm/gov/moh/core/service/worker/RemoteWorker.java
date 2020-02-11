@@ -20,6 +20,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityType;
 
 public abstract class RemoteWorker extends BaseWorker {
 
+    //TODO: replace hard coded token with dynamically assigned tokens
     protected String accessToken ="";
     protected final int TIMEOUT = 300000;
     protected RestApi restApi;

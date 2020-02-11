@@ -40,6 +40,7 @@ public class PersistDemographics extends PersistService {
         final String dob = mBundle.getString(Key.PERSON_DOB);
         final String gender = mBundle.getString(Key.PERSON_GENDER);
         final String address = mBundle.getString(Key.PERSON_ADDRESS);
+        final String address1 = mBundle.getString(Key.PERSON_ADDRESS1);
         final String phone = mBundle.getString(Key.PERSON_PHONE);
         final Long districtId = mBundle.getLong(Key.PERSON_DISTRICT_LOCATION_ID);
         final Long provinceId = mBundle.getLong(Key.PERSON_PROVINCE_LOCATION_ID);
@@ -76,7 +77,7 @@ public class PersistDemographics extends PersistService {
                 }
 
                 if(personAddress != null){
-                    personAddress.setAddress1(address);
+                    personAddress.setAddress1(address1);
                     personAddress.setCityVillage(districtName);
                     personAddress.setStateProvince(provinceName);
                     personAddress.setDateChanged(now);
