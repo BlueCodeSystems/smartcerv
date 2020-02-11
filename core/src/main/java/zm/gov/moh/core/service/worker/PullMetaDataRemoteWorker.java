@@ -23,7 +23,8 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     @NonNull
     public Result doWork() {
 
-        taskPoolSize = 15;
+        //TODO: Adjust the number of task pool size according to the number tasks invoking onTaskCompleted();
+        taskPoolSize = 17;
 
         if(lastMetadataSyncDate != null)
             MIN_DATETIME = LocalDateTime.parse(lastMetadataSyncDate);
