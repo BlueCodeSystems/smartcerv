@@ -69,14 +69,14 @@ public class PersistDemographics extends PersistService {
                 PersonAddress personAddress = db.personAddressDao().findByPersonId(personId);
                 Person person = db.personDao().findById(personId);
 
-                if(personName != null){
+                if(personName != null && ((!personName.getFamilyName().equals(familyName)) || (!personName.getGivenName().equals(givenName)))){
                     personName.setFamilyName(familyName);
                     personName.setGivenName(givenName);
                     personName.setDateChanged(now);
                     db.personNameDao().insert(personName);
                 }
 
-                if(personAddress != null){
+                if(personAddress != null && ((!personAddress.getAddress1().equals(address1)) || (!personAddress.getCityVillage().equals(districtName)) || (!personAddress.getStateProvince().equals(provinceName)))){
                     personAddress.setAddress1(address1);
                     personAddress.setCityVillage(districtName);
                     personAddress.setStateProvince(provinceName);
@@ -84,7 +84,7 @@ public class PersistDemographics extends PersistService {
                     db.personAddressDao().insert(personAddress);
                 }
 
-                if(person != null){
+                if(person != null && (!person.getBirthDate().equals(dateOfBirth))){
                     person.setBirthDate(dateOfBirth);
                     person.setDateChanged(now);
                     db.personDao().insert(person);

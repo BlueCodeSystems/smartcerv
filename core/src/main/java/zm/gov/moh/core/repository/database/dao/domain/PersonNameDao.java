@@ -42,7 +42,7 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     void insert(List<PersonName> personNames);
 
     //get persons name by getPersons id
-    @Query("SELECT * FROM person_name WHERE person_id = :id AND voided = 0")
+    @Query("SELECT * FROM person_name WHERE person_id = :id AND voided = 0 AND preferred = 1")
     PersonName findByPersonId(long id);
 
     @Query("SELECT * FROM person_name WHERE person_id = :id AND date_changed NOT NULL AND date_changed >= :lastModified AND voided = 0")
