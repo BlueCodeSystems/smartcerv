@@ -16,6 +16,7 @@ public class Key {
     public static final String PERSON_GENDER = "PERSON_GENDER";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
     public static final String PERSON_ADDRESS1 = "PERSON_ADDRESS1";
+
     //Add key for person age
     public static final String PERSON_AGE = "PERSON_AGE";
     public static final String PERSON_PHONE = "PERSON_PHONE";
@@ -33,20 +34,24 @@ public class Key {
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String ACCESS_TOKEN_ENCRYPTED = "ACCESS_TOKEN_ENCRYPTED";
     public static final String LAST_SYNC_DATE = "LAST_SYNC_DATE";
-    public static final String VISIT_LIST= "VISIT_LIST";
-    public static final String VISIT_FORM_LIST= "VISIT_FORM_LIST";
-    public static final String VISIT_METADATA= "VISIT_METADATA";
+    public static final String VISIT_LIST = "VISIT_LIST";
+    public static final String VISIT_FORM_LIST = "VISIT_FORM_LIST";
+    public static final String VISIT_METADATA = "VISIT_METADATA";
     public static final String MODULE = "MODULE";
     public static final String BASE_URL = "BASE_URL";
     public static final String AUTHORIZED_USER_UUID = "AUTHORIZED_USER_UUID";
     public static final String OBS_ID = "OBS_ID";
-    public static final String LAST_LOCATION="last_location";
+    public static final String LAST_LOCATION = "last_location";
     public static final String LAST_DATA_SYNC_DATETIME = "LAST_DATA_SYNC_DATETIME";
     public static final String LAST_METADATA_SYNC_DATETIME = "LAST_METADATA_SYNC_DATETIME";
+    public static final String LAST_SYNC_SUCCESSFUL = "LAST_SYNC_SUCCESSFUL";
     public static final String TIMEZONE_ID = "TIMEZONE_ID";
     public static final String ACTION = "ACTION";
-    public static final String NRC_NUMBER="NRC_NUMBER";
+    public static final String NRC_NUMBER = "NRC_NUMBER";
     public static final String PATIENT_ID = "PATIENT_ID";
     public static final String PATIENT_ID_TYPE = "PATIENT_ID_TYPE";
+    public static final String SHARED_PREFERENCES = "application_shared_prefernce_key";
+    //Synchronization last date
     public static final String THEME_STYLE = "THEME_STYLE";
+
 }

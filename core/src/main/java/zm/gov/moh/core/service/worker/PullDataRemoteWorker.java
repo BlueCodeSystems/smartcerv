@@ -1,6 +1,9 @@
 package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
+import android.icu.util.TimeUnit;
+
+import com.google.common.base.Optional;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -9,6 +12,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
+import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
@@ -25,7 +29,8 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 public class PullDataRemoteWorker extends RemoteWorker {
 
     HashMap<Long,Long> remoteLocalIdentifierMap = new HashMap<>();
-    LocalDateTime localDateTime =  LocalDateTime.parse("1970-01-01T00:00:00");
+    LocalDateTime defaultLocalDateTime =  LocalDateTime.parse("1970-01-01T00:00:00");
+    Optional<LocalDateTime> localDateTime;
 
     public PullDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
@@ -38,29 +43,50 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
         taskPoolSize = 8;
 
-        if(lastDataSyncDate != null)
-            MIN_DATETIME = LocalDateTime.parse(lastDataSyncDate);
+            MIN_DATETIME = localDateTime.fromNullable(db.patientIdentifierDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
+            getPatientId(accessToken, locationId, MIN_DATETIME, OFFSET, LIMIT);
 
-            getPatientId(accessToken,locationId, localDateTime,OFFSET, LIMIT);
-
-            getPatient(accessToken,locationId, localDateTime,OFFSET, LIMIT);
+            MIN_DATETIME = localDateTime.fromNullable(db.patientDao().getMaxDatetime(locationId, Constant.LOCAL_ENTITY_ID_OFFSET)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
+            getPatient(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //obs
+            MIN_DATETIME = localDateTime.fromNullable(db.obsDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getObs(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //visit
+            MIN_DATETIME = localDateTime.fromNullable(db.visitDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getVisit(accessToken,locationId, MIN_DATETIME, OFFSET,LIMIT);
 
             //encounter
+            MIN_DATETIME = localDateTime.fromNullable(db.encounterDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getEncounter(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person
+            MIN_DATETIME = localDateTime.fromNullable(db.personDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPersons(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person name
+            MIN_DATETIME = localDateTime.fromNullable(db.personNameDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPersonNames(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
             //person address
+            MIN_DATETIME = localDateTime.fromNullable(db.personAddressDao().getMaxDatetime(locationId)).or(defaultLocalDateTime);
+            if(!lastSynchronizationStatus)
+                MIN_DATETIME = MIN_DATETIME.minusSeconds(1);
             getPersonAddress(accessToken,locationId, MIN_DATETIME,OFFSET, LIMIT);
 
         return awaitResult();
@@ -107,6 +133,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                         //db.personIdentifierDao().insert(personIdentifiers);
 
                         db.patientIdentifierDao().insert(patientIdentifierEntities);
+
                         getPatientId(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
                         onTaskCompleted();
@@ -124,7 +151,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     if(obs.length > 0){
 
                         for(ObsEntity obsEntity : obs)
-                            if(db.obsDao().findByObsDatetime(obsEntity.getObsDateTime()).length == 0)
+                            if(db.obsDao().findByObsDatetime(obsEntity.getObsDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), obsEntity.getLocationId()).length == 0)
                                 db.obsDao().insert(obs);
 
                         updateMetadata(obs, EntityType.OBS);
@@ -140,6 +167,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
 
     public void getVisit(String accessToken,long locationId,LocalDateTime MIN_DATETIME,final long offset, int limit){
 
+        List<VisitEntity> l = db.visitDao().getAll();
         ConcurrencyUtils.consumeAsync(
 
                 visitEntities -> {
@@ -147,7 +175,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     if(visitEntities.length > 0){
 
                         for(VisitEntity visitEntity : visitEntities)
-                            if(db.visitDao().getByDatetime(visitEntity.getDateStarted()).length == 0)
+                            if (db.visitDao().getByDatetime(visitEntity.getDateStarted().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), visitEntity.getLocationId()).length == 0)
                                 db.visitDao().insert(visitEntities);
 
                         updateMetadata(visitEntities, EntityType.VISIT);
@@ -170,7 +198,7 @@ public class PullDataRemoteWorker extends RemoteWorker {
                     if(encounterEntities.length > 0){
 
                         for(EncounterEntity encounterEntity : encounterEntities)
-                            if(db.encounterDao().getByDatetime(encounterEntity.getEncounterDatetime()).length == 0)
+                            if(db.encounterDao().getByDatetime(encounterEntity.getEncounterDatetime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), encounterEntity.getLocationId()).length == 0)
                                 db.encounterDao().insert(encounterEntities);
 
                         updateMetadata(encounterEntities, EntityType.ENCOUNTER);
@@ -197,8 +225,12 @@ public class PullDataRemoteWorker extends RemoteWorker {
                             PersonIdentifier personIdentifier = db.personIdentifierDao().getByPersonId(person.getPersonId());
                             if(remoteLocalIdentifierMap.keySet().contains(person.getPersonId())) {
 
-                                Person person1 = db.personDao().findById(remoteLocalIdentifierMap.get(person.getPersonId()));
-                                person.setPersonId(person1.getPersonId());
+                                Person personLocal = db.personDao().findById(remoteLocalIdentifierMap.get(person.getPersonId()));
+
+                                person.setPersonId(personLocal.getPersonId());
+
+                                if((personLocal.getVoided() != null) && personLocal.getVoided() == 1)
+                                    person.setVoided(personLocal.getVoided());
                             }
 
                             if(personIdentifier != null) {
@@ -208,13 +240,13 @@ public class PullDataRemoteWorker extends RemoteWorker {
                             db.personDao().insert(person);
                         }
                         updateMetadata(persons, EntityType.PERSON);
-                        getPersons(accessToken,locationId,localDateTime,offset + limit,limit);
+                        getPersons(accessToken,locationId,MIN_DATETIME,offset + limit,limit);
                     }else
                         onTaskCompleted();
 
                 }, //consumer
                 this::onError,
-                repository.getRestApi().getPersons(accessToken,locationId,localDateTime,offset,limit), //producer
+                repository.getRestApi().getPersons(accessToken,locationId,MIN_DATETIME,offset,limit), //producer
                 TIMEOUT);
     }
 

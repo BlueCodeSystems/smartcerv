@@ -25,6 +25,7 @@ public abstract class RemoteWorker extends BaseWorker {
     protected RestApi restApi;
     protected long workerTimeout = 600000;
     protected int taskPoolSize = 0;
+    protected boolean lastSynchronizationStatus;
 
     long locationId;
     protected final int LIMIT = 100;
@@ -37,6 +38,8 @@ public abstract class RemoteWorker extends BaseWorker {
     public RemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
         AndroidThreeTen.init(context);
+        lastSynchronizationStatus = repository.getDefaultSharePrefrences().getBoolean(Key.LAST_SYNC_SUCCESSFUL, true);
+
         String minDate = MIN_DATETIME.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
         lastDataSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_DATA_SYNC_DATETIME,minDate);
