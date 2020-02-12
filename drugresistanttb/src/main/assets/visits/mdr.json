@@ -1,4 +1,4 @@
 {
-  "visitTypes":["217fd086-8dc6-4ac8-8593-67cd9e86c9f8", "5049444d-1c09-43b2-b910-46805c63f762"],
-  "forms":["bacteriological_examination", "mdr_monthly_review_form", "mdr_baseline_followup_assessment"]
+  "visitTypes":["217fd086-8dc6-4ac8-8593-67cd9e86c9f8", "5049444d-1c09-43b2-b910-46805c63f762", "d50642f6-c9b6-43cd-a293-30f09989532d"],
+  "forms":["bacteriological_examination", "mdr_monthly_review_form", "mdr_baseline_followup_assessment", "drug_resistant_tb_treatment_card"]
 }
