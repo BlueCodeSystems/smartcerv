@@ -13,6 +13,10 @@ import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 @Dao
 public interface EncounterDao extends Synchronizable<EncounterEntity> {
 
+
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM encounter WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
+    LocalDateTime getMaxDatetime(long locationId);
+
     @Query("SELECT encounter_id FROM encounter")
     List<Long> getIds();
 
@@ -25,8 +29,8 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     @Query("DELETE FROM encounter WHERE encounter_id IN (:encounterId) AND encounter_id >= :offset")
     void deleteById(long[] encounterId, long offset);
 
-    @Query("SELECT encounter_id FROM encounter WHERE datetime(encounter_datetime) = datetime(:dateTime)")
-    Long[] getByDatetime(LocalDateTime dateTime);
+    @Query("SELECT encounter_id FROM encounter WHERE strftime('%s',encounter_datetime) = strftime('%s',:dateTime) AND location_id = :locationId")
+    Long[] getByDatetime(String dateTime, long locationId);
 
     @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId) AND voided != 1")
     List<EncounterEntity> getByVisitId(List<Long> visitId);

@@ -11,6 +11,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.List;
 
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
@@ -49,6 +50,13 @@ public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
         setViewModel(registerViewModel);
+
+        binding.setTitle("Client Register");
+        initToolBar(binding.getRoot());
+
+
+        RecyclerView clientRecyclerView = findViewById(R.id.client_list);
+
 
         statsViewModel = ViewModelProviders.of(this).get(StatsViewModel.class);
 

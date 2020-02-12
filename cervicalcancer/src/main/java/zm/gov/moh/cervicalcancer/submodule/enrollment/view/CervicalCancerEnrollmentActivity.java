@@ -14,6 +14,7 @@ import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 
@@ -82,8 +83,15 @@ public class CervicalCancerEnrollmentActivity extends BaseActivity {
 
                 }
                 });
-            viewModel.getActionEmitter().observe(this,this::notifyCompleteAction );
+        viewModel.getActionEmitter().observe(this,this::notifyCompleteAction );
 
+        getViewModel().getRepository().getDatabase().personAttributeDao().findByPersonIdObservable(personId)
+                .observe(this, personAttributeEntity -> {
+                    if (personAttributeEntity != null)
+                        bundle.putString(Key.PERSON_PHONE, personAttributeEntity.getValue());
+                    else
+                        bundle.putString(Key.PERSON_PHONE, "No telephone Number");
+                });
     }
 
     public void notifyCompleteAction(String actionName){

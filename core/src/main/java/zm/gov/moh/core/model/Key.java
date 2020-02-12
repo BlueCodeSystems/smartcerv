@@ -16,6 +16,7 @@ public class Key {
     public static final String PERSON_GENDER = "PERSON_GENDER";
     public static final String PERSON_ADDRESS = "PERSON_ADDRESS";
     public static final String PERSON_ADDRESS1 = "PERSON_ADDRESS1";
+
     //Add key for person age
     public static final String PERSON_AGE = "PERSON_AGE";
     public static final String PERSON_PHONE = "PERSON_PHONE";
@@ -43,12 +44,15 @@ public class Key {
     public static final String LAST_LOCATION="last_location";
     public static final String LAST_DATA_SYNC_DATETIME = "LAST_DATA_SYNC_DATETIME";
     public static final String LAST_METADATA_SYNC_DATETIME = "LAST_METADATA_SYNC_DATETIME";
+    public static final String LAST_SYNC_SUCCESSFUL = "LAST_SYNC_SUCCESSFUL";
     public static final String TIMEZONE_ID = "TIMEZONE_ID";
+    public static final String PERSON_PHONE_ATTRIBUTE_TYPE_UUID = "PERSON_PHONE_ATTRIBUTE_TYPE_UUID";
     public static final String ACTION = "ACTION";
     public static final String NRC_NUMBER="NRC_NUMBER";
     public static final String PATIENT_ID = "PATIENT_ID";
     public static final String PATIENT_ID_TYPE = "PATIENT_ID_TYPE";
     public static final String MIDDLE_NAME="MIDDLE_NAME";
+    public static final String SHARED_PREFERENCES = "application_shared_prefernce_key";
 
-
+    //Synchronization last date
 }

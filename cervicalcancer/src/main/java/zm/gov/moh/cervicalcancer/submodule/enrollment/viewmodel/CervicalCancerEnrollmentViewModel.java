@@ -82,15 +82,15 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
             }else {
 
                 //Void previous identifier
-                patientIdentifier.setVoided((short)1);
-                getRepository().getDatabase().patientIdentifierDao().insert(patientIdentifier);
+                //patientIdentifier.setVoided((short)1);
+                //getRepository().getDatabase().patientIdentifierDao().insert(patientIdentifier);
 
                 //Mutate previous identifier instance and insert it with a new PK
-                patientIdentifier.setVoided((short)0);
+                //patientIdentifier.setVoided((short)0);
                 patientIdentifier.setIdentifier(identifier);
                 patientIdentifier.setDateCreated(LocalDateTime.now());
                 patientIdentifier.setDateChanged(LocalDateTime.now());
-                patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
+                //patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
             }
 
             //persist database entity instances asynchronously into the database
@@ -101,13 +101,19 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
     }
 
     public void editClient(Bundle bundle){
+
         this.enrollClient(bundle);
-        long  patientId = bundle.getLong(Key.PERSON_ID);
+        Long  patientId = bundle.getLong(Key.PERSON_ID);
         Person person = getRepository().getDatabase().personDao().findById(patientId);
 
         if(person != null){
             db.personDao().updateNRCNumberBydID(patientId,bundle.getString(Key.NRC_NUMBER),LocalDateTime.now());
         }
+
+        getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
+
+        if(patientId == null)
+             return;
 
         EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(patientId);
         if(entityMetadata == null)
@@ -117,9 +123,6 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());
 
         db.entityMetadataDao().insert(entityMetadata);
-
-        Long[] editEntityId = db.entityMetadataDao().findByStatus(RemoteWorker.Status.NOT_PUSHED.getCode());
-        getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
     }
 
 

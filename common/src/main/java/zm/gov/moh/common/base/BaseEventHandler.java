@@ -64,6 +64,7 @@ public class BaseEventHandler implements View.OnLongClickListener {
 
 
         workManager = WorkManager.getInstance(context);
+        workManager.cancelAllWork();
         OneTimeWorkRequest workRequestPullIdData = new OneTimeWorkRequest.Builder(PullPatientIDRemoteWorker.class).build();
         OneTimeWorkRequest workRequestData = new OneTimeWorkRequest.Builder(PullDataRemoteWorker.class).build();
         OneTimeWorkRequest workRequestMetadata = new OneTimeWorkRequest.Builder(PullMetaDataRemoteWorker.class).build();
