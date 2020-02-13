@@ -5,18 +5,25 @@
     <application
         android:name=".ApplicationContext"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".BootstrapActivity">
+        android:supportsRtl="true" android:theme="@style/AppTheme">
+        <activity android:name=".BootstrapActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".view.HomeActivity" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c979d245cf19ca4595030fee182eb6f9150f7878" />
     </application>
+    <supports-screens android:smallScreens="false"
+        android:normalScreens="false"
+        android:largeScreens="true"
+        android:xlargeScreens="true"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

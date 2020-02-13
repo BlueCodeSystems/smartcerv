@@ -9,10 +9,10 @@ import android.widget.Button;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import zm.gov.moh.common.ModuleConfig;
+import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentClientDashboardVitalsBinding;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,26 +44,27 @@ public class ClientDashboardVitalsFragment extends Fragment {
 
         context.getViewModel().getRepository().getDatabase().genericDao()
 
-                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_HEIGHT).observe(this, obs -> binding.setHeight((obs == null )? 0 : obs.value_numeric));
+                .getPatientObsValueByConceptId(clientId, OpenmrsConfig.CONCEPT_UUID_HEIGHT).observe(this, obs -> binding.setHeight((obs == null )? 0 : obs.getValueNumeric()));
 
         context.getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_WEIGHT).observe(this, obs -> binding.setWeight((obs == null )? 0 : obs.value_numeric));
+                .getPatientObsValueByConceptId(clientId, OpenmrsConfig.CONCEPT_UUID_WEIGHT).observe(this, obs -> binding.setWeight((obs == null )? 0 : obs.getValueNumeric()));
 
 
         context.getViewModel().getRepository().getDatabase().genericDao()
-                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_TEMPERATURE).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.value_numeric));;
+                .getPatientObsValueByConceptId(clientId, OpenmrsConfig.CONCEPT_UUID_TEMPERATURE).observe(this, obs -> binding.setTemperature((obs == null )? 0 : obs.getValueNumeric()));;
 
-        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_PULSE).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.value_numeric));
+
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,OpenmrsConfig.CONCEPT_UUID_PULSE).observe(this, obs -> binding.setPulse((obs == null )? 0 : obs.getValueNumeric()));
 
         context.getViewModel().getRepository().getDatabase().genericDao()
 
-                .getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null )? 0 : obs.value_numeric));
+                .getPatientObsValueByConceptId(clientId, OpenmrsConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureSysbolic((obs == null )? 0 : obs.getValueNumeric()));
 
-        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, OpenmrsConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE).observe(this, obs -> binding.setBloodPressureDiabolic((obs == null )? 0 : obs.getValueNumeric()));
 
-        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,ModuleConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId,OpenmrsConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION).observe(this, obs -> binding.setBloodOxygen((obs == null )? 0 : obs.getValueNumeric()));
 
-        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, ModuleConfig.CONCEPT_UUID_RESPIRATORY_RATE).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.value_numeric));
+        context.getViewModel().getRepository().getDatabase().genericDao().getPatientObsValueByConceptId(clientId, OpenmrsConfig.CONCEPT_UUID_RESPIRATORY_RATE).observe(this, obs -> binding.setRespiration((obs == null )? 0 : obs.getValueNumeric()));
 
 
         return view;

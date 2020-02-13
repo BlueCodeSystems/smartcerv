@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <variable name="module" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
         <variable name="metrics" type="java.util.Map"/>
     </data>

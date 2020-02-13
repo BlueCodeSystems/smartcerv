@@ -1,0 +1,3502 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "f9d71422ee7735a6d75e797b888f0695",
+    "entities": [
+      {
+        "tableName": "Person",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_id` INTEGER NOT NULL, `gender` TEXT, `birthdate` TEXT, `birthdate_estimated` INTEGER NOT NULL, `dead` INTEGER NOT NULL, `death_date` TEXT, `cause_of_death` INTEGER, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, `deathdate_estimated` INTEGER NOT NULL, `birthtime` TEXT, PRIMARY KEY(`person_id`))",
+        "fields": [
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "birthDate",
+            "columnName": "birthdate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "birthdateEstimated",
+            "columnName": "birthdate_estimated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dead",
+            "columnName": "dead",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deathDate",
+            "columnName": "death_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "causeOfDeath",
+            "columnName": "cause_of_death",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "deathdateEstimated",
+            "columnName": "deathdate_estimated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "birthTime",
+            "columnName": "birthtime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "person_address",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_address_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `person_id` INTEGER NOT NULL, `preferred` INTEGER NOT NULL, `address1` TEXT, `address2` TEXT, `address3` TEXT, `address4` TEXT, `address5` TEXT, `address6` TEXT, `address7` TEXT, `address8` TEXT, `address9` TEXT, `address10` TEXT, `address11` TEXT, `address12` TEXT, `address13` TEXT, `address14` TEXT, `address15` TEXT, `city_village` TEXT, `state_province` TEXT, `postal_code` TEXT, `country` TEXT, `latitude` TEXT, `longitude` TEXT, `start_date` TEXT, `end_date` TEXT, `creator` INTEGER, `date_created` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `country_district` TEXT, `date_changed` TEXT, `changed_by` INTEGER, `uuid` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "personAddressId",
+            "columnName": "person_address_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preferred",
+            "columnName": "preferred",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address1",
+            "columnName": "address1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address2",
+            "columnName": "address2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address3",
+            "columnName": "address3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address4",
+            "columnName": "address4",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address5",
+            "columnName": "address5",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address6",
+            "columnName": "address6",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address7",
+            "columnName": "address7",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address8",
+            "columnName": "address8",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address9",
+            "columnName": "address9",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address10",
+            "columnName": "address10",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address11",
+            "columnName": "address11",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address12",
+            "columnName": "address12",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address13",
+            "columnName": "address13",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address14",
+            "columnName": "address14",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address15",
+            "columnName": "address15",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cityVillage",
+            "columnName": "city_village",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stateProvince",
+            "columnName": "state_province",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "postalCode",
+            "columnName": "postal_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "startDate",
+            "columnName": "start_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "endDate",
+            "columnName": "end_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countryDistrict",
+            "columnName": "country_district",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_address_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "person_attribute",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_attribute_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `value` TEXT, `person_attribute_type_id` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`person_attribute_id`))",
+        "fields": [
+          {
+            "fieldPath": "personAttributeId",
+            "columnName": "person_attribute_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "personAttributeTypeId",
+            "columnName": "person_attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_attribute_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "person_attribute_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_attribute_type_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `format` TEXT, `foreign_key` INTEGER NOT NULL, `searchable` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `edit_privilege` TEXT, `sort_weight` REAL NOT NULL, `uuid` TEXT, PRIMARY KEY(`person_attribute_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "personAttributeTypeId",
+            "columnName": "person_attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "format",
+            "columnName": "format",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "foreignKey",
+            "columnName": "foreign_key",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "searchable",
+            "columnName": "searchable",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "editPrivilege",
+            "columnName": "edit_privilege",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sortWeight",
+            "columnName": "sort_weight",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_attribute_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "person_name",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_name_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `preferred` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `prefix` TEXT, `given_name` TEXT, `middle_name` TEXT, `family_name_prefix` TEXT, `family_name` TEXT, `family_name2` TEXT, `family_name_suffix` TEXT, `degree` TEXT, `creator` INTEGER NOT NULL, `date_created` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `uuid` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "personNameId",
+            "columnName": "person_name_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preferred",
+            "columnName": "preferred",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prefix",
+            "columnName": "prefix",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "givenName",
+            "columnName": "given_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "middleName",
+            "columnName": "middle_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "familyNamePrefix",
+            "columnName": "family_name_prefix",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "familyName",
+            "columnName": "family_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "familyName2",
+            "columnName": "family_name2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "familyNameSuffix",
+            "columnName": "family_name_suffix",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "degree",
+            "columnName": "degree",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_name_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "patient",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`patient_id` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `allergy_status` TEXT, PRIMARY KEY(`patient_id`))",
+        "fields": [
+          {
+            "fieldPath": "patientId",
+            "columnName": "patient_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "allergyStatus",
+            "columnName": "allergy_status",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "patient_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "patient_identifier",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`patient_identifier_id` INTEGER NOT NULL, `patient_id` INTEGER NOT NULL, `identifier` TEXT, `identifier_type` INTEGER NOT NULL, `preferred` INTEGER NOT NULL, `location_id` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `date_changed` TEXT, `changed_by` INTEGER, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_void` TEXT, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`patient_identifier_id`))",
+        "fields": [
+          {
+            "fieldPath": "patientIdentifierId",
+            "columnName": "patient_identifier_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "patientId",
+            "columnName": "patient_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "identifier",
+            "columnName": "identifier",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "identifierType",
+            "columnName": "identifier_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "preferred",
+            "columnName": "preferred",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoid",
+            "columnName": "date_void",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "patient_identifier_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "patient_identifier_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`patient_identifier_type_id` INTEGER, `name` TEXT, `description` TEXT, `format` TEXT, `check_digit` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `required` INTEGER NOT NULL, `format_description` TEXT, `validator` TEXT, `location_behavior` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retired_reason` TEXT, `uuid` TEXT, `uniqueness_behavior` TEXT, `date_changed` TEXT, `changed_by` INTEGER, PRIMARY KEY(`patient_identifier_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "patientIdentifierTypeId",
+            "columnName": "patient_identifier_type_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "format",
+            "columnName": "format",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "checkDigit",
+            "columnName": "check_digit",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "required",
+            "columnName": "required",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formatDescription",
+            "columnName": "format_description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "validator",
+            "columnName": "validator",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationBehavior",
+            "columnName": "location_behavior",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retiredReason",
+            "columnName": "retired_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uniquenessBehavior",
+            "columnName": "uniqueness_behavior",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "patient_identifier_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Location",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`location_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `city_village` TEXT, `state_province` TEXT, `postal_code` TEXT, `country` TEXT, `latitude` TEXT, `longitude` TEXT, `creator` INTEGER NOT NULL, `date_created` TEXT, `county_district` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `parent_location` INTEGER, `uuid` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `address1` TEXT, `address2` TEXT, `address3` TEXT, `address4` TEXT, `address5` TEXT, `address6` TEXT, `address7` TEXT, `address8` TEXT, `address9` TEXT, `address10` TEXT, `address11` TEXT, `address12` TEXT, `address13` TEXT, `address14` TEXT, `address15` TEXT, PRIMARY KEY(`location_id`))",
+        "fields": [
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cityVillage",
+            "columnName": "city_village",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "stateProvince",
+            "columnName": "state_province",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "postalCode",
+            "columnName": "postal_code",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "countyDistrict",
+            "columnName": "county_district",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parentLocation",
+            "columnName": "parent_location",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address1",
+            "columnName": "address1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address2",
+            "columnName": "address2",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address3",
+            "columnName": "address3",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address4",
+            "columnName": "address4",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address5",
+            "columnName": "address5",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address6",
+            "columnName": "address6",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address7",
+            "columnName": "address7",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address8",
+            "columnName": "address8",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address9",
+            "columnName": "address9",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address10",
+            "columnName": "address10",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address11",
+            "columnName": "address11",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address12",
+            "columnName": "address12",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address13",
+            "columnName": "address13",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address14",
+            "columnName": "address14",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "address15",
+            "columnName": "address15",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "location_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "location_tag",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`location_tag_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `creator` INTEGER, `date_created` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `uuid` TEXT, `changed_by` INTEGER, `date_changed` TEXT, PRIMARY KEY(`location_tag_id`))",
+        "fields": [
+          {
+            "fieldPath": "locationTagId",
+            "columnName": "location_tag_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "location_tag_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "location_tag_map",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`location_id` INTEGER NOT NULL, `location_tag_id` INTEGER NOT NULL, PRIMARY KEY(`location_id`))",
+        "fields": [
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationTagId",
+            "columnName": "location_tag_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "location_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "location_attribute",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`location_attribute_id` INTEGER, `location_id` INTEGER, `attribute_type_id` INTEGER, `value_reference` TEXT, `uuid` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, PRIMARY KEY(`location_attribute_id`))",
+        "fields": [
+          {
+            "fieldPath": "locationAttributeId",
+            "columnName": "location_attribute_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attributeTypeId",
+            "columnName": "attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueReference",
+            "columnName": "value_reference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "location_attribute_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "location_attribute_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`location_attribute_type_id` INTEGER, `name` TEXT, `description` TEXT, `datatype` TEXT, `datatype_config` TEXT, `preferred_handler` TEXT, `handler_config` TEXT, `min_occurs` INTEGER, `max_occurs` INTEGER, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retired_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`location_attribute_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "locationAttributeTypeId",
+            "columnName": "location_attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "datatype",
+            "columnName": "datatype",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "datatypeConfig",
+            "columnName": "datatype_config",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "preferredHandler",
+            "columnName": "preferred_handler",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handlerConfig",
+            "columnName": "handler_config",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minOccurs",
+            "columnName": "min_occurs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxOccurs",
+            "columnName": "max_occurs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retiredReason",
+            "columnName": "retired_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "location_attribute_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Provider",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`provider_id` INTEGER, `person_id` INTEGER, `name` TEXT, `identifier` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retired_reason` TEXT, `uuid` TEXT, `provider_role_id` INTEGER, PRIMARY KEY(`provider_id`))",
+        "fields": [
+          {
+            "fieldPath": "providerId",
+            "columnName": "provider_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "identifier",
+            "columnName": "identifier",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retiredReason",
+            "columnName": "retired_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "providerRoleId",
+            "columnName": "provider_role_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "provider_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "provider_attribute",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`provider_attribute_id` INTEGER NOT NULL, `provider_id` INTEGER NOT NULL, `attribute_type_id` INTEGER, `value_reference` TEXT, `uuid` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, PRIMARY KEY(`provider_attribute_id`))",
+        "fields": [
+          {
+            "fieldPath": "providerAttributeId",
+            "columnName": "provider_attribute_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "providerId",
+            "columnName": "provider_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attributeTypeId",
+            "columnName": "attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueReference",
+            "columnName": "value_reference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "provider_attribute_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "provider_attribute_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`provider_attribute_type_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `datatype` TEXT, `datatype_config` TEXT, `preferred_handler` TEXT, `handler_config` TEXT, `min_occurs` INTEGER, `max_occurs` INTEGER, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`provider_attribute_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "providerAttributeTypeId",
+            "columnName": "provider_attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataType",
+            "columnName": "datatype",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataTypeConfig",
+            "columnName": "datatype_config",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "preferredHandler",
+            "columnName": "preferred_handler",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handlerConfig",
+            "columnName": "handler_config",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minOccurs",
+            "columnName": "min_occurs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maxOccurs",
+            "columnName": "max_occurs",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "provider_attribute_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER, `system_id` TEXT, `username` TEXT, `secret_question` TEXT, `secret_answer` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `person_id` INTEGER, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retired_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`user_id`))",
+        "fields": [
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "systemId",
+            "columnName": "system_id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "userName",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "secretQuestion",
+            "columnName": "secret_question",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "secretAnswer",
+            "columnName": "secret_answer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retiredReason",
+            "columnName": "retired_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "user_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "obs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`obs_id` INTEGER NOT NULL, `person_id` INTEGER NOT NULL, `concept_id` INTEGER NOT NULL, `encounter_id` INTEGER, `order_id` INTEGER, `obs_datetime` TEXT, `location_id` INTEGER, `obs_group_id` INTEGER, `accession_number` TEXT, `value_group_id` INTEGER, `value_coded` INTEGER, `value_coded_name_id` INTEGER, `value_drug` INTEGER, `value_datetime` TEXT, `value_numeric` REAL, `value_modifier` TEXT, `value_text` TEXT, `value_complex` TEXT, `comments` TEXT, `creator` INTEGER NOT NULL, `date_created` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, `previous_version` INTEGER, `form_namespace_and_path` TEXT, `status` TEXT, `interpretation` TEXT, PRIMARY KEY(`obs_id`))",
+        "fields": [
+          {
+            "fieldPath": "obsId",
+            "columnName": "obs_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "conceptId",
+            "columnName": "concept_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "encounterId",
+            "columnName": "encounter_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "orderId",
+            "columnName": "order_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "obsDateTime",
+            "columnName": "obs_datetime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "obsGroupId",
+            "columnName": "obs_group_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accessionNumber",
+            "columnName": "accession_number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueGroupId",
+            "columnName": "value_group_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueCoded",
+            "columnName": "value_coded",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueCodedNameId",
+            "columnName": "value_coded_name_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueDrug",
+            "columnName": "value_drug",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueDateTime",
+            "columnName": "value_datetime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueNumeric",
+            "columnName": "value_numeric",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueModifier",
+            "columnName": "value_modifier",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueText",
+            "columnName": "value_text",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "valueComplex",
+            "columnName": "value_complex",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "comments",
+            "columnName": "comments",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "previousVersion",
+            "columnName": "previous_version",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "formNamespaceAndPath",
+            "columnName": "form_namespace_and_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "interpretation",
+            "columnName": "interpretation",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "obs_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "encounter",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`encounter_id` INTEGER NOT NULL, `encounter_type` INTEGER NOT NULL, `patient_id` INTEGER NOT NULL, `location_id` INTEGER NOT NULL, `form_id` INTEGER, `encounter_datetime` TEXT, `creator` INTEGER, `date_created` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `visit_id` INTEGER, `uuid` TEXT, PRIMARY KEY(`encounter_id`))",
+        "fields": [
+          {
+            "fieldPath": "encounterId",
+            "columnName": "encounter_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "encounterType",
+            "columnName": "encounter_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "patientId",
+            "columnName": "patient_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formId",
+            "columnName": "form_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "encounterDatetime",
+            "columnName": "encounter_datetime",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "visitId",
+            "columnName": "visit_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "encounter_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "encounter_provider",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`encounter_provider_id` INTEGER NOT NULL, `encounter_id` INTEGER NOT NULL, `provider_id` INTEGER NOT NULL, `encounter_role_id` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `date_voided` TEXT, `voided_by` INTEGER, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`encounter_provider_id`))",
+        "fields": [
+          {
+            "fieldPath": "encounterProviderId",
+            "columnName": "encounter_provider_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "encounterId",
+            "columnName": "encounter_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "providerId",
+            "columnName": "provider_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "encounterRoleId",
+            "columnName": "encounter_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_created",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changed_by",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_changed",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_voided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided_by",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "void_reason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "encounter_provider_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "encounter_role",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`encounter_role_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `dateRetired` TEXT, `retire_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`encounter_role_id`))",
+        "fields": [
+          {
+            "fieldPath": "encounterRoleId",
+            "columnName": "encounter_role_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "dateRetired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "encounter_role_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "encounter_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`encounter_type_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `creator` INTEGER, `date_created` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `uuid` TEXT, `edit_privilege` TEXT, `view_privilege` TEXT, `changed_by` INTEGER, `date_changed` TEXT, PRIMARY KEY(`encounter_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "encounterTypeId",
+            "columnName": "encounter_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "editPrivilege",
+            "columnName": "edit_privilege",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "viewPrivilege",
+            "columnName": "view_privilege",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "encounter_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "visit",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`visit_id` INTEGER, `patient_id` INTEGER NOT NULL, `visit_type_id` INTEGER NOT NULL, `date_started` TEXT, `date_stopped` TEXT, `indication_concept_id` INTEGER, `location_id` INTEGER, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`visit_id`))",
+        "fields": [
+          {
+            "fieldPath": "visitId",
+            "columnName": "visit_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "patientId",
+            "columnName": "patient_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visitTypeId",
+            "columnName": "visit_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateStarted",
+            "columnName": "date_started",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateStopped",
+            "columnName": "date_stopped",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "indicationConceptId",
+            "columnName": "indication_concept_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "location_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "visit_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "visit_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`visit_type_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`visit_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "visitTypeId",
+            "columnName": "visit_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "visit_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "visit_attribute",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`visit_attribute_id` INTEGER NOT NULL, `visit_id` INTEGER NOT NULL, `attribute_type_id` INTEGER NOT NULL, `value_reference` TEXT, `uuid` TEXT, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, PRIMARY KEY(`visit_attribute_id`))",
+        "fields": [
+          {
+            "fieldPath": "visitAttributeId",
+            "columnName": "visit_attribute_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visitId",
+            "columnName": "visit_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attributeTypeId",
+            "columnName": "attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valueReference",
+            "columnName": "value_reference",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "visit_attribute_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "visit_attribute_type",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`visit_attribute_type_id` INTEGER NOT NULL, `name` TEXT, `description` TEXT, `datatype` TEXT, `datatype_config` TEXT, `preferred_handler` TEXT, `handler_config` TEXT, `min_occurs` INTEGER NOT NULL, `max_occurs` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired` INTEGER NOT NULL, `retired_by` INTEGER, `date_retired` TEXT, `retire_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`visit_attribute_type_id`))",
+        "fields": [
+          {
+            "fieldPath": "visitAttributeTypeId",
+            "columnName": "visit_attribute_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataType",
+            "columnName": "datatype",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataTypeConfig",
+            "columnName": "datatype_config",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "preferredHandler",
+            "columnName": "preferred_handler",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "handlerConfig",
+            "columnName": "handler_config",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minOccurs",
+            "columnName": "min_occurs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "maxOccurs",
+            "columnName": "max_occurs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retireReason",
+            "columnName": "retire_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "visit_attribute_type_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [],
+        "tableName": "client_name_fts",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`name` TEXT, `id` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "rowId",
+            "columnName": "rowid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "rowid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "concept_name",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`concept_name_id` INTEGER NOT NULL, `concept_id` INTEGER NOT NULL, `name` TEXT, `locale` TEXT, `locale_preferred` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `concept_name_type` TEXT, `voided` INTEGER NOT NULL, `voided_by` INTEGER, `date_voided` TEXT, `void_reason` TEXT, `uuid` TEXT, `date_changed` TEXT, `changed_by` INTEGER, PRIMARY KEY(`concept_name_id`))",
+        "fields": [
+          {
+            "fieldPath": "conceptNameId",
+            "columnName": "concept_name_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "conceptId",
+            "columnName": "concept_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "locale",
+            "columnName": "locale",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localePreferred",
+            "columnName": "locale_preferred",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "conceptNameType",
+            "columnName": "concept_name_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voided",
+            "columnName": "voided",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voidedBy",
+            "columnName": "voided_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateVoided",
+            "columnName": "date_voided",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "voidReason",
+            "columnName": "void_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "concept_name_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "concept_answer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`concept_answer_id` INTEGER NOT NULL, `concept_id` INTEGER NOT NULL, `answer_concept` INTEGER NOT NULL, `answer_drug` INTEGER, `creator` INTEGER, `date_created` TEXT, `sort_weight` REAL, `uuid` TEXT, PRIMARY KEY(`concept_answer_id`))",
+        "fields": [
+          {
+            "fieldPath": "conceptAnswerId",
+            "columnName": "concept_answer_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "conceptId",
+            "columnName": "concept_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerConcept",
+            "columnName": "answer_concept",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "answerDrug",
+            "columnName": "answer_drug",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sortWeight",
+            "columnName": "sort_weight",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "concept_answer_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Concept",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`concept_id` INTEGER NOT NULL, `retired` INTEGER NOT NULL, `short_name` TEXT, `description` TEXT, `form_text` TEXT, `datatype_id` INTEGER, `class_id` INTEGER, `is_set` INTEGER NOT NULL, `creator` INTEGER, `date_created` TEXT, `version` TEXT, `changed_by` INTEGER, `date_changed` TEXT, `retired_by` INTEGER, `date_retired` TEXT, `retired_reason` TEXT, `uuid` TEXT, PRIMARY KEY(`concept_id`))",
+        "fields": [
+          {
+            "fieldPath": "conceptId",
+            "columnName": "concept_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shortName",
+            "columnName": "short_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "formText",
+            "columnName": "form_text",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "datatypeId",
+            "columnName": "datatype_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "classId",
+            "columnName": "class_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isSet",
+            "columnName": "is_set",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateCreated",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changedBy",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateChanged",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retiredBy",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dateRetired",
+            "columnName": "date_retired",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retiredReason",
+            "columnName": "retired_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "concept_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "entity_metadata",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `entity_id` INTEGER NOT NULL, `entity_type_id` INTEGER NOT NULL, `remote_status_code` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entityId",
+            "columnName": "entity_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "entityTypeId",
+            "columnName": "entity_type_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remoteStatusCode",
+            "columnName": "remote_status_code",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "drug",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`drug_id` INTEGER NOT NULL, `concept_id` INTEGER NOT NULL, `name` TEXT, `combination` INTEGER, `dosage_form` INTEGER, `maximum_daily_dosage` REAL, `minimum_daily_dosage` REAL, `route` INTEGER, `creator` INTEGER, `date_created` TEXT, `retired` INTEGER, `changed_by` INTEGER, `date_changed` TEXT, `retired_by` INTEGER, `retired_reason` TEXT, `uuid` TEXT, `strength` TEXT, PRIMARY KEY(`drug_id`))",
+        "fields": [
+          {
+            "fieldPath": "drug_id",
+            "columnName": "drug_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "concept_id",
+            "columnName": "concept_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "combination",
+            "columnName": "combination",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dosage_form",
+            "columnName": "dosage_form",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maximum_daily_dosage",
+            "columnName": "maximum_daily_dosage",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minimum_daily_dosage",
+            "columnName": "minimum_daily_dosage",
+            "affinity": "REAL",
+            "notNull": false
+          },
+          {
+            "fieldPath": "route",
+            "columnName": "route",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_created",
+            "columnName": "date_created",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired",
+            "columnName": "retired",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "changed_by",
+            "columnName": "changed_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_changed",
+            "columnName": "date_changed",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired_by",
+            "columnName": "retired_by",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "retired_reason",
+            "columnName": "retired_reason",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "strength",
+            "columnName": "strength",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "drug_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Identifier",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`identifier_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `identifier` TEXT, `assigned` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "identifierId",
+            "columnName": "identifier_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "identifier",
+            "columnName": "identifier",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "assigned",
+            "columnName": "assigned",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "identifier_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "person_identifier",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`person_id` INTEGER NOT NULL, `uuid` TEXT, PRIMARY KEY(`person_id`))",
+        "fields": [
+          {
+            "fieldPath": "personId",
+            "columnName": "person_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "person_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f9d71422ee7735a6d75e797b888f0695\")"
+    ]
+  }
+}

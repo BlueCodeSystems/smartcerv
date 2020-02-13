@@ -4,7 +4,6 @@ import androidx.room.*;
 
 import java.util.List;
 
-import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
 
 @Dao

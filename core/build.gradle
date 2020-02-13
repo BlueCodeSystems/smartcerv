@@ -14,6 +14,21 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "int", "REMOTE_ID_BATCH_SIZE", '200'
+            buildConfigField "int", "REMOTE_ID_RESERVE", '50'
+            buildConfigField "int", "REMOTE_ID_SOURCE", '1'
+            buildConfigField "String", "BASE_URL", '"https://smartcerv.bluecodeltd.com"'
+            buildConfigField "String", "BASE_ROUTE", '"/middleware/rest/"'
+            buildConfigField "String", "BUILD_DATE", 'new java.text.SimpleDateFormat("dd MMMM yyyy").format(new java.util.Date(System.currentTimeMillis()))'
+        }
+
+        debug{
+            buildConfigField "int", "REMOTE_ID_BATCH_SIZE", '10'
+            buildConfigField "int", "REMOTE_ID_RESERVE", '5'
+            buildConfigField "int", "REMOTE_ID_SOURCE", '1'
+            buildConfigField "String", "BASE_URL", '"https://openmrs.bluecodeltd.com"'
+            buildConfigField "String", "BASE_ROUTE", '"/middleware/rest/"'
+            buildConfigField "String", "BUILD_DATE", 'new java.text.SimpleDateFormat("dd MMMM yyyy").format(new java.util.Date(System.currentTimeMillis()))'
         }
     }
     buildToolsVersion '28.0.3'
@@ -39,6 +54,9 @@ dependencies {
     // Lifecycle components
     api 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+
+    //Worker manager
+    api "androidx.work:work-runtime:$workerVersion"
 
     //Retrofit
     api 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -66,4 +84,9 @@ dependencies {
     api 'com.google.guava:guava:27.0.1-android'
 
     api 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+
+    api 'com.android.support:recyclerview-v7:28.0.0'
+    api 'com.android.support:support-annotations:28.0.0'
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    api 'com.android.support:support-annotations:28.0.0'
 }

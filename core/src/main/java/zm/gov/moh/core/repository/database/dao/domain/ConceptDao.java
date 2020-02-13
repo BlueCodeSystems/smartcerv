@@ -14,11 +14,24 @@ import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 public interface ConceptDao {
 
     //get by concept id
+    @Query("SELECT * FROM concept")
+    List<Concept> getAll();
+
+    //get by concept id
     @Query("SELECT concept_id FROM concept WHERE uuid = :uuid")
     Long getConceptIdByUuid(String uuid);
 
+    @Query("SELECT concept_id FROM concept WHERE uuid = :uuid")
+    LiveData<Long> getConceptIdByUuidAsync(String uuid);
+
     @Query("SELECT concept_id FROM concept WHERE uuid IN (:uuid)")
-    LiveData<List<Long>> getConceptIdByUuid(List<String> uuid);
+    LiveData<List<Long>> getConceptIdByUuidObservable(List<String> uuid);
+
+    @Query("SELECT concept_id FROM concept WHERE uuid IN (:uuid)")
+    List<Long> getConceptIdByUuid(List<String> uuid);
+
+    @Query("SELECT uuid FROM concept WHERE concept_id = :conceptId")
+    String getConceptUuidById(long conceptId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Concept... concepts);

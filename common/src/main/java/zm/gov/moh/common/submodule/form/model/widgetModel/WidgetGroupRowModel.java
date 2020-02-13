@@ -1,6 +1,8 @@
 package zm.gov.moh.common.submodule.form.model.widgetModel;
 
-public class WidgetGroupRowModel extends AbstractWidgetGroupModel implements WidgetGroupModel{
+import java.io.Serializable;
+
+public class WidgetGroupRowModel extends AbstractWidgetGroupModel implements WidgetGroupModel, Serializable {
 
     public WidgetGroupRowModel(){
         super();

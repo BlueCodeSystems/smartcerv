@@ -1,0 +1,575 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "encounter",
+    "name": "Evaluation",
+    "encounterId": 19,
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Client History Details",
+      "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "Leep Visit Date",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "leep visit date",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Select Date",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "facility",
+          "widgetType": "FacilityLabel",
+          "label": "Facility Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Client ID",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client ID",
+          "widgetType": "CCPIZEditText",
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_GIVEN_NAME",
+          "widgetType": "EditText",
+          "label": "First Name:",
+          "hint": "First Name",
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_FAMILY_NAME",
+          "widgetType": "EditText",
+          "label": "Last Name:",
+          "hint": "Last Name",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date Of Birth",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dob",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Select Date",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "tag": "nrc",
+          "widgetType": "NumericEditText",
+          "uuid": "ef5935b5-b96f-4d00-8429-46c0c3267c3a",
+          "conceptId": 165349,
+          "dataType": "Numeric",
+          "hint": "Example 145683/10/1",
+          "textSize": 18,
+          "style": "EditText",
+          "label": "NRC No.",
+          "required":false,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "Concept",
+          "uuid": "c7e0a063-c20a-4e83-b461-0db6d79d2388",
+          "conceptId": 165350,
+          "dataType": "Numeric",
+          "hint": "Example +260967546754",
+          "textSize": 18,
+          "style": "EditText",
+          "label": "Phone",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Address",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_ADDRESS",
+          "widgetType": "EditText",
+          "hint": "Plot number, Village, Street",
+          "weight": 1
+        },
+        {
+          "tag": "most_recent_hiv_status",
+          "widgetType": "Concept",
+          "uuid": "e8913df8-f2c7-4eb8-9da6-54be2e1e2ad4",
+          "conceptId": 165341,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Most recent HIV test",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "The date on which the client took an HIV test",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Date tested for hiv",
+          "widgetType": "DatePicker",
+          "textSize": 18,
+          "text": "Select Date",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "PLACE_OF_HIV_TEST",
+          "widgetType": "Concept",
+          "uuid": "f91f1534-8ff4-4916-b57c-9425981eac03",
+          "conceptId": 165351,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "EditText",
+          "label": "Place",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Place",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PLACE_OF_HIV_TEST",
+          "widgetType": "EditText",
+          "hint": "Enter the name of the Place where the client took an HIV test",
+          "weight": 1
+        },
+        {
+          "tag": "atypical vessel",
+          "widgetType": "Concept",
+          "conceptId": 165242,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Atypical vessel",
+          "textSize": 18
+        },
+        {
+          "tag": "most_recent_viral_load",
+          "widgetType": "Concept",
+          "uuid": "c4aee324-c0d7-42ca-9c5a-b3730ec4acbe",
+          "conceptId": 165352,
+          "dataType": "Numeric",
+          "hint": "Enter the Client's most recent viral load count",
+          "textSize": 18,
+          "label": "Most recent Viral load",
+          "style": "EditText",
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": " Date for Viral Load",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "viral load date",
+          "conceptId": 165212,
+          "dataType": "Date",
+          "widgetType": "DatePicker",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "cd4 count",
+          "widgetType": "Concept",
+          "conceptId": 165241,
+          "dataType": "Text",
+          "hint": "Number",
+          "dataType": "Numeric",
+          "label": "Most Recent CD4",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": " Date for CD4 Count",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "cd4 date",
+          "conceptId": 165210,
+          "dataType": "Date",
+          "widgetType": "DatePicker",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date on which the client started ART if on ART",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client's arvs start date ",
+          "widgetType": "DatePicker",
+          "weight": 1,
+          "text": "Select Date",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Date of referral",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "client reffered for leep date",
+          "widgetType": "DatePicker",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1,
+          "text": "Select Date",
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Clinic referral form",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "referring facility",
+          "widgetType": "EditText",
+          "hint": "Can be obtained from the referral slip",
+          "weight": 1
+        },
+        {
+          "tag": "visit_type",
+          "widgetType": "Concept",
+          "conceptId": 165117,
+          "dataType": "Coded",
+          "style": "dropdown",
+          "label": "Type of visit",
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "title": "Reason For Referral",
+      "widgets": [
+        {
+          "tag": "image view button",
+          "uuid": "4da37d55-3754-4648-8549-35abf708dee9",
+          "widgetType": "ImageViewButton",
+          "label": "Image Load",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "polyp",
+          "widgetType": "Concept",
+          "conceptId": 165276,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Polyp",
+          "textSize": 18
+        },
+        {
+          "tag": "covers less than 75% of cervix",
+          "widgetType": "Concept",
+          "conceptId": 165169,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Covers > 75% of cervix",
+          "textSize": 18
+        },
+        {
+          "tag": "lesion_extends_into_endocervix",
+          "widgetType": "Concept",
+          "conceptId": 165366,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Lesion extends into endocervix",
+          "textSize": 18
+        },
+        {
+          "tag": "contact_post_coital_bleeding ",
+          "widgetType": "Concept",
+          "conceptId": 165272,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Contact/post coital bleeding",
+          "textSize": 18
+        },
+        {
+          "tag": "no_lesion_visible",
+          "widgetType": "Concept",
+          "conceptId": 165278,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "No lesion visible",
+          "textSize": 18
+        },
+        {
+          "tag": "querry_icc",
+          "widgetType": "Concept",
+          "conceptId": 165279,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Querry ICC",
+          "textSize": 18
+        },
+        {
+          "tag": "post_treatment_lesion",
+          "widgetType": "Concept",
+          "conceptId": 165367,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Post-treatment lesion",
+          "textSize": 18
+        },
+        {
+          "tag": "Other_reason_for_referral",
+          "widgetType": "Concept",
+          "conceptId": 165395,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason_For_Other_reason_for_referral"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reason_For_Other_reason_for_referral",
+          "widgetType": "Concept",
+          "conceptId": 165396,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "dataType": "Numeric",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "title": "LEEP Evaluation",
+      "widgets": [
+        {
+          "tag": "polyp",
+          "widgetType": "Concept",
+          "conceptId": 165276,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Polyp",
+          "textSize": 18
+        },
+        {
+          "tag": "covers less than 75% of cervix",
+          "widgetType": "Concept",
+          "conceptId": 165169,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Covers > 75% of cervix",
+          "textSize": 18
+        },
+        {
+          "tag": "lesion_extends_into_endocervix",
+          "widgetType": "Concept",
+          "conceptId": 165366,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Lesion extends into endocervix",
+          "textSize": 18
+        },
+        {
+          "tag": "contact_post_coital_bleeding ",
+          "widgetType": "Concept",
+          "conceptId": 165272,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Contact/post coital bleeding",
+          "textSize": 18
+        },
+        {
+          "tag": "no_lesion_visible",
+          "widgetType": "Concept",
+          "conceptId": 165278,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "No lesion visible",
+          "textSize": 18
+        },
+        {
+          "tag": "querry_icc",
+          "widgetType": "Concept",
+          "conceptId": 165279,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Querry ICC",
+          "textSize": 18
+        },
+        {
+          "tag": "post_treatment_lesion",
+          "widgetType": "Concept",
+          "conceptId": 165367,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Post-treatment lesion",
+          "textSize": 18
+        },
+        {
+          "tag": "Other_leep_evaluation",
+          "widgetType": "Concept",
+          "conceptId": 165381,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reason For Other",
+          "widgetType": "Concept",
+          "conceptId": 165154,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "dataType": "Numeric",
+          "weight": 1
+        }
+      ]
+    }
+
+  ]
+}
+

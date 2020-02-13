@@ -14,7 +14,7 @@ import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity
 import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ClientViewHolder> {
@@ -46,21 +46,20 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         public void onClick(View view) {
 
             Client client = clientList.get(getAdapterPosition());
-            long clientId = client.patient_id;
+            long clientId = client.getPatientId();
             bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
-            Module call = (Module) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
+            Module call = ((BaseApplication)context.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
            context.startModule(call, bundle);
         }
 
     }
-
     public ClientListAdapter(Context context){
 
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        clientDashboad = applicationContext.getSubmodule(BaseApplication.CoreModule.CLIENT_DASHOARD);
+        clientDashboad = applicationContext.getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
         bundle = new Bundle();
     }
 

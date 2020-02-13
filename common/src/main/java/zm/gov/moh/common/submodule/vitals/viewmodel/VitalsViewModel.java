@@ -1,21 +1,26 @@
 package zm.gov.moh.common.submodule.vitals.viewmodel;
 
 import android.app.Application;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.LongSparseArray;
+
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import androidx.arch.core.util.Function;
-import zm.gov.moh.common.ModuleConfig;
+import zm.gov.moh.common.OpenmrsConfig;
 import zm.gov.moh.common.submodule.vitals.model.Vitals;
 import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.ObsValue;
-import zm.gov.moh.core.service.EncounterSubmission;
+import zm.gov.moh.core.repository.database.DatabaseUtils;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.service.ServiceManager;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class VitalsViewModel extends BaseAndroidViewModel implements InjectableViewModel {
@@ -49,36 +54,45 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
            LongSparseArray<Double> conceptIdVitalValueMap = new LongSparseArray<>();
            ArrayList<String> tags = new ArrayList<>();
 
+           long visitId = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
+           long visitTypeId = 1;
+           long locationId = mRepository.getDefaultSharePrefrences().getLong(Key.LOCATION_ID,0);
+           long creator = mRepository.getDefaultSharePrefrences().getLong(Key.USER_ID,0);
+           long personId = (Long) mBundle.get(Key.PERSON_ID);
+           LocalDateTime start_time = LocalDateTime.now();
+
+           db.visitDao().insert(new VisitEntity(visitId,visitTypeId,personId,locationId,creator,start_time));
+
+           bundle.putLong(Key.VISIT_ID, visitId);
            bundle.putStringArrayList(Key.FORM_TAGS, tags);
-           bundle.putLong(Key.ENCOUNTER_TYPE_ID, encounterTypeUuidToId.apply(ModuleConfig.ENCOUNTER_TYPE_UUID_VITALS));
-           bundle.putLong(Key.VISIT_TYPE_ID, 1);
+           bundle.putLong(Key.ENCOUNTER_TYPE_ID, encounterTypeUuidToId.apply(OpenmrsConfig.ENCOUNTER_TYPE_UUID_VITALS));
 
 
 
-           //Additional If Statements to Enbale single field Update
-           //Checks if Vitals are not null and updates them withthe entered value
+           //Additional If Statements to Enable single field Update
+           //Checks if Vitals are not null and updates them with the entered value
 
            if(vitals.getHeight() != null)
-                conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_HEIGHT), Double.valueOf(vitals.getHeight().toString()));
+                conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_HEIGHT), Double.valueOf(vitals.getHeight().toString()));
 
            if(vitals.getWeight() != null)
-                conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_WEIGHT), Double.valueOf(vitals.getWeight().toString()));
+                conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_WEIGHT), Double.valueOf(vitals.getWeight().toString()));
 
            if (vitals.getTemperature() !=null)
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_TEMPERATURE), Double.valueOf(vitals.getTemperature().toString()));
+           conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_TEMPERATURE), Double.valueOf(vitals.getTemperature().toString()));
 
            if(vitals.getPulse() !=null)
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_PULSE), Double.valueOf(vitals.getPulse().toString()));
+           conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_PULSE), Double.valueOf(vitals.getPulse().toString()));
 
            if(vitals.getRespiratory() !=null)
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_RESPIRATORY_RATE), Double.valueOf(vitals.getRespiratory().toString()));
+           conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_RESPIRATORY_RATE), Double.valueOf(vitals.getRespiratory().toString()));
 
            if(vitals.getSystolicBloodPressure() !=null)
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE), Double.valueOf(vitals.getSystolicBloodPressure().toString()));
+           conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_SYSTOLIC_BLOOD_PRESSURE), Double.valueOf(vitals.getSystolicBloodPressure().toString()));
 
            if(vitals.getDiastolicBloodPressure() !=null)
-           conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE), Double.valueOf(vitals.getDiastolicBloodPressure().toString()));
-           //conceptIdVitalValueMap.put(conceptUuidToId.apply(ModuleConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION),Double.valueOf(vitals.getBloodOxygen().toString()));
+           conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_DIASTOLIC_BLOOD_PRESSURE), Double.valueOf(vitals.getDiastolicBloodPressure().toString()));
+           //conceptIdVitalValueMap.put(conceptUuidToId.apply(OpenmrsConfig.CONCEPT_UUID_BLOOD_OXYGEN_SATURATION),Double.valueOf(vitals.getBloodOxygen().toString()));
 
            for (int i = 0; i < conceptIdVitalValueMap.size(); i++) {
 
@@ -97,16 +111,13 @@ public class VitalsViewModel extends BaseAndroidViewModel implements InjectableV
 
     public void onVitalsDataReceived(Bundle bundle){
 
-        Intent encounterSubmission = new Intent(getApplication(),EncounterSubmission.class);
-        encounterSubmission.putExtras(bundle);
-
-        getApplication().startService(encounterSubmission);
+        ServiceManager.getInstance(getApplication()).setService(ServiceManager.Service.PERSIST_ENCOUNTERS).putExtras(bundle).start();
     }
 
     public void onSubmit(Bundle bundle){
 
         if(vitals != null)
-            getRepository().asyncFunction(extractVitalsData(bundle)::apply,this::onVitalsDataReceived, vitals,this::onError);
+            ConcurrencyUtils.asyncFunction(extractVitalsData(bundle)::apply,this::onVitalsDataReceived, vitals,this::onError);
     }
 
     public void onError(Throwable throwable){

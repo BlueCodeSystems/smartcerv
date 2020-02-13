@@ -5,7 +5,7 @@
     <data>
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
         <variable name="vitals" type="zm.gov.moh.common.submodule.vitals.model.Vitals"/>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="title" type="String"/>
         <variable name="viewmodel" type="zm.gov.moh.common.submodule.vitals.viewmodel.VitalsViewModel"/>
         <variable name="bundle" type="android.os.Bundle"/>
         <variable name="context" type="zm.gov.moh.common.submodule.vitals.view.VitalsActivity"/>
@@ -23,7 +23,7 @@
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:toolbarhandler="@{toolbarhandler}">
+            app:title="@{title}">
         </include>
         <include android:id="@+id/client"
             layout="@layout/client_demographics"

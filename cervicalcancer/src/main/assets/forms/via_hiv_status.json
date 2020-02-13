@@ -1,0 +1,346 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "encounter",
+    "name": "HIV Status",
+    "encounterId": 10,
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "HIV Status",
+      "widgets": [
+        {
+          "tag": "hiv status",
+          "widgetType": "Concept",
+          "conceptId": 165203,
+          "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "HIV Status",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165131
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Date tested negative"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165132
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "reason for unknown status",
+                    "pict offered"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "art status"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "art status",
+          "widgetType": "Concept",
+          "conceptId": 165223,
+          "uuid": "2c8a7696-a57a-44ce-b406-b0511cd629cd",
+          "dataType": "Coded",
+          "style": "radio",
+          "textSize": 18,
+          "label": "ART Enrollment Status",
+          "logic": [
+            {
+              "condition": {
+                "value": 165126
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "art number",
+                    "cd4",
+                    "viral load"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165127
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "art clinic"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "art number",
+          "widgetType": "Concept",
+          "conceptId": 165128,
+          "dataType": "Numeric",
+          "uuid": "8d2d8797-22f1-4c00-8644-3d342a9e880f",
+          "textSize": 18,
+          "label": "ART No.",
+          "hint": "Number"
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "tag": "cd4",
+          "widgets": [
+            {
+              "tag": "CD4 Count",
+              "widgetType": "Concept",
+              "conceptId": 165241,
+              "dataType": "Numeric",
+              "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
+              "hint": "Number",
+              "label": "CD4 Count",
+              "textSize": 18
+            },
+            {
+              "tag": "cd4 date",
+              "conceptId": 165210,
+              "dataType": "Date",
+              "uuid": "852149f1-c61c-46c4-a3aa-caee6e91574d",
+              "futureDate": "False",
+              "widgetType": "Concept",
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "tag": "viral load",
+          "widgets": [
+            {
+              "tag": "viral load count",
+              "widgetType": "Concept",
+              "conceptId": 165242,
+              "uuid": "d25e9649-336c-409a-8e4f-a167b2b1ec85",
+              "dataType": "Numeric",
+              "hint": "Number",
+              "label": "Last Viral Load",
+              "textSize": 18
+            },
+            {
+              "tag": "viral load date",
+              "conceptId": 165212,
+              "dataType": "Date",
+              "uuid": "a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
+              "futureDate": "False",
+              "widgetType": "Concept",
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "tag": "reason for unknown status",
+          "widgetType": "Concept",
+          "conceptId": 165208,
+          "uuid": "becd704c-e0e6-4b8d-ad91-1e837547d9bc",
+          "dataType": "Text",
+          "textSize": 18,
+          "hint": "Reason for Unknown HIV Status "
+        },
+        {
+          "tag": "pict offered",
+          "widgetType": "Concept",
+          "conceptId": 165133,
+          "uuid": "9bfe52f9-0a58-453c-81e4-568959f0817f",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "PICT Offered",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "pict accepted"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "PICT was not offered"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "pict accepted",
+          "widgetType": "Concept",
+          "conceptId": 165134,
+          "dataType": "Boolean",
+          "uuid": "e6c33024-55e6-4d59-af28-f9df869b35f3",
+          "style": "radio",
+          "label": "PICT Accepted",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "pict result"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "pict result",
+          "widgetType": "Concept",
+          "conceptId": 165239,
+          "uuid": "12e7bc9f-f57d-463b-bd82-cf25f10e5b64",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Result",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165237
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "art clinic"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "art clinic",
+          "widgetType": "Concept",
+          "conceptId": 165136,
+          "uuid": "758a1b06-09fc-4448-9edf-58ecda27365e",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Referred to ART Clinic",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason_for_no_ART"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reason_for_no_ART",
+          "widgetType": "Concept",
+          "conceptId": 165259,
+          "uuid": "b6cb6cc6-f141-456c-81f8-7c03a76100c9",
+          "dataType": "Text",
+          "textSize": 18,
+          "hint": "Reason not referred to ART clinic"
+        },
+        {
+          "tag": "Date tested negative",
+          "conceptId": 165251,
+          "widgetType": "Concept",
+          "uuid": "10c18b01-0fe3-46ba-94f8-9e896b3879a4",
+          "dataType": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "label": "Date tested negative",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "PICT was not offered",
+          "widgetType": "Concept",
+          "conceptId": 165253,
+          "dataType": "Text",
+          "uuid": "6762f9da-451e-4b7a-abe6-d32889f56e73",
+          "textSize": 18,
+          "hint": "Reason PICT was not offered"
+        }
+      ]
+    }
+  ]
+}

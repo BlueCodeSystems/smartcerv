@@ -1,100 +1,158 @@
 package zm.gov.moh.common.submodule.login.viewmodel;
 
 import android.app.Application;
+import android.util.Base64;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
 
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZonedDateTime;
+
+import java.security.MessageDigest;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import zm.gov.moh.common.submodule.login.model.AuthenticationStatus;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
+import zm.gov.moh.common.submodule.login.model.ViewBindings;
+import zm.gov.moh.common.submodule.login.model.ViewState;
 import zm.gov.moh.core.model.Authentication;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.User;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
+import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 import zm.gov.moh.core.utils.Utils;
-import zm.gov.moh.common.submodule.login.model.Credentials;
 
 
 public class LoginViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
-    private Credentials credentials;
-    private MutableLiveData<AuthenticationStatus> authenticationStatus;
+    private ViewBindings viewBindings;
+    private final String AES = "AES";
+    private MutableLiveData<ViewState> viewState;
     private AtomicBoolean pending  = new  AtomicBoolean(true);
     private Application application;
     private final int TIMEOUT = 30000;
+    private String credentialsToBase64;
+    private Location[] providerLocations;
+    private String serverTimeZoneOffset;
 
     public LoginViewModel(Application application){
         super(application);
 
         this.application = application;
-        credentials = new Credentials();
+        viewBindings = new ViewBindings();
     }
 
+    public String getServerTimeZoneOffset() {
+        return serverTimeZoneOffset;
+    }
 
-    public void submitCredentials(Credentials credentials){
+    public void submitCredentials(ViewBindings credentials){
 
         pending.set(true);
-
         if(credentials.getUsername() != "" && credentials.getPassword() != "") {
 
-            String credintialsBase64 = Utils.credentialsToBase64(credentials.getUsername(), credentials.getPassword());
+            credentialsToBase64 = Utils.credentialsToBase64(credentials.getUsername(), credentials.getPassword());
 
             //Online authentication
             if (Utils.checkInternetConnectivity(application)) {
 
-                authenticationStatus.setValue(AuthenticationStatus.PENDING);
+                viewState.setValue(ViewState.PENDING);
 
-                getRepository().consume(
+                ConcurrencyUtils.consumeAsync(
                         this::onSuccess,
-                        this::onError,
-                        getRepository().getRestApiAdapter().session(credintialsBase64),
+                        throwable-> ConcurrencyUtils.consumeOnMainThread(this::onError, throwable),
+                        getRepository().getRestApi().session(credentialsToBase64),
                         TIMEOUT);
             }
-            else
-                authenticationStatus.setValue(AuthenticationStatus.NO_INTERNET);
+            else {
+                loginOffline(credentialsToBase64);
+            }
         }
         else
-            authenticationStatus.setValue(AuthenticationStatus.NO_CREDENTIALS);
+            viewState.setValue(ViewState.NO_CREDENTIALS);
     }
 
-    public Credentials getCredentials() {
-        return credentials;
+    public ViewBindings getViewBindings() {
+        return viewBindings;
     }
 
+    public Location[] getProviderLocations() {
+        return providerLocations;
+    }
 
-    public MutableLiveData<AuthenticationStatus> getAuthenticationStatus() {
+    public MutableLiveData<ViewState> getViewState() {
 
-        if(authenticationStatus == null)
-            authenticationStatus = new MutableLiveData<>();
-        return authenticationStatus;
+        if(viewState == null)
+            viewState = new MutableLiveData<>();
+        return viewState;
     }
 
     public AtomicBoolean getPending() {
         return pending;
     }
 
-    public void saveSessionLocation(Location location){
+    public void saveSessionLocation(Long locationId){
 
-        getRepository().getDefaultSharePrefrences().edit().putLong(
-                application.getResources().getString(zm.gov.moh.core.R.string.session_location_key),
-                location.location_id)
+        long currentLocationId = getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID, 0);
+
+        if(locationId != currentLocationId)//Invalidate last data sync date
+            getRepository().getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,null).apply();
+
+        getRepository().getDefaultSharePrefrences().edit().putLong(Key.LOCATION_ID, locationId)
                 .apply();
+        pending.set(true);
+        viewState.setValue(ViewState.AUTHORIZED);
+        saveLocation(locationId);
+
     }
 
     private void onSuccess(Authentication authentication){
 
-        getRepository().getDefaultSharePrefrences()
-                .edit()
-                .putString(application.getResources().getString(zm.gov.moh.core.R.string.logged_in_user_uuid_key), authentication.getUserUuid())
-                .apply();
+        try {
 
-        pending.set(true);
-        authenticationStatus.setValue(AuthenticationStatus.AUTHORIZED);
+            String accessToken = authentication.getToken();
+            getRepository().getDefaultSharePrefrences()
+                    .edit()
+                    .putString(Key.AUTHORIZED_USER_UUID, authentication.getUserUuid())
+                    .apply();
+
+            getRepository().getDefaultSharePrefrences()
+                    .edit()
+                    .putString(Key.ACCESS_TOKEN, accessToken)
+                    .apply();
+
+
+            Cipher cipher = Cipher.getInstance(AES);
+            java.security.Key aesKey = new SecretKeySpec(to128bit(credentialsToBase64), AES);
+            cipher.init(Cipher.ENCRYPT_MODE, aesKey);
+
+            byte[] encrypted = cipher.doFinal(accessToken.getBytes());
+
+            getRepository().getDefaultSharePrefrences()
+                    .edit()
+                    .putString(Key.ACCESS_TOKEN_ENCRYPTED, Base64.encodeToString(encrypted,Base64.DEFAULT))
+                    .apply();
+
+            pending.set(true);
+
+            ConcurrencyUtils.consumeOnMainThread(state -> viewState.setValue(state),
+                    authoriseLocationLogin(authentication));
+
+        }catch (Exception e){
+
+        }
+
+
     }
 
-    private void onError(Throwable throwable){
+    public void onError(Throwable throwable){
 
         pending.set(true);
         if (throwable instanceof HttpException) {
@@ -102,16 +160,160 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
             HttpException httpException = (HttpException) throwable;
 
             if (httpException.code() == 401)
-                authenticationStatus.setValue(AuthenticationStatus.UNAUTHORIZED);
+                viewState.setValue(ViewState.UNAUTHORIZED);
         }
         else if (throwable instanceof TimeoutException)
-            authenticationStatus.setValue(AuthenticationStatus.TIMEOUT);
+            viewState.setValue(ViewState.TIMEOUT);
         else
-            authenticationStatus.setValue(AuthenticationStatus.UNREACHABLE_SERVER);
+            viewState.setValue(ViewState.UNREACHABLE_SERVER);
+    }
+
+    public void loginOffline(String key){
+
+        String accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
+        String accessTokenEncrypted = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN_ENCRYPTED,null);
+
+        String serverTimeZone = getRepository().getDefaultSharePrefrences().getString(Key.TIMEZONE_ID,null);
+
+
+        if(!compareCurrentTimeZoneOffset(serverTimeZone)) {
+            viewState.setValue(ViewState.MISMATCHED_TIME_OFFSETS);
+            return;
+        }
+
+        if(accessToken == null) {
+            viewState.setValue(ViewState.NO_INTERNET);
+            return;
+        }
+
+        try {
+
+            Cipher cipher = Cipher.getInstance(AES);
+            java.security.Key aesKey = new SecretKeySpec(to128bit(key), AES);
+            cipher.init(Cipher.DECRYPT_MODE, aesKey);
+
+            byte[] decrypted = cipher.doFinal(Base64.decode(accessTokenEncrypted,Base64.DEFAULT));
+
+            if(accessToken.equals(new String(decrypted)))
+                viewState.setValue(ViewState.AUTHORIZED);
+            else
+                viewState.setValue(ViewState.UNAUTHORIZED);
+
+
+        }catch (Exception e){
+            viewState.setValue(ViewState.UNAUTHORIZED);
+        }
+    }
+
+    public byte[] to128bit(String passphrase){
+
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(passphrase.getBytes());
+
+            byte[] digest = md.digest();
+            byte[] key = new byte[md.digest().length / 2];
+
+            for(int I = 0; I < key.length; I++){
+                key[I] = digest[I];
+            }
+
+            return key;
+        }catch (Exception e){
+
+            return null;
+        }
+
+    }
+
+    public ViewState authoriseLocationLogin(Authentication auth){
+
+        User user = auth.getUser();
+
+        String serverTimeZoneId = auth.getTimeZone();
+        getRepository().getDefaultSharePrefrences().edit().putString(Key.TIMEZONE_ID, serverTimeZoneId).apply();
+
+        if(!compareCurrentTimeZoneOffset(serverTimeZoneId))
+            return ViewState.MISMATCHED_TIME_OFFSETS;
+
+            if(user.getProvider() != null && user.getPersonName() != null) {
+
+                db.personNameDao().insert(user.getPersonName());
+                db.providerDao().insert(user.getProvider());
+                db.userDao().insert(
+                        new zm.gov.moh.core.repository.database.entity.domain.User(user.getUserId(),
+                                user.getUsername(),user.getPersonId(),user.getUuid()));
+
+                getRepository().getDefaultSharePrefrences()
+                        .edit()
+                        .putLong(Key.PROVIDER_ID, user.getProvider().getProviderId())
+                        .apply();
+
+                getRepository().getDefaultSharePrefrences()
+                        .edit()
+                        .putLong(Key.USER_ID, user.getUserId())
+                        .apply();
+
+                if(user.getLocation().length > 0){
+
+                    db.locationDao().insert(user.getLocation());
+
+                    if (user.getLocation().length > 1) {
+
+                        ConcurrencyUtils.consumeOnMainThread(locations -> {
+
+                            this.providerLocations = locations;
+                            viewState.setValue(ViewState.MULTIPLE_LOCATION_SELECTION);
+                        }, user.getLocation());
+
+                    } else if (user.getLocation().length == 1) {
+
+                        Long locationId = user.getLocation()[0].getLocationId();
+                        getRepository().getDefaultSharePrefrences()
+                                .edit()
+                                .putLong(Key.LOCATION_ID, locationId)
+                                .apply();
+
+                        return ViewState.AUTHORIZED;
+                    }
+                }
+                else
+                    return ViewState.UNAUTHORIZED_LOCATION;
+        }
+        return ViewState.USER_NOT_PROVIDER;
+
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
+    }
+
+
+    public void saveLocation(long lastLocation)
+    {
+
+        getRepository().getDefaultSharePrefrences().edit().putLong(Key.LAST_LOCATION,lastLocation).apply();
+
+    }
+
+    private boolean compareCurrentTimeZoneOffset(@NonNull String timeZoneId){
+
+        try {
+            ZoneId zoneId = ZoneId.of(timeZoneId);
+            ZonedDateTime currentTime = ZonedDateTime.now();
+            ZonedDateTime serverTime = ZonedDateTime.now(zoneId);
+
+
+            serverTimeZoneOffset = serverTime.getOffset().getId();
+            if (currentTime.getOffset().compareTo(serverTime.getOffset()) == 0)
+                return true;
+            else
+                return false;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 }

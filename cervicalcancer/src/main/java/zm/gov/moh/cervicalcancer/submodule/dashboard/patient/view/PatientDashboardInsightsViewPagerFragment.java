@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import zm.gov.moh.cervicalcancer.R;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.adapter.InsightsViewPagerFragmentAdapter;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +37,7 @@ public class PatientDashboardInsightsViewPagerFragment extends Fragment {
                 container, false);
 
         // Find the view pager that will allow the getUsers to swipe between fragments
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        ViewPager viewPager = view.findViewById(R.id.viewpager);
 
         InsightsViewPagerFragmentAdapter adapter =
                 new InsightsViewPagerFragmentAdapter(context, context.getSupportFragmentManager());
@@ -46,7 +46,7 @@ public class PatientDashboardInsightsViewPagerFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         // Give the TabLayout the ViewPager
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.sliding_tabs);
+        TabLayout tabLayout = view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         // Inflate the layout for this fragment

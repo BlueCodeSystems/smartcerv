@@ -2,9 +2,17 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils;
 
 import android.content.Context;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.TooltipCompat;
+
+import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TableRow;
+import android.widget.Toast;
+
+import java.util.Map;
 
 import zm.gov.moh.cervicalcancer.R;
 
@@ -37,5 +45,21 @@ public class Utils {
         dateTv.setBackground(context.getResources().getDrawable(R.drawable.border_right));
 
         return dateTv;
+    }
+
+    public static AppCompatTextView providerInitialsCellView(Context context, Map.Entry<String, String> providerDetails){
+
+        TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(zm.gov.moh.core.utils.Utils.dpToPx(context,0), TableRow.LayoutParams.MATCH_PARENT);
+        layoutParams.weight = 1;
+        AppCompatTextView initialsTv = new AppCompatTextView(context);
+        initialsTv.setText(providerDetails.getValue());
+        initialsTv.setGravity(Gravity.CENTER);
+        initialsTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+        initialsTv.setTextColor(context.getResources().getColor(R.color.black));
+        initialsTv.setLayoutParams(layoutParams);
+        initialsTv.setBackground(context.getResources().getDrawable(R.drawable.border_right));
+        TooltipCompat.setTooltipText(initialsTv, providerDetails.getKey());
+
+        return initialsTv;
     }
 }

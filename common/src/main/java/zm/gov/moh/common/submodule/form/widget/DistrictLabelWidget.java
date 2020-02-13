@@ -11,6 +11,7 @@ import android.util.TypedValue;
 
 import java.util.HashMap;
 
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 
@@ -26,7 +27,7 @@ public class DistrictLabelWidget extends LinearLayoutCompat{
         super(context);
 
         long facilityLocationId = repository.getDefaultSharePrefrences()
-                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
         this.repository = repository;
         this.context = context;
         this.bundle = bundle;
@@ -70,14 +71,14 @@ public class DistrictLabelWidget extends LinearLayoutCompat{
     }
 
     public void setDistrictLocation(Location location){
-       setTextValue(location.name);
-        bundle.putLong((String)getTag(),location.location_id);
+       setTextValue(location.getName());
+        bundle.putLong((String)getTag(),location.getLocationId());
     }
 
     public void setFacilityLocation(Location location){
 
         if(location != null)
-            populateFacilityDistrictLocation(location.parent_location);
+            populateFacilityDistrictLocation(location.getParentLocation());
 
     }
 

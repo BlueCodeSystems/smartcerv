@@ -11,9 +11,10 @@ import zm.gov.moh.core.model.submodule.ModuleGroup;
 
 public class BaseApplication extends Application {
 
-
+    protected String buildName;
     protected Map<String, zm.gov.moh.core.model.submodule.Module> submodules;
     protected ArrayList<ModuleGroup> firstPointOfCareSubmodules;
+    private boolean isSynchronizing = false;
 
     @Override
     public void onCreate() {
@@ -23,8 +24,10 @@ public class BaseApplication extends Application {
         submodules = new HashMap<>();
         firstPointOfCareSubmodules = new ArrayList<>();
     }
-
-    public zm.gov.moh.core.model.submodule.Module getSubmodule(String submodule){
+    public String getBuildName() {
+        return buildName;
+    }
+    public zm.gov.moh.core.model.submodule.Module getModule(String submodule){
 
         return submodules.get(submodule);
     }
@@ -49,6 +52,9 @@ public class BaseApplication extends Application {
         public static final String VITALS = "VITALS";
         public static final String CLIENT_DASHOARD = "CLIENT_DASHOARD";
         public static final String FORM = "FORM";
+        public static final String VISIT = "VISIT";
+        public static final String SETTINGS = "SETTINGS";
+        public static final String BOOTSTRAP = "BOOTSTRAP";
     }
 
     public class Module {
@@ -59,6 +65,14 @@ public class BaseApplication extends Application {
     public List<ModuleGroup> getCareServices(){
 
         return firstPointOfCareSubmodules;
+    }
+
+    public void setSynchronizing(boolean synchronizing) {
+        isSynchronizing = synchronizing;
+    }
+
+    public boolean isSynchronizing() {
+        return isSynchronizing;
     }
 }
 

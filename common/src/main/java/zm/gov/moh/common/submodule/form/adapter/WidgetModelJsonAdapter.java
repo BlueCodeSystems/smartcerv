@@ -4,14 +4,31 @@ import com.squareup.moshi.FromJson;
 import com.squareup.moshi.ToJson;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicConceptWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.GenderPickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ImageViewButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.NumericEditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.PhotoAlbumButtonWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderLabelModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ProviderNumberModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.ReadonlyTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.TextBoxTwoModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetGroupRowModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 import zm.gov.moh.common.submodule.form.model.WidgetModelJson;
@@ -35,8 +52,53 @@ public class WidgetModelJsonAdapter {
                 editText.setHint(widgetModelJson.getHint());
                 editText.setText(widgetModelJson.getText());
                 editText.setWeight(widgetModelJson.getWeight());
+                editText.setLabel(widgetModelJson.getLabel());
+                editText.setRegex(widgetModelJson.getRegex());
+                editText.setErrorMessage(widgetModelJson.getErrorMessage());
+                editText.setRequired(widgetModelJson.getRequired());
+                editText.setDataType(widgetModelJson.getDataType());
+
 
                 return editText;
+
+            case "ReadonlyText":
+
+                final ReadonlyTextModel readonlyText = new ReadonlyTextModel();
+
+                readonlyText.setWidgetType(widgetModelJson.getWidgetType());
+                readonlyText.setTag(widgetModelJson.getTag());
+                readonlyText.setHint(widgetModelJson.getHint());
+                readonlyText.setText(widgetModelJson.getText());
+                readonlyText.setWeight(widgetModelJson.getWeight());
+                readonlyText.setLabel(widgetModelJson.getLabel());
+
+                return readonlyText;
+
+            case "TextBoxOne":
+
+                final TextBoxModel textBoxone = new TextBoxModel();
+
+                textBoxone.setWidgetType(widgetModelJson.getWidgetType());
+                textBoxone.setTag(widgetModelJson.getTag());
+                textBoxone.setHint(widgetModelJson.getHint());
+                textBoxone.setText(widgetModelJson.getText());
+                textBoxone.setWeight(widgetModelJson.getWeight());
+                textBoxone.setLabel(widgetModelJson.getLabel());
+
+                return textBoxone;
+
+            case "TextBoxTwo":
+
+                final TextBoxTwoModel textBoxtwo = new TextBoxTwoModel();
+
+                textBoxtwo.setWidgetType(widgetModelJson.getWidgetType());
+                textBoxtwo.setTag(widgetModelJson.getTag());
+                textBoxtwo.setHint(widgetModelJson.getHint());
+                textBoxtwo.setText(widgetModelJson.getText());
+                textBoxtwo.setWeight(widgetModelJson.getWeight());
+                textBoxtwo.setLabel(widgetModelJson.getLabel());
+
+                return textBoxtwo;
 
             case "DatePickerButton":
 
@@ -47,6 +109,69 @@ public class WidgetModelJsonAdapter {
                 datePickerButtonModel.setText(widgetModelJson.getText());
 
                 return datePickerButtonModel;
+
+            case "ImageViewButton":
+
+                final ImageViewButtonModel imageViewButtonModel = new ImageViewButtonModel();
+
+                imageViewButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                imageViewButtonModel.setTag(widgetModelJson.getTag());
+                imageViewButtonModel.setLabel(widgetModelJson.getLabel());
+                imageViewButtonModel.setUuid(widgetModelJson.getUuid());
+
+
+                return imageViewButtonModel;
+
+            case "CameraConnectButton":
+
+                final CameraConnectButtonModel cameraconnectButtonModel = new CameraConnectButtonModel();
+                cameraconnectButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                cameraconnectButtonModel.setTag(widgetModelJson.getTag());
+                cameraconnectButtonModel.setLabel(widgetModelJson.getLabel());
+                cameraconnectButtonModel.setUuid(widgetModelJson.getUuid());
+
+                return cameraconnectButtonModel;
+
+
+            case "DialogButton":
+
+                final DialogButtonModel DialogButtonModel = new DialogButtonModel();
+
+                DialogButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                DialogButtonModel.setTag(widgetModelJson.getTag());
+                DialogButtonModel.setLabel(widgetModelJson.getLabel());
+
+
+
+                return DialogButtonModel;
+
+            case "PhotoAlbumButton":
+
+                final PhotoAlbumButtonWidgetModel photoAlbumButtonWidgetModel = new PhotoAlbumButtonWidgetModel();
+
+                photoAlbumButtonWidgetModel.setWidgetType(widgetModelJson.getTag());
+                photoAlbumButtonWidgetModel.setLabel(widgetModelJson.getLabel());
+
+                return photoAlbumButtonWidgetModel;
+
+            case "CameraButton":
+
+                final CameraButtonModel CameraButtonModel = new CameraButtonModel();
+
+                CameraButtonModel.setWidgetType(widgetModelJson.getWidgetType());
+                CameraButtonModel.setWidgetType(widgetModelJson.getTag());
+                CameraButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return CameraButtonModel;
+
+            case "DefaultCameraButton":
+
+                final DefaultCameraButtonModel DefaultCameraButtonModel = new DefaultCameraButtonModel();
+
+                DefaultCameraButtonModel.setWidgetType(widgetModelJson.getTag());
+                DefaultCameraButtonModel.setLabel(widgetModelJson.getLabel());
+
+                return DefaultCameraButtonModel;
 
             case "WidgetGroupRow":
 
@@ -91,6 +216,16 @@ public class WidgetModelJsonAdapter {
                 providerLabelModel.setTextSize(widgetModelJson.getTextSize());
 
                 return providerLabelModel;
+            case "ProviderNumber":
+
+                final ProviderNumberModel providerNumberModel = new ProviderNumberModel();
+
+                providerNumberModel.setWidgetType(widgetModelJson.getWidgetType());
+                providerNumberModel.setTag(widgetModelJson.getTag());
+                providerNumberModel.setLabel(widgetModelJson.getLabel());
+                providerNumberModel.setTextSize(widgetModelJson.getTextSize());
+
+                return providerNumberModel;
 
             case "FacilityLabel":
 
@@ -128,6 +263,9 @@ public class WidgetModelJsonAdapter {
                 basicConceptWidgetModel.setHint(widgetModelJson.getHint());
                 basicConceptWidgetModel.setStyle(widgetModelJson.getStyle());
                 basicConceptWidgetModel.setWeight(widgetModelJson.getWeight());
+                basicConceptWidgetModel.setFutureDate(widgetModelJson.getFutureDate());
+                //Added to put uuid in bundle
+                basicConceptWidgetModel.setUuid(widgetModelJson.getUuid());
 
                 return basicConceptWidgetModel;
 
@@ -139,9 +277,100 @@ public class WidgetModelJsonAdapter {
                 cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
                 cervicalCancerIDEditTextModel.setWeight(widgetModelJson.getWeight());
                 cervicalCancerIDEditTextModel.setTag(widgetModelJson.getTag());
+                cervicalCancerIDEditTextModel.setRequired(widgetModelJson.getRequired());
+                cervicalCancerIDEditTextModel.setRegex(widgetModelJson.getRegex());
+                cervicalCancerIDEditTextModel.setErrorMessage(widgetModelJson.getErrorMessage());
+
 
                 return cervicalCancerIDEditTextModel;
-               default: return null;
+
+            case "GenderPicker":
+
+                final GenderPickerModel genderPickerModel = new GenderPickerModel();
+
+                genderPickerModel.setWidgetType(widgetModelJson.getWidgetType());
+                genderPickerModel.setTag(widgetModelJson.getTag());
+                genderPickerModel.setWeight(widgetModelJson.getWeight());
+                genderPickerModel.setStyle(widgetModelJson.getStyle());
+                genderPickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
+
+                return genderPickerModel;
+
+            case "DistrictPicker":
+
+                final DistrictPickerModel districtPickerModel = new DistrictPickerModel();
+
+                districtPickerModel.setWidgetType(widgetModelJson.getWidgetType());
+                districtPickerModel.setTag(widgetModelJson.getTag());
+                districtPickerModel.setWeight(widgetModelJson.getWeight());
+                districtPickerModel.setLabel(widgetModelJson.getLabel());
+                districtPickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
+                districtPickerModel.setRequired(widgetModelJson.getRequired());
+
+
+                return districtPickerModel;
+
+            case "ConceptDrug":
+                final BasicDrugWidgetModel basicDrugWidgetModel = new BasicDrugWidgetModel();
+
+                basicDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicDrugWidgetModel.setDrugUuid(widgetModelJson.getDrugUuid());
+                basicDrugWidgetModel.setTag(widgetModelJson.getTag());
+
+                return basicDrugWidgetModel;
+
+            case "ConceptOtherDrug":
+                final BasicOtherDrugWidgetModel basicOtherDrugWidgetModel = new BasicOtherDrugWidgetModel();
+
+                basicOtherDrugWidgetModel.setUuid(widgetModelJson.getUuid());
+                basicOtherDrugWidgetModel.setDrugUuid(widgetModelJson.getDrugUuid());
+                basicOtherDrugWidgetModel.setTag(widgetModelJson.getTag());
+
+                return basicOtherDrugWidgetModel;
+
+            case "DatePicker":
+
+                final DatePickerModel datePickerModel = new DatePickerModel();
+
+                datePickerModel.setWidgetType(widgetModelJson.getWidgetType());
+                datePickerModel.setTag(widgetModelJson.getTag());
+                datePickerModel.setLogic(widgetModelJson.getLogic());
+                datePickerModel.setWeight(widgetModelJson.getWeight());
+                datePickerModel.setHint(widgetModelJson.getHint());
+                datePickerModel.setLabel(widgetModelJson.getLabel());
+                datePickerModel.setRequired(widgetModelJson.getRequired());
+                datePickerModel.setErrorMessage(widgetModelJson.getErrorMessage());
+                datePickerModel.setFutureDate(widgetModelJson.getFutureDate());
+
+                return datePickerModel;
+
+            case "NumericEditText":
+
+                final NumericEditTextModel numericEditTextModel = new NumericEditTextModel();
+
+                numericEditTextModel.setWidgetType(widgetModelJson.getWidgetType());
+                numericEditTextModel.setTag(widgetModelJson.getTag());
+                numericEditTextModel.setHint(widgetModelJson.getHint());
+                numericEditTextModel.setDataType(widgetModelJson.getDataType());
+                numericEditTextModel.setText(widgetModelJson.getText());
+                numericEditTextModel.setWeight(widgetModelJson.getWeight());
+                numericEditTextModel.setLabel(widgetModelJson.getLabel());
+
+                return numericEditTextModel;
+
+            case "Table":
+
+                final TableWidgetModel tableWidgetModel = new TableWidgetModel();
+
+                tableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                tableWidgetModel.setTag(widgetModelJson.getTag());
+                tableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                tableWidgetModel.setColSize(widgetModelJson.getColSize());
+                tableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return tableWidgetModel;
+
+            default:
+                return null;
         }
     }
 
@@ -151,30 +380,38 @@ public class WidgetModelJsonAdapter {
 
         WidgetModelJson json = new WidgetModelJson();
 
-         if(widgetModel instanceof EditTextModel){
+        if (widgetModel instanceof EditTextModel) {
 
-             EditTextModel basicFormEditText = (EditTextModel) widgetModel;
+            EditTextModel basicFormEditText = (EditTextModel) widgetModel;
 
-             json.setWidgetType(basicFormEditText.getWidgetType());
-             json.setHint(basicFormEditText.getHint());
-             json.setTag(basicFormEditText.getTag());
-             json.setText(basicFormEditText.getText());
-         }
-        else if(widgetModel instanceof DatePickerButtonModel){
+            json.setWidgetType(basicFormEditText.getWidgetType());
+            json.setHint(basicFormEditText.getHint());
+            json.setTag(basicFormEditText.getTag());
+            json.setText(basicFormEditText.getText());
 
-             DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
+        } else if (widgetModel instanceof TextBoxModel) {
+
+            TextBoxModel basicFormTextBox = (TextBoxModel) widgetModel;
+
+            json.setWidgetType(basicFormTextBox.getWidgetType());
+            json.setHint(basicFormTextBox.getHint());
+            json.setTag(basicFormTextBox.getTag());
+            json.setText(basicFormTextBox.getText());
+
+        } else if (widgetModel instanceof DatePickerButtonModel) {
+
+            DatePickerButtonModel datePickerButtonModel = (DatePickerButtonModel) widgetModel;
 
             json.setWidgetType(datePickerButtonModel.getWidgetType());
             json.setTag(datePickerButtonModel.getTag());
+        } else if (widgetModel instanceof FormLabelModel) {
+
+            FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
+
+            json.setWidgetType(formLabelModel.getWidgetType());
+            json.setTag(formLabelModel.getTag());
+            json.setText(formLabelModel.getLabel());
         }
-         else if(widgetModel instanceof FormLabelModel){
-
-             FormLabelModel formLabelModel = (FormLabelModel) widgetModel;
-
-             json.setWidgetType(formLabelModel.getWidgetType());
-             json.setTag(formLabelModel.getTag());
-             json.setText(formLabelModel.getLabel());
-         }
 
         return json;
     }
@@ -183,14 +420,20 @@ public class WidgetModelJsonAdapter {
     @FromJson
     FormAttribute fromJson(FormAttributeJson formAttributeJson) {
 
-        switch (formAttributeJson.getType()) {
+        switch (formAttributeJson.getPanelType()) {
 
-            case "Basic":
+            case "form":
 
                 final BasicFormAttribute basicFormAttribute = new BasicFormAttribute();
 
-                basicFormAttribute.setFormType(formAttributeJson.getType());
+                basicFormAttribute.setPanelType(formAttributeJson.getPanelType());
+                basicFormAttribute.setFormType(formAttributeJson.getFormType());
+                basicFormAttribute.setType(formAttributeJson.getType());
+                basicFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
                 basicFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
+                basicFormAttribute.setName(formAttributeJson.getName());
+                //Added new form attribute called logic
+                basicFormAttribute.setLogic(formAttributeJson.getLogic());
 
                 return basicFormAttribute;
 
@@ -198,13 +441,14 @@ public class WidgetModelJsonAdapter {
 
                 final BasicFormAttribute encounterFormAttribute = new BasicFormAttribute();
 
-                encounterFormAttribute.setFormType(formAttributeJson.getType());
+                encounterFormAttribute.setType(formAttributeJson.getType());
                 encounterFormAttribute.setEncounterId(formAttributeJson.getEncounterId());
                 encounterFormAttribute.setSubmitLabel(formAttributeJson.getSubmitLabel());
 
                 return encounterFormAttribute;
 
-            default: return null;
+            default:
+                return null;
         }
     }
 
@@ -213,10 +457,10 @@ public class WidgetModelJsonAdapter {
 
         FormAttributeJson json = new FormAttributeJson();
 
-        if(formAttribute instanceof BasicFormAttribute){
+        if (formAttribute instanceof BasicFormAttribute) {
             BasicFormAttribute basicFormEditText = (BasicFormAttribute) formAttribute;
 
-            json.setType(basicFormEditText.getFormType());
+            json.setType(basicFormEditText.getType());
         }
 
         return json;

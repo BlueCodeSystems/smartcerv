@@ -1,10 +1,19 @@
 package zm.gov.moh.common.submodule.form.model.attribute;
 
+import java.util.List;
+
+import zm.gov.moh.common.submodule.form.model.Logic;
+
 public class FormAttributeJson {
 
     private String type;
     private long encounterId;
     private String submitLabel;
+    private String formType;
+    private String panelType;
+    private String name;
+    private List<Logic> logic;
+
 
     public void setType(String type) {
         this.type = type;
@@ -28,5 +37,39 @@ public class FormAttributeJson {
 
     public String getSubmitLabel() {
         return submitLabel;
+    }
+
+    public String getPanelType() {
+        return panelType;
+    }
+
+    public void setPanelType(String panelType) {
+        this.panelType = panelType;
+    }
+
+    public void setFormType(String formType) {
+        this.formType = formType;
+    }
+
+    public String getFormType() {
+        return formType;
+    }
+
+    //Added constructor for logic attribute: setter
+    public void setLogic(List<Logic> logic) {
+        this.logic = logic;
+    }
+
+    //getter for logic
+    public List<Logic> getLogic() {
+        return logic;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

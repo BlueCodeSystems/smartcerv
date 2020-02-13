@@ -15,7 +15,7 @@ import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardActivity
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.utils.BaseApplication;
 
 public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.ClientViewHolder> {
@@ -47,7 +47,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         public void onClick(View view) {
 
             Client client = clientList.get(getAdapterPosition());
-            long clientId = client.patient_id;
+            long clientId = client.getPatientId();
             bundle.putLong(ClientDashboardActivity.PERSON_ID, clientId);
 
             //Module call = (Module) context.getIntent().getSerializableExtra(RegisterActivity.START_SUBMODULE_WITH_RESULT_KEY);
@@ -61,7 +61,7 @@ public class ClientListAdapter extends RecyclerView.Adapter<ClientListAdapter.Cl
         mInflater = LayoutInflater.from(context);
         this.context = (BaseActivity) context;
         BaseApplication applicationContext = (BaseApplication)((BaseActivity) context).getApplication();
-        patientDashboard = ((ModuleGroup)applicationContext.getSubmodule(CervicalCancerModule.MODULE))
+        patientDashboard = ((ModuleGroup)applicationContext.getModule(CervicalCancerModule.MODULE))
                             .getSubmodule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD);
 
         bundle = new Bundle();

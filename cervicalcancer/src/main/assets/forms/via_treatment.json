@@ -1,6 +1,8 @@
 {
   "attributes": {
-    "type":"Encounter",
+    "panelType":"form",
+    "formType":"encounter",
+    "name":"Treatment",
     "encounterId": 13,
     "submitLabel":"Submit"
   },
@@ -9,19 +11,77 @@
       "title":"Treatment",
       "widgets":[
         {
-          "tag":"via treatment done",
+          "tag":"VIA Treatment Done",
           "widgetType":"Concept",
           "label":"VIA treatment done",
           "conceptId": 165219,
+          "uuid":"b0f3a292-3fe1-4333-bf01-3da55fe5003c",
           "dataType":"Coded",
           "style":"radio",
-          "textSize": 18
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment2"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
         },
         {
           "tag":"reason for delayed treatment",
           "widgetType":"Concept",
           "label":"Reason for delayed treatment",
           "conceptId": 165240,
+          "uuid":"79933bfe-f5fa-41aa-b24b-a47564946d7c",
+          "dataType":"Coded",
+          "style":"check",
+          "textSize": 18
+        },
+        {
+          "tag":"reason for delayed treatment2",
+          "widgetType":"Concept",
+          "label":"Reason for delayed treatment",
+          "conceptId": 165240,
+          "uuid":"79933bfe-f5fa-41aa-b24b-a47564946d7c",
           "dataType":"Coded",
           "style":"check",
           "textSize": 18

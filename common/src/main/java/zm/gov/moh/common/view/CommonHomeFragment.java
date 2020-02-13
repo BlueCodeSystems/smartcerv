@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.databinding.FragmentCommonHomeBinding;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +72,9 @@ public class CommonHomeFragment extends Fragment {
         // Inflate the layout for this fragment
 
         FragmentCommonHomeBinding binding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.fragment_common_home, container, false);
+       Bundle bundle=new Bundle();
+       bundle.putLong("identifier",3);
+       binding.setBundle(bundle);
         binding.setContext((BaseActivity)getContext());
         return binding.getRoot();
     }

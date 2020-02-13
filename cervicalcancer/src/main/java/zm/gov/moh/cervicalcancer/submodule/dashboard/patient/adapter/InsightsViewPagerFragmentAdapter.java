@@ -5,12 +5,13 @@ import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardEDIGalleryFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardProviderFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardReferralFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardScreeningFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardTreatmentFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
 
@@ -35,8 +36,10 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
             fragment =  new PatientDashboardTreatmentFragment();
         else if (position == 4)
             fragment =  new PatientDashboardProviderFragment();
+        else if (position == 5)
+            fragment = new PatientDashboardEDIGalleryFragment();
         else
-            fragment =  new PatientDashboardVisitTypeFragment();
+            fragment = new PatientDashboardVisitTypeFragment();
 
         fragment.setArguments(mContext.getIntent().getExtras());
 
@@ -45,7 +48,7 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
 
     @Override
     public int getCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -62,6 +65,8 @@ public class InsightsViewPagerFragmentAdapter extends FragmentStatePagerAdapter 
                 return "Treatment";
             case 4:
                 return "Provider";
+            case 5:
+                return "Enhanced Digital Imaging";
             default:
                 return null;
         }

@@ -1,5 +1,6 @@
 package zm.gov.moh.common.submodule.form.widget;
 
+import android.app.Dialog;
 import android.content.Context;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -14,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -32,6 +34,7 @@ public class WidgetUtils {
     public static final int  WRAP_CONTENT = LinearLayoutCompat.LayoutParams.WRAP_CONTENT;
     public static final int  VERTICAL = LinearLayoutCompat.VERTICAL;
     public static final int  HORIZONTAL = LinearLayoutCompat.HORIZONTAL;
+    public static final int  NO_WEIGHT = 0;
 
     public static View createLinearLayout(Context context, int orientation,View... views){
 
@@ -46,8 +49,13 @@ public class WidgetUtils {
         linearLayoutCompat.setGravity(Gravity.CENTER_VERTICAL);
         linearLayoutCompat.setPadding(0,0,Utils.dpToPx(context,20),0);
 
-        for(View view: views)
+        for(View view: views) {
+
+            ViewParent parent = view.getParent();
+            if(parent != null)
+                ((ViewGroup) parent).removeAllViews();
             linearLayoutCompat.addView(view);
+        }
 
         return linearLayoutCompat;
     }
@@ -80,6 +88,7 @@ public class WidgetUtils {
             RadioButton radioButton = new RadioButton(context);
             radioButton.setText(hash.getKey());
             radioButton.setId(hash.getValue().intValue());
+            radioButton.setTag(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
             radioGroup.addView(radioButton);
         }
@@ -103,6 +112,7 @@ public class WidgetUtils {
             CheckBox radioButton = new CheckBox(context);
             radioButton.setText(hash.getKey());
             radioButton.setId(hash.getValue().intValue());
+            radioButton.setTag(hash.getValue().intValue());
             radioButton.setPadding(0,0,Utils.dpToPx(context,20),0);
             radioButton.setGravity(Gravity.CENTER_VERTICAL);
             radioButton.setOnCheckedChangeListener(onCheckedChangeListener);
@@ -160,6 +170,7 @@ public class WidgetUtils {
 
         return view;
     }
+
 
     public static <T extends View> T setLayoutParams(T view, int width, int height){
 
@@ -226,6 +237,24 @@ public class WidgetUtils {
             }
     }
 
+    public static void removeViewGroupChildren(View view){
+
+        if((view instanceof LinearLayoutCompat) || (view instanceof  RadioGroup) || (view instanceof ViewGroup)){
+
+            ViewGroup viewGroup = (ViewGroup) view;
+
+            for(int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                removeViewGroupChildren(child);
+            }
+        }
+        else{
+            ((ViewGroup)view.getParent()).removeAllViews();
+        }
+    }
+
+
+
     public static void extractTagsRecursive(ViewGroup rootView,Set<String> result, Set<String> search) {
 
         for(Object tag : search)
@@ -247,5 +276,8 @@ public class WidgetUtils {
                         result.addAll(search);
                 }
             }
+    }
+
+    public static void setLayoutParams(LinearLayoutCompat.LayoutParams layoutParams) {
     }
 }

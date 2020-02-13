@@ -1,0 +1,296 @@
+{
+  "attributes": {
+    "name":"Reproductive Health History",
+    "panelType": "form",
+    "formType": "encounter",
+    "encounterId": 8,
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Reproductive Health",
+      "widgets": [
+        {
+          "tag": "parity",
+          "widgetType": "Concept",
+          "conceptId": 165096,
+          "dataType": "Numeric",
+          "uuid": "5b5e9d10-788a-4653-a405-d7fdd5be0da7",
+          "label": "Parity",
+          "textSize": 18,
+          "hint": "Number"
+        },
+        {
+          "tag": "Does patient menstruate",
+          "widgetType": "Concept",
+          "conceptId": 165245,
+          "dataType": "Boolean",
+          "uuid": "a7d07ed6-ee87-473a-9bf6-8d483b7748dd",
+          "label": "Does patient menstruate",
+          "style": "radio",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["last_menstrual_period"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Amenorrhea or Menopause"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "last_menstrual_period",
+          "conceptId": 165202,
+          "uuid":"5e0feaa8-822c-408c-b559-4fbb26d32c1d",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "label": "Date of Last Menstrual Period",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "Amenorrhea or Menopause",
+          "widgetType": "Concept",
+          "conceptId": 165246,
+          "uuid":"22801ebb-bcc9-4c81-84a9-38d86814863a",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Select Amenorrhea or Menopause",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": "PERSON_DOB",
+                "dataType": "date",
+                "expression": {
+                  "$lt": 40
+                }
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165247
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reasons for Amenorrhea"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165248
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reasons for Amenorrhea",
+          "widgetType": "Concept",
+          "conceptId": 165249,
+          "uuid": "145598bb-90c3-4b7d-89d2-7a60b5eaac8b",
+          "dataType": "Text",
+          "label": "Reason for patient having amenorrhea:",
+          "hint": "Reason",
+          "textSize": 18
+        },
+        {
+          "tag": "grey_out",
+          "conceptId": 165336,
+          "widgetType": "TextView",
+          "label": "Family Planning methods",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "None",
+          "widgetType": "Concept",
+          "conceptId": 165097,
+          "uuid": "009dd295-5c08-4f0e-9556-3683e8c3101a",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Is patient on family planing?",
+          "textSize": 16,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "fp methods"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "fp methods",
+          "widgetType": "Concept",
+          "conceptId": 165104,
+          "uuid": "8118f8e4-3d6d-469a-90ea-4c08560ee047",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Methods",
+          "textSize": 18
+        },
+        {
+          "tag": "vaginal bleeding",
+          "widgetType": "Concept",
+          "conceptId": 165105,
+          "uuid": "f8299472-070a-407d-b174-0e91b9d115bc",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Any abnormal vaginal bleeding/contact bleeding:",
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "title": "Previous Cervical Cancer Screening & Treatment",
+      "widgets": [
+        {
+          "tag": "via_date",
+          "conceptId": 165269,
+          "uuid":"d2d58d18-bac2-49ef-8f24-6f340704be42",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "label":"VIA",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "pap smear_date",
+          "conceptId": 165107,
+          "uuid":"a2504b0d-f46f-40ef-8e85-7cfb4acd1a4a",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "futureDate": "False",
+          "label":"Pap smear",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "cryotherapy_date",
+          "conceptId": 165108,
+          "uuid":"a1f8ca72-fb0b-426b-8d94-1ed1db174cc9",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "futureDate": "False",
+          "label":"Cryotherapy",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "thermal coagulation_date",
+          "conceptId": 165109,
+          "uuid":"815b6c8d-1a83-41dd-9fec-fd18477d7293",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "futureDate": "False",
+          "label":"Thermal coagulation",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "leep_date",
+          "conceptId": 165110,
+          "uuid":"97345f49-735d-4b0e-acca-be6b969cb812",
+          "widgetType": "Concept",
+          "dataType": "Date",
+          "futureDate": "False",
+          "label":"LEEP",
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        }
+      ,{
+          "tag": "history of stis",
+          "widgetType": "Concept",
+          "conceptId": 165111,
+          "uuid": "4320cd55-c128-4952-8761-28a284f7821b",
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "History of STIs:",
+          "textSize": 18
+        },
+        {
+          "tag": "Other Pertinent Surgical History",
+          "widgetType": "Concept",
+          "conceptId": 165112,
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Any Pertinent Surgical History",
+          "textSize": 18
+        },
+        {
+          "tag": "other surgical history",
+          "widgetType": "Concept",
+          "conceptId": 165116,
+          "dataType": "Text",
+          "uuid": "469b97ca-31b2-491f-a168-dea9447fdfc7",
+          "textSize": 18,
+          "hint": "Other Surgical History"
+        }
+      ]
+    }
+  ]
+}

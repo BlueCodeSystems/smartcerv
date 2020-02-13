@@ -1,0 +1,100 @@
+{
+  "attributes": {
+  "panelType":"form",
+  "formType":"encounter",
+  "name":"Prescription(s)",
+  "encounterId":15,
+  "submitLabel":"Submit"
+  },
+  "widgetGroup":[
+    {
+      "title":"Prescription(s)",
+      "widgets":[
+        {
+          "tag":"acyclovir",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "be55fbf0-1f04-423f-8d1c-df5678d62c6f",
+          "uuid": "b8a16f8d-f628-4c4c-b498-14a733aee1b3"
+        },
+        {
+          "tag":"ceftriaxone",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "98477b0b-e78f-4241-ba1e-05a44d31f82a",
+          "uuid": "ffd29843-bea7-43d6-90a3-d705690cd5c1"
+        },
+        {
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "52d22975-1cc4-488b-9bcf-3aa72cc821a1",
+          "uuid": "3c31c774-7167-4dd6-9c7c-9cff385808f5"
+        },
+        {
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "c1ef8f78-5702-4666-92a5-9e16459282b8",
+          "uuid": "8b4ed2af-8e22-47ec-a3af-5238d5675bd1"
+        },
+        {
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "f6a31934-9688-474e-864f-805f5bd25691",
+          "uuid": "397e4957-99a2-40c3-a27a-a84c4b4adf2e"
+        },
+        {
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "f3c9682b-31bd-4ace-9e93-82b6bdc2d9cb",
+          "uuid": "15e2f983-38c7-4287-a31c-9d5ea867ab60"
+        },
+        {
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "09914e37-da7d-4799-8217-ea50e384fa14",
+          "uuid": "2315a5ca-2fc8-41a0-a4e5-0ea5c9b6abba"
+        },
+        {
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "96a13c4b-2b4c-4cb7-a79c-525490a1f504",
+          "uuid": "cb3aff30-f851-402b-9f4b-879f97c3ef45"
+        },
+        {
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "22de3193-76dd-449b-af64-9c7413849ac7",
+          "uuid": "22029e2c-21c5-4e53-9537-9255b349c04b"
+        },
+        {
+          "tag":"metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "71350006-dd16-438c-b81f-b6eb78d0c2d8",
+          "uuid": "14dcd132-bdca-4c1b-96e1-3778b25674f1"
+        },
+        {
+          "tag":"metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "drugUuid": "dc0f1aa3-2def-4322-a9c6-5dce5b195d14",
+          "uuid": "c1dc1313-72d3-492c-8995-3b2c4c7a4b72"
+        },
+        {
+          "tag": "other_prescription_text",
+          "widgetType":"ConceptOtherDrug",
+          "weight": 1,
+          "drugUuid": "f87d44a7-7f19-45fc-8639-c1f56562d1bc",
+          "uuid": "48cbf1c5-bbdb-44f4-96b7-61812c67bebe"
+        }
+      ]
+    }
+  ]
+}

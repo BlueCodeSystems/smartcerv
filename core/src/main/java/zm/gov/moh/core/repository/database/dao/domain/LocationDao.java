@@ -14,19 +14,46 @@ public interface LocationDao {
     @Query("SELECT * FROM location ORDER BY name ASC")
     LiveData<List<Location>> getAll();
 
+    @Query("SELECT * FROM location ORDER BY name ASC")
+    List<Location> getAllT();
+
     @Query("SELECT location.* FROM location JOIN location_tag_map ON location.location_id = location_tag_map.location_id WHERE location_tag_id = :id ORDER BY name ASC")
     LiveData<List<Location>> getByTagId(long id);
 
+    @Query("SELECT * FROM location WHERE location_id IN (:uuid) ORDER BY name ASC")
+    List<Location> getByUuid(List<String> uuid);
+
+    @Query("SELECT location.* FROM location JOIN location_tag_map ON location.location_id = location_tag_map.location_id WHERE location_tag_id = (SELECT location_tag_id FROM location_tag WHERE uuid = :uuid) AND location.retired = 0 ORDER BY name ASC")
+    LiveData<List<Location>> getByTagUuid(String uuid);
+
     //gets all locations
-    @Query("SELECT * FROM location WHERE parent_location = :id")
-    LiveData<List<Location>> getChild(Long id);
+    @Query("SELECT * FROM location WHERE location_id = (SELECT parent_location FROM location WHERE location_id = :id)")
+    LiveData<Location> getParentByChildId(Long id);
+
+    //gets all locations
+    @Query("SELECT uuid FROM location WHERE location_id = :id")
+    String getUuidById(Long id);
+
+    //gets all locations
+    @Query("SELECT location_id FROM location WHERE uuid = :uuid")
+    Long getIdByUuid(String uuid);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Location... locations);
 
+    @Query("SELECT * FROM location WHERE name = :districtName")
+    LiveData<Location> getLocationByName(String districtName);
+
     //get getLocations by id
     @Query("SELECT * FROM location WHERE location_id = :id")
     LiveData<Location> findById(Long id);
+
+    @Query("SELECT * FROM location WHERE parent_location = :id LIMIT 1")
+    LiveData<Location> findByChild(Long id);
+
+    //get getLocations by id
+    @Query("SELECT name FROM location WHERE location_id = :id")
+    String getNameById(Long id);
 
     //get getLocations by id
     @Query("SELECT location.* FROM location JOIN patient_identifier ON patient_identifier.location_id = location.location_id WHERE patient_identifier.patient_id = :id AND identifier_type = 3")

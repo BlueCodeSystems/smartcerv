@@ -4,7 +4,7 @@
         <variable name="client" type="zm.gov.moh.core.repository.database.entity.derived.Client"/>
         <variable name="clientAddress" type="zm.gov.moh.core.repository.database.entity.domain.PersonAddress"/>
         <variable name="facility" type="zm.gov.moh.core.repository.database.entity.domain.Location"/>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="title" type="String"/>
         <import type="org.threeten.bp.LocalDate"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,9 +16,10 @@
         tools:context=".module.dashboard.client.view.ClientDashboardActivity">
         <include
             layout="@layout/base_toolbar"
+            android:id="@id/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:toolbarhandler="@{toolbarhandler}">
+            app:title="@{title}">
         </include>
 
        <include android:id="@+id/client"
@@ -30,8 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@{facility.name}"
-            android:textColor="@color/colorPrimary"
+            android:text="@{facility.getName}"
+            android:textColor="@color/primary"
             android:textStyle="bold"/>
 
         <TextView
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="end"
-            android:text="@{clientAddress.address1+`, `+clientAddress.city_village+`, `+clientAddress.state_province}"
+            android:text="@{(clientAddress != null)?clientAddress.getAddress1+`, `+clientAddress.getCityVillage+`, `+clientAddress.getStateProvince : `unknown`}"
             android:textColor="@color/darker_grey"/>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/sliding_tabs"

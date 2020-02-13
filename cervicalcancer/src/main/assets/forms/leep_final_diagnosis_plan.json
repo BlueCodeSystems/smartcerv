@@ -1,0 +1,670 @@
+{
+  "attributes": {
+    "panelType": "form",
+    "formType": "encounter",
+    "name": "Final Diagnosis And Plan",
+    "encounterId": 21,
+    "submitLabel": "Submit"
+  },
+  "widgetGroup": [
+    {
+      "title": "Specimen Dimensions",
+      "widgets": [
+        {
+          "widgetType": "TextBoxTwo",
+          "label": "Size:",
+          "dataType": "Text",
+          "hint": "10mm x 20mm",
+          "style": "textboxtwo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextBoxTwo",
+          "label": "Size:",
+          "dataType": "Text",
+          "hint": "10mm x 20mm",
+          "style": "textboxtwo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextBoxTwo",
+          "label": "Size:",
+          "dataType": "Text",
+          "hint": "10mm x 20mm",
+          "style": "textboxtwo",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "specimen size",
+          "widgetType": "Concept",
+          "conceptId": 165305,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Other options for size(dimensions) of specimen given",
+          "textSize": 18
+        },
+        {
+        "tag": "number of sections taken",
+          "widgetType": "Concept",
+          "conceptId": 165368,
+          "dataType": "Numeric",
+          "uuid":"515846d2-c494-476a-bf97-b921b10f93a2",
+          "label": "Number of Sections taken",
+          "textSize": 18,
+          "hint": "Number"
+        }
+      ]
+    },
+    {
+      "title": "Margins",
+      "widgets": [
+        {
+          "tag": "ectocervical",
+          "widgetType": "Concept",
+          "conceptId": 165371,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Ectocervical",
+          "textSize": 18
+        },
+        {
+          "tag": "exocervical",
+          "widgetType": "Concept",
+          "conceptId": 165310,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Exocervical",
+          "textSize": 18
+        },
+        {
+          "tag": "endocervical",
+          "widgetType": "Concept",
+          "conceptId": 165311,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Endocervical",
+          "textSize": 18
+        },
+        {
+          "tag": "reason",
+          "widgetType": "TextView",
+          "label": "Reason",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "tag": "reason",
+          "widgetType": "EditText",
+          "hint": "                                                                                                                                          ",
+          "weight": 1
+        }
+
+      ]
+    },
+    {
+      "title": "Pathology Description",
+      "widgets": [
+        {
+          "tag": "normal",
+          "widgetType": "Concept",
+          "conceptId": 165222,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Normal",
+          "textSize": 18
+        },
+        {
+          "tag": "benign",
+          "widgetType": "Concept",
+          "conceptId": 165372,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Benign",
+          "textSize": 18
+        },
+        {
+          "tag": "cin1_hpv",
+          "widgetType": "Concept",
+          "conceptId": 165322,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN1/HPV",
+          "textSize": 18
+        },
+        {
+          "tag": "cin2",
+          "widgetType": "Concept",
+          "conceptId": 165323,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN2",
+          "textSize": 18
+        },
+        {
+          "tag": "cin3",
+          "widgetType": "Concept",
+          "conceptId": 165324,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN3",
+          "textSize": 18
+        },
+        {
+          "tag": "adenocarcinoma-in-situ",
+          "widgetType": "Concept",
+          "conceptId": 165373,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Adenocarcinoma-in-situ",
+          "textSize": 18
+        },
+        {
+          "tag": "malignant",
+          "widgetType": "Concept",
+          "conceptId": 165377,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Malignant",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["r"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "insufficient for processing",
+          "widgetType": "Concept",
+          "conceptId": 165332,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Insufficient for processing",
+          "textSize": 18
+        },
+        {
+          "tag": "Other_pathology_description",
+          "widgetType": "Concept",
+          "conceptId": 165386,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Other",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 1
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Reason For Other pathology description"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 2
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    ""
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Reason For Other pathology description",
+          "widgetType": "Concept",
+          "conceptId": 165387,
+          "dataType": "Text",
+          "hint": "Enter Reason For Other",
+          "textSize": 18
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "weight": 1
+        }
+      ]
+    },
+    {
+    "title": "Final Diagnosis & Plan",
+    "widgets": [
+      {
+        "tag": "normal",
+        "widgetType": "Concept",
+        "conceptId": 165222,
+        "dataType": "Boolean",
+        "style": "radio",
+        "label": "Normal",
+        "textSize": 18
+      },
+        {
+          "tag": "benign",
+          "widgetType": "Concept",
+          "conceptId": 165372,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Benign",
+          "textSize": 18
+        },
+        {
+          "tag": "cin1_hpv",
+          "widgetType": "Concept",
+          "conceptId": 165322,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN1/HPV",
+          "textSize": 18
+        },
+        {
+          "tag": "cin2",
+          "widgetType": "Concept",
+          "conceptId": 165323,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN2",
+          "textSize": 18
+        },
+        {
+          "tag": "cin3",
+          "widgetType": "Concept",
+          "conceptId": 165324,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "CIN3",
+          "textSize": 18
+        },
+        {
+          "tag": "adenocarcinoma-in-situ",
+          "widgetType": "Concept",
+          "conceptId": 165373,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Adenocarcinoma-in-situ",
+          "textSize": 18
+        },
+        {
+          "tag": "malignant",
+          "widgetType": "Concept",
+          "conceptId": 165377,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Malignant",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value":165174
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [""]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165175
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["r"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165176
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value":165177
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["reason for delayed treatment"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "insufficient for processing",
+          "widgetType": "Concept",
+          "conceptId": 165332,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Insufficient for processing",
+          "textSize": 18
+        },
+      {
+        "tag": "Other_final_diagnosis_&_plan",
+        "widgetType": "Concept",
+        "conceptId": 165384,
+        "dataType": "Boolean",
+        "style": "radio",
+        "label": "Other",
+        "textSize": 18,
+        "logic": [
+          {
+            "condition": {
+              "value": 1
+            },
+            "action": {
+              "type": "skipLogic",
+              "metadata": {
+                "tags": [
+                  "Reason For Other final_diagnosis_&_plan"
+                ]
+              }
+            }
+          },
+          {
+            "condition": {
+              "value": 2
+            },
+            "action": {
+              "type": "skipLogic",
+              "metadata": {
+                "tags": [
+                  ""
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "tag": "Reason For Other final_diagnosis_&_plan",
+        "widgetType": "Concept",
+        "conceptId": 165385,
+        "dataType": "Text",
+        "hint": "Enter Reason For Other",
+        "textSize": 18
+      },
+      {
+        "tag": "provider",
+        "widgetType": "ProviderLabel",
+        "label": "Provider Name",
+        "textSize": 18
+      },
+      {
+        "widgetType": "TextView",
+        "label": "Phone",
+        "textSize": 18,
+        "weight": 1
+      },
+      {
+        "tag": "phone",
+        "widgetType": "EditText",
+        "hint": "Example +260967546754",
+        "weight": 1
+      }
+      ]
+    },
+    {
+      "title": "Plan",
+      "widgets": [
+        {
+          "tag":"ceftriaxone",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fe87b215-3c12-499e-860d-9c91920866e9"
+        },
+        {
+          "tag":"cefixime",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "77492766-5b21-4d24-85ed-82eff118814f"
+        },
+        {
+          "tag":"ciprofloxacin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "3987dc55-8df9-4076-86a0-f5098df8a145"
+        },
+        {
+          "tag":"clotrimazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "0bb77886-b15f-4a4c-a594-f6de5fe6493e"
+        },
+        {
+          "tag":"clotrimazole_miconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "fb7152d2-c5c4-4f76-bf38-2ba7b5484dbb"
+        },
+        {
+          "tag":"doxycycline",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "b62f422b-11b6-495a-889e-ea141c05ec1e"
+        },
+        {
+          "tag":"erythromycin",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "f69b9bc1-f40a-4c0d-abd7-98fbb0402185"
+        },
+        {
+          "tag":"fluconazole",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "e8567dea-d31e-4b55-ab7e-84a2af0430b9"
+        },
+        {
+          "tag":"Metronidazole_400g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "28d1b01b-ce8a-4c36-a525-95685b6f2205"
+        },
+        {
+          "tag":"Metronidazole_200g",
+          "widgetType":"ConceptDrug",
+          "weight": 1,
+          "uuid": "6fbba95c-dc26-4b65-a8c7-65e748129612"
+        },
+        {
+          "tag": "date_discussed",
+          "widgetType": "DatePicker",
+          "label": "Date discussed",
+          "textSize": 18,
+          "weight": 1,
+          "hint":"dd MMM yyyy"
+        },
+        {
+          "tag": "recommended art initiation",
+          "widgetType": "Concept",
+          "conceptId": 165342,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Recommended ART initiation",
+          "textSize": 18
+        },
+        {
+          "tag": "pelvic_exam_done",
+          "widgetType": "Concept",
+          "conceptId": 165137,
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Pelvic exam done?",
+          "textSize": 18
+        },
+        {
+          "tag": "referred_for_hysterectomy",
+          "widgetType": "DatePicker",
+          "label": "Referred for hysterectomy",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "referred_for_eua",
+          "widgetType": "DatePicker",
+          "label": "Referred for EUA",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "referred_to_radiotherapy",
+          "widgetType": "DatePicker",
+          "label": "Referred to radiotherapy",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "repeat_leep",
+          "widgetType": "DatePicker",
+          "label": "Repeat LEEP",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "repeat_biopsy",
+          "widgetType": "DatePicker",
+          "label": "Repeat biopsy",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "return_to_referral_clinic",
+          "widgetType": "DatePicker",
+          "label": "Return to referral clinic for follow up",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "other",
+          "widgetType": "DatePicker",
+          "label": "Other",
+          "style": "edittext",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "referred_to_vct",
+          "widgetType": "Concept",
+          "conceptId": 165335,
+          "dataType": "Boolean",
+          "style": "radio",
+          "label": "Referral to VCT",
+          "textSize": 18
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "uuid": "c2ce2e62-01fa-4ee8-bdff-cb94efd76ab3",
+          "conceptId": 165345,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
+          "weight": 1
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Phone",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "phone",
+          "widgetType": "EditText",
+          "hint": "Example +260967546754",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+
+

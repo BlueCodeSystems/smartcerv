@@ -42,9 +42,11 @@ public class LocationArrayAdapter extends ArrayAdapter<Location> {
 
             CheckedTextView checkedTextView = (CheckedTextView) view.getRootView();
 
+
+
             Location location = super.getItem(postion);
 
-            checkedTextView.setText(location.name);
+            checkedTextView.setText(location.getName());
 
             return view;
         }

@@ -1,6 +1,8 @@
 {
   "attributes": {
-    "type":"Encounter",
+    "panelType":"form",
+    "formType":"encounter",
+    "name":"Referral",
     "encounterId": 14,
     "submitLabel":"Submit"
   },
@@ -9,9 +11,11 @@
       "title":"Referral",
       "widgets":[
         {
+          "tag":"Health facility referred",
           "widgetType":"Concept",
           "label":"Health facility referred to",
           "conceptId": 165181,
+          "uuid":"38905f09-b2fb-4c98-a530-a1e1e779f3db",
           "dataType":"Text",
           "hint":"Facility name",
           "textSize":18,
@@ -22,24 +26,24 @@
           "widgetType": "Concept",
           "label":"Reason for referral",
           "conceptId": 165182,
+          "uuid":"f3fc438b-fd59-4665-b584-6a567a3fb2e5",
           "dataType": "Coded",
           "style": "check",
           "textSize": 18
         },
-        {
-          "widgetType":"WidgetGroupRow",
-          "widgets":[
+
             {
+              "tag":"Other Gyn Referal",
               "widgetType":"Concept",
               "label":"Other Gyn. Referal",
               "conceptId": 165186,
+              "uuid":"2e92994b-bedd-473b-acd8-5be293449db7",
               "dataType":"Text",
-              "hint":"Gyn Condition",
+              "hint":"Enter Gyn Referral",
               "textSize":18,
               "weight":1
             }
-          ]
-        }
+
       ]
     }
   ]

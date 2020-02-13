@@ -4,7 +4,7 @@ import java.util.List;
 
 import zm.gov.moh.common.submodule.form.model.widgetModel.WidgetModel;
 
-public class WidgetModelJson {
+public class  WidgetModelJson {
 
     protected String tag;
     protected String widgetType;
@@ -21,8 +21,48 @@ public class WidgetModelJson {
     protected String dataType;
     protected String style;
     protected List<Logic> logic;
+    protected String uuid;
+    protected String drugUuid;
+    protected String regex;
+    protected String errorMessage;
+    protected Boolean required;
+    protected String futureDate;
 
+    protected  int rowSize;
+    protected int colSize;
+    protected TableData[] tableData;
 
+    public TableData[] getTableData() {
+        return tableData;
+    }
+
+    public void setTableData(TableData[] tableData) {
+        this.tableData = tableData;
+    }
+
+    public int getRowSize() {
+        return rowSize;
+    }
+
+    public void setRowSize(int rowSize) {
+        this.rowSize = rowSize;
+    }
+
+    public int getColSize() {
+        return colSize;
+    }
+
+    public void setColSize(int colSize) {
+        this.colSize = colSize;
+    }
+
+    public String getFutureDate() {
+        return futureDate;
+    }
+
+    public void setFutureDate(String futureDate) {
+        this.futureDate = futureDate;
+    }
 
     public void setWidgetType(String widgetType) {
         this.widgetType = widgetType;
@@ -146,5 +186,45 @@ public class WidgetModelJson {
 
     public void setLogic(List<Logic> logic) {
         this.logic = logic;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getDrugUuid() {
+        return drugUuid;
+    }
+
+    public void setDrugUuid(String drugUuid) {
+        this.drugUuid = drugUuid;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
     }
 }

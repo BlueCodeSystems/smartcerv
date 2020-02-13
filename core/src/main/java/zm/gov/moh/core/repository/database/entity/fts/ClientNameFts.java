@@ -12,7 +12,7 @@ public class ClientNameFts {
        private String name;
        private long id;
 
-       public ClientNameFts(long rowId, String name, long id) {
+       public ClientNameFts(String name, long id) {
            this.name = name;
            this.id = id;
        }
@@ -23,6 +23,10 @@ public class ClientNameFts {
 
     public long getRowId() {
         return rowId;
+    }
+
+    public void setRowId(long rowId) {
+        this.rowId = rowId;
     }
 
     public long getId() {

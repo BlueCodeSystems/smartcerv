@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitFragment;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardVisitTypeFragment;
 import zm.gov.moh.common.submodule.dashboard.client.view.ClientDashboardVitalsFragment;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 public class RecentsViewPagerFragmentAdapter extends FragmentStatePagerAdapter {
 

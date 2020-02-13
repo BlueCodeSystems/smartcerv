@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
-        <import name="baseapp" type="zm.gov.moh.core.utils.BaseApplication"/>
+        <variable name="title" type="String"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
+        <import type="zm.gov.moh.core.utils.BaseApplication"/>
         <variable name="ccmodule" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
         <variable name="metrics" type="java.util.Map"/>
+
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,12 +21,13 @@
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:toolbarhandler="@{toolbarhandler}">
+            app:title="@{title}">
         </include>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,10 +55,13 @@
                         android:name="zm.gov.moh.cervicalcancer.view.CervicalCancerHomeFragment"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
                     </fragment>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                    </LinearLayout>
                 </FrameLayout>
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

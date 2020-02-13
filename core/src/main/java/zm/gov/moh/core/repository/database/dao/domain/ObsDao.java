@@ -1,45 +1,86 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.*;
+import org.threeten.bp.LocalDateTime;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import zm.gov.moh.core.repository.database.entity.domain.Obs;
+import zm.gov.moh.core.repository.database.dao.Synchronizable;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
 @Dao
-public interface ObsDao {
+public interface ObsDao extends Synchronizable<ObsEntity> {
+
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT COALESCE(date_created,'1970-01-01T00:00:00') AS datetime FROM obs WHERE person_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
+    LocalDateTime getMaxDatetime(long locationId);
+
 
     @Query("SELECT MAX(obs_id) FROM obs")
     Long getMaxId();
 
-    // Inserts single getPersons
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Obs obs);
+    @Query("SELECT obs_id FROM obs")
+    List<Long> getIds();
 
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Obs... obs);
+    void insert(ObsEntity obs);
 
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(List<Obs> obs);
+    void insert(ObsEntity... obs);
+
+    // Inserts single getPersons
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<ObsEntity> obs);
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")
-    List<Obs> findByPatientId(long id);
+    ObsEntity[] findByPatientId(long id);
+
+    //get getPersons by id
+    @Query("SELECT * FROM obs WHERE strftime('%s',obs_datetime) = strftime('%s',:dateTime) AND location_id = :locationId")
+    ObsEntity[] findByObsDatetime(String dateTime, long locationId);
+
+    @Query("DELETE FROM obs WHERE obs_id IN (:obsId) AND obs_id >= :offset")
+    void deleteById(long[] obsId, long offset);
 
     //get getPersons by id
     @Query("SELECT * FROM obs WHERE person_id = :id")
-    List<Obs> getCodedValueByConceptId(long id);
+    List<ObsEntity> getCodedValueByConceptId(long id);
 
     @Query("SELECT * FROM obs WHERE concept_id = :id")
-    Obs findByConceptId(long id);
+    ObsEntity findByConceptId(long id);
 
-    @Query("SELECT * FROM obs WHERE encounter_id = :id")
-    List<Obs> getObsByEncountId(long id);
+    //query to pick patient by conceptuuid
+    @Query("SELECT * FROM obs WHERE concept_id = (SELECT concept_id FROM concept WHERE uuid = :conceptUuid) AND encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId GROUP BY encounter_type ORDER BY date_created DESC) ORDER BY date_created DESC" )
+    LiveData<ObsEntity[]>findPatientObsByConceptUuid(long visitId, String conceptUuid);
+
+    @Query("SELECT * FROM obs WHERE encounter_id = :id AND voided != 1 ORDER BY date_created DESC")
+    List<ObsEntity> getObsByEncounterId(long id);
+
+    @Query("SELECT * FROM obs WHERE obs_id = :id")
+    ObsEntity getObsById(long id);
+
+    @Query("SELECT obs_id FROM obs WHERE encounter_id IN (:encounterId)")
+    long[] getObsByEncounterId(long[] encounterId );
+
+    @Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds) AND voided != 1")
+    List<ObsEntity> getObsByEncounterId(List<Long> encounterIds);
+
+    @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId) AND concept_id = :conceptId")
+    List<ObsEntity> getObsByVisitIdConceptId(Long visitId, Long conceptId);
 
     @Query("SELECT * FROM obs WHERE concept_id IN (:ids)")
-    List<Obs> findByConceptId(long... ids);
+    List<ObsEntity> findByConceptId(long... ids);
+
+    @Override
+    @Query("SELECT * FROM (SELECT * FROM obs WHERE obs_id NOT IN (:id)) WHERE obs_id >= :offsetId")
+    ObsEntity[] findEntityNotWithId(long offsetId, long... id);
+
+    @Query("UPDATE obs SET person_id = :remotePersonId WHERE person_id = :localPersonId")
+    void replaceLocalPersonId(long localPersonId, long remotePersonId);
 }

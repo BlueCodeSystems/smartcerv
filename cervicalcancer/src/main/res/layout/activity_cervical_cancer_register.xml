@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="toolbarhandler" type="zm.gov.moh.common.ui.BaseActivity.ToolBarEventHandler"/>
+        <variable name="title" type="String"/>
+        <variable name="searchTermObserver" type="zm.gov.moh.common.submodule.register.model.SearchTermObserver"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -16,17 +17,17 @@
             layout="@layout/base_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:toolbarhandler="@{toolbarhandler}">
+            app:title="@{title}">
         </include>
 
-        <EditText
+        <include
+            layout="@layout/base_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:inputType="textFilter"
-            android:layout_marginHorizontal="10dp"
-            android:hint="Find client by ID or name" />
+            android:layout_marginTop="30dp"
+            android:padding="10dp"
+            app:searchTermObserver="@{searchTermObserver}">
+        </include>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/client_list"

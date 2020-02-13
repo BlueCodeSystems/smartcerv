@@ -10,7 +10,7 @@
         <variable name="bloodPressureDiabolic" type="double"/>
         <variable name="bloodOxygen" type="double"/>
         <variable name="coremodule" type="zm.gov.moh.core.utils.BaseApplication.CoreModule"/>
-        <variable name="context" type="zm.gov.moh.common.ui.BaseActivity"/>
+        <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
         <variable name="bundle" type="android.os.Bundle"/>
     </data>
 

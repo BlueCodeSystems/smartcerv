@@ -11,6 +11,7 @@ import android.util.TypedValue;
 
 import java.util.HashMap;
 
+import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 
@@ -26,7 +27,7 @@ public class FacilityLabelWidget extends LinearLayoutCompat  {
         super(context);
 
         long facilityLocationId = repository.getDefaultSharePrefrences()
-                .getLong(context.getResources().getString(zm.gov.moh.core.R.string.session_location_key), 1);
+                .getLong(Key.LOCATION_ID, 1);
         this.repository = repository;
         this.context = context;
         this.bundle = bundle;
@@ -73,8 +74,8 @@ public class FacilityLabelWidget extends LinearLayoutCompat  {
 
         if(location != null) {
 
-          setTextValue(location.name);
-          bundle.putLong((String)getTag(),location.location_id);
+          setTextValue(location.getName());
+          bundle.putLong((String)getTag(),location.getLocationId());
         }
     }
 

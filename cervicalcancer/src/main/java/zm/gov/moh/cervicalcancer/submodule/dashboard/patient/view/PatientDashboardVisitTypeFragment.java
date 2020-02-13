@@ -18,12 +18,13 @@ import java.util.Map;
 
 import zm.gov.moh.cervicalcancer.OpenmrsConfig;
 import zm.gov.moh.cervicalcancer.R;
-import zm.gov.moh.common.ui.BaseActivity;
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.core.model.Key;
-import zm.gov.moh.core.repository.database.entity.domain.Visit;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.renderCheckMarkIconView;
 import static zm.gov.moh.cervicalcancer.submodule.dashboard.patient.utils.Utils.dateCellView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,12 +89,12 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
         tableLayout.addView(tableRow);
     }
 
-    public void recordCompletedVisits(List<Visit> visitList){
+    public void recordCompletedVisits(List<VisitEntity> visitList){
 
         HashMap<Long, Boolean> visitCompleted;
         visitCompleted = new HashMap<>();
 
-        Iterator<Visit> visitIterator = visitList.iterator();
+        Iterator<VisitEntity> visitIterator = visitList.iterator();
 
             while (visitIterator.hasNext()) {
 
@@ -105,9 +106,9 @@ public class PatientDashboardVisitTypeFragment extends Fragment {
                 visitCompleted.put(OpenmrsConfig.VISIT_TYPE_ID_ROUTINE_SCREENING, false);
 
 
-                Visit visit = visitIterator.next();
-                String date = visit.date_started.format(DateTimeFormatter.ISO_LOCAL_DATE);
-                long visitTypeId = visit.getVisit_type_id();
+                VisitEntity visit = visitIterator.next();
+                String date = visit.getDateStarted().format(DateTimeFormatter.ISO_LOCAL_DATE);
+                long visitTypeId = visit.getVisitTypeId();
 
                 visitCompleted.put(visitTypeId,true);
 
