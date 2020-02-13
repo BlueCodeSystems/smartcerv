@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
@@ -17,6 +19,9 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
 
     @Query("SELECT person_address_id FROM person_address")
     List<Long> getIds();
+
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM person_address WHERE person_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
+    LocalDateTime getMaxDatetime(long locationId);
 
     // Inserts single getPersons
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -36,6 +41,9 @@ public interface PersonAddressDao extends Synchronizable<PersonAddress> {
 
     @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1")
     PersonAddress findByPersonId(long id);
+
+    @Query("SELECT * FROM person_address WHERE person_id = :id AND preferred = 1 AND date_changed >= :lastModifiedDate")
+    PersonAddress findByPersonId(long id, LocalDateTime lastModifiedDate);
 
     @Query("UPDATE person_address SET person_id = :remote WHERE person_id = :local")
     void replacePerson(long local, long remote);

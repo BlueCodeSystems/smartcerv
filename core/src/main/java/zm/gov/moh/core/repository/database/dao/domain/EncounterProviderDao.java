@@ -22,6 +22,9 @@ public interface EncounterProviderDao {
     @Query("SELECT * FROM encounter_provider WHERE encounter_id = :id ORDER BY date_created DESC LIMIT 1")
     EncounterProvider getByEncounterId(long id);
 
+    @Query("Select provider_id from encounter_provider WHERE encounter_id=:encounterId")
+    Long getProviderByEncounterId(long encounterId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EncounterProvider... encounterProviders);
 }

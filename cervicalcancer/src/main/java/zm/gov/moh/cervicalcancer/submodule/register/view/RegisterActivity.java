@@ -37,6 +37,8 @@ public class RegisterActivity extends BaseRegisterActivity {
         setViewModel(registerViewModel);
         binding.setTitle("Client Register");
         binding.setSearchTermObserver(searchTermObserver);
+        initToolBar(binding.getRoot());
+
 
         RecyclerView clientRecyclerView = findViewById(R.id.client_list);
 

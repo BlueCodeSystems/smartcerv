@@ -2,12 +2,6 @@
     package="zm.gov.moh.core">
     <application>
         <service
-            android:name=".service.PullMetaDataRemote"
-            android:exported="false"/>
-        <service
-            android:name=".service.PullDataRemote"
-            android:exported="false"/>
-        <service
             android:name=".service.SearchIndex"
             android:exported="false"/>
         <service
@@ -15,12 +9,6 @@
             android:exported="false"/>
         <service
             android:name=".service.PersistDemographics"
-            android:exported="false"/>
-        <service
-            android:name=".service.PushDataRemote"
-            android:exported="false"/>
-        <service
-            android:name=".service.PullPatientIDRemote"
             android:exported="false"/>
     </application>
 

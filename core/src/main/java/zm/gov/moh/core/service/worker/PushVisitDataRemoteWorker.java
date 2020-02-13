@@ -70,7 +70,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     public void onTaskCompleted(){
 
-        repository.getDefaultSharePrefrences().edit().putString(Key.LAST_SYNC_DATE,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
+        repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
         mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
     }
 
@@ -211,7 +211,9 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
         String location = db.locationDao().getUuidById(encounterEntity.getLocationId());
         String encounterType = db.encounterTypeDao().getUuidById(encounterEntity.getEncounterType());
-
+        Long providerID=db.encounterProviderDao().getProviderByEncounterId(encounterEntity.getEncounterId());
+        String providerUuid=db.providerDao().getProviderUuidByProviderId(providerID);
+        encounter.setProvider(providerUuid);
         encounter.setLocation(location);
         encounter.setEncounterType(encounterType);
         encounter.setEncounterDatetime(encounterEntity.getEncounterDatetime());

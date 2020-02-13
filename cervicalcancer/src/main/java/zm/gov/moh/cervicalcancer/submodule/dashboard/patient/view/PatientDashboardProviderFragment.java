@@ -47,12 +47,6 @@ public class PatientDashboardProviderFragment extends Fragment {
 
         context = (BaseActivity)getContext();
         View view = inflater.inflate(R.layout.fragment_patient_dashoard_provider, container, false);
-        //context = (PatientDashboardActivity) getContext();
-        //context.getClientId();
-        // Inflate the layout for this fragment
-
-        //FragmentClientDashboardVitalsBinding binding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.fragment_client_dashboard_vitals, container, false);
-       // View view = binding.getRoot();
 
         tableLayout = view.findViewById(R.id.visit_type_table);
 
@@ -62,19 +56,19 @@ public class PatientDashboardProviderFragment extends Fragment {
     }
 
 
-    public void populateProviderRole(Map<Long,Collection<String>> screeningResults){
+    public void populateProviderRole(Map<Long, Collection<Map.Entry<String, String>>> screeningResults){
 
         if(tableLayout.getChildCount()> 0)
             tableLayout.removeAllViews();
 
-        for (Map.Entry<Long,Collection<String>> b : screeningResults.entrySet()){
+        for (Map.Entry<Long, Collection<Map.Entry<String, String>>> b : screeningResults.entrySet()){
 
             Instant dateTime = Instant.ofEpochSecond(b.getKey());
 
             TableRow tableRow = new TableRow(context);
             tableRow.setBackground(context.getResources().getDrawable(R.drawable.border_bottom));
             tableRow.addView(dateCellView(context,String.valueOf(dateTime.atZone(ZoneId.systemDefault()).format(org.threeten.bp.format.DateTimeFormatter.ISO_LOCAL_DATE))));
-            for(String v :b.getValue())
+            for(Map.Entry<String, String> v :b.getValue())
                 tableRow.addView(providerInitialsCellView(context, v));
 
             tableLayout.addView(tableRow);

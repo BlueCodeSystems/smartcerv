@@ -23,11 +23,11 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
     @NonNull
     public Result doWork() {
 
-        taskPoolSize = 14;
-        String lastSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_METADATA_SYNC_DATETIME,null);
+        //TODO: Adjust the number of task pool size according to the number tasks invoking onTaskCompleted();
+        taskPoolSize = 17;
 
-        if(lastSyncDate != null)
-            MIN_DATETIME = LocalDateTime.parse(lastSyncDate);
+        if(lastMetadataSyncDate != null)
+            MIN_DATETIME = LocalDateTime.parse(lastMetadataSyncDate);
         //Get from rest API and insert into database asynchronously
 
 
@@ -142,6 +142,36 @@ public class PullMetaDataRemoteWorker extends RemoteWorker {
                 this::onError,
                 repository.getRestApi().getProviderAttributeType(accessToken),
                 //producer
+                TIMEOUT);
+
+        // PersonAttribute Types
+        ConcurrencyUtils.consumeAsync(
+               personAttributes -> {
+                   repository.getDatabase().personAttributeDao().insert(personAttributes);
+                   onTaskCompleted();
+               }, // consumer
+               this::onError,
+               repository.getRestApi().getPersonAttributes(accessToken), // producer
+               TIMEOUT);
+
+        // PersonAttributeType Types
+        ConcurrencyUtils.consumeAsync(
+                personAttributeTypes -> {
+                    repository.getDatabase().personAttributeTypeDao().insert(personAttributeTypes);
+                    onTaskCompleted();
+                }, // consumer
+                this::onError,
+                repository.getRestApi().getPersonAttributeTypes(accessToken), // producer
+                TIMEOUT);
+
+        // EncounterProvider Types
+        ConcurrencyUtils.consumeAsync(
+                encounterProviders -> {
+                    repository.getDatabase().encounterProviderDao().insert(encounterProviders);
+                    onTaskCompleted();
+                }, // consumer
+                this::onError,
+                repository.getRestApi().getEncounterProviders(accessToken), // producer
                 TIMEOUT);
 
        if(awaitResult().equals(Result.success())){

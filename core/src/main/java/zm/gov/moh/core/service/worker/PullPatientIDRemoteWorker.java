@@ -2,12 +2,13 @@ package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import zm.gov.moh.core.BuildConfig;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
-import zm.gov.moh.core.service.RemoteService;
-import zm.gov.moh.core.service.ServiceManager;
+import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
 public class PullPatientIDRemoteWorker extends RemoteWorker {
@@ -26,6 +27,8 @@ public class PullPatientIDRemoteWorker extends RemoteWorker {
     @Override
     @NonNull
     public Result doWork() {
+
+        List<Person> p = db.personDao().getAllT();
 
         int identifiersNotAssigned = db.identifierDao().count(NOT_ASSIGNED);
 
