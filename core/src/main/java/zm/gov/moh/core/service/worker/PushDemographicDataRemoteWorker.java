@@ -25,6 +25,7 @@ import zm.gov.moh.core.repository.database.Migrations;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
@@ -105,7 +106,13 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
 
             for(Long entityId:entityIds) {
 
-                EntityMetadata entityMetadata = new EntityMetadata(entityId,entityTypeId, Status.PUSHED.getCode(), LocalDateTime.now());
+                EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(entityId);
+                if(entityMetadata == null)
+                    entityMetadata = new EntityMetadata(entityId,entityTypeId);
+
+                entityMetadata.setRemoteStatusCode( Status.PUSHED.getCode());
+                entityMetadata.setLastModified(LocalDateTime.now());
+
                 db.entityMetadataDao().insert(entityMetadata);
             }
         };
@@ -114,20 +121,22 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
     public Patient createPatient(final long patientId, final LocalDateTime lastModified) throws Exception{
 
        Person person = db.personDao().findById(patientId);
+
+       //PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonEntityId(patientId);
        PersonName personName = db.personNameDao().findByPersonId(patientId, lastModified);
        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId, lastModified);
        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);
        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
-       List<PatientIdentifierEntity> id = db.patientIdentifierDao().findAllByPatientId2(patientId);
 
-       if((person != null || personName != null || personAddress != null) && (patientIdentifiers.size() > 1 || person.getUuid() != null)) {
+       if((person != null || personName != null || personAddress != null) && ((patientIdentifiers.size() > 1 && person.getVoided() == 0) || person.getUuid() != null)) {
+
 
            return new Patient.Builder()
                    .setPerson(person)
                    .setPersonName(personName)
                    .setPersonAddress(personAddress)
                    .setAttributes(personAttributes)
-                   .setIdentifiers(patientIdentifiers)
+                   .setIdentifiers((patientIdentifiers.size() == 0)? null:patientIdentifiers)
                    .build();
        }
        else

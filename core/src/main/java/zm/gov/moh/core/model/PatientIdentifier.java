@@ -6,6 +6,7 @@ public class PatientIdentifier {
     private String identifier;
     private String location;
     private Short preferred;
+    private Short voided = 0;
 
     public String getIdentifier() {
         return identifier;
@@ -25,6 +26,14 @@ public class PatientIdentifier {
 
     public void setLocation(String locationUuid) {
         this.location = locationUuid;
+    }
+
+    public void setVoided(Short voided) {
+        this.voided = voided;
+    }
+
+    public Short getVoided() {
+        return voided;
     }
 
     public String getLocation() {

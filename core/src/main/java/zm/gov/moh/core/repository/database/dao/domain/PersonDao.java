@@ -19,6 +19,9 @@ public interface PersonDao extends Synchronizable<Person> {
     @Query("SELECT * FROM person")
     LiveData<List<Person>> getAll();
 
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM person WHERE person_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
+    LocalDateTime getMaxDatetime(long locationId);
+
     @Query("SELECT * FROM person")
     List<Person> getAllT();
 

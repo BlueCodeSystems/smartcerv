@@ -241,9 +241,9 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
                 db.personNameDao().insert(user.getPersonName());
                 db.providerDao().insert(user.getProvider());
-               db.userDao().insert(
-                       new zm.gov.moh.core.repository.database.entity.domain.User(user.getUserId(),
-                               user.getUsername(),user.getPersonId(),user.getUuid()));
+                db.userDao().insert(
+                        new zm.gov.moh.core.repository.database.entity.domain.User(user.getUserId(),
+                                user.getUsername(),user.getPersonId(),user.getUuid()));
 
                 getRepository().getDefaultSharePrefrences()
                         .edit()

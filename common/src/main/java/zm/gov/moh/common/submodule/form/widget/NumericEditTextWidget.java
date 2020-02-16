@@ -34,8 +34,6 @@ public class NumericEditTextWidget extends EditTextWidget {
             mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
         }
 
-        mEditText.addTextChangedListener(WidgetUtils.createTextWatcher(this::setValue));
-
         mEditText.addTextChangedListener(new TextWatcher() {
             int previousLength = 0;
             @Override

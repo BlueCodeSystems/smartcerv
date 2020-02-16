@@ -7,6 +7,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
@@ -14,6 +15,7 @@ import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
@@ -38,11 +40,13 @@ public class PersistDemographics extends PersistService {
         final String dob = mBundle.getString(Key.PERSON_DOB);
         final String gender = mBundle.getString(Key.PERSON_GENDER);
         final String address = mBundle.getString(Key.PERSON_ADDRESS);
+        final String address1 = mBundle.getString(Key.PERSON_ADDRESS1);
+        final String phone = mBundle.getString(Key.PERSON_PHONE);
         final Long districtId = mBundle.getLong(Key.PERSON_DISTRICT_LOCATION_ID);
         final Long provinceId = mBundle.getLong(Key.PERSON_PROVINCE_LOCATION_ID);
         final long locationId = mBundle.getLong(Key.LOCATION_ID);
-
-
+        final String phoneUuid = mBundle.getString(Key.PERSON_PHONE_ATTRIBUTE_TYPE_UUID);
+        final long attributeTypeId = getRepository().getDatabase().personAttributeTypeDao().getPersonAttributeByUuid(phoneUuid);
 
 
 
@@ -65,22 +69,22 @@ public class PersistDemographics extends PersistService {
                 PersonAddress personAddress = db.personAddressDao().findByPersonId(personId);
                 Person person = db.personDao().findById(personId);
 
-                if(personName != null){
+                if(personName != null && ((!personName.getFamilyName().equals(familyName)) || (!personName.getGivenName().equals(givenName)))){
                     personName.setFamilyName(familyName);
                     personName.setGivenName(givenName);
                     personName.setDateChanged(now);
                     db.personNameDao().insert(personName);
                 }
 
-                if(personAddress != null){
-                    personAddress.setAddress1(address);
+                if(personAddress != null && ((!personAddress.getAddress1().equals(address1)) || (!personAddress.getCityVillage().equals(districtName)) || (!personAddress.getStateProvince().equals(provinceName)))){
+                    personAddress.setAddress1(address1);
                     personAddress.setCityVillage(districtName);
                     personAddress.setStateProvince(provinceName);
                     personAddress.setDateChanged(now);
                     db.personAddressDao().insert(personAddress);
                 }
 
-                if(person != null){
+                if(person != null && (!person.getBirthDate().equals(dateOfBirth))){
                     person.setBirthDate(dateOfBirth);
                     person.setDateChanged(now);
                     db.personDao().insert(person);
@@ -112,6 +116,7 @@ public class PersistDemographics extends PersistService {
             PersonAddress personAddress = new PersonAddress(personAddressId,personId, address, districtName, provinceName, PREFERRED, now);
             PatientEntity patient = new PatientEntity(personId, now);
             PersonIdentifier personIdentifier = new PersonIdentifier(identifier.getIdentifier(),personId);
+            PersonAttributeEntity personAttribute = new PersonAttributeEntity(personId, phone, attributeTypeId);
 
             identifier.markAsAssigned();
             db.identifierDao().insert(identifier);
@@ -123,6 +128,7 @@ public class PersistDemographics extends PersistService {
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personDao()::insert, this::onError, person);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personAddressDao()::insert,this::onError, personAddress);
             ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientDao()::insert,this::onError, patient);
+            ConcurrencyUtils.consumeAsync(getRepository().getDatabase().personAttributeDao()::insert, this::onError, personAttribute);
         }
     }
 }

@@ -5,6 +5,11 @@ public class PersonAttribute {
     private String attributeType;
     private String value;
 
+    public PersonAttribute(String attributeType, String value) {
+        this.attributeType = attributeType;
+        this.value = value;
+    }
+
     public void setValue(String value) {
         this.value = value;
     }

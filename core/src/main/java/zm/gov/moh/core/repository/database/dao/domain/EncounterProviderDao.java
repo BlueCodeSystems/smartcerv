@@ -24,6 +24,7 @@ public interface EncounterProviderDao {
 
     @Query("Select provider_id from encounter_provider WHERE encounter_id=:encounterId")
     Long getProviderByEncounterId(long encounterId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EncounterProvider... encounterProviders);
 }

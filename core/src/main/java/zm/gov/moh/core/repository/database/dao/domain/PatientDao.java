@@ -1,5 +1,7 @@
 package zm.gov.moh.core.repository.database.dao.domain;
 
+import org.threeten.bp.LocalDateTime;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
@@ -15,6 +17,9 @@ public interface PatientDao extends Synchronizable<Long> {
     //gets all persons attribute type
     @Query("SELECT * FROM patient")
     List<PatientEntity> getAll();
+
+    @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM patient WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND patient_id < :localLimit)")
+    LocalDateTime getMaxDatetime(long locationId, long localLimit);
 
     //gets all persons attribute type
     @Query("SELECT patient_id FROM patient")
