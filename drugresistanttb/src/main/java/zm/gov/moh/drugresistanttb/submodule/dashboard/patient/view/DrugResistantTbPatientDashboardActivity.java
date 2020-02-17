@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zm.gov.moh.common.base.BaseActivity;
-import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.VisitState;
@@ -79,7 +78,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
         List<BasicModule> list = new ArrayList<>();
         BasicModule formModule;
 
-        formModule = new BasicModule("MDR Visits", DrugResistantTbMonthlyReviewFormActivity.class);
+        formModule = new BasicModule("MDR Visits", DrugResistantTbVisitLinkActivity.class);
 
         list.add(formModule);
 
