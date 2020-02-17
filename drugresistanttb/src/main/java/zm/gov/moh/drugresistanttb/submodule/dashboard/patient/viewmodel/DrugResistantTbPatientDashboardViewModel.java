@@ -154,8 +154,8 @@ public class DrugResistantTbPatientDashboardViewModel extends BaseAndroidViewMod
 
         filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_SMEAR_MICROSCOPY_RESULTS);
         filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_CULTURE_RESULTS);
-
-
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_DRUG_RESISTANCE_TYPE);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_SITE_OF_DISEASE);
 
         filterConceptId = db.conceptDao().getConceptIdByUuid(filterConceptIdUuid);
 

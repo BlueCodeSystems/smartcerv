@@ -12,7 +12,7 @@ import android.os.Bundle;
 
 import java.io.IOException;
 
-public class DrugResistantTbMonthlyReviewFormActivity extends BaseActivity {
+public class DrugResistantTbVisitLinkActivity extends BaseActivity {
 
     Bundle mBundle;
 
