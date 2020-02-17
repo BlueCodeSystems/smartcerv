@@ -1,7 +1,7 @@
 {
   "attributes": {
     "panelType": "form",
-    "formType": "basic",
+    "formType": "encounter",
     "name": "Request for Bacteriological Examination",
     "encounterId": 25,
     "submitLabel": "Submit"
@@ -39,8 +39,6 @@
               "widgetType": "EditText",
               "dataType": "Text",
               "hint": "First name *",
-              "errorMessage": "Should only contain alphabet characters",
-              "required": true,
               "weight": 1
             },
             {
@@ -48,8 +46,6 @@
               "widgetType": "EditText",
               "dataType": "Text",
               "hint": "Last name *",
-              "required": true,
-              "errorMessage": "Should only contain alphabet characters",
               "weight": 1
             },
             {
@@ -96,7 +92,7 @@
           "dataType": "Numeric",
           "hint": "Example 0967546754",
           "regex": "[0-9]+",
-          "errorMessage": "Should only contain alphabet characters",
+          "errorMessage": "Should only contain alphabetic characters",
           "weight": 1
         }
       ]
@@ -109,9 +105,9 @@
           "widgets": [
             {
               "widgetType": "Concept",
-              "tag": "",
-              "conceptId":"",
-              "uuid": "",
+              "tag": "MDR Diagnosis",
+              "conceptId": 166082,
+              "uuid": "bf725fb9-5339-48c7-982b-abc21f10c04a",
               "label": "Diagnosis",
               "dataType": "Boolean",
               "style": "check",
@@ -119,10 +115,10 @@
               "weight": 1
             },
             {
-              "conceptId":166189,
-              "uuid": "1bbf922b-f3e0-4d07-8b1a-ea8a92f0fe04",
-              "tag": "diagnosis_reason",
               "widgetType": "Concept",
+              "tag": "Presumptive RR-TB?",
+              "conceptId": 166189,
+              "uuid": "1bbf922b-f3e0-4d07-8b1a-ea8a92f0fe04",
               "dataType": "Boolean",
               "style": "radio",
               "label": "Presumptive RR-TB/MDR-TB",
@@ -144,7 +140,7 @@
               "weight": 1
             },
             {
-              "tag": "date",
+              "dataType": "date",
               "conceptId": 166182,
               "uuid": "d3421432-43df-4e30-be16-9d1378d3c5fe",
               "label": "Month of treatment",
@@ -159,112 +155,36 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "TextView",
-              "label": "HIV Status",
+              "tag": "hiv status",
+              "widgetType": "Concept",
               "conceptId": 165203,
               "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "label": "NR",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "R",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "Unknown",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
+              "dataType": "Coded",
+              "style": "radio",
+              "label": "HIV Status",
+              "textSize": 18
             }
           ]
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "conceptId": 166224,
-              "uuid": "7c8b7529-958d-4507-8b72-fd297288ad12",
-              "dataType": "coded",
-              "label": "Previously treated for TB?",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "conceptId" : 1,
-              "uuid": "7c8b7529-958d-4507-8b72-fd297288ad12",
-              "label": "Yes",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 2,
-              "uuid": "e6d2ea88-1d8f-4963-bbdc-e053fb8673c8",
-              "label": "No",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "Unknown",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            }
-          ]
+          "widgetType": "Concept",
+          "conceptId": 166224,
+          "uuid": "7c8b7529-958d-4507-8b72-fd297288ad12",
+          "dataType": "Coded",
+          "style": "radio",
+          "label": "Previously treated for TB?",
+          "textSize": 18,
+          "weight": 1
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "conceptId" : 166192,
-              "uuid": "bd43040c-2ef2-4cea-9dd3-3a6a107a5885",
-              "label": "MDR Contact?",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "conceptId": 1,
-              "uuid": "1bc3d5d8-dbe3-42be-87b3-c6f89b826274",
-              "label": "Yes",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 2,
-              "uuid": "e6d2ea88-1d8f-4963-bbdc-e053fb8673c8",
-              "label": "No",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "Unknown",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            }
-          ]
+          "widgetType": "Concept",
+          "conceptId": 166192,
+          "uuid": "bd43040c-2ef2-4cea-9dd3-3a6a107a5885",
+          "dataType": "Coded",
+          "label": "MDR Contact?",
+          "style": "radio",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "widgetType": "WidgetGroupRow",
@@ -299,7 +219,7 @@
               "widgetType": "Concept",
               "conceptId": 166129,
               "uuid": "8c78e667-5c8d-4be2-a32e-84ffe74ff9f4",
-              "tag": "microscopy",
+              "tag": "Sputum Microscopy Month [ 0 – 23 ]",
               "dataType": "Boolean",
               "style": "check",
               "label": "Microscopy",
@@ -330,7 +250,7 @@
               "tag": "MDRTBID",
               "conceptId": 166080,
               "uuid": "4630187f-82df-4c4b-a24f-5a2efe49e90a",
-              "widgetType": "NumericEditText",
+              "widgetType": "Concept",
               "dataType": "Numeric",
               "hint": "TB District ID",
               "weight": 1
@@ -347,7 +267,7 @@
               "weight": 1
             },
             {
-              "widgetType": "NumericEditText",
+              "widgetType": "Concept",
               "conceptId": 166227,
               "uuid": "75312be4-7bf5-478c-bfda-d6c698525713",
               "dataType": "Numeric",
@@ -359,22 +279,21 @@
           ]
         },
         {
-          "tag": "date_sample_collect",
+          "widgetType": "DatePicker",
+          "tag": "Date first sample collected",
           "conceptId": 166228,
+          "dataType": "Date",
           "uuid": "49353a69-7a13-4e6c-a2e2-7da4b49c3187",
           "label": "Date first Sample Collected",
-          "widgetType": "DatePicker",
           "futureDate": "False",
           "weight": 1,
           "hint": "dd MMM yyyy"
         },
         {
-          "tag": "requested_by",
-          "widgetType": "EditText",
-          "dataType": "Text",
-          "label": "Requested by",
-          "hint": "(Full name)",
-          "weight": 1
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
         }
       ]
     },
@@ -383,6 +302,7 @@
       "widgets": [
         {
           "widgetType": "DatePicker",
+          "dataType": "Date",
           "conceptId": 166229,
           "uuid": "b91ddd59-ecd5-4a46-b15b-9b9c1350007a",
           "label": "Date sample received",
@@ -393,59 +313,46 @@
         {
           "widgetType": "EditText",
           "conceptId": 166230,
+          "dataType": "Text",
           "uuid": "a6d672e3-332f-420a-a04b-bb1219e43749",
           "weight": 1,
           "hint": "Time in",
           "label": "Time in "
         },
         {
-          "widgetType": "EditText",
+          "widgetType": "Concept",
           "conceptId": 166231,
+          "dataType": "Numeric",
           "uuid": "f01c6e40-9a0d-4fd4-8304-96a828f3ad50",
           "weight": 1,
           "hint": "Serial No",
           "label": "Lab Serial No"
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "Tests performed",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 116232,
-              "uuid" : "c4c8f9c4-2c68-41ba-8c1c-1b05a57c37b2",
-              "tag": "zehl neelsen",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Zehl Neelsen",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId" : 166233,
-              "uuid": "80821f81-12a3-467e-9785-a51588e02c98",
-              "tag": "flourochrome",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Flourochrome",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 166225,
-              "uuid": "9d31e642-fd8c-430e-a8b3-79a2c105ca83",
-              "tag": "xpert",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Xpert MTB/RIF",
-              "weight": 1
-            }
-          ]
+          "widgetType": "Concept",
+          "conceptId": 166262,
+          "uuid": "f03e1d75-1acb-4c5d-8397-5942e5ef495c",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Test Performed",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "widgetType": "Concept",
+          "conceptId": 166235,
+          "uuid": "387a633f-a0bc-48b1-8012-32df8fae78f0",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Specimen Appearance",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Microscopy",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "widgetType": "WidgetGroupRow",
@@ -453,7 +360,7 @@
             {
               "widgetType": "Concept",
               "conceptId": 166129,
-              "uuid" : "8c78e667-5c8d-4be2-a32e-84ffe74ff9f4",
+              "uuid": "8c78e667-5c8d-4be2-a32e-84ffe74ff9f4",
               "dataType": "Boolean",
               "style": "check",
               "label": "Microscopy",
@@ -461,119 +368,54 @@
             },
             {
               "widgetType": "DatePicker",
-              "conceptId" : 166236,
+              "conceptId": 166236,
               "uuid": "cfd4dc4f-e177-4321-a679-881240ebbad4",
               "label": "Date tested",
+              "dataType": "Date",
               "futureDate": "False",
               "weight": 1,
               "hint": "dd MMM yyyy"
-            }
-          ]
-        },
-        {
-          "widgetType": "EditText",
-          "weight": 1,
-          "conceptId": 166249,
-          "uuid": "ae93ef1a-d322-420b-925b-c9256cb891c0",
-          "label": "Result",
-          "hint": "Enter Result"
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "conceptId" : 166238,
-              "uuid": "1c6dcb15-284a-4e3e-b819-519245eca1fc",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "MTB",
-              "weight": 1
             },
             {
-              "widgetType": "DatePicker",
-              "conceptId" : 166236,
-              "uuid": "cfd4dc4f-e177-4321-a679-881240ebbad4",
-              "label": "Date tested",
-              "futureDate": "False",
+              "widgetType": "Concept",
               "weight": 1,
-              "hint": "dd MMM yyyy"
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "conceptId" : 166239,
-              "uuid": "61fcc696-fe5a-4363-b948-68987dc93db2",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "MTB Not Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 166240,
-              "uuid" : "bc9ab1fe-7287-488a-b6be-1996c6eb20ed",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "MTB Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 166241,
-              "uuid": "d10fe7b3-369c-4d08-8782-661ad0d489f0",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Error in/ No Result",
-              "weight": 1
+              "conceptId": 166249,
+              "uuid": "ae93ef1a-d322-420b-925b-c9256cb891c0",
+              "label": "Result",
+              "dataType": "Text",
+              "hint": "Result"
             }
           ]
         },
         {
           "widgetType": "Concept",
-          "conceptId": 166237,
-          "uuid": "74b3e6f9-3a1d-4348-890e-bb4f158aa900",
-          "dataType": "Boolean",
+          "conceptId": 166238,
+          "uuid": "1c6dcb15-284a-4e3e-b819-519245eca1fc",
+          "dataType": "Coded",
           "style": "check",
-          "label": "Rifampicin",
+          "label": "MTB",
+          "futureDate": "False",
           "weight": 1,
           "textSize": 18
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "conceptId": 166242,
-              "uuid": "f70aacfd-6d19-42b5-a037-ccbd0ce1fae7",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "RR Not Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": "166243",
-              "uuid" : "0a435cc8-a72b-47ad-abde-1a7b99795863",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "RR Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "conceptId": 166244,
-              "uuid" : "cc9ad964-7970-40cb-9aad-c22a822fcff1",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Indet.",
-              "weight": 1
-            }
-          ]
+          "widgetType": "DatePicker",
+          "conceptId": 166292,
+          "uuid": "fda9d187-8c22-4675-8960-0d1cdc61ed74",
+          "dataType": "date",
+          "label": "Date Tested For MTB",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "widgetType": "Concept",
+          "conceptId": 166237,
+          "uuid": "74b3e6f9-3a1d-4348-890e-bb4f158aa900",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Rifampicin",
+          "weight": 1,
+          "textSize": 18
         }
       ]
     },
@@ -582,19 +424,14 @@
       "widgets": [
         {
           "tag": "comments",
-          "widgetType": "TextBoxOne",
-          "conceptId" : 166245,
+          "widgetType": "Concept",
+          "style": "TextBoxOne",
+          "conceptId": 166245,
           "uuid": "f8ed566a-d47f-4649-9df5-27b8b32b5ae0",
           "dataType": "Text",
           "hint": "Comments",
           "textSize": 18,
           "weight": 1
-        },
-        {
-          "tag": "provider",
-          "widgetType": "ProviderLabel",
-          "label": "Provider Name",
-          "textSize": 18
         },
         {
           "widgetType": "DatePicker",
@@ -604,16 +441,27 @@
           "hint": "dd MMM yyyy"
         },
         {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "Concept",
           "tag": "MDR Time out",
           "conceptId": 166246,
           "uuid": "5e4a2a93-b15e-47cc-b1d5-12b1b697ec8f",
-          "widgetType": "EditText",
+          "dataType": "Text",
           "futureDate": "False",
           "weight": 1,
-          "hint": "Time out",
-          "label": "Time out "
+          "hint": "Time out"
         }
       ]
     }
   ]
 }
+
+
+
+
+
