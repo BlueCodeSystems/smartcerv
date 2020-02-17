@@ -15,8 +15,9 @@ public class OpenmrsConfig {
     //Concepts
     public static final String CONCEPT_UUID_SMEAR_MICROSCOPY_RESULTS = "e434f969-5f50-477f-9d31-0e2b1149ca9e";
     public static final String CONCEPT_UUID_CULTURE_RESULTS = "2939ff13-6ae2-4448-85a9-108954440328";
+    public static final String CONCEPT_UUID_DRUG_RESISTANCE_TYPE = "59d74c6f-1f45-462c-9bb2-b31a91fff258";
+    public static final String CONCEPT_UUID_SITE_OF_DISEASE = "c24a0a24-cf6a-4293-b205-0d7cbdb918ae";
 
-
-    //Encounter Type
-    public static final String IDENTIFIER_TYPE_MDRPIZ_UUID = " c8e464ab-11be-4b90-8b28-226dacab2b2d";
+    //Patient Identifier Type
+    public static final String IDENTIFIER_TYPE_MDRPIZ_UUID = "c8e464ab-11be-4b90-8b28-226dacab2b2d";
 }

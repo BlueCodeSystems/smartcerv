@@ -15,25 +15,6 @@
           "widgets": [
             {
               "widgetType": "TextView",
-              "label": "DR No or identification",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "tag": "MDR_PATIENT_ID",
-              "widgetType": "CCPIZEditText",
-              "weight": 1,
-              "regex":"([0-9A-Z]+)-([0-9A-Z]+)-([0-9]+)",
-              "required":true,
-              "errorMessage":"Invalid identifier format, should be in CCPIZ format e.g MSA-06-000001"
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
               "label": "Client name",
               "textSize": 18,
               "weight": 1
@@ -135,7 +116,218 @@
     {
       "title": "Background",
       "widgets": [
-
+        {
+          "tag": "TB Patient History",
+          "widgetType": "Concept",
+          "conceptId": 166085,
+          "dataType": "Coded",
+          "uuid": "96894213-def0-475a-8b2d-041d93e8c733",
+          "label": "TB Patient History",
+          "style": "radio",
+          "textSize": 18
+        },
+        {
+          "tag": "Drug Resistance Type",
+          "widgetType": "Concept",
+          "conceptId": 166265,
+          "dataType": "Coded",
+          "uuid": "59d74c6f-1f45-462c-9bb2-b31a91fff258",
+          "label": "Drug Resistance Type",
+          "style": "check",
+          "textSize": 18
+        },
+        {
+          "tag": "Site of Disease",
+          "widgetType": "Concept",
+          "conceptId": 166273,
+          "dataType": "Coded",
+          "uuid": "c24a0a24-cf6a-4293-b205-0d7cbdb918ae",
+          "label": "Site of Disease",
+          "style": "radio",
+          "textSize": 18
+        },
+        {
+          "tag": "HIV Status",
+          "widgetType": "Concept",
+          "conceptId": 165203,
+          "dataType": "Coded",
+          "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
+          "label": "HIV Status",
+          "style": "radio",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 165125
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": [
+                    "Date of Starting ART", "TYPE_OF_REGIMEN",
+                    "cd4", "viral load"
+                  ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165131
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["" ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 165132
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["" ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "If HIV positive",
+          "widgetType": "Concept",
+          "conceptId": 166193,
+          "dataType": "Coded",
+          "uuid": "e852ef5f-8f7e-434b-a78b-a8b3dd20049a",
+          "label": "If HIV Status",
+          "style": "radio",
+          "textSize": 18
+        },
+        {
+          "tag": "Date of Starting ART",
+          "widgetType": "Concept",
+          "conceptId": 166281,
+          "dataType": "Date",
+          "uuid":"79f2364d-aae1-4b7c-9d00-3c85dce42224",
+          "label":"Date of Starting ART",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy",
+          "textSize": 18
+        },
+        {
+          "tag": "TYPE_OF_REGIMEN",
+          "label": "Regimen:",
+          "widgetType": "Concept",
+          "conceptId": 166149,
+          "dataType" : "Coded",
+          "style": "check",
+          "uuid": "c098ec28-fb8d-4ad1-bab8-7ee1433a37e6",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "tag": "cd4",
+          "widgets": [
+            {
+              "tag": "CD4 Count",
+              "widgetType": "Concept",
+              "conceptId": 165241,
+              "dataType": "Numeric",
+              "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
+              "hint": "Number",
+              "label": "CD4 Count",
+              "textSize": 18
+            },
+            {
+              "tag": "cd4 date",
+              "conceptId": 165210,
+              "dataType": "Date",
+              "uuid": "852149f1-c61c-46c4-a3aa-caee6e91574d",
+              "futureDate": "False",
+              "widgetType": "Concept",
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "tag": "viral load",
+          "widgets": [
+            {
+              "tag": "viral load count",
+              "widgetType": "Concept",
+              "conceptId": 165242,
+              "uuid": "d25e9649-336c-409a-8e4f-a167b2b1ec85",
+              "dataType": "Numeric",
+              "hint": "Number",
+              "label": "Last Viral Load",
+              "textSize": 18
+            },
+            {
+              "tag": "viral load date",
+              "conceptId": 165212,
+              "dataType": "Date",
+              "uuid": "a0316c5e-94b0-4c79-8bcd-b5f144a5cb48",
+              "futureDate": "False",
+              "widgetType": "Concept",
+              "hint": "dd MMM yyyy"
+            }
+          ]
+        },
+        {
+          "tag": "Detection of MDR",
+          "widgetType": "Concept",
+          "conceptId": 166276,
+          "dataType": "Coded",
+          "uuid": "0714410d-fc7e-454e-a4ad-ca6897d680e4",
+          "label": "Detection of MDR",
+          "style": "radio",
+          "textSize": 18
+        },
+        {
+          "tag": "HIV History",
+          "widgetType": "Concept",
+          "conceptId": 166284,
+          "uuid": "de80fc35-eb70-4ba4-bff1-2ee77b4abef2",
+          "dataType": "Text",
+          "label": "HIV History",
+          "hint": "If HIV +: date of initiation of ART, Regimens, CD4 and VL, history of OIs",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag":"Comorbidities",
+          "widgetType":"Concept",
+          "conceptId": 166283,
+          "uuid": "c015a425-261e-4f69-ae96-95aa232d856c",
+          "dataType":"Text",
+          "label":"Comorbidities (& Treatment)",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag":"Psychosocial History",
+          "widgetType":"Concept",
+          "conceptId": 166285,
+          "uuid": "e998bdb0-b873-4b71-8965-8224bb9a6b37",
+          "dataType":"Text",
+          "label":"Psychosocial History",
+          "textSize":18,
+          "weight":1
+        },
+        {
+          "tag":"Current Conditions",
+          "widgetType":"Concept",
+          "conceptId": 166286,
+          "uuid": "e57cd404-7991-43b4-9e64-5c83f57180e8",
+          "dataType":"Text",
+          "label":"Current Conditions",
+          "textSize":18,
+          "weight":1
+        }
       ]
     },
     {
@@ -157,12 +349,26 @@
               "weight": 1
             },
             {
-              "widgetType": "NumericEditText",
-              "label": "BMI(Calculated)",
-              "textSize": 18,
-              "weight": 1
+              "tag":"BMI",
+              "widgetType":"Concept",
+              "conceptId": 165197,
+              "uuid": "26932885-b38e-450b-8fbc-a5b78ec1b2f9",
+              "dataType":"Numeric",
+              "label":"BMI(Calulated)",
+              "textSize":18,
+              "weight":1
             }
           ]
+        },
+        {
+          "tag":"BMI Category",
+          "widgetType":"Concept",
+          "conceptId": 166287,
+          "uuid": "1d7a2ee1-b127-4e91-b940-b08b50205da5",
+          "dataType":"Coded",
+          "label":"BMI Category",
+          "style": "radio",
+          "textSize":18
         },
         {
           "widgetType": "WidgetGroupRow",
