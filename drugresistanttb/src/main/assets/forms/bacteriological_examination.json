@@ -1,7 +1,7 @@
 {
   "attributes": {
     "panelType": "form",
-    "formType": "basic",
+    "formType": "encounter",
     "name": "Request for Bacteriological Examination",
     "encounterId": 25,
     "submitLabel": "Submit"
@@ -39,8 +39,6 @@
               "widgetType": "EditText",
               "dataType": "Text",
               "hint": "First name *",
-              "errorMessage": "Should only contain alphabet characters",
-              "required": true,
               "weight": 1
             },
             {
@@ -48,8 +46,6 @@
               "widgetType": "EditText",
               "dataType": "Text",
               "hint": "Last name *",
-              "required": true,
-              "errorMessage": "Should only contain alphabet characters",
               "weight": 1
             },
             {
@@ -96,7 +92,7 @@
           "dataType": "Numeric",
           "hint": "Example 0967546754",
           "regex": "[0-9]+",
-          "errorMessage": "Should only contain alphabet characters",
+          "errorMessage": "Should only contain alphabetic characters",
           "weight": 1
         }
       ]
@@ -317,13 +313,14 @@
         {
           "widgetType": "EditText",
           "conceptId": 166230,
+          "dataType": "Text",
           "uuid": "a6d672e3-332f-420a-a04b-bb1219e43749",
           "weight": 1,
           "hint": "Time in",
           "label": "Time in "
         },
         {
-          "widgetType": "EditText",
+          "widgetType": "Concept",
           "conceptId": 166231,
           "dataType": "Numeric",
           "uuid": "f01c6e40-9a0d-4fd4-8304-96a828f3ad50",
@@ -332,18 +329,30 @@
           "label": "Lab Serial No"
         },
         {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "conceptId": 166262,
-              "uuid": "f03e1d75-1acb-4c5d-8397-5942e5ef495c",
-              "dataType": "Coded",
-              "style": "check",
-              "label": "Test Performed",
-              "weight": 1
-            }
-          ]
+          "widgetType": "Concept",
+          "conceptId": 166262,
+          "uuid": "f03e1d75-1acb-4c5d-8397-5942e5ef495c",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Test Performed",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "widgetType": "Concept",
+          "conceptId": 166235,
+          "uuid": "387a633f-a0bc-48b1-8012-32df8fae78f0",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Specimen Appearance",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Microscopy",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "widgetType": "WidgetGroupRow",
@@ -366,17 +375,86 @@
               "futureDate": "False",
               "weight": 1,
               "hint": "dd MMM yyyy"
+            },
+            {
+              "widgetType": "Concept",
+              "weight": 1,
+              "conceptId": 166249,
+              "uuid": "ae93ef1a-d322-420b-925b-c9256cb891c0",
+              "label": "Result",
+              "dataType": "Text",
+              "hint": "Result"
             }
           ]
         },
         {
           "widgetType": "Concept",
+          "conceptId": 166238,
+          "uuid": "1c6dcb15-284a-4e3e-b819-519245eca1fc",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "MTB",
+          "futureDate": "False",
           "weight": 1,
-          "conceptId": 166249,
-          "uuid": "ae93ef1a-d322-420b-925b-c9256cb891c0",
-          "label": "Result",
+          "textSize": 18
+        },
+        {
+          "widgetType": "DatePicker",
+          "conceptId": 166292,
+          "uuid": "fda9d187-8c22-4675-8960-0d1cdc61ed74",
+          "dataType": "date",
+          "label": "Date Tested For MTB",
+          "weight": 1,
+          "textSize": 18
+        },
+        {
+          "widgetType": "Concept",
+          "conceptId": 166237,
+          "uuid": "74b3e6f9-3a1d-4348-890e-bb4f158aa900",
+          "dataType": "Coded",
+          "style": "check",
+          "label": "Rifampicin",
+          "weight": 1,
+          "textSize": 18
+        }
+      ]
+    },
+    {
+      "title": "Comments",
+      "widgets": [
+        {
+          "tag": "comments",
+          "widgetType": "Concept",
+          "style": "TextBoxOne",
+          "conceptId": 166245,
+          "uuid": "f8ed566a-d47f-4649-9df5-27b8b32b5ae0",
           "dataType": "Text",
-          "hint": "Microscopy Result"
+          "hint": "Comments",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "widgetType": "DatePicker",
+          "label": "Date",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "dd MMM yyyy"
+        },
+        {
+          "tag": "provider",
+          "widgetType": "ProviderLabel",
+          "label": "Provider Name",
+          "textSize": 18
+        },
+        {
+          "widgetType": "Concept",
+          "tag": "MDR Time out",
+          "conceptId": 166246,
+          "uuid": "5e4a2a93-b15e-47cc-b1d5-12b1b697ec8f",
+          "dataType": "Text",
+          "futureDate": "False",
+          "weight": 1,
+          "hint": "Time out"
         }
       ]
     }

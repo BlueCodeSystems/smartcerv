@@ -15,6 +15,10 @@ public class OpenmrsConfig {
     //Concepts
     public static final String CONCEPT_UUID_SMEAR_MICROSCOPY_RESULTS = "e434f969-5f50-477f-9d31-0e2b1149ca9e";
     public static final String CONCEPT_UUID_CULTURE_RESULTS = "2939ff13-6ae2-4448-85a9-108954440328";
+    public static final String CONCEPT_UUID_PRESUMPTIVE_TB = "1bbf922b-f3e0-4d07-8b1a-ea8a92f0fe04";
+    public static final String CONCEPT_UUID_RIFAMPICIN_RESISTANT = "74b3e6f9-3a1d-4348-890e-bb4f158aa900";
+    public static final String CONCEPT_UUID_TESTS_PERFORMED = "f03e1d75-1acb-4c5d-8397-5942e5ef495c";
+
 
 
     //Encounter Type
