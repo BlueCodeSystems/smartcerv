@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:icon="@drawable/cloud_sync"
+        android:id="@+id/sync_action"
+        android:title="Sync"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
         android:id="@+id/action_share"
         android:title="Share"
         android:orderInCategory="100"
