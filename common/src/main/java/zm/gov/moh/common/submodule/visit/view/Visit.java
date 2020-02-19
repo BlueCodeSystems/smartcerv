@@ -190,7 +190,6 @@ public class Visit extends BaseActivity {
 
 
     }
-
     public void onBackPressed() {
 
 
@@ -237,11 +236,6 @@ public class Visit extends BaseActivity {
 
     }
 
-
-
-
-
-
     public void initForms(){
 
         VisitMetadata visitMetadata =(VisitMetadata) bundle.getSerializable(Key.VISIT_METADATA);
@@ -265,7 +259,6 @@ public class Visit extends BaseActivity {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
     }
-
 
     public void dateHandler(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 

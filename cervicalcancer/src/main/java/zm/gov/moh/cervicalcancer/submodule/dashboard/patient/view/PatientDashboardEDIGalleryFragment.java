@@ -156,7 +156,8 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
 
 
                     Glide.with(context)
-                            .asFile()
+                            .asBitmap()
+                            .override(600, 600)
                             .load(pic)
                             .into(imageView2);
 
