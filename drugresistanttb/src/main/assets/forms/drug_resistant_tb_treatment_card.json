@@ -11,6 +11,14 @@
       "title": "Drug Resistant TB Treatment Card",
       "widgets": [
         {
+          "tag": "if_social_cash",
+          "widgetType": "DRTable",
+          "label": "If on social cash transfer support, start date",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "label": "Full Name:",
           "tag": "PERSON_GIVEN_NAME",
           "widgetType": "EditText",
           "dataType": "Text",
@@ -20,6 +28,7 @@
           "weight": 1
         },
         {
+          "label": "Popular Name:",
           "tag": "POPULAR_NAME",
           "widgetType": "EditText",
           "dataType": "Text",
@@ -65,6 +74,22 @@
           "required": true
         },
         {
+          "tag": "Sex",
+          "label": "Gender",
+          "widgetType": "TextView",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PERSON_GENDER",
+          "label": "Gender",
+          "widgetType": "GenderPicker",
+          "errorMessage": "Gender cannot be left blank",
+          "textSize": 24,
+          "required": true,
+          "weight": 1
+        },
+        {
           "tag": "PERSON_AGE",
           "label": "Age",
           "widgetType": "EditText",
@@ -76,103 +101,79 @@
 
         },
         {
-          "label": "Gender",
-          "widgetType": "TextView",
-          "textSize": 24,
-          "weight": 1
-        },
-        {
-          "tag": "PERSON_GENDER",
-          "label": "Gender",
-          "widgetType": "GenderPicker",
-          "errorMessage": "Gender cannot be left blank",
-          "textSize": 24,
-          "required": true,
-          "weight": 1
-        },
-
-
-        {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "PERSON_GIVEN_NAME",
-              "widgetType": "EditText",
-              "dataType": "Text",
-              "hint": "First name *",
-              "errorMessage": "Should only contain alphabet characters",
-              "required": true,
-              "weight": 1
-            },
-            {
-              "tag": "PERSON_FAMILY_NAME",
-              "widgetType": "EditText",
-              "dataType": "Text",
-              "hint": "Last name *",
-              "required": true,
-              "errorMessage": "Should only contain alphabet characters",
-              "weight": 1
-            },
-            {
-              "tag": "PERSON_AGE",
-              "label": "Age",
-              "widgetType": "EditText",
+              "tag": "weight",
+              "widgetType": "Concept",
+              "label": "Initial Weight(kg)",
+              "conceptId": 166196,
+              "uuid": "5f202a99-afe5-4931-a0e3-85eca5a059f6",
               "dataType": "Numeric",
-              "hint": "Age",
-              "regex": "[0-9]+",
-              "errorMessage": "Should only contain numeric characters",
+              "style": "EditText",
+              "hint": "46kg",
+              "textSize": 18,
+              "weight": 1
+            },
+            {
+            "tag": "height",
+            "widgetType": "Concept",
+            "label": "Height(cm)",
+            "conceptId": 166195,
+            "uuid": "e47d2ed9-007d-4333-a5d4-af757626a4de",
+            "dataType": "Numeric",
+            "style": "EditText",
+            "hint": "1.6m",
+            "textSize": 18,
+            "weight": 1
+            },
+            {
+              "tag": "Site",
+              "label": "Site :",
+              "widgetType": "Concept",
+              "conceptId": 166250,
+              "uuid": "0a7e751b-8785-425c-a8a4-0738dac69c3a",
+              "dataType": "Coded",
+              "style": "check",
+              "textSize": "18",
               "weight": 1
             }
           ]
         },
         {
-          "label": "Gender",
-          "widgetType": "TextView",
-          "textSize": 24,
-          "weight": 1
+          "widgetType":"TextView",
+          "label":"If extra pulmonary, specific site:",
+          "textSize":18,
+          "weight":1
         },
         {
-          "tag": "PERSON_GENDER",
-          "label": "Gender",
-          "widgetType": "GenderPicker",
-          "errorMessage": "Gender cannot be left blank",
-          "textSize": 24,
-          "required": true,
-          "weight": 1
-        },
-        {
-          "tag": "PERSON_PHONE",
-          "label": "Phone",
-          "widgetType": "EditText",
-          "dataType": "Numeric",
-          "hint": "Example 0967546754",
-          "regex": "[0-9]+",
-          "errorMessage": "Should only contain alphabet characters",
+          "tag": "extra pulmonary",
+          "widgetType": "Concept",
+          "uuid": "592d779b-3620-4dcf-bc4a-38bf5e33def9",
+          "conceptId": 166174,
+          "dataType": "Text",
+          "textSize": 18,
+          "style": "TextBoxOne",
           "weight": 1
         }
       ]
     },
     {
-      "title": "Reason for Examination",
+      "title": "Registration group",
       "widgets": [
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
+              "tag": "registration group",
+              "label": "Registration group",
               "widgetType": "Concept",
-              "label": "Diagnosis",
-              "dataType": "Boolean",
-              "style": "check",
-              "textSize": 15,
-              "weight": 1
-            },
-            {
-              "tag": "diagnosis_reason",
-              "widgetType": "Concept",
-              "dataType": "Boolean",
+              "conceptId": 166261,
+              "uuid": "fa86ae63-6251-4ea4-9bfd-b00a3cec4bf3",
+              "dataType": "Coded",
               "style": "radio",
-              "label": "Presumptive RR-TB/MDR-TB",
-              "textSize": 18
+              "textSize": "18",
+              "weight": 1
             }
           ]
         },
@@ -180,12 +181,105 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
+              "tag": "hiv status",
               "widgetType": "Concept",
-              "dataType": "Boolean",
-              "label": "Follow-Up",
+              "conceptId": 165203,
+              "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
+              "dataType": "Coded",
+              "style": "radio",
+              "label": "HIV Status",
               "textSize": 18,
-              "style": "check",
-              "weight": 1
+              "logic": [
+                {
+                  "condition": {
+                    "value": 165131
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "Date tested negative"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 165132
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "reason for unknown status",
+                        "pict offered"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 165125
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "If hiv positive"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": {
+                    "value": 165125
+                  },
+                  "action": {
+                    "type": "skipLogic",
+                    "metadata": {
+                      "tags": [
+                        "viral load count",
+                        "CD4 Count"
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "tag": "If hiv positive",
+              "widgetType": "Concept",
+              "conceptId": 166193,
+              "uuid": "e852ef5f-8f7e-434b-a78b-a8b3dd20049a",
+              "dataType": "Coded",
+              "style": "radio",
+              "textSize": 18,
+              "label": "If HIV positive"
+            },
+            {
+              "widgetType": "WidgetGroupRow",
+              "tag": "cd4",
+              "widgets": [
+                {
+                  "tag": "CD4 Count",
+                  "widgetType": "Concept",
+                  "conceptId": 165241,
+                  "dataType": "Numeric",
+                  "uuid": "531db060-f0ed-4eea-b8c2-bffd87c6a92e",
+                  "hint": "Number",
+                  "label": "CD4 Count",
+                  "textSize": 18
+                },
+                {
+                  "tag": "cd4 date",
+                  "conceptId": 165210,
+                  "dataType": "Date",
+                  "uuid": "852149f1-c61c-46c4-a3aa-caee6e91574d",
+                  "futureDate": "False",
+                  "widgetType": "Concept",
+                  "hint": "dd MMM yyyy"
+                }
+              ]
             },
             {
               "tag": "date",

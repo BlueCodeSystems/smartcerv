@@ -8,6 +8,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
@@ -357,6 +358,17 @@ public class WidgetModelJsonAdapter {
                 numericEditTextModel.setLabel(widgetModelJson.getLabel());
 
                 return numericEditTextModel;
+
+            case "DRTable":
+
+                final DRTableWidgetModel drtableWidgetModel = new DRTableWidgetModel();
+
+                drtableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtableWidgetModel.setTag(widgetModelJson.getTag());
+                drtableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drtableWidgetModel;
 
             case "Table":
 
