@@ -6,10 +6,13 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.format.DateTimeFormatter;
+
+import java.util.List;
 
 import zm.gov.moh.common.BR;
 import zm.gov.moh.common.R;
@@ -18,6 +21,7 @@ import zm.gov.moh.common.submodule.dashboard.client.adapter.ClientDashboardFragm
 import zm.gov.moh.common.submodule.dashboard.client.viewmodel.ClientDashboardViewModel;
 import zm.gov.moh.common.base.BaseEventHandler;
 import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.common.base.BaseActivity;
@@ -69,35 +73,59 @@ public class ClientDashboardActivity extends BaseActivity {
 
         viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this,
                 client1 -> {
-                    binding.setClient(client1);
+                    if(client1 != null) {
+                        binding.setClient(client1);
 
-                    mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
-                    mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
-                    mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                    this.getIntent().putExtras(mBundle);
+                        mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
+                        mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
+                        mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+                        this.getIntent().putExtras(mBundle);
+                    }
+                    else
+                        ClientDashboardActivity.this.onBackPressed();
+
         });
+        viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).observe(this, clientAddress ->{
 
+            if(clientAddress != null) {
 
-        viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).observe(this, clientAdress ->{
-            binding.setClientAddress(clientAdress);
-            mBundle.putString(Key.PERSON_ADDRESS, clientAdress.getAddress1());
+                binding.setClientAddress(clientAddress);
+                mBundle.putString(Key.PERSON_ADDRESS1, clientAddress.getAddress1());
 
-            viewModel.getRepository().getDatabase().locationDao().getLocationByName(clientAdress.getCityVillage())
-                    .observe(ClientDashboardActivity.this, location -> {
+                viewModel.getRepository().getDatabase().locationDao().getLocationByName(clientAddress.getCityVillage())
+                        .observe(ClientDashboardActivity.this, location -> {
 
-                        if(location != null) {
-                            mBundle.putLong(Key.PERSON_DISTRICT_LOCATION_ID, location.getLocationId());
-                            mBundle.putLong(Key.PERSON_PROVINCE_LOCATION_ID, location.getParentLocation());
+                            if (location != null) {
+                                mBundle.putLong(Key.PERSON_DISTRICT_LOCATION_ID, location.getLocationId());
+                                mBundle.putLong(Key.PERSON_PROVINCE_LOCATION_ID, location.getParentLocation());
 
-                            ClientDashboardActivity.this.getIntent().putExtras(mBundle);
-                        }
-                    });
-            this.getIntent().putExtras(mBundle);
+                                ClientDashboardActivity.this.getIntent().putExtras(mBundle);
+                            }
+                        });
+                this.getIntent().putExtras(mBundle);
+            }
         });
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).observe(this, location -> {
             binding.setVariable(BR.facility, location);
         });
 
+        try {
+            viewModel.getRepository().getDatabase().personAttributeDao().findByPersonIdObservable(clientId).observe(this, attribute -> {
+                // no views, therfore no binding
+                if (attribute != null)
+                    mBundle.putString(Key.PERSON_PHONE, attribute.getValue());
+                else {
+                    mBundle.putString(Key.PERSON_PHONE, "");    // use empty string for client returning 'attribute = null'
+                }
+                ClientDashboardActivity.this.getIntent().putExtras(mBundle);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        initBundle(mBundle);
         setViewModel(viewModel);
         addDrawer(this);
     }

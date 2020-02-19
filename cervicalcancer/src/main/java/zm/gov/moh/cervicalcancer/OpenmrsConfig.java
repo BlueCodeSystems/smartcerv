@@ -40,9 +40,11 @@ public class OpenmrsConfig {
     public static final String CONCEPT_UUID_HIV_STATUS = "7febbfd6-1c41-4afd-9add-12f9fe338e6f";
     public static final String CONCEPT_UUID_TREATMENT_PROVIDER = "e1364818-c8b6-4629-9356-561a658c9922";
     public static final String CONCEPT_UUID_SCREENING_PROVIDER = "f80a9ba8-1771-46b9-9179-c228baad03b2";
+    public static final String CONCEPT_UUID_PICT_HIV_RESULT = "12e7bc9f-f57d-463b-bd82-cf25f10e5b64";
 
     //Encounter Type
     public static final String ENCOUNTER_TYPE_UUID_TEST_RESULT = "18c7295b-bd02-4766-8341-95337197606b";
     public static final String ENCOUNTER_TYPE_UUID_TREAMENT = "792cdf01-d7c6-435b-8224-40159f5baea2";
+    public static final String IDENTIFIER_TYPE_CCPIZ_UUID = "852a0bd1-d283-48b1-b72e-e7af0b4b6ce7";
 
 }

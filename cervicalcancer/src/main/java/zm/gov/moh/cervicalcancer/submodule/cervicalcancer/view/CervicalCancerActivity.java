@@ -4,11 +4,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -41,6 +43,7 @@ import zm.gov.moh.cervicalcancer.databinding.CervicalCancerActivityBinding;
 import zm.gov.moh.cervicalcancer.submodule.cervicalcancer.viewmodel.CervicalCancerViewModel;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.base.BaseEventHandler;
+import zm.gov.moh.common.submodule.register.view.RegisterActivity;
 import zm.gov.moh.core.model.LineChartVisitItem;
 
 public class CervicalCancerActivity extends BaseActivity {
@@ -56,16 +59,15 @@ public class CervicalCancerActivity extends BaseActivity {
     List<Integer> ints;
     TextView today,monthly,monthsAgo, totalPatientsRegistered, totalSeen, totalScreened,noFilter;
     BarDataSet viaNegativeDataSet,viaPositiveDataSet,suspectCancerDataSet;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Bundle mbundle=new Bundle();
         cervicalCancerViewModel = ViewModelProviders.of(this).get(CervicalCancerViewModel.class);
 
         setViewModel(cervicalCancerViewModel);
+        mbundle.putLong("identifier",4);
+
 
         CervicalCancerActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.cervical_cancer_activity);
 
@@ -78,10 +80,9 @@ public class CervicalCancerActivity extends BaseActivity {
 
         binding.setTitle("Cervical Cancer");
         binding.setContext(this);
+        binding.setBundle(mbundle);
         addDrawer(this);
         barChart= findViewById(R.id.barChart);
-
-
         today=findViewById(R.id.option_today);
         monthly=findViewById(R.id.option_month);
         monthsAgo=findViewById(R.id.option_3months);
@@ -92,7 +93,7 @@ public class CervicalCancerActivity extends BaseActivity {
 
 
         updateDataForViews();
-
+      //
 
         //today selected
         today.setOnClickListener(new View.OnClickListener() {

@@ -14,11 +14,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "int", "REMOTE_ID_BATCH_SIZE", '50'
-            buildConfigField "int", "REMOTE_ID_RESERVE", '20'
+            buildConfigField "int", "REMOTE_ID_BATCH_SIZE", '200'
+            buildConfigField "int", "REMOTE_ID_RESERVE", '50'
             buildConfigField "int", "REMOTE_ID_SOURCE", '1'
             buildConfigField "String", "BASE_URL", '"https://smartcerv.bluecodeltd.com"'
             buildConfigField "String", "BASE_ROUTE", '"/middleware/rest/"'
+            buildConfigField "String", "BUILD_DATE", 'new java.text.SimpleDateFormat("dd MMMM yyyy").format(new java.util.Date(System.currentTimeMillis()))'
         }
 
         debug{
@@ -27,6 +28,7 @@ android {
             buildConfigField "int", "REMOTE_ID_SOURCE", '1'
             buildConfigField "String", "BASE_URL", '"https://openmrs.bluecodeltd.com"'
             buildConfigField "String", "BASE_ROUTE", '"/middleware/rest/"'
+            buildConfigField "String", "BUILD_DATE", 'new java.text.SimpleDateFormat("dd MMMM yyyy").format(new java.util.Date(System.currentTimeMillis()))'
         }
     }
     buildToolsVersion '28.0.3'

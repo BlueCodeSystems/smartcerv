@@ -19,6 +19,7 @@ import zm.gov.moh.core.repository.database.entity.domain.ConceptAnswer;
 import zm.gov.moh.core.repository.database.entity.domain.ConceptName;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterType;
 import zm.gov.moh.core.repository.database.entity.domain.Location;
 import zm.gov.moh.core.repository.database.entity.domain.LocationAttribute;
@@ -31,11 +32,11 @@ import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierEntity
 import zm.gov.moh.core.repository.database.entity.domain.PatientIdentifierType;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeType;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
-import zm.gov.moh.core.repository.database.entity.domain.Provider;
 import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.ProviderAttributeType;
-import zm.gov.moh.core.repository.database.entity.domain.User;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.domain.VisitType;
 
@@ -62,26 +63,20 @@ public interface RestApi {
     @GET("location/attribute/type/")
     Maybe<LocationAttributeType[]> getLocationAttributeTypes(@Header("x-access-token") String accessToken);
 
-    @GET("provider/")
-    Maybe<Provider[]> getProviders(@Header("x-access-token") String accessToken);
-
-    @GET("user/")
-    Maybe<User[]> getUsers(@Header("x-access-token") String accessToken);
-
-    @GET("person/name/")
-    Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken);
-
     @GET("v1/person/name/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<PersonName[]> getPersonNames(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
     @GET("v1/person/address/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
-    @GET("person/address/{datetime}")
-    Maybe<PersonAddress[]> getPersonAddresses(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
-
     @GET("v1/person/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<Person[]> getPersons(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
+
+    @GET("person/attribute")
+    Maybe<PersonAttributeEntity[]> getPersonAttributes(@Header("x-access-token") String accessToken);
+
+    @GET("person/attribute/type")
+    Maybe<PersonAttributeType[]> getPersonAttributeTypes(@Header("x-access-token") String accessToken);
 
     @GET("patient/{datetime}")
     Maybe<PatientEntity[]> getPatients(@Header("x-access-token") String accessToken, @Path("datetime") String datetime);
@@ -94,9 +89,6 @@ public interface RestApi {
 
     @GET("v1/patient/identifier/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
-
-    @GET("patient/identifier/")
-    Maybe<PatientIdentifierEntity[]> getPatientIdentifiers(@Header("x-access-token") String accessToken);
 
     @GET("patient/identifier/type")
     Maybe<PatientIdentifierType[]> getPatientIdentifierTypes(@Header("x-access-token") String accessToken);
@@ -116,6 +108,9 @@ public interface RestApi {
     @GET("encounter/type/")
     Maybe<EncounterType[]> getEncounterTypes(@Header("x-access-token") String accessToken);
 
+    @GET("encounter/provider/")
+    Maybe<EncounterProvider[]> getEncounterProviders(@Header("x-access-token") String accessToken);
+
     @GET("v1/encounter/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<EncounterEntity[]> getEncounters(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
 
@@ -124,7 +119,6 @@ public interface RestApi {
 
     @GET("v1/visit/location/{location}/LIMIT/{datetime}/{OFFSET}/{LIMIT}")
     Maybe<VisitEntity[]> getVisit(@Header("x-access-token") String accessToken, @Path("location") long location, @Path("datetime") LocalDateTime datetime, @Path("OFFSET") long offset,@Path("LIMIT") int limit);
-
 
     @GET("drug/")
     Maybe<Drug[]> getDrugs(@Header("x-access-token") String accessToken);
@@ -143,8 +137,4 @@ public interface RestApi {
     @Headers("Content-Type: application/json")
     @PUT("visit/{batchVersion}")
     Maybe<Response[]> putVisit(@Header("x-access-token") String accessToken, @Path("batchVersion") long batchVersion, @Body Visit... visits);
-
-    @Headers("Content-Type: application/json")
-    @PUT("encounter/{batchVersion}")
-    Maybe<Response[]> putEncounter(@Header("x-access-token") String accessToken, @Path("batchVersion") long batchVersion, @Body EncounterEntity... encounters);
 }

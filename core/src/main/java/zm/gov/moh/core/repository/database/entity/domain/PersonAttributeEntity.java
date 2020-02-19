@@ -37,7 +37,7 @@ public class PersonAttributeEntity {
 
     @ColumnInfo(name = "changed_by")
     @Json(name = "changed_by")
-    private long changedBy;
+    private Long changedBy;
 
     @ColumnInfo(name = "date_changed")
     @Json(name = "date_changed")
@@ -49,7 +49,7 @@ public class PersonAttributeEntity {
 
     @ColumnInfo(name = "voided_by")
     @Json(name = "voided_by")
-    private long voidedBy;
+    private Long voidedBy;
 
     @ColumnInfo(name = "date_voided")
     @Json(name = "date_voided")
@@ -62,6 +62,12 @@ public class PersonAttributeEntity {
     @ColumnInfo(name = "uuid")
     @Json(name = "uuid")
     private String uuid;
+
+    public PersonAttributeEntity(long personId, String value, long personAttributeTypeId) {
+        this.personId = personId;
+        this.value = value;
+        this.personAttributeTypeId = personAttributeTypeId;
+    }
 
     public long getPersonAttributeId() {
         return personAttributeId;
@@ -111,11 +117,11 @@ public class PersonAttributeEntity {
         this.dateCreated = dateCreated;
     }
 
-    public long getChangedBy() {
+    public Long getChangedBy() {
         return changedBy;
     }
 
-    public void setChangedBy(long changedBy) {
+    public void setChangedBy(Long changedBy) {
         this.changedBy = changedBy;
     }
 
@@ -135,11 +141,11 @@ public class PersonAttributeEntity {
         this.voided = voided;
     }
 
-    public long getVoidedBy() {
+    public Long getVoidedBy() {
         return voidedBy;
     }
 
-    public void setVoidedBy(long voidedBy) {
+    public void setVoidedBy(Long voidedBy) {
         this.voidedBy = voidedBy;
     }
 

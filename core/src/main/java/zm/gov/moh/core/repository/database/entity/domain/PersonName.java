@@ -109,6 +109,7 @@ public class PersonName extends SynchronizableEntity {
         this.familyName = familyName;
         this.preferred = preferred;
         this.dateCreated = dateCreated;
+        this.dateChanged = dateCreated;
 
     }
 

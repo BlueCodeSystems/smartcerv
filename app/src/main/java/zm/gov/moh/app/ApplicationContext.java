@@ -25,11 +25,12 @@ import zm.gov.moh.core.utils.BaseApplication;
 
 public class ApplicationContext extends BaseApplication {
 
+
     @Override
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-
+        this.buildName =  BuildConfig.VERSION_NAME +" "+ zm.gov.moh.core.BuildConfig.BUILD_DATE;
         //Load common modules
         registerModule(CoreModule.CLIENT_DASHOARD, new BasicModule("Client Dashboard",ClientDashboardActivity.class));
         registerModule(CoreModule.REGISTER, new BasicModule("Register",RegisterActivity.class));

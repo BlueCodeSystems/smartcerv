@@ -1,6 +1,7 @@
 package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.io.IOException;
+
+import zm.gov.moh.cervicalcancer.base.BaseEventCervicalCancerHandler;
 import zm.gov.moh.cervicalcancer.databinding.ActivityPatientDashboardBinding;
 import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDashboardViewModel;
 import zm.gov.moh.cervicalcancer.R;
@@ -32,6 +38,7 @@ import zm.gov.moh.core.utils.Utils;
 public class PatientDashboardActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     public static final String PERSON_ID = "PERSON_ID";
     public static final String CALLER_SUBMODULE_ID_KEY = "CALLER_SUBMODULE_ID_KEY";
+
     PatientDashboardViewModel viewModel;
     Module vitals;
     long clientId;
@@ -53,20 +60,24 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
     private Object Application;
     private android.app.Application application;
     private Object VisitState;
+    BaseEventCervicalCancerHandler baseEventCervicalCancerHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBundle = getIntent().getExtras();
+        baseEventCervicalCancerHandler=new BaseEventCervicalCancerHandler(this);
+        setToolBarEventHandler(baseEventCervicalCancerHandler);
+
         clientId = mBundle.getLong(PERSON_ID);
         viewModel = ViewModelProviders.of(this).get(PatientDashboardViewModel.class);
+
         viewModel.setBundle(mBundle);
         setViewModel(viewModel);
         AndroidThreeTen.init(this);
 
 
         vitals = ((BaseApplication) this.getApplication()).getModule(BaseApplication.CoreModule.VITALS);
-
         Database database = viewModel.getRepository().getDatabase();
         getViewModel().getRepository().getDatabase().genericDao()
                 .getPatientById(clientId)
@@ -78,21 +89,31 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
                 });
         ActivityPatientDashboardBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_patient_dashboard);
         binding.setTitle("Patient Dashboard");
-
+        initPopupMenu(zm.gov.moh.common.R.menu.base_menu_edit, baseEventCervicalCancerHandler::onMenuItemSelected);
         initToolBar(binding.getRoot());
-        viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
+        /*viewModel.getRepository().getDatabase().genericDao().getPatientById(clientId).
                 observe(this, binding::setClient);
         viewModel.getRepository().getDatabase().personAddressDao().findByPersonIdObservable(clientId).
                 observe(this, binding::setClientAddress);
         viewModel.getRepository().getDatabase().locationDao().getByPatientId(clientId).
-                observe(this, binding::setFacility);
+                observe(this, binding::setFacility);*/
 
         //Set EDI Image View Listener
         ImageButton1 = findViewById(R.id.load_image);
 
+      ///adding patient information in databundle
 
+        viewModel.getRepository().getDatabase().clientDao().findById(clientId).observe(this,
+                client1 -> {
+                    binding.setClient(client1);
 
+                    mBundle.putString(Key.PERSON_FAMILY_NAME, client1.getFamilyName());
+                    mBundle.putString(Key.PERSON_GIVEN_NAME, client1.getGivenName());
+                    mBundle.putString(Key.PERSON_DOB, client1.getBirthDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                    this.getIntent().putExtras(mBundle);
+                });
 
+        initBundle(mBundle);
 
         // Set Bottom Navigation View Listener
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
@@ -106,22 +127,10 @@ public class PatientDashboardActivity extends BaseActivity implements BottomNavi
         database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
         database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
 
-        database.locationDao().getByPatientId(clientId, 4L).observe(this, binding::setFacility);
-        database.visitDao().getByPatientIdVisitTypeId(clientId, 2L, 3L, 4L, 5L, 6L, 7L).observe(this, viewModel::onVisitsRetrieved);
-
         //set navigation drawer
         addDrawer(this);
 
     }
-
-
-
-
-
-
-
-
-
 
     public void EDIonClick(final View v) {
         /*if (VisitState == null) {

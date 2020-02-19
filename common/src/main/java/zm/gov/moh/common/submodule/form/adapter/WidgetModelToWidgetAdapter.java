@@ -324,6 +324,7 @@ public class WidgetModelToWidgetAdapter {
             BasicDrugWidgetModel model = (BasicDrugWidgetModel) widgetModel;
 
             BaseWidget widget = new BasicDrugWidget.Builder(this.context)
+                    .setDrugUuid(model.getDrugUuid())
                     .setUuid(model.getUuid())
                     .setRepository(repository)
                     .setBundle(bundle)
@@ -336,6 +337,7 @@ public class WidgetModelToWidgetAdapter {
             BasicOtherDrugWidgetModel model = (BasicOtherDrugWidgetModel) widgetModel;
 
             BaseWidget widget = new BasicOtherDrugWidget.Builder(this.context)
+                    .setDrugUuid(model.getDrugUuid())
                     .setUuid(model.getUuid())
                     .setRepository(repository)
                     .setBundle(bundle)

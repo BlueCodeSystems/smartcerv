@@ -6,6 +6,7 @@ import java.util.List;
 
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 
 public class Patient {
@@ -21,12 +22,14 @@ public class Patient {
     private String cityVillage;
     private String stateProvince;
     private String uuid;
+    private short voided;
 
 
     public void setPerson(Person person){
         this.gender = person.getGender();
         this.birthdate = person.getBirthDate();
         this.uuid = person.getUuid();
+        this.voided = person.getVoided();
     }
 
     public void setPersonName(PersonName personName){

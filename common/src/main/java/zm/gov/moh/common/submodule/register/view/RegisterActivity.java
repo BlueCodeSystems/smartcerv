@@ -52,6 +52,7 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         defaultModule = ((BaseApplication)this.getApplication()).getModule(BaseApplication.CoreModule.CLIENT_DASHOARD);
 
+
         AndroidThreeTen.init(this);
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
@@ -100,11 +101,22 @@ public class RegisterActivity extends BaseRegisterActivity {
 
     @Override
     public void getAllClient() {
+        if(mBundle.getLong("identifier")==3) {
+            registerViewModel.getRepository().getDatabase().clientDao().findClientsByLocationIdentifierType(locationId, mBundle.getLong("identifier")).observe(this, clients -> {
+                clientListAdapter.setClientList(clients);
 
-        registerViewModel.getRepository().getDatabase().clientDao().findClientsByLocation(locationId).observe(this, clients -> {
-            clientListAdapter.setClientList(clients);
-            this.allClients = clients;
-        });
+                this.allClients = clients;
+            });
+        }
+        else if(mBundle.getLong("identifier")==4)
+        {
+            registerViewModel.getRepository().getDatabase().clientDao().findClientsNotEnrollInCervicalCancer(locationId, mBundle.getLong("identifier")).observe(this, clients -> {
+                clientListAdapter.setClientList(clients);
+
+                this.allClients = clients;
+            });
+        }
+
     }
 
     public void registerClient(){

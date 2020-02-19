@@ -102,7 +102,7 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
         long currentLocationId = getRepository().getDefaultSharePrefrences().getLong(Key.LOCATION_ID, 0);
 
-        if(locationId != currentLocationId)
+        if(locationId != currentLocationId)//Invalidate last data sync date
             getRepository().getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,null).apply();
 
         getRepository().getDefaultSharePrefrences().edit().putLong(Key.LOCATION_ID, locationId)
@@ -241,9 +241,9 @@ public class LoginViewModel extends BaseAndroidViewModel implements InjectableVi
 
                 db.personNameDao().insert(user.getPersonName());
                 db.providerDao().insert(user.getProvider());
-               db.userDao().insert(
-                       new zm.gov.moh.core.repository.database.entity.domain.User(user.getUserId(),
-                               user.getUsername(),user.getPersonId(),user.getUuid()));
+                db.userDao().insert(
+                        new zm.gov.moh.core.repository.database.entity.domain.User(user.getUserId(),
+                                user.getUsername(),user.getPersonId(),user.getUuid()));
 
                 getRepository().getDefaultSharePrefrences()
                         .edit()

@@ -15,5 +15,10 @@
                     android:id="@+id/edit_action"
                     android:title="Edit"
                     app:showAsAction="never"/>
+                <item
+                    android:icon="@android:drawable/ic_delete"
+                    android:id="@+id/delete_action"
+                    android:title="Delete"
+                    app:showAsAction="never" />
         </group>
 </menu>

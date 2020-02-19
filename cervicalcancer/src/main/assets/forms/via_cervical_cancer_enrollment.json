@@ -65,7 +65,7 @@
               "weight": 1
             },
             {
-              "tag": "client ID",
+              "tag": "PATIENT_ID",
               "widgetType": "CCPIZEditText",
               "weight": 1,
               "regex":"([0-9A-Z]+)-([0-9A-Z]+)-([0-9]+)",
@@ -122,7 +122,7 @@
               "weight": 1
             },
             {
-              "tag": "phone",
+              "tag": "PERSON_PHONE",
               "widgetType": "EditText",
               "hint": "Example +260967546754",
               "dataType": "Numeric",

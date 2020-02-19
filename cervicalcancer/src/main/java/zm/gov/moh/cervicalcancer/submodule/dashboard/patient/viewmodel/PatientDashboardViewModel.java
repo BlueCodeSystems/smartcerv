@@ -9,7 +9,9 @@ import com.google.common.collect.LinkedHashMultimap;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 
+import java.util.AbstractMap;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +30,11 @@ import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
 import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterProvider;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAttributeEntity;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.ProviderAttribute;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
@@ -37,39 +42,23 @@ import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class PatientDashboardViewModel extends BaseAndroidViewModel implements InjectableViewModel {
 
-    private MutableLiveData<VisitState> emitVisitState;
     private Bundle bundle;
-    private VisitState visitState;
-    private VisitEntity visit;
-    VisitDao visitDao = getRepository().getDatabase().visitDao();
-    Database db = getRepository().getDatabase();
     long person_id;
+    VisitEntity visit;
 
+
+    private MutableLiveData<Map.Entry<List<Long>, Map<Long,Long>>> filterObsEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> screeningDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> referralDataEmitter;
     private MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> treatmentDataEmitter;
-    private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<Map.Entry<String, String>>>>  providerDataEmitter;
+    private MutableLiveData<LinkedHashMap<Long, Collection<String>>>  providerNumberEmitter;
     private MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>>  ediDataEmitter;
     private MutableLiveData<LinkedList<LinkedHashMultimap<VisitListItem, VisitEncounterItem>>> visitDataEmitter;
 
     public PatientDashboardViewModel(Application application) {
         super(application);
 
-    }
-
-    public void setVisitState(final VisitState state) {
-
-        persistVisit(state);
-
-        emitVisitState.setValue(state);
-    }
-
-    public MutableLiveData<VisitState> getEmitVisitState() {
-
-        if (emitVisitState == null)
-            emitVisitState = new MutableLiveData<>();
-
-        return emitVisitState;
     }
 
     public MutableLiveData<LinkedHashMap<Long, Collection<Boolean>>> getScreeningDataEmitter() {
@@ -104,12 +93,20 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         return visitDataEmitter;
     }
 
-    public MutableLiveData<LinkedHashMap<Long, Collection<String>>> getProviderDataEmitter() {
+    public MutableLiveData<LinkedHashMap<Long, Collection<Map.Entry<String, String>>>> getProviderDataEmitter() {
 
         if (providerDataEmitter == null)
             providerDataEmitter = new MutableLiveData<>();
 
         return providerDataEmitter;
+    }
+
+    public MutableLiveData<LinkedHashMap<Long, Collection<String>>> getProviderNumberEmitter() {
+
+        if (providerNumberEmitter == null)
+            providerNumberEmitter = new MutableLiveData<>();
+
+        return providerNumberEmitter;
     }
 
     public MutableLiveData<Map<String,LinkedHashMultimap<Long, String>>> getEDIDataEmitter() {
@@ -118,6 +115,14 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             ediDataEmitter = new MutableLiveData<>();
 
         return ediDataEmitter;
+    }
+
+    public MutableLiveData<Map.Entry<List<Long>, Map<Long,Long>>> getFilterObsEmitter() {
+
+        if (filterObsEmitter == null)
+            filterObsEmitter = new MutableLiveData<>();
+
+        return filterObsEmitter;
     }
 
 
@@ -134,26 +139,6 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
             bundle = new Bundle();
 
         return bundle;
-    }
-
-    public VisitState getVisitState() {
-        return visitState;
-    }
-
-    public void persistVisit(VisitState visitState){
-
-
-        if(visit == null)
-            visit = new VisitEntity();
-
-        if(visitState == VisitState.NEW)
-
-            ConcurrencyUtils.consumeAsync(this::createVisit, this::onError, bundle);
-        else if(visit.getDateStarted() != null) {
-
-            visit.setDateStopped(LocalDateTime.now());
-            ConcurrencyUtils.consumeAsync( visit-> visitDao.updateVisit(visit),this::onError,visit);
-        }
     }
 
 
@@ -316,60 +301,62 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         ConcurrencyUtils.asyncFunction(this::extractTreatmentData, getTreatmentDataEmitter()::setValue, visits, this::onError);
         ConcurrencyUtils.asyncFunction(this::extractProviderData, getProviderDataEmitter()::setValue, visits, this::onError);
         ConcurrencyUtils.asyncFunction(this::extractVisitData,getVisitDataEmitter()::setValue, visits, this::onError);
+        ConcurrencyUtils.asyncFunction(this::extractObsFilterData,getFilterObsEmitter()::setValue,visits,this::onError);
     }
 
     public void onError(Throwable throwable){
 
     }
 
-    public void createVisit(Bundle bundle){
-
-        long visit_id = DatabaseUtils.generateLocalId(getRepository().getDatabase().visitDao()::getMaxId);
-        long visit_type_id = (Long) bundle.get(Key.VISIT_TYPE_ID);
-        long location_id = (Long) bundle.get(Key.LOCATION_ID);
-        long creator = (Long) bundle.get(Key.USER_ID);
-        LocalDateTime start_time = LocalDateTime.now();
-
-        visit = new VisitEntity(visit_id,visit_type_id,person_id,location_id,creator,start_time);
-        visitDao.insert(visit);
-        bundle.putLong(Key.VISIT_ID, visit_id);
-        setVisitState(VisitState.NEW);
-    }
-
-    public LinkedHashMap<Long, Collection<String>> extractProviderData(List<VisitEntity> visits){
+    public LinkedHashMap<Long, Collection<Map.Entry<String, String>>> extractProviderData(List<VisitEntity> visits){
 
 
         if(visits.size() > 0) {
 
-            LinkedHashMap<Long, Collection<String>> providerResults = new LinkedHashMap<>();
+            LinkedHashMap<Long, Collection<Map.Entry<String, String>>> providerResults = new LinkedHashMap<>();
 
             for(VisitEntity visit: visits) {
-                LinkedHashMap<Long, String> providerData = new LinkedHashMap<>();
+                LinkedHashMap<Long, Map.Entry<String, String>> providerData = new LinkedHashMap<>();
                 long datatime = visit.getDateStarted().toInstant(ZoneOffset.UTC).getEpochSecond();
                 Long treatmentEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TREAMENT);
                 Long screeningEncounterId = db.genericDao().getPatientEncounterIdByVisitIdEncounterTypeId(person_id,visit.getVisitId(),OpenmrsConfig.ENCOUNTER_TYPE_UUID_TEST_RESULT);
 
                 if(treatmentEncounterId !=null || screeningEncounterId != null) {
+                    EncounterProvider forTreatment = (treatmentEncounterId != null) ?
+                            db.encounterProviderDao().getByEncounterId(treatmentEncounterId) : null;
+                    EncounterProvider forScreening = (screeningEncounterId != null) ?
+                            db.encounterProviderDao().getByEncounterId(screeningEncounterId) : null;
 
-                    Long treatmentProviderId = (treatmentEncounterId != null ) ?
-                            db.encounterProviderDao().getByEncounterId(treatmentEncounterId).getProviderId() : null;
-                    Long screeningProviderId = (screeningEncounterId != null ) ?
-                            db.encounterProviderDao().getByEncounterId(screeningEncounterId).getProviderId() : null;
+                    Long treatmentProviderId = null;
+                    Long screeningProviderId = null;
+                    if (forTreatment != null)
+                        treatmentProviderId = forTreatment.getProviderId();
+                    if (forScreening != null)
+                        screeningProviderId = forScreening.getProviderId();
 
                     PersonName treatmentProviderName = (treatmentProviderId != null) ?
                             db.personNameDao().getByInsightProviderId(treatmentProviderId) : null;
                     PersonName screeningProviderName = (screeningProviderId != null) ?
                             db.personNameDao().getByInsightProviderId(screeningProviderId) : null;
 
-                    if (treatmentProviderName != null)
-                        providerData.put(2L, treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName());
-                    else
-                        providerData.put(2L, "N/A");
+                    ProviderAttribute treatmentAttribute = (treatmentProviderId != null) ?
+                            db.providerAttributeDao().findByProviderId(treatmentProviderId) : null;
+                    ProviderAttribute screeningAttribute = (screeningProviderId != null) ?
+                            db.providerAttributeDao().findByProviderId(screeningProviderId) : null;
 
-                    if (screeningProviderName != null)
-                        providerData.put(1L, screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName());
+                    // Extract name of provider
+                    if (treatmentProviderName != null && treatmentAttribute != null)
+                        providerData.put(2L, new AbstractMap.SimpleEntry<>(treatmentAttribute.getValueReference(),
+                                treatmentProviderName.getGivenName() + " " + treatmentProviderName.getFamilyName()));
                     else
-                        providerData.put(1L, "N/A");
+                        providerData.put(2L, new AbstractMap.SimpleEntry<>("No Number", "N/A"));
+
+                    if (screeningProviderName != null && screeningAttribute != null)
+                        providerData.put(1L, new AbstractMap.SimpleEntry<>(screeningAttribute.getValueReference(),
+                                screeningProviderName.getGivenName() + " " + screeningProviderName.getFamilyName()));
+                    else
+                        providerData.put(1L, new AbstractMap.SimpleEntry<>("No Number", "N/A"));
+
 
                     providerResults.put(datatime, providerData.values());
                 }
@@ -431,5 +418,36 @@ public class PatientDashboardViewModel extends BaseAndroidViewModel implements I
         }
 
         return visitListItems;
+    }
+
+    public Map.Entry<List<Long>, Map<Long,Long>>extractObsFilterData(List<VisitEntity> visits){
+
+        List<String>filterConceptIdUuid = new LinkedList<>();
+        Map<String, String> substituteConceptIdUuid = new HashMap<>();
+        List<Long> filterConceptId;
+        Map<Long, Long> substituteConceptIds = new HashMap<>();
+
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_INSPECTION_DONE);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_SCREENING_RESULT);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_REFERRAL_REASON);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HEALTH_FACILITY_REFERRED);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_VIA_TREATMENT_PERFORMED);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_SCREENING_PROVIDER);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_TREATMENT_PROVIDER);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_HIV_STATUS);
+        filterConceptIdUuid.add(OpenmrsConfig.CONCEPT_UUID_PICT_HIV_RESULT);
+
+        filterConceptId = db.conceptDao().getConceptIdByUuid(filterConceptIdUuid);
+
+        substituteConceptIdUuid.put(OpenmrsConfig.CONCEPT_UUID_HIV_STATUS, OpenmrsConfig.CONCEPT_UUID_PICT_HIV_RESULT);
+
+        for(Map.Entry<String, String> entry: substituteConceptIdUuid.entrySet()){
+
+            Long conceptId = db.conceptDao().getConceptIdByUuid(entry.getKey());
+            Long substituteConceptId = db.conceptDao().getConceptIdByUuid(entry.getValue());
+            substituteConceptIds.put(conceptId,substituteConceptId);
+        }
+
+        return new AbstractMap.SimpleImmutableEntry<>(filterConceptId, substituteConceptIds);
     }
 }
