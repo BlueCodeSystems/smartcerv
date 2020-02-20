@@ -15,6 +15,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DrugResistantTBEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
@@ -283,6 +284,21 @@ public class WidgetModelJsonAdapter {
 
 
                 return cervicalCancerIDEditTextModel;
+
+            case "MDRPIZEditText":
+
+                final DrugResistantTBEditTextModel drugResistantIDEditTextModel = new DrugResistantTBEditTextModel();
+
+                drugResistantIDEditTextModel.setWidgetType(widgetModelJson.getWidgetType());
+                drugResistantIDEditTextModel.setTag(widgetModelJson.getTag());
+                drugResistantIDEditTextModel.setWeight(widgetModelJson.getWeight());
+                drugResistantIDEditTextModel.setTag(widgetModelJson.getTag());
+                drugResistantIDEditTextModel.setRequired(widgetModelJson.getRequired());
+                drugResistantIDEditTextModel.setRegex(widgetModelJson.getRegex());
+                drugResistantIDEditTextModel.setErrorMessage(widgetModelJson.getErrorMessage());
+
+
+                return drugResistantIDEditTextModel;
 
             case "GenderPicker":
 

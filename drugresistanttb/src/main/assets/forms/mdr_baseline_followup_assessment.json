@@ -47,6 +47,7 @@
               "hint": "dd MMM yyyy"
             },
             {
+              "tag": "PERSON_AGE",
               "widgetType": "NumericEditText",
               "label": "Age",
               "textSize": 18,
@@ -350,8 +351,9 @@
           "dataType": "Text",
           "uuid": "50f7a651-2150-4aa0-bb52-25297019228d",
           "label": "Xpert MTB/RIF Result",
-          "style": "radio",
-          "textSize": 18
+          "hint": "Enter Result",
+          "textSize": 18,
+          "weight": 1
         },
         {
           "tag": "Baseline_Followup LPA",
