@@ -11,13 +11,6 @@
       "title": "Drug Resistant TB Treatment Card",
       "widgets": [
         {
-          "tag": "if_social_cash",
-          "widgetType": "DRTable",
-          "label": "If on social cash transfer support, start date",
-          "textSize": 18,
-          "weight": 1
-        },
-        {
           "label": "Full Name:",
           "tag": "PERSON_GIVEN_NAME",
           "widgetType": "EditText",
@@ -295,30 +288,24 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "TextView",
-              "label": "HIV Status",
+              "tag": "if_social_cash",
+              "widgetType": "DRTable",
+              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "label": "NR",
-              "style": "check",
+              "tag": "if_social_cash",
+              "widgetType": "DRTable",
+              "label": "If on social cash transfer support, start date",
+              "textSize": 18,
               "weight": 1
             },
             {
-              "widgetType": "Concept",
-              "label": "R",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "Unknown",
-              "dataType": "Boolean",
-              "style": "check",
+              "tag": "if_social_cash",
+              "widgetType": "DRTable",
+              "label": "If on social cash transfer support, start date",
+              "textSize": 18,
               "weight": 1
             }
           ]

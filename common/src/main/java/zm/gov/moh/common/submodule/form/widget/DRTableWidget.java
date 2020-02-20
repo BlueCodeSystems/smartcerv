@@ -42,6 +42,7 @@ public class DRTableWidget extends BaseWidget {
         LayoutInflater inflater =((BaseActivity) mContext).getLayoutInflater();
         this.addView(inflater.inflate(R.layout.dr_table, null));
 
+
         this.addView(mContext);
     }
 
