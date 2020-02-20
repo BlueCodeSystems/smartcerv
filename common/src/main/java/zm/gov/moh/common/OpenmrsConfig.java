@@ -33,4 +33,5 @@ public class OpenmrsConfig {
     public static final String PROVIDER_ATTRIBUTE_TYPE_HOME_FACILITY = "c34fac13-9c48-4f29-beb1-04c8d0a86754";
 
     public static final String CCPIZ_IDENTIFIER_TYPE = "852a0bd1-d283-48b1-b72e-e7af0b4b6ce7";
+    public static final String MDRPIZ_IDENTIFIER_TYPE = "c8e464ab-11be-4b90-8b28-226dacab2b2d";
 }

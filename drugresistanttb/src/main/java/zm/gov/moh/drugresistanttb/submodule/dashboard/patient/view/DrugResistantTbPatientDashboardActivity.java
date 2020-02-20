@@ -33,6 +33,7 @@ import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
+import zm.gov.moh.drugresistanttb.base.BaseEventDrugResistantTbHandler;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbPatientDashboardBinding;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrFormListAdapter;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
@@ -52,7 +53,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
     private FragmentManager fragmentManager;
     List<FormGroup> mdrFormLists = new ArrayList<>();
     private Bundle bundle;
-
+    BaseEventDrugResistantTbHandler baseEventDrugResistantTbHandler;
 
 
     @Override
@@ -61,6 +62,9 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
         super.onCreate(savedInstanceState);
 
         mBundle = getIntent().getExtras();
+        baseEventDrugResistantTbHandler = new BaseEventDrugResistantTbHandler(this);
+        setToolBarEventHandler(baseEventDrugResistantTbHandler);
+
         clientId = mBundle.getLong(PERSON_ID);
         viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
 

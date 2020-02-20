@@ -47,6 +47,7 @@
               "hint": "dd MMM yyyy"
             },
             {
+              "tag": "PERSON_AGE",
               "widgetType": "NumericEditText",
               "label": "Age",
               "textSize": 18,
@@ -285,14 +286,102 @@
           "uuid": "0714410d-fc7e-454e-a4ad-ca6897d680e4",
           "label": "Detection of MDR",
           "style": "radio",
+          "textSize": 18,
+          "logic": [
+            {
+              "condition": {
+                "value": 166277
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Baseline_Followup Smear Result"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 166278
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Baseline_Followup Xpert MTB/RIF" ]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 166279
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Baseline_Followup LPA"]
+                }
+              }
+            },
+            {
+              "condition": {
+                "value": 166280
+              },
+              "action": {
+                "type": "skipLogic",
+                "metadata": {
+                  "tags": ["Baseline_Followup Culture" ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "tag": "Baseline_Followup Smear Result",
+          "widgetType": "Concept",
+          "conceptId": 166176,
+          "dataType": "Coded",
+          "uuid": "e434f969-5f50-477f-9d31-0e2b1149ca9e",
+          "label": "Smear Result",
+          "style": "radio",
+          "textSize": 18
+        },
+        {
+          "tag": "Baseline_Followup Xpert MTB/RIF",
+          "widgetType": "Concept",
+          "conceptId": 166296,
+          "dataType": "Text",
+          "uuid": "50f7a651-2150-4aa0-bb52-25297019228d",
+          "label": "Xpert MTB/RIF Result",
+          "hint": "Enter Result",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Baseline_Followup LPA",
+          "widgetType": "Concept",
+          "conceptId": 166083,
+          "dataType": "Text",
+          "uuid": "5706ce70-f322-41f7-a4cf-d6df5e450e5c",
+          "label": "LPA Result",
+          "hint": "Enter Result",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "Baseline_Followup Culture",
+          "widgetType": "Concept",
+          "conceptId": 166180,
+          "dataType": "Coded",
+          "uuid": "2939ff13-6ae2-4448-85a9-108954440328",
+          "label": "Culture Result",
+          "style": "radio",
           "textSize": 18
         },
         {
           "tag": "HIV History",
           "widgetType": "Concept",
           "conceptId": 166284,
-          "uuid": "de80fc35-eb70-4ba4-bff1-2ee77b4abef2",
           "dataType": "Text",
+          "uuid": "de80fc35-eb70-4ba4-bff1-2ee77b4abef2",
           "label": "HIV History",
           "hint": "If HIV +: date of initiation of ART, Regimens, CD4 and VL, history of OIs",
           "textSize": 18,
