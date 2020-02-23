@@ -3,6 +3,7 @@ package zm.gov.moh.core.utils;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.util.TypedValue;
@@ -76,6 +77,12 @@ public class Utils {
 
 
 
+
+    }
+
+    public  static TimePickerDialog timePickerDialog(Context context,View view, TimePickerDialog.OnTimeSetListener onTimeSetListener){
+
+        //In the instance of the time picker widget we track the hours and minutes
 
     }
 
