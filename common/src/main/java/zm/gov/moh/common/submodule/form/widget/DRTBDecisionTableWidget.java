@@ -3,19 +3,15 @@ package zm.gov.moh.common.submodule.form.widget;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-
-import java.util.zip.Inflater;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import zm.gov.moh.common.R;
 import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.submodule.form.model.TableData;
 
-public class DRTableWidget extends BaseWidget {
+public class DRTBDecisionTableWidget extends BaseWidget {
 
     Builder builder;
     protected Bundle mBundle;
@@ -32,7 +28,7 @@ public class DRTableWidget extends BaseWidget {
         this.builder = builder;
     }
 
-    public DRTableWidget(Context context) {
+    public DRTBDecisionTableWidget(Context context) {
         super(context);
     }
 
@@ -40,7 +36,8 @@ public class DRTableWidget extends BaseWidget {
     public void onCreateView() {
 
         LayoutInflater inflater =((BaseActivity) mContext).getLayoutInflater();
-        this.addView(inflater.inflate(R.layout.dr_table, null));
+        this.addView(inflater.inflate(R.layout.dr_tb_decision_table, null));
+
 
         this.addView(mContext);
     }
@@ -51,9 +48,9 @@ public class DRTableWidget extends BaseWidget {
     //@Override
     /*public View onCreate(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.dr_table, parent, false);
+        View rootView = inflater.inflate(R.layout.dr_tb_prev_treat_table, parent, false);
         return rootView;*/
-        //return inflater.inflate(R.layout.dr_table, container, false);
+        //return inflater.inflate(R.layout.dr_tb_prev_treat_table, container, false);
 
 
 
@@ -126,7 +123,7 @@ public class DRTableWidget extends BaseWidget {
             return mRowSize;
         }
 
-         public DRTableWidget.Builder setBundle(Bundle bundle) {
+         public DRTBDecisionTableWidget.Builder setBundle(Bundle bundle) {
              mBundle = bundle;
              return this;
          }
@@ -134,7 +131,7 @@ public class DRTableWidget extends BaseWidget {
         @Override
         public BaseWidget build() {
 
-            DRTableWidget widget = new DRTableWidget(mContext);
+            DRTBDecisionTableWidget widget = new DRTBDecisionTableWidget(mContext);
             widget.setBuilder(this);
 
             widget.onCreateView();
