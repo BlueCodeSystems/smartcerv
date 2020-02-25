@@ -1,6 +1,5 @@
 package zm.gov.moh.common.submodule.form.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,8 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetMo
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.DRTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
@@ -40,7 +40,8 @@ import zm.gov.moh.common.submodule.form.widget.BasicDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.BasicOtherDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CameraConnectButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
-import zm.gov.moh.common.submodule.form.widget.DRTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRPreviousTBTreatmentTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRTBDecisionTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
@@ -408,11 +409,27 @@ public class WidgetModelToWidgetAdapter {
 
             return widget;
         }
-        else if(widgetModel instanceof DRTableWidgetModel) {
+        else if(widgetModel instanceof DRPreviousTBTreatmentTableWidgetModel) {
 
-            DRTableWidgetModel model = (DRTableWidgetModel) widgetModel;
+            DRPreviousTBTreatmentTableWidgetModel model = (DRPreviousTBTreatmentTableWidgetModel) widgetModel;
 
-            BaseWidget widget = new DRTableWidget.Builder(this.context)
+            BaseWidget widget = new DRPreviousTBTreatmentTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DRTBDecisionTableWidgetModel) {
+
+            DRTBDecisionTableWidgetModel model = (DRTBDecisionTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DRTBDecisionTableWidget.Builder(this.context)
                     .setColSize(model.getColSize())
                     .setRowSize(model.getRowSize())
                     .setTableData(model.getTableData())

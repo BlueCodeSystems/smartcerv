@@ -2,7 +2,7 @@ package zm.gov.moh.common.submodule.form.model.widgetModel;
 
 import zm.gov.moh.common.submodule.form.model.TableData;
 
-public class DRTableWidgetModel extends AbstractWidgetModel {
+public class DRPreviousTBTreatmentTableWidgetModel extends AbstractWidgetModel {
 
     protected int rowSize;
     protected int colSize;

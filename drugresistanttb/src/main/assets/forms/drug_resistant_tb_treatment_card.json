@@ -180,7 +180,7 @@
               "uuid": "7febbfd6-1c41-4afd-9add-12f9fe338e6f",
               "dataType": "Coded",
               "style": "radio",
-              "label": "HIV Status",
+              "label": "HIV Testing Done",
               "textSize": 18,
               "logic": [
                 {
@@ -276,11 +276,9 @@
             },
             {
               "tag": "date",
-              "label": "Month of treatment",
-              "widgetType": "DatePicker",
+              "widgetType": "TextView",
               "futureDate": "False",
-              "weight": 1,
-              "hint": "dd MMM yyyy"
+              "weight": 1
             }
           ]
         },
@@ -289,244 +287,151 @@
           "widgets": [
             {
               "tag": "if_social_cash",
-              "widgetType": "DRTable",
+              "widgetType": "DRPreviousTBTreatmentTable",
               "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
               "tag": "if_social_cash",
-              "widgetType": "DRTable",
+              "widgetType": "DRPreviousTBTreatmentTable",
               "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
               "tag": "if_social_cash",
-              "widgetType": "DRTable",
+              "widgetType": "DRPreviousTBTreatmentTable",
               "label": "If on social cash transfer support, start date",
               "textSize": 18,
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "Previously treated for TB?",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "label": "Yes",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "No",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "Unknown",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "MDR Contact?",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "label": "Yes",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "No",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "label": "Unknown",
-              "dataType": "Boolean",
-              "style": "check",
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "Specimen type",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "tag": "specimen_Type",
-              "widgetType": "EditText",
-              "dataType": "Text",
-              "hint": "Sputum Other(specify)",
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "Test(s) requested",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "tag": "microscopy",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Microscopy",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "tag": "microscopy",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Xpert MTB/RIF",
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "Patient's District TB No",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "tag": "MDRTBID",
-              "widgetType": "NumericEditText",
-              "dataType": "Numeric",
-              "hint": "TB District ID",
-              "weight": 1
-            }
-          ]
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "TextView",
-              "label": "Number of samples sent with this form",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "NumericEditText",
-              "dataType": "Numeric",
-              "hint": "Enter number of samples",
-              "regex": "[0-9]+",
-              "errorMessage": "Should only contain numeric characters",
               "weight": 1
             }
           ]
         },
         {
           "tag": "date_sample_collect",
-          "label": "Date first Sample Collected",
-          "widgetType": "DatePicker",
+          "widgetType": "TextView",
           "futureDate": "False",
-          "weight": 1,
-          "hint": "dd MMM yyyy"
-        },
-        {
-          "tag": "requested_by",
-          "widgetType": "EditText",
-          "dataType": "Text",
-          "label": "Requested by",
-          "hint": "(Full name)",
           "weight": 1
         }
       ]
     },
     {
-      "title": "Results(To be completed by Laboratory)",
+      "title": "Drug Abbreviations",
       "widgets": [
         {
-          "widgetType": "DatePicker",
-          "label": "Date sample received",
-          "futureDate": "False",
-          "weight": 1,
-          "hint": "dd MMM yyyy"
+          "widgetType": "TextView",
+          "label": "First-line drugs",
+          "textSize": 30,
+          "weight": 5
         },
         {
-          "widgetType": "EditText",
-          "weight": 1,
-          "hint": "Time in",
-          "label": "Time in "
+          "widgetType": "TextView",
+          "label": "H = Isoniazid",
+          "textSize": 20,
+          "weight": 1
         },
         {
-          "widgetType": "EditText",
-          "weight": 1,
-          "hint": "Serial No",
-          "label": "Lab Serial No"
+          "widgetType": "TextView",
+          "label": "R = Rifampicin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "E = Ethambutol",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Z = Pyrazinamide",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "S = Streptomycin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Second-line drugs",
+          "textSize": 30,
+          "weight": 5
+        },
+        {
+          "widgetType": "TextView",
+          "label": "km = Kanyamycin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Cm = Capreomycin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Lfx = Levofloxacin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Mfx = Moxifloxacin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Eto = Ethionamide",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Cs = Cyscioserine",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "PAS = p-aminosalicylic acid",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Bdq = Bedaquiline",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Dim = Delamanid",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "ipm - cin = Imipenem-cilastatin",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "widgetType": "TextView",
+          "label": "Mpm + amx - clv = Meropenem + Amoxycilin-Clavulanate",
+          "textSize": 20,
+          "weight": 1
         },
         {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
               "widgetType": "TextView",
-              "label": "Tests performed",
-              "textSize": 18,
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "tag": "zehl neelsen",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Zehl Neelsen",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "tag": "flourochrome",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Flourochrome",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "tag": "xpert",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Xpert MTB/RIF",
               "weight": 1
             }
           ]
@@ -535,43 +440,18 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Microscopy",
+              "widgetType": "TextView",
               "weight": 1
-            },
+            }
+          ]
+        },
+        {
+          "widgetType": "WidgetGroupRow",
+          "widgets": [
             {
-              "widgetType": "DatePicker",
-              "label": "Date tested",
+              "widgetType": "TextView",
               "futureDate": "False",
-              "weight": 1,
-              "hint": "dd MMM yyyy"
-            }
-          ]
-        },
-        {
-          "widgetType": "EditText",
-          "weight": 1,
-          "label": "Result",
-          "hint": "Enter Result"
-        },
-        {
-          "widgetType": "WidgetGroupRow",
-          "widgets": [
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "MTB",
               "weight": 1
-            },
-            {
-              "widgetType": "DatePicker",
-              "label": "Date tested",
-              "futureDate": "False",
-              "weight": 1,
-              "hint": "dd MMM yyyy"
             }
           ]
         },
@@ -579,58 +459,16 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "MTB Not Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "MTB Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Error in/ No Result",
+              "widgetType": "TextView",
               "weight": 1
             }
           ]
         },
         {
-          "widgetType": "Concept",
-          "dataType": "Boolean",
-          "style": "check",
-          "label": "Rifampicin",
-          "weight": 1,
-          "textSize": 18
-        },
-        {
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "PR Not Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "RR Detected",
-              "weight": 1
-            },
-            {
-              "widgetType": "Concept",
-              "dataType": "Boolean",
-              "style": "check",
-              "label": "Indet.",
+              "widgetType": "TextView",
               "weight": 1
             }
           ]
@@ -638,35 +476,14 @@
       ]
     },
     {
-      "title": "Comments",
+      "title": "",
       "widgets": [
         {
-          "tag": "comments",
-          "widgetType": "TextBoxOne",
-          "dataType": "Text",
-          "hint": "Comments",
+          "tag": "if_social_cash",
+          "widgetType": "DRTBDecisionTable",
+          "label": "If on social cash transfer support, start date",
           "textSize": 18,
           "weight": 1
-        },
-        {
-          "tag": "provider",
-          "widgetType": "ProviderLabel",
-          "label": "Provider Name",
-          "textSize": 18
-        },
-        {
-          "widgetType": "DatePicker",
-          "label": "Date",
-          "futureDate": "False",
-          "weight": 1,
-          "hint": "dd MMM yyyy"
-        },
-        {
-          "widgetType": "EditText",
-          "futureDate": "False",
-          "weight": 1,
-          "hint": "Time out",
-          "label": "Time out "
         }
       ]
     }

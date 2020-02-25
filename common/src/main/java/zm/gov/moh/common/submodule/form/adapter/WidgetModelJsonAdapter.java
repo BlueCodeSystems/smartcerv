@@ -8,7 +8,8 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
-import zm.gov.moh.common.submodule.form.model.widgetModel.DRTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
@@ -359,16 +360,27 @@ public class WidgetModelJsonAdapter {
 
                 return numericEditTextModel;
 
-            case "DRTable":
+            case "DRPreviousTBTreatmentTable":
 
-                final DRTableWidgetModel drtableWidgetModel = new DRTableWidgetModel();
+                final DRPreviousTBTreatmentTableWidgetModel drtbprevtreattableWidgetModel = new DRPreviousTBTreatmentTableWidgetModel();
 
-                drtableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
-                drtableWidgetModel.setTag(widgetModelJson.getTag());
-                drtableWidgetModel.setRowSize(widgetModelJson.getRowSize());
-                drtableWidgetModel.setColSize(widgetModelJson.getColSize());
-                drtableWidgetModel.setTableData(widgetModelJson.getTableData());
-                return drtableWidgetModel;
+                drtbprevtreattableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtbprevtreattableWidgetModel.setTag(widgetModelJson.getTag());
+                drtbprevtreattableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtbprevtreattableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtbprevtreattableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drtbprevtreattableWidgetModel;
+
+            case "DRTBDecisionTable":
+
+                final DRTBDecisionTableWidgetModel drtbdecisiontableWidgetModel = new DRTBDecisionTableWidgetModel();
+
+                drtbdecisiontableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtbdecisiontableWidgetModel.setTag(widgetModelJson.getTag());
+                drtbdecisiontableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtbdecisiontableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtbdecisiontableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drtbdecisiontableWidgetModel;
 
             case "Table":
 
