@@ -288,21 +288,18 @@
             {
               "tag": "if_social_cash",
               "widgetType": "DRPreviousTBTreatmentTable",
-              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
               "tag": "if_social_cash",
               "widgetType": "DRPreviousTBTreatmentTable",
-              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
               "tag": "if_social_cash",
               "widgetType": "DRPreviousTBTreatmentTable",
-              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             }
@@ -468,7 +465,9 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "TextView",
+              "tag": "if_social_cash",
+              "widgetType": "DRTBDecisionTable",
+              "textSize": 18,
               "weight": 1
             }
           ]
@@ -476,12 +475,11 @@
       ]
     },
     {
-      "title": "",
+      "title": "Sputum smear microscopy",
       "widgets": [
         {
           "tag": "if_social_cash",
-          "widgetType": "DRTBDecisionTable",
-          "label": "If on social cash transfer support, start date",
+          "widgetType": "DRTBSputumSmearMicroscopyTable",
           "textSize": 18,
           "weight": 1
         }

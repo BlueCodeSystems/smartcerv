@@ -13,6 +13,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonMod
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBSputumSmearMicroscopyTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
@@ -42,6 +43,7 @@ import zm.gov.moh.common.submodule.form.widget.CameraConnectButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DRPreviousTBTreatmentTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DRTBDecisionTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRTBSputumSmearMicroscopyTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
@@ -430,6 +432,22 @@ public class WidgetModelToWidgetAdapter {
             DRTBDecisionTableWidgetModel model = (DRTBDecisionTableWidgetModel) widgetModel;
 
             BaseWidget widget = new DRTBDecisionTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DRTBSputumSmearMicroscopyTableWidgetModel) {
+
+            DRTBSputumSmearMicroscopyTableWidgetModel model = (DRTBSputumSmearMicroscopyTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DRTBSputumSmearMicroscopyTableWidget.Builder(this.context)
                     .setColSize(model.getColSize())
                     .setRowSize(model.getRowSize())
                     .setTableData(model.getTableData())

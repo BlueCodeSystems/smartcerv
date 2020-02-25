@@ -10,6 +10,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonMod
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBSputumSmearMicroscopyTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonModel;
@@ -381,6 +382,17 @@ public class WidgetModelJsonAdapter {
                 drtbdecisiontableWidgetModel.setColSize(widgetModelJson.getColSize());
                 drtbdecisiontableWidgetModel.setTableData(widgetModelJson.getTableData());
                 return drtbdecisiontableWidgetModel;
+
+            case "DRTBSputumSmearMicroscopyTable":
+
+                final DRTBSputumSmearMicroscopyTableWidgetModel drtbSputumSmearMicroscopytableWidgetModel = new DRTBSputumSmearMicroscopyTableWidgetModel();
+
+                drtbSputumSmearMicroscopytableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtbSputumSmearMicroscopytableWidgetModel.setTag(widgetModelJson.getTag());
+                drtbSputumSmearMicroscopytableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtbSputumSmearMicroscopytableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtbSputumSmearMicroscopytableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drtbSputumSmearMicroscopytableWidgetModel;
 
             case "Table":
 
