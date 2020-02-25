@@ -52,7 +52,7 @@ public class BaseEventDrugResistantTbHandler extends BaseEventHandler {
             }catch (Exception e){
 
             }
-    }else if (menuItem.getItemId() == zm.gov.moh.common.R.id.deleteEntry) {
+        }else if (menuItem.getItemId() == zm.gov.moh.common.R.id.delete_action) {
             BaseActivity activity = (BaseActivity) context;
             mBundle = ((BaseActivity) this.context).getIntent().getExtras();
             long patientID = mBundle.getLong(Key.PERSON_ID);

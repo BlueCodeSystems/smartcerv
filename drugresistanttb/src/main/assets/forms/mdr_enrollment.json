@@ -51,7 +51,7 @@
             },
             {
               "tag": "PATIENT_ID",
-              "widgetType": "CCPIZEditText",
+              "widgetType": "MDRPIZEditText",
               "weight": 1,
               "regex":"([0-9A-Z]+)/DR/([0-9]+)/([0-9]+)",
               "required":true,

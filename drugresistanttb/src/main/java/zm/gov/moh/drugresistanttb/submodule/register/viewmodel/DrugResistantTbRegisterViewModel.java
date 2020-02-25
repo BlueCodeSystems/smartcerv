@@ -23,7 +23,7 @@ public class DrugResistantTbRegisterViewModel extends BaseAndroidViewModel{
         facilityLocationId = mRepository.getDefaultSharePrefrences()
                 .getLong(Key.LOCATION_ID, 1);
 
-        allClients = db.genericDao().getAllPatientsByLocation(facilityLocationId);
+        allClients = db.genericDao().getAllMdrPatientsByLocation(facilityLocationId);
     }
 
     public LiveData<List<Client>> getAllClients() {

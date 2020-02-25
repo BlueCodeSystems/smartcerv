@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zm.gov.moh.common.base.BaseActivity;
-import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.common.model.VisitMetadata;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.VisitState;
@@ -34,6 +33,7 @@ import zm.gov.moh.core.repository.database.entity.derived.Client;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
 import zm.gov.moh.drugresistanttb.R;
+import zm.gov.moh.drugresistanttb.base.BaseEventDrugResistantTbHandler;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbPatientDashboardBinding;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.adapter.MdrFormListAdapter;
 import zm.gov.moh.drugresistanttb.submodule.dashboard.patient.model.FormGroup;
@@ -53,7 +53,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
     private FragmentManager fragmentManager;
     List<FormGroup> mdrFormLists = new ArrayList<>();
     private Bundle bundle;
-
+    BaseEventDrugResistantTbHandler baseEventDrugResistantTbHandler;
 
 
     @Override
@@ -62,6 +62,9 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
         super.onCreate(savedInstanceState);
 
         mBundle = getIntent().getExtras();
+        baseEventDrugResistantTbHandler = new BaseEventDrugResistantTbHandler(this);
+        setToolBarEventHandler(baseEventDrugResistantTbHandler);
+
         clientId = mBundle.getLong(PERSON_ID);
         viewModel = ViewModelProviders.of(this).get(DrugResistantTbPatientDashboardViewModel.class);
 
@@ -79,7 +82,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
         List<BasicModule> list = new ArrayList<>();
         BasicModule formModule;
 
-        formModule = new BasicModule("MDR Visits", DrugResistantTbMonthlyReviewFormActivity.class);
+        formModule = new BasicModule("MDR Visits", DrugResistantTbVisitLinkActivity.class);
 
         list.add(formModule);
 

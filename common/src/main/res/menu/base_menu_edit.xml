@@ -16,8 +16,9 @@
                     android:title="Edit"
                     app:showAsAction="never"/>
                 <item
-                        android:id="@+id/deleteEntry"
-                        android:title="Delete"
-                        app:showAsAction="never"/>
+                    android:icon="@android:drawable/ic_delete"
+                    android:id="@+id/delete_action"
+                    android:title="Delete"
+                    app:showAsAction="never" />
         </group>
 </menu>

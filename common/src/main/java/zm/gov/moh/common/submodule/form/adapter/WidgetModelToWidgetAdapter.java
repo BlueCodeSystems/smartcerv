@@ -21,6 +21,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DefaultCameraButtonMod
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DrugResistantTBEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
@@ -48,6 +49,7 @@ import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
+import zm.gov.moh.common.submodule.form.widget.DrugResistantTBEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
@@ -292,6 +294,21 @@ public class WidgetModelToWidgetAdapter {
 
             CervicalCancerIDEditTextModel model = (CervicalCancerIDEditTextModel) widgetModel;
             BaseWidget widget = new CervicalCancerIDEditTextWidget.Builder(context)
+                    .setLabel(model.getLabel())
+                    .setRepository(repository)
+                    .setErrorMessage(model.getErrorMessage())
+                    .setRegex(model.getRegex())
+                    .setRequired(model.getRequired())
+                    .setBundle(bundle)
+                    .setTag(model.getTag())
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DrugResistantTBEditTextModel){
+
+            DrugResistantTBEditTextModel model = (DrugResistantTBEditTextModel) widgetModel;
+            BaseWidget widget = new DrugResistantTBEditTextWidget.Builder(context)
                     .setLabel(model.getLabel())
                     .setRepository(repository)
                     .setErrorMessage(model.getErrorMessage())
