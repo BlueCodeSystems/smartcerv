@@ -76,7 +76,7 @@ public class TableWidget extends RepositoryWidget {
 
     public AppCompatTextView tableData(String text){
         AppCompatTextView textView = new AppCompatTextView(mContext);
-       // textView.pas
+        // textView.pas
         textView.setBackground(mContext.getResources().getDrawable(R.drawable.border_right));
         textView.setText(text);
         return textView;

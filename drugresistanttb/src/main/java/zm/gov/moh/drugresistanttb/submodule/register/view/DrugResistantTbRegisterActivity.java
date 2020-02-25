@@ -10,15 +10,20 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.util.List;
 
+import zm.gov.moh.common.base.BaseActivity;
 import zm.gov.moh.common.model.JsonForm;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.Utils;
+import zm.gov.moh.drugresistanttb.BR;
 import zm.gov.moh.drugresistanttb.R;
+import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbBinding;
 import zm.gov.moh.drugresistanttb.databinding.ActivityDrugResistantTbRegisterBinding;
+import zm.gov.moh.drugresistanttb.submodule.drugresistanttb.viewmodel.DrugResistantTbViewModel;
 import zm.gov.moh.drugresistanttb.submodule.register.adapter.DrugResistantTbClientListAdapter;
 import zm.gov.moh.drugresistanttb.submodule.register.viewmodel.DrugResistantTbRegisterViewModel;
 import zm.gov.moh.common.ui.BaseRegisterActivity;
+import zm.gov.moh.common.base.BaseActivity;
 
 
 public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
@@ -38,9 +43,9 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
         drugResistantTbregisterViewModel = ViewModelProviders.of(this).get(DrugResistantTbRegisterViewModel.class);
 
         setViewModel(drugResistantTbregisterViewModel);
-        binding.setTitle("MDR Client Register");
+        //..binding.setTitle("MDR Client Register");
         binding.setSearchTermObserver(searchTermObserver);
-        binding.setContext(this);
+        //..binding.setContext(this);
 
         RecyclerView clientRecyclerView = findViewById(R.id.mdr_client_list);
 
@@ -50,6 +55,19 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
 
         clientRecyclerView.setAdapter(drugResistantTbClientListAdapter);
         getAllClient();
+
+
+        DrugResistantTbViewModel drugResistantTbViewModel = ViewModelProviders.of(this).get(DrugResistantTbViewModel.class);
+        //ActivityDrugResistantTbBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drug_resistant_tb_register);
+        binding.setVariable(zm.gov.moh.drugresistanttb.BR.mdrtbviewmodel, drugResistantTbViewModel);
+
+        drugResistantTbViewModel.getStartSubmodule().observe(this, this::startModule);
+
+        initPopupMenu(R.menu.base_menu_edit,toolBarEventHandler::onMenuItemSelected);
+        initToolBar(binding.getRoot());
+        //ToolBarEventHandler toolBarEventHandler = getToolbarHandler();
+        binding.setTitle("MDR Client Register");
+        binding.setContext(this);
     }
 
     @Override
@@ -78,5 +96,7 @@ public class DrugResistantTbRegisterActivity extends BaseRegisterActivity {
         }catch (Exception e){
 
         }
+
+
     }
 }

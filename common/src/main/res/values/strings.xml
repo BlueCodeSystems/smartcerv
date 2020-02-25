@@ -31,4 +31,5 @@
     <string name="Open">Open</string>
     <string name="Close">Close</string>
     <string name="empty_other_prescription">Other prescription text field empty. Enter a value</string>
+    <string name="edittext">edittext</string>
 </resources>
