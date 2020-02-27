@@ -522,7 +522,7 @@
         },
         {
           "tag": "if_social_cash",
-          "widgetType": "DrugSusceptibilityTestingResultsTable",
+          "widgetType": "CessationDrugTBTable",
           "textSize": 18,
           "weight": 1
         }

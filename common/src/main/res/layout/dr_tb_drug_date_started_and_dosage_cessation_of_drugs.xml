@@ -1,1985 +1,1448 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:layout_height="wrap_content"
     android:scrollbars="horizontal">
-<TableLayout
-
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:stretchColumns="0,1,2"
-    android:gravity="center">
-
-    <TableRow
-        android:background="#FFFFFF"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="1"
-        >
-        <TableRow
-            android:background="@color/grey"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1"
-            >
-        </TableRow>
-    </TableRow>
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="1"
-
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="DR-TB Drug(date started and dosage(mg) of dosage, cessation of drugs)"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-    </TableRow>
-
-    <TableRow
-        android:background="#000000"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="1"
-
-        >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Date"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="cfz"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="H(hd)"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Bdq"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Dlm"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="E"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Lzd"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="lPm-cln"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Mpm+amx-clv"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Z"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Km"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Lfx"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Cm"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Mfx"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Eto"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="PAS"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Cs"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Other"
-            android:layout_margin="1dp"
-            android:layout_column="0"
-            android:background="#FFFFFF"
-            android:textStyle="bold"
-            android:gravity="center"
-            />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="1">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="28/02/2020"
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="100"
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="600"
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="400"
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="500"
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="1g"
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <Edit
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:id="@+id/drtbedittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="1."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:id="@+id/drtbedittext5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="2."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:id="@+id/drtbedittext9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="3."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:id="@+id/drtbedittext13"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="4."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:id="@+id/drtbedittext37"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="5."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext16"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext17"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext18"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext19"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="6."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext21"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext22"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext23"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="7."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext24"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext25"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext26"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext27"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="8."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext28"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext29"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext30"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext31"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:id="@+id/drtbedittext36"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="9."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext32"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext33"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext34"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:id="@+id/drtbedittext35"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="10."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="11."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="12."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="13."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="14."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="15."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="16."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="17."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="18."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="19."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="20."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="21."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="22."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/white"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="23."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-    <TableRow
-        android:background="@color/grey"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_margin="1dp"
-        android:layout_weight="5"
-        >
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="24."
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            android:layout_margin="1dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint=""
-            android:inputType="text"
-            android:text=""
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            tools:layout_editor_absoluteX="20dp" />
-
-    </TableRow>
-
-
 
-</TableLayout>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TableLayout
+            android:layout_width="1000dp"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1"
+            android:paddingTop="20dp">
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+            <TextView android:text="DR-TB Drug (Date started and dosage (mg) of dosage, cessation of drugs)"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="2dp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/border_right"/>
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <TextView android:text="Date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="cfz"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="H (hd)"
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <TextView android:text="Bdq"
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Dlm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="E"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Lzd"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="IPm-cln"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Mpm+amx-clv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Z"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Km"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Lfx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Cm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Mfx"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Eto"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="PAS"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Cs"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <TextView android:text="Other"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint="28/02/2020"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint="100"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint="600"
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint="400"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint="500"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint="lg"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+
+
+            <TableRow
+                android:background="@drawable/border_top_bottom">
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right" />
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+                <EditText android:text=""
+                    android:hint=""
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_right"/>
+            </TableRow>
+        </TableLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1"
+                android:id="@+id/dr_visit_type_table">
+            </TableLayout>
+
+        </ScrollView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </HorizontalScrollView>
