@@ -31,14 +31,18 @@
           "weight": 1
         },
         {
+          "widgetType": "TextView",
           "label": "DR-TB Case ID No.",
-          "tag": "DR_TB_NUMBER",
-          "widgetType": "EditText",
-          "hint": " UTH/DR/45/19",
-          "regex": "[a-zA-Z0-9\\s]+",
-          "errorMessage": "Should only contain alphanumeric characters",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "PATIENT_ID",
+          "widgetType": "MDRPIZEditText",
           "weight": 1,
-          "required": false
+          "regex":"([0-9A-Z]+)/DR/([0-9]+)/([0-9]+)",
+          "required":true,
+          "errorMessage":"Invalid identifier format, should be in MDR-TB format e.g UTH/DR/45/19"
         },
         {
           "tag": "date of diagnosis",
@@ -288,21 +292,18 @@
             {
               "tag": "if_social_cash",
               "widgetType": "DRPreviousTBTreatmentTable",
-              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
               "tag": "if_social_cash",
               "widgetType": "DRPreviousTBTreatmentTable",
-              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             },
             {
               "tag": "if_social_cash",
               "widgetType": "DRPreviousTBTreatmentTable",
-              "label": "If on social cash transfer support, start date",
               "textSize": 18,
               "weight": 1
             }
@@ -468,7 +469,9 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "widgetType": "TextView",
+              "tag": "if_social_cash",
+              "widgetType": "DRTBDecisionTable",
+              "textSize": 18,
               "weight": 1
             }
           ]
@@ -476,16 +479,52 @@
       ]
     },
     {
-      "title": "",
+      "title": "Sputum smear microscopy",
       "widgets": [
         {
           "tag": "if_social_cash",
-          "widgetType": "DRTBDecisionTable",
-          "label": "If on social cash transfer support, start date",
+          "widgetType": "DRTBSputumSmearMicroscopyTable",
           "textSize": 18,
           "weight": 1
         }
       ]
-    }
-  ]
-}
+    },
+    {
+    "title": "Drug susceptibility testing(DST) results",
+    "widgets": [
+      {
+        "tag": "if_social_cash",
+        "widgetType": "DrugSusceptibilityTestingResultsTable",
+        "textSize": 18,
+        "weight": 1
+      },
+      {
+        "label": "Patient's Name:",
+        "tag": "PERSON_GIVEN_NAME",
+        "widgetType": "EditText",
+        "dataType": "Text",
+        "hint": "Esther Zulu *",
+        "errorMessage": "Should only contain alphabet characters",
+        "required": true,
+        "weight": 1
+      }
+
+    ]
+    },
+    {
+      "title": "Notes",
+      "widgets": [
+        {
+          "widgetType": "TextView",
+          "label": "",
+          "textSize": 20,
+          "weight": 1
+        },
+        {
+          "tag": "if_social_cash",
+          "widgetType": "DrugSusceptibilityTestingResultsTable",
+          "textSize": 18,
+          "weight": 1
+        }
+      ]
+}]}

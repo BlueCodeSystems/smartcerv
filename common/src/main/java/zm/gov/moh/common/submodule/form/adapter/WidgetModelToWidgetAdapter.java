@@ -12,7 +12,10 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.CameraButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBAdministrationOfDrugsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDrugCessationOfDrugsTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBSputumSmearMicroscopyTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DialogButtonModel;
@@ -21,6 +24,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPicker
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DrugResistantTBEditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DrugSusceptibilityTestingResultsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
@@ -42,12 +46,16 @@ import zm.gov.moh.common.submodule.form.widget.BasicOtherDrugWidget;
 import zm.gov.moh.common.submodule.form.widget.CameraConnectButtonWidget;
 import zm.gov.moh.common.submodule.form.widget.CervicalCancerIDEditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.DRPreviousTBTreatmentTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRTBAdministrationOfDrugsTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DRTBDecisionTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRTBDrugCessationOfDrugsTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRTBSputumSmearMicroscopyTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictPickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DrugResistantTBEditTextWidget;
+import zm.gov.moh.common.submodule.form.widget.DrugSusceptibilityTestingResultsTableWidget;
 import zm.gov.moh.common.submodule.form.widget.EditTextWidget;
 import zm.gov.moh.common.submodule.form.widget.FacilityLabelWidget;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
@@ -447,6 +455,73 @@ public class WidgetModelToWidgetAdapter {
             DRTBDecisionTableWidgetModel model = (DRTBDecisionTableWidgetModel) widgetModel;
 
             BaseWidget widget = new DRTBDecisionTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DRTBSputumSmearMicroscopyTableWidgetModel) {
+
+            DRTBSputumSmearMicroscopyTableWidgetModel model = (DRTBSputumSmearMicroscopyTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DRTBSputumSmearMicroscopyTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+
+        }
+        else if(widgetModel instanceof DrugSusceptibilityTestingResultsTableWidgetModel) {
+
+            DrugSusceptibilityTestingResultsTableWidgetModel model = (DrugSusceptibilityTestingResultsTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DrugSusceptibilityTestingResultsTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+
+        }
+        else if(widgetModel instanceof DRTBDrugCessationOfDrugsTableWidgetModel) {
+
+            DRTBDrugCessationOfDrugsTableWidgetModel model = (DRTBDrugCessationOfDrugsTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DRTBDrugCessationOfDrugsTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+
+        }
+        else if(widgetModel instanceof DRTBAdministrationOfDrugsTableWidgetModel) {
+
+            DRTBAdministrationOfDrugsTableWidgetModel model = (DRTBAdministrationOfDrugsTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DRTBAdministrationOfDrugsTableWidget.Builder(this.context)
                     .setColSize(model.getColSize())
                     .setRowSize(model.getRowSize())
                     .setTableData(model.getTableData())
