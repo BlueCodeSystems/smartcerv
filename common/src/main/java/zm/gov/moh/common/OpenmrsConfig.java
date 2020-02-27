@@ -18,6 +18,10 @@ public class OpenmrsConfig {
     //Visit types
     public static final String VISIT_TYPE_UUID_FACILITY_VISIT = "7b0f5697-27e3-40c4-8bae-f4049abfb4ed";
 
+    public static final long VISIT_TYPE_ID_MDR_MONTHLY_REVIEW_FORM = 11;
+    public static final long VISIT_TYPE_ID_MDR_BACTERIAL_EXAM = 3;
+    public static final long VISIT_TYPE_ID_MDR_BASELINE_FOLLOW_UP_ASSESSMENT = 4;
+
     //Location tags
     public static final String LOCATION_TAG_UUID_DISTRICT = "332f8bdb-7a2d-4063-9c76-cbb4a969fb8d";
     public static final String LOCATION_TAG_UUID_PROVINCE ="4bd0baf0-40eb-4209-bc6b-1080f3b34b41";

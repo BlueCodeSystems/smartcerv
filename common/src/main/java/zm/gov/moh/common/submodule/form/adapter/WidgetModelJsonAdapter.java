@@ -9,7 +9,9 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.BasicOtherDrugWidgetMo
 import zm.gov.moh.common.submodule.form.model.widgetModel.CameraConnectButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.CervicalCancerIDEditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBAdministrationOfDrugsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDrugCessationOfDrugsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBSputumSmearMicroscopyTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
@@ -19,6 +21,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictFacilityPicker
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DistrictPickerModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DrugResistantTBEditTextModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DrugSusceptibilityTestingResultsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.EditTextModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FacilityLabelModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.FormLabelModel;
@@ -409,6 +412,40 @@ public class WidgetModelJsonAdapter {
                 drtbSputumSmearMicroscopytableWidgetModel.setColSize(widgetModelJson.getColSize());
                 drtbSputumSmearMicroscopytableWidgetModel.setTableData(widgetModelJson.getTableData());
                 return drtbSputumSmearMicroscopytableWidgetModel;
+
+            case "DrugSusceptibilityTestingResultsTable":
+
+                final DrugSusceptibilityTestingResultsTableWidgetModel drugSusceptibilityTestingResultsTableWidgetModel = new DrugSusceptibilityTestingResultsTableWidgetModel();
+
+                drugSusceptibilityTestingResultsTableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drugSusceptibilityTestingResultsTableWidgetModel.setTag(widgetModelJson.getTag());
+                drugSusceptibilityTestingResultsTableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drugSusceptibilityTestingResultsTableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drugSusceptibilityTestingResultsTableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drugSusceptibilityTestingResultsTableWidgetModel;
+
+            case "CessationDrugTBTable":
+
+                final DRTBDrugCessationOfDrugsTableWidgetModel drtbDrugCessationOfDrugsTableWidgetModel = new DRTBDrugCessationOfDrugsTableWidgetModel();
+
+                drtbDrugCessationOfDrugsTableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtbDrugCessationOfDrugsTableWidgetModel.setTag(widgetModelJson.getTag());
+                drtbDrugCessationOfDrugsTableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtbDrugCessationOfDrugsTableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtbDrugCessationOfDrugsTableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drtbDrugCessationOfDrugsTableWidgetModel;
+
+            case "DR-TB-AdministrationOfDrugsTable":
+
+                final DRTBAdministrationOfDrugsTableWidgetModel drtbAdministrationOfDrugsTableWidgetModel = new DRTBAdministrationOfDrugsTableWidgetModel();
+
+                drtbAdministrationOfDrugsTableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtbAdministrationOfDrugsTableWidgetModel.setTag(widgetModelJson.getTag());
+                drtbAdministrationOfDrugsTableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtbAdministrationOfDrugsTableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtbAdministrationOfDrugsTableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return drtbAdministrationOfDrugsTableWidgetModel;
+
 
             case "Table":
 
