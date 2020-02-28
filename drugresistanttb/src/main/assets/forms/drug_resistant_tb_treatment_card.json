@@ -290,19 +290,19 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "if_social_cash",
+              "tag": "dr_previous_tb_treatment_table",
               "widgetType": "DRPreviousTBTreatmentTable",
               "textSize": 18,
               "weight": 1
             },
             {
-              "tag": "if_social_cash",
+              "tag": "dr_previous_tb_treatment_table",
               "widgetType": "DRPreviousTBTreatmentTable",
               "textSize": 18,
               "weight": 1
             },
             {
-              "tag": "if_social_cash",
+              "tag": "dr_previous_tb_treatment_table",
               "widgetType": "DRPreviousTBTreatmentTable",
               "textSize": 18,
               "weight": 1
@@ -469,7 +469,7 @@
           "widgetType": "WidgetGroupRow",
           "widgets": [
             {
-              "tag": "if_social_cash",
+              "tag": "dr_tb_decision_table",
               "widgetType": "DRTBDecisionTable",
               "textSize": 18,
               "weight": 1
@@ -482,7 +482,7 @@
       "title": "Sputum smear microscopy",
       "widgets": [
         {
-          "tag": "if_social_cash",
+          "tag": "dr_tb_sputum_smear_microscopy_table",
           "widgetType": "DRTBSputumSmearMicroscopyTable",
           "textSize": 18,
           "weight": 1
@@ -493,7 +493,7 @@
     "title": "Drug susceptibility testing(DST) results",
     "widgets": [
       {
-        "tag": "if_social_cash",
+        "tag": "drug_susceptibility_testing_results_table",
         "widgetType": "DrugSusceptibilityTestingResultsTable",
         "textSize": 18,
         "weight": 1
@@ -509,6 +509,7 @@
         "weight": 1
       }
 
+
     ]
     },
     {
@@ -521,8 +522,26 @@
           "weight": 1
         },
         {
-          "tag": "if_social_cash",
+          "tag": "cessation_drugtbtable",
           "widgetType": "CessationDrugTBTable",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dr_tb_administration",
+          "widgetType":"DR-TB-AdministrationOfDrugsTable",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dr_tb_administration",
+          "widgetType":"DR-TB-AdministrationOfDrugsTable",
+          "textSize": 18,
+          "weight": 1
+        },
+        {
+          "tag": "dr_tb_outcometable",
+          "widgetType": "DR-TB-OutcomeTBTable",
           "textSize": 18,
           "weight": 1
         }

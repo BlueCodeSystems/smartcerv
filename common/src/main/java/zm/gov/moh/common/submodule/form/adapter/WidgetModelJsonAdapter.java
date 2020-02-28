@@ -12,6 +12,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentT
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBAdministrationOfDrugsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDrugCessationOfDrugsTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBOutcomeTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBSputumSmearMicroscopyTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
@@ -434,6 +435,17 @@ public class WidgetModelJsonAdapter {
                 drtbDrugCessationOfDrugsTableWidgetModel.setColSize(widgetModelJson.getColSize());
                 drtbDrugCessationOfDrugsTableWidgetModel.setTableData(widgetModelJson.getTableData());
                 return drtbDrugCessationOfDrugsTableWidgetModel;
+
+            case "DR-TB-OutcomeTBTable":
+
+                final DRTBOutcomeTableWidgetModel drtbOutcomeTableWidgetModel = new DRTBOutcomeTableWidgetModel();
+
+                drtbOutcomeTableWidgetModel.setWidgetType(widgetModelJson.getWidgetType());
+                drtbOutcomeTableWidgetModel.setTag(widgetModelJson.getTag());
+                drtbOutcomeTableWidgetModel.setRowSize(widgetModelJson.getRowSize());
+                drtbOutcomeTableWidgetModel.setColSize(widgetModelJson.getColSize());
+                drtbOutcomeTableWidgetModel.setTableData(widgetModelJson.getTableData());
+                return  drtbOutcomeTableWidgetModel;
 
             case "DR-TB-AdministrationOfDrugsTable":
 

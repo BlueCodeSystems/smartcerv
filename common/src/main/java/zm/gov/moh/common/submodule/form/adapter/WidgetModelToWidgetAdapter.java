@@ -15,6 +15,7 @@ import zm.gov.moh.common.submodule.form.model.widgetModel.DRPreviousTBTreatmentT
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBAdministrationOfDrugsTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDecisionTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBDrugCessationOfDrugsTableWidgetModel;
+import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBOutcomeTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DRTBSputumSmearMicroscopyTableWidgetModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerButtonModel;
 import zm.gov.moh.common.submodule.form.model.widgetModel.DatePickerModel;
@@ -49,6 +50,7 @@ import zm.gov.moh.common.submodule.form.widget.DRPreviousTBTreatmentTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DRTBAdministrationOfDrugsTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DRTBDecisionTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DRTBDrugCessationOfDrugsTableWidget;
+import zm.gov.moh.common.submodule.form.widget.DRTBOutcomeTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DRTBSputumSmearMicroscopyTableWidget;
 import zm.gov.moh.common.submodule.form.widget.DatePickerWidget;
 import zm.gov.moh.common.submodule.form.widget.DistrictFacilityPickerWidget;
@@ -455,6 +457,22 @@ public class WidgetModelToWidgetAdapter {
             DRTBDecisionTableWidgetModel model = (DRTBDecisionTableWidgetModel) widgetModel;
 
             BaseWidget widget = new DRTBDecisionTableWidget.Builder(this.context)
+                    .setColSize(model.getColSize())
+                    .setRowSize(model.getRowSize())
+                    .setTableData(model.getTableData())
+                    .setBundle(this.bundle)
+                    .setWeight(1)
+                    .setTag(model.getTag())
+                    //.setRepository(this.repository)
+                    .build();
+
+            return widget;
+        }
+        else if(widgetModel instanceof DRTBOutcomeTableWidgetModel) {
+
+            DRTBOutcomeTableWidgetModel model = (DRTBOutcomeTableWidgetModel) widgetModel;
+
+            BaseWidget widget = new DRTBOutcomeTableWidget.Builder(this.context)
                     .setColSize(model.getColSize())
                     .setRowSize(model.getRowSize())
                     .setTableData(model.getTableData())
