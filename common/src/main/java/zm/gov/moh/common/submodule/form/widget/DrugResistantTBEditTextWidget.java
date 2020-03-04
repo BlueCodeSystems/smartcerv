@@ -50,6 +50,8 @@ public class DrugResistantTBEditTextWidget extends RepositoryWidget<CharSequence
         this.mLabel = mLabel;
     }
 
+
+
     public void setIdentifier(String identifier){
 
         if(identifier != null){
@@ -76,11 +78,22 @@ public class DrugResistantTBEditTextWidget extends RepositoryWidget<CharSequence
     @Override
     public void setValue(CharSequence value) {
         mIdentifier =value.toString();
+        mBundle.putString((String)getTag(), value.toString());
     }
 
     @Override
     public boolean isValid() {
-        return false;
+        if(mRequired != null && mRequired) {
+            mIdentifier = mBundle.getString((String) getTag());
+
+            if (mIdentifier != null && mIdentifier.matches(mRegex))
+                return true;
+            else {
+                mEditText.setError(mErrorMessage);
+                return false;
+            }
+        }else
+            return false;
     }
 
     public void appendSerial(List<String> identifiers) {
