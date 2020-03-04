@@ -161,7 +161,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
             visitMetadata = new VisitMetadata(this,
                     Utils.getStringFromInputStream(this.getAssets().open("visits/mdr.json")));
             bundle.putSerializable(Key.VISIT_METADATA, visitMetadata);
-            bundle.putSerializable(Key.VISIT_METADATA, VisitState.NEW);
+            bundle.putSerializable(Key.VISIT_STATE, VisitState.NEW);
             this.startModule(BaseApplication.CoreModule.VISIT, bundle);
 
         } catch (IOException e) {
@@ -176,7 +176,7 @@ public class DrugResistantTbPatientDashboardActivity extends BaseActivity implem
         if (id == R.id.recents_menu_item_id)
             fragment = new DrugResistantTbPatientDashboardRecentsViewPagerFragment();
         else if (id == R.id.insights_menu_item_id)
-            fragment = new DrugResistantTbPatientDashboardRecentsViewPagerFragment();
+            fragment = new DrugResistantTbPatientDashboardInsightsViewPagerFragment();
         fragment.setArguments(mBundle);
         replaceFragment(fragment);
         return true;
