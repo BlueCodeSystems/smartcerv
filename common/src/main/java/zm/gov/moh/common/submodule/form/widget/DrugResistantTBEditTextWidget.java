@@ -115,7 +115,7 @@ public class DrugResistantTBEditTextWidget extends RepositoryWidget<CharSequence
                         continue;
 
                     try {
-                        long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length()).toString());
+                        long serial = Long.valueOf(identifier.subSequence(index + 1, identifier.length() - 3).toString());
                         serials.add(serial);
                     }catch (Exception e){
                         e.getMessage();
