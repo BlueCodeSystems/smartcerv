@@ -44,14 +44,16 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
             long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
             long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode());
 
+            int pushedSize = pushedEntityId.length;
             Long[] editEntityId = db.entityMetadataDao().findByStatus(Status.NOT_PUSHED.getCode());
+            int editSize = editEntityId.length;
 
             final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
             dataSyncDate = LocalDateTime.parse(lastDataSyncDate);
 
             //Create new remote patients
             List<Patient> patients = new ArrayList<>();
-            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
+            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId2(offset, EntityType.PATIENT.getId(), Status.PUSHED.getCode());
 
             unpushedPatientEntityId = ObjectArrays.concat(unpushedPatientEntityId, editEntityId, Long.class);
             if (unpushedPatientEntityId.length != 0) {
