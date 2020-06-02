@@ -90,7 +90,7 @@ public interface PatientDao extends Synchronizable<Long> {
     @Query("SELECT patient_id FROM (SELECT * FROM patient WHERE patient_id NOT IN (:id)) WHERE patient_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
 
-    @Query("SELECT patient_id FROM (SELECT * FROM patient WHERE NOT EXISTS (SELECT * FROM patient WHERE patient_id NOT IN (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus))) WHERE patient_id >= :offsetId")
+    @Query("SELECT patient_id FROM (SELECT * FROM patient WHERE NOT EXISTS (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus)) WHERE patient_id >= :offsetId")
     Long[] findEntityNotWithId2(long offsetId, int entityTypeId, short remoteStatus);
 
 }
