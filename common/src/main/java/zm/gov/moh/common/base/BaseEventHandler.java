@@ -72,6 +72,8 @@ public class BaseEventHandler implements View.OnLongClickListener {
         OneTimeWorkRequest workRequestPushVisitData = new OneTimeWorkRequest.Builder(PushVisitDataRemoteWorker.class).build();
         workManager.beginWith(workRequestPullIdData).then(workRequestMetadata).then(workRequestData).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
 
+
+
     }
 
 
