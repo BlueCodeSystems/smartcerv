@@ -55,16 +55,17 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     public Result doWork() {
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        Log.i(TAG, "pushed visit entity Number = " + pushedEntityId.length);
 
         int pushedSize = pushedEntityId.length;
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
+        Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
 
 
 
 
         if(unpushedVisitEntityId.length > 0) {
-            Log.i(TAG, "unpushed visit entity ID = " + unpushedVisitEntityId.length);
             List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
