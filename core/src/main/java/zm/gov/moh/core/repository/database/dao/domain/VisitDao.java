@@ -74,7 +74,7 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
 
-    @Query("SELECT visit_id FROM (SELECT * FROM visit WHERE NOT EXISTS (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus /*AND entity_metadata.entity_id = visit.visit_id*/)) WHERE visit_id >= :offsetId")
+    @Query("SELECT visit_id FROM (SELECT * FROM visit WHERE NOT EXISTS (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus)) WHERE visit_id >= :offsetId")
     Long[] findEntityNotWithId2(long offsetId, int entityTypeId, short remoteStatus);
 
     @Query("UPDATE visit SET patient_id = :remotePatientId WHERE visit_id IN (SELECT visit_id FROM visit WHERE patient_id = :localPatientId)")
