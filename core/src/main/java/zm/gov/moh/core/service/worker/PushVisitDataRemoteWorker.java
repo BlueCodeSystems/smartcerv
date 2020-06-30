@@ -81,7 +81,8 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
 
         if(allVisitsArray.length > 0) {
-            List<Visit> patientVisits = createVisits((allVisitsArray));
+            //List<Visit> patientVisits = createVisits((allVisitsArray));
+            List<Visit> patientVisits = new ArrayList<>();
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
 
