@@ -1,53 +1,53 @@
 package zm.gov.moh.core.service.worker;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.util.Log;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 
-        import com.google.common.collect.Sets;
+import com.google.common.collect.Sets;
 
-        import org.threeten.bp.LocalDateTime;
-        import org.threeten.bp.ZoneOffset;
-        import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.format.DateTimeFormatter;
 
-        import java.io.IOException;
-        import java.util.ArrayList;
-        import java.util.Collections;
-        import java.util.HashSet;
-        import java.util.List;
-        import java.util.Set;
-        import java.util.concurrent.TimeUnit;
-        import java.util.logging.ConsoleHandler;
-        import java.util.logging.FileHandler;
-        import java.util.logging.Level;
-        import java.util.logging.LogManager;
-        import java.util.logging.Logger;
-        import java.util.logging.SimpleFormatter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
-        import androidx.annotation.NonNull;
-        import androidx.work.WorkerParameters;
-        import io.reactivex.Observable;
-        import io.reactivex.functions.Consumer;
-        import zm.gov.moh.core.Constant;
-        import zm.gov.moh.core.model.Encounter;
-        import zm.gov.moh.core.model.IntentAction;
-        import zm.gov.moh.core.model.Key;
-        import zm.gov.moh.core.model.Obs;
-        import zm.gov.moh.core.model.Patient;
-        import zm.gov.moh.core.model.PatientIdentifier;
-        import zm.gov.moh.core.model.PersonAttribute;
-        import zm.gov.moh.core.model.Response;
-        import zm.gov.moh.core.model.Visit;
-        import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
-        import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
-        import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
-        import zm.gov.moh.core.repository.database.entity.domain.Person;
-        import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-        import zm.gov.moh.core.repository.database.entity.domain.PersonName;
-        import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
-        import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
-        import zm.gov.moh.core.repository.database.entity.system.EntityType;
-        import zm.gov.moh.core.service.ServiceManager;
+import androidx.annotation.NonNull;
+import androidx.work.WorkerParameters;
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
+import zm.gov.moh.core.Constant;
+import zm.gov.moh.core.model.Encounter;
+import zm.gov.moh.core.model.IntentAction;
+import zm.gov.moh.core.model.Key;
+import zm.gov.moh.core.model.Obs;
+import zm.gov.moh.core.model.Patient;
+import zm.gov.moh.core.model.PatientIdentifier;
+import zm.gov.moh.core.model.PersonAttribute;
+import zm.gov.moh.core.model.Response;
+import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
+import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.Person;
+import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
+import zm.gov.moh.core.repository.database.entity.domain.PersonName;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
+import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.ServiceManager;
 
 public class PushVisitDataRemoteWorker extends RemoteWorker {
     public static final String TAG = "PushVisit";
@@ -61,28 +61,27 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
 
         //Get all visits
-        Long[] allVisits = db.visitDao().getAllVisitIDs();
+        Long[] allVisits = db.visitDao().getAllVisitIDs();//.toArray(new Long[0]);
         Log.i(TAG, "Total number of visits on tablet:"+allVisits.length);
         Set allVisitsSet = Sets.newHashSet(allVisits);
 
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        Log.i(TAG, "pushed visit entity Number = " + pushedEntityId.length);
+        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.SYNCED.getCode());
+        Log.i(TAG, "Pushed visit entity Number = " + pushedEntityId.length);
         Set allPushedVisitsSet = Sets.newHashSet(pushedEntityId);
 
         allVisitsSet.removeAll(allPushedVisitsSet);
         Log.i(TAG, "Unpushed visit IDS number " + allVisitsSet.size());
 
+        Long[] allVisitsArray = new Long[allVisitsSet.size()];
+        allVisitsSet.toArray(allVisitsArray);
 
         //int pushedSize = pushedEntityId.length;
         //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
-        Long[] allVisitsAsArray = (Long[]) allVisitsSet.toArray();
 
-
-
-        if(allVisitsAsArray.length > 0) {
-            List<Visit> patientVisits = createVisits(allVisitsAsArray);
+        if(allVisitsArray.length > 0) {
+            List<Visit> patientVisits = createVisits((allVisitsArray));
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
 
@@ -92,7 +91,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
             /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                     .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(allVisitsAsArray, EntityType.VISIT.getId()), this::onError);
+                    .subscribe(onComplete(allVisitsArray, EntityType.VISIT.getId()), this::onError);
 
         }
 
@@ -124,7 +123,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     public List<Visit> createVisits (Long ...visitEntityId){
 
-        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
+        List<VisitEntity> visitEntities = new ArrayList<VisitEntity>(); /* db.visitDao().getById(visitEntityId);*/
         Log.i(TAG, "Number of visit entities = " + visitEntities.size());
 
 
