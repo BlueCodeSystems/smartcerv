@@ -1,6 +1,7 @@
 package zm.gov.moh.common.submodule.settings.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -78,6 +79,7 @@ public class SettingsViewModel extends BaseAndroidViewModel {
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         long[] pushedPatientEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), RemoteWorker.Status.PUSHED.getCode());
         long[] pushedVisitEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode());
+
 
         Long[] notPushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedPatientEntityId);
         Long[] notPushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedVisitEntityId);
