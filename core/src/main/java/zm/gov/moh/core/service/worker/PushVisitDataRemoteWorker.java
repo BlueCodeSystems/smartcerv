@@ -81,8 +81,12 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
 
         if(allVisitsArray.length > 0) {
-            //List<Visit> patientVisits = createVisits((allVisitsArray));
-            List<Visit> patientVisits = new ArrayList<>();
+            Long[] copiedAllVisitsArray = new Long[999];
+            for(int i = 0; i < 999; i++) {
+                copiedAllVisitsArray[i] = allVisitsArray[i];
+            }
+            List<Visit> patientVisits = createVisits((copiedAllVisitsArray));
+            //List<Visit> patientVisits = new ArrayList<>();
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
 
@@ -124,9 +128,8 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     public List<Visit> createVisits (Long ...visitEntityId){
 
-        List<VisitEntity> visitEntities = new ArrayList<VisitEntity>(); /* db.visitDao().getById(visitEntityId);*/
+        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
         Log.i(TAG, "Number of visit entities = " + visitEntities.size());
-
 
         if(visitEntities.size() > 0) {
 
