@@ -75,17 +75,17 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         Long[] allVisitsArray = new Long[allVisitsSet.size()];
         allVisitsSet.toArray(allVisitsArray);
 
-        int step = 500;
+        int step = 999;
 
         //int pushedSize = pushedEntityId.length;
         //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
 
-        if(allVisitsArray.length <= step) {
-            Long[] copiedAllVisitsArray = new Long[500];
+        if(allVisitsArray.length >= step) {
+            Long[] copiedAllVisitsArray = new Long[999];
             int i;
-            for (i = 0; i < 500; i += step) {
+            for (i = 0; i < 999; i += step) {
                 copiedAllVisitsArray[i] = allVisitsArray[i];
             }
             //List<Visit> patientVisits = (List<Visit>) createVisits().iterator();
