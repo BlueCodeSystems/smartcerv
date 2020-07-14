@@ -62,7 +62,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
         //Get all visits
         Long[] allVisits = db.visitDao().getAllVisitIDs();//.toArray(new Long[0]);
-        Log.i(TAG, "Total number of visits on tablet:"+allVisits.length);
+        Log.i(TAG, "Total number of visits on device:"+allVisits.length);
         Set allVisitsSet = Sets.newHashSet(allVisits);
 
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.SYNCED.getCode());
@@ -75,23 +75,27 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         Long[] allVisitsArray = new Long[allVisitsSet.size()];
         allVisitsSet.toArray(allVisitsArray);
 
+        int step = 500;
+
         //int pushedSize = pushedEntityId.length;
         //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
 
-        if(allVisitsArray.length > 0) {
-            Long[] copiedAllVisitsArray = new Long[999];
-            for(int i = 0; i < 999; i++) {
+        if(allVisitsArray.length <= step) {
+            Long[] copiedAllVisitsArray = new Long[500];
+            int i;
+            for (i = 0; i < 500; i += step) {
                 copiedAllVisitsArray[i] = allVisitsArray[i];
             }
+            //List<Visit> patientVisits = (List<Visit>) createVisits().iterator();
             List<Visit> patientVisits = createVisits((copiedAllVisitsArray));
             //List<Visit> patientVisits = new ArrayList<>();
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
 
 
-            if(patientVisits.size() > 0)
+            if (patientVisits.size() - i > step)
                 Log.i(TAG, "Visit Size is being retrieved");
             /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
