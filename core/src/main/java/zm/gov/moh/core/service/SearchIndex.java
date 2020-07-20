@@ -67,7 +67,7 @@ public class SearchIndex extends IntentService implements InjectableViewModel {
                     }
                 }
 
-            List<PersonName> personNames = repository.getDatabase().personNameDao().findByPersonId(personIds);
+            List<PersonName> personNames = repository.getDatabase().personNameDao().findByPersonId2(locationId);
 
             if(personNames.size() > 0)
                 for(PersonName personName: personNames){

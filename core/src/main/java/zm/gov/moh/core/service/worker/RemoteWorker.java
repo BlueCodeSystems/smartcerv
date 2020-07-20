@@ -21,7 +21,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityType;
 public abstract class RemoteWorker extends BaseWorker {
 
 
-    protected String accessToken ="";
+    protected String accessToken;
     protected final int TIMEOUT = 300000;
     protected RestApi restApi;
     protected long workerTimeout = 600000;
@@ -48,9 +48,9 @@ public abstract class RemoteWorker extends BaseWorker {
         lastMetadataSyncDate = repository.getDefaultSharePrefrences().getString(Key.LAST_METADATA_SYNC_DATETIME,minDate);
         workerTimeout += SystemClock.currentThreadTimeMillis();
         //TODO: replace hard coded token with dynamically assigned tokens
-        //accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
+        accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
         if(accessToken == null){
-
+     //TODO : Ensure that this is gracefully handled . Have Flag to logout and force new login.
             return;
         }
 
