@@ -21,7 +21,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityType;
 public abstract class RemoteWorker extends BaseWorker {
 
 
-    protected String accessToken ="";
+    protected String accessToken;
     protected final int TIMEOUT = 300000;
     protected RestApi restApi;
     protected long workerTimeout = 600000;

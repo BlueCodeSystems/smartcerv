@@ -7,12 +7,17 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 
 @Dao
 public interface VisitDao extends Synchronizable<Long> {
 
+    @Query("SELECT visit_id FROM Visit")
+    Long[] getAllVisitIDs();
+    //List<Visit> getAllVisitIDs();
+    //List<Long> getAllVisitIDs();
 
     @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM visit WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
     LocalDateTime getMaxDatetime(long locationId);
@@ -74,8 +79,8 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
 
-    @Query("SELECT visit_id FROM (SELECT * FROM visit WHERE NOT EXISTS (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus AND entity_metadata.entity_id = visit.visit_id)) WHERE visit_id >= :offsetId")
-    Long[] findEntityNotWithId2(long offsetId, int entityTypeId, short remoteStatus);
+
+    //Long[] findEntityNotWithId2(long offsetId, int entityTypeId, short remoteStatus);
 
     @Query("UPDATE visit SET patient_id = :remotePatientId WHERE visit_id IN (SELECT visit_id FROM visit WHERE patient_id = :localPatientId)")
     void replaceLocalPatientId(long localPatientId, long remotePatientId);

@@ -37,4 +37,5 @@ public interface EntityMetadataDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EntityMetadata... entityMetadata);
+
 }

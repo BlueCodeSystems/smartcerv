@@ -147,7 +147,9 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
 
                                     if (clientAge < conditionAge && answerConcepts.contains(165248L)) {
 
-                                        Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
+
+                                        //Toast.makeText(mContext, "Patient should be older than 40", Toast.LENGTH_LONG).show();
+
                                         Set<String> tags = new HashSet<>();
                                         WidgetUtils.extractTagsRecursive(form.getRootView(), tags, logic.getAction().getMetadata().getTags());
                                         form.getFormContext().getVisibleWidgetTags().addAll(tags);
@@ -247,7 +249,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         mEditText.setInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_CLASS_TEXT);
 
 
-
                         mEditText.setGravity(Gravity.TOP);
                         MarginLayoutParams params = (MarginLayoutParams) mEditText.getLayoutParams();
                         params.leftMargin = 1000;
@@ -306,9 +307,9 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                         .setOnValueChangeListener(this::onTextValueChangeListener)
                         .setHint(mHint).setFutureDate(mFutureDate).build();
 
-                ((DatePickerWidget)datePicker).setLongClick(v ->{
+                ((DatePickerWidget) datePicker).setLongClick(v -> {
 
-                    ((DatePickerWidget)datePicker).clear();
+                    ((DatePickerWidget) datePicker).clear();
                     deleteFromBundle();
 
                     return true;
@@ -515,9 +516,6 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
     }
 
 
-
-
-
     public void reset() {
 
         canSetValue.compareAndSet(true, false);
@@ -548,7 +546,7 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
         // Method retrieves entered observations and displays the values in widgets
         int firstIndex = 0;
 
-        if(obs.length > 0) {
+        if (obs.length > 0) {
 
             switch (mDataType) {
 
@@ -612,19 +610,19 @@ public class BasicConceptWidget extends LinearLayoutCompat implements Retainable
                     break;
             }
 
-            ArrayList<Long> obsVoid = (ArrayList<Long>)bundle.getSerializable(Key.OBS_ID);
-            if(obsVoid == null)
+            ArrayList<Long> obsVoid = (ArrayList<Long>) bundle.getSerializable(Key.OBS_ID);
+            if (obsVoid == null)
                 obsVoid = new ArrayList<>();
 
 
-            for(ObsEntity obsEntity: obs)
+            for (ObsEntity obsEntity : obs)
                 obsVoid.add(obsEntity.getObsId());
 
             bundle.putSerializable(Key.OBS_ID, obsVoid);
         }
     }
-    public void deleteFromBundle()
-    {
+
+    public void deleteFromBundle() {
         if (bundle.containsKey(getTag().toString())) {
 
             bundle.remove(getTag().toString());
