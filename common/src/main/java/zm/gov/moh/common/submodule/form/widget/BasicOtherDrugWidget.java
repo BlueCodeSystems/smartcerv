@@ -19,6 +19,7 @@ import zm.gov.moh.core.model.ConceptDataType;
 import zm.gov.moh.core.model.ObsValue;
 import zm.gov.moh.core.repository.database.entity.derived.ConceptAnswerName;
 import zm.gov.moh.core.repository.database.entity.domain.Drug;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
 public class BasicOtherDrugWidget extends BasicDrugWidget {
 
@@ -198,6 +199,18 @@ public class BasicOtherDrugWidget extends BasicDrugWidget {
         }
         obsNotify();
         setObsValue();
+    }
+
+    /* BasicOtherDrugWidget attempt to call this overriden method to retrieve last value */
+    @Override
+    public void onLastObsRetrieved(ObsEntity... obs) {
+
+        if (obs.length > 0) {
+            if (mObsValue.getConceptDataType().equals(ConceptDataType.CODED)) {
+                for (ObsEntity codedDrugObs : obs)
+                    selectedObservations.add(codedDrugObs);
+            }
+        }
     }
 
     public static class Builder extends BasicDrugWidget.Builder {
