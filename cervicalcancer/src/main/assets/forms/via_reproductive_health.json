@@ -1,6 +1,6 @@
 {
   "attributes": {
-    "name":"Reproductive Health History",
+    "name": "Reproductive Health History",
     "panelType": "form",
     "formType": "encounter",
     "encounterId": 8,
@@ -37,7 +37,8 @@
               "action": {
                 "type": "skipLogic",
                 "metadata": {
-                  "tags": ["last_menstrual_period"
+                  "tags": [
+                    "last_menstrual_period"
                   ]
                 }
               }
@@ -60,7 +61,7 @@
         {
           "tag": "last_menstrual_period",
           "conceptId": 165202,
-          "uuid":"5e0feaa8-822c-408c-b559-4fbb26d32c1d",
+          "uuid": "5e0feaa8-822c-408c-b559-4fbb26d32c1d",
           "widgetType": "Concept",
           "dataType": "Date",
           "futureDate": "False",
@@ -73,7 +74,7 @@
           "tag": "Amenorrhea or Menopause",
           "widgetType": "Concept",
           "conceptId": 165246,
-          "uuid":"22801ebb-bcc9-4c81-84a9-38d86814863a",
+          "uuid": "22801ebb-bcc9-4c81-84a9-38d86814863a",
           "dataType": "Coded",
           "style": "radio",
           "label": "Select Amenorrhea or Menopause",
@@ -81,10 +82,10 @@
           "logic": [
             {
               "condition": {
-                "value": "PERSON_DOB",
+                "value": "",
                 "dataType": "date",
                 "expression": {
-                  "$lt": 40
+                  "$lt": ""
                 }
               },
               "action": {
@@ -155,7 +156,6 @@
             {
               "condition": {
                 "value": 1
-
               },
               "action": {
                 "type": "skipLogic",
@@ -209,60 +209,60 @@
         {
           "tag": "via_date",
           "conceptId": 165269,
-          "uuid":"d2d58d18-bac2-49ef-8f24-6f340704be42",
+          "uuid": "d2d58d18-bac2-49ef-8f24-6f340704be42",
           "widgetType": "Concept",
           "dataType": "Date",
           "futureDate": "False",
           "weight": 1,
-          "label":"VIA",
+          "label": "VIA",
           "hint": "dd MMM yyyy",
           "textSize": 18
         },
         {
           "tag": "pap smear_date",
           "conceptId": 165107,
-          "uuid":"a2504b0d-f46f-40ef-8e85-7cfb4acd1a4a",
+          "uuid": "a2504b0d-f46f-40ef-8e85-7cfb4acd1a4a",
           "widgetType": "Concept",
           "dataType": "Date",
           "futureDate": "False",
-          "label":"Pap smear",
+          "label": "Pap smear",
           "hint": "dd MMM yyyy",
           "textSize": 18
         },
         {
           "tag": "cryotherapy_date",
           "conceptId": 165108,
-          "uuid":"a1f8ca72-fb0b-426b-8d94-1ed1db174cc9",
+          "uuid": "a1f8ca72-fb0b-426b-8d94-1ed1db174cc9",
           "widgetType": "Concept",
           "dataType": "Date",
           "futureDate": "False",
-          "label":"Cryotherapy",
+          "label": "Cryotherapy",
           "hint": "dd MMM yyyy",
           "textSize": 18
         },
         {
           "tag": "thermal coagulation_date",
           "conceptId": 165109,
-          "uuid":"815b6c8d-1a83-41dd-9fec-fd18477d7293",
+          "uuid": "815b6c8d-1a83-41dd-9fec-fd18477d7293",
           "widgetType": "Concept",
           "dataType": "Date",
           "futureDate": "False",
-          "label":"Thermal coagulation",
+          "label": "Thermal coagulation",
           "hint": "dd MMM yyyy",
           "textSize": 18
         },
         {
           "tag": "leep_date",
           "conceptId": 165110,
-          "uuid":"97345f49-735d-4b0e-acca-be6b969cb812",
+          "uuid": "97345f49-735d-4b0e-acca-be6b969cb812",
           "widgetType": "Concept",
           "dataType": "Date",
           "futureDate": "False",
-          "label":"LEEP",
+          "label": "LEEP",
           "hint": "dd MMM yyyy",
           "textSize": 18
-        }
-      ,{
+        },
+        {
           "tag": "history of stis",
           "widgetType": "Concept",
           "conceptId": 165111,
