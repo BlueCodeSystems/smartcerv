@@ -50,7 +50,7 @@ public abstract class RemoteWorker extends BaseWorker {
         //TODO: replace hard coded token with dynamically assigned tokens
         accessToken = getRepository().getDefaultSharePrefrences().getString(Key.ACCESS_TOKEN,null);
         if(accessToken == null){
-     //TODO : Ensure that this is gracefully handled . Have Flag to logout and force new login.
+            //TODO : Ensure that this is gracefully handled . Have Flag to logout and force new login.
             return;
         }
 
