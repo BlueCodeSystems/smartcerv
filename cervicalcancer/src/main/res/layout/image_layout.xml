@@ -28,6 +28,17 @@
             android:layout_marginLeft="20dp"
             android:scaleType="fitCenter"
             android:id="@+id/img2"/>
+        <Button
+            android:id="@+id/UploadBtn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Upload"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            />
 
     </LinearLayout>
 

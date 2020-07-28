@@ -40,7 +40,7 @@ import java.util.UUID;
 
 public class FormImageViewButtonWidget extends ConceptWidget<ObsValue<String>> implements View.OnClickListener, Retainable  {
 
-    private static final int RESULT_LOAD_IMAGE1 = 200;
+    public static final int RESULT_LOAD_IMAGE1 = 200;
     public DoubleSummaryStatistics onClick;
     private long key;
     private Double value;
