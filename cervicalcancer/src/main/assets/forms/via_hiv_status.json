@@ -106,7 +106,7 @@
           "tag": "art number",
           "widgetType": "Concept",
           "conceptId": 165128,
-          "dataType": "Numeric",
+          "dataType": "Text",
           "uuid": "8d2d8797-22f1-4c00-8644-3d342a9e880f",
           "textSize": 18,
           "label": "ART No.",
