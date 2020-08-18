@@ -23,6 +23,7 @@ public class Visit {
         return visitType;
     }
 
+
     public void setVisitType(String visitType) {
         this.visitType = visitType;
     }
@@ -59,7 +60,7 @@ public class Visit {
         return location;
     }
 
-    public static class Builder{
+    public static class Builder {
 
         Encounter[] encounters;
         LocalDateTime startDatetime;
@@ -98,7 +99,7 @@ public class Visit {
             return this;
         }
 
-        public Visit build(){
+        public Visit build() {
             Visit visit = new Visit();
 
             visit.setStartDatetime(startDatetime);

@@ -11,8 +11,11 @@ import androidx.core.util.Consumer;
 import zm.gov.moh.common.submodule.form.model.Logic;
 import zm.gov.moh.core.utils.Utils;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +28,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,12 +36,12 @@ import java.util.Set;
 
 
 public class WidgetUtils {
-
     public static final int MATCH_PARENT = LinearLayoutCompat.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = LinearLayoutCompat.LayoutParams.WRAP_CONTENT;
     public static final int VERTICAL = LinearLayoutCompat.VERTICAL;
     public static final int HORIZONTAL = LinearLayoutCompat.HORIZONTAL;
     public static final int NO_WEIGHT = 0;
+
 
     public static View createLinearLayout(Context context, int orientation, View... views) {
 
@@ -75,7 +77,19 @@ public class WidgetUtils {
         return tv;
     }
 
+    //Method to programmatically calculate the screen size
+    public static Boolean isDeviceTablet(Context context) {
+        if ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE) {
 
+            return true;
+        }
+
+
+        return false;
+
+    }
+
+    // Reorder concept retrieval to get concepts as Longs
     public static ArrayList<Map.Entry<String, Long>> orderRadioGroup(Map<String, Long> longHashMap) {
         ArrayList<Map.Entry<String, Long>> entryArrayList = new ArrayList<>();
         HashMap<String, Long> orderedMap = new HashMap<String, Long>();
@@ -85,6 +99,7 @@ public class WidgetUtils {
         return entryArrayList;
     }
 
+    //Add Radio Group
     public static RadioGroup addRadioGroup(Context context, RadioGroup radioGroup, ArrayList<Map.Entry<String, Long>> entries) {
         for (int hash = entries.size() - 1; hash >= 0; hash--) {
             RadioButton radioButton = new RadioButton(context);
@@ -109,6 +124,8 @@ public class WidgetUtils {
             onSelectionChange.accept(radioGroup1.getCheckedRadioButtonId());
 
         });
+        //Previous implementation for concept retrieval
+        //Works for Lenovo Tablets, reverses on Samsung 8inch
         ArrayList<Map.Entry<String, Long>> radioGroupEntries = orderRadioGroup(labelValueMap);
         radioGroup = addRadioGroup(context, radioGroup, radioGroupEntries);
         /*for (Map.Entry<String, Long> hash : labelValueMap.entrySet()) {
