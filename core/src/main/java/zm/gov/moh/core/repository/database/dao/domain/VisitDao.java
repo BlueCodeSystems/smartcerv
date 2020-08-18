@@ -55,8 +55,11 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("DELETE FROM Visit WHERE visit_id IN (:visitId) AND visit_id >= :offset")
     void deleteById(long[] visitId, long offset);
 
-    @Query("SELECT * FROM Visit WHERE visit_id IN (:id) AND voided=0")
+    @Query("SELECT * FROM Visit WHERE visit_id IN (:id) AND voided=0 ORDER BY visit_id LIMIT 900")
     List<VisitEntity> getById(Long[] id);
+
+    //@Query("SELECT visit_id, patient_id, visit_type_id, voided FROM (SELECT * FROM Visit) WHERE visit_id NOT IN (:id) AND voided=0")
+    //List<VisitEntity> getById(Long[] id);
 
     @Query("SELECT date_started FROM Visit WHERE visit_id = :id")
     LocalDateTime getDateStartTimeByVisitId(long id);
@@ -77,8 +80,12 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
 
-    @Query("SELECT visit_id FROM (SELECT * FROM visit WHERE NOT EXISTS (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id + :entityTypeId AND remote_status_code + :remoteStatus AND entity_metadata.entity_id + visit.visit_id)) WHERE visit_id >= :offsetId")
-    Long[] findEntityNotWithId2(long offsetId, int entityTypeId, short remoteStatus);
+    @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId ORDER by visit_id DESC LIMIT 900")
+    Long[] findEntityWithId(long offsetId, long... id);
+
+
+    //@Query("SELECT visit_id FROM Visit WHERE visit_id IN (:id) AND visit_id >= :offsetId")
+    //Long[] findEntityWithId(long offsetId, long... id);
 
     @Query("UPDATE visit SET patient_id = :remotePatientId WHERE visit_id IN (SELECT visit_id FROM visit WHERE patient_id = :localPatientId)")
     void replaceLocalPatientId(long localPatientId, long remotePatientId);

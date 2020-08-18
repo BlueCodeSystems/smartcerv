@@ -32,7 +32,10 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     @Query("SELECT encounter_id FROM encounter WHERE strftime('%s',encounter_datetime) = strftime('%s',:dateTime) AND location_id = :locationId")
     Long[] getByDatetime(String dateTime, long locationId);
 
-    @Query("SELECT * FROM encounter WHERE visit_id IN (:visitId) AND voided != 1")
+    //@Query("SELECT * FROM encounter WHERE visit_id IN (:visitId) AND voided != 1")
+    //List<EncounterEntity> getByVisitId(List<Long> visitId);
+
+    @Query("SELECT encounter_id, encounter_type, patient_id, location_id, voided, :visitId, visit_id FROM encounter ORDER BY encounter_id LIMIT 10")
     List<EncounterEntity> getByVisitId(List<Long> visitId);
 
     @Query("SELECT * FROM encounter WHERE visit_id =:visitId AND encounter_type = :encounterTypeId ORDER BY date_created DESC LIMIT 1")

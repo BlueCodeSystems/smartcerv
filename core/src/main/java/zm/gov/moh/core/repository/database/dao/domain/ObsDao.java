@@ -68,7 +68,10 @@ public interface ObsDao extends Synchronizable<ObsEntity> {
     @Query("SELECT obs_id FROM obs WHERE encounter_id IN (:encounterId)")
     long[] getObsByEncounterId(long[] encounterId );
 
-    @Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds) AND voided != 1")
+    //@Query("SELECT * FROM obs WHERE encounter_id IN (:encounterIds) AND voided != 1")
+    //List<ObsEntity> getObsByEncounterId(List<Long> encounterIds);
+
+    @Query("SELECT obs_id, person_id, concept_id, creator, voided, :encounterIds FROM obs ORDER BY obs_id LIMIT 10")
     List<ObsEntity> getObsByEncounterId(List<Long> encounterIds);
 
     @Query("SELECT * FROM obs WHERE encounter_id IN (SELECT encounter_id FROM encounter WHERE visit_id = :visitId) AND concept_id = :conceptId")
