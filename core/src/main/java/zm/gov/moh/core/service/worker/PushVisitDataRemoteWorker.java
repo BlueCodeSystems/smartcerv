@@ -58,7 +58,8 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         Log.i(TAG, "Unpushed visits bundle" + unpushedEntityId.equals(mBundle.describeContents()));
         Log.i(TAG, String.format("Unpushed visits%s", Arrays.toString(unpushedEntityId))); //unpushedEntityId: {12429, 12430, 12431, 12432, 12425, 12426, 12427, 12428, 12490, 12491, + 890 more}
         //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        final long offset = 0;
+        //final long offset = 0;
+        final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
         Long[] unpushedVisitEntityId = db.visitDao().findEntityWithId(offset, unpushedEntityId); // offset : 0 unpushedEntityId: {12429, 12430, 12431, 12432, 12425, 12426, 12427, 12428, 12490, 12491, + 890 more}
         Log.i(TAG, "Unpushed visits" + unpushedVisitEntityId.length);

@@ -17,7 +17,7 @@ public interface EntityMetadataDao {
     @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus")
     long[] findEntityIdByTypeRemoteStatus(int entityTypeId, short remoteStatus);
 
-    @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code != :remoteStatus ORDER BY last_modified DESC LIMIT 900")
+    @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code != :remoteStatus ORDER BY last_modified DESC LIMIT 10")
     long[] findEntityIdByTypeNoRemoteStatus(int entityTypeId, short remoteStatus);
 
     @Query("SELECT entity_id FROM entity_metadata WHERE remote_status_code = :remoteStatus")

@@ -80,7 +80,7 @@ public interface VisitDao extends Synchronizable<Long> {
     @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
 
-    @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId ORDER by visit_id DESC LIMIT 900")
+    @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId ORDER by visit_id DESC LIMIT 10")
     Long[] findEntityWithId(long offsetId, long... id);
 
 
