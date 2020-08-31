@@ -81,10 +81,11 @@ public class SettingsViewModel extends BaseAndroidViewModel {
         long[] pushedVisitEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode());
 
 
-        Long[] notPushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedPatientEntityId);
-        Long[] notPushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedVisitEntityId);
+        //Long[] notPushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedPatientEntityId);
+        //Long[] notPushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedVisitEntityId);
+        return true;
 
-       return (notPushedPatientEntityId.length > 0 || notPushedVisitEntityId.length > 0)? false : true;
+       //return (notPushedPatientEntityId.length > 0 || notPushedVisitEntityId.length > 0)? false : true;
     }
 
     public void saveBaseUrl(Preferences preferences){

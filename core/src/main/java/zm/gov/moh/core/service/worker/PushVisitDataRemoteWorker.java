@@ -9,10 +9,12 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -37,8 +39,6 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.service.ServiceManager;
 
-import static zm.gov.moh.core.service.worker.RemoteWorker.Status.SYNCED;
-
 public class PushVisitDataRemoteWorker extends RemoteWorker {
     public static final String TAG = "PushVisit";
 
@@ -49,32 +49,34 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     @Override
     @NonNull
     public Result doWork() {
-        long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        Log.i(TAG, "Total number of visits on tablet:"+pushedEntityId.length);
 
-        int pushedSize = pushedEntityId.length;
-        Log.i(TAG, String.format("Pushed Size Number = " + pushedSize));
+        long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        long[] unpushedEntityId = db.entityMetadataDao().findEntityIdByTypeNoRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        //long[] unpushedVisitEntityId = db.entityMetadataDao().findEntityIdByTypeNoRemoteStatus(EntityType.VISIT.getId(), Status.NOT_PUSHED.getCode());//This gets the Entity IDs that are not Synced.
+        Log.i(TAG, "Unpushed visits" + unpushedEntityId.length);
+        Log.i(TAG, "Unpushed visits entity ID" + unpushedEntityId.equals(unpushedEntityId));
+        Log.i(TAG, "Unpushed visits bundle" + unpushedEntityId.equals(mBundle.describeContents()));
+        Log.i(TAG, String.format("Unpushed visits%s", Arrays.toString(unpushedEntityId))); //unpushedEntityId: {12429, 12430, 12431, 12432, 12425, 12426, 12427, 12428, 12490, 12491, + 890 more}
+        //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
+        //final long offset = 0;
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        Log.i(TAG, "Total number of unpushed visits on tablet:"+unpushedVisitEntityId.length);
+        Long[] unpushedVisitEntityId = db.visitDao().findEntityWithId(offset, unpushedEntityId); // offset : 0 unpushedEntityId: {12429, 12430, 12431, 12432, 12425, 12426, 12427, 12428, 12490, 12491, + 890 more}
+        Log.i(TAG, "Unpushed visits" + unpushedVisitEntityId.length);
+        Log.i(TAG, String.format("Unpushed Entity ID visits%s", Arrays.toString(unpushedVisitEntityId)));
+        Log.i(TAG, "Unpushed visits length" + unpushedVisitEntityId.length);
+        Log.i(TAG, "Unpushed visits" + unpushedVisitEntityId.equals(unpushedVisitEntityId));
+        Log.i(TAG, "Unpushed visits bundle" + unpushedVisitEntityId.equals(mBundle.describeContents()));
+        Log.i(TAG, String.format("Unpushed visits%s", Arrays.toString(unpushedEntityId)));
+
 
 
         if(unpushedVisitEntityId.length > 0) {
-            Log.i(TAG, "Number of unpushed Patient visits from create visits = " + unpushedVisitEntityId.length);
-            Log.i(TAG, "Size of unpushed Patient visits from create visits = " + mBundle.size());
-
 
 
             List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
-            Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
-            Log.i(TAG, "Size of Patient visits from create visits = " + patientVisits);
 
             if(patientVisits.size() > 0)
-                Log.i(TAG, "Visit Size is being retrieved");
-            Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
-            Log.i(TAG, "Size of Patient visits from create visits = " + patientVisits);
                 restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                         .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                         .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
@@ -97,21 +99,18 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         return param -> {
 
             for(Long entityId:entityIds) {
-
-                EntityMetadata entityMetadata = new EntityMetadata(entityId,entityTypeId, Status.PUSHED.getCode());
-                db.entityMetadataDao().insert(entityMetadata);
+                db.entityMetadataDao().updateSyncStatus(entityId, Status.PUSHED.getCode());
+                /* TODO
+                /*TODO Find all entities that have Status NOT SYNCED(entites of same ID) & Delete them..*/
             }
         };
     }
 
     public List<Visit> createVisits (Long ...visitEntityId){
 
-        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
-        Log.i(TAG, "Size of visit entities = " + visitEntities.size());
-        Log.i(TAG, "Number of visit entities = " + visitEntities);
+        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId); //visitEntities: size = 10 visitEntityId: Long[900]
 
-        if(visitEntities.size() > 0) {
-
+        if(visitEntities.size() > 0) { //visitEntities: size = 10
 
             int visitIndex = 0;
             List<Visit> visits = new ArrayList<>();
@@ -120,6 +119,14 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
                     .toList().blockingGet();
 
             List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
+            Log.i(TAG, "Encounter Entities containing encounter Ids" + encounterEntities.contains(visitIds));
+            Log.i(TAG, "Encounter Entities List size" + encounterEntities.size());
+            Log.i(TAG, "Encounter Entities List size" + encounterEntities.equals(visitIds.addAll(visitIds)));
+            Log.i(TAG, "Encounter Entities List size" + encounterEntities.equals(mBundle.describeContents()));
+            Log.i(TAG, String.format("Entity encounters%s", Arrays.toString(new List[]{visitIds})));
+            Log.i(TAG, "Encounter Entities List size" + encounterEntities.containsAll(visitIds));
+
+
 
             List<Long> encounterIds = Observable.fromIterable(encounterEntities)
                     .map(encounterEntity -> encounterEntity.getEncounterId())
@@ -127,6 +134,13 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
                     .blockingGet();
 
             List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+            Log.i(TAG, "Obs Entities containing encounter Ids" + obsEntities.contains(encounterIds));
+            Log.i(TAG, "Obs Entities List size" + obsEntities.size());
+            Log.i(TAG, "Obs Entities List size" + obsEntities.equals(encounterIds));
+            Log.i(TAG, "Obs Entities List size" + obsEntities.equals(mBundle.describeContents()));
+            Log.i(TAG, String.format("Obs Entities%s", Arrays.toString(new List[]{encounterIds})));
+            Log.i(TAG, "Obs Entities List size" + obsEntities.toArray());
+
 
 
 

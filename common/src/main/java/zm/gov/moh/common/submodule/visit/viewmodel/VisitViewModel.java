@@ -2,6 +2,7 @@ package zm.gov.moh.common.submodule.visit.viewmodel;
 
 import android.app.Application;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
@@ -17,6 +18,7 @@ import zm.gov.moh.core.utils.ConcurrencyUtils;
 import zm.gov.moh.core.utils.InjectableViewModel;
 
 public class VisitViewModel extends BaseAndroidViewModel implements InjectableViewModel {
+    public static final String TAG = "PushVisitModel";
 
 
     MutableLiveData<Bundle> viewState;
@@ -87,9 +89,11 @@ public class VisitViewModel extends BaseAndroidViewModel implements InjectableVi
             mBundle.putSerializable(Key.VISIT_STATE, VisitState.END);
         else if(visitState == VisitState.NEW) {
             mBundle.putSerializable(Key.VISIT_STATE, VisitState.SESSION);
+            Log.i(TAG, "visit state value" + VisitState.values());
         }
 
         viewState.setValue(mBundle);
+        Log.i(TAG, "visit values set" + viewState.toString());
     }
 
     public void setVisitDate(LocalDate visitDate) {

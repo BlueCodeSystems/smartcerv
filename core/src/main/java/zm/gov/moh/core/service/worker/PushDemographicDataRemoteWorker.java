@@ -1,6 +1,8 @@
 package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
+import android.print.PrintAttributes;
+import android.util.Log;
 
 import com.google.common.collect.ObjectArrays;
 
@@ -30,6 +32,8 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 
+import static zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker.TAG;
+
 public class PushDemographicDataRemoteWorker extends RemoteWorker {
     LocalDateTime dataSyncDate;
     public PushDemographicDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
@@ -53,8 +57,13 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
 
             //Create new remote patients
             List<Patient> patients = new ArrayList<>();
-            //Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
-            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId2(offset, EntityType.PATIENT.getId(), Status.PUSHED.getCode());
+            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
+            //Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId2(offset, EntityType.PATIENT.getId(), Status.PUSHED.getCode());
+            Log.i(TAG, "Unpushed visits" + unpushedPatientEntityId.length);
+            Log.i(TAG, String.format("Unpushed visits%s", unpushedPatientEntityId.toString()));
+
+
+
 
             unpushedPatientEntityId = ObjectArrays.concat(unpushedPatientEntityId, editEntityId, Long.class);
             if (unpushedPatientEntityId.length != 0) {
