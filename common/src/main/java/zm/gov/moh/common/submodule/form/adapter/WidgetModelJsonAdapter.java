@@ -355,6 +355,7 @@ public class WidgetModelJsonAdapter {
                 numericEditTextModel.setText(widgetModelJson.getText());
                 numericEditTextModel.setWeight(widgetModelJson.getWeight());
                 numericEditTextModel.setLabel(widgetModelJson.getLabel());
+                numericEditTextModel.setRequired(widgetModelJson.getRequired());
 
                 return numericEditTextModel;
 

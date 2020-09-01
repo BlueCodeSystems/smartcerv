@@ -6,6 +6,10 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 
+import androidx.appcompat.widget.AppCompatEditText;
+
+import java.util.regex.Pattern;
+
 public class NumericEditTextWidget extends EditTextWidget {
 
     protected static final int TOTAL_NRC_LENGTH = 11;    // 9 digits plus 2 slashes
@@ -52,11 +56,23 @@ public class NumericEditTextWidget extends EditTextWidget {
                 if ((previousLength < currentLength) && (editable.length() == 6 || editable.length() == 9)) {
                     editable.append("/");
                 }
+
+                String text = mEditText.getText().toString();
+                validate(mEditText, text);
+            }
+
+            public void validate (AppCompatEditText widget, String text) {
+                Pattern.compile("/");
             }
         });
 
         removeView(mEditText);
         addView(mEditText);
+    }
+
+    @Override
+    public boolean isValid() {
+        return true;
     }
 
     public String getDataType() {
@@ -87,6 +103,10 @@ public class NumericEditTextWidget extends EditTextWidget {
             this.mDataType = dataType;
             return this;
         }
+        public Builder setRequired(Boolean mRequired) {
+            this.mRequired = mRequired;
+            return this;
+        }
 
         @Override
         public BaseWidget build() {
@@ -105,6 +125,8 @@ public class NumericEditTextWidget extends EditTextWidget {
                 widget.setDataType(mDataType);
             if (mValueChangeListener != null)
                 widget.setOnValueChangeListener(mValueChangeListener);
+            if(mRequired != null)
+                widget.setRequired(mRequired);
 
             widget.setTextSize(mTextSize);
 

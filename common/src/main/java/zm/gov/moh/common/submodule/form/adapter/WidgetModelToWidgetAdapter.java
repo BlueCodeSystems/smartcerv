@@ -396,6 +396,7 @@ public class WidgetModelToWidgetAdapter {
 
             BaseWidget widget = new NumericEditTextWidget.Builder(this.context)
                     .setDataType(model.getDataType())
+                    .setRequired(model.getRequired())
                     .setHint(model.getHint())
                     .setLabel(model.getLabel())
                     .setTextSize(18)
