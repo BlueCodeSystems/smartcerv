@@ -7,12 +7,15 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
+import zm.gov.moh.core.model.Encounter;
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 
 @Dao
 public interface EncounterDao extends Synchronizable<EncounterEntity> {
 
+    //@Query("SELECT * FROM encounter")
+    //List<Encounter> getEntities();
 
     @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM encounter WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
     LocalDateTime getMaxDatetime(long locationId);
@@ -35,7 +38,7 @@ public interface EncounterDao extends Synchronizable<EncounterEntity> {
     //@Query("SELECT * FROM encounter WHERE visit_id IN (:visitId) AND voided != 1")
     //List<EncounterEntity> getByVisitId(List<Long> visitId);
 
-    @Query("SELECT encounter_id, encounter_type, patient_id, location_id, voided, :visitId, visit_id FROM encounter ORDER BY encounter_id LIMIT 10")
+    @Query("SELECT encounter_id, encounter_type, patient_id, location_id, voided, :visitId, visit_id FROM encounter ORDER BY encounter_id LIMIT 100")
     List<EncounterEntity> getByVisitId(List<Long> visitId);
 
     @Query("SELECT * FROM encounter WHERE visit_id =:visitId AND encounter_type = :encounterTypeId ORDER BY date_created DESC LIMIT 1")

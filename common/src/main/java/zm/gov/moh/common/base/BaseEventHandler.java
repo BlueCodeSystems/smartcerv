@@ -172,6 +172,12 @@ public class BaseEventHandler implements View.OnLongClickListener {
             EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(patientId);
             if(entityMetadata == null)
                 entityMetadata = new EntityMetadata(patientId, EntityType.PATIENT.getId());
+                System.out.println("ENTITY METADATA ---->"+ entityMetadata.getEntityTypeId());
+            System.out.println("ENTITY METADATA ---->"+ entityMetadata.getRemoteStatusCode());
+            System.out.println("ENTITY METADATA ---->"+ entityMetadata.getId());
+            System.out.println("ENTITY METADATA ---->"+ entityMetadata.getEntityId());
+            System.out.println("ENTITY METADATA ---->"+ entityMetadata.getLastModified());
+
 
             entityMetadata.setLastModified(LocalDateTime.now());
             entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());

@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
@@ -28,9 +30,11 @@ import zm.gov.moh.core.model.PatientIdentifier;
 import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
+import zm.gov.moh.core.repository.database.entity.domain.PatientEntity;
 import zm.gov.moh.core.repository.database.entity.domain.Person;
 import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
 import zm.gov.moh.core.repository.database.entity.domain.PersonName;
@@ -39,8 +43,11 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.service.ServiceManager;
 
+import static java.lang.System.*;
+
 public class PushVisitDataRemoteWorker extends RemoteWorker {
     public static final String TAG = "PushVisit";
+    private Object Entity;
 
     public PushVisitDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
@@ -49,7 +56,6 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     @Override
     @NonNull
     public Result doWork() {
-
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         long[] unpushedEntityId = db.entityMetadataDao().findEntityIdByTypeNoRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
         //long[] unpushedVisitEntityId = db.entityMetadataDao().findEntityIdByTypeNoRemoteStatus(EntityType.VISIT.getId(), Status.NOT_PUSHED.getCode());//This gets the Entity IDs that are not Synced.
@@ -69,17 +75,58 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         Log.i(TAG, "Unpushed visits bundle" + unpushedVisitEntityId.equals(mBundle.describeContents()));
         Log.i(TAG, String.format("Unpushed visits%s", Arrays.toString(unpushedEntityId)));
 
-
-
         if(unpushedVisitEntityId.length > 0) {
 
-
             List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                out.println("=======");
+                out.print(Arrays.toString(unpushedEntityId));
+                out.print(Arrays.toString(unpushedVisitEntityId));
+            }
+
+            List<VisitEntity> visits = db.visitDao().getVisitsFields();
+            //List<PatientEntity> entities = db.patientDao().getAll();
+            //List<EntityMetadata> metadatas = db.entityMetadataDao().getentitymetadata();
+            for (int i = 0; i > visits.size(); i++) {
+                out.println("In a visit______________________________________________");
+                VisitEntity visit = visits.get(i);
+                out.println("Visit - Patient ID " + visit.getPatientId());
+                out.println("Visit - Type " + visit.getVisitTypeId());
+                out.println("Visit - Date Created " + visit.getDateCreated());
+                try {
+                    visit.getId(); /*TODO -- BYPASS PULLING OF METADATA & ONLY PUSH VISITS*/
+                } catch (NullPointerException e) {
+                    continue;
+                }
+                List<EntityMetadata> entitiesForVisit;
+                //entitiesForVisit = (List<EntityMetadata>) db.entityMetadataDao().findEntityById(visit.getId());
+                entitiesForVisit = Arrays.asList((EntityMetadata) db.entityMetadataDao().findEntityById(visit.getId()));
+
+                out.println("Printing entities for this visit______________________________________________");
+                for (int entityIndex = 0; entityIndex > visits.size(); entityIndex++) {
+                    if (visits.size() < 2) {
+                        System.err.println("Not enough visit arguments received.");
+                    }
+                    EntityMetadata entityMetadata = entitiesForVisit.get(entityIndex);
+                    out.println("Metadata ID " + entitiesForVisit.get(entityIndex).getId());
+                    out.println("Metadata Entity Type ID " + entitiesForVisit.get(entityIndex).getEntityTypeId());
+                    out.println("Metadata Remote Status " + entitiesForVisit.get(entityIndex).getRemoteStatusCode());
+
+
+                    try{
+                        entitiesForVisit.get(entityIndex).getId();
+                    } catch (NullPointerException e){
+                        continue;
+                    }
+                }
+                out.println("Done printing entities for this visit______________________________________________");
+                out.println("_______________________________________________");
+            }
 
             if(patientVisits.size() > 0)
                 restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                         .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                        .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+                        .subscribe(onComplete(unpushedVisitEntityId, visits, EntityType.VISIT.getId()), this::onError);
 
         }
 
@@ -94,7 +141,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
     }
 
-    public Consumer<Response[]> onComplete(Long[] entityIds, int entityTypeId){
+    public Consumer<Response[]> onComplete(Long[] entityIds, List<VisitEntity> visits, int entityTypeId){
 
         return param -> {
 
@@ -108,38 +155,75 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     public List<Visit> createVisits (Long ...visitEntityId){
 
-        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId); //visitEntities: size = 10 visitEntityId: Long[900]
+        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
 
-        if(visitEntities.size() > 0) { //visitEntities: size = 10
+        if(visitEntities.size() > 0) {
 
             int visitIndex = 0;
             List<Visit> visits = new ArrayList<>();
 
             List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
                     .toList().blockingGet();
+            Observable.fromIterable(visitEntities).subscribe(
+                    visitEntity -> {
+
+                    }
+
+            );
+
+            //List<EncounterEntity> encounterEntities = db.encounterDao().getByEncounterByVisitId(EncounterEntity);
+
+            int encounterIndex = 0;
+            List<Encounter> encounters1 = new ArrayList<>();
+
+            List<Long> encounterIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
+                    .toList().blockingGet();
+            Observable.fromIterable(visitEntities).subscribe(
+                    visitEntity -> {
+                        out.println("_______________________________________________");
+                        out.println("visitEntity.getPatientId2---> " + visitEntity.getPatientId());
+                        out.println("visitEntity.getVisitTypeId2---> " + visitEntity.getVisitTypeId());
+                        out.println("visitEntity.getDateCreated2---> " + visitEntity.getDateCreated());
+                        out.println("_______________________________________________");
+                    }
+
+            );
 
             List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
-            Log.i(TAG, "Encounter Entities containing encounter Ids" + encounterEntities.contains(visitIds));
-            Log.i(TAG, "Encounter Entities List size" + encounterEntities.size());
-            Log.i(TAG, "Encounter Entities List size" + encounterEntities.equals(visitIds.addAll(visitIds)));
-            Log.i(TAG, "Encounter Entities List size" + encounterEntities.equals(mBundle.describeContents()));
-            Log.i(TAG, String.format("Entity encounters%s", Arrays.toString(new List[]{visitIds})));
-            Log.i(TAG, "Encounter Entities List size" + encounterEntities.containsAll(visitIds));
+
+            /*List<VisitEntity> visitEntities = db.visitDao().getByPatientId()
+            Visit visitdao = new Visit();
+            System.out.println(visitdao.getEncounters());
+            System.out.println(visitdao.getLocation());
+            System.out.println(visitdao.getPatient());
+            System.out.println(visitdao.getVisitType());
+            System.out.println(visitdao);
+            Log.i(TAG, "VISIT INFO"+ visitdao.getEncounters());
+            Log.i(TAG, "VISIT INFO"+ visitdao.getLocation());
+            Log.i(TAG, "VISIT INFO"+ visitdao.getPatient());
+            Log.i(TAG, "VISIT INFO"+ visitdao.getVisitType());
+            Log.i(TAG, "VISIT INFO"+ visitdao);
+            //Log.i(TAG, "Encounter Entities"+ new VisitEntity(visitIds, visitEntities));
+            */
 
 
 
-            List<Long> encounterIds = Observable.fromIterable(encounterEntities)
-                    .map(encounterEntity -> encounterEntity.getEncounterId())
+
+            //List<Long> encounterIds = Observable.fromIterable(encounterEntities)
+            List<Long> encounterIds1 = Observable.fromIterable(encounterEntities).map(encounterEntity -> encounterEntity.getEncounterId())
+                    .toList().blockingGet();
+            Observable.fromIterable(encounterEntities).subscribe(
+                    encounterEntity -> {
+
+                    }
+            );
+
+                    /*.map(encounterEntity -> encounterEntity.getEncounterId())
                     .toList()
-                    .blockingGet();
+                    .blockingGet();*/
 
             List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
-            Log.i(TAG, "Obs Entities containing encounter Ids" + obsEntities.contains(encounterIds));
-            Log.i(TAG, "Obs Entities List size" + obsEntities.size());
-            Log.i(TAG, "Obs Entities List size" + obsEntities.equals(encounterIds));
-            Log.i(TAG, "Obs Entities List size" + obsEntities.equals(mBundle.describeContents()));
-            Log.i(TAG, String.format("Obs Entities%s", Arrays.toString(new List[]{encounterIds})));
-            Log.i(TAG, "Obs Entities List size" + obsEntities.toArray());
+
 
 
 

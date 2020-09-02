@@ -6,7 +6,6 @@ import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import com.squareup.moshi.Json;
 
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalDateTime;
 
 @Entity(tableName = "visit")
 public class VisitEntity extends SynchronizableEntity {
@@ -109,7 +108,9 @@ public class VisitEntity extends SynchronizableEntity {
     public Long getVisitId() {
         return visitId;
     }
-
+    public Long getTheVisitID(){
+        return visitId;
+    }
     public void setVisitId(Long visitId) {
         this.visitId = visitId;
     }

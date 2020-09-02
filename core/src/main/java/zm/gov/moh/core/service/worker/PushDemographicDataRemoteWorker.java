@@ -57,8 +57,8 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
 
             //Create new remote patients
             List<Patient> patients = new ArrayList<>();
-            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
-            //Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId2(offset, EntityType.PATIENT.getId(), Status.PUSHED.getCode());
+            //Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
+            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId2(offset, EntityType.PATIENT.getId(), Status.PUSHED.getCode());
             Log.i(TAG, "Unpushed visits" + unpushedPatientEntityId.length);
             Log.i(TAG, String.format("Unpushed visits%s", unpushedPatientEntityId.toString()));
 
