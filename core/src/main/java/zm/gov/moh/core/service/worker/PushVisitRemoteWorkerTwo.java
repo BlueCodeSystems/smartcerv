@@ -1,13 +1,13 @@
-package zm.gov.moh.core.service.worker;
+/*package zm.gov.moh.core.service.worker;
 
-import android.content.Context;
+*/import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,53 +16,103 @@ import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
-import zm.gov.moh.core.Constant;
+/*import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Encounter;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Obs;
-import zm.gov.moh.core.model.Patient;
-import zm.gov.moh.core.model.PatientIdentifier;
-import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
-import zm.gov.moh.core.repository.database.entity.domain.Person;
-import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.ServiceManager;
 
-public class PushVisitDataRemoteWorker extends RemoteWorker {
+public class PushVisitRemoteWorkerTwo extends RemoteWorker {
+    public static final String TAG = "PushVisit";
 
-    public PushVisitDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
+    public PushVisitRemoteWorkerTwo(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
     }
 
     @Override
     @NonNull
     public Result doWork() {
-
-
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
+        long[] pushedVisitEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode());
+        Log.i(TAG, "Total number of visits on tablet:"+pushedEntityId.length);
 
-        List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
+        int pushedSize = pushedEntityId.length;
+        Log.i(TAG, String.format("Pushed Size Number = " + pushedSize));
+        final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
+        Long[] notPushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedVisitEntityId);
+        //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
+        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        Log.i(TAG, "Total number of unpushed visits on tablet:"+notPushedVisitEntityId.length);
+        final int SQL_MAX_VARS = 999;
+        Long[] notPushedId;
+        //notPushedVisitEntityId = notPushedVisitEntityId;
 
-            if (patientVisits.size() > 0)
-                restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
-                        .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                        .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+
+        if(EntityType.VISIT.getId() > 100) {
+            for (int i = 0; i < 100; i++) {
+                //notPushedId[i] = EntityType.VISIT.getId()
+                //entitiesForVisit.get(entityIndex).getId());
+                //notPushedId.
+            }
+            // Load the remaining Ids (the last section that's not divisible by SQL_MAX_VARS)
+            addAll(createVisits(notPushedVisitEntityId)
+            );
+
+            Log.i(TAG, "Number of unpushed Patient visits from create visits = " + notPushedVisitEntityId.length);
+            Log.i(TAG, "Size of unpushed Patient visits from create visits = " + mBundle.size());
+
+
+
+            List<Visit> patientVisits = createVisits(notPushedVisitEntityId);
+            Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
+            Log.i(TAG, "Size of Patient visits from create visits = " + patientVisits);
+
+            if(patientVisits.size() > 0)
+                Log.i(TAG, "Visit Size is being retrieved");
+            Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
+            Log.i(TAG, "Size of Patient visits from create visits = " + patientVisits);
+            restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
+                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .subscribe(onComplete(notPushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+
+        }
+
+        if(unpushedVisitEntityId.length > 0) {
+            Log.i(TAG, "Number of unpushed Patient visits from create visits = " + unpushedVisitEntityId.length);
+            Log.i(TAG, "Size of unpushed Patient visits from create visits = " + mBundle.size());
+
+
+
+            List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
+            Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
+            Log.i(TAG, "Size of Patient visits from create visits = " + patientVisits);
+
+            if(patientVisits.size() > 0)
+                Log.i(TAG, "Visit Size is being retrieved");
+            Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
+            Log.i(TAG, "Size of Patient visits from create visits = " + patientVisits);
+            restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
+                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+
+        }
 
         if(mResult.equals(Result.success()))
             onTaskCompleted();
         return this.mResult;
+    }
+
+    private PushVisitRemoteWorkerTwo addAll(List<Visit> visits) {
+        return this;
     }
 
     public void onTaskCompleted(){
@@ -84,27 +134,13 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     }
 
     public List<Visit> createVisits (Long ...visitEntityId){
-            Long[] newIds= new Long[170];
-            if(visitEntityId.length<= 170)
-            {
-                //get first 100 ids
-                for(int i=0;i < visitEntityId.length;i++)
-                {
-                    newIds[i]=visitEntityId[i];
-                }
 
-            }else{
-                for(int i=0;i < 161;i++)
-                {
-                    newIds[i]=visitEntityId[i];
-                }
-
-            }
-
-
-        List<VisitEntity> visitEntities = db.visitDao().getById(newIds);
+        List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
+        Log.i(TAG, "Size of visit entities = " + visitEntities.size());
+        Log.i(TAG, "Number of visit entities = " + visitEntities);
 
         if(visitEntities.size() > 0) {
+
 
             int visitIndex = 0;
             List<Visit> visits = new ArrayList<>();
@@ -236,3 +272,4 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     }
 
 }
+*/

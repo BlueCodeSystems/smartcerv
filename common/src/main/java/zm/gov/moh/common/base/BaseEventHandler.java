@@ -70,7 +70,8 @@ public class BaseEventHandler implements View.OnLongClickListener {
         OneTimeWorkRequest workRequestMetadata = new OneTimeWorkRequest.Builder(PullMetaDataRemoteWorker.class).build();
         OneTimeWorkRequest workRequestPushDemoData = new OneTimeWorkRequest.Builder(PushDemographicDataRemoteWorker.class).build();
         OneTimeWorkRequest workRequestPushVisitData = new OneTimeWorkRequest.Builder(PushVisitDataRemoteWorker.class).build();
-        workManager.beginWith(workRequestPullIdData).then(workRequestMetadata).then(workRequestData).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
+        //workManager.beginWith(workRequestPullIdData).then(workRequestMetadata).then(workRequestData).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
+        workManager.beginWith(workRequestPullIdData).then(workRequestMetadata).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
 
     }
 
@@ -169,6 +170,7 @@ public class BaseEventHandler implements View.OnLongClickListener {
             EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(patientId);
             if(entityMetadata == null)
                 entityMetadata = new EntityMetadata(patientId, EntityType.PATIENT.getId());
+            entityMetadata = new EntityMetadata(patientId, EntityType.VISIT.getId());
 
             entityMetadata.setLastModified(LocalDateTime.now());
             entityMetadata.setRemoteStatusCode(RemoteWorker.Status.NOT_PUSHED.getCode());
