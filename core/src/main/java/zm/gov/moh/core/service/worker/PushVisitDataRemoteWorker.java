@@ -43,22 +43,37 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         super(context, workerParams);
     }
 
+    //Get Pushed Entity IDs
+    public long[] getPushedEntityMetadata(){
+        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        return pushedEntityId;
+    }
+
+    //Get Pushed Entity IDs
+    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityId){
+        long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
+        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityId);
+        return unpushedVisitEntityId;
+    }
+
+
+
     @Override
     @NonNull
     public Result doWork() {
 
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
+        Long[] unpushedVisitEntityId= getUnpushedVisitEntityId(getPushedEntityMetadata());
+
+
 
         List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
 
-            if (patientVisits.size() > 0)
-                restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
-                        .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                        .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+        if (patientVisits.size() > 0)
+            restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
+                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
 
         if(mResult.equals(Result.success()))
             onTaskCompleted();
@@ -83,94 +98,131 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         };
     }
 
-    public List<Visit> createVisits (Long ...visitEntityId){
-            Long[] newIds= new Long[170];
-            if(visitEntityId.length<= 170)
+    public List<VisitEntity> getVisitEntities(Long[] entityIds)
+    {
+        List<VisitEntity> visitEntities = db.visitDao().getById(entityIds);
+        return  visitEntities;
+    }
+
+    //get batches of a 100 from entity IDs
+    public Long[] getBatchSizeOfHundredFromEntityIds(Long ...visitEntityId)
+    {
+        Long[] newIds= new Long[170];
+        if(visitEntityId.length<= 170)
+        {
+            //get first 100 ids
+            for(int i=0;i < visitEntityId.length;i++)
             {
-                //get first 100 ids
-                for(int i=0;i < visitEntityId.length;i++)
-                {
-                    newIds[i]=visitEntityId[i];
-                }
-
-            }else{
-                for(int i=0;i < 161;i++)
-                {
-                    newIds[i]=visitEntityId[i];
-                }
-
+                newIds[i]=visitEntityId[i];
             }
 
+        }else{
+            for(int i=0;i < 170;i++)
+            {
+                newIds[i]=visitEntityId[i];
+            }
 
-        List<VisitEntity> visitEntities = db.visitDao().getById(newIds);
+        }
+        return newIds;
+    }
 
+    public List<Long> getVisitIds(List<VisitEntity> visitEntities)
+    {
+        List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
+                .toList().blockingGet();
+        return visitIds;
+    }
+
+    public List<EncounterEntity> getEncounterEntities(List<Long> visitIds)
+    {
+
+        List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
+        return encounterEntities;
+    }
+
+    public List<Long> getEncounterIds(List<EncounterEntity> encounterEntities)
+    {
+        List<Long> encounterIds = Observable.fromIterable(encounterEntities)
+                .map(encounterEntity -> encounterEntity.getEncounterId())
+                .toList()
+                .blockingGet();
+        return encounterIds;
+    }
+
+    public List<ObsEntity> getObsEntities(List<Long> encounterIds)
+    {
+        List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+        return obsEntities;
+    }
+
+    public List<EncounterEntity> getVisitEncounter(List<EncounterEntity> encounterEntities,VisitEntity visitEntity)
+    {
+        List<EncounterEntity> visitEncounter = Observable.fromIterable(encounterEntities)
+                .filter(encounterEntity -> (encounterEntity.getVisitId().longValue() == visitEntity.getVisitId().longValue())).toList().blockingGet();
+        return visitEncounter;
+    }
+
+    public List<ObsEntity> getEncounterObs( List<ObsEntity> obsEntities,EncounterEntity encounterEntity)
+    {
+        List<ObsEntity> encounterObs = Observable.fromIterable(obsEntities)
+                .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
+                .toList()
+                .blockingGet();
+        return encounterObs;
+    }
+
+    public Obs[] getObs(List<ObsEntity> encounterObs)
+    {
+        Obs[] obs = Observable.fromIterable(encounterObs)
+                .map((this::normalizeObs))
+                .toList()
+                .blockingGet()
+                .toArray(new Obs[encounterObs.size()]);
+        return obs;
+
+    }
+
+    public Encounter[] getEncounter(List<EncounterEntity> visitEncounter, List<ObsEntity> obsEntities )
+    {
+        Encounter[] encounters = new Encounter[visitEncounter.size()];
+        int index = 0;
+        for (EncounterEntity encounterEntity : visitEncounter) {
+            if (encounterEntity == null)
+                continue;
+            Encounter encounter = normalizeEncounter(encounterEntity);
+            Obs[] obs=getObs(getEncounterObs(obsEntities,encounterEntity));
+            encounter.setObs(obs);
+            encounters[index++] = encounter;
+        }
+        return encounters;
+    }
+
+
+    public List<Visit> createVisits (Long ...visitEntityId){
+        List<VisitEntity> visitEntities = getVisitEntities(visitEntityId);
         if(visitEntities.size() > 0) {
-
-            int visitIndex = 0;
             List<Visit> visits = new ArrayList<>();
-
-            List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
-                    .toList().blockingGet();
-
-            List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
-
-            List<Long> encounterIds = Observable.fromIterable(encounterEntities)
-                    .map(encounterEntity -> encounterEntity.getEncounterId())
-                    .toList()
-                    .blockingGet();
-
-            List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
-
-
-
+            List<Long> visitIds = getVisitIds(visitEntities);
+            List<EncounterEntity> encounterEntities = getEncounterEntities(visitIds);
+            List<Long> encounterIds = getEncounterIds(encounterEntities);
+            List<ObsEntity> obsEntities = getObsEntities(encounterIds);
             for (VisitEntity visitEntity : visitEntities) {
-
                 try {
-
                     Visit.Builder visit = normalizeVisit(visitEntity);
+                    List<EncounterEntity> visitEncounter = getVisitEncounter(encounterEntities,visitEntity);
+                    visits.add(visit.setEncounters(getEncounter(visitEncounter,obsEntities)).build());
 
-                    List<EncounterEntity> visitEncounter = Observable.fromIterable(encounterEntities)
-                            .filter(encounterEntity -> (encounterEntity.getVisitId().longValue() == visitEntity.getVisitId().longValue())).toList().blockingGet();
-
-
-                    Encounter[] encounters = new Encounter[visitEncounter.size()];
-                    int index = 0;
-
-                    for (EncounterEntity encounterEntity : visitEncounter) {
-
-                        if (encounterEntity == null)
-                            continue;
-                        Encounter encounter = normalizeEncounter(encounterEntity);
-
-
-                        List<ObsEntity> encounterObs = Observable.fromIterable(obsEntities)
-                                .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
-                                .toList()
-                                .blockingGet();
-
-                        Obs[] obs = Observable.fromIterable(encounterObs)
-                                .map((this::normalizeObs))
-                                .toList()
-                                .blockingGet()
-                                .toArray(new Obs[encounterObs.size()]);
-
-
-                        encounter.setObs(obs);
-
-                        encounters[index++] = encounter;
-                    }
-
-                    visits.add(visit.setEncounters(encounters).build());
                 }
-                catch (Exception e){
 
+                catch (Exception e){
                 }
             }
-
             return visits;
         }
         return null;
     }
+
+
 
     public Obs normalizeObs(ObsEntity obsEntity){
 
