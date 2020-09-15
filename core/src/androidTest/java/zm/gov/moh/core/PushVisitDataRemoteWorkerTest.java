@@ -47,7 +47,7 @@ public class PushVisitDataRemoteWorkerTest {
         //Recreate the current issue
         // 1. Create 1001 dummy metaDataDaos then test
         // 2. Step call the query and see if the results are correct
-        // 3. Create 50000
+        // 3. Create 50000.
 
 
     }
