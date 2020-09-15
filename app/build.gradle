@@ -21,8 +21,8 @@ android {
         applicationId "zm.gov.moh.app"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 11
-        versionName "1.0.0-alpha.8"
+        versionCode 12
+        versionName "1.0.0-alpha.8.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'com.google.android.material:material:1.1.0-alpha01'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
     androidTestImplementation 'androidx.test:runner:1.1.1-beta01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-beta01'
     implementation project(':cervicalcancer')

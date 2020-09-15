@@ -51,6 +51,11 @@ public interface PersonNameDao extends Synchronizable<PersonName> {
     @Query("SELECT * FROM person_name WHERE person_id IN (:ids)")
     List<PersonName> findByPersonId(Set<Long> ids);
 
+    // @Query("SELECT * FROM person_name WHERE person_id IN (:ids)") does not work well because IN
+    // clause is limited when dealing with very big numbers.
+    @Query("SELECT * FROM person_name WHERE EXISTS (SELECT DISTINCT(patient_id) FROM patient_identifier WHERE location_id = :locationId AND patient_id = person_id)")
+    List<PersonName> findByPersonId2(long locationId);
+
     @Query("UPDATE person_name SET person_id = :remote WHERE person_id = :local")
     void replacePerson(long local, long remote);
 

@@ -14,7 +14,7 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 @Dao
 public interface EntityMetadataDao {
 
-    @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus")
+    @Query("SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus LIMIT 100")
     long[] findEntityIdByTypeRemoteStatus(int entityTypeId, short remoteStatus);
 
     @Query("SELECT entity_id FROM entity_metadata WHERE remote_status_code = :remoteStatus")
