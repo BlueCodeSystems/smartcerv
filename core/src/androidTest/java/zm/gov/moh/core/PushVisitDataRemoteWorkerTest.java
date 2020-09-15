@@ -3,9 +3,13 @@ package zm.gov.moh.core;
 import android.content.Context;
 import android.content.Intent;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -28,194 +32,52 @@ import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
+import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
 import zm.gov.moh.core.service.worker.RemoteWorker;
 
 import static com.bumptech.glide.load.model.stream.HttpGlideUrlLoader.TIMEOUT;
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PushVisitDataRemoteWorkerTest {
 
-    /*public PushVisitDataRemoteWorkerTest(@NonNull Context context, @NonNull WorkerParameters workerParams) {
-        super(context, workerParams);
-    }*/
+    @Mock
+    VisitDao visitDaoMock;
+
+    @Mock
+    EntityMetadataDao entityMetadataDaoMock;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     public void queryPushedMetaDataTest(){
-        //Recreate the current issue
-        // 1. Create 1001 dummy metaDataDaos then test
-        // 2. Step call the query and see if the results are correct
-        // 3. Create 50000.
 
+        // create mock
+        PushVisitDataRemoteWorker test  = mock(PushVisitDataRemoteWorker.class);
+        long[] checkResult = test.getPushedEntityMetadata();
+        assertTrue(checkResult);
+        verify(test.getPushedEntityMetadata());
+        /*TODO define return value for method getUniqueId()
+       /*TODO when(test.getPushedEntityMetadata()).thenReturn(long[] 43);
+         /* TODO use mock in test....
+       /* TODO assertEquals(test.getPushedEntityMetadata(), 43);*/
 
+        /*TODO Recreate the current issue
+        /*TODO  1. Create 1001 dummy metaDataDaos then test
+        /*TODO 2. Step call the query and see if the results are correct
+        /*TODO  3. Create 50000.*/
     }
 
-    public void queryPushedMetaDataTestWithSomeUnpushed(){
-        //Recreate the current issue
-        // 1. Create 1001 dummy metaDataDaos then test
-        // 2. Step call the query and see if the results are correct
-        // 3. Create 50000
+    private void assertTrue(long[] check) {
     }
 
-    public void  getUnpushedVisitEntityIDsTest(){
-        //Generate a long[] containing 50000 ids that SHOULD not be found
-    }
-
-
-
-    public void createVisitsTest(){
-        //create dummy visits
-        //pass the ids of those dummy visits to createvisits and see if it returns the same visits
-    }
-
-    @Test
-    public void doWork() {
-
-
-    }
-
-
-
-    @Test
-    public void onError() {
-    }
-
-    @Test
-    public void updateMetadata() {
-    }
-
-    @Test
-    public void onTaskCompleted() {
-        //repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
-        //mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
-    }
-
-
-
-
-
-    /*@Test
-    public void awaitResult() {
-    }
-
-    @Test
-    public void testDoWork() {
-    }
-
-    @Test
-    public void setRepository() {
-    }
-
-    @Test
-    public void getRepository() {
-    }
-
-    @Test
-    public void testOnError() {
-    }*/
-
-   /* @Test
-    public void startWork() {
-    }
-
-    @Test
-    public void getApplicationContext() {
-    }
-
-    @Test
-    public void getId() {
-    }
-
-    @Test
-    public void getInputData() {
-    }
-
-    @Test
-    public void getTags() {
-    }
-
-    @Test
-    public void getTriggeredContentUris() {
-    }
-
-    @Test
-    public void getTriggeredContentAuthorities() {
-    }
-
-    @Test
-    public void getNetwork() {
-    }
-
-    @Test
-    public void getRunAttemptCount() {
-    }
-
-    @Test
-    public void isStopped() {
-    }
-
-    @Test
-    public void stop() {
-    }
-
-    @Test
-    public void onStopped() {
-    }
-
-    @Test
-    public void isUsed() {
-    }
-
-    @Test
-    public void setUsed() {
-    }*/
-
-    @Test
-    public Executor getBackgroundExecutor() {
-        return null;
-    }
-
-    @Test
-    public TaskExecutor getTaskExecutor() {
-        return null;
-    }
-
-    @Test
-    public WorkerFactory getWorkerFactory() {
-        return null;
-    }
-
-    @Test
-    public void testDoWork1() {
-    }
-
-    @Test
-    public void testOnTaskCompleted() {
-    }
-
-    @Test
-    public void onComplete() {
-    }
-
-    @Test
-    public List<Visit> createVisits(Long[] unpushedVisitEntityId) {
-        int visitIndex = 0;
-        List<Visit> visits = new ArrayList<>();
-        return visits;
-    }
-
-    @Test
-    public void normalizeObs() {
-    }
-
-    @Test
-    public void normalizeVisit() {
-    }
-
-    @Test
-    public void normalizeEncounter() {
-    }
-}
+   }
