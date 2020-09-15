@@ -44,6 +44,11 @@ dependencies {
     api 'androidx.legacy:legacy-support-core-utils:1.0.0'
     api 'com.google.android.material:material:1.1.0-alpha01'
     testImplementation 'junit:junit:4.12'
+    // required if you want to use Mockito for unit tests
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
+
     androidTestImplementation 'androidx.test:runner:1.1.1-beta01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1-beta01'
 

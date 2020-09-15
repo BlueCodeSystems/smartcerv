@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -36,7 +37,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertThat;
 
-@RunWith(AndroidJUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class PushVisitDataRemoteWorkerTest {
 
     /*public PushVisitDataRemoteWorkerTest(@NonNull Context context, @NonNull WorkerParameters workerParams) {
