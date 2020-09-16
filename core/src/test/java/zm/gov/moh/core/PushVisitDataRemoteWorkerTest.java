@@ -1,158 +1,71 @@
 package zm.gov.moh.core;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneOffset;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoRule;
 
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import androidx.work.ListenableWorker;
-import zm.gov.moh.core.Constant;
-import zm.gov.moh.core.model.Visit;
+import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
+import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
+import zm.gov.moh.core.service.worker.RemoteWorker;
 
-import static com.bumptech.glide.load.model.stream.HttpGlideUrlLoader.TIMEOUT;
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 
+//@RunWith(MockitoJUnitRunner.class)
 public class PushVisitDataRemoteWorkerTest {
 
-    @Test
-    public void doWork() {
-        {
-            assertEquals(4, 2 + 2);
+    @Mock
+    VisitDao visitDaoMock;
 
-        }
+    @Mock
+    EntityMetadataDao entityMetadataDaoMock;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    public PushVisitDataRemoteWorkerTest(EntityMetadataDao entityMetadataDaoMock) {
     }
 
+    /*@Test
+    public long[] queryPushedMetaDataTester(String s){
+        PushVisitDataRemoteWorkerTest t  = new PushVisitDataRemoteWorkerTest(entityMetadataDaoMock);
+        long[] check = t.queryPushedMetaDataTester("* from visit");
+        assertTrue(check);
+        verify(entityMetadataDaoMock).findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode());
+
+        return check;
+    }*/
 
     @Test
-    public void onError() {
+    public void queryPushedMetaDataTest() {
+
+        // create mock
+        PushVisitDataRemoteWorker test = mock(PushVisitDataRemoteWorker.class);
+        long[] checkResult = test.getPushedEntityMetadata();
+        assertTrue(checkResult);
+        verify(test.getPushedEntityMetadata());
+    }
+    private void assertTrue(long[] check) {
     }
 
-    @Test
-    public void updateMetadata() {
-    }
-
-    @Test
-    public void onTaskCompleted() {
-    }
-
-    @Test
-    public void awaitResult() {
-    }
-
-    @Test
-    public void testDoWork() {
-    }
-
-    @Test
-    public void setRepository() {
-    }
-
-    @Test
-    public void getRepository() {
-    }
-
-    @Test
-    public void testOnError() {
-    }
-
-    @Test
-    public void startWork() {
-    }
-
-    @Test
-    public void getApplicationContext() {
-    }
-
-    @Test
-    public void getId() {
-    }
-
-    @Test
-    public void getInputData() {
-    }
-
-    @Test
-    public void getTags() {
-    }
-
-    @Test
-    public void getTriggeredContentUris() {
-    }
-
-    @Test
-    public void getTriggeredContentAuthorities() {
-    }
-
-    @Test
-    public void getNetwork() {
-    }
-
-    @Test
-    public void getRunAttemptCount() {
-    }
-
-    @Test
-    public void isStopped() {
-    }
-
-    @Test
-    public void stop() {
-    }
-
-    @Test
-    public void onStopped() {
-    }
-
-    @Test
-    public void isUsed() {
-    }
-
-    @Test
-    public void setUsed() {
-    }
-
-    @Test
-    public void getBackgroundExecutor() {
-    }
-
-    @Test
-    public void getTaskExecutor() {
-    }
-
-    @Test
-    public void getWorkerFactory() {
-    }
-
-    @Test
-    public void testDoWork1() {
-    }
-
-    @Test
-    public void testOnTaskCompleted() {
-    }
-
-    @Test
-    public void onComplete() {
-    }
-
-    @Test
-    public void createVisits() {
-    }
-
-    @Test
-    public void normalizeObs() {
-    }
-
-    @Test
-    public void normalizeVisit() {
-    }
-
-    @Test
-    public void normalizeEncounter() {
-    }
 }
+        /*TODO define return value for method getUniqueId()
+       /*TODO when(test.getPushedEntityMetadata()).thenReturn(long[] 43);
+         /* TODO use mock in test....
+       /* TODO assertEquals(test.getPushedEntityMetadata(), 43);*/
+
+        /*TODO Recreate the current issue
+        /*TODO  1. Create 1001 dummy metaDataDaos then test
+        /*TODO 2. Step call the query and see if the results are correct
+        /*TODO  3. Create 50000.*/
+
+

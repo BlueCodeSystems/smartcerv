@@ -74,7 +74,7 @@ public class SettingsViewModel extends BaseAndroidViewModel {
         return preferencesStream;
     }
 
-    /* TODO : Gracefully handle sync method to be handled by a single class for checking and filtering data to be pushed*/
+    /* TODO : Gracefully handle sync method to be handled by a single class for checking and filtering data to be synchronized*/
     public boolean isSynchronizationComplete(){
 
         final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;

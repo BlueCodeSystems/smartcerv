@@ -7,7 +7,6 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -21,21 +20,14 @@ import zm.gov.moh.core.model.Encounter;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Obs;
-import zm.gov.moh.core.model.Patient;
-import zm.gov.moh.core.model.PatientIdentifier;
-import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
-import zm.gov.moh.core.repository.database.entity.domain.Person;
-import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.ServiceManager;
 
 public class PushVisitDataRemoteWorker extends RemoteWorker {
 
@@ -45,14 +37,14 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     //Get Pushed Entity IDs
     public long[] getPushedEntityMetadata(){
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        return pushedEntityId;
+        long[] pushedEntityIds = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        return pushedEntityIds;
     }
 
     //Get Pushed Entity IDs
-    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityId){
+    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIds){
         long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityId);
+        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityIds);
         return unpushedVisitEntityId;
     }
 
@@ -102,28 +94,6 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     {
         List<VisitEntity> visitEntities = db.visitDao().getById(entityIds);
         return  visitEntities;
-    }
-
-    //get batches of a 100 from entity IDs
-    public Long[] getBatchSizeOfHundredFromEntityIds(Long ...visitEntityId)
-    {
-        Long[] newIds= new Long[170];
-        if(visitEntityId.length<= 170)
-        {
-            //get first 100 ids
-            for(int i=0;i < visitEntityId.length;i++)
-            {
-                newIds[i]=visitEntityId[i];
-            }
-
-        }else{
-            for(int i=0;i < 170;i++)
-            {
-                newIds[i]=visitEntityId[i];
-            }
-
-        }
-        return newIds;
     }
 
     public List<Long> getVisitIds(List<VisitEntity> visitEntities)
@@ -198,8 +168,8 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     }
 
 
-    public List<Visit> createVisits (Long ...visitEntityId){
-        List<VisitEntity> visitEntities = getVisitEntities(visitEntityId);
+    public List<Visit> createVisits (Long ... visitEntityIds){
+        List<VisitEntity> visitEntities = getVisitEntities(visitEntityIds);
         if(visitEntities.size() > 0) {
             List<Visit> visits = new ArrayList<>();
             List<Long> visitIds = getVisitIds(visitEntities);
