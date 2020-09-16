@@ -59,6 +59,7 @@ public class PushVisitDataRemoteWorkerTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
+    @Test
     public void queryPushedMetaDataTest(){
 
         // create mock
