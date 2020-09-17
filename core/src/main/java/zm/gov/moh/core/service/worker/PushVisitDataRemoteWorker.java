@@ -37,15 +37,15 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     //Get Pushed Entity IDs
     public long[] getPushedEntityMetadata(){
-        long[] pushedEntityIds = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        return pushedEntityIds;
+        long[] pushedEntityIDs = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        return pushedEntityIDs;
     }
 
     //Get Pushed Entity IDs
-    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIds){
+    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIDs){
         long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityIds);
-        return unpushedVisitEntityId;
+        Long[] unpushedVisitEntityID = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityIDs);
+        return unpushedVisitEntityID;
     }
 
 
@@ -56,16 +56,16 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        Long[] unpushedVisitEntityId= getUnpushedVisitEntityId(getPushedEntityMetadata());
+        Long[] unpushedVisitEntityID = getUnpushedVisitEntityId(getPushedEntityMetadata());
 
 
 
-        List<Visit> patientVisits = createVisits(unpushedVisitEntityId);
+        List<Visit> patientVisits = createVisits(unpushedVisitEntityID);
 
         if (patientVisits.size() > 0)
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                     .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(unpushedVisitEntityId, EntityType.VISIT.getId()), this::onError);
+                    .subscribe(onComplete(unpushedVisitEntityID, EntityType.VISIT.getId()), this::onError);
 
         if(mResult.equals(Result.success()))
             onTaskCompleted();
