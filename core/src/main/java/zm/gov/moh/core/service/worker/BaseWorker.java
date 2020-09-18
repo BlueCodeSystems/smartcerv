@@ -24,7 +24,7 @@ public abstract class BaseWorker extends Worker implements InjectableViewModel {
     protected Bundle mBundle;
     protected LocalBroadcastManager mLocalBroadcastManager;
     protected Repository repository;
-    protected Database db;
+    public Database db;
     protected Result mResult = Result.success();
 
     public BaseWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
