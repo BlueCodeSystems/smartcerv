@@ -3,13 +3,13 @@ package zm.gov.moh.core;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import zm.gov.moh.core.model.Encounter;
 import zm.gov.moh.core.model.Obs;
+import zm.gov.moh.core.model.Patient;
 import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
@@ -50,7 +50,8 @@ public class PushVisitDataRemoteWorkerTest {
     private List<Visit> visitList;
     @Mock
     private ObsEntity obsEntity;
-
+    private Object PrintAttributes;
+    private Visit visit;
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
@@ -176,6 +177,22 @@ public class PushVisitDataRemoteWorkerTest {
         when(pushVisitDataRemoteWorker.normalizeEncounter(encounterEntity)).thenReturn(new Encounter());
         pushVisitDataRemoteWorker.normalizeEncounter(encounterEntity);
         System.out.print("normalizedEncounter was successfully tested");
+    }
+
+    @Test
+    public void visitSessionScenario(){
+        Patient patient = new Patient();
+        visitEntity.setPatientId(10000L);
+        visitEntity.setPatientId(20000L);
+
+        VisitEntity visitEntity = mock(VisitEntity.class);
+        //when(visitEntity.).thenReturn();
+
+        Patient patient1 = new Patient();
+        visitEntity.setVisitId(1L);
+
+        Long VisitID = visitEntity.getVisitId();
+        assertEquals("Retrieved Visit ID",VisitID);
     }
 
 }
