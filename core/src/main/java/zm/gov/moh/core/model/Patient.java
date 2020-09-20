@@ -25,6 +25,8 @@ public class Patient {
     private short voided;
 
 
+
+
     public void setPerson(Person person){
         this.gender = person.getGender();
         this.birthdate = person.getBirthDate();

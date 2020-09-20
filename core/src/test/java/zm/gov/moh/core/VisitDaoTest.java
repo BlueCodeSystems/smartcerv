@@ -2,68 +2,77 @@ package zm.gov.moh.core;
 
 import android.content.Context;
 
-import java.sql.Connection;
-import java.sql.Statement;
-
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
-import androidx.annotation.NonNull;
-import androidx.work.WorkerParameters;
+import java.util.Arrays;
+import java.util.List;
+
 import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
-import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
-import zm.gov.moh.core.service.worker.RemoteWorker;
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-
-
 
 public class VisitDaoTest {
 
-    //VisitDao visitDao=mock(VisitDao.class);
 
     @Mock
     private long[] id;
-
-    @Mock
-    //private Long offset;
-    long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-
-    @Mock
+    private long offset;
     private Long[] longEntitiesWithoutIDs;
 
-    @Mock
+
+    @InjectMocks
     private Database db;
 
-    @Spy
+    @Mock
     private VisitDao visitDao;
+
+    @Rule public MockitoRule rule = MockitoJUnit.rule();
+
+    @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-
-        long[] pushedEntityIDs = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode());
-        long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-
-
     }
-
-
 
     @Test
+    public void getAllTest() {
+        zm.gov.moh.core.repository.database.dao.domain.VisitDao mockVisitDAO = visitDao;
+        List allVisits = mockVisitDAO.getAll();
+        assertNotNull(allVisits);
+        assertEquals(2, allVisits.size());
+    }
+
+    @Test
+    public void getUnpushedVisitEntityId() {
+    }
+
+    @Test
+        public void test() {
+        Mockito.verify(visitDao).findEntityNotWithId(1L);
+        }
+
+        @Test
     public void findEntityNotWithIDTest() {
-       when(db.visitDao().findEntityNotWithId( Constant.LOCAL_ENTITY_ID_OFFSET, db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode()))).thenReturn(longEntitiesWithoutIDs);
-        visitDao.findEntityNotWithId(Constant.LOCAL_ENTITY_ID_OFFSET, db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode()));
-        when(visitDao.getMaxId()).thenReturn(offset);
-        visitDao.getMaxId();
+        when(visitDao.findEntityNotWithId(offset, id)).thenReturn(longEntitiesWithoutIDs);
+        visitDao.findEntityNotWithId(offset, id);
         System.out.print("EntityWithoutID was tested successfully");
     }
+
 }
 
