@@ -8,6 +8,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import zm.gov.moh.core.model.Visit;
 
 @Entity(tableName = "entity_metadata")
 public class EntityMetadata {
@@ -89,5 +90,8 @@ public class EntityMetadata {
         this.entityTypeId = entityTypeId;
         this.remoteStatusCode = remoteStatusCode;
         this.lastModified = lastModified;
+    }
+
+    public void persist(Visit any) {
     }
 }

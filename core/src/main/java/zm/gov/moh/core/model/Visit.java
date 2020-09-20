@@ -2,6 +2,8 @@ package zm.gov.moh.core.model;
 
 import org.threeten.bp.LocalDateTime;
 
+import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+
 public class Visit {
 
     private String patient;
@@ -10,6 +12,7 @@ public class Visit {
     private LocalDateTime stopDatetime;
     private Encounter[] encounters;
     private String location;
+    private long id;
 
     public String getPatient() {
         return patient;
@@ -57,6 +60,13 @@ public class Visit {
 
     public String getLocation() {
         return location;
+    }
+
+    public void setVisitEntity(VisitEntity visitEntity) {
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public static class Builder{

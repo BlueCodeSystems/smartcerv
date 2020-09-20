@@ -1,7 +1,6 @@
 package zm.gov.moh.core;
 
 import android.content.Context;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,67 +11,79 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import org.mockito.stubbing.Answer;
+import org.threeten.bp.LocalDateTime;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
+import androidx.lifecycle.LiveData;
+import zm.gov.moh.core.model.Encounter;
+import zm.gov.moh.core.model.Patient;
 import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
-
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class VisitDaoTest {
 
+    // Class to be tested
+    private VisitDaoTester visitDaoTester;
 
-    @Mock
-    private long[] id;
-    private long offset;
-    private Long[] longEntitiesWithoutIDs;
-
-
-    @InjectMocks
-    private Database db;
-
-    @Mock
-    private VisitDao visitDao;
-
-    @Rule public MockitoRule rule = MockitoJUnit.rule();
+    // Dependencies (will be mocked)
+    private EntityMetadata entityMetadata;
+    private Logger logger;
 
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    public void setup() {
+        visitDaoTester = new VisitDaoTester();
+
+        entityMetadata = mock(EntityMetadata.class);
+        visitDaoTester.setEntityMetaData(entityMetadata);
+
+        logger = mock(Logger.class);
+        visitDaoTester.setLogger(logger);
     }
 
     @Test
-    public void getAllTest() {
-        zm.gov.moh.core.repository.database.dao.domain.VisitDao mockVisitDAO = visitDao;
-        List allVisits = mockVisitDAO.getAll();
-        assertNotNull(allVisits);
-        assertEquals(2, allVisits.size());
+    public void visitSession() {
+        doAnswer(new Answer<Void>() {
+            public Void answer(InvocationOnMock invocation) {
+                Visit visit = invocation.getArgument(0);
+                visit.setId(123L);
+                return null;
+            }
+        }).when(entityMetadata).persist(any(Visit.class));
+
+        visitDaoTester.saveVisit("Initial VIA", "Post-Delayed Cryotherapy");
+
+        verify(logger).info(String.valueOf(123L));
     }
 
-    @Test
-    public void getUnpushedVisitEntityId() {
+    @Test(expected = IllegalArgumentException.class)
+
+    public void missingInformation() {
+        visitDaoTester.saveVisit("Initial VIA", null);
     }
 
-    @Test
-        public void test() {
-        Mockito.verify(visitDao).findEntityNotWithId(1L);
+    private class VisitDaoTester {
+        public void setEntityMetaData(EntityMetadata entityMetadata) {
         }
 
-        @Test
-    public void findEntityNotWithIDTest() {
-        when(visitDao.findEntityNotWithId(offset, id)).thenReturn(longEntitiesWithoutIDs);
-        visitDao.findEntityNotWithId(offset, id);
-        System.out.print("EntityWithoutID was tested successfully");
-    }
+        public void setLogger(Logger logger) {
+        }
 
+        public void saveVisit(String initial_via, String s) {
+        }
+    }
 }
 
