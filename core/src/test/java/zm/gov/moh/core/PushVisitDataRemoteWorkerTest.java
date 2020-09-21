@@ -180,19 +180,14 @@ public class PushVisitDataRemoteWorkerTest {
     }
 
     @Test
-    public void visitSessionScenario(){
-        Patient patient = new Patient();
-        visitEntity.setPatientId(10000L);
-        visitEntity.setPatientId(20000L);
-
+    public void patientVisitIDTest(){
         VisitEntity visitEntity = mock(VisitEntity.class);
-        //when(visitEntity.).thenReturn();
-
-        Patient patient1 = new Patient();
-        visitEntity.setVisitId(1L);
-
-        Long VisitID = visitEntity.getVisitId();
-        assertEquals("Retrieved Visit ID",VisitID);
+        visitEntity.setPatientId(10000L);
+       // visitEntity.setPatientId(20000L);
+        when(visitEntity.getId()).thenReturn(10000L);
+        visitEntity.getId();
+        assertEquals(10000L,visitEntity.getId());
+        System.out.print("Test for Patient Visit ID was successfully tested");
     }
 
 }
