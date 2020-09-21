@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 public class PushVisitDataRemoteWorkerTest {
 
-    PushVisitDataRemoteWorker pushVisitDataRemoteWorker=mock(PushVisitDataRemoteWorker.class);
+    private PushVisitDataRemoteWorker pushVisitDataRemoteWorker=mock(PushVisitDataRemoteWorker.class);
 
     @Mock
     private ArrayList<VisitEntity> visitEntities;
@@ -189,6 +189,7 @@ public class PushVisitDataRemoteWorkerTest {
         assertEquals(10000L,visitEntity.getId());
         System.out.print("Test for Patient Visit ID was successfully tested");
     }
+
 
 }
 
