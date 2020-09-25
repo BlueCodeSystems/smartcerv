@@ -36,19 +36,17 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     }
 
     //Get Pushed Entity IDs
-    public long[] getPushedEntityMetadata(){
+    public static long[] getPushedEntityMetadata(){
         long[] pushedEntityIDs = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
         return pushedEntityIDs;
     }
 
     //Get Pushed Entity IDs
-    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIDs){
+    public static Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIDs){
         long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         Long[] unpushedVisitEntityID = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityIDs);
         return unpushedVisitEntityID;
     }
-
-
 
     @Override
     @NonNull
@@ -57,8 +55,6 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         Long[] unpushedVisitEntityID = getUnpushedVisitEntityId(getPushedEntityMetadata());
-
-
 
         List<Visit> patientVisits = createVisits(unpushedVisitEntityID);
 

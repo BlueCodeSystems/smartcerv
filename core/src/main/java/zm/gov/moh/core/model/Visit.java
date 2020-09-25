@@ -2,6 +2,9 @@ package zm.gov.moh.core.model;
 
 import org.threeten.bp.LocalDateTime;
 
+import javax.inject.Inject;
+
+import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 
 public class Visit {

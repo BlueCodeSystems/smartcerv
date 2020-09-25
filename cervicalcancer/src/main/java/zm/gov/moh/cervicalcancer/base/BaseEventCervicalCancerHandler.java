@@ -39,7 +39,7 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
 
     public Consumer<Long> updateEntity(Database db){
 
-       return (Long entityId) -> {
+        return (Long entityId) -> {
 
             PatientIdentifierEntity patientIdentifierEntity =  db.patientIdentifierDao().getPatientIDByIdentifierType(entityId, OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
 
@@ -85,7 +85,7 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             }catch (Exception e){
 
             }
-    }else if (menuItem.getItemId() == zm.gov.moh.common.R.id.delete_action) {
+        }else if (menuItem.getItemId() == zm.gov.moh.common.R.id.delete_action) {
             BaseActivity activity = (BaseActivity) context;
             mBundle = ((BaseActivity) this.context).getIntent().getExtras();
             final long patientId = mBundle.getLong(Key.PERSON_ID);
@@ -115,4 +115,4 @@ public class BaseEventCervicalCancerHandler extends BaseEventHandler {
             builder.create();
             builder.show();
         }
-}}
+    }}

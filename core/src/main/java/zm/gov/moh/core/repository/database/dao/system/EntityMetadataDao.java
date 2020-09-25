@@ -37,4 +37,9 @@ public interface EntityMetadataDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(EntityMetadata... entityMetadata);
+
+    @Query("SELECT * FROM entity_metadata")
+    default Object insert1(EntityMetadata[] entityMetadata) {
+        return entityMetadata;
+    }
 }

@@ -54,6 +54,8 @@ public class PushVisitDataRemoteWorkerTest {
     private Visit visit;
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+
+
     }
 
     @Test

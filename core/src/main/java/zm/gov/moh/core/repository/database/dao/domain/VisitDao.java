@@ -4,15 +4,17 @@ import org.threeten.bp.LocalDateTime;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
 
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
 @Dao
 public interface VisitDao extends Synchronizable<Long> {
-
 
     @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM visit WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")
     LocalDateTime getMaxDatetime(long locationId);
@@ -66,6 +68,9 @@ public interface VisitDao extends Synchronizable<Long> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(VisitEntity... visits);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert1(EntityMetadata... visits);
 
     @Update
     void updateVisit(VisitEntity visit);

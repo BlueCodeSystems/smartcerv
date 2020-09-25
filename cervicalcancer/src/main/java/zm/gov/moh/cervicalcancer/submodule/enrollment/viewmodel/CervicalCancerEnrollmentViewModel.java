@@ -69,34 +69,34 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
 
         PatientIdentifierEntity patientIdentifier =  db.patientIdentifierDao().getByLocationType(personId,locationId, OpenmrsConfig.IDENTIFIER_TYPE_CCPIZ_UUID);
 
-            if(patientIdentifier == null) {
+        if(patientIdentifier == null) {
 
 
-                //Create database entity instances
+            //Create database entity instances
 
-                //patient id CCPIZ
-                patientIdentifier = new PatientIdentifierEntity(patientIdentifierIdccpiz, personId,
-                        identifier,
-                        CERVICAL_CANCER_ID_TYPE, preffered(),
-                        locationId, LocalDateTime.now());
-            }else {
+            //patient id CCPIZ
+            patientIdentifier = new PatientIdentifierEntity(patientIdentifierIdccpiz, personId,
+                    identifier,
+                    CERVICAL_CANCER_ID_TYPE, preffered(),
+                    locationId, LocalDateTime.now());
+        }else {
 
-                //Void previous identifier
-                //patientIdentifier.setVoided((short)1);
-                //getRepository().getDatabase().patientIdentifierDao().insert(patientIdentifier);
+            //Void previous identifier
+            //patientIdentifier.setVoided((short)1);
+            //getRepository().getDatabase().patientIdentifierDao().insert(patientIdentifier);
 
-                //Mutate previous identifier instance and insert it with a new PK
-                //patientIdentifier.setVoided((short)0);
-                patientIdentifier.setIdentifier(identifier);
-                patientIdentifier.setDateCreated(LocalDateTime.now());
-                patientIdentifier.setDateChanged(LocalDateTime.now());
-                //patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
-            }
+            //Mutate previous identifier instance and insert it with a new PK
+            //patientIdentifier.setVoided((short)0);
+            patientIdentifier.setIdentifier(identifier);
+            patientIdentifier.setDateCreated(LocalDateTime.now());
+            patientIdentifier.setDateChanged(LocalDateTime.now());
+            //patientIdentifier.setPatientIdentifierId(patientIdentifierIdccpiz);
+        }
 
-            //persist database entity instances asynchronously into the database
-            ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert, this::onError, patientIdentifier);
-            if(action != null && action.equals(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT))
-                getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT);
+        //persist database entity instances asynchronously into the database
+        ConcurrencyUtils.consumeAsync(getRepository().getDatabase().patientIdentifierDao()::insert, this::onError, patientIdentifier);
+        if(action != null && action.equals(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT))
+            getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.ENROLL_PATIENT);
 
     }
 
@@ -113,7 +113,7 @@ public class CervicalCancerEnrollmentViewModel extends BaseAndroidViewModel {
         getActionEmitter().postValue(CervicalCancerEnrollmentActivity.Action.EDIT_PATIENT);
 
         if(patientId == null)
-             return;
+            return;
 
         EntityMetadata entityMetadata = db.entityMetadataDao().findEntityById(patientId);
         if(entityMetadata == null)
