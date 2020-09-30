@@ -36,16 +36,14 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     }
 
     //Get Pushed Entity IDs
-    public static long[] getPushedEntityMetadata(){
-        long[] pushedEntityIDs = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
-        return pushedEntityIDs;
+    private  long[] getPushedEntityMetadata(){
+        return db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
     }
 
     //Get Pushed Entity IDs
-    public static Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIDs){
+    private  Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityIDs){
         long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        Long[] unpushedVisitEntityID = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityIDs);
-        return unpushedVisitEntityID;
+        return db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityIDs);
     }
 
     @Override
@@ -74,7 +72,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
     }
 
-    public Consumer<Response[]> onComplete(Long[] entityIds, int entityTypeId){
+    private Consumer<Response[]> onComplete(Long[] entityIds, int entityTypeId){
 
         return param -> {
 
@@ -86,58 +84,51 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         };
     }
 
-    public List<VisitEntity> getVisitEntities(Long[] entityIds)
+    private List<VisitEntity> getVisitEntities(Long[] entityIds)
     {
-        List<VisitEntity> visitEntities = db.visitDao().getById(entityIds);
-        return  visitEntities;
+        return db.visitDao().getById(entityIds);
     }
 
-    public List<Long> getVisitIds(List<VisitEntity> visitEntities)
+    private List<Long> getVisitIds(List<VisitEntity> visitEntities)
     {
-        List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
+        return Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
                 .toList().blockingGet();
-        return visitIds;
     }
 
-    public List<EncounterEntity> getEncounterEntities(List<Long> visitIds)
+    private List<EncounterEntity> getEncounterEntities(List<Long> visitIds)
     {
 
-        List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
-        return encounterEntities;
+        return db.encounterDao().getByVisitId(visitIds);
     }
 
-    public List<Long> getEncounterIds(List<EncounterEntity> encounterEntities)
+    private List<Long> getEncounterIds(List<EncounterEntity> encounterEntities)
     {
-        List<Long> encounterIds = Observable.fromIterable(encounterEntities)
+        return Observable.fromIterable(encounterEntities)
                 .map(encounterEntity -> encounterEntity.getEncounterId())
                 .toList()
                 .blockingGet();
-        return encounterIds;
     }
 
-    public List<ObsEntity> getObsEntities(List<Long> encounterIds)
+    private List<ObsEntity> getObsEntities(List<Long> encounterIds)
     {
-        List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
-        return obsEntities;
+        return db.obsDao().getObsByEncounterId(encounterIds);
     }
 
-    public List<EncounterEntity> getVisitEncounter(List<EncounterEntity> encounterEntities,VisitEntity visitEntity)
+    private List<EncounterEntity> getVisitEncounter(List<EncounterEntity> encounterEntities, VisitEntity visitEntity)
     {
-        List<EncounterEntity> visitEncounter = Observable.fromIterable(encounterEntities)
+        return Observable.fromIterable(encounterEntities)
                 .filter(encounterEntity -> (encounterEntity.getVisitId().longValue() == visitEntity.getVisitId().longValue())).toList().blockingGet();
-        return visitEncounter;
     }
 
-    public List<ObsEntity> getEncounterObs( List<ObsEntity> obsEntities,EncounterEntity encounterEntity)
+    private List<ObsEntity> getEncounterObs(List<ObsEntity> obsEntities, EncounterEntity encounterEntity)
     {
-        List<ObsEntity> encounterObs = Observable.fromIterable(obsEntities)
+        return Observable.fromIterable(obsEntities)
                 .filter(obsEntity -> (obsEntity.getEncounterId() == encounterEntity.getEncounterId()))
                 .toList()
                 .blockingGet();
-        return encounterObs;
     }
 
-    public Obs[] getObs(List<ObsEntity> encounterObs)
+    private Obs[] getObs(List<ObsEntity> encounterObs)
     {
         Obs[] obs = Observable.fromIterable(encounterObs)
                 .map((this::normalizeObs))
@@ -148,7 +139,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     }
 
-    public Encounter[] getEncounter(List<EncounterEntity> visitEncounter, List<ObsEntity> obsEntities )
+    private Encounter[] getEncounter(List<EncounterEntity> visitEncounter, List<ObsEntity> obsEntities)
     {
         Encounter[] encounters = new Encounter[visitEncounter.size()];
         int index = 0;
@@ -164,7 +155,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
     }
 
 
-    public List<Visit> createVisits (Long ... visitEntityIds){
+    private List<Visit> createVisits(Long... visitEntityIds){
         List<VisitEntity> visitEntities = getVisitEntities(visitEntityIds);
         if(visitEntities.size() > 0) {
             List<Visit> visits = new ArrayList<>();
@@ -190,7 +181,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
 
 
-    public Obs normalizeObs(ObsEntity obsEntity){
+    private Obs normalizeObs(ObsEntity obsEntity){
 
         Obs obs = new Obs();
         String concept = db.conceptDao().getConceptUuidById(obsEntity.getConceptId());
@@ -216,7 +207,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         return obs;
     }
 
-    public Visit.Builder normalizeVisit(VisitEntity visitEntity) throws Exception {
+    private Visit.Builder normalizeVisit(VisitEntity visitEntity) throws Exception {
 
         Visit.Builder visit = new  Visit.Builder();
         String visitType = db.visitTypeDao().getUuidVisitTypeById(visitEntity.getVisitTypeId());
@@ -237,7 +228,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         return visit;
     }
 
-    public Encounter normalizeEncounter(EncounterEntity encounterEntity){
+    private Encounter normalizeEncounter(EncounterEntity encounterEntity){
 
         Encounter encounter = new Encounter();
 
