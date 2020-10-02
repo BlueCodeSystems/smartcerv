@@ -35,12 +35,9 @@ public class EntityDBTest extends Application {
     public Context ApplicationProvider;
     VisitDaoMock visitDaoMock;
     VisitEntityMock visitEntityMock;
-    private static final String TEST_DATABASE = "mcare";
 
     @Before
     public void createDb() {
-        //Context context = ApplicationProvider.getApplicationContext();
-       // Context context = getApplicationContext();
         database = Room.inMemoryDatabaseBuilder(this, Database.class).build();
         visitDaoMock=database.visitDaoMock();
         AndroidThreeTen.init(this);
@@ -54,12 +51,7 @@ public class EntityDBTest extends Application {
 
     @Test
     public void writeUserAndReadInList() throws Exception {
-       /* UserMock userMock = TestUtil.createUser(3);
-        userMock.setName("george");
-        userDaoMock.insert(userMock);
-        List<UserMock> byName = userDaoMock.findUsersByName("george");
-        assertThat(byName.get(0), (Predicate<UserMock>) equalTo(userMock));
-    */
+
         VisitEntityMock[] entities = {visitEntityMock};
        database.visitDaoMock().insert(entities);
         List<Long> ids =visitDaoMock.getIds();
@@ -76,7 +68,3 @@ public class EntityDBTest extends Application {
     }
 }
 
-        /*userDao = db.visitDao();
-        List<Long> ids;
-        ids = userDao.getIds();
-        Assert.assertEquals(ids,userDao.getIds());*/
