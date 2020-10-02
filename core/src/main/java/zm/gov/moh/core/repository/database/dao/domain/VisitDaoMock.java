@@ -11,7 +11,6 @@ import androidx.room.Update;
 import zm.gov.moh.core.repository.database.dao.Synchronizable;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntityMock;
-import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
 @Dao
 public interface VisitDaoMock extends Synchronizable<Long> {
@@ -35,9 +34,6 @@ public interface VisitDaoMock extends Synchronizable<Long> {
     @Query("SELECT * FROM Visit WHERE visit_id = :id")
     VisitEntity getById(Long id);
 
-    @Query("SELECT * FROM Visit WHERE visit_type_id IN (:visitTypes) AND patient_id = :id AND voided != 1")
-    LiveData<List<VisitEntity>> getByPatientIdVisitTypeId(long id, long... visitTypes);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(VisitEntity... visits);
 
@@ -45,10 +41,7 @@ public interface VisitDaoMock extends Synchronizable<Long> {
     void insert(VisitEntityMock[] entities);
 
     @Update
-    void updateVisit(VisitEntity visit);
-
-    @Update
-    void updateVisit(EntityMetadata entityMetadata);
+    void updateVisit(VisitEntityMock[] entities);
 
     @Override
     @Query("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId")
