@@ -112,7 +112,7 @@ public class ConceptAnswer extends SynchronizableEntity {
         this.uuid = uuid;
     }
 
-    @Override
+    //@Override
     public LocalDateTime getDateChanged() {
         return null;
     }

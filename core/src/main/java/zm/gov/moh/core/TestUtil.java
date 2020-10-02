@@ -1,16 +1,13 @@
 package zm.gov.moh.core;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
+import zm.gov.moh.core.model.UserMock;
 import zm.gov.moh.core.repository.api.Repository;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.service.worker.BaseWorker;
-import zm.gov.moh.core.utils.BaseAndroidViewModel;
-import zm.gov.moh.core.utils.InjectorUtils;
-
 
 
 class TestUtil extends BaseWorker {
@@ -20,6 +17,10 @@ class TestUtil extends BaseWorker {
 
     public TestUtil(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
+    }
+
+    public static UserMock createUser(int i) {
+        return null;
     }
 
 

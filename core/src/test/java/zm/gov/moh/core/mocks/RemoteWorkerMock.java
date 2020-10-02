@@ -1,4 +1,4 @@
-package zm.gov.moh.core.service.worker;
+package zm.gov.moh.core.mocks;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,10 @@ import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.repository.api.rest.RestApi;
 import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
+import zm.gov.moh.core.service.worker.BaseWorker;
 
 
-public abstract class RemoteWorker extends BaseWorker {
+public abstract class RemoteWorkerMock extends BaseWorker {
 
 
     protected String accessToken;
@@ -36,7 +37,7 @@ public abstract class RemoteWorker extends BaseWorker {
     protected String lastDataSyncDate;
     protected String lastMetadataSyncDate;
 
-    public RemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams){
+    public RemoteWorkerMock(@NonNull Context context, @NonNull WorkerParameters workerParams){
         super(context, workerParams);
         AndroidThreeTen.init(context);
         lastSynchronizationStatus = repository.getDefaultSharePrefrences().getBoolean(Key.LAST_SYNC_SUCCESSFUL, true);

@@ -1,18 +1,18 @@
 package zm.gov.moh.core.repository.database.entity.domain;
 
+import com.squareup.moshi.Json;
+
 import org.threeten.bp.LocalDateTime;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import zm.gov.moh.core.repository.database.entity.SynchronizableEntity;
-import androidx.room.*;
-
-import com.squareup.moshi.Json;
 
 // implement Serializable to translate  object state into a format that can be stored
 @Entity(tableName = "obs")
@@ -479,7 +479,7 @@ public class ObsEntity extends SynchronizableEntity {
         return obsId;
     }
 
-    @Override
+    //@Override
     public LocalDateTime getDateChanged() {
         return null;
     }
