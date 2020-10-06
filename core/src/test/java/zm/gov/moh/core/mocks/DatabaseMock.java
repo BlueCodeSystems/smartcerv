@@ -1,51 +1,21 @@
 package zm.gov.moh.core.mocks;
 
 import android.content.Context;
+import android.database.SQLException;
 
+import java.sql.PreparedStatement;
+
+import androidx.annotation.NonNull;
+import androidx.room.DatabaseConfiguration;
+import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import zm.gov.moh.core.model.UserMock;
 import zm.gov.moh.core.repository.database.Converter;
 import zm.gov.moh.core.repository.database.Migrations;
-import zm.gov.moh.core.repository.database.dao.custom.IdentifierDao;
-import zm.gov.moh.core.repository.database.dao.derived.ClientDao;
-import zm.gov.moh.core.repository.database.dao.derived.ConceptAnswerNameDao;
-import zm.gov.moh.core.repository.database.dao.derived.FacilityDistrictCodeDao;
-import zm.gov.moh.core.repository.database.dao.derived.GenericDao;
-import zm.gov.moh.core.repository.database.dao.derived.MetricsDao;
-import zm.gov.moh.core.repository.database.dao.derived.PersonIdentifierDao;
-import zm.gov.moh.core.repository.database.dao.derived.ProviderUserDao;
-import zm.gov.moh.core.repository.database.dao.domain.ConceptAnswerDao;
-import zm.gov.moh.core.repository.database.dao.domain.ConceptDao;
-import zm.gov.moh.core.repository.database.dao.domain.ConceptNameDao;
-import zm.gov.moh.core.repository.database.dao.domain.DrugDao;
-import zm.gov.moh.core.repository.database.dao.domain.EncounterDao;
-import zm.gov.moh.core.repository.database.dao.domain.EncounterProviderDao;
-import zm.gov.moh.core.repository.database.dao.domain.EncounterTypeDao;
-import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeDao;
-import zm.gov.moh.core.repository.database.dao.domain.LocationAttributeTypeDao;
-import zm.gov.moh.core.repository.database.dao.domain.LocationDao;
-import zm.gov.moh.core.repository.database.dao.domain.LocationTagDao;
-import zm.gov.moh.core.repository.database.dao.domain.LocationTagMapDao;
-import zm.gov.moh.core.repository.database.dao.domain.ObsDao;
-import zm.gov.moh.core.repository.database.dao.domain.PatientDao;
-import zm.gov.moh.core.repository.database.dao.domain.PatientIdentifierDao;
-import zm.gov.moh.core.repository.database.dao.domain.PatientIdentifierTypeDao;
-import zm.gov.moh.core.repository.database.dao.domain.PersonAddressDao;
-import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeDao;
-import zm.gov.moh.core.repository.database.dao.domain.PersonAttributeTypeDao;
-import zm.gov.moh.core.repository.database.dao.domain.PersonDao;
-import zm.gov.moh.core.repository.database.dao.domain.PersonNameDao;
-import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeDao;
-import zm.gov.moh.core.repository.database.dao.domain.ProviderAttributeTypeDao;
-import zm.gov.moh.core.repository.database.dao.domain.ProviderDao;
-import zm.gov.moh.core.repository.database.dao.domain.UserDao;
-import zm.gov.moh.core.repository.database.dao.domain.UserDaoMock;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDaoMock;
-import zm.gov.moh.core.repository.database.dao.domain.VisitTypeDao;
-import zm.gov.moh.core.repository.database.dao.fts.ClientFtsDao;
-import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.custom.Identifier;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.Concept;
@@ -122,71 +92,68 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
         }, version = 5, exportSchema = false)
 @TypeConverters(Converter.class)
-public abstract class DatabaseMock extends RoomDatabase {
+public class DatabaseMock extends RoomDatabase {
 
     private static final String DATABASE_NAME = "mcare";
 
     private static volatile DatabaseMock dbInstance;
 
-    //Domain
-    public abstract PersonDao personDao();
-    public abstract PersonAddressDao personAddressDao();
-    public abstract PersonAttributeDao personAttributeDao();
-    public abstract PersonAttributeTypeDao personAttributeTypeDao();
-    public abstract PersonNameDao personNameDao();
-    public abstract LocationDao locationDao();
-    public abstract LocationAttributeDao locationAttributeDao();
-    public abstract LocationTagDao locationTagDao();
-    public abstract LocationTagMapDao locationTagMapDao();
-    public abstract LocationAttributeTypeDao locationAttributeTypeDao();
-    public abstract ProviderUserDao providerUserDao();
-    public abstract UserDao userDao();
-    public abstract UserDaoMock userDaoMock();
-    public abstract ProviderDao providerDao();
-    public abstract ProviderAttributeDao providerAttributeDao();
-    public abstract ProviderAttributeTypeDao providerAttributeTypeDao();
-    public abstract PatientDao patientDao();
-    public abstract PatientIdentifierDao patientIdentifierDao();
-    public abstract PatientIdentifierTypeDao patientIdentifierTypeDao();
-    public abstract ObsDao obsDao();
-    public abstract EncounterDao encounterDao();
-    public abstract EncounterProviderDao encounterProviderDao();
-    public abstract EncounterTypeDao encounterTypeDao();
-    public abstract VisitDaoMock visitDaoMock();
-    public abstract VisitTypeDao visitTypeDao();
-    public abstract MetricsDao metricsDao();
-    public abstract ClientFtsDao clientFtsDao();
-    public abstract ConceptAnswerDao conceptAnswerDao();
-    public abstract ConceptNameDao conceptNameDao();
-    public abstract ConceptDao conceptDao();
-    public abstract ConceptAnswerNameDao conceptAnswerNameDao();
-    public abstract DrugDao drugDao();
-    public abstract IdentifierDao identifierDao();
 
-    //Derived
-    public abstract ClientDao clientDao();
-    public abstract FacilityDistrictCodeDao facilityDistrictCodeDao();
-    public abstract GenericDao genericDao();
-    public abstract PersonIdentifierDao personIdentifierDao();
-
-    //System
-    public abstract EntityMetadataDao entityMetadataDao();
-
-    //database getter
-    public static DatabaseMock getDatabase(final Context context){
-
-        if (dbInstance == null)
-              synchronized (DatabaseMock.class){
-                  if (dbInstance == null)
-                     dbInstance = Room.databaseBuilder(context.getApplicationContext(), DatabaseMock.class, DATABASE_NAME)
-                             .addMigrations(Migrations.MIGRATION_2_3)
-                             .addMigrations(Migrations.MIGRATION_3_4)
-                             .addMigrations(Migrations.MIGRATION_4_5)
-                             .build();
-              }
-
-         return dbInstance;
+    public VisitDaoMock visitDaoMock(String query) {
+        return visitDaoMock(("SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId"));
     }
 
-    public abstract UserDaoMock getUserDaoMock();
+
+    //database getter
+    public static DatabaseMock getDatabase(final Context context) {
+
+        if (dbInstance == null)
+            synchronized (DatabaseMock.class) {
+                if (dbInstance == null)
+                    dbInstance = Room.databaseBuilder(context.getApplicationContext(), DatabaseMock.class, DATABASE_NAME)
+                            .addMigrations(Migrations.MIGRATION_2_3)
+                            .addMigrations(Migrations.MIGRATION_3_4)
+                            .addMigrations(Migrations.MIGRATION_4_5)
+                            .build();
+            }
+
+        return dbInstance;
+    }
+
+    public boolean insert() {
+        try {
+            String query = "(SELECT visit_id FROM (SELECT * FROM Visit WHERE visit_id NOT IN (:id)) WHERE visit_id >= :offsetId";
+            PreparedStatement stmt = (PreparedStatement) dbInstance.visitDaoMock(query);
+            stmt.setString(1, "Test");
+            int result = stmt.executeUpdate();
+
+            if (result == 1) return true;
+            return false;
+
+        } catch (SQLException | java.sql.SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @NonNull
+    @Override
+    protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration config) {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    protected InvalidationTracker createInvalidationTracker() {
+        return null;
+    }
+
+    @Override
+    public void clearAllTables() {
+
+    }
+
+    public <T> Object insert(T eq) {
+        return insert();
+    }
 }

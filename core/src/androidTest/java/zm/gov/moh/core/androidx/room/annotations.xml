@@ -1,0 +1,8 @@
+<root>
+    <item name='androidx.room.RoomDatabase MAX_BIND_PARAMETER_CNT'>
+        <annotation name='org.jetbrains.annotations.Range'>
+            <val name="from" val="1" />
+            <val name="to" val="500000" />
+        </annotation>
+    </item>
+</root>
