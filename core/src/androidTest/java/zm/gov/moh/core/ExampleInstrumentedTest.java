@@ -1,6 +1,7 @@
 package zm.gov.moh.core;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -67,6 +68,31 @@ public class ExampleInstrumentedTest {
         }
 
         assertArrayEquals(expected,actual);
+
+
+    }
+    @Test
+    public void findEntityNotWithIdTest()
+    {
+        long offset =5L;
+        VisitEntity[] visitEntitiesArray =new VisitEntity[10001];
+        for(int i =0;i<visitEntitiesArray.length; i++) {
+            //VisitEntity visitEntity = new VisitEntity(4L, 5L, 9L, 10L, 11L, LocalDateTime.now());
+            visitEntitiesArray[i] =  new VisitEntity(offset+i, 5L+offset, 9L+offset, 10L+offset, 11L+offset, LocalDateTime.now());
+        }
+        long[] idsNotIN =new long[10001];
+        for(int i= 0; i< idsNotIN.length;i++)
+        {
+            idsNotIN[i] =4000+i;
+        }
+        Long[] expectedIds = new Long[10001];
+        for(int i =0;i<visitEntitiesArray.length; i++) {
+            //VisitEntity visitEntity = new VisitEntity(4L, 5L, 9L, 10L, 11L, LocalDateTime.now());
+            expectedIds[i] = visitEntitiesArray[i].getVisitId();
+        }
+
+        visitDao.insert(visitEntitiesArray);
+        assertArrayEquals(expectedIds,visitDao.findEntityNotWithId(offset,idsNotIN));
 
 
     }
