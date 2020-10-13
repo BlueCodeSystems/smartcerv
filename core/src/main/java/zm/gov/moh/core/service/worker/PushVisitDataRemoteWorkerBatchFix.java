@@ -2,12 +2,12 @@ package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,30 +16,25 @@ import androidx.annotation.NonNull;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
+import retrofit2.http.GET;
 import zm.gov.moh.core.Constant;
 import zm.gov.moh.core.model.Encounter;
 import zm.gov.moh.core.model.IntentAction;
 import zm.gov.moh.core.model.Key;
 import zm.gov.moh.core.model.Obs;
-import zm.gov.moh.core.model.Patient;
-import zm.gov.moh.core.model.PatientIdentifier;
-import zm.gov.moh.core.model.PersonAttribute;
 import zm.gov.moh.core.model.Response;
 import zm.gov.moh.core.model.Visit;
 import zm.gov.moh.core.repository.database.entity.derived.PersonIdentifier;
 import zm.gov.moh.core.repository.database.entity.domain.EncounterEntity;
 import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
-import zm.gov.moh.core.repository.database.entity.domain.Person;
-import zm.gov.moh.core.repository.database.entity.domain.PersonAddress;
-import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.ServiceManager;
 
-public class PushVisitDataRemoteWorker extends RemoteWorker {
+public class PushVisitDataRemoteWorkerBatchFix extends RemoteWorker {
+    Long[] unpushedVisitEntityId;
 
-    public PushVisitDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public PushVisitDataRemoteWorkerBatchFix(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 
@@ -66,7 +61,17 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
 
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        Long[] unpushedVisitEntityId = getUnpushedVisitEntityId(getPushedEntityMetadata());
+        long[] subsetOfIds= new long[500];
+        if(getPushedEntityMetadata().length > 1000)
+        {
+            System.arraycopy(getPushedEntityMetadata(), 0, subsetOfIds, 0, 500);
+          //  unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, subsetOfIds);
+            unpushedVisitEntityId =getUnpushedVisitEntityId(subsetOfIds);
+        }
+        else{
+            unpushedVisitEntityId = getUnpushedVisitEntityId(getPushedEntityMetadata());
+        }
+
 
         if (unpushedVisitEntityId.length > 0) {
 
@@ -109,7 +114,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         }
 
         //get batches of a 100 from entity IDs
-        public Long[] getBatchSizeOfHundredFromEntityIds (Long ...visitEntityId)
+        /*public Long[] getBatchSizeOfHundredFromEntityIds (Long ...visitEntityId)
         {
             Long[] newIds = new Long[10];
             if (visitEntityId.length <= 10) {
@@ -125,7 +130,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
             }
             return newIds;
-        }
+        }*/
 
         public List<Long> getVisitIds (List < VisitEntity > visitEntities)
         {
