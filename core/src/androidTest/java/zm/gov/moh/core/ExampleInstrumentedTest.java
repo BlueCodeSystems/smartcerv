@@ -25,7 +25,9 @@ import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.DatabaseUtils;
 import zm.gov.moh.core.repository.database.TestDatabase;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
+import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
+import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -34,6 +36,7 @@ import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
  */
 public class ExampleInstrumentedTest {
     private VisitDao visitDao;
+    private EntityMetadataDao entitymetadataDao;
     TestDatabase database;
     Context appContext;
    /* @Test
@@ -75,6 +78,14 @@ public class ExampleInstrumentedTest {
     public void findEntityNotWithIdTest()
     {
         long offset =5L;
+        int entityTypeId = 1000;
+        short remoteStatus = 1000;
+        EntityMetadata[] entityMetadataArray =new EntityMetadata[10001];
+        for(int i =0;i<entityMetadataArray.length; i++) {
+            //VisitEntity visitEntity = new VisitEntity(4L, 5L, 9L, 10L, 11L, LocalDateTime.now());
+            entityMetadataArray[i] =  new EntityMetadata(offset+i, entityTypeId, remoteStatus, LocalDateTime.now());
+        }
+
         VisitEntity[] visitEntitiesArray =new VisitEntity[10001];
         for(int i =0;i<visitEntitiesArray.length; i++) {
             //VisitEntity visitEntity = new VisitEntity(4L, 5L, 9L, 10L, 11L, LocalDateTime.now());
@@ -92,7 +103,9 @@ public class ExampleInstrumentedTest {
         }
 
         visitDao.insert(visitEntitiesArray);
-        assertArrayEquals(expectedIds,visitDao.findEntityNotWithId(offset,idsNotIN));
+        entitymetadataDao.insert(entityMetadataArray);
+        //assertArrayEquals(expectedIds,visitDao.findEntityNotWithId2(offset,idsNotIN));
+        assertArrayEquals(expectedIds,visitDao.findEntityNotWithId2(offset,entityTypeId, remoteStatus));
 
 
     }
@@ -105,5 +118,6 @@ public class ExampleInstrumentedTest {
         //database =Database.getDatabase(appContext);
         database=Room.inMemoryDatabaseBuilder(appContext,TestDatabase.class).build();
         visitDao = database.visitDao();
+        entitymetadataDao = database.entityMetadataDao();
     }
 }
