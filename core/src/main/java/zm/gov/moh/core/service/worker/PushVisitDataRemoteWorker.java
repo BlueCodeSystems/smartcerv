@@ -37,7 +37,11 @@ import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
 import zm.gov.moh.core.service.ServiceManager;
 
+import static zm.gov.moh.core.service.worker.RemoteWorker.Status.PUSHED;
+
 public class PushVisitDataRemoteWorker extends RemoteWorker {
+    Long[] unpushedVisitEntityId;
+    long[] subsetOfIds;
 
     public PushVisitDataRemoteWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
@@ -45,28 +49,38 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
     //Get Pushed Entity IDs
     public long[] getPushedEntityMetadata() {
-        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.PUSHED.getCode());
+        long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), PUSHED.getCode());
         return pushedEntityId;
     }
 
     //Get Pushed Entity IDs
     public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityId) {
         long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        int entityTypeId = 1000;
-        short remoteStatus = 1 ;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, UnpushedVisitEntityId);
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, entityTypeId, remoteStatus);
+        //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, EntityType.VISIT.getId(), PUSHED.getCode());
+        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, UnpushedVisitEntityId);
         return unpushedVisitEntityId;
     }
-
 
     @Override
     @NonNull
     public Result doWork() {
 
-
         long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        Long[] unpushedVisitEntityId = getUnpushedVisitEntityId(getPushedEntityMetadata());
+        long[] pushedEntitiMetaData =new long[100];
+
+               subsetOfIds = getPushedEntityMetadata();
+
+               if(subsetOfIds.length >1000)
+               {
+                   System.arraycopy(subsetOfIds, 0, pushedEntitiMetaData, 0, 100);
+               } else
+               {
+                   pushedEntitiMetaData= subsetOfIds;
+
+               }
+
+               unpushedVisitEntityId = getUnpushedVisitEntityId(pushedEntitiMetaData);
 
         if (unpushedVisitEntityId.length > 0) {
 
@@ -96,7 +110,7 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
                 for (Long entityId : entityIds) {
 
-                    EntityMetadata entityMetadata = new EntityMetadata(entityId, entityTypeId, Status.PUSHED.getCode());
+                    EntityMetadata entityMetadata = new EntityMetadata(entityId, entityTypeId, PUSHED.getCode());
                     db.entityMetadataDao().insert(entityMetadata);
                 }
             };
@@ -104,27 +118,23 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
 
         public List<VisitEntity> getVisitEntities (Long[]entityIds)
         {
-            List<VisitEntity> visitEntities = db.visitDao().getById(entityIds);
-            return visitEntities;
-        }
+            //List<VisitEntity> visitEntities = db.visitDao().getById(entityIds);
+            List<VisitEntity> subOfVisitEntities =new ArrayList<>();
+            List<VisitEntity> visitEntities = new ArrayList<>();
+            //subOfVisitEntities = db.visitDao().getById(entityIds);
+            Long[] subEntityIds = new Long[100];
+            if(entityIds.length>1000)
+            {
+                System.arraycopy(entityIds, 0, subEntityIds, 0, 100);
+            } else
+            {
 
-        //get batches of a 100 from entity IDs
-        public Long[] getBatchSizeOfHundredFromEntityIds (Long ...visitEntityId)
-        {
-            Long[] newIds = new Long[10];
-            if (visitEntityId.length <= 10) {
-                //get first 100 ids
-                for (int i = 0; i < visitEntityId.length; i++) {
-                    newIds[i] = visitEntityId[i];
-                }
-
-            } else {
-                for (int i = 0; i < 10; i++) {
-                    newIds[i] = visitEntityId[i];
-                }
-
+                //visitEntities =subOfVisitEntities;
+                subEntityIds =entityIds;
             }
-            return newIds;
+            visitEntities =db.visitDao().getById(subEntityIds);
+
+            return visitEntities;
         }
 
         public List<Long> getVisitIds (List < VisitEntity > visitEntities)
