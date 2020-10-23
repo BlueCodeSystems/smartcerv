@@ -31,7 +31,7 @@ import zm.gov.moh.core.service.worker.PullDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullMetaDataRemoteWorker;
 import zm.gov.moh.core.service.worker.PullPatientIDRemoteWorker;
 import zm.gov.moh.core.service.worker.PushDemographicDataRemoteWorker;
-import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
+import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorkerSets;
 import zm.gov.moh.core.service.worker.RemoteWorker;
 import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
@@ -69,9 +69,11 @@ public class BaseEventHandler implements View.OnLongClickListener {
         OneTimeWorkRequest workRequestData = new OneTimeWorkRequest.Builder(PullDataRemoteWorker.class).build();
         OneTimeWorkRequest workRequestMetadata = new OneTimeWorkRequest.Builder(PullMetaDataRemoteWorker.class).build();
         OneTimeWorkRequest workRequestPushDemoData = new OneTimeWorkRequest.Builder(PushDemographicDataRemoteWorker.class).build();
-        OneTimeWorkRequest workRequestPushVisitData = new OneTimeWorkRequest.Builder(PushVisitDataRemoteWorker.class).build();
+        OneTimeWorkRequest workRequestPushVisitData = new OneTimeWorkRequest.Builder(PushVisitDataRemoteWorkerSets.class).build();
         workManager.beginWith(workRequestPullIdData).then(workRequestMetadata).then(workRequestData).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
-        //workManager.beginWith(workRequestPullIdData).then(workRequestData).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
+        //workManager.beginWith(workRequestPullIdData).then(workRequestMetadata).then(workRequestPushDemoData).then(workRequestPushVisitData).enqueue();
+        //workManager.beginWith(workRequestPushVisitData).then(workRequestPushDemoData).enqueue();
+
 
 
     }

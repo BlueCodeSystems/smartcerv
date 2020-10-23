@@ -1,4 +1,4 @@
-package zm.gov.moh.core.service.worker;
+/*package zm.gov.moh.core.service.worker;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,9 +35,9 @@ import zm.gov.moh.core.repository.database.entity.domain.PersonName;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
 import zm.gov.moh.core.repository.database.entity.system.EntityType;
-import zm.gov.moh.core.service.ServiceManager;
+import zm.gov.moh.core.service.ServiceManager;*/
 
-import static zm.gov.moh.core.service.worker.RemoteWorker.Status.PUSHED;
+/*import static zm.gov.moh.core.service.worker.RemoteWorker.Status.PUSHED;
 
 public class PushVisitDataRemoteWorker extends RemoteWorker {
     Long[] unpushedVisitEntityId;
@@ -299,3 +299,4 @@ public class PushVisitDataRemoteWorker extends RemoteWorker {
         }
 
     }
+*/

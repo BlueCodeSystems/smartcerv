@@ -65,16 +65,16 @@ public interface PatientDao extends Synchronizable<Long> {
     LiveData <Long> getTotalSeenClientsByDays(long location_id,String days);
 
     //get total number of patients registered
-        @Query("SELECT COUNT(DISTINCT patient.patient_id) from patient JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE identifier_type=4 AND patient.voided=0 AND patient_identifier.location_id=:location_id  ORDER BY patient.patient_id DESC")
+    @Query("SELECT COUNT(DISTINCT patient.patient_id) from patient JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE identifier_type=4 AND patient.voided=0 AND patient_identifier.location_id=:location_id  ORDER BY patient.patient_id DESC")
     LiveData <Long> getTotalRegistered(long location_id);
 
-        //get total registered according to date
+    //get total registered according to date
 
     @Query("SELECT COUNT(DISTINCT patient.patient_id) from patient JOIN patient_identifier ON patient.patient_id = patient_identifier.patient_id WHERE identifier_type=4 AND patient.voided=0 AND patient_identifier.location_id=:location_id AND  patient_identifier.date_created BETWEEN datetime('now',:days) AND datetime('now','+1 days') ORDER BY patient.patient_id DESC")
     LiveData <Long> getTotalRegisteredClientsByDate(long location_id,String days);
 
 
-        //get total number of patients screened
+    //get total number of patients screened
     @Query("SELECT COUNT(DISTINCT patient.patient_id) from patient JOIN visit ON patient.patient_id=visit.patient_id  JOIN encounter ON encounter.visit_id = visit.visit_id JOIN obs ON obs.encounter_id=encounter.encounter_id  WHERE visit.voided=0 AND patient.voided=0 AND obs.concept_id=165160 AND (obs.value_coded IN (165161,165162,165163)) AND encounter_type=12 AND visit.location_id=:locationdId")
     LiveData<Long> getTotalScreened(long locationdId);
 
@@ -90,5 +90,7 @@ public interface PatientDao extends Synchronizable<Long> {
     @Query("SELECT patient_id FROM (SELECT * FROM patient WHERE patient_id NOT IN (:id)) WHERE patient_id >= :offsetId")
     Long[] findEntityNotWithId(long offsetId, long... id);
 
+    @Query("SELECT patient_id FROM (SELECT * FROM patient WHERE NOT EXISTS (SELECT DISTINCT entity_id FROM entity_metadata WHERE entity_type_id = :entityTypeId AND remote_status_code = :remoteStatus)) WHERE patient_id >= :offsetId")
+    Long[] findEntityNotWithId2(long offsetId, int entityTypeId, short remoteStatus);
 
 }

@@ -17,6 +17,8 @@ import zm.gov.moh.core.service.worker.RemoteWorker;
 import zm.gov.moh.core.utils.BaseAndroidViewModel;
 import zm.gov.moh.core.utils.ConcurrencyUtils;
 
+import static zm.gov.moh.core.service.worker.RemoteWorker.Status.PUSHED;
+
 public class SettingsViewModel extends BaseAndroidViewModel {
 
     private MutableLiveData<Preferences> preferencesStream;
@@ -80,9 +82,11 @@ public class SettingsViewModel extends BaseAndroidViewModel {
         long[] pushedVisitEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), RemoteWorker.Status.PUSHED.getCode());
 
         Long[] notPushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedPatientEntityId);
-        Long[] notPushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedVisitEntityId);
+        //Long[] notPushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, EntityType.VISIT.getId(), PUSHED.getCode());
+        Long[] allVisits = db.visitDao().getAllVisitIDs();
 
-       return (notPushedPatientEntityId.length > 0 || notPushedVisitEntityId.length > 0)? false : true;
+
+       return (notPushedPatientEntityId.length > 0 || allVisits.length > 0)? false : true;
     }
 
     public void saveBaseUrl(Preferences preferences){

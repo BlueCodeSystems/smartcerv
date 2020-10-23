@@ -44,14 +44,17 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
             long batchVersion = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
             long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode());
 
+            int pushedSize = pushedEntityId.length;
             Long[] editEntityId = db.entityMetadataDao().findByStatus(Status.NOT_PUSHED.getCode());
+            int editSize = editEntityId.length;
 
             final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
             dataSyncDate = LocalDateTime.parse(lastDataSyncDate);
 
             //Create new remote patients
             List<Patient> patients = new ArrayList<>();
-            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
+            //Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId(offset, pushedEntityId);
+            Long[] unpushedPatientEntityId = db.patientDao().findEntityNotWithId2(offset, EntityType.PATIENT.getId(), Status.PUSHED.getCode());
 
             unpushedPatientEntityId = ObjectArrays.concat(unpushedPatientEntityId, editEntityId, Long.class);
             if (unpushedPatientEntityId.length != 0) {
@@ -120,26 +123,26 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
 
     public Patient createPatient(final long patientId, final LocalDateTime lastModified) throws Exception{
 
-       Person person = db.personDao().findById(patientId);
+        Person person = db.personDao().findById(patientId);
 
-       //PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonEntityId(patientId);
-       PersonName personName = db.personNameDao().findByPersonId(patientId, lastModified);
-       PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId, lastModified);
-       List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);
-       List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
+        //PersonAttributeEntity personAttributes = db.personAttributeDao().findByPersonEntityId(patientId);
+        PersonName personName = db.personNameDao().findByPersonId(patientId, lastModified);
+        PersonAddress personAddress = db.personAddressDao().findByPersonId(patientId, lastModified);
+        List<PatientIdentifier> patientIdentifiers = db.patientIdentifierDao().findAllByPatientId(patientId, lastModified);
+        List<PersonAttribute> personAttributes = db.personAttributeDao().findByPersonId(patientId, lastModified);
 
-       if((person != null || personName != null || personAddress != null) && ((patientIdentifiers.size() > 1 && person.getVoided() == 0) || person.getUuid() != null)) {
+        if((person != null || personName != null || personAddress != null) && ((patientIdentifiers.size() > 1 && person.getVoided() == 0) || person.getUuid() != null)) {
 
 
-           return new Patient.Builder()
-                   .setPerson(person)
-                   .setPersonName(personName)
-                   .setPersonAddress(personAddress)
-                   .setAttributes(personAttributes)
-                   .setIdentifiers((patientIdentifiers.size() == 0)? null:patientIdentifiers)
-                   .build();
-       }
-       else
-           throw new Exception("Inadequate arguments");
+            return new Patient.Builder()
+                    .setPerson(person)
+                    .setPersonName(personName)
+                    .setPersonAddress(personAddress)
+                    .setAttributes(personAttributes)
+                    .setIdentifiers((patientIdentifiers.size() == 0)? null:patientIdentifiers)
+                    .build();
+        }
+        else
+            throw new Exception("Inadequate arguments");
     }
 }

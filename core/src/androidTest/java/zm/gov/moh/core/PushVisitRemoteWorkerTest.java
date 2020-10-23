@@ -2,29 +2,26 @@ package zm.gov.moh.core;
 
 import android.content.Context;
 
-
 import com.jakewharton.threetenabp.AndroidThreeTen;
-
-import androidx.room.Room;
-
 
 import org.junit.Before;
 import org.junit.Test;
-
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneOffset;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import  androidx.test.platform.app.*;
+import androidx.room.Room;
+import androidx.test.platform.app.InstrumentationRegistry;
 import zm.gov.moh.core.repository.database.Database;
 import zm.gov.moh.core.repository.database.TestDatabase;
 import zm.gov.moh.core.repository.database.dao.domain.VisitDao;
 import zm.gov.moh.core.repository.database.dao.system.EntityMetadataDao;
 import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 import zm.gov.moh.core.repository.database.entity.system.EntityMetadata;
+import zm.gov.moh.core.service.worker.PushVisitDataRemoteWorker;
+
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -36,17 +33,43 @@ public class PushVisitRemoteWorkerTest {
     private EntityMetadataDao entitymetadataDao;
     TestDatabase database;
     Context appContext;
+    Long[] expectedIds = new Long[10001];
     private Long[] getUnpushedVisitEntityId;
-
-   @Before
+    long[] idsNotIN = new long[10001];
+    List<VisitEntity>  listOfVisitEntities = new ArrayList<>();
+    VisitEntity[] visitEntitiesArray = new VisitEntity[10001];
+    @Before
     public void setUp() throws Exception {
 
         appContext = InstrumentationRegistry.getInstrumentation().getContext();
         AndroidThreeTen.init(appContext);
-        database=Room.inMemoryDatabaseBuilder(appContext,TestDatabase.class).build();
+        database = Room.inMemoryDatabaseBuilder(appContext, TestDatabase.class).build();
         visitDao = database.visitDao();
         entitymetadataDao = database.entityMetadataDao();
+        long offset = 5L;
+        int entityTypeId = 1000;
+        short remoteStatus = 1000;
+        EntityMetadata[] entityMetadataArray = new EntityMetadata[10001];
+        for (int i = 0; i < entityMetadataArray.length; i++) {
+            entityMetadataArray[i] = new EntityMetadata(offset + i, entityTypeId, remoteStatus, LocalDateTime.now());
+        }
+
+
+        for (int i = 0; i < visitEntitiesArray.length; i++) {
+            visitEntitiesArray[i] = new VisitEntity(offset + i, 5L + offset, 9L + offset, 10L + offset, 11L + offset, LocalDateTime.now());
+        }
+        long[] idsNotIN = new long[10001];
+        for (int i = 0; i < idsNotIN.length; i++) {
+            idsNotIN[i] = 4000 + i;
+        }
+        Long[] expectedIds = new Long[10001];
+        for (int i = 0; i < visitEntitiesArray.length; i++) {
+            expectedIds[i] = visitEntitiesArray[i].getVisitId();
+        }
+        visitDao.insert(visitEntitiesArray);
+        entitymetadataDao.insert(entityMetadataArray);
     }
+
     @Test
     public void testDao() {
         List<Long> ids = new ArrayList<>();
@@ -66,14 +89,13 @@ public class PushVisitRemoteWorkerTest {
     }
 
     @Test
-    public void findEntityNotWithIdTestFail()
-    {
+    public void findEntityNotWithIdTestFail() {
         long offset = 5L;
-        VisitEntity[] visitEntitiesArray = new VisitEntity[10001];
+        //VisitEntity[] visitEntitiesArray = new VisitEntity[10001];
         for (int i = 0; i < visitEntitiesArray.length; i++) {
             visitEntitiesArray[i] = new VisitEntity(offset + i, 5L + offset, 9L + offset, 10L + offset, 11L + offset, LocalDateTime.now());
         }
-        long[] idsNotIN = new long[10001];
+        //long[] idsNotIN = new long[10001];
         for (int i = 0; i < idsNotIN.length; i++) {
             idsNotIN[i] = 4000 + i;
         }
@@ -82,7 +104,7 @@ public class PushVisitRemoteWorkerTest {
             expectedIds[i] = visitEntitiesArray[i].getVisitId();
         }
         visitDao.insert(visitEntitiesArray);
-        assertArrayEquals(expectedIds, visitDao.findEntityNotWithId(offset, idsNotIN));
+        assertArrayEquals(expectedIds, visitDao.findEntityNotWithId(offset,idsNotIN));
     }
 
     @Test
@@ -95,15 +117,16 @@ public class PushVisitRemoteWorkerTest {
             entityMetadataArray[i] = new EntityMetadata(offset + i, entityTypeId, remoteStatus, LocalDateTime.now());
         }
 
-        VisitEntity[] visitEntitiesArray = new VisitEntity[10001];
+ //       VisitEntity[] visitEntitiesArray = new VisitEntity[10001];
         for (int i = 0; i < visitEntitiesArray.length; i++) {
             visitEntitiesArray[i] = new VisitEntity(offset + i, 5L + offset, 9L + offset, 10L + offset, 11L + offset, LocalDateTime.now());
+            listOfVisitEntities.add(visitEntitiesArray[i]);
         }
         long[] idsNotIN = new long[10001];
         for (int i = 0; i < idsNotIN.length; i++) {
             idsNotIN[i] = 4000 + i;
         }
-        Long[] expectedIds = new Long[10001];
+
         for (int i = 0; i < visitEntitiesArray.length; i++) {
             expectedIds[i] = visitEntitiesArray[i].getVisitId();
         }
@@ -111,15 +134,23 @@ public class PushVisitRemoteWorkerTest {
         entitymetadataDao.insert(entityMetadataArray);
         assertArrayEquals(expectedIds, visitDao.findEntityNotWithId2(offset, entityTypeId, remoteStatus));
     }
-
     @Test
-    public Long[] getUnpushedVisitEntityId(long[] UnpushedVisitEntityId) {
-        long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
-        int entityTypeId = 1000;
-        short remoteStatus = 1 ;
-        //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, UnpushedVisitEntityId);
-        Database db =Room.inMemoryDatabaseBuilder(appContext,Database.class).build();
-        Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId2(offset, entityTypeId, remoteStatus);
-        return unpushedVisitEntityId;
-    }
+    public void getVisitEntititesTest()
+        {
+            List<VisitEntity> subOfVisitEntities =new ArrayList<>();
+            List<VisitEntity> visitEntities = new ArrayList<>();
+            Long[] subEntityIds = new Long[100];
+            if (expectedIds.length>1000)
+            {
+                System.arraycopy( expectedIds, 0, subEntityIds, 0, 100);
+            } else
+            {
+
+                //visitEntities =subOfVisitEntities;
+                subEntityIds = expectedIds;
+            }
+            //assertArrayEquals(visitEntitiesArray,visitDao.getById(subEntityIds));
+            //assertArrayEquals();
+
+        }
 }
