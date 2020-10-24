@@ -8,6 +8,7 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.TypedArrayUtils;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -55,20 +57,23 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
         //Get all visits
         Long[] allVisits = db.visitDao().getAllVisitIDs();//.toArray(new Long[0]);
         Log.i(TAG, "Total number of visits on tablet:"+allVisits.length);
-        Set allVisitsSet = Sets.newHashSet(allVisits);
+        Set<Long> allVisitsSet = new HashSet<>(Arrays.asList(allVisits));
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.SYNCED.getCode());
         Log.i(TAG, "Pushed visit entity Number = " + pushedEntityId.length);
-        Set allPushedVisitsSet = Sets.newHashSet(pushedEntityId);
-        allVisitsSet.removeAll(allPushedVisitsSet);
+        Set<Long> allPushedVisitsSet = new HashSet<>(Arrays.asList(convertToPrimitive(pushedEntityId)));
+        //allVisitsSet.removeAll(allPushedVisitsSet);
+        Set<Long> diff = Sets.symmetricDifference(allVisitsSet, allPushedVisitsSet);
         Log.i(TAG, "Unpushed visit IDS number " + allVisitsSet.size());
-        Long[] allVisitsArray = new Long[allVisitsSet.size()];
-        allVisitsSet.toArray(allVisitsArray);
+       // Long[] allVisitsArray = new Long[allVisitsSet.size()];
+       Long[] entireVisits =new Long[diff.size()];
+       diff.toArray(entireVisits);
+        // allVisitsSet.toArray(allVisitsArray);
         //int pushedSize = pushedEntityId.length;
         //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
-        if(allVisitsArray.length > 0) {
-            List<Visit> patientVisits = createVisits((allVisitsArray));
+        if(entireVisits.length > 0) {
+            List<Visit> patientVisits = createVisits((entireVisits));
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
             if(patientVisits.size() > 0)
@@ -76,7 +81,7 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                     .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(allVisitsArray, EntityType.VISIT.getId()), this::onError);
+                    .subscribe(onComplete(entireVisits, EntityType.VISIT.getId()), this::onError);
         }
         if(mResult.equals(Result.success()))
             onTaskCompleted();
@@ -223,5 +228,16 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
         encounter.setEncounterType(encounterType);
         encounter.setEncounterDatetime(encounterEntity.getEncounterDatetime());
         return encounter;
+    }
+
+    public Long[] convertToPrimitive(long[] longArrayToConvert)
+    {
+        Long[] arrayToBeReturned =new Long[longArrayToConvert.length];
+        for (int i =0; i< longArrayToConvert.length; i++)
+        {
+            arrayToBeReturned[i] =longArrayToConvert[i];
+        }
+        return arrayToBeReturned;
+
     }
 }
