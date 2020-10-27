@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zm.gov.moh.core">
-    <application>
+    <application
+        android:largeHeap="true"
+        android:hardwareAccelerated="false">
         <service
             android:name=".service.SearchIndex"
             android:exported="false"/>
@@ -10,6 +12,7 @@
         <service
             android:name=".service.PersistDemographics"
             android:exported="false"/>
+
     </application>
 
     <!--Permissions-->

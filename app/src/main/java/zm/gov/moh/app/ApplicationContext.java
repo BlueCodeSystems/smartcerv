@@ -1,6 +1,13 @@
 package zm.gov.moh.app;
 
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.os.Debug;
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +28,9 @@ import zm.gov.moh.core.model.submodule.BasicModuleGroup;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
 
-public class ApplicationContext extends BaseApplication {
+import static androidx.core.content.ContextCompat.getSystemService;
 
+public class ApplicationContext extends BaseApplication {
 
     @Override
     public void onCreate() {
@@ -61,6 +69,59 @@ public class ApplicationContext extends BaseApplication {
         ModuleGroup cervicalCancer = new BasicModuleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerModules);
         registerModule(CervicalCancerModule.MODULE, cervicalCancer);
         loadFirstPointOfCareSubmodule(cervicalCancer);
+    }
+
+    /**
+     * Measure used memory and give garbage collector time to free up some
+     * space.
+     *
+     * @param callback Callback operations to be done when memory is free.
+     */
+    public static void waitForGarbageCollector(final Runnable callback) {
+
+        Runtime runtime = Runtime.getRuntime();
+        long maxMemory = runtime.maxMemory();
+        long usedMemory=runtime.totalMemory() - runtime.freeMemory();
+        long availableMemory=maxMemory-usedMemory;
+        //String formattedMemorySize= Formatter.formatShortFileSize(context,memorySize);
+        Log.v("onCreate", "maxMemory:" + Long.toString(maxMemory));
+        Debug.getNativeHeapSize();
+        double availableMemoryPercentage = 1.0;
+        final double MIN_AVAILABLE_MEMORY_PERCENTAGE = 0.1;
+        final int DELAY_TIME = 5 * 1000;
+
+        runtime =
+                Runtime.getRuntime();
+
+        maxMemory =
+                runtime.maxMemory();
+
+        usedMemory =
+                runtime.totalMemory() -
+                        runtime.freeMemory();
+
+        availableMemoryPercentage =
+                1 -
+                        (double) usedMemory /
+                                maxMemory;
+
+        if (availableMemoryPercentage < MIN_AVAILABLE_MEMORY_PERCENTAGE) {
+
+            try {
+                Thread.sleep(DELAY_TIME);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            waitForGarbageCollector(
+                    callback);
+        } else {
+
+            // Memory resources are available, go to next operation:
+
+            callback.run();
+        }
+
     }
 }
 

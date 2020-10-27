@@ -13,7 +13,7 @@ import zm.gov.moh.core.repository.database.entity.domain.VisitEntity;
 @Dao
 public interface VisitDao extends Synchronizable<Long> {
 
-    @Query("SELECT visit_id FROM Visit")
+    @Query("SELECT DISTINCT visit_id FROM Visit WHERE voided != 1")
     Long[] getAllVisitIDs();
 
     @Query("SELECT MAX(datetime) AS datetime FROM (SELECT CASE WHEN COALESCE(date_created,'1970-01-01T00:00:00') >= COALESCE(date_changed,'1970-01-01T00:00:00') THEN date_created ELSE date_changed END datetime FROM visit WHERE patient_id IN (SELECT DISTINCT patient_id FROM patient_identifier WHERE location_id = :locationId) AND uuid IS NOT NULL)")

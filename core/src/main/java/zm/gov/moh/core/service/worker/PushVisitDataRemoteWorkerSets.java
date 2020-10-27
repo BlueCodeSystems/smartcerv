@@ -8,6 +8,7 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.TypedArrayUtils;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -55,20 +57,23 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
         //Get all visits
         Long[] allVisits = db.visitDao().getAllVisitIDs();//.toArray(new Long[0]);
         Log.i(TAG, "Total number of visits on tablet:"+allVisits.length);
-        Set allVisitsSet = Sets.newHashSet(allVisits);
+        Set<Long> allVisitsSet = new HashSet<>(Arrays.asList(allVisits));
         long[] pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.VISIT.getId(), Status.SYNCED.getCode());
         Log.i(TAG, "Pushed visit entity Number = " + pushedEntityId.length);
-        Set allPushedVisitsSet = Sets.newHashSet(pushedEntityId);
-        allVisitsSet.removeAll(allPushedVisitsSet);
+        Set<Long> allPushedVisitsSet = new HashSet<>(Arrays.asList(convertToPrimitive(pushedEntityId)));
+        //allVisitsSet.removeAll(allPushedVisitsSet);
+        Set<Long> diff = Sets.symmetricDifference(allVisitsSet, allPushedVisitsSet);
         Log.i(TAG, "Unpushed visit IDS number " + allVisitsSet.size());
-        Long[] allVisitsArray = new Long[allVisitsSet.size()];
-        allVisitsSet.toArray(allVisitsArray);
+       // Long[] allVisitsArray = new Long[allVisitsSet.size()];
+       Long[] entireVisits =new Long[diff.size()];
+       diff.toArray(entireVisits);
+        // allVisitsSet.toArray(allVisitsArray);
         //int pushedSize = pushedEntityId.length;
         //final long offset = Constant.LOCAL_ENTITY_ID_OFFSET;
         //Long[] unpushedVisitEntityId = db.visitDao().findEntityNotWithId(offset, pushedEntityId);
         //Log.i(TAG, "unpushed visit entity Number = " + unpushedVisitEntityId.length);
-        if(allVisitsArray.length > 0) {
-            List<Visit> patientVisits = createVisits((allVisitsArray));
+        if(entireVisits.length > 0) {
+            List<Visit> patientVisits = createVisits((entireVisits));
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
             if(patientVisits.size() > 0)
@@ -76,7 +81,7 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                     .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(allVisitsArray, EntityType.VISIT.getId()), this::onError);
+                    .subscribe(onComplete(entireVisits, EntityType.VISIT.getId()), this::onError);
         }
         if(mResult.equals(Result.success()))
             onTaskCompleted();
@@ -97,22 +102,9 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
     }
     public List<Visit> createVisits (Long ...visitEntityId){
 
-        int maximuNumberOfVisitIds =0;
-        List<VisitEntity> visitEntities = new ArrayList<>();
-        if(visitEntityId.length >1000) {
-            maximuNumberOfVisitIds = visitEntityId.length;
-         //   List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
-            while(maximuNumberOfVisitIds != 0 && maximuNumberOfVisitIds > 0 )  {
-                Long[] subsetOfVisitEntityIds = new Long[500];
-                System.arraycopy(visitEntityId, 0, subsetOfVisitEntityIds, 0, 500);
-                List<VisitEntity> subsetOfVisists = db.visitDao().getById(subsetOfVisitEntityIds);
-                visitEntities.addAll(subsetOfVisists);
-                maximuNumberOfVisitIds =maximuNumberOfVisitIds-500;
-            }
-        }
-        else {
-            visitEntities =db.visitDao().getById(visitEntityId);
-        }
+
+        //List<VisitEntity> visitEntities =db.visitDao().getById(visitEntityId);
+        List<VisitEntity> visitEntities =getVisitEntities(visitEntityId);
 
         Log.i(TAG, "Number of visit entities = " + visitEntities.size());
         if(visitEntities.size() > 0) {
@@ -120,9 +112,8 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             List<Visit> visits = new ArrayList<>();
             List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
                     .toList().blockingGet();
-            //List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
-            List<EncounterEntity> encounterEntities= new ArrayList<>();
-
+           // List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
+            List<EncounterEntity> encounterEntities= getAllEncounters(visitIds);
            /*int  maximuNumberOfEncountersIds =0;
             if(visitIds.size() >1000) {
                 maximuNumberOfEncountersIds = visitIds.size();
@@ -135,17 +126,18 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
                     maximuNumberOfEncountersIds = maximuNumberOfEncountersIds - 500;
                 }
 
-            }else{
+            }else{*/
 
-            */
 
-                encounterEntities = db.encounterDao().getByVisitId(visitIds);
 
             List<Long> encounterIds = Observable.fromIterable(encounterEntities)
                     .map(encounterEntity -> encounterEntity.getEncounterId())
                     .toList()
                     .blockingGet();
-            List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+
+          // List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
+                List<ObsEntity> obsEntities= getObsEntititesByEncounterIds(encounterIds);
+
             for (VisitEntity visitEntity : visitEntities) {
                 try {
                     Visit.Builder visit = normalizeVisit(visitEntity);
@@ -224,4 +216,78 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
         encounter.setEncounterDatetime(encounterEntity.getEncounterDatetime());
         return encounter;
     }
+
+    public Long[] convertToPrimitive(long[] longArrayToConvert)
+    {
+        Long[] arrayToBeReturned =new Long[longArrayToConvert.length];
+        for (int i =0; i< longArrayToConvert.length; i++)
+        {
+            arrayToBeReturned[i] =longArrayToConvert[i];
+        }
+        return arrayToBeReturned;
+
+    }
+    public List<ObsEntity> getObsEntititesByEncounterIds(List<Long> encounterIDs)
+    {
+        List<ObsEntity> obsEntities = new ArrayList<>();
+        int maxObsEntities =0;
+        List<VisitEntity> newVisitIds = new ArrayList<>();
+        if(encounterIDs.size() >1000) {
+            maxObsEntities = encounterIDs.size();
+            //   List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
+            while(maxObsEntities != 0 && maxObsEntities > 0 )  {
+                List<Long> subsetOfObs = new ArrayList<>(encounterIDs.subList(0,500));
+                List<ObsEntity> subsetOfObsIds = db.obsDao().getObsByEncounterId(subsetOfObs);
+                //  System.arraycopy(visitIds, 0, subsetOfVisitEntityIds, 0, 500);
+                // List<VisitEntity> subsetOfVisitIds = db.visitDao().getById(subsetOfVisitEntityIds);
+                obsEntities.addAll(subsetOfObsIds);
+                maxObsEntities =maxObsEntities-500;
+            }}
+        else {
+            obsEntities = db.obsDao().getObsByEncounterId(encounterIDs);
+        }
+        return obsEntities;
+    }
+
+    public List<VisitEntity> getVisitEntities(Long[] visitEntityId){
+        int maximuNumberOfVisitIds =0;
+        List<VisitEntity> visitEntities = new ArrayList<>();
+        if(visitEntityId.length >1000) {
+            maximuNumberOfVisitIds = visitEntityId.length;
+            //   List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
+            while(maximuNumberOfVisitIds != 0 && maximuNumberOfVisitIds > 0 )  {
+                Long[] subsetOfVisitEntityIds = new Long[500];
+                System.arraycopy(visitEntityId, 0, subsetOfVisitEntityIds, 0, 500);
+                List<VisitEntity> subsetOfVisists = db.visitDao().getById(subsetOfVisitEntityIds);
+                visitEntities.addAll(subsetOfVisists);
+                maximuNumberOfVisitIds =maximuNumberOfVisitIds-500;
+            }
+        }
+        else {
+            visitEntities =db.visitDao().getById(visitEntityId);
+        }
+        return  visitEntities;
+    }
+
+    public List<EncounterEntity> getAllEncounters(List<Long> visitIds)
+    {
+        List<EncounterEntity> encounterEntities = new ArrayList<>();
+                  int max =0;
+                  List<VisitEntity> newVisitIds = new ArrayList<>();
+                  if(visitIds.size() >1000) {
+                      max = visitIds.size();
+                      //   List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
+                      while(max != 0 && max > 0 )  {
+                          List<Long> subsetOfEncounter = new ArrayList<>(visitIds.subList(0,500));
+                          List<EncounterEntity> subsetOfEncounterIds = db.encounterDao().getByVisitId(subsetOfEncounter);
+                        //  System.arraycopy(visitIds, 0, subsetOfVisitEntityIds, 0, 500);
+                          encounterEntities.addAll(subsetOfEncounterIds);
+                          max = max - 500;
+              }}
+              else {
+                encounterEntities = db.encounterDao().getByVisitId(visitIds);
+        }
+              return encounterEntities;
+    }
+
 }
