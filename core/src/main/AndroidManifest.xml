@@ -9,7 +9,10 @@
             android:exported="false"/>
         <service
             android:name=".service.PersistDemographics"
+            android:hardwareAccelerated="false"
+            android:largeHeap="true"
             android:exported="false"/>
+
     </application>
 
     <!--Permissions-->
