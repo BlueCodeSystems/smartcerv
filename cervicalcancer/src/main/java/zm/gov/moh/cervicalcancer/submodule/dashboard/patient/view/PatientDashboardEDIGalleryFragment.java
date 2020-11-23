@@ -2,6 +2,7 @@ package zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -26,12 +27,14 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Map;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -41,6 +44,7 @@ import zm.gov.moh.cervicalcancer.submodule.dashboard.patient.viewmodel.PatientDa
 import zm.gov.moh.common.submodule.form.utils.MediaStorageUtil;
 import zm.gov.moh.common.submodule.form.widget.FormCameraButtonWidget;
 import zm.gov.moh.common.base.BaseActivity;
+import zm.gov.moh.core.repository.database.entity.domain.ObsEntity;
 
 public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
 
@@ -57,6 +61,9 @@ public class PatientDashboardEDIGalleryFragment<MainActivity> extends Fragment {
     private File filename;
     private Locale mediaFile;
     private File mImsgeFileName;
+    private static final int  ACTION_VIEW = 200;
+    private static final int RESULT_LOAD_IMAGE1 = 200;
+    public static final int SELECT_PICTURE = 1;
 
 
     public PatientDashboardEDIGalleryFragment() {
@@ -98,6 +105,7 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
     private FormCameraButtonWidget ediPrint;
     private MenuItem item;
     private Object v;
+    private static final int ACTION_VIEW = 100;
 
 
     public ImageDataAdapter(Context context, Map<String,LinkedHashMultimap<Long, String>> ediVisitData) {
@@ -123,6 +131,7 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
         TextView caption = viewHolder.caption;
         Map.Entry<String,LinkedHashMultimap<Long, String>> data = ediVisitDataList.get(i);
 
+
         if(data != null && data.getValue().size() > 0) {
 
             File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
@@ -145,32 +154,46 @@ class ImageDataAdapter extends RecyclerView.Adapter<ImageDataAdapter.ViewHolder>
 
                 @Override
                 public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_VIEW);
+                    ((AppCompatActivity)context).startActivityForResult(Intent.createChooser(intent,"View Picture"), ACTION_VIEW);
+                    /** TODO: Toast.makeText(FormImageViewButtonWidget.this, "You clicked on ImageView", Toast.LENGTH_LONG).show();**/
 
-                    File ediSamples = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
-
-                    File pic = new File(ediSamples.getAbsolutePath()+"/"+"test.png");
-                    boolean there = pic.exists();
-
-                    ImageView imageView1 = viewHolder.img3;
+                }
 
 
+                    /*File ediSamples = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+                    File pic = new File(ediSamples.getAbsolutePath()+"/"+".png");
+                    boolean there = pic.exists();*/
 
-                    Glide.with(context)
-                            .asFile()
-                            .load(pic)
-                            .into(imageView2);
 
-                   /* Intent intent = new Intent();
+                ImageView imageView1 = viewHolder.img3;
+
+                public void onLastObsRetrieved(ObsEntity... obs) {
+
+                    try {
+
+                        String sample = obs[0].getValueText();
+
+                        File image = MediaStorageUtil.getPrivateAlbumStorageDir(context, MediaStorageUtil.EDI_DIRECTORY);
+                        Glide.with(context)
+                                .asBitmap()
+                                .load(image.getCanonicalPath()+"/"+sample+".png")
+                                .into(imageView);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    /*Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
                     intent.setDataAndType(Uri.fromFile(pic), "image/*");
-                    context.startActivity(intent);*/
-
-                 /*   MediaScannerConnection.scanFile(context,
+                    context.startActivity(intent);
+                    MediaScannerConnection.scanFile(context,
                             new String[] { pic.getAbsolutePath() }, null,
                             new MediaScannerConnection.OnScanCompletedListener() {
                                 public void onScanCompleted(String path, Uri uri) {
                                     Log.i("onScanCompleted", uri.getPath());
-
                                     Intent intent = new Intent();
                                     intent.setAction(Intent.ACTION_VIEW);
                                     intent.setDataAndType(Uri.parse(uri.getPath()), "image/*");
