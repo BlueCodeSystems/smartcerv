@@ -84,7 +84,7 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             List<Visit> patientVisits = createVisits((entireVisits));
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
-            if (patientVisits.size() > 0)
+            if (patientVisits.size() < 0)
                 Log.i(TAG, "Visit Size is being retrieved");
             /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
