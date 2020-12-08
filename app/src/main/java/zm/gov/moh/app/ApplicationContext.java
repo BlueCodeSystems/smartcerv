@@ -1,9 +1,11 @@
 package zm.gov.moh.app;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Debug;
 import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -25,8 +27,15 @@ import zm.gov.moh.core.model.submodule.BasicModule;
 import zm.gov.moh.core.model.submodule.BasicModuleGroup;
 import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
+
 import static androidx.core.content.ContextCompat.getSystemService;
 public class ApplicationContext extends BaseApplication {
+
+
+import static androidx.core.content.ContextCompat.getSystemService;
+
+public class ApplicationContext extends BaseApplication {
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -75,6 +84,7 @@ public class ApplicationContext extends BaseApplication {
         double availableMemoryPercentage = 1.0;
         final double MIN_AVAILABLE_MEMORY_PERCENTAGE = 0.1;
         final int DELAY_TIME = 5 * 1000;
+
         runtime =
                 Runtime.getRuntime();
         maxMemory =
@@ -86,12 +96,15 @@ public class ApplicationContext extends BaseApplication {
                 1 -
                         (double) usedMemory /
                                 maxMemory;
+
         if (availableMemoryPercentage < MIN_AVAILABLE_MEMORY_PERCENTAGE) {
+
             try {
                 Thread.sleep(DELAY_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             waitForGarbageCollector(
                     callback);
         } else {
@@ -100,3 +113,4 @@ public class ApplicationContext extends BaseApplication {
         }
     }
 }
+

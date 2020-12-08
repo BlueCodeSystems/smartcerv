@@ -85,20 +85,26 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
             if (patientVisits.size() < 0)
+       Long[] entireVisits =new Long[diff.size()];
+       diff.toArray(entireVisits);
+        if(entireVisits.length > 0) {
+            List<Visit> patientVisits = createVisits((entireVisits));
+            if(patientVisits != null) {
                 Log.i(TAG, "Visit Size is being retrieved");
-            /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
-            restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
-                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
-                    .subscribe(onComplete(entireVisits, EntityType.VISIT.getId()), this::onError);
+                restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
+                        .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                        .subscribe(onComplete(entireVisits, EntityType.VISIT.getId()), this::onError);
+            }
         }
         if (mResult.equals(Result.success()))
             onTaskCompleted();
-        /*LOGGER.log(Level.FINEST, "Visit Data Pushed Successfully");*/
         return this.mResult;
     }
 
     public void onTaskCompleted() {
         repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
+    public void onTaskCompleted(){
+        repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME,LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
         mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
     }
 
@@ -110,17 +116,16 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             }
         };
     }
-
-    public List<Visit> createVisits(Long... visitEntityId) {
+ public List<Visit> createVisits(Long... visitEntityId) {
         //List<VisitEntity> visitEntities =db.visitDao().getById(visitEntityId);
         List<VisitEntity> visitEntities = getVisitEntities(visitEntityId);
-
         Log.i(TAG, "Number of visit entities = " + visitEntities.size());
         if (visitEntities.size() > 0) {
             int visitIndex = 0;
             List<Visit> visits = new ArrayList<>();
             List<Long> visitIds = Observable.fromIterable(visitEntities).map(visitEntity -> visitEntity.getVisitId())
                     .toList().blockingGet();
+
             // List<EncounterEntity> encounterEntities = db.encounterDao().getByVisitId(visitIds);
             List<EncounterEntity> encounterEntities = getAllEncounters(visitIds);
            /*int  maximuNumberOfEncountersIds =0;
@@ -137,7 +142,6 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
 
             }else{*/
 
-
             List<Long> encounterIds = Observable.fromIterable(encounterEntities)
                     .map(encounterEntity -> encounterEntity.getEncounterId())
                     .toList()
@@ -145,7 +149,7 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
 
             // List<ObsEntity> obsEntities = db.obsDao().getObsByEncounterId(encounterIds);
             List<ObsEntity> obsEntities = getObsEntititesByEncounterIds(encounterIds);
-
+                List<ObsEntity> obsEntities= getObsEntititesByEncounterIds(encounterIds);
             for (VisitEntity visitEntity : visitEntities) {
                 try {
                     Visit.Builder visit = normalizeVisit(visitEntity);
@@ -201,7 +205,7 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
     public Visit.Builder normalizeVisit(VisitEntity visitEntity) throws Exception {
         Visit.Builder visit = new Visit.Builder();
         String visitType = db.visitTypeDao().getUuidVisitTypeById(visitEntity.getVisitTypeId());
-        String patient = db.personIdentifierDao().getUuidByPersonId(visitEntity.getPatientId());//db.patientIdentifierDao().getRemotePatientUuid(visitEntity.getPatientId(),3);
+        String patient = db.personIdentifierDao().getUuidByPersonId(visitEntity.getPatientId());
         String location = db.locationDao().getUuidById(visitEntity.getLocationId());
         List<PersonIdentifier> personIdentifiers = db.personIdentifierDao().getAll();
         if (patient == null || visitType == null || location == null)
@@ -269,6 +273,12 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             //maxObsEntities =maxObsEntities-50;
         }
         }
+            while(maxObsEntities != 0 && maxObsEntities > 0 )  {
+                List<Long> subsetOfObs = new ArrayList<>(encounterIDs.subList(0,500));
+                List<ObsEntity> subsetOfObsIds = db.obsDao().getObsByEncounterId(subsetOfObs);
+                obsEntities.addAll(subsetOfObsIds);
+                maxObsEntities =maxObsEntities-500;
+            }}
         else {
             obsEntities = db.obsDao().getObsByEncounterId(encounterIDs);
         }
@@ -346,6 +356,18 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
               }
         } else {
             encounterEntities = db.encounterDao().getByVisitId(visitIds);
+                  int max =0;
+                  List<VisitEntity> newVisitIds = new ArrayList<>();
+                  if(visitIds.size() >1000) {
+                      max = visitIds.size();
+                      while(max != 0 && max > 0 )  {
+                          List<Long> subsetOfEncounter = new ArrayList<>(visitIds.subList(0,500));
+                          List<EncounterEntity> subsetOfEncounterIds = db.encounterDao().getByVisitId(subsetOfEncounter);
+                          encounterEntities.addAll(subsetOfEncounterIds);
+                          max = max - 500;
+              }}
+              else {
+                encounterEntities = db.encounterDao().getByVisitId(visitIds);
         }
         Log.d("encounterEntities","Total number of entities "+encounterEntities.size());
         return encounterEntities;
