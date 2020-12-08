@@ -29,6 +29,10 @@ import zm.gov.moh.core.model.submodule.ModuleGroup;
 import zm.gov.moh.core.utils.BaseApplication;
 
 import static androidx.core.content.ContextCompat.getSystemService;
+public class ApplicationContext extends BaseApplication {
+
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class ApplicationContext extends BaseApplication {
 
@@ -45,32 +49,24 @@ public class ApplicationContext extends BaseApplication {
         registerModule(CoreModule.VITALS, new BasicModule("Vitals",VitalsActivity.class));
         registerModule(CoreModule.FORM, new BasicModule("FormModel", FormActivity.class));
         registerModule(CoreModule.VISIT, new BasicModule("Visit", Visit.class));
-
         registerModule(CoreModule.BOOTSTRAP, new BasicModule("Bootstrap", BootstrapActivity.class));
-
         registerModule(CoreModule.SETTINGS, new BasicModule("Settings", Settings.class));
-
-
         //Load healthcare service modules
         zm.gov.moh.core.model.submodule.Module cervicalCancerEnrollment = new BasicModule("Client Enrollment", CervicalCancerEnrollmentActivity.class);
         zm.gov.moh.core.model.submodule.Module cervicalCancerRegister = new BasicModule("Client Register", zm.gov.moh.cervicalcancer.submodule.register.view.RegisterActivity.class);
         zm.gov.moh.core.model.submodule.Module cervicalCancerPatientDashboard = new BasicModule("Patient Dashboard", zm.gov.moh.cervicalcancer.submodule.dashboard.patient.view.PatientDashboardActivity.class);
-
         registerModule(CervicalCancerModule.Submodules.CLIENT_ENROLLMENT, cervicalCancerEnrollment);
         registerModule(CervicalCancerModule.Submodules.CLIENT_REGISTER, cervicalCancerRegister);
         registerModule(CervicalCancerModule.Submodules.PATIENT_DASHBOARD, cervicalCancerPatientDashboard);
-
         //Add to module group
         List<zm.gov.moh.core.model.submodule.Module> cervicalCancerModules = new ArrayList<>();
         cervicalCancerModules.add(cervicalCancerEnrollment);
         cervicalCancerModules.add(cervicalCancerRegister);
         cervicalCancerModules.add(cervicalCancerPatientDashboard);
-
         ModuleGroup cervicalCancer = new BasicModuleGroup("Cervical Cancer", CervicalCancerActivity.class, cervicalCancerModules);
         registerModule(CervicalCancerModule.MODULE, cervicalCancer);
         loadFirstPointOfCareSubmodule(cervicalCancer);
     }
-
     /**
      * Measure used memory and give garbage collector time to free up some
      * space.
@@ -78,7 +74,6 @@ public class ApplicationContext extends BaseApplication {
      * @param callback Callback operations to be done when memory is free.
      */
     public static void waitForGarbageCollector(final Runnable callback) {
-
         Runtime runtime = Runtime.getRuntime();
         long maxMemory = runtime.maxMemory();
         long usedMemory=runtime.totalMemory() - runtime.freeMemory();
@@ -92,14 +87,11 @@ public class ApplicationContext extends BaseApplication {
 
         runtime =
                 Runtime.getRuntime();
-
         maxMemory =
                 runtime.maxMemory();
-
         usedMemory =
                 runtime.totalMemory() -
                         runtime.freeMemory();
-
         availableMemoryPercentage =
                 1 -
                         (double) usedMemory /
@@ -116,12 +108,9 @@ public class ApplicationContext extends BaseApplication {
             waitForGarbageCollector(
                     callback);
         } else {
-
             // Memory resources are available, go to next operation:
-
             callback.run();
         }
-
     }
 }
 
