@@ -133,7 +133,7 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
 
     public void onTaskFailed() {
         repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
-        mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
+        mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SERVICE_INTERRUPTED));
     }
 
     public Consumer<Response[]> onFailed(Long[] entityIds, int entityTypeId) {
