@@ -24,6 +24,7 @@ import java.util.stream.IntStream;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.TypedArrayUtils;
+import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
@@ -68,11 +69,11 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
         ArrayList<Long> allPushedVisitsSet = new ArrayList<>(Arrays.asList(convertToPrimitive(pushedEntityId)));
         //allVisitsSet.removeAll(allPushedVisitsSet);
         //Set<Long> diff = Sets.symmetricDifference(allVisitsSet, allPushedVisitsSet);
-            allVisitsSet.removeAll(allPushedVisitsSet);
+        allVisitsSet.removeAll(allPushedVisitsSet);
         Log.i(TAG, "Unpushed visit IDS number " + allVisitsSet.size());
         // Long[] allVisitsArray = new Long[allVisitsSet.size()];
         //Long[] entireVisits = new Long[diff.size()];
-        Long[] entireVisits= new Long[allVisitsSet.size()];
+        Long[] entireVisits = new Long[allVisitsSet.size()];
         //diff.toArray(entireVisits);
         allVisitsSet.toArray(entireVisits);
         // allVisitsSet.toArray(allVisitsArray);
@@ -84,18 +85,37 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             List<Visit> patientVisits = createVisits((entireVisits));
             Log.i(TAG, "Number of Patient visits from create visits = " + patientVisits.size());
             Log.i(TAG, "Patient visits from create visits = " + patientVisits);
-            if (patientVisits.size() < 0)
+            if (patientVisits.size() > 0)
                 Log.i(TAG, "Visit Size is being retrieved");
             /*LOGGER.log( Level.FINE, "processing {0} entries in loop", patientVisits.size() );*/
             restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
                     .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .subscribe(onComplete(entireVisits, EntityType.VISIT.getId()), this::onError);
+
+            restApi.putVisit(accessToken, batchVersion, patientVisits.toArray(new Visit[patientVisits.size()]))
+                    .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .subscribe(onFailed(entireVisits, EntityType.VISIT.getId()), this::onError);
         }
-        if (mResult.equals(Result.success()))
+
+        if (mResult.equals(Result.success())) {
             onTaskCompleted();
-        /*LOGGER.log(Level.FINEST, "Visit Data Pushed Successfully");*/
-        return this.mResult;
-    }
+            /*LOGGER.log(Level.FINEST, "Visit Data Pushed Successfully");*/
+            return this.mResult;
+        }
+            if (mResult.equals(Result.failure())) {
+
+                try {
+                    onTaskFailed();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return Result.retry();
+                }
+                Result.failure();
+            }
+            return this.mResult;
+        }
+
+
 
     public void onTaskCompleted() {
         repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
@@ -107,6 +127,20 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
             for (Long entityId : entityIds) {
                 EntityMetadata entityMetadata = new EntityMetadata(entityId, entityTypeId, Status.PUSHED.getCode());
                 db.entityMetadataDao().insert(entityMetadata);
+            }
+        };
+    }
+
+    public void onTaskFailed() {
+        repository.getDefaultSharePrefrences().edit().putString(Key.LAST_DATA_SYNC_DATETIME, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).apply();
+        mLocalBroadcastManager.sendBroadcast(new Intent(IntentAction.REMOTE_SYNC_COMPLETE));
+    }
+
+    public Consumer<Response[]> onFailed(Long[] entityIds, int entityTypeId) {
+        return param -> {
+            for (Long entityId : entityIds) {
+                EntityMetadata entityMetadata = new EntityMetadata(entityId, entityTypeId, Status.NOT_PUSHED.getCode());
+                //db.entityMetadataDao().insert(entityMetadata);
             }
         };
     }
@@ -279,16 +313,16 @@ public class PushVisitDataRemoteWorkerSets extends RemoteWorker {
     public List<VisitEntity> getVisitEntities(Long[] visitEntityId) {
         int maximuNumberOfVisitIds = 0;
         int lowerLimitForVisitEntities = 0;
-        int upperLimitForVisitEntities = 100;
+        int upperLimitForVisitEntities = 4100;
         List<VisitEntity> visitEntities = new ArrayList<>();
         if (visitEntityId.length > 100) {
             maximuNumberOfVisitIds = visitEntityId.length;
             //   List<VisitEntity> visitEntities = db.visitDao().getById(visitEntityId);
             while( maximuNumberOfVisitIds > 0 )  {
-            Long[] subsetOfVisitEntityIds = new Long[100];
-            if( maximuNumberOfVisitIds > 100){
+            Long[] subsetOfVisitEntityIds = new Long[4100];
+            if( maximuNumberOfVisitIds > 4100){
 
-                System.arraycopy(visitEntityId, lowerLimitForVisitEntities, subsetOfVisitEntityIds, 0, 100);
+                System.arraycopy(visitEntityId, lowerLimitForVisitEntities, subsetOfVisitEntityIds, 0, 4100);
                 List<VisitEntity> subsetOfVisists = db.visitDao().getById(subsetOfVisitEntityIds);
                 visitEntities.addAll(subsetOfVisists);
                 lowerLimitForVisitEntities +=101;
