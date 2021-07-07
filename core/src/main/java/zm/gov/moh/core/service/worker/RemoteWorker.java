@@ -111,7 +111,7 @@ public abstract class RemoteWorker extends BaseWorker {
 
     public Result awaitResult(){
 
-       long i = SystemClock.currentThreadTimeMillis();
+        long i = SystemClock.currentThreadTimeMillis();
         while (i < workerTimeout && mResult.equals(Result.success())){
             if(this.taskPoolSize == 0)
                 return mResult;
