@@ -3,6 +3,8 @@ package zm.gov.moh.common.submodule.register.view;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +27,7 @@ import zm.gov.moh.core.utils.BaseApplication;
 import zm.gov.moh.core.model.submodule.Module;
 import zm.gov.moh.core.utils.Utils;
 
-public class RegisterActivity extends BaseRegisterActivity {
+public class RegisterActivity extends BaseRegisterActivity<ClientListAdapter> {
 
     public static final String START_SUBMODULE_WITH_RESULT_KEY = "START_SUBMODULE_WITH_RESULT_KEY";
 
@@ -57,7 +59,6 @@ public class RegisterActivity extends BaseRegisterActivity {
 
         registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
         setViewModel(registerViewModel);
-
 
         if(mBundle != null){
 
@@ -92,6 +93,11 @@ public class RegisterActivity extends BaseRegisterActivity {
         addDrawer(this);
         getAllClient();
 
+    }
+
+    @Override
+    public ClientListAdapter getAdapter() {
+        return null;
     }
 
     @Override

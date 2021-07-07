@@ -28,6 +28,16 @@
               "weight":1
             },
             {
+              "tag": "MIDDLE_NAME",
+              "widgetType": "EditText",
+              "dataType": "Text",
+              "hint": "Middle name ",
+              "regex":"[a-zA-Z]+",
+              "errorMessage": "Should only contain alphabet characters",
+              "required": false,
+              "weight": 1
+            },
+            {
               "tag": "PERSON_FAMILY_NAME",
               "widgetType": "EditText",
               "dataType": "Text",

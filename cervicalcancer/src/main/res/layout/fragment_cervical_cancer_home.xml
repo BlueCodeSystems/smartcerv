@@ -2,7 +2,7 @@
 <layout>
     <data>
         <variable name="context" type="zm.gov.moh.common.base.BaseActivity"/>
-        <variable name="module" type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
+        <import type="zm.gov.moh.cervicalcancer.CervicalCancerModule"/>
         <variable name="metrics" type="java.util.Map"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:layout_marginTop="8dp"
             android:clickable="false"
             android:elevation="4dp"
-            android:onClick="@{() -> context.startModule(module.MODULE)}"
+            android:onClick="@{() -> context.startModule(CervicalCancerModule.Submodules.CLIENT_REGISTER)}"
             android:padding="10dp"
             android:scaleType="fitCenter"
             android:src="@drawable/cervical_icon"

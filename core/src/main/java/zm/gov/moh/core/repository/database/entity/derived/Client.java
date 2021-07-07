@@ -12,6 +12,10 @@ import androidx.room.Entity;
 @Entity
 public class Client {
 
+    @ColumnInfo(name = "identifier_type")
+    @Json(name = "identifier_type")
+    private int identifierType;
+
     @ColumnInfo(name = "patient_id")
     @Json(name = "patient_id")
     private long patientId;
@@ -28,6 +32,10 @@ public class Client {
     @Json(name = "family_name")
     private String familyName;
 
+    @ColumnInfo(name = "middle_name")
+    @Json(name = "middle_name")
+    private String middle_name;
+
     @ColumnInfo(name = "gender")
     @Json(name = "gender")
     private String gender;
@@ -35,6 +43,11 @@ public class Client {
     @ColumnInfo(name = "birthdate")
     @Json(name = "birthdate")
     private LocalDateTime birthDate;
+
+    public enum Type {
+        INPATIENT, OUTPATIENT, PARTITION
+    }
+
 
     public long getPatientId() {
         return patientId;
@@ -68,6 +81,14 @@ public class Client {
         this.familyName = familyName;
     }
 
+    public String getMiddle_name() {
+        return middle_name;
+    }
+
+    public void setMiddle_name(String middle_name) {
+        this.middle_name = middle_name;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -84,4 +105,11 @@ public class Client {
         this.birthDate = birthDate;
     }
 
+    public int getIdentifierType() {
+        return identifierType;
+    }
+
+    public void setIdentifierType(int identifierType) {
+        this.identifierType = identifierType;
+    }
 }

@@ -81,24 +81,7 @@ public class PushDemographicDataRemoteWorker extends RemoteWorker {
                 }
             }
 
-            //Update patient details remote
-          /*  pushedEntityId = db.entityMetadataDao().findEntityIdByTypeRemoteStatus(EntityType.PATIENT.getId(), Status.PUSHED.getCode(), dataSyncDate);
-            if (pushedEntityId.length > 0) {
-
-                for (Long patientEntityId : pushedEntityId) {
-
-                    try {
-
-                        Patient patient = createPatient(patientEntityId, dataSyncDate);
-                        if (patient != null)
-                            patients.add(patient);
-                    } catch (Exception e) {
-
-                    }
-                }
-            }*/
-
-            if (patients.size() > 0) {
+            if(patients.size() > 0) {
 
                 restApi.putPatients(accessToken, batchVersion, patients.toArray(new Patient[patients.size()]))
                         .timeout(TIMEOUT, TimeUnit.MILLISECONDS)
